@@ -1,15 +1,11 @@
 (function (global, doc, eZ) {
-    const TOGGLE_INITIALIZED_ATTR = 'data-ibexa-toggle-initialized';
-
     doc.querySelectorAll('.ibexa-toggle').forEach((toggleNode) => {
-        if (toggleNode.hasAttribute(TOGGLE_INITIALIZED_ATTR)) {
+        if (toggleNode.ibexaInstance) {
             return;
         }
 
-        toggleNode.setAttribute(TOGGLE_INITIALIZED_ATTR, 'true');
+        toggleNode.ibexaInstance = new eZ.core.ToggleButton({ toggleNode });
 
-        const toggleButton = new eZ.core.ToggleButton({ toggleNode });
-
-        toggleButton.init();
+        toggleNode.ibexaInstance.init();
     });
 })(window, window.document, window.eZ);
