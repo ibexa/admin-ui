@@ -198,7 +198,7 @@ class ContentUpdateItemPage extends Page
             }
         }
 
-        throw new \RuntimeException(sprintf('Field %s not found. Found: %s', $fieldName, implode(',', $foundFields)));
+        throw new RuntimeException(sprintf('Field %s not found. Found: %s', $fieldName, implode(',', $foundFields)));
     }
 
     /**
@@ -285,7 +285,7 @@ class ContentUpdateItemPage extends Page
             usleep(500000);
             --$iteration_count;
         }
-        throw new \RuntimeException('Draft has not been autosaved for 15 seconds');
+        throw new RuntimeException('Draft has not been autosaved for 15 seconds');
     }
 
     public function isAutosaveDraftSavedNotificationVisible(): bool
