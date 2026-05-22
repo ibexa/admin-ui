@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { AuthPage } from '../lib/AuthPage';
+import { AuthPage } from '@ibexa/cohesivo-playwright';
 
 const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 

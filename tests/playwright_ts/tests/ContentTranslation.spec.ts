@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { IbexaApiClient } from '../lib/IbexaApiClient';
+import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 import { TranslationPage } from '../lib/TranslationPage';
 import { ContentEditPage } from '../lib/ContentEditPage';
 

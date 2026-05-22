@@ -1,0 +1,16 @@
+export { BookmarkPage } from './lib/BookmarkPage';
+export { ContentEditPage } from './lib/ContentEditPage';
+export { ContentManagementPage } from './lib/ContentManagementPage';
+export { ContentTypeGroupPage } from './lib/ContentTypeGroupPage';
+export { ContentTypePage } from './lib/ContentTypePage';
+export { LanguagesPage } from './lib/LanguagesPage';
+export { MyDraftsPage } from './lib/MyDraftsPage';
+export { ObjectStatesPage } from './lib/ObjectStatesPage';
+export { RolesPage } from './lib/RolesPage';
+export { SearchPage } from './lib/SearchPage';
+export { SectionsPage } from './lib/SectionsPage';
+export { SystemInfoPage } from './lib/SystemInfoPage';
+export { TranslationPage } from './lib/TranslationPage';
+export { TrashPage } from './lib/TrashPage';
+export { UserPage } from './lib/UserPage';
+export { UserProfilePage } from './lib/UserProfilePage';
