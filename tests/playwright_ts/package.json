@@ -1,5 +1,5 @@
 {
-  "name": "ibexa-admin-ui-playwright-ts",
+  "name": "@ibexa/admin-ui-playwright",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,9 @@
     "test:headed": "playwright test --headed"
   },
   "devDependencies": {
+    "@ibexa/cohesivo-playwright": "github:ibexa/cohesivo-playwright#main",
     "@playwright/test": "^1.44.0",
+    "@types/node": "^20.0.0",
     "typescript": "^5.4.0"
   }
 }

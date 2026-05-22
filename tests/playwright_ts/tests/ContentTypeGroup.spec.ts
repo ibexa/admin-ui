@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { ContentTypeGroupPage } from '../lib/ContentTypeGroupPage';
-import { IbexaApiClient } from '../lib/IbexaApiClient';
+import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 
 const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 

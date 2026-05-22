@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { IbexaApiClient } from '../lib/IbexaApiClient';
+import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 import { BookmarkPage } from '../lib/BookmarkPage';
 
 const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');

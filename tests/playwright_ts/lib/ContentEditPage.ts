@@ -1,5 +1,5 @@
 import { Page, expect } from '@playwright/test';
-import { AdminUiPage } from './AdminUiPage';
+import { AdminUiPage } from '@ibexa/cohesivo-playwright';
 
 export class ContentEditPage extends AdminUiPage {
   constructor(page: Page) {
