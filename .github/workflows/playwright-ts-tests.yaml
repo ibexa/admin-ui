@@ -83,6 +83,13 @@ jobs:
             - name: Fix file permissions for host runner
               run: sudo chmod -R a+rw ${{ env.PROJECT_BUILD_DIR }}/vendor/ibexa/admin-ui/tests/playwright_ts
 
+            - name: Configure npm for private GitHub packages
+              working-directory: ${{ env.PROJECT_BUILD_DIR }}/vendor/ibexa/admin-ui/tests/playwright_ts
+              run: |
+                  echo "//npm.pkg.github.com/:_authToken=${{ steps.generate_token.outputs.token }}" >> ~/.npmrc
+                  git config --global url."https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com/".insteadOf "git@github.com:"
+                  git config --global url."https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com/".insteadOf "ssh://git@github.com/"
+
             - name: Install Playwright dependencies
               working-directory: ${{ env.PROJECT_BUILD_DIR }}/vendor/ibexa/admin-ui/tests/playwright_ts
               run: |
