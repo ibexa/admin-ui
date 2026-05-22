@@ -13,7 +13,7 @@ use Ibexa\Behat\Browser\FileUpload\FileUploadHelper;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class File extends FieldTypeComponent
 {
@@ -39,9 +39,9 @@ final class File extends FieldTypeComponent
     {
         $filename = str_replace('.zip', '', $values['value']);
 
-        Assert::assertStringContainsString(
-            $filename,
+        Assert::contains(
             $this->getHTMLPage()->find($this->parentLocator)->getText(),
+            $filename,
             'Image has wrong file name'
         );
 
@@ -49,9 +49,9 @@ final class File extends FieldTypeComponent
             ->withDescendant($this->getLocator('file'))
             ->build();
 
-        Assert::assertStringContainsString(
-            $filename,
+        Assert::contains(
             $this->getHTMLPage()->find($fileFieldSelector)->getAttribute('href'),
+            $filename,
             'File has wrong href'
         );
     }

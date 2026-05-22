@@ -18,7 +18,7 @@ use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class SubItemsList extends Component
 {
@@ -75,7 +75,7 @@ final class SubItemsList extends Component
 
     public function verifyIsLoaded(): void
     {
-        Assert::assertTrue($this->getHTMLPage()->find($this->getLocator('table'))->isVisible());
+        Assert::true($this->getHTMLPage()->find($this->getLocator('table'))->isVisible());
         $this->getHTMLPage()->setTimeout(10)->waitUntilCondition(
             new ElementNotExistsCondition($this->getHTMLPage(), $this->getLocator('spinner'))
         );

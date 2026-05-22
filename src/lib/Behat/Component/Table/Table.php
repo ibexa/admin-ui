@@ -18,7 +18,7 @@ use Ibexa\Behat\Browser\Exception\ElementNotFoundException;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\LocatorCollection;
 use Ibexa\Behat\Browser\Locator\LocatorInterface;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class Table extends Component implements TableInterface
 {
@@ -242,9 +242,9 @@ final class Table extends Component implements TableInterface
             return in_array($header, $searchedHeaders, true);
         });
 
-        Assert::assertCount(
-            count($searchedHeaders),
+        Assert::count(
             $foundHeaders,
+            count($searchedHeaders),
             sprintf('Could not find all expected headers in the table. Found: %s', implode(',', $foundHeaders))
         );
 

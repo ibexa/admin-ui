@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class Keywords extends FieldTypeComponent
 {
@@ -69,7 +69,7 @@ final class Keywords extends FieldTypeComponent
             });
         sort($actualValues);
 
-        Assert::assertEquals($expectedValues, $actualValues);
+        Assert::eq($actualValues, $expectedValues);
     }
 
     /**

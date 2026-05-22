@@ -13,7 +13,7 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 class RichText extends FieldTypeComponent
 {
@@ -93,9 +93,9 @@ class RichText extends FieldTypeComponent
 
         $styleHTMLTag = self::STYLE_MAPPING[$style];
 
-        Assert::assertStringContainsString(
-            sprintf('%s</%s>', $value, $styleHTMLTag),
-            $this->getHTMLPage()->find($this->parentLocator)->find(new VisibleCSSLocator('style', $styleHTMLTag))->getOuterHtml()
+        Assert::contains(
+            $this->getHTMLPage()->find($this->parentLocator)->find(new VisibleCSSLocator('style', $styleHTMLTag))->getOuterHtml(),
+            sprintf('%s</%s>', $value, $styleHTMLTag)
         );
     }
 
@@ -120,7 +120,7 @@ class RichText extends FieldTypeComponent
             ->findAll($this->getLocator('unorderedListElement'))
             ->mapBy(new ElementTextMapper());
 
-        Assert::assertEquals($listElements, $actualListElements);
+        Assert::eq($actualListElements, $listElements);
 
         $this->insertNewLine();
         $this->executeCommand('outdentList');

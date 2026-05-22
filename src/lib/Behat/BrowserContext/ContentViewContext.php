@@ -13,7 +13,7 @@ use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Component\DraftConflictDialog;
 use Ibexa\AdminUi\Behat\Page\ContentViewPage;
 use Ibexa\Behat\Core\Behat\ArgumentParser;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final readonly class ContentViewContext implements Context
 {
@@ -107,7 +107,7 @@ final readonly class ContentViewContext implements Context
     public function verifyThereIsItemInSubItemList(string $itemName, string $itemType): void
     {
         $this->contentViewPage->verifyIsLoaded();
-        Assert::assertTrue($this->contentViewPage->isChildElementPresent(['Name' => $itemName, 'Content type' => $itemType]));
+        Assert::true($this->contentViewPage->isChildElementPresent(['Name' => $itemName, 'Content type' => $itemType]));
     }
 
     /**
@@ -116,7 +116,7 @@ final readonly class ContentViewContext implements Context
     public function verifyThereIsNoItemInSubItemListInRoot(string $itemName, string $itemType): void
     {
         $this->contentViewPage->verifyIsLoaded();
-        Assert::assertFalse($this->contentViewPage->isChildElementPresent(['Name' => $itemName, 'Content type' => $itemType]));
+        Assert::false($this->contentViewPage->isChildElementPresent(['Name' => $itemName, 'Content type' => $itemType]));
     }
 
     /**
@@ -181,7 +181,7 @@ final readonly class ContentViewContext implements Context
      */
     public function verifyUrlAliasExists(string $path, string $type): void
     {
-        Assert::assertTrue(
+        Assert::true(
             $this->contentViewPage->isUrlAliasOnTheList($path, $type),
             sprintf('Url alias "%s" with type "%s" not found', $path, $type)
         );

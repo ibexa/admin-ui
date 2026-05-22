@@ -16,7 +16,7 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use Ibexa\Contracts\Core\Repository\Repository;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class LanguagePage extends Page
 {
@@ -121,9 +121,9 @@ final class LanguagePage extends Page
 
     public function verifyIsLoaded(): void
     {
-        Assert::assertEquals(
-            sprintf('Language "%s"', $this->expectedLanguageName),
-            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText()
+        Assert::eq(
+            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText(),
+            sprintf('Language "%s"', $this->expectedLanguageName)
         );
     }
 

@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final readonly class ContentActionsMenuContext implements Context
 {
@@ -35,7 +35,7 @@ final readonly class ContentActionsMenuContext implements Context
     public function theButtonsAreDisabled(TableNode $buttons): void
     {
         foreach ($buttons->getHash() as $button) {
-            Assert::assertFalse($this->contentActionsMenu->isButtonActive($button['buttonName']));
+            Assert::false($this->contentActionsMenu->isButtonActive($button['buttonName']));
         }
     }
 
@@ -44,7 +44,7 @@ final readonly class ContentActionsMenuContext implements Context
      */
     public function buttonIsNotVisible(string $buttonName): void
     {
-        Assert::assertFalse($this->contentActionsMenu->isButtonVisible($buttonName));
+        Assert::false($this->contentActionsMenu->isButtonVisible($buttonName));
     }
 
     /**
@@ -52,6 +52,6 @@ final readonly class ContentActionsMenuContext implements Context
      */
     public function buttonIsVisible(string $buttonName): void
     {
-        Assert::assertTrue($this->contentActionsMenu->isButtonVisible($buttonName));
+        Assert::true($this->contentActionsMenu->isButtonVisible($buttonName));
     }
 }

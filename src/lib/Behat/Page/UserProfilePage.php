@@ -13,7 +13,7 @@ use Ibexa\Behat\API\Facade\ContentFacade;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class UserProfilePage extends Page
 {
@@ -29,9 +29,9 @@ final class UserProfilePage extends Page
 
     public function verifyIsLoaded(): void
     {
-        Assert::assertEquals(
-            'User profile',
-            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText()
+        Assert::eq(
+            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText(),
+            'User profile'
         );
     }
 

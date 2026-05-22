@@ -16,7 +16,7 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class RolesPage extends Page
 {
@@ -35,9 +35,9 @@ final class RolesPage extends Page
 
     public function verifyItemAttribute(string $label, string $value, string $itemName): void
     {
-        Assert::assertEquals(
-            $value,
+        Assert::eq(
             $this->adminList->table->getTableCellValue($itemName, $label),
+            $value,
             sprintf('Attribute "%s" of item "%s" has wrong value.', $label, $itemName)
         );
     }
@@ -83,9 +83,9 @@ final class RolesPage extends Page
 
     public function verifyIsLoaded(): void
     {
-        Assert::assertEquals(
-            'Roles',
-            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText()
+        Assert::eq(
+            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText(),
+            'Roles'
         );
     }
 
