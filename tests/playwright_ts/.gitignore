@@ -1,6 +1,10 @@
 # Dependencies
 node_modules/
 
+# Local env overrides
+.env
+.env.local
+
 # Auth / credentials
 artifacts/auth.json
 
