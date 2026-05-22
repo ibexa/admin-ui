@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 use Behat\Behat\Context\Context;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Core\Behat\ArgumentParser;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final readonly class UDWContext implements Context
 {
@@ -74,7 +74,7 @@ final readonly class UDWContext implements Context
      */
     public function itemIsMarkedAsBookmarked(): void
     {
-        Assert::assertTrue($this->universalDiscoveryWidget->isBookmarked());
+        Assert::true($this->universalDiscoveryWidget->isBookmarked());
     }
 
     /**

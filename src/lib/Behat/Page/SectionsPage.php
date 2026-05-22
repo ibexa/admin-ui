@@ -15,7 +15,7 @@ use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class SectionsPage extends Page
 {
@@ -88,9 +88,9 @@ final class SectionsPage extends Page
 
     public function verifyIsLoaded(): void
     {
-        Assert::assertEquals(
-            'Sections',
-            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText()
+        Assert::eq(
+            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText(),
+            'Sections'
         );
     }
 

@@ -1,4 +1,4 @@
-(function (global, doc, Translator) {
+(function (global, doc, ibexa, Translator) {
     const form = doc.querySelector('form[name="location_trash"]');
     const submitButton = form.querySelector('button[type="submit"]');
     const allOptions = form.querySelectorAll('.ibexa-modal__trash-option');
@@ -12,6 +12,7 @@
         button.classList.add('disabled');
     };
     const refreshTrashModal = (event) => {
+        const { escapeHTML } = ibexa.helpers.text;
         const { numberOfSubitems } = event.detail;
         const sendToTrashModal = document.querySelector('.ibexa-modal--trash-location');
         const modalBody = sendToTrashModal.querySelector('.modal-body');
@@ -22,7 +23,7 @@
             const message = Translator.trans(
                 /* @Desc("Sending '%content%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.") */ 'trash_container.modal.message_main',
                 {
-                    content: contentName,
+                    content: escapeHTML(contentName),
                     children_count: numberOfSubitems,
                 },
                 'ibexa_content',
@@ -62,4 +63,4 @@
     };
 
     form.addEventListener('change', toggleSubmitButton, false);
-})(window, window.document, window.Translator);
+})(window, window.document, window.ibexa, window.Translator);

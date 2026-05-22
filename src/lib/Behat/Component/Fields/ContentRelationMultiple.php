@@ -14,7 +14,7 @@ use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class ContentRelationMultiple extends FieldTypeComponent
 {
@@ -76,14 +76,14 @@ final class ContentRelationMultiple extends FieldTypeComponent
         $secondValue = $explodedValue[count($explodedValue) - 1];
 
         $viewPatternRegex = '/Multiple relations[\w\/,: ]* %s [\w \/,:]*/';
-        Assert::assertMatchesRegularExpression(
-            sprintf($viewPatternRegex, $firstValue),
+        Assert::regex(
             $this->getHTMLPage()->find($this->parentLocator)->getText(),
+            sprintf($viewPatternRegex, $firstValue),
             'Field has wrong value'
         );
-        Assert::assertMatchesRegularExpression(
-            sprintf($viewPatternRegex, $secondValue),
+        Assert::regex(
             $this->getHTMLPage()->find($this->parentLocator)->getText(),
+            sprintf($viewPatternRegex, $secondValue),
             'Field has wrong value'
         );
     }

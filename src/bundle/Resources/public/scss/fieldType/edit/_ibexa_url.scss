@@ -10,6 +10,8 @@
         display: flex;
 
         &__field {
+            flex: 1 1 0;
+
             &--link {
                 margin-right: calculateRem(52px);
             }

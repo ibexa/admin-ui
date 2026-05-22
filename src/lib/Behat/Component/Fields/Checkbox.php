@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class Checkbox extends FieldTypeComponent
 {
@@ -53,9 +53,9 @@ final class Checkbox extends FieldTypeComponent
     {
         $expectedValue = $values['value'] === 'true' ? 'Yes' : 'No';
 
-        Assert::assertEquals(
-            $expectedValue,
+        Assert::eq(
             $this->getHTMLPage()->find($this->parentLocator)->getText(),
+            $expectedValue,
             'Field has wrong value'
         );
     }
