@@ -4,9 +4,9 @@ on:
     push:
         branches:
             - '5.0'
-    pull_request:
-        branches:
-            - '5.0'
+            - 'main'
+            - '[0-9]+.[0-9]+'
+    pull_request: ~
 
 jobs:
     playwright-ts-tests:
@@ -95,6 +95,12 @@ jobs:
               run: |
                   npm install
                   npx playwright install chromium --with-deps
+
+            - name: Verify cohesivo-playwright installation
+              working-directory: ${{ env.PROJECT_BUILD_DIR }}/vendor/ibexa/admin-ui/tests/playwright_ts
+              run: |
+                  echo "cohesivo-playwright version: $(node -e "console.log(require('@ibexa/cohesivo-playwright/dist/index.js') ? 'loaded OK' : 'failed')")"
+                  cat node_modules/@ibexa/cohesivo-playwright/package.json | grep '"version"'
 
             - name: Run Playwright TS tests
               working-directory: ${{ env.PROJECT_BUILD_DIR }}/vendor/ibexa/admin-ui/tests/playwright_ts
