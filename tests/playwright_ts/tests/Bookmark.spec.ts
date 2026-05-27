@@ -2,13 +2,12 @@ import { test, expect } from '@playwright/test';
 import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 import { BookmarkPage } from '../lib/BookmarkPage';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('Bookmarks management', () => {
+test.describe('Bookmarks management', { tag: ['@IbexaOSS', '@IbexaHeadless'] }, () => {
   let api: IbexaApiClient;
 
   test.beforeAll(async () => {
-    api = new IbexaApiClient(baseUrl);
+    api = new IbexaApiClient();
     await api.init();
   });
 
@@ -18,7 +17,7 @@ test.describe('Bookmarks management', () => {
       short_name: 'BookmarkFolder',
     });
     const locationId = await api.getMainLocationId(contentId);
-    await page.goto(`${baseUrl}/admin/view/content/${contentId}/full/1/${locationId}`);
+    await page.goto('/admin/view/content/${contentId}/full/1/${locationId}');
     await page.waitForLoadState('networkidle');
 
     const bm = new BookmarkPage(page);
@@ -28,13 +27,13 @@ test.describe('Bookmarks management', () => {
 
   test('Bookmarks can be displayed', async ({ page }) => {
     const bm = new BookmarkPage(page);
-    await bm.open(baseUrl);
+    await bm.open();
     await bm.assertBookmarkInList('BookmarkFolder');
   });
 
   test('Content Item can be previewed from Bookmarks page', async ({ page }) => {
     const bm = new BookmarkPage(page);
-    await bm.open(baseUrl);
+    await bm.open();
     await bm.assertBookmarkInList('BookmarkFolder');
     await bm.navigateToBookmarkedContent('BookmarkFolder');
     await expect(page.locator('.ibexa-page-title h1, h1').first()).toContainText('BookmarkFolder');
@@ -42,7 +41,7 @@ test.describe('Bookmarks management', () => {
 
   test('Content Item can be edited from Bookmarks page', async ({ page }) => {
     const bm = new BookmarkPage(page);
-    await bm.open(baseUrl);
+    await bm.open();
     await bm.assertBookmarkInList('BookmarkFolder');
     await bm.editBookmarkedContent('BookmarkFolder');
     await expect(page).toHaveURL(/\/admin\/content\/(edit|create)/);
@@ -50,7 +49,7 @@ test.describe('Bookmarks management', () => {
 
   test('Bookmark can be deleted', async ({ page }) => {
     const bm = new BookmarkPage(page);
-    await bm.open(baseUrl);
+    await bm.open();
     await bm.assertBookmarkInList('BookmarkFolder');
     await bm.deleteBookmark('BookmarkFolder');
     await bm.assertBookmarkNotInList('BookmarkFolder');
@@ -64,7 +63,7 @@ test.describe('Bookmarks management', () => {
     const locationId = await api.getMainLocationId(contentId);
 
     // Navigate to content view page which contains the bookmark toggle button
-    await page.goto(`${baseUrl}/admin/view/content/${contentId}/full/1/${locationId}`);
+    await page.goto('/admin/view/content/${contentId}/full/1/${locationId}');
     await page.waitForLoadState('networkidle');
 
     const bm = new BookmarkPage(page);
@@ -73,7 +72,7 @@ test.describe('Bookmarks management', () => {
   });
 
   test('Bookmarked Content Item can be edited from UDW', async ({ page }) => {
-    await page.goto(`${baseUrl}/admin/dashboard`);
+    await page.goto('/admin/dashboard');
     await page.waitForLoadState('networkidle');
 
     // Open UDW from dashboard "Create content" quick action

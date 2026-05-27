@@ -3,13 +3,12 @@ import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 import { AuthPage } from '@ibexa/cohesivo-playwright';
 import { ContentEditPage } from '../lib/ContentEditPage';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('Autosave feature', () => {
+test.describe('Autosave feature', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   let api: IbexaApiClient;
 
   test.beforeAll(async () => {
-    api = new IbexaApiClient(baseUrl);
+    api = new IbexaApiClient();
     await api.init();
   });
 
@@ -23,13 +22,13 @@ test.describe('Autosave feature', () => {
 
     // Login as admin to configure user and autosave settings
     const auth = new AuthPage(page);
-    await auth.openLogin(baseUrl);
+    await auth.openLogin();
     await auth.login('admin', 'publish');
 
     // Create user with autosave enabled and role assigned via admin
     // Navigate to create article as admin test user with short autosave interval
     const editor = new ContentEditPage(page);
-    await editor.openCreate(baseUrl, 'article', 'eng-GB', 2);
+    await editor.openCreate('article', 'eng-GB', 2);
     await editor.fillTextField('title', 'Test Article Autosave draft');
     await editor.fillTextField('short_title', 'Test Article Autosave draft');
 
@@ -45,17 +44,17 @@ test.describe('Autosave feature', () => {
       await editor.saveDraft();
     }
 
-    await editor.openDashboard(baseUrl);
+    await editor.openDashboard();
     await editor.assertDraftOnDashboard('Test Article Autosave draft');
   });
 
   test('Content item is not autosaved when autosave is disabled', async ({ page }) => {
     const auth = new AuthPage(page);
-    await auth.openLogin(baseUrl);
+    await auth.openLogin();
     await auth.login('admin', 'publish');
 
     // Navigate to user settings and disable autosave
-    await page.goto(`${baseUrl}/admin/user/settings`);
+    await page.goto('/admin/user/settings');
     await page.waitForLoadState('networkidle');
     const autosaveToggle = page.locator('input[name*="autosave"], input[id*="autosave"]').first();
     if (await autosaveToggle.isVisible({ timeout: 5_000 }).catch(() => false)) {
@@ -69,24 +68,24 @@ test.describe('Autosave feature', () => {
     }
 
     const editor = new ContentEditPage(page);
-    await editor.openCreate(baseUrl, 'article', 'eng-GB', 2);
+    await editor.openCreate('article', 'eng-GB', 2);
     await editor.fillTextField('title', 'Test Article Autosave Off draft');
     await editor.fillTextField('short_title', 'Test Article Autosave Off draft');
 
     // Wait a moment and verify no autosave happened
     await page.waitForTimeout(2_000);
 
-    await editor.openDashboard(baseUrl);
+    await editor.openDashboard();
     await editor.assertNoDraftOnDashboard('Test Article Autosave Off draft');
   });
 
   test('Content item can be created when autosave is off', async ({ page }) => {
     const auth = new AuthPage(page);
-    await auth.openLogin(baseUrl);
+    await auth.openLogin();
     await auth.login('admin', 'publish');
 
     const editor = new ContentEditPage(page);
-    await editor.openCreate(baseUrl, 'article', 'eng-GB', 2);
+    await editor.openCreate('article', 'eng-GB', 2);
     await editor.fillTextField('title', 'TestAutosaveCreate');
     await editor.fillTextField('short_title', 'TestAutosaveCreate');
     await editor.fillRichTextField('intro', 'TestAutosaveCreate');

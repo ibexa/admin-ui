@@ -6,8 +6,8 @@ export class SectionsPage extends AdminUiPage {
     super(page);
   }
 
-  async openList(baseUrl: string): Promise<void> {
-    await this.navigateTo(`${baseUrl}/admin/section/list`);
+  async openList(): Promise<void> {
+    await this.navigateTo(`/admin/section/list`);
   }
 
   async clickCreateSection(): Promise<void> {

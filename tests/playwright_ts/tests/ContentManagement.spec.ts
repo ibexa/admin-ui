@@ -2,15 +2,14 @@ import { test } from '@playwright/test';
 import { ContentManagementPage } from '../lib/ContentManagementPage';
 import { IbexaApiClient, EMPTY_RICHTEXT } from '@ibexa/cohesivo-playwright';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('Content management', () => {
+test.describe('Content management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   let api: IbexaApiClient;
   let parentContentId: number;
   let parentLocationId: number;
 
   test.beforeAll(async () => {
-    api = new IbexaApiClient(baseUrl);
+    api = new IbexaApiClient();
     await api.init();
 
     parentContentId = await api.createFolder('ContentManagement', 2 /* content root location ID */);
@@ -22,7 +21,7 @@ test.describe('Content management', () => {
     const locationId = await api.getMainLocationId(contentId);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, contentId, locationId);
+    await contentPage.open(contentId, locationId);
 
     await contentPage.performAction('Move');
     await contentPage.selectInUDW('Media');
@@ -36,7 +35,7 @@ test.describe('Content management', () => {
     const locationId = await api.getMainLocationId(contentId);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, contentId, locationId);
+    await contentPage.open(contentId, locationId);
 
     await contentPage.performAction('Move');
     await contentPage.selectInUDW('Media/Files');
@@ -45,7 +44,7 @@ test.describe('Content management', () => {
     await contentPage.assertSuccessNotification("'FolderToMove' moved to 'Files'");
     await contentPage.assertOnContentView('FolderToMove');
 
-    await contentPage.open(baseUrl, parentContentId, parentLocationId);
+    await contentPage.open(parentContentId, parentLocationId);
     await contentPage.assertSubitemAbsent('FolderToMove');
   });
 
@@ -54,7 +53,7 @@ test.describe('Content management', () => {
     const locationId = await api.getMainLocationId(contentId);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, contentId, locationId);
+    await contentPage.open(contentId, locationId);
 
     await contentPage.performAction('Copy');
     await contentPage.selectInUDW('Media');
@@ -68,7 +67,7 @@ test.describe('Content management', () => {
     const locationId = await api.getMainLocationId(contentId);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, contentId, locationId);
+    await contentPage.open(contentId, locationId);
 
     await contentPage.performAction('Copy');
     await contentPage.selectInUDW('Media/Files');
@@ -77,7 +76,7 @@ test.describe('Content management', () => {
     await contentPage.assertSuccessNotification("'FolderToCopy' copied to 'Files'");
     await contentPage.assertOnContentView('FolderToCopy');
 
-    await contentPage.open(baseUrl, parentContentId, parentLocationId);
+    await contentPage.open(parentContentId, parentLocationId);
     await contentPage.assertSubitemPresent('FolderToCopy');
   });
 
@@ -86,7 +85,7 @@ test.describe('Content management', () => {
     const locationId = await api.getMainLocationId(contentId);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, contentId, locationId);
+    await contentPage.open(contentId, locationId);
 
     await contentPage.performAction('Copy Subtree');
     await contentPage.selectInUDW('Media');
@@ -100,7 +99,7 @@ test.describe('Content management', () => {
     const locationId = await api.getMainLocationId(contentId);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, contentId, locationId);
+    await contentPage.open(contentId, locationId);
 
     await contentPage.performAction('Copy Subtree');
     await contentPage.selectInUDW('Media');
@@ -109,7 +108,7 @@ test.describe('Content management', () => {
     await contentPage.assertSuccessNotification("Subtree 'FolderToSubtreeCopy' copied to Location 'Media'");
     await contentPage.assertOnContentView('FolderToSubtreeCopy');
 
-    await contentPage.open(baseUrl, parentContentId, parentLocationId);
+    await contentPage.open(parentContentId, parentLocationId);
     await contentPage.assertSubitemPresent('FolderToSubtreeCopy');
   });
 
@@ -122,10 +121,10 @@ test.describe('Content management', () => {
     const locationId = await api.getMainLocationId(contentId);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, contentId, locationId);
+    await contentPage.open(contentId, locationId);
 
     await contentPage.hide();
-    await contentPage.open(baseUrl, contentId, locationId);
+    await contentPage.open(contentId, locationId);
 
     await contentPage.performAction('Reveal');
     await contentPage.assertSuccessNotification("Content item 'TestArticleToHide' revealed");

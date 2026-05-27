@@ -4,14 +4,13 @@ import { UserPage } from '../lib/UserPage';
 import { UserProfilePage } from '../lib/UserProfilePage';
 import { AuthPage } from '@ibexa/cohesivo-playwright';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('User profile management', () => {
+test.describe('User profile management', { tag: ['@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce', '@IbexaDXP'] }, () => {
   let api: IbexaApiClient;
   let editorsLocationId: number;
 
   test.beforeAll(async () => {
-    api = new IbexaApiClient(baseUrl);
+    api = new IbexaApiClient();
     await api.init();
     editorsLocationId = await api.getContentIdByPath('/Users/Editors').then(
       async (id) => api.getMainLocationId(id)
@@ -20,7 +19,7 @@ test.describe('User profile management', () => {
 
   test('Create a new editor', async ({ page }) => {
     const userPage = new UserPage(page);
-    await userPage.startCreatingUser(page, baseUrl, editorsLocationId, 'editor');
+    await userPage.startCreatingUser(page, editorsLocationId, 'editor');
     await userPage.fillFirstName('EditorFirstName');
     await userPage.fillLastName('EditorLastName');
     await userPage.fillUsername('testeditor');
@@ -44,7 +43,7 @@ test.describe('User profile management', () => {
 
     test('User profile is accessible and can be edited', async ({ page }) => {
     const auth = new AuthPage(page);
-    await auth.openLogin(baseUrl);
+    await auth.openLogin();
     await auth.login('testeditor', 'Test1234pw');
     await auth.assertOnDashboard();
 

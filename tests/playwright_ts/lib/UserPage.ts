@@ -88,8 +88,8 @@ export class UserPage extends AdminUiPage {
     await this.clickPublish();
   }
 
-  async startCreatingUser(page: Page, baseUrl: string, usersLocationId: number, contentTypeIdentifier: string = 'user'): Promise<void> {
-    await page.goto(`${baseUrl}/admin/content/create/nodraft/${contentTypeIdentifier}/eng-GB/${usersLocationId}`);
+  async startCreatingUser(page: Page, usersLocationId: number, contentTypeIdentifier: string = 'user'): Promise<void> {
+    await page.goto(`/admin/content/create/nodraft/${contentTypeIdentifier}/eng-GB/${usersLocationId}`);
     await page.waitForLoadState('networkidle');
   }
 

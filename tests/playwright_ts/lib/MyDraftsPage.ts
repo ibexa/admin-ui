@@ -6,8 +6,8 @@ export class MyDraftsPage extends AdminUiPage {
     super(page);
   }
 
-  async open(baseUrl: string): Promise<void> {
-    await this.navigateTo(`${baseUrl}/admin/contentdraft/list`);
+  async open(): Promise<void> {
+    await this.navigateTo(`/admin/contentdraft/list`);
   }
 
   async assertDraftPresent(title: string): Promise<void> {

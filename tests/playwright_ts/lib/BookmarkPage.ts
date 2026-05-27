@@ -6,8 +6,8 @@ export class BookmarkPage extends AdminUiPage {
     super(page);
   }
 
-  async open(baseUrl: string): Promise<void> {
-    await this.navigateTo(`${baseUrl}/admin/bookmark/list`);
+  async open(): Promise<void> {
+    await this.navigateTo(`/admin/bookmark/list`);
   }
 
   async bookmarkCurrentContent(): Promise<void> {

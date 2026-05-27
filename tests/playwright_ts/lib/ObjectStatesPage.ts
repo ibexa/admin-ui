@@ -6,8 +6,8 @@ export class ObjectStatesPage extends AdminUiPage {
     super(page);
   }
 
-  async openGroupsList(baseUrl: string): Promise<void> {
-    await this.navigateTo(`${baseUrl}/admin/state/groups`);
+  async openGroupsList(): Promise<void> {
+    await this.navigateTo(`/admin/state/groups`);
   }
 
   async openGroup(name: string): Promise<void> {

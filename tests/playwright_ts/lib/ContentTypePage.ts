@@ -6,8 +6,8 @@ export class ContentTypePage extends AdminUiPage {
     super(page);
   }
 
-  async openGroup(baseUrl: string, groupName: string): Promise<void> {
-    await this.navigateTo(`${baseUrl}/admin/contenttypegroup/list`);
+  async openGroup(groupName: string): Promise<void> {
+    await this.navigateTo(`/admin/contenttypegroup/list`);
     const link = this.page.locator('.ibexa-table__row a').filter({ hasText: groupName }).first();
     await link.waitFor({ state: 'visible', timeout: 10_000 });
     await link.click();

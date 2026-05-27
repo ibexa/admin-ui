@@ -2,13 +2,12 @@ import { test } from '@playwright/test';
 import { ContentTypeGroupPage } from '../lib/ContentTypeGroupPage';
 import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('Content type groups management', () => {
+test.describe('Content type groups management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   let ctg: ContentTypeGroupPage;
 
   test.beforeAll(async () => {
-    const api = new IbexaApiClient(baseUrl);
+    const api = new IbexaApiClient();
     await api.init();
     await api.deleteContentTypeGroupByName('Test content type Group');
     await api.deleteContentTypeGroupByName('Test content type Group edited');
@@ -16,7 +15,7 @@ test.describe('Content type groups management', () => {
 
   test.beforeEach(async ({ page }) => {
     ctg = new ContentTypeGroupPage(page);
-    await ctg.openList(baseUrl);
+    await ctg.openList();
   });
 
   test('Changes can be discarded while creating new content type group', async () => {

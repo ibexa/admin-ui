@@ -2,15 +2,14 @@ import { test, expect } from '@playwright/test';
 import { ContentManagementPage } from '../lib/ContentManagementPage';
 import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('URL Aliases', () => {
+test.describe('URL Aliases', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   let api: IbexaApiClient;
   let contentId: number;
   let locationId: number;
 
   test.beforeAll(async () => {
-    api = new IbexaApiClient(baseUrl);
+    api = new IbexaApiClient();
     await api.init();
 
     contentId = await api.createFolder('UrlAliases', 2);
@@ -19,7 +18,7 @@ test.describe('URL Aliases', () => {
 
   test('Create a redirect Url Alias', async ({ page }) => {
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, contentId, locationId);
+    await contentPage.open(contentId, locationId);
 
     // Switch to URL tab
     const urlTab = page.locator('.ibexa-tabs .nav-link, .nav-tabs .nav-link').filter({ hasText: 'URL' }).first();
@@ -58,7 +57,7 @@ test.describe('URL Aliases', () => {
 
   test('Create a direct Url Alias', async ({ page }) => {
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, contentId, locationId);
+    await contentPage.open(contentId, locationId);
 
     const urlTab = page.locator('.ibexa-tabs .nav-link, .nav-tabs .nav-link').filter({ hasText: 'URL' }).first();
     await urlTab.waitFor({ state: 'attached', timeout: 10_000 });

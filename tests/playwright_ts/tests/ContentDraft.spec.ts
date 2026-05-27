@@ -2,15 +2,14 @@ import { test, expect } from '@playwright/test';
 import { ContentEditPage } from '../lib/ContentEditPage';
 import { IbexaApiClient, EMPTY_RICHTEXT } from '@ibexa/cohesivo-playwright';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('Content items creation', () => {
+test.describe('Content items creation', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   let api: IbexaApiClient;
   const createdContentIds: number[] = [];
   const uid = Date.now().toString().slice(-6);
 
   test.beforeAll(async () => {
-    api = new IbexaApiClient(baseUrl);
+    api = new IbexaApiClient();
     await api.init();
   });
 
@@ -22,14 +21,14 @@ test.describe('Content items creation', () => {
 
   test('Content draft can be saved', async ({ page }) => {
     const editor = new ContentEditPage(page);
-    await editor.openCreate(baseUrl, 'article', 'eng-GB', 2);
+    await editor.openCreate('article', 'eng-GB', 2);
     await editor.fillTextField('title', 'Test Article draft');
     await editor.fillTextField('short_title', 'Test Article draft');
     await editor.saveDraft();
 
     await editor.assertSuccessNotification('Content draft saved');
 
-    await editor.openDashboard(baseUrl);
+    await editor.openDashboard();
     await editor.assertDraftOnDashboard('Test Article draft');
   });
 
@@ -45,25 +44,25 @@ test.describe('Content items creation', () => {
     await api.createDraft(contentId, 'eng-GB', { title: draftTitle });
 
     const editor = new ContentEditPage(page);
-    await editor.openDashboard(baseUrl);
+    await editor.openDashboard();
     await editor.assertDraftOnDashboard(title);
     await editor.openDraftForEditing(title);
     await editor.deleteDraft();
 
-    await editor.openDashboard(baseUrl);
+    await editor.openDashboard();
     await editor.assertNoDraftOnDashboard(draftTitle);
   });
 
   test('Content draft can be saved and then published', async ({ page }) => {
     const editor = new ContentEditPage(page);
-    await editor.openCreate(baseUrl, 'article', 'eng-GB', 2);
+    await editor.openCreate('article', 'eng-GB', 2);
     await editor.fillTextField('title', 'TestArticleSavePublish');
     await editor.fillTextField('short_title', 'TestArticleSavePublish');
     await editor.fillRichTextField('intro', 'TestArticleIntro');
     await editor.saveDraftAndClose();
 
     // saveDraftAndClose redirects to parent content view — reopen draft from dashboard
-    await editor.openDashboard(baseUrl);
+    await editor.openDashboard();
     await editor.openDraftForEditing('TestArticleSavePublish');
 
     await editor.publish();
@@ -82,7 +81,7 @@ test.describe('Content items creation', () => {
     await api.createDraft(contentId, 'eng-GB', { title: `${title}Draft` });
 
     const editor = new ContentEditPage(page);
-    await editor.openDashboard(baseUrl);
+    await editor.openDashboard();
     await editor.assertDraftOnDashboard(title);
     await editor.openDraftForEditing(title);
     await expect(page).toHaveURL(/\/admin\/content\/(edit|create)/);
@@ -104,7 +103,7 @@ test.describe('Content items creation', () => {
     await api.createDraft(contentId, 'eng-GB', { title: `${title}V1` });
 
     const contentLocId = await api.getMainLocationId(contentId);
-    await page.goto(`${baseUrl}/admin/view/content/${contentId}/full/1/${contentLocId}`);
+    await page.goto('/admin/view/content/${contentId}/full/1/${contentLocId}');
     await page.waitForLoadState('networkidle');
 
     // Click Edit — conflict modal should appear
@@ -135,7 +134,7 @@ test.describe('Content items creation', () => {
     await api.createDraft(contentId, 'eng-GB', { title: `${title}V2` });
 
     const contentLocId = await api.getMainLocationId(contentId);
-    await page.goto(`${baseUrl}/admin/view/content/${contentId}/full/1/${contentLocId}`);
+    await page.goto('/admin/view/content/${contentId}/full/1/${contentLocId}');
     await page.waitForLoadState('networkidle');
 
     const editBtn = page.locator('.ibexa-context-menu .ibexa-btn').filter({ hasText: 'Edit' }).first();

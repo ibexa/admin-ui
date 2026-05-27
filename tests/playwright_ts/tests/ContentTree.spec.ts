@@ -2,20 +2,19 @@ import { test, expect } from '@playwright/test';
 import { ContentManagementPage } from '../lib/ContentManagementPage';
 import { IbexaApiClient, EMPTY_RICHTEXT } from '@ibexa/cohesivo-playwright';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('Content tree basic operations', () => {
+test.describe('Content tree basic operations', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   let api: IbexaApiClient;
 
   test.beforeAll(async () => {
-    api = new IbexaApiClient(baseUrl);
+    api = new IbexaApiClient();
     await api.init();
   });
 
   test('Content tree can be displayed', async ({ page }) => {
     const contentPage = new ContentManagementPage(page);
     // Navigate to content root
-    await page.goto(`${baseUrl}/admin/view/content/52/full/1/2`);
+    await page.goto('/admin/view/content/52/full/1/2');
     await page.waitForLoadState('networkidle');
 
     const contentTree = page.locator('.ibexa-content-tree, .c-content-tree, [class*="content-tree"]').first();
@@ -32,7 +31,7 @@ test.describe('Content tree basic operations', () => {
     const art1LocId = await api.getMainLocationId(art1Id);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, art1Id, art1LocId);
+    await contentPage.open(art1Id, art1LocId);
 
     const contentTree = page.locator('.ibexa-content-tree, .c-content-tree, [class*="content-tree"]').first();
     await contentTree.waitFor({ state: 'visible', timeout: 15_000 });
@@ -49,7 +48,7 @@ test.describe('Content tree basic operations', () => {
     const art1LocId = await api.getMainLocationId(art1Id);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, art1Id, art1LocId);
+    await contentPage.open(art1Id, art1LocId);
 
     const contentTree = page.locator('.ibexa-content-tree, .c-content-tree, [class*="content-tree"]').first();
     await contentTree.waitFor({ state: 'visible', timeout: 15_000 });
