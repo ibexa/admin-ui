@@ -7,7 +7,6 @@
     "test:headed": "playwright test --headed"
   },
   "devDependencies": {
-    "@ibexa/cohesivo-playwright": "github:ibexa/cohesivo-playwright",
     "@playwright/test": "^1.44.0",
     "@types/node": "^20.0.0",
     "typescript": "^5.4.0"
