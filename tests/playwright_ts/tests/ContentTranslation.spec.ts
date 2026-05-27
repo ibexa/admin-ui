@@ -3,13 +3,12 @@ import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 import { TranslationPage } from '../lib/TranslationPage';
 import { ContentEditPage } from '../lib/ContentEditPage';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('Content item translation', () => {
+test.describe('Content item translation', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   let api: IbexaApiClient;
 
   test.beforeAll(async () => {
-    api = new IbexaApiClient(baseUrl);
+    api = new IbexaApiClient();
     await api.init();
   });
 
@@ -19,7 +18,7 @@ test.describe('Content item translation', () => {
       short_name: 'EnglishPublished',
     });
     const locationId = await api.getMainLocationId(contentId);
-    await page.goto(`${baseUrl}/admin/view/content/${contentId}/full/1/${locationId}`);
+    await page.goto('/admin/view/content/${contentId}/full/1/${locationId}');
     await page.waitForLoadState('networkidle');
 
     const translator = new TranslationPage(page);
@@ -33,7 +32,7 @@ test.describe('Content item translation', () => {
     await editor.assertSuccessNotification('Content published');
 
     // Check English attributes still present
-    await page.goto(`${baseUrl}/admin/view/content/${contentId}/full/1/${locationId}`);
+    await page.goto('/admin/view/content/${contentId}/full/1/${locationId}');
     await page.waitForLoadState('networkidle');
     await expect(page.locator('.ibexa-page-title h1, h1').first()).toContainText('EnglishPublished');
   });
@@ -44,7 +43,7 @@ test.describe('Content item translation', () => {
       short_name: 'NoBasePublished',
     });
     const locationId = await api.getMainLocationId(contentId);
-    await page.goto(`${baseUrl}/admin/view/content/${contentId}/full/1/${locationId}`);
+    await page.goto('/admin/view/content/${contentId}/full/1/${locationId}');
     await page.waitForLoadState('networkidle');
 
     const translator = new TranslationPage(page);
@@ -57,7 +56,7 @@ test.describe('Content item translation', () => {
 
     await editor.assertSuccessNotification('Content published');
 
-    await page.goto(`${baseUrl}/admin/view/content/${contentId}/full/1/${locationId}`);
+    await page.goto('/admin/view/content/${contentId}/full/1/${locationId}');
     await page.waitForLoadState('networkidle');
     await expect(page.locator('.ibexa-page-title h1, h1').first()).toContainText('NoBasePublished');
   });

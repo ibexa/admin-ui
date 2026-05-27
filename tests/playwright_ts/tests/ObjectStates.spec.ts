@@ -2,13 +2,12 @@ import { test } from '@playwright/test';
 import { ObjectStatesPage } from '../lib/ObjectStatesPage';
 import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('Object States management', () => {
+test.describe('Object States management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   let page_: ObjectStatesPage;
 
   test.beforeAll(async () => {
-    const api = new IbexaApiClient(baseUrl);
+    const api = new IbexaApiClient();
     await api.init();
     await api.deleteObjectStateGroupByName('Test Object State Group');
     await api.deleteObjectStateGroupByName('Test Object State Group edited');
@@ -17,7 +16,7 @@ test.describe('Object States management', () => {
 
   test.beforeEach(async ({ page }) => {
     page_ = new ObjectStatesPage(page);
-    await page_.openGroupsList(baseUrl);
+    await page_.openGroupsList();
   });
 
   test('Changes can be discarded while creating Object state group', async () => {
@@ -59,7 +58,7 @@ test.describe('Object States management', () => {
 
   test('Changes can be discarded while editing Object state group from group details', async ({ page }) => {
     page_ = new ObjectStatesPage(page);
-    await page_.openGroupsList(baseUrl);
+    await page_.openGroupsList();
     await page_.openGroup('Test Object State Group edited');
 
     await page_.startEditingFromDetailPage();
@@ -72,7 +71,7 @@ test.describe('Object States management', () => {
 
   test('Object state group can be edited from group details', async ({ page }) => {
     page_ = new ObjectStatesPage(page);
-    await page_.openGroupsList(baseUrl);
+    await page_.openGroupsList();
     await page_.openGroup('Test Object State Group edited');
 
     await page_.startEditingFromDetailPage();
@@ -84,7 +83,7 @@ test.describe('Object States management', () => {
 
   test('Object state creation can be discarded', async ({ page }) => {
     page_ = new ObjectStatesPage(page);
-    await page_.openGroupsList(baseUrl);
+    await page_.openGroupsList();
     await page_.openGroup('Test Object State Group edited2');
 
     await page_.clickCreateState();
@@ -96,7 +95,7 @@ test.describe('Object States management', () => {
 
   test('New Object state can be added', async ({ page }) => {
     page_ = new ObjectStatesPage(page);
-    await page_.openGroupsList(baseUrl);
+    await page_.openGroupsList();
     await page_.openGroup('Test Object State Group edited2');
 
     await page_.clickCreateState();
@@ -109,7 +108,7 @@ test.describe('Object States management', () => {
 
   test('Changes can be discarded while editing Object state', async ({ page }) => {
     page_ = new ObjectStatesPage(page);
-    await page_.openGroupsList(baseUrl);
+    await page_.openGroupsList();
     await page_.openGroup('Test Object State Group edited2');
 
     await page_.editStateFromGroupPage('Test Object State');
@@ -122,7 +121,7 @@ test.describe('Object States management', () => {
 
   test('Object state can be edited', async ({ page }) => {
     page_ = new ObjectStatesPage(page);
-    await page_.openGroupsList(baseUrl);
+    await page_.openGroupsList();
     await page_.openGroup('Test Object State Group edited2');
 
     await page_.editStateFromGroupPage('Test Object State');
@@ -135,7 +134,7 @@ test.describe('Object States management', () => {
 
   test('Changes can be discarded while editing Object state from state details', async ({ page }) => {
     page_ = new ObjectStatesPage(page);
-    await page_.openGroupsList(baseUrl);
+    await page_.openGroupsList();
     await page_.openGroup('Test Object State Group edited2');
     await page_.openState('Test Object State edited');
 
@@ -149,7 +148,7 @@ test.describe('Object States management', () => {
 
   test('Object State can be edited from state details', async ({ page }) => {
     page_ = new ObjectStatesPage(page);
-    await page_.openGroupsList(baseUrl);
+    await page_.openGroupsList();
     await page_.openGroup('Test Object State Group edited2');
     await page_.openState('Test Object State edited');
 
@@ -163,7 +162,7 @@ test.describe('Object States management', () => {
 
   test('Second object state can be created', async ({ page }) => {
     page_ = new ObjectStatesPage(page);
-    await page_.openGroupsList(baseUrl);
+    await page_.openGroupsList();
     await page_.openGroup('Test Object State Group edited2');
 
     await page_.clickCreateState();
@@ -176,7 +175,7 @@ test.describe('Object States management', () => {
 
   test('Object state can be deleted', async ({ page }) => {
     page_ = new ObjectStatesPage(page);
-    await page_.openGroupsList(baseUrl);
+    await page_.openGroupsList();
     await page_.openGroup('Test Object State Group edited2');
 
     await page_.deleteState('Test Object State 2');

@@ -1,15 +1,14 @@
 import { test } from '@playwright/test';
 import { LanguagesPage } from '../lib/LanguagesPage';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('Languages management', () => {
+test.describe('Languages management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   let languages: LanguagesPage;
 
   test.beforeAll(async ({ browser }) => {
     const page = await browser.newPage();
     const lang = new LanguagesPage(page);
-    await lang.openList(baseUrl);
+    await lang.openList();
     for (const name of ['Deutsch', 'Edited Deutsch']) {
       const row = page.locator('.ibexa-table__row').filter({ hasText: name });
       if (await row.count() > 0) {
@@ -21,7 +20,7 @@ test.describe('Languages management', () => {
 
   test.beforeEach(async ({ page }) => {
     languages = new LanguagesPage(page);
-    await languages.openList(baseUrl);
+    await languages.openList();
   });
 
   test('Changes can be discarded while creating new Language', async () => {
@@ -78,7 +77,7 @@ test.describe('Languages management', () => {
 
   test('Language can be enabled', async ({ page }) => {
     languages = new LanguagesPage(page);
-    await languages.openList(baseUrl);
+    await languages.openList();
     await languages.assertLanguageInList('Edited Deutsch');
     await languages.editFromList('Edited Deutsch');
     await languages.setEnabled(true);

@@ -6,8 +6,8 @@ export class TrashPage extends AdminUiPage {
     super(page);
   }
 
-  async open(baseUrl: string): Promise<void> {
-    await this.navigateTo(`${baseUrl}/admin/trash/list`);
+  async open(): Promise<void> {
+    await this.navigateTo(`/admin/trash/list`);
   }
 
   async assertNotEmpty(): Promise<void> {

@@ -6,13 +6,13 @@ export class RolesPage extends AdminUiPage {
     super(page);
   }
 
-  async openList(baseUrl: string): Promise<void> {
-    await this.page.goto(`${baseUrl}/admin/role/list`);
+  async openList(): Promise<void> {
+    await this.page.goto(`/admin/role/list`);
     await this.page.waitForLoadState('domcontentloaded');
   }
 
-  async openRolePage(baseUrl: string, roleName: string): Promise<void> {
-    await this.page.goto(`${baseUrl}/admin/role/list`);
+  async openRolePage(roleName: string): Promise<void> {
+    await this.page.goto(`/admin/role/list`);
     await this.page.waitForLoadState('domcontentloaded');
     await this.findTableRowAcrossPages(roleName);
     const row = this.page.locator('.ibexa-table__row').filter({ hasText: roleName }).first();

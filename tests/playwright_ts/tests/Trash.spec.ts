@@ -3,16 +3,15 @@ import { TrashPage } from '../lib/TrashPage';
 import { ContentManagementPage } from '../lib/ContentManagementPage';
 import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('Trash management', () => {
+test.describe('Trash management', { tag: ['@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   let api: IbexaApiClient;
   let trashTestLocationId: number;
   let trashTestContentId: number;
   let runId: string;
 
   test.beforeAll(async () => {
-    api = new IbexaApiClient(baseUrl);
+    api = new IbexaApiClient();
     await api.init();
     runId = Date.now().toString().slice(-6);
 
@@ -25,11 +24,11 @@ test.describe('Trash management', () => {
     const childLocId = await api.getMainLocationId(childId);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, childId, childLocId);
+    await contentPage.open(childId, childLocId);
     await contentPage.sendToTrash();
 
     const trash = new TrashPage(page);
-    await trash.open(baseUrl);
+    await trash.open();
     await trash.assertNotEmpty();
     await trash.emptyTrash();
     await trash.assertEmpty();
@@ -41,13 +40,13 @@ test.describe('Trash management', () => {
     const childLocId = await api.getMainLocationId(childId);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, childId, childLocId);
+    await contentPage.open(childId, childLocId);
     await contentPage.sendToTrash();
 
     await contentPage.assertSuccessNotification(`Location '${name}' moved to Trash`);
 
     const trash = new TrashPage(page);
-    await trash.open(baseUrl);
+    await trash.open();
     await trash.assertItemInTrash(name);
   });
 
@@ -57,11 +56,11 @@ test.describe('Trash management', () => {
     const childLocId = await api.getMainLocationId(childId);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, childId, childLocId);
+    await contentPage.open(childId, childLocId);
     await contentPage.sendToTrash();
 
     const trash = new TrashPage(page);
-    await trash.open(baseUrl);
+    await trash.open();
     await trash.assertItemInTrash(name);
     await trash.deleteFromTrash([name]);
     await trash.assertSuccessNotification('Deleted selected item(s) from Trash');
@@ -74,11 +73,11 @@ test.describe('Trash management', () => {
     const childLocId = await api.getMainLocationId(childId);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, childId, childLocId);
+    await contentPage.open(childId, childLocId);
     await contentPage.sendToTrash();
 
     const trash = new TrashPage(page);
-    await trash.open(baseUrl);
+    await trash.open();
     await trash.assertItemInTrash(name);
     await trash.restoreFromTrash([name]);
     await trash.assertSuccessNotification('Restored content to its original Location');
@@ -91,11 +90,11 @@ test.describe('Trash management', () => {
     const childLocId = await api.getMainLocationId(childId);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, childId, childLocId);
+    await contentPage.open(childId, childLocId);
     await contentPage.sendToTrash();
 
     const trash = new TrashPage(page);
-    await trash.open(baseUrl);
+    await trash.open();
     await trash.assertItemInTrash(name);
     await trash.restoreUnderNewLocation([name], 'Media/Files');
 
@@ -116,13 +115,13 @@ test.describe('Trash management', () => {
     const childLocId2 = await api.getMainLocationId(childId2);
 
     const contentPage = new ContentManagementPage(page);
-    await contentPage.open(baseUrl, childId1, childLocId1);
+    await contentPage.open(childId1, childLocId1);
     await contentPage.sendToTrash();
-    await contentPage.open(baseUrl, childId2, childLocId2);
+    await contentPage.open(childId2, childLocId2);
     await contentPage.sendToTrash();
 
     const trash = new TrashPage(page);
-    await trash.open(baseUrl);
+    await trash.open();
     await trash.searchInTrash(name1);
     await trash.assertItemInTrash(name1);
   });

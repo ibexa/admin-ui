@@ -3,14 +3,13 @@ import { SectionsPage } from '../lib/SectionsPage';
 import { ContentManagementPage } from '../lib/ContentManagementPage';
 import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('Sections management', () => {
+test.describe('Sections management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   let sections: SectionsPage;
   let api: IbexaApiClient;
 
   test.beforeAll(async () => {
-    api = new IbexaApiClient(baseUrl);
+    api = new IbexaApiClient();
     await api.init();
     await api.deleteSectionByName('Test Section');
     await api.deleteSectionByName('Test Section edited');
@@ -19,7 +18,7 @@ test.describe('Sections management', () => {
 
   test.beforeEach(async ({ page }) => {
     sections = new SectionsPage(page);
-    await sections.openList(baseUrl);
+    await sections.openList();
   });
 
   test('Changes can be discarded while creating new Section', async () => {
@@ -43,7 +42,7 @@ test.describe('Sections management', () => {
     sections = new SectionsPage(page);
     await api.createFolder('TestSection', 2);
 
-    await sections.openList(baseUrl);
+    await sections.openList();
     await sections.assertSectionInList('Test Section');
     await sections.startAssigningFromList('Test Section');
 
@@ -60,7 +59,7 @@ test.describe('Sections management', () => {
       await api.getContentIdByPath('Media'),
     ));
 
-    await sections.openList(baseUrl);
+    await sections.openList();
     await sections.assertSectionInList('Test Section');
     await sections.startAssigningFromList('Test Section');
 
@@ -94,7 +93,7 @@ test.describe('Sections management', () => {
 
   test('Changes can be discarded while editing Section from section details', async ({ page }) => {
     sections = new SectionsPage(page);
-    await sections.openList(baseUrl);
+    await sections.openList();
     await sections.openSectionDetails('Test Section edited');
 
     await sections.startEditingFromDetailPage();
@@ -107,7 +106,7 @@ test.describe('Sections management', () => {
 
   test('Section can be edited from section details', async ({ page }) => {
     sections = new SectionsPage(page);
-    await sections.openList(baseUrl);
+    await sections.openList();
     await sections.openSectionDetails('Test Section edited');
 
     await sections.startEditingFromDetailPage();
@@ -124,12 +123,12 @@ test.describe('Sections management', () => {
 
   test('Content item can be reassigned to section from the Sections details', async ({ page }) => {
     sections = new SectionsPage(page);
-    await sections.openList(baseUrl);
+    await sections.openList();
     await sections.clickCreateSection();
     await sections.fillSectionForm('TestSectionAssign', 'TestSectionAssignIdentifier');
     await sections.save();
 
-    await page.goto(`${baseUrl}/admin/section/list`);
+    await page.goto('/admin/section/list');
     await page.waitForLoadState('domcontentloaded');
     const sectionLink = page.locator('a').filter({ hasText: 'TestSectionAssign' }).first();
     await sectionLink.click();
@@ -155,7 +154,7 @@ test.describe('Sections management', () => {
 
   test('Section can be deleted from section details', async ({ page }) => {
     sections = new SectionsPage(page);
-    await sections.openList(baseUrl);
+    await sections.openList();
     await sections.clickCreateSection();
     await sections.fillSectionForm('Test Section', 'TestSectionIdentifier2');
     await sections.save();

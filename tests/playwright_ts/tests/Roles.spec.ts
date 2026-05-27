@@ -2,20 +2,19 @@ import { test, expect } from '@playwright/test';
 import { RolesPage } from '../lib/RolesPage';
 import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('Roles management', () => {
+test.describe('Roles management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   let roles: RolesPage;
 
   test.beforeAll(async () => {
-    const api = new IbexaApiClient(baseUrl);
+    const api = new IbexaApiClient();
     await api.init();
     await api.deleteRoleByName('Test Role');
   });
 
   test('Changes can be discarded while creating Role', async ({ page }) => {
     roles = new RolesPage(page);
-    await roles.openList(baseUrl);
+    await roles.openList();
     await roles.clickCreateRole();
     await roles.fillRoleName('Test Role');
     await roles.discard();
@@ -25,7 +24,7 @@ test.describe('Roles management', () => {
 
   test('New Role can be created', async ({ page }) => {
     roles = new RolesPage(page);
-    await roles.openList(baseUrl);
+    await roles.openList();
     await roles.clickCreateRole();
     await roles.fillRoleName('Test Role');
     await roles.save();
@@ -36,7 +35,7 @@ test.describe('Roles management', () => {
 
   test('Changes can be discarded while editing Role', async ({ page }) => {
     roles = new RolesPage(page);
-    await roles.openList(baseUrl);
+    await roles.openList();
     await roles.assertRoleInList('Anonymous');
     await roles.editFromList('Anonymous');
     await roles.fillRoleName('Test Role');
@@ -47,7 +46,7 @@ test.describe('Roles management', () => {
 
   test('Role can be edited', async ({ page }) => {
     roles = new RolesPage(page);
-    await roles.openList(baseUrl);
+    await roles.openList();
     await roles.assertRoleInList('Anonymous');
     await roles.editFromList('Anonymous');
     await roles.fillRoleName('Anonymous edited');
@@ -55,7 +54,7 @@ test.describe('Roles management', () => {
     await roles.assertOnRolePage('Anonymous edited');
 
     // Restore original name
-    await roles.openList(baseUrl);
+    await roles.openList();
     await roles.editFromList('Anonymous edited');
     await roles.fillRoleName('Anonymous');
     await roles.save();
@@ -63,7 +62,7 @@ test.describe('Roles management', () => {
 
   test('User assignation can be discarded', async ({ page }) => {
     roles = new RolesPage(page);
-    await roles.openRolePage(baseUrl, 'Test Role');
+    await roles.openRolePage('Test Role');
     await roles.clickAssignUsersAndGroups();
     await roles.selectUsersViaUDW(['Users/Administrator users/Administrator User']);
     await roles.selectGroupsViaUDW(['Users/Editors', 'Users']);
@@ -75,7 +74,7 @@ test.describe('Roles management', () => {
 
   test('User can be assigned to role from the Roles list', async ({ page }) => {
     roles = new RolesPage(page);
-    await roles.openRolePage(baseUrl, 'Test Role');
+    await roles.openRolePage('Test Role');
     await roles.clickAssignUsersAndGroups();
     await roles.selectUsersViaUDW([
       'Users/Anonymous users/Anonymous User',
@@ -94,7 +93,7 @@ test.describe('Roles management', () => {
 
   test('User can be assigned to role from the Role details view', async ({ page }) => {
     roles = new RolesPage(page);
-    await roles.openRolePage(baseUrl, 'Test Role');
+    await roles.openRolePage('Test Role');
     await roles.clickAssignUsersAndGroups();
     await roles.selectGroupsViaUDW(['Users']);
     await roles.save();
@@ -109,7 +108,7 @@ test.describe('Roles management', () => {
 
   test('Assignment can be deleted from role', async ({ page }) => {
     roles = new RolesPage(page);
-    await roles.openRolePage(baseUrl, 'Test Role');
+    await roles.openRolePage('Test Role');
     await roles.deleteAssignments(['Administrator User', 'Editors', 'Users']);
     await roles.assertOnRolePage('Test Role');
     await roles.assertAssignmentsPresent([
@@ -119,7 +118,7 @@ test.describe('Roles management', () => {
 
   test('Adding policy can be discarded', async ({ page }) => {
     roles = new RolesPage(page);
-    await roles.openRolePage(baseUrl, 'Test Role');
+    await roles.openRolePage('Test Role');
     await roles.clickCreatePolicy();
     await roles.selectPolicy('Content type / All functions');
     await roles.discard();
@@ -129,7 +128,7 @@ test.describe('Roles management', () => {
 
   test('Policies can be added to role', async ({ page }) => {
     roles = new RolesPage(page);
-    await roles.openRolePage(baseUrl, 'Test Role');
+    await roles.openRolePage('Test Role');
     await roles.clickCreatePolicy();
     await roles.selectPolicy('Content / Read');
     await roles.save();
@@ -142,7 +141,7 @@ test.describe('Roles management', () => {
 
   test('Policies without limitations can be added to role', async ({ page }) => {
     roles = new RolesPage(page);
-    await roles.openRolePage(baseUrl, 'Test Role');
+    await roles.openRolePage('Test Role');
     await roles.clickCreatePolicy();
     await roles.selectPolicy('User / Password');
     await roles.save();
@@ -152,7 +151,7 @@ test.describe('Roles management', () => {
 
   test('Policies can be edited', async ({ page }) => {
     roles = new RolesPage(page);
-    await roles.openRolePage(baseUrl, 'Test Role');
+    await roles.openRolePage('Test Role');
     await roles.editPolicy('Content', 'Read');
     await roles.selectLimitation('Content type', ['Article', 'Folder']);
     await roles.selectSubtreeLimitationViaUDW('Users/Anonymous users');
@@ -168,7 +167,7 @@ test.describe('Roles management', () => {
 
   test('Policy can be deleted', async ({ page }) => {
     roles = new RolesPage(page);
-    await roles.openRolePage(baseUrl, 'Test Role');
+    await roles.openRolePage('Test Role');
     await roles.deletePolicies(['Content']);
     await roles.assertSuccessNotification("Removed Policies from Role 'Test Role'.");
     await roles.assertPoliciesListEmpty();

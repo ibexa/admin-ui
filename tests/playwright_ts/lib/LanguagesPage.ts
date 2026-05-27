@@ -6,8 +6,8 @@ export class LanguagesPage extends AdminUiPage {
     super(page);
   }
 
-  async openList(baseUrl: string): Promise<void> {
-    await this.navigateTo(`${baseUrl}/admin/language/list`);
+  async openList(): Promise<void> {
+    await this.navigateTo(`/admin/language/list`);
   }
 
   async clickAddLanguage(): Promise<void> {

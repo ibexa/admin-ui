@@ -6,8 +6,8 @@ export class ContentTypeGroupPage extends AdminUiPage {
     super(page);
   }
 
-  async openList(baseUrl: string): Promise<void> {
-    await this.navigateTo(`${baseUrl}/admin/contenttypegroup/list`);
+  async openList(): Promise<void> {
+    await this.navigateTo(`/admin/contenttypegroup/list`);
   }
 
   async clickCreate(): Promise<void> {

@@ -6,9 +6,8 @@ export class ContentManagementPage extends AdminUiPage {
     super(page);
   }
 
-  async open(baseUrl: string, contentId: number, locationId: number): Promise<void> {
-    const cleanBase = baseUrl.replace(/\/$/, '');
-    await this.page.goto(`${cleanBase}/admin/view/content/${contentId}/full/1/${locationId}`);
+  async open(contentId: number, locationId: number): Promise<void> {
+    await this.page.goto(`/admin/view/content/${contentId}/full/1/${locationId}`);
     await this.page.waitForLoadState('networkidle');
     // Wait for the React content tree (c-tb-* toolbox tree) to render initial items
     await this.page.locator('.c-tb-list-item-single').first()

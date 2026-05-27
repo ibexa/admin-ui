@@ -2,13 +2,12 @@ import { test } from '@playwright/test';
 import { MyDraftsPage } from '../lib/MyDraftsPage';
 import { IbexaApiClient, EMPTY_RICHTEXT } from '@ibexa/cohesivo-playwright';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('My Drafts', () => {
+test.describe('My Drafts', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   let api: IbexaApiClient;
 
   test.beforeAll(async () => {
-    api = new IbexaApiClient(baseUrl);
+    api = new IbexaApiClient();
     await api.init();
   });
 
@@ -28,7 +27,7 @@ test.describe('My Drafts', () => {
     await api.createDraft(contentId, 'eng-GB', { title: 'TestMyDraftDeleteDraft' });
 
     const drafts = new MyDraftsPage(page);
-    await drafts.open(baseUrl);
+    await drafts.open();
     await drafts.assertDraftPresent('TestMyDraftDelete');
     await drafts.deleteDraft('TestMyDraftDelete');
     await drafts.assertDraftDeleted('TestMyDraftDelete');
@@ -43,7 +42,7 @@ test.describe('My Drafts', () => {
     await api.createDraft(contentId, 'eng-GB', { title: 'TestMyDraftEditDraft' });
 
     const drafts = new MyDraftsPage(page);
-    await drafts.open(baseUrl);
+    await drafts.open();
     await drafts.assertDraftPresent('TestMyDraftEdit');
     await drafts.editDraft('TestMyDraftEdit');
 

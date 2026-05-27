@@ -2,13 +2,12 @@ import { test, expect } from '@playwright/test';
 import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 import { SearchPage } from '../lib/SearchPage';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('Searching for a Content item', () => {
+test.describe('Searching for a Content item', { tag: ['@IbexaOSS', '@IbexaHeadless'] }, () => {
   let api: IbexaApiClient;
 
   test.beforeAll(async () => {
-    api = new IbexaApiClient(baseUrl);
+    api = new IbexaApiClient();
     await api.init();
   });
 
@@ -18,7 +17,7 @@ test.describe('Searching for a Content item', () => {
       short_name: 'Searched folder',
     });
 
-    await page.goto(`${baseUrl}/admin/dashboard`);
+    await page.goto('/admin/dashboard');
     await page.waitForLoadState('networkidle');
 
     const search = new SearchPage(page);
@@ -32,7 +31,7 @@ test.describe('Searching for a Content item', () => {
       short_name: 'folderUDW',
     });
 
-    await page.goto(`${baseUrl}/admin/dashboard`);
+    await page.goto('/admin/dashboard');
     await page.waitForLoadState('networkidle');
 
     const search = new SearchPage(page);

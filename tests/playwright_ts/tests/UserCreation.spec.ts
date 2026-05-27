@@ -2,14 +2,13 @@ import { test, expect } from '@playwright/test';
 import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 import { UserPage } from '../lib/UserPage';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('User management', () => {
+test.describe('User management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience'] }, () => {
   let api: IbexaApiClient;
   let usersLocationId: number;
 
   test.beforeAll(async () => {
-    api = new IbexaApiClient(baseUrl);
+    api = new IbexaApiClient();
     await api.init();
     usersLocationId = await api.getContentIdByPath('/Users').then(
       async (id) => api.getMainLocationId(id)
@@ -18,7 +17,7 @@ test.describe('User management', () => {
 
   test('Create a new user', async ({ page }) => {
     const userPage = new UserPage(page);
-    await userPage.startCreatingUser(page, baseUrl, usersLocationId);
+    await userPage.startCreatingUser(page, usersLocationId);
     await userPage.fillFirstName('testuser');
     await userPage.fillLastName('lastname');
     await userPage.fillUsername('testuser');
@@ -41,10 +40,10 @@ test.describe('User management', () => {
     const userId = await api.getContentIdByPath('/Users/testuser lastname').catch(() => 0);
     if (userId) {
       const locationId = await api.getMainLocationId(userId);
-      await page.goto(`${baseUrl}/admin/view/content/${userId}/full/1/${locationId}`);
+      await page.goto('/admin/view/content/${userId}/full/1/${locationId}');
       await page.waitForLoadState('networkidle');
     } else {
-      await page.goto(`${baseUrl}/admin/dashboard`);
+      await page.goto('/admin/dashboard');
     }
 
     const userPage = new UserPage(page);

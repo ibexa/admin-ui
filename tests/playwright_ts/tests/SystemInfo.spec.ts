@@ -1,14 +1,13 @@
 import { test } from '@playwright/test';
 import { SystemInfoPage } from '../lib/SystemInfoPage';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('System Information', () => {
+test.describe('System Information', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   let systemInfo: SystemInfoPage;
 
   test.beforeEach(async ({ page }) => {
     systemInfo = new SystemInfoPage(page);
-    await systemInfo.open(baseUrl);
+    await systemInfo.open();
   });
 
   test('Check Product Information', async () => {

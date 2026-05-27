@@ -6,8 +6,8 @@ export class ContentEditPage extends AdminUiPage {
     super(page);
   }
 
-  async openCreate(baseUrl: string, contentTypeIdentifier: string, language: string, parentLocationId: number): Promise<void> {
-    await this.navigateTo(`${baseUrl}/admin/content/create/nodraft/${contentTypeIdentifier}/${language}/${parentLocationId}`);
+  async openCreate(contentTypeIdentifier: string, language: string, parentLocationId: number): Promise<void> {
+    await this.navigateTo(`/admin/content/create/nodraft/${contentTypeIdentifier}/${language}/${parentLocationId}`);
   }
 
   async fillTextField(fieldIdentifier: string, value: string): Promise<void> {
@@ -118,8 +118,8 @@ export class ContentEditPage extends AdminUiPage {
   }
 
   // Dashboard draft helpers
-  async openDashboard(baseUrl: string): Promise<void> {
-    await this.navigateTo(`${baseUrl}/admin/dashboard`);
+  async openDashboard(): Promise<void> {
+    await this.navigateTo(`/admin/dashboard`);
   }
 
   async assertDraftOnDashboard(title: string): Promise<void> {

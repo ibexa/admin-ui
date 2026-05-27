@@ -1,12 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { ContentTypePage } from '../lib/ContentTypePage';
 
-const baseUrl = (process.env.APP_URL ?? 'http://behatplaywright50.lh').replace(/\/$/, '');
 
-test.describe('Content types management', () => {
+test.describe('Content types management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
   test('Changes can be discarded while creating content type', async ({ page }) => {
     const ct = new ContentTypePage(page);
-    await ct.openGroup(baseUrl, 'Content');
+    await ct.openGroup('Content');
     await ct.clickCreateContentType();
     await ct.fillName('Test content type');
     await ct.fillIdentifier('TestContentTypeIdentifier');
@@ -17,7 +16,7 @@ test.describe('Content types management', () => {
 
   test('New content type can be added to content type group', async ({ page }) => {
     const ct = new ContentTypePage(page);
-    await ct.openGroup(baseUrl, 'Content');
+    await ct.openGroup('Content');
     await ct.clickCreateContentType();
     await ct.fillName('Test content type');
     await ct.fillIdentifier('TestContentTypeIdentifier');
