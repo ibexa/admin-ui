@@ -557,23 +557,23 @@
         <note>key: user__settings</note>
       </trans-unit>
       <trans-unit id="40679174821cfa2ce3d3a4dc046f0ef65df6f483" resname="user_create__sidebar_right__cancel">
-        <source>Cancel</source>
-        <target state="new">Cancel</target>
+        <source>Discard</source>
+        <target state="new">Discard</target>
         <note>key: user_create__sidebar_right__cancel</note>
       </trans-unit>
       <trans-unit id="e2f3f27b94662872c5f39dbf8b26b489deb14f8c" resname="user_create__sidebar_right__create">
-        <source>Create</source>
-        <target state="new">Create</target>
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
         <note>key: user_create__sidebar_right__create</note>
       </trans-unit>
       <trans-unit id="5eac585c3d7a63e58780b7939ee2a8e70e290436" resname="user_edit__sidebar_right__cancel">
-        <source>Cancel</source>
-        <target state="new">Cancel</target>
+        <source>Discard changes</source>
+        <target state="new">Discard changes</target>
         <note>key: user_edit__sidebar_right__cancel</note>
       </trans-unit>
       <trans-unit id="5a09908619e3d8e6b30af8af8c14abd416b485fa" resname="user_edit__sidebar_right__update">
-        <source>Update</source>
-        <target state="new">Update</target>
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
         <note>key: user_edit__sidebar_right__update</note>
       </trans-unit>
       <trans-unit id="d79a55ddd58ecf56b4edb39c794c858d649481e2" resname="user_password_change__sidebar_right__cancel">
