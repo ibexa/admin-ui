@@ -20,7 +20,7 @@ jobs:
 
       - uses: ibexa/gh-workflows/actions/setup-composer-root-version@main
 
-      - uses: ibexa/gh-workflows/actions/composer-install@main
+      - uses: ibexa/gh-workflows/actions/composer-install@ibx-11825-twig-3.26.0-advisories
         with:
             gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
             gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
@@ -48,7 +48,7 @@ jobs:
 
       - uses: ibexa/gh-workflows/actions/setup-composer-root-version@main
 
-      - uses: ibexa/gh-workflows/actions/composer-install@main
+      - uses: ibexa/gh-workflows/actions/composer-install@ibx-11825-twig-3.26.0-advisories
         with:
           gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
           gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
@@ -96,7 +96,7 @@ jobs:
 
       -   uses: ibexa/gh-workflows/actions/setup-composer-root-version@main
 
-      -   uses: ibexa/gh-workflows/actions/composer-install@main
+      -   uses: ibexa/gh-workflows/actions/composer-install@ibx-11825-twig-3.26.0-advisories
           with:
             gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
             gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
@@ -148,7 +148,7 @@ jobs:
 
       -   uses: ibexa/gh-workflows/actions/setup-composer-root-version@main
 
-      -   uses: ibexa/gh-workflows/actions/composer-install@main
+      -   uses: ibexa/gh-workflows/actions/composer-install@ibx-11825-twig-3.26.0-advisories
           with:
             gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
             gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
