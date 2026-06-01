@@ -39,7 +39,7 @@ Feature: User management
     And I set content fields for user
       | label         | Username  | Password    | Confirm password  | Email          |
       | User account  | testuser  | Test123456  | Test123456        | test@test.org  |
-    And I perform the "Update" action
+    And I perform the "Save and close" action
     Then I should be on Content view Page for "Users/testuseredited lastnameedited"
     And content attributes equal
       | label       | value           |

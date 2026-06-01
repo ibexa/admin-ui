@@ -43,7 +43,7 @@ Feature: User profile management
       | Job Title  | TestJobTitle   |
       | Department | TestDepartment |
       | Location   | TestLocation   |
-    And I perform the "Update" action
+    And I perform the "Save and close" action
     Then I should be on "User profile" page
     And I should see a user profile summary with values
       | Full name                        | Email         | Job Title    | Department     | Location     |
