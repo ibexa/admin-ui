@@ -1,30 +1,23 @@
 {% extends '@ibexadesign/account/base.html.twig' %}
 
 {%- block content -%}
-    <a href="{{ path('login') }}" class="btn ibexa-btn ibexa-btn--ghost ibexa-login__btn--back">
-        <svg class="ibexa-icon ibexa-icon--small-medium">
-            <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
-        </svg>
-        <span class="ibexa-btn__label">{{ 'authentication.reset_your_password.back'|trans|desc('Back') }}
-    </a>
-    <h2 class="ibexa-login__actions-headline">{{ 'ibexa.forgot_user_password.reset_your_password'|trans|desc('Reset your password') }}</h2>
+    <div class="ibexa-login__actions-headline">{{ 'authentication.forgot_password'|trans|desc('Forgot password') }}</div>
+    <div class="ibexa-login__actions-subheadline">
+        {{ 'ibexa.forgot_user_password.success'|trans|raw
+        |desc('<p>If you don’t receive the email, double-check your email address and spam folder.</p>') }}
+    </div>
     {% embed '@ibexadesign/ui/component/alert/alert.html.twig' with {
         type: 'success',
         title: 'ibexa.forgot_user_password.success.alert'|trans|desc('We’ve sent to your email account a link to reset your password.'),
         icon_path: ibexa_icon_path('checkmark'),
-        class: 'mt-4',
+        show_close_btn: true,
+        is_toast: true,
+        class: 'ibexa-login__success-toast',
     } only %}
-        {% block extra_content %}
-            <span class="ibexa-datetime-format-preview-value" />
-        {% endblock %}
     {% endembed %}
-    <p class="ibexa-login__actions-subheadline">
-        {{ 'ibexa.forgot_user_password.success'|trans|raw
-        |desc('<p>If you don’t receive the email, double check that you entered the correct email address and check your spam folder.</p>') }}
-    </p>
     <div class="ibexa-login__actions">
-        <a href="{{ path('login') }}" class="btn ibexa-btn ibexa-btn--primary">
-            <span class="ibexa-btn__label">{{ 'authentication.reset_your_password.back_to_sign_in'|trans|desc('Go back to Sign in') }}
+        <a href="{{ path('login') }}" class="btn ibexa-btn ibexa-btn--primary ibexa-login__btn">
+            <span class="ibexa-btn__label">{{ 'authentication.reset_your_password.back_to_sign_in'|trans|desc('Back to sign in page') }}</span>
         </a>
     </div>
 {%- endblock content -%}
