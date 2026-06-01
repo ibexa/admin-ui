@@ -2,6 +2,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/tags' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
+@use 'sass:color';
 
 .ibexa-dropdown {
     --ibexa-dropdown-primary-color: var(--ibexa-primary-color, #{$ibexa-color-primary});
@@ -346,7 +347,8 @@
         .ibexa-dropdown {
             &__selection-info {
                 border-color: var(--ibexa-dropdown-primary-color);
-                box-shadow: 0 0 0 calculateRem(2px) var(--ibexa-dropdown-shadow-box-primary-color, rgba($ibexa-color-primary, 0.2));
+                box-shadow: 0 0 0 calculateRem(2px)
+                    var(--ibexa-dropdown-shadow-box-primary-color, color.change($ibexa-color-primary, $alpha: 0.2));
             }
         }
     }

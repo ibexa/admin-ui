@@ -1,5 +1,6 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use 'sass:color';
 
 .ibexa-side-panel {
     background-color: $ibexa-color-white;
@@ -29,7 +30,7 @@
     &__footer {
         display: flex;
         align-items: center;
-        box-shadow: 0 0 calculateRem(16px) 0 rgba($ibexa-color-dark, 0.16);
+        box-shadow: 0 0 calculateRem(16px) 0 color.change($ibexa-color-dark, $alpha: 0.16);
         z-index: 1000;
         width: calculateRem(516px);
         position: fixed;

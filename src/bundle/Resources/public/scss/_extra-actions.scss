@@ -2,6 +2,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/general' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/edit-language-selector' as *;
+@use 'sass:color';
 
 .ibexa-extra-actions {
     @include container-box-shadow-left;
@@ -214,7 +215,7 @@
         right: 0;
         bottom: 0;
         z-index: 150;
-        background-color: rgba($ibexa-color-dark, 0.4);
+        background-color: color.change($ibexa-color-dark, $alpha: 0.4);
     }
 }
 

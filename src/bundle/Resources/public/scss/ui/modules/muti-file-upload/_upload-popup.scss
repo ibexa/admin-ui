@@ -1,9 +1,10 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/modals' as *;
+@use 'sass:color';
 
 .c-upload-popup {
-    background: rgba($ibexa-color-black, 0.35);
+    background: color.change($ibexa-color-black, $alpha: 0.35);
     position: fixed;
     z-index: 10100;
     top: 0;
@@ -74,7 +75,7 @@
         &--with-uploaded-items {
             .c-tooltip-popup {
                 &__footer {
-                    box-shadow: 0 0 calculateRem(16px) 0 rgba($ibexa-color-dark, 0.16);
+                    box-shadow: 0 0 calculateRem(16px) 0 color.change($ibexa-color-dark, $alpha: 0.16);
                 }
             }
         }

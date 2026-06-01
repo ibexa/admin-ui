@@ -1,6 +1,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
+@use 'sass:color';
 
 .ibexa-field-edit--ibexa_gmap_location {
     .ibexa-data-source {
@@ -17,7 +18,7 @@
 
             &--disabled::after {
                 position: absolute;
-                background: rgba($ibexa-color-light-500, 0.8);
+                background: color.change($ibexa-color-light-500, $alpha: 0.8);
                 z-index: 2000;
                 top: 0;
                 right: 0;
