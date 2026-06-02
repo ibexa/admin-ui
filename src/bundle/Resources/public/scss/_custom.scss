@@ -146,7 +146,7 @@ $ibexa-font-weight-bold: 600;
 // Ibexa shadows
 $ibexa-btn-focus-box-shadow: 0 0 0 calculateRem(3px) color.change($ibexa-color-primary, $alpha: 0.2);
 $ibexa-btn-focus-box-shadow-info: 0 0 0 calculateRem(3px) color.change($ibexa-color-info, $alpha: 0.2);
-$ibexa-btn-hover-box-shadow: 0 calculateRem(22px) calculateRem(24px) 0 color.change($ibexa-color-danger, $alpha: 0.2);
+$ibexa-btn-hover-box-shadow: 0 calculateRem(22px) calculateRem(24px) 0 color.change($ibexa-color-primary-300, $alpha: 0.2);
 $ibexa-btn-hover-box-shadow-dark: 0 calculateRem(22px) calculateRem(24px) 0 color.change($ibexa-color-dark, $alpha: 0.2);
 $ibexa-btn-hover-box-shadow-info: 0 calculateRem(22px) calculateRem(24px) 0 color.change($ibexa-color-info, $alpha: 0.5);
 $ibexa-edit-header-box-shadow: $box-shadow-large;
