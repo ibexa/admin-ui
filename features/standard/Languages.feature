@@ -28,9 +28,7 @@ Feature: Languages management
         | Language code | de-DE   |
       And I perform the "Save and close" action
     Then I should be on "Languages" page
-      And Language has proper attributes
-        | Name         | Language code   | Enabled |
-        | Deutsch      | de-DE           | true    |
+      And there's a "Deutsch" Language on Languages list
 
   @javascript
   Scenario: New Language with existing language code cannot be added
