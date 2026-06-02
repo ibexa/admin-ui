@@ -2,6 +2,9 @@
     const SELECTOR_FIELD = '.ibexa-field-edit--ezimageasset';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
     const SELECTOR_INPUT_DESTINATION_CONTENT_ID = '.ibexa-data-source__destination-content-id';
+    const SELECTOR_ALT_WRAPPER = '.ibexa-field-edit-preview__image-alt';
+    const SELECTOR_INPUT_ALT = '.ibexa-field-edit-preview__image-alt .ibexa-data-source__input';
+    const EVENT_CANCEL_ERROR = 'ibexa-cancel-errors';
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const { showErrorNotification } = ibexa.helpers.notification;
     const { showSuccessNotification } = ibexa.helpers.notification;
@@ -158,6 +161,7 @@
 
             this.inputDestinationContentId.value = destinationContentId;
             this.inputField.value = '';
+            previewAlt.dispatchEvent(new CustomEvent(EVENT_CANCEL_ERROR));
             this.showPreview();
         }
 
@@ -227,7 +231,7 @@
             super.resetInputField();
 
             this.inputDestinationContentId.value = '';
-            this.fieldContainer.querySelector('.ibexa-field-edit-preview__image-alt .ibexa-data-source__input').value = '';
+            this.fieldContainer.querySelector(SELECTOR_INPUT_ALT).value = '';
         }
 
         /**
@@ -244,8 +248,35 @@
         }
     }
 
+    class EzImageAssetFieldValidator extends ibexa.BaseFileFieldValidator {
+        /**
+         * Validates the alternative text input
+         *
+         * @method validateAltInput
+         * @param {Event} event
+         * @returns {Object}
+         * @memberof EzImageAssetFieldValidator
+         */
+        validateAltInput(event) {
+            const fileField = this.fieldContainer.querySelector(SELECTOR_INPUT_FILE);
+            const dataContainer = this.fieldContainer.querySelector('.ibexa-field-edit__data');
+            const isFileFieldEmpty = fileField.files && !fileField.files.length && dataContainer && !dataContainer.hasAttribute('hidden');
+            const isRequired = this.fieldContainer.classList.contains('ibexa-field-edit--required');
+            const isEmpty = !event.target.value.trim();
+            const isError = isEmpty && isRequired && !isFileFieldEmpty;
+            const label = event.target.closest(SELECTOR_ALT_WRAPPER).querySelector('.ibexa-data-source__label').innerText;
+            const result = { isError };
+
+            if (isEmpty) {
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
+            }
+
+            return result;
+        }
+    }
+
     doc.querySelectorAll(SELECTOR_FIELD).forEach((fieldContainer) => {
-        const validator = new ibexa.BaseFileFieldValidator({
+        const validator = new EzImageAssetFieldValidator({
             classInvalid: 'is-invalid',
             fieldContainer,
             eventsMap: [
@@ -271,6 +302,21 @@
                     callback: 'showFileTypeError',
                     errorNodeSelectors: ['.ibexa-form-error'],
                     invalidStateSelectors: ['.ibexa-field-edit__label'],
+                },
+                {
+                    selector: SELECTOR_INPUT_ALT,
+                    eventName: 'blur',
+                    callback: 'validateAltInput',
+                    invalidStateSelectors: ['.ibexa-data-source__field--alternativeText'],
+                    errorNodeSelectors: [`${SELECTOR_ALT_WRAPPER} .ibexa-form-error`],
+                },
+                {
+                    isValueValidator: false,
+                    selector: SELECTOR_INPUT_ALT,
+                    eventName: EVENT_CANCEL_ERROR,
+                    callback: 'cancelErrors',
+                    invalidStateSelectors: ['.ibexa-data-source__field--alternativeText'],
+                    errorNodeSelectors: [`${SELECTOR_ALT_WRAPPER} .ibexa-form-error`],
                 },
             ],
         });
