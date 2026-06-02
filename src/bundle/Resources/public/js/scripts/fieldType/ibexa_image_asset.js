@@ -253,14 +253,14 @@
         }
     }
 
-    class EzImageAssetFieldValidator extends ibexa.BaseFileFieldValidator {
+    class IbexaImageAssetFieldValidator extends ibexa.BaseFileFieldValidator {
         /**
          * Validates the alternative text input
          *
          * @method validateAltInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzImageAssetFieldValidator
+         * @memberof IbexaImageAssetFieldValidator
          */
         validateAltInput(event) {
             const fileField = this.fieldContainer.querySelector(SELECTOR_INPUT_FILE);
@@ -281,7 +281,7 @@
     }
 
     doc.querySelectorAll(SELECTOR_FIELD).forEach((fieldContainer) => {
-        const validator = new EzImageAssetFieldValidator({
+        const validator = new IbexaImageAssetFieldValidator({
             classInvalid: 'is-invalid',
             fieldContainer,
             eventsMap: [
