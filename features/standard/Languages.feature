@@ -27,7 +27,7 @@ Feature: Languages management
         | Name          | Deutsch |
         | Language code | de-DE   |
       And I perform the "Save and close" action
-    Then I should be on "Deutsch" Language page
+    Then I should be on "Languages" page
       And Language has proper attributes
         | Name         | Language code   | Enabled |
         | Deutsch      | de-DE           | true    |
