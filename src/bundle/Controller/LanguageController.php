@@ -224,9 +224,7 @@ class LanguageController extends Controller
                     ]);
                 }
 
-                return new RedirectResponse($this->generateUrl('ibexa.language.view', [
-                    'languageId' => $language->id,
-                ]));
+                return $this->redirectToRoute('ibexa.language.list');
             });
 
             if ($result instanceof Response) {
