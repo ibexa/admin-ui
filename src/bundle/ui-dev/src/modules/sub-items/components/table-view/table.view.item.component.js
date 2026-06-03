@@ -392,9 +392,8 @@ export default class TableViewItemComponent extends PureComponent {
      *
      * @param {Event} event
      */
-    onSelectCheckboxChange(event) {
+    onSelectCheckboxChange(isSelected) {
         const { onItemSelect, item } = this.props;
-        const isSelected = event.target.checked;
 
         onItemSelect(item, isSelected);
     }
@@ -442,7 +441,7 @@ export default class TableViewItemComponent extends PureComponent {
             <tr className="ibexa-table__row c-table-view-item">
                 <td className="ibexa-table__cell c-table-view-item__cell c-table-view-item__cell--checkbox">
                     <CheckboxInput
-                        className="ids-input ids-input--checkbox c-table-view-item__checkbox"
+                        className="c-table-view-item__checkbox"
                         checked={isSelected}
                         onChange={this.onSelectCheckboxChange}
                     />
