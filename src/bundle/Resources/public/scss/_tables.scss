@@ -179,6 +179,8 @@
 
     &__cell {
         vertical-align: middle;
+        overflow-wrap: break-word;
+        max-width: 40vw;
 
         &--has-checkbox {
             width: calculateRem(48px);
