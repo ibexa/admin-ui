@@ -29,6 +29,7 @@
                 this.backdrop.remove();
                 this.backdrop = null;
                 this.extraClasses = [];
+                doc.dispatchEvent(new CustomEvent('ibexa-backdrop:after-hide'));
             }
         }
 
@@ -38,6 +39,7 @@
             }
 
             this.toggle(false);
+            doc.dispatchEvent(new CustomEvent('ibexa-backdrop:after-hide'));
         }
 
         show() {
