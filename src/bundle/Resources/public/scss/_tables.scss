@@ -179,8 +179,6 @@
 
     &__cell {
         vertical-align: middle;
-        overflow-wrap: break-word;
-        max-width: 40vw;
 
         &--has-checkbox {
             width: calculateRem(48px);
@@ -218,6 +216,19 @@
 
         .ibexa-input--radio {
             vertical-align: middle;
+        }
+    }
+
+    &__body-cell-content {
+        &--truncate {
+            display: -webkit-box;
+            line-clamp: 2;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            word-break: break-all;
+            max-width: 40vw;
+            width: max-content;
         }
     }
 
