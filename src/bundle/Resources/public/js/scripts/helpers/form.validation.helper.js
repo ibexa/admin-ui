@@ -18,7 +18,7 @@ const checkIsEmpty = (field) => {
     let errorMessage = '';
     const Translator = getTranslator();
     const input = field.querySelector('.ibexa-input');
-    const label = field.querySelector('.ibexa-label');
+    const label = field.querySelector('.ids-label');
 
     if (label) {
         const fieldName = label.innerText;
@@ -35,7 +35,7 @@ const checkIsEmpty = (field) => {
 };
 const validateIsEmptyField = (field) => {
     const input = field.querySelector('.ibexa-input');
-    const label = field.querySelector('.ibexa-label');
+    const label = field.querySelector('.ids-label');
     const errorWrapper = field.querySelector('.ibexa-form-error');
     const validatorOutput = checkIsEmpty(field);
     const { isValid, errorMessage } = validatorOutput;

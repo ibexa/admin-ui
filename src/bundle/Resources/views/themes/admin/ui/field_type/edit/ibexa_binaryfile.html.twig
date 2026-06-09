@@ -41,11 +41,11 @@
                     </button>
                 </div>
                 <div class="ibexa-field-edit-preview__file-name-wrapper">
-                    <label class="ibexa-label form-label">{{ 'ibexa_binaryfile.file_name.label'|trans|desc('File name') }}</label>
+                    <twig:ibexa:label class="form-label">{{ 'ibexa_binaryfile.file_name.label'|trans|desc('File name') }}</twig:ibexa:label>
                     <p class="ibexa-field-edit-preview__file-name">{{ form.parent.vars.value.value.fileName }}</p>
                 </div>
                 <div class="ibexa-field-edit-preview__file-size-wrapper">
-                    <label class="ibexa-label form-label">{{ 'ibexa_binaryfile.file_size.label'|trans|desc('Size') }}</label>
+                    <twig:ibexa:label class="form-label">{{ 'ibexa_binaryfile.file_size.label'|trans|desc('Size') }}</twig:ibexa:label>
                     <p class="ibexa-field-edit-preview__file-size">{{ form.parent.vars.value.value.fileSize|ibexa_file_size(2) }}</p>
                 </div>
             </div>

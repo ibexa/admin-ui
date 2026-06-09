@@ -22,9 +22,9 @@
 {% block entries_labels %}
     {% trans_default_domain 'ibexa_locationview' %}
 
-    <label class="ibexa-label ibexa-user-invitation-modal__label">
+    <twig:ibexa:label class="ibexa-user-invitation-modal__label">
         {{ 'modal.email_address'|trans|desc('Email address') }}
-    </label>
+    </twig:ibexa:label>
 {% endblock %}
 
 {% set info = 'modal.info'|trans|desc('Enter your team members email addresses.') %}

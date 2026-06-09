@@ -159,7 +159,7 @@
             </div>
             <div class="ibexa-field-edit-preview__details">
                 <div class="ibexa-field-edit-preview__file-name-wrapper">
-                    <label class="ibexa-label form-label">{{ 'content.field_type.ibexa_image_asset.file_name.label'|trans|desc('File name') }}</label>
+                    <twig:ibexa:label class="form-label">{{ 'content.field_type.ibexa_image_asset.file_name.label'|trans|desc('File name') }}</twig:ibexa:label>
                     <p>
                         <a class="ibexa-field-edit-preview__file-name" href="{{ destination_content_url }}" target="_blank">
                             {{ destination_content_name }}

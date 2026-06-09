@@ -26,21 +26,21 @@
 
         <div class="ibexa-custom-url-from">
             <div class="ibexa-custom-url-from__item">
-                <label class="ibexa-label required">{{ 'tab.urls.add.path'|trans|desc('URL') }}</label>
+                <twig:ibexa:label :required="true">{{ 'tab.urls.add.path'|trans|desc('URL') }}</twig:ibexa:label>
                 {{ form_widget(form.path) }}
             </div>
             <div class="ibexa-custom-url-from__item">
-                <label class="ibexa-label">{{ 'tab.urls.add.language'|trans|desc('Language') }}</label>
+                <twig:ibexa:label>{{ 'tab.urls.add.language'|trans|desc('Language') }}</twig:ibexa:label>
                 {{ form_widget(form.language) }}
             </div>
             <div class="ibexa-custom-url-from__item">
-                <label class="ibexa-label">{{ 'tab.urls.add.redirect'|trans|desc('Redirect to alias destination') }}</label>
+                <twig:ibexa:label>{{ 'tab.urls.add.redirect'|trans|desc('Redirect to alias destination') }}</twig:ibexa:label>
                 {{ form_widget(form.redirect) }}
                 {{ component.info_text('tab.urls.add.redirect.helper.checked'|trans|desc('The alias will redirect to the destination using an HTTP 301 response.'), 'checked') }}
                 {{ component.info_text('tab.urls.add.redirect.helper.unchecked'|trans|desc('The alias will not redirect to the destination and the URL will stay the same.'), 'unchecked') }}
             </div>
             <div class="ibexa-custom-url-from__item">
-                <label class="ibexa-label">{{ 'tab.urls.add.site_root'|trans|desc('Place at the site root') }}</label>
+                <twig:ibexa:label>{{ 'tab.urls.add.site_root'|trans|desc('Place at the site root') }}</twig:ibexa:label>
                 {{ form_widget(form.site_root) }}
                 {{ component.info_text('tab.urls.add.site_root.helper.checked'|trans|desc('The alias will be placed at the site root.'), 'checked') }}
                 {{ component.info_text(
@@ -51,7 +51,7 @@
                 ) }}
             </div>
             <div class="ibexa-custom-url-from__item ibexa-custom-url-from__item--siteacces">
-                <label class="ibexa-label">{{ 'tab.urls.add.site_access'|trans|desc('SiteAccess') }}</label>
+                <twig:ibexa:label>{{ 'tab.urls.add.site_access'|trans|desc('SiteAccess') }}</twig:ibexa:label>
                 {{ form_widget(form.site_access) }}
                 {{ component.info_text('tab.urls.add.root_location_id.helper_secondary'|trans|desc(
                     "If no SiteAccess selected, the alias will be placed at main root Location."
