@@ -54,12 +54,12 @@
         const checkedBtn = event.currentTarget;
         const languageCode = checkedBtn.value;
         const checkVersionDraftLink = Routing.generate('ibexa.version_draft.has_no_conflict', { contentId, languageCode, locationId });
-        const activeLanguageItem = event.target.closest('.ibexa-instant-filter__group-item')?.querySelector('.ibexa-label');
-        const allLanguageItems = form.querySelectorAll('.ibexa-instant-filter__group-item .ibexa-label');
+        const activeLanguageItem = event.target.closest('.ibexa-instant-filter__group-item')?.querySelector('.ids-label');
+        const allLanguageItems = form.querySelectorAll('.ibexa-instant-filter__group-item .ids-label');
         const submitBtn = form.querySelector('.ibexa-extra-actions__confirm-btn');
 
         allLanguageItems.forEach((item) => {
-            item.classList.remove('ibexa-label--active');
+            item.classList.remove('ids-label--active');
         });
 
         fetch(checkVersionDraftLink, {
@@ -83,7 +83,7 @@
             }
 
             submitBtn.disabled = false;
-            activeLanguageItem?.classList.add('ibexa-label--active');
+            activeLanguageItem?.classList.add('ids-label--active');
         });
     };
     const attachEventsToEditActionsWidget = (container) => {

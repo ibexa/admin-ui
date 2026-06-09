@@ -381,7 +381,7 @@
         const isMatrixColumnId = input.classList.contains('ibexa-input--matrix-column-identifier');
         const isMatrixColumnIdInvalid = !isInputEmpty && isMatrixColumnId && !MATRIX_COLUMN_ID_PATTERN.test(input.value);
         const field = input.closest('.form-group');
-        const labelNode = field?.querySelector('.ibexa-label');
+        const labelNode = field?.querySelector('.ids-label');
         const errorNode = field?.querySelector('.ibexa-form-error');
         const isInvalid = isInputEmpty || isMatrixColumnIdInvalid;
 
