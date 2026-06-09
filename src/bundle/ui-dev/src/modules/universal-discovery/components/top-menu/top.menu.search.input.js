@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { InputTextInput } from '@ids-components/components/InputText';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
@@ -21,7 +22,7 @@ const TopMenuSearchInput = ({ isSearchOpened, setIsSearchOpened }) => {
         'ibexa-btn--primary': isSearchOpened,
         'ibexa-btn--tertiary': !isSearchOpened,
     });
-    const updateInputValue = ({ target: { value } }) => setInputValue(value);
+    const updateInputValue = (value) => setInputValue(value);
     const handleSearchBtnClick = () => {
         if (isSearchOpened) {
             makeSearch(inputValue);
@@ -58,12 +59,15 @@ const TopMenuSearchInput = ({ isSearchOpened, setIsSearchOpened }) => {
 
     return (
         <div className={className}>
-            <input
-                ref={inputRef}
-                type="text"
-                className="c-top-menu-search-input__search-input"
+            <InputTextInput
+                extraAria={{
+                    className: 'c-top-menu-search-input__search-input',
+                    onKeyPress: handleKeyPressed,
+                }}
+                name="udw-top-menu-search"
                 onChange={updateInputValue}
-                onKeyPress={handleKeyPressed}
+                processActions={() => []}
+                ref={inputRef}
                 value={inputValue}
             />
             <button className={searchBtnClassName} type="button" onClick={handleSearchBtnClick}>

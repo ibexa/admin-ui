@@ -106,7 +106,7 @@ final class UpperMenu extends Component
             new VisibleCSSLocator('userSettingsItem', '.ibexa-popup-menu__item'),
             new VisibleCSSLocator('userSettingsPopup', '.ibexa-header-user-menu .ibexa-header-user-menu__popup-menu'),
             new VisibleCSSLocator('searchInput', '.ibexa-main-header #search_query'),
-            new VisibleCSSLocator('searchButton', '.ibexa-main-header .ibexa-input-text-wrapper__action-btn--search'),
+            new VisibleCSSLocator('searchButton', '.ibexa-main-header .ibexa-input-text-wrapper__action-btn--search, .ibexa-main-header .ids-input-text__search-btn'),
             new VisibleCSSLocator('userFocusEnabled', '[name="focus_mode_change"] .ids-toggle--checked'),
             new VisibleCSSLocator('userFocusMode', '[name="focus_mode_change"] .ids-toggle__widget'),
             new VisibleCSSLocator('focusModeBadge', '.ibexa-user-mode-badge'),
