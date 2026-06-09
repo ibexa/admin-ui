@@ -131,7 +131,7 @@ final class ObjectStateGroupPage extends Page
             new VisibleCSSLocator('createButton', '.ibexa-icon--create'),
             new VisibleCSSLocator('deleteButton', '.ibexa-icon--trash'),
             new VisibleCSSLocator('objectStateGroupAttribute', '.ibexa-details__item'),
-            new VisibleCSSLocator('label', '.ibexa-label'),
+            new VisibleCSSLocator('label', '.ids-label'),
             new VisibleCSSLocator('value', '.ibexa-details__item-content'),
             new VisibleCSSLocator('button', '.ibexa-btn'),
         ];

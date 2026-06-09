@@ -25,7 +25,7 @@
                 {% block login_form_fields %}
                     <div class="form-group{% if error %} has-error{% endif %}">
                         <div class="ibexa-login__input-label-wrapper">
-                            <label class="ibexa-label" for="username">{{ 'authentication.login'|trans|desc('Login') }}</label>
+                            <twig:ibexa:label for="username">{{ 'authentication.login'|trans|desc('Login') }}</twig:ibexa:label>
                         </div>
                         {%- embed '@ibexadesign/ui/component/input_text.html.twig' -%}
                             {% block content %}
@@ -46,7 +46,7 @@
                     </div>
                     <div class="form-group{% if error %} has-error{% endif %} position-relative">
                         <div class="ibexa-login__input-label-wrapper">
-                            <label class="ibexa-label" for="password">{{ 'authentication.password'|trans|desc('Password') }}</label>
+                            <twig:ibexa:label for="password">{{ 'authentication.password'|trans|desc('Password') }}</twig:ibexa:label>
                         </div>
                         {%- embed '@ibexadesign/ui/component/input_text.html.twig' with {
                             type: 'password',
