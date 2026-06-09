@@ -91,11 +91,9 @@
                         </div>
 
                         {% for role_assigment in roles %}
-                            <div class="ibexa-tag">
-                                <div class="ibexa-tag__content">
-                                    {{ role_assigment.identifier }}
-                                </div>
-                            </div>
+                            <twig:ibexa:tag type="neutral">
+                                {{ role_assigment.identifier }}
+                            </twig:ibexa:tag>
                         {% endfor %}
                     </div>
                 {% endif %}
