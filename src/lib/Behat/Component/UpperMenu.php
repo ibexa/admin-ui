@@ -65,6 +65,14 @@ final class UpperMenu extends Component
 
         if ($expectedModeStatus != $isEnabled) {
             $this->getHTMLPage()->find($this->getLocator('userFocusMode'))->click();
+
+            $this->getHTMLPage()->setTimeout(10)->waitUntil(function (): bool {
+                return !$this->getHTMLPage()->findAll($this->getLocator('userSettingsPopup'))->any();
+            }, 'Focus mode dropdown did not close after toggling');
+
+            $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($expectedModeStatus): bool {
+                return $this->getHTMLPage()->findAll($this->getLocator('focusModeBadge'))->any() === $expectedModeStatus;
+            }, 'Focus mode state did not update after toggling');
         } else {
             $this->toggleUserDropdown();
         }
@@ -99,8 +107,8 @@ final class UpperMenu extends Component
             new VisibleCSSLocator('userSettingsPopup', '.ibexa-header-user-menu .ibexa-header-user-menu__popup-menu'),
             new VisibleCSSLocator('searchInput', '.ibexa-main-header #search_query'),
             new VisibleCSSLocator('searchButton', '.ibexa-main-header .ibexa-input-text-wrapper__action-btn--search'),
-            new VisibleCSSLocator('userFocusEnabled', '[name="focus_mode_change"] .ibexa-toggle__label--on'),
-            new VisibleCSSLocator('userFocusMode', '[name="focus_mode_change"] .ibexa-toggle__switcher'),
+            new VisibleCSSLocator('userFocusEnabled', '[name="focus_mode_change"] .ids-toggle--checked'),
+            new VisibleCSSLocator('userFocusMode', '[name="focus_mode_change"] .ids-toggle__widget'),
             new VisibleCSSLocator('focusModeBadge', '.ibexa-user-mode-badge'),
             new VisibleCSSLocator('siteDropdown', '.ibexa-preview-context-switch-form .ibexa-dropdown'),
             new VisibleCSSLocator('siteDropdownSelectedItem', '.ibexa-preview-context-switch-form .ibexa-dropdown li.ibexa-dropdown__selected-item:nth-of-type(1)'),

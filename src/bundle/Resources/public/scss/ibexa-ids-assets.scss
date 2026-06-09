@@ -1,0 +1,5 @@
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables' with (
+    $assets-base-path: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/'
+);
+
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/styles';

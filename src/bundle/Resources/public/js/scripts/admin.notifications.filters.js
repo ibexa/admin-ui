@@ -1,4 +1,5 @@
 (function (global, doc) {
+    const SELECTOR_FILTER_CHECKBOX = '.ids-input--checkbox:not([name="dropdown-checkbox"])';
     const searchForm = doc.querySelector('.ibexa-list-search-form');
     const filtersContainerNode = doc.querySelector('.ibexa-list-filters');
     const applyFiltersBtn = filtersContainerNode.querySelector('.ibexa-btn--apply');
@@ -13,9 +14,7 @@
         }
 
         const sourceSelect = filterNode.querySelector('.ibexa-list-filters__item-content .ibexa-dropdown__source .ibexa-input--select');
-        const checkboxes = filterNode.querySelectorAll(
-            '.ibexa-list-filters__item-content .ibexa-input--checkbox:not([name="dropdown-checkbox"])',
-        );
+        const checkboxes = filterNode.querySelectorAll(`.ibexa-list-filters__item-content ${SELECTOR_FILTER_CHECKBOX}`);
         const timePicker = filterNode.querySelector('.ibexa-date-time-picker__input');
 
         if (sourceSelect) {
@@ -45,9 +44,7 @@
             return;
         }
 
-        const checkboxes = filterNode.querySelectorAll(
-            '.ibexa-list-filters__item-content .ibexa-input--checkbox:not([name="dropdown-checkbox"])',
-        );
+        const checkboxes = filterNode.querySelectorAll(`.ibexa-list-filters__item-content ${SELECTOR_FILTER_CHECKBOX}`);
         checkboxes.forEach((checkbox) => {
             checkbox.addEventListener('change', filterChange, false);
         });
@@ -80,7 +77,7 @@
         }
 
         const select = filterNode.querySelector('.ibexa-dropdown__source .ibexa-input--select');
-        const checkedCheckboxes = filterNode.querySelectorAll('.ibexa-input--checkbox:checked');
+        const checkedCheckboxes = filterNode.querySelectorAll(`${SELECTOR_FILTER_CHECKBOX}:checked`);
 
         if (isNodeDatePicker(filterNode)) {
             const timePicker = filterNode.querySelector('.ibexa-date-time-picker__input');

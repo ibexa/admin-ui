@@ -41,8 +41,8 @@
                     border-color: $ibexa-color-primary;
                 }
 
-                .ibexa-input--checkbox,
-                .ibexa-input--radio {
+                .ids-input--checkbox,
+                .ids-input--radio {
                     border-color: $ibexa-color-primary;
                 }
             }
@@ -150,7 +150,7 @@
     }
 
     &__header-cell-checkbox {
-        &.ibexa-input--checkbox {
+        &.ids-input--checkbox {
             margin-bottom: 0;
         }
     }
@@ -187,7 +187,7 @@
         &--has-checkbox {
             width: calculateRem(48px);
 
-            .ibexa-input--checkbox {
+            .ids-input--checkbox {
                 float: left;
                 margin-bottom: 0;
             }
@@ -210,7 +210,7 @@
             width: 70%;
         }
 
-        .ibexa-input--radio {
+        .ids-input--radio {
             vertical-align: middle;
         }
     }
@@ -230,7 +230,7 @@
         display: flex;
         justify-content: center;
 
-        .ibexa-input--checkbox {
+        .ids-input--checkbox {
             margin-bottom: 0;
         }
 
