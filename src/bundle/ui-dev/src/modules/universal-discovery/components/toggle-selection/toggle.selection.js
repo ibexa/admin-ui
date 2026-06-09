@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
+import { CheckboxInput } from '@ids-components/components/Checkbox';
+
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { SelectedLocationsContext } from '../../universal.discovery.module';
 
@@ -8,8 +10,7 @@ const ToggleSelection = ({ multiple, location, isDisabled = false, isHidden = fa
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const isSelected = selectedLocations.some((selectedItem) => selectedItem.location.id === location.id);
     const className = createCssClassNames({
-        'c-udw-toggle-selection ibexa-input': true,
-        'ibexa-input--checkbox': multiple,
+        'c-udw-toggle-selection ids-input ids-input--checkbox': true,
         'c-udw-toggle-selection--hidden': isHidden,
     });
     const toggleSelection = () => {
@@ -22,9 +23,7 @@ const ToggleSelection = ({ multiple, location, isDisabled = false, isHidden = fa
         return null;
     }
 
-    return (
-        <input type="checkbox" className={className} checked={isSelected} disabled={isDisabled || isHidden} onChange={toggleSelection} />
-    );
+    return <CheckboxInput className={className} checked={isSelected} disabled={isDisabled || isHidden} onChange={toggleSelection} />;
 };
 
 ToggleSelection.propTypes = {

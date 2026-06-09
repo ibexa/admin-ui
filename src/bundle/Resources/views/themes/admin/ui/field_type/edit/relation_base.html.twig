@@ -22,7 +22,7 @@
     {% set col_raw_checkbox_template %}
         <input
             type="checkbox"
-            class="ibexa-input ibexa-input--checkbox"
+            class="ids-input ids-input--checkbox ibexa-relations__checkbox"
             value="{{ '{{ content_id }}' }}"
             {{ readonly ? 'disabled' }}
         >
@@ -111,7 +111,7 @@
                 {% set col_raw_checkbox %}
                     <input
                         type="checkbox"
-                        class="ibexa-input ibexa-input--checkbox"
+                        class="ids-input ids-input--checkbox ibexa-relations__checkbox"
                         value="{{ relation.contentInfo.id }}"
                         {{ readonly ? 'disabled' }}
                     >

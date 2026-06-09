@@ -50,11 +50,11 @@
     <div class="ibexa-data-source__author form-row">
         {{- form_widget(form.id) -}}
         <div class="ibexa-data-source__checkbox">
-            <input
-                type="checkbox"
-                class="ibexa-input ibexa-input--checkbox"
-                {{ readonly|default(false) ? 'disabled' }}
-             />
+            <twig:ibexa:checkbox:input
+                name="{{ form.vars.id ~ '_author_checkbox' }}"
+                inputClass="ibexa-data-source__author-checkbox"
+                :disabled="readonly|default(false)"
+            />
         </div>
         {{- form_row(form.name, { label_wrapper_attr: { 'hidden': 'hidden' }, attr: { readonly: readonly }}) -}}
         {{- form_row(form.email, { label_wrapper_attr: { 'hidden': 'hidden' }, attr: {'class': 'ibexa-input--text', readonly: readonly }}) -}}
