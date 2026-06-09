@@ -18,11 +18,15 @@
     };
 
     doc.querySelectorAll('.ibexa-translation__language-wrapper--language').forEach((select) => {
-        const dropdown = select.closest('.ibexa-dropdown');
+        const dropdown = select.closest('.ibexa-dropdown, .ids-dropdown');
         const observer = new MutationObserver(() => toggleBtnDisabledState(select));
 
         toggleBtnDisabledState(select);
         select.addEventListener('change', ({ target }) => toggleBtnDisabledState(target), false);
+
+        if (!dropdown) {
+            return;
+        }
 
         observer.observe(dropdown, observerConfig);
     });
