@@ -10,7 +10,7 @@
     }
 
     const globalSearchInput = globalSearch.querySelector('.ibexa-global-search__input');
-    const clearBtn = globalSearch.querySelector(' .ibexa-input-text-wrapper__action-btn--clear');
+    const clearBtn = globalSearch.querySelector('.ids-clear-btn, .ibexa-input-text-wrapper__action-btn--clear');
     const autocompleteNode = globalSearch.querySelector('.ibexa-global-search__autocomplete');
     const autocompleteListNode = globalSearch.querySelector('.ibexa-global-search__autocomplete-list');
     const autocompleteResultsCountNumber = globalSearch.querySelector('.ibexa-global-search__autocomplete-total-count-number');
@@ -152,6 +152,6 @@
     };
 
     globalSearchInput.addEventListener('keyup', handleTyping, false);
-    clearBtn.addEventListener('click', hideAutocomplete, false);
+    clearBtn?.addEventListener('click', hideAutocomplete, false);
     doc.addEventListener('keydown', focusSearch, false);
 })(window, document, window.ibexa, window.Routing, window.Translator);
