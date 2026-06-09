@@ -98,11 +98,5 @@
         "branch-alias": {
             "dev-main": "6.0.x-dev"
         }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/ibexa/design-system-twig"
-        }
-    ]
+    }
 }
