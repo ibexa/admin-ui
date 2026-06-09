@@ -186,9 +186,10 @@
             data-next-option-id="{{ form.options.vars.value is empty ? 0 : max(form.options.vars.value|keys) + 1 }}">
             {% for option in form.options %}
                 <li class="ibexa_selection-settings-option-value ibexa-selection-table-row mb-2 d-flex align-items-center">
-                    <input
-                        type="checkbox"
-                        class="ibexa-input ibexa-input--checkbox ibexa_selection-settings-option-checkbox ibexa-selection-table-checkbox">
+                    <twig:ibexa:checkbox:input
+                        name="{{ 'selection-option-checkbox-' ~ loop.index }}"
+                        inputClass="ibexa_selection-settings-option-checkbox ibexa-selection-table-checkbox"
+                    />
                     {{ form_errors(option) }}
                     {{ form_widget(option, { 'attr': { 'class': 'form-control ml-1 mb-0'}}) }}
                 </li>
@@ -199,7 +200,10 @@
             data-ibexa_selection-option-input-name="{{ form.options.vars.prototype.vars.full_name }}"
             data-ibexa_selection-option-input-id="{{ form.options.vars.prototype.vars.id }}">
             <li class="ibexa_selection-settings-option-value ibexa-selection-table-row mb-2 d-flex align-items-center">
-                <input type="checkbox" class="ibexa-input ibexa-input--checkbox ibexa_selection-settings-option-checkbox ibexa-selection-table-checkbox">
+                <twig:ibexa:checkbox:input
+                    name="selection-option-checkbox-prototype"
+                    inputClass="ibexa_selection-settings-option-checkbox ibexa-selection-table-checkbox"
+                />
                 {{ form_widget(form.options.vars.prototype, { 'attr': { 'class': 'form-control ml-1 mb-0'}}) }}
             </li>
         </script>
