@@ -35,7 +35,7 @@
     const lastCreatedPeriod = doc.querySelector(lastCreatedPeriodSelector);
     const lastCreatedStartDate = doc.querySelector(lastCreatedStartDateSelector);
     const lastCreatedEndDate = doc.querySelector(lastCreatedEndDateSelector);
-    const creatorInput = doc.querySelector('.ibexa-filters__item--creator .ibexa-input');
+    const creatorInput = doc.querySelector('.ibexa-filters__item--creator input:not([type="hidden"])');
     const isInitializedCreatorInput = !!creatorInput.value;
     const searchCreatorInput = doc.querySelector('#search_creator');
     const usersList = doc.querySelector('.ibexa-filters__item--creator .ibexa-filters__user-list');
