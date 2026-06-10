@@ -11,7 +11,7 @@
 }) %}
 {% set should_clear_button_send_form = should_clear_button_send_form|default(false) %}
 {% set clear_btn = {
-    html_type: 'button',
+    htmlType: 'button',
     type: 'tertiary',
     size: 'small',
     icon: 'discard',
@@ -21,7 +21,7 @@
     disabled: is_disabled,
 }|merge(should_clear_button_send_form ? {'data-send-form-after-clearing': true} : {}) %}
 {% set extra_btn_component = extra_btn.attr|merge({
-    html_type: extra_btn.attr.type|default(extra_btn.type|default('button')),
+    htmlType: extra_btn.attr.type|default(extra_btn.type|default('button')),
     type: 'secondary',
     class: (extra_btn.attr.class|default('') ~ ' ibexa-input-text-wrapper__action-btn--extra-btn')|trim,
     label: extra_btn.label,
@@ -61,7 +61,7 @@
                     </twig:ibexa:button>
                 {% elseif has_search %}
                     <twig:ibexa:button
-                        html_type="{{ search_button_type|default('submit') }}"
+                        htmlType="{{ search_button_type|default('submit') }}"
                         type="tertiary"
                         size="small"
                         icon="search"
