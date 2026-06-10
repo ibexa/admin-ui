@@ -73,7 +73,7 @@ final class ContentTypePicker extends Component
             new VisibleCSSLocator('filterInput', '.ibexa-content-menu-wrapper .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__input, .c-udw-tab .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__input'),
             new VisibleCSSLocator('contentTypeItem', '.ibexa-content-menu-wrapper .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__group-item:not([hidden]) .form-check-label, .c-udw-tab .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__group-item:not([hidden]) .form-check-label'),
             new VisibleCSSLocator('header', '.ibexa-content-menu-wrapper .ibexa-extra-actions--create .ibexa-extra-actions__header h2'),
-            new VisibleCSSLocator('languageDropdown', '.ibexa-content-menu-wrapper .ibexa-dropdown__selection-info'),
+            new VisibleCSSLocator('languageDropdown', '.ibexa-content-menu-wrapper .ibexa-dropdown__selection-info, .ibexa-content-menu-wrapper .ids-dropdown__selection-info'),
             new VisibleCSSLocator('createButton', '.c-content-create__confirm-button, [id="content_create_create"]'),
         ];
     }
