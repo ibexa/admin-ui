@@ -79,9 +79,9 @@ final class CreateNewPopup extends Component
             new VisibleCSSLocator('cancelButton', '.ibexa-extra-actions__pre-form-btns .ids-btn--secondary'),
             new VisibleCSSLocator('popup', '.ibexa-extra-actions:not(.ibexa-extra-actions--hidden)'),
             new VisibleCSSLocator('formGroup', '.form-group'),
-            new VisibleCSSLocator('dropdown', '.ids-dropdown'),
+            new VisibleCSSLocator('dropdown', '.ibexa-dropdown, .ids-dropdown'),
             new VisibleCSSLocator('label', '.ids-label'),
-            new VisibleCSSLocator('dropdownValue', '.ids-dropdown__widget'),
+            new VisibleCSSLocator('dropdownValue', '.ibexa-dropdown__selection-info, .ids-dropdown__widget'),
             new VisibleCSSLocator('radioValue', '.ibexa-dc-extra-actions-applies-to__option'),
             new VisibleCSSLocator('radioLabel', '.ids-choice-input-label'),
         ];
