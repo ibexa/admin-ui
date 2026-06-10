@@ -42,7 +42,7 @@ final class RoleAssignmentCreateRightSidebarBuilder extends AbstractBuilder impl
                 self::ITEM__SAVE,
                 [
                     'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
+                        'class' => 'ids-btn--trigger',
                         'data-click' => '#role_assignment_create_save',
                     ],
                 ]

@@ -12,6 +12,7 @@ import {
 
 import Icon from '../../../common/icon/icon';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 
 import { AllowConfirmationContext, SelectedItemsContext } from '../../universal.discovery.module';
 
@@ -68,15 +69,15 @@ const SelectedItemsPanel = () => {
     };
     const renderToggleBtn = () => {
         return (
-            <button
-                type="button"
-                className="c-selected-items-panel__toggle-button btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-btn--no-text"
+            <Button
+                type={ButtonType.Tertiary}
+                size={ButtonSize.Small}
+                icon="expand-left"
                 onClick={toggleExpanded}
                 title={togglerLabel}
-                data-tooltip-container-selector=".c-udw-tab"
-            >
-                <Icon name="expand-left" extraClasses="c-selected-items-panel__toggle-button-icon ibexa-icon--tiny-small" />
-            </button>
+                className="c-selected-items-panel__toggle-button"
+                extraAria={{ 'data-tooltip-container-selector': '.c-udw-tab' }}
+            />
         );
     };
     const renderActionBtns = () => {
@@ -89,13 +90,14 @@ const SelectedItemsPanel = () => {
 
         return (
             <div className="c-selected-items-panel__actions">
-                <button
-                    type="button"
-                    className="c-selected-items-panel__clear-selection-button btn ibexa-btn ibexa-btn--small ibexa-btn--secondary"
+                <Button
+                    type={ButtonType.Secondary}
+                    size={ButtonSize.Small}
                     onClick={clearSelection}
+                    className="c-selected-items-panel__clear-selection-button"
                 >
                     {removeLabel}
-                </button>
+                </Button>
             </div>
         );
     };

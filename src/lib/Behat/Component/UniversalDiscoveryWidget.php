@@ -52,9 +52,13 @@ final class UniversalDiscoveryWidget extends Component
 
     public function confirm(): void
     {
+        $enabledConfirmButtonLocator = new VisibleCSSLocator('enabledConfirmButton', '.c-actions-menu__confirm-btn:not([disabled])');
+        $this->getHTMLPage()
+            ->setTimeout(self::LONG_TIMEOUT)
+            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $enabledConfirmButtonLocator));
         $this->getHTMLPage()->find($this->getLocator('confirmButton'))->click();
         $this->getHTMLPage()
-            ->setTimeout(5)
+            ->setTimeout(self::LONG_TIMEOUT)
             ->waitUntilCondition(new ElementNotExistsCondition($this->getHTMLPage(), $this->getLocator('udw')));
     }
 

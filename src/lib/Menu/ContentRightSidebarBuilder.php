@@ -128,7 +128,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $canCopy = $this->canCopy($hasCreatePermission);
         $canCopySubtree = $this->canCopySubtree($location, $hasCreatePermission);
         $createAttributes = [
-            'class' => 'ibexa-btn--extra-actions ibexa-btn--create ibexa-btn--primary',
+            'class' => 'ids-btn--extra-actions ids-btn--create ids-btn--primary',
             'data-actions' => 'create',
         ];
         $sendToTrashAttributes = [
@@ -136,17 +136,17 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             'data-bs-target' => '#trash-location-modal',
         ];
         $copySubtreeAttributes = [
-            'class' => 'ibexa-btn--udw-copy-subtree',
+            'class' => 'ids-btn--udw-copy-subtree',
             'data-udw-config' => $uwdConfig,
             'data-root-location' => $startingLocationId,
         ];
         $moveAttributes = [
-            'class' => 'ibexa-btn--udw-move',
+            'class' => 'ids-btn--udw-move',
             'data-udw-config' => $uwdConfig,
             'data-root-location' => $startingLocationId,
         ];
         $copyAttributes = [
-            'class' => 'ibexa-btn--udw-copy',
+            'class' => 'ids-btn--udw-copy',
             'data-udw-config' => $uwdConfig,
             'data-root-location' => $startingLocationId,
         ];
@@ -160,7 +160,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             self::ITEM__CREATE => $this->createMenuItem(
                 self::ITEM__CREATE,
                 [
-                    'extras' => ['icon' => 'create', 'orderNumber' => 10],
+                    'extras' => ['icon' => 'add', 'orderNumber' => 10],
                     'attributes' => $canCreate
                         ? $createAttributes
                         : array_merge($createAttributes, ['disabled' => 'disabled']),
@@ -305,11 +305,11 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     private function addEditMenuItem(ItemInterface $menu, bool $contentIsUser, bool $canEdit): void
     {
         $editAttributes = [
-            'class' => 'ibexa-btn--extra-actions ibexa-btn--edit',
+            'class' => 'ids-btn--extra-actions ids-btn--edit',
             'data-actions' => 'edit',
         ];
         $editUserAttributes = [
-            'class' => 'ibexa-btn--extra-actions ibexa-btn--edit-user',
+            'class' => 'ids-btn--extra-actions ids-btn--edit-user',
             'data-actions' => 'edit-user',
         ];
 
@@ -343,7 +343,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     private function addRevealMenuItem(ItemInterface $menu, bool $canHide): void
     {
         $attributes = [
-            'class' => 'ibexa-btn--reveal',
+            'class' => 'ids-btn--reveal',
             'data-actions' => 'reveal',
         ];
 
@@ -363,7 +363,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     private function addHideMenuItem(ItemInterface $menu, bool $canHide): void
     {
         $attributes = [
-            'class' => 'ibexa-btn--hide',
+            'class' => 'ids-btn--hide',
             'data-actions' => 'hide',
         ];
 

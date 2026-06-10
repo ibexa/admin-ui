@@ -39,7 +39,7 @@ final class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implem
                 self::ITEM__UPDATE,
                 [
                     'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
+                        'class' => 'ids-btn--trigger',
                         'data-click' => '#user_password_change_change',
                     ],
                 ]

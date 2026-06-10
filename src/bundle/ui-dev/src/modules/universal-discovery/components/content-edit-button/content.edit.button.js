@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from '../../../common/icon/icon';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import TranslationSelector from '../translation-selector/translation.selector';
+import { Button, ButtonType } from '@ids-components/components/Button';
 import { getAdminUiConfig, getRouting } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { createDraft } from '../../services/universal.discovery.service';
 import {
@@ -25,10 +25,6 @@ const ContentEditButton = ({ version, location, isDisabled, label = null }) => {
     const [isTranslationSelectorVisible, setIsTranslationSelectorVisible] = useState(false);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
     const isUserContentType = adminUiConfig.userContentTypes.includes(contentTypeInfo.identifier);
-    const btnClassName = createCssClassNames({
-        'c-content-edit-button__btn btn ibexa-btn ibexa-btn--ghost': true,
-        'ibexa-btn--no-text': label !== null,
-    });
 
     useEffect(() => {
         setIsTranslationSelectorVisible(false);
@@ -112,16 +108,16 @@ const ContentEditButton = ({ version, location, isDisabled, label = null }) => {
 
     return (
         <div className="c-content-edit-button">
-            <button
-                className={btnClassName}
-                disabled={!version || isDisabled}
+            <Button
+                type={ButtonType.TertiaryAlt}
+                icon="edit"
                 onClick={toggleTranslationSelectorVisibility}
-                data-tooltip-container-selector=".c-udw-tab"
-                type="button"
+                disabled={!version || isDisabled}
+                className="c-content-edit-button__btn"
+                extraAria={{ 'data-tooltip-container-selector': '.c-udw-tab' }}
             >
-                <Icon name="edit" extraClasses="ibexa-icon--small-medium" />
                 {label}
-            </button>
+            </Button>
             {renderTranslationSelector()}
         </div>
     );

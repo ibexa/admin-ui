@@ -11,12 +11,17 @@
         <fieldset>
             {{ form_widget(form_reset_user_password.new_password) }}
         </fieldset>
-        {{ form_widget(form_reset_user_password.update, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary ibexa-login__btn ibexa-login__btn--change-password'} }) }}
+        {{ form_widget(form_reset_user_password.update, {'attr': {'class': 'ids-btn ids-btn--primary ids-btn--medium ibexa-login__btn--change-password'}}) }}
         {{ form_end(form_reset_user_password) }}
     {% endif %}
-        <a href="{{ path('login') }}" class="btn ibexa-btn ibexa-btn--ghost ibexa-login__btn">
-            <span class="ibexa-btn__label">{{ 'authentication.reset_your_password.back_to_sign_in'|trans|desc('Back to sign in page') }}
-        </a>
+        <twig:ibexa:link
+            href="{{ path('login') }}"
+            variant="button"
+            type="tertiary"
+            class="ibexa-login__btn"
+        >
+            {{ 'authentication.reset_your_password.back_to_sign_in'|trans|desc('Back to sign in page') }}
+        </twig:ibexa:link>
         
     {{ encore_entry_script_tags('ibexa-admin-ui-reset-password-js', null, 'ibexa') }}
 {%- endblock content -%}
