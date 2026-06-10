@@ -17,6 +17,7 @@ import { ActiveTabContext, AllowedContentTypesContext, MarkedLocationIdContext, 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import SearchNoResults from './search.no.results';
+import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 
 const selectedContentTypesReducer = (state, action) => {
     switch (action.type) {
@@ -99,13 +100,14 @@ const Search = ({ itemsPerPage = 50 }) => {
             <>
                 <div className="ibexa-table-header c-search__table-header">
                     <div className="ibexa-table-header__headline c-search__table-title">{searchResultsTitle}</div>
-                    <button
-                        type="button"
-                        className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small c-search__clear-results-btn"
+                    <Button
+                        type={ButtonType.Secondary}
+                        size={ButtonSize.Small}
                         onClick={handleResultsClear}
+                        className="c-search__clear-results-btn"
                     >
                         {searchResultsClearBtnLabel}
-                    </button>
+                    </Button>
                     <div className="c-search__table-subtitle">{searchResultsSubtitle}</div>
                     <div className="c-search__search-tags">
                         <SearchTags />

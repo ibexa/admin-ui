@@ -41,7 +41,7 @@ final class RoleCreateRightSidebarBuilder extends AbstractBuilder implements Tra
             self::ITEM__CREATE,
             [
                 'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
+                    'class' => 'ids-btn--trigger',
                     'data-click' => sprintf('#%s', $saveAndCloseId),
                 ],
             ]

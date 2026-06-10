@@ -8,6 +8,7 @@ import {
 
 import Icon from '../../../common/icon/icon';
 import Thumbnail from '../../../common/thumbnail/thumbnail';
+import { Button, ButtonType } from '@ids-components/components/Button';
 
 import { SelectedLocationsContext, ContentTypesMapContext } from '../../universal.discovery.module';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
@@ -64,16 +65,14 @@ const SelectedLocationsItem = ({ location, permissions }) => {
 
                     return <Component key={action.id} location={location} permissions={permissions} />;
                 })}
-                <button
-                    type="button"
-                    className="c-selected-locations-item__remove-button btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                    onClick={removeFromSelection}
-                    title={clearLabel}
-                    data-tooltip-container-selector=".c-udw-tab"
-                    disabled={isDeselectionBlocked}
-                >
-                    <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
-                </button>
+                    <Button
+                        type={ButtonType.TertiaryAlt}
+                        icon="discard"
+                        onClick={removeFromSelection}
+                        title={removeItemLabel}
+                        className="c-selected-locations-item__remove-button"
+                        extraAria={{ 'data-tooltip-container-selector': '.c-udw-tab' }}
+                    />
             </div>
         </div>
     );

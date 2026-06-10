@@ -1,26 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../../../common/icon/icon';
+import { Button, ButtonType } from '@ids-components/components/Button';
+
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 const ActionButton = ({ disabled, onClick, label = null, title = null, type }) => {
+    const className = createCssClassNames({
+        'c-action-btn': true,
+        [`c-action-btn--${type}`]: Boolean(type),
+    });
+
     const handleClick = () => {
         if (!disabled) {
             onClick();
         }
     };
-    const className = createCssClassNames({
-        'c-action-btn': true,
-        'btn ibexa-btn': true,
-        'ibexa-btn--ghost': true,
-        'ibexa-btn--no-text': !label,
-        [`c-action-btn--${type}`]: !!type,
-    });
 
     return (
-        <button type="button" className={className} title={title} onClick={handleClick} disabled={disabled}>
-            <Icon name={type} extraClasses="ibexa-icon--small-medium" /> {label}
-        </button>
+        <Button type={ButtonType.TertiaryAlt} icon={type} onClick={handleClick} disabled={disabled} title={title} className={className}>
+            {label || null}
+        </Button>
     );
 };
 

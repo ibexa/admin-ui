@@ -49,12 +49,14 @@
                 }) %}
             {% endif %}
 
-            <a
-                class="ibexa-preview-header__link btn ibexa-btn ibexa-btn--secondary-light"
+            <twig:ibexa:link
                 href="{{ back_url }}"
+                variant="button"
+                type="secondary-alt"
+                class="ibexa-preview-header__link"
             >
-                <span class="ibexa-btn__label">{{ 'preview_header.back'|trans({}, 'ibexa_content')|desc('Close') }}</span>
-            </a>
+                {{ 'preview_header.back'|trans({}, 'ibexa_content')|desc('Close') }}
+            </twig:ibexa:link>
         </div>
 
     </div>
