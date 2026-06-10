@@ -53,7 +53,7 @@ final class UserProfilePage extends Page
     {
         return [
             new VisibleCSSLocator('pageTitle', '.ibexa-edit-header__title,.ibexa-page-title__content'),
-            new VisibleCSSLocator('editButton', '.ibexa-user-profile-summary__header .ibexa-btn'),
+            new VisibleCSSLocator('editButton', '.ibexa-user-profile-summary__header .ids-btn'),
             new VisibleCSSLocator('fullName', 'div.ibexa-details__item:nth-of-type(2) .ibexa-details__item-content'),
             new VisibleCSSLocator('email', 'div.ibexa-details__item:nth-of-type(3) .ibexa-details__item-content'),
             new VisibleCSSLocator('jobTitle', 'div.ibexa-details__item:nth-of-type(4) .ibexa-details__item-content'),

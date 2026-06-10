@@ -98,7 +98,7 @@ final class TableRow extends Component
             new VisibleCSSLocator('link', 'a'),
             new VisibleCSSLocator('checkbox', 'input[type=checkbox]'),
             new VisibleCSSLocator('assign', '[data-original-title="Assign content"],[data-original-title="Assign to Users/Groups"]'),
-            new VisibleCSSLocator('edit', '.ibexa-icon--edit,[data-original-title="Edit"]'),
+            new VisibleCSSLocator('edit', '.ibexa-icon--edit,[data-original-title="Edit"],[title="Edit"]'),
             new VisibleCSSLocator('de-active', '[data-original-title="De-activate"]'),
             new VisibleCSSLocator('active', '[data-original-title="Activate"]'),
             new VisibleCSSLocator('copy', '[data-original-title="Duplicate"]'),

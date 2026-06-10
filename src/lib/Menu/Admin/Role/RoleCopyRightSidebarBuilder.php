@@ -54,7 +54,7 @@ final class RoleCopyRightSidebarBuilder extends AbstractBuilder implements Trans
                 self::ITEM__SAVE,
                 [
                     'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
+                        'class' => 'ids-btn--trigger',
                         'data-click' => '#role_copy_copy',
                         'data-extra-classes' => 'ibexa-tooltip--medium',
                         'data-placement' => 'left',
