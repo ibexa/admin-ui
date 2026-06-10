@@ -6,7 +6,6 @@ import Icon from '../../../common/icon/icon';
 import Dropdown from '../../../common/dropdown/dropdown';
 import { Label } from '@ids-components/components/Label';
 import { Button, ButtonType } from '@ids-components/components/Button';
-import { Label } from '@ids-components/components/Label';
 
 import {
     DropdownPortalRefContext,
