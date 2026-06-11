@@ -103,7 +103,7 @@ class DateIntervalToArrayTransformer implements DataTransformerInterface
         }
 
         if (!empty($value['month']) && !empty($value['day']) && !empty($value['year']) &&
-            false === checkdate($value['month'], $value['day'], $value['year'])) {
+            false === checkdate((int)$value['month'], (int)$value['day'], (int)$value['year'])) {
             throw new TransformationFailedException('This is an invalid date');
         }
 
