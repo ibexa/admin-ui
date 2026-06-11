@@ -1,0 +1,17 @@
+{
+    "recipesEndpoint": "",
+    "packages": [
+        {
+            "requirement": "dev-IBX-11780-async-content-publishing-spike as 6.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/core",
+            "package": "ibexa/core",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-IBX-11780-async-content-publishing-spike as 6.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/content-forms",
+            "package": "ibexa/content-forms",
+            "shouldBeAddedAsVCS": false
+        }
+    ]
+}
