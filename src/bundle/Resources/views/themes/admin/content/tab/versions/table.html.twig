@@ -29,6 +29,11 @@
                 {% include '@ibexadesign/ui/component/table/table_head_cell.html.twig' with {
                     content: 'tab.versions.table.modified_language'|trans()|desc('Modified language'),
                 } %}
+                {% if is_draft and async_publication_enabled|default(false) %}
+                    {% include '@ibexadesign/ui/component/table/table_head_cell.html.twig' with {
+                        content: 'tab.versions.table.async_publication_status'|trans()|desc('Publication status'),
+                    } %}
+                {% endif %}
                 {% block custom_column_headers %}{% endblock %}
                 {% include '@ibexadesign/ui/component/table/table_head_cell.html.twig' with {
                     content: 'tab.versions.table.contributor'|trans()|desc('Contributor'),
@@ -73,6 +78,21 @@
                         {% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with {
                             content: ibexa_admin_ui_config.languages.mappings[version.initialLanguageCode].name,
                         } %}
+                        {% if is_draft and async_publication_enabled|default(false) %}
+                            {% set async_status = async_publication_status_map[version.versionNo]|default(null) %}
+                            {% set async_status_cell %}
+                                <span class="ibexa-async-publication-status"
+                                      data-content-id="{{ content.id }}"
+                                      data-version-no="{{ version.versionNo }}">
+                                    {% if async_status is not null %}
+                                        {% include '@ibexadesign/content/tab/versions/async_publication_status_badge.html.twig' with { status: async_status } only %}
+                                    {% endif %}
+                                </span>
+                            {% endset %}
+                            {% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with {
+                                content: async_status_cell,
+                            } %}
+                        {% endif %}
                         {{ custom_columns }}
 
                         {% set author_name %}

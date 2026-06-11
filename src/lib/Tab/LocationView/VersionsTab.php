@@ -18,9 +18,11 @@ use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Repository\ContentService\AsyncPublicationService;
 use Ibexa\User\UserSetting\UserSettingService;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
@@ -44,7 +46,9 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
         private readonly PermissionResolver $permissionResolver,
         protected readonly UserService $userService,
         protected readonly UserSettingService $userSettingService,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        private readonly AsyncPublicationService $asyncPublicationService,
+        private readonly RepositoryConfigurationProviderInterface $repositoryConfigurationProvider
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
     }
@@ -134,6 +138,18 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
             'archived_version_restore'
         );
 
+        $asyncPublicationEnabled = (bool) ($this->repositoryConfigurationProvider
+            ->getRepositoryConfig()['async_content_publish'] ?? false);
+
+        /** @var array<int, string> $asyncPublicationStatusMap */
+        $asyncPublicationStatusMap = [];
+        if ($asyncPublicationEnabled) {
+            $asyncPublicationJob = $this->asyncPublicationService->getPublicationForContent($contentInfo->id);
+            if ($asyncPublicationJob !== null) {
+                $asyncPublicationStatusMap[$asyncPublicationJob->versionNo] = $asyncPublicationJob->status->value;
+            }
+        }
+
         $parameters = [
             'versions_dataset' => $versionsDataset,
             'published_versions' => $versionsDataset->getPublishedVersions(),
@@ -144,6 +160,8 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
             'draft_pager' => $draftPagerfanta,
             'draft_pagination_params' => $draftPaginationParams,
             'content_is_user' => (new ContentIsUser($this->userService))->isSatisfiedBy($content),
+            'async_publication_enabled' => $asyncPublicationEnabled,
+            'async_publication_status_map' => $asyncPublicationStatusMap,
         ];
 
         return array_replace($contextParameters, $parameters);
