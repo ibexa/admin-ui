@@ -64,9 +64,14 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             ->waitUntilCondition(
                 new ElementTransitionHasEndedCondition(
                     $lastFieldDefinition,
-                    new VisibleCSSLocator('transition', 'div')
+                    $this->getLocator('collapsedToggle')
                 )
             );
+        }
+
+        $this->getHTMLPage()->setTimeout(10)->waitUntilCondition(
+            new ElementTransitionHasEndedCondition($lastFieldDefinition, $this->getLocator('transition'))
+        );
     }
 
     public function specifyLocators(): array
@@ -78,11 +83,14 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             new VisibleCSSLocator('contentTypeCategoryList', ' div.ibexa-content-type-edit__add-field-definitions-group > ul > li:nth-child(n):not(.ibexa-popup-menu__item-action--disabled)'),
             new VisibleCSSLocator('availableFieldLabelList', '.ibexa-available-field-types__list > li:not(.ibexa-available-field-type--hidden)'),
             new VisibleCSSLocator('workspace', '.ibexa-collapse__body-content'),
-            new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse__toggle-btn--title'),
+            new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse__header > button:last-child'),
             new VisibleCSSLocator('selectLaunchEditorMode', '.form-check .ids-input--radio'),
             new VisibleCSSLocator('fieldDefinitionOpenContainer', '.ibexa-collapse__body.show .ibexa-content-type-edit__field-definition-content'),
             new VisibleCSSLocator('selectBlocksDropdown', '.ibexa-page-select-items__toggler'),
             new VisibleCSSLocator('fieldDefinitionSearch', '.ibexa-available-field-types__sidebar-filter'),
+            new VisibleCSSLocator('transition', 'div'),
+            new VisibleCSSLocator('openContainerInField', '.ibexa-content-type-edit__field-definition-content'),
+            new VisibleCSSLocator('collapsedToggle', '.ibexa-collapse__header > button[aria-expanded="false"]'),
         ]);
     }
 
