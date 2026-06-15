@@ -67,7 +67,7 @@ final class AsyncPublicationStatusSubscriber implements EventSubscriberInterface
 
         // The job is already recorded as queued by AsyncPublicationService::registerPublication();
         // here we only notify the UI.
-        $this->publishStatus($message, self::STATUS_QUEUED);
+        $this->publishStatus($message, self::STATUS_QUEUED, true);
     }
 
     public function onProcessing(WorkerMessageReceivedEvent $event): void
@@ -125,18 +125,19 @@ final class AsyncPublicationStatusSubscriber implements EventSubscriberInterface
         $this->publishStatus($message, self::STATUS_FAILED);
     }
 
-    private function publishStatus(PublishContentAsync $message, string $status): void
+    private function publishStatus(PublishContentAsync $message, string $status, bool $deffered = false): void
     {
         try {
-            $this->publisher->publish(
-                sprintf(self::TOPIC_TEMPLATE, $message->contentId),
-                [
-                    'contentId' => $message->contentId,
-                    'versionNo' => $message->versionNo,
-                    'status' => $status,
-                ],
-                self::EVENT_TYPE,
-            );
+            $topic = sprintf(self::TOPIC_TEMPLATE, $message->contentId);
+            $data = [
+                'contentId' => $message->contentId,
+                'versionNo' => $message->versionNo,
+                'status' => $status,
+            ];
+
+            $deffered
+                ? $this->publisher->publishDeferred($topic, $data, self::EVENT_TYPE)
+                : $this->publisher->publish($topic, $data, self::EVENT_TYPE);
         } catch (\Throwable $e) {
             $this->logger->error('Mercure: failed to publish async publication status: {error}', [
                 'error' => $e->getMessage(),
