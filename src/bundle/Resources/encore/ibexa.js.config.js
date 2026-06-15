@@ -83,6 +83,9 @@ if (fs.existsSync(fieldTypesPath)) {
 
 module.exports = (Encore) => {
     Encore.addEntry('ibexa-admin-ui-layout-js', layout)
+        .addEntry('ibexa-admin-ui-async-publication-status', [
+            path.resolve(__dirname, '../public/js/scripts/admin.async.publication.status.js'),
+        ])
         .addEntry('ibexa-admin-ui-error-page-js', [path.resolve(__dirname, '../public/js/scripts/admin.error.page.js')])
         .addEntry('ibexa-admin-ui-bookmark-list-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),

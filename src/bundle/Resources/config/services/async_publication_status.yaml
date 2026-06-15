@@ -1,0 +1,24 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    # Pushes async publication status changes (queued/processing/completed/failed) to the Mercure hub.
+    Ibexa\Bundle\AdminUi\EventSubscriber\AsyncPublicationStatusSubscriber: ~
+
+    # Subscribes the content view page to the per-content async publication topic.
+    Ibexa\Bundle\AdminUi\Mercure\AsyncPublicationTopicResolver:
+        tags:
+            - { name: ibexa.mercure.topic_resolver }
+
+    # async_publish_enabled() Twig function (gates the frontend, sibling to mercure_enabled()).
+    Ibexa\Bundle\AdminUi\Templating\Twig\AsyncPublicationExtension: ~
+
+    # Injects the badge-updater script into the AdminUI body (gated in the template itself).
+    ibexa.admin_ui.component.async_publication_status_scripts:
+        parent: Ibexa\TwigComponents\Component\TemplateComponent
+        arguments:
+            $template: '@@ibexadesign/async_publication_status_scripts.html.twig'
+        tags:
+            - { name: ibexa.twig.component, group: admin-ui-script-body }
