@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\EventSubscriber;
 
 use Ibexa\Bundle\Core\Message\PublishContentAsync;
+use Ibexa\Core\Repository\ContentService\AsyncPublicationService;
 use Ibexa\Mercure\Publisher\MercurePublisher;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -19,12 +20,13 @@ use Symfony\Component\Messenger\Event\WorkerMessageHandledEvent;
 use Symfony\Component\Messenger\Event\WorkerMessageReceivedEvent;
 
 /**
- * Pushes async content publication status changes to the Mercure hub so the AdminUI Versions tab can
- * refresh the per-version publication badge live, without a page reload.
+ * Single orchestration point for the async content publication lifecycle: reacting to the Symfony
+ * Messenger events around a {@see PublishContentAsync} message, each handler both updates the backend
+ * job store (via {@see AsyncPublicationService}) and notifies the AdminUI via Mercure, so the Versions
+ * tab can refresh the per-version publication badge live, without a page reload.
  *
- * Mirrors {@see \Ibexa\Bundle\Core\EventSubscriber\PublishContentAsyncFailureSubscriber}: the backend
- * job store remains the source of truth, this only emits UI notifications. The "completed" status has
- * no backend counterpart (the job row is removed on success) and is faked purely on the UI.
+ * The "completed" status has no backend counterpart (the job row is removed on success) and is faked
+ * purely on the UI.
  */
 final class AsyncPublicationStatusSubscriber implements EventSubscriberInterface
 {
@@ -37,6 +39,7 @@ final class AsyncPublicationStatusSubscriber implements EventSubscriberInterface
     private const string STATUS_FAILED = 'failed';
 
     public function __construct(
+        private readonly AsyncPublicationService $asyncPublicationService,
         private readonly MercurePublisher $publisher,
         private readonly LoggerInterface $logger,
     ) {
@@ -54,17 +57,53 @@ final class AsyncPublicationStatusSubscriber implements EventSubscriberInterface
 
     public function onQueued(SendMessageToTransportsEvent $event): void
     {
-        $this->publishStatus($event->getEnvelope(), self::STATUS_QUEUED);
+        $envelope = $event->getEnvelope();
+        if (!$this->isPublishContentAsyncMessage($envelope)) {
+            return;
+        }
+
+        /** @var PublishContentAsync $message */
+        $message = $envelope->getMessage();
+
+        // The job is already recorded as queued by AsyncPublicationService::registerPublication();
+        // here we only notify the UI.
+        $this->publishStatus($message, self::STATUS_QUEUED);
     }
 
     public function onProcessing(WorkerMessageReceivedEvent $event): void
     {
-        $this->publishStatus($event->getEnvelope(), self::STATUS_PROCESSING);
+        $envelope = $event->getEnvelope();
+        if (!$this->isPublishContentAsyncMessage($envelope)) {
+            return;
+        }
+
+        /** @var PublishContentAsync $message */
+        $message = $envelope->getMessage();
+
+        /**
+         * open question: should job status updating be here?:
+         * - coupled with publishing status to frontend
+         * - or as separated subscriber
+         * - or part of \Ibexa\Core\Repository\ContentService\AsyncPublicationService
+         */
+        $this->asyncPublicationService->markProcessing($message->contentId);
+        $this->publishStatus($message, self::STATUS_PROCESSING);
     }
 
     public function onCompleted(WorkerMessageHandledEvent $event): void
     {
-        $this->publishStatus($event->getEnvelope(), self::STATUS_COMPLETED);
+        $envelope = $event->getEnvelope();
+        if (!$this->isPublishContentAsyncMessage($envelope)) {
+            return;
+        }
+
+        /** @var PublishContentAsync $message */
+        $message = $envelope->getMessage();
+
+        // The new published version now exists; clearing the job clears the AdminUI "in progress"
+        // indicator. "completed" is faked purely on the UI.
+        $this->asyncPublicationService->markCompleted($message->contentId);
+        $this->publishStatus($message, self::STATUS_COMPLETED);
     }
 
     public function onFailed(WorkerMessageFailedEvent $event): void
@@ -74,17 +113,20 @@ final class AsyncPublicationStatusSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->publishStatus($event->getEnvelope(), self::STATUS_FAILED);
-    }
-
-    private function publishStatus(Envelope $envelope, string $status): void
-    {
-        $message = $envelope->getMessage();
-
-        if (!$message instanceof PublishContentAsync) {
+        $envelope = $event->getEnvelope();
+        if (!$this->isPublishContentAsyncMessage($envelope)) {
             return;
         }
 
+        /** @var PublishContentAsync $message */
+        $message = $envelope->getMessage();
+
+        $this->asyncPublicationService->markFailed($message->contentId, $event->getThrowable()->getMessage());
+        $this->publishStatus($message, self::STATUS_FAILED);
+    }
+
+    private function publishStatus(PublishContentAsync $message, string $status): void
+    {
         try {
             $this->publisher->publish(
                 sprintf(self::TOPIC_TEMPLATE, $message->contentId),
@@ -107,6 +149,6 @@ final class AsyncPublicationStatusSubscriber implements EventSubscriberInterface
 
     private function isPublishContentAsyncMessage(Envelope $envelope): bool
     {
-
+        return $envelope->getMessage() instanceof PublishContentAsync;
     }
 }
