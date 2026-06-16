@@ -1,7 +1,11 @@
 (function (global, doc, eZ) {
     doc.querySelectorAll('.ibexa-toggle').forEach((toggleNode) => {
-        const toggleButton = new eZ.core.ToggleButton({ toggleNode });
+        if (toggleNode.ibexaInstance) {
+            return;
+        }
 
-        toggleButton.init();
+        toggleNode.ibexaInstance = new eZ.core.ToggleButton({ toggleNode });
+
+        toggleNode.ibexaInstance.init();
     });
 })(window, window.document, window.eZ);
