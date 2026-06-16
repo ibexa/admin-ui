@@ -104,6 +104,7 @@ final class AsyncPublicationStatusSubscriber implements EventSubscriberInterface
         // indicator. "completed" is faked purely on the UI.
         $this->asyncPublicationService->markCompleted($message->contentId);
         $this->publishStatus($message, self::STATUS_COMPLETED);
+        $this->publishCompletedNotification($message);
     }
 
     public function onFailed(WorkerMessageFailedEvent $event): void
@@ -144,6 +145,22 @@ final class AsyncPublicationStatusSubscriber implements EventSubscriberInterface
                 'contentId' => $message->contentId,
                 'versionNo' => $message->versionNo,
                 'status' => $status,
+            ]);
+        }
+    }
+
+    public function publishCompletedNotification(PublishContentAsync $message): void
+    {
+        $contentId = $message->contentId;
+
+        try {
+            $this->publisher->publish(sprintf('/async-publication/%d', $contentId), [
+                'versionNo' => $message->versionNo,
+            ], 'async_version_published');
+        } catch (\Throwable $e) {
+            $this->logger->error('Mercure: failed to publish async_version_published notification: {error}', [
+                'error' => $e->getMessage(),
+                'contentId' => $contentId,
             ]);
         }
     }

@@ -39,6 +39,7 @@
 
             if (mercureClient) {
                 mercureClient.on('async_publication_status', () => {});
+                mercureClient.on('async_version_published', () => {});
 
                 return true;
             }
@@ -58,6 +59,16 @@
             doc.querySelectorAll(selector).forEach((container) => {
                 renderBadge(container, status);
             });
+        });
+
+        doc.body.addEventListener('ibexa-mercure:async_version_published', (event) => {
+            const { versionNo } = event.detail;
+
+            if (global.ibexa.helpers && global.ibexa.helpers.notification) {
+                global.ibexa.helpers.notification.showSuccessNotification(
+                    `New version ${versionNo} of this content has been published. You may see outdated version.`
+                );
+            }
         });
     }
 
