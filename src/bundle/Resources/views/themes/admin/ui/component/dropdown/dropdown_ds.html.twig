@@ -14,10 +14,9 @@
     disabled: is_disabled,
     required: required|default(false),
 }) %}
-{% set normalized_source_attr = source_id is not null
-    ? normalized_source_attr|merge({ id: source_id })
-    : normalized_source_attr
-%}
+{% if source_id is not null %}
+    {% set normalized_source_attr = normalized_source_attr|merge({ id: source_id }) %}
+{% endif %}
 {% set translated_placeholder = placeholder is defined and placeholder is not none
     ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain))
     : null
@@ -100,14 +99,12 @@
         source,
         sourceAttributes: normalized_source_attr,
     } %}
-    {% set ds_dropdown_props = translated_placeholder is not same as(null)
-        ? ds_dropdown_props|merge({ placeholder: translated_placeholder })
-        : ds_dropdown_props
-    %}
-    {% set ds_dropdown_props = is_hidden|default(false)
-        ? ds_dropdown_props|merge({ hidden: true })
-        : ds_dropdown_props
-    %}
+    {% if translated_placeholder is not same as(null) %}
+        {% set ds_dropdown_props = ds_dropdown_props|merge({ placeholder: translated_placeholder }) %}
+    {% endif %}
+    {% if is_hidden|default(false) %}
+        {% set ds_dropdown_props = ds_dropdown_props|merge({ hidden: true }) %}
+    {% endif %}
 
     {% if multiple %}
         <twig:ibexa:dropdown_multi:input {{ ...ds_dropdown_props }} />
@@ -136,42 +133,33 @@
         item_icon_class: item_icon_class|default(''),
         attr: attr|default({}),
     } %}
-    {% set legacy_context = has_selected_item_template_path
-        ? legacy_context|merge({ selected_item_template_path: selected_item_template_path })
-        : legacy_context
-    %}
-    {% set legacy_context = has_list_item_template_path
-        ? legacy_context|merge({ list_item_template_path: list_item_template_path })
-        : legacy_context
-    %}
-    {% set legacy_context = has_items_class
-        ? legacy_context|merge({ items_class: items_class })
-        : legacy_context
-    %}
-    {% set legacy_context = has_items_list_header
-        ? legacy_context|merge({ items_list_header: items_list_header })
-        : legacy_context
-    %}
-    {% set legacy_context = item_icon is defined and item_icon is not null
-        ? legacy_context|merge({ item_icon: item_icon })
-        : legacy_context
-    %}
-    {% set legacy_context = has_min_search_items
-        ? legacy_context|merge({ min_search_items: min_search_items })
-        : legacy_context
-    %}
-    {% set legacy_context = has_min_select_all_toggler_items
-        ? legacy_context|merge({ min_select_all_toggler_items: min_select_all_toggler_items })
-        : legacy_context
-    %}
-    {% set legacy_context = has_min_item_width
-        ? legacy_context|merge({ min_item_width: min_item_width })
-        : legacy_context
-    %}
-    {% set legacy_context = has_selected_item_label
-        ? legacy_context|merge({ selected_item_label: selected_item_label })
-        : legacy_context
-    %}
+    {% if has_selected_item_template_path %}
+        {% set legacy_context = legacy_context|merge({ selected_item_template_path: selected_item_template_path }) %}
+    {% endif %}
+    {% if has_list_item_template_path %}
+        {% set legacy_context = legacy_context|merge({ list_item_template_path: list_item_template_path }) %}
+    {% endif %}
+    {% if has_items_class %}
+        {% set legacy_context = legacy_context|merge({ items_class: items_class }) %}
+    {% endif %}
+    {% if has_items_list_header %}
+        {% set legacy_context = legacy_context|merge({ items_list_header: items_list_header }) %}
+    {% endif %}
+    {% if item_icon is defined and item_icon is not null %}
+        {% set legacy_context = legacy_context|merge({ item_icon: item_icon }) %}
+    {% endif %}
+    {% if has_min_search_items %}
+        {% set legacy_context = legacy_context|merge({ min_search_items: min_search_items }) %}
+    {% endif %}
+    {% if has_min_select_all_toggler_items %}
+        {% set legacy_context = legacy_context|merge({ min_select_all_toggler_items: min_select_all_toggler_items }) %}
+    {% endif %}
+    {% if has_min_item_width %}
+        {% set legacy_context = legacy_context|merge({ min_item_width: min_item_width }) %}
+    {% endif %}
+    {% if has_selected_item_label %}
+        {% set legacy_context = legacy_context|merge({ selected_item_label: selected_item_label }) %}
+    {% endif %}
 
     {% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with legacy_context only %}
 {% endif %}
