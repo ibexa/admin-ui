@@ -7,7 +7,6 @@
         {%- if has_action_btns|default(false) %} ibexa-table__cell--has-action-btns{% endif -%}
         {%- if has_icon|default(false) %} ibexa-table__cell--has-icon{% endif -%}
         {%- if is_close_left|default(false) %} ibexa-table__cell--close-left {% endif %}
-        {%- if center_content|default(false) %} ibexa-table__cell--content-center {% endif %}
         {{ class|default('') -}}"
     {{ html.attributes(attr|default({})) }}
 >
@@ -17,6 +16,10 @@
                 {%- block action_btns_content -%}
                     {{- table_macros.conditional_escape(content, raw|default(false)) -}}
                 {%- endblock -%}
+            </div>
+        {%- elseif center_content|default(false) -%}
+            <div class="ibexa-table__cell-center-wrapper">
+                {{- table_macros.conditional_escape(content, raw|default(false)) -}}
             </div>
         {%- else -%}
             {{- table_macros.conditional_escape(content, raw|default(false)) -}}

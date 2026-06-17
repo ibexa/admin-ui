@@ -209,14 +209,6 @@
             width: 70%;
         }
 
-        &--content-center {
-            text-align: center;
-
-            .ibexa-input--checkbox {
-                margin-bottom: 0;
-            }
-        }
-
         .ibexa-input--radio {
             vertical-align: middle;
         }
@@ -231,6 +223,15 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
+    }
+
+    &__cell-center-wrapper {
+        display: flex;
+        justify-content: center;
+
+        .ibexa-input--checkbox {
+            margin-bottom: 0;
+        }
     }
 
     &__cell-link,
