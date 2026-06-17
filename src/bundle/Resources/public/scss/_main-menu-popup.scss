@@ -2,11 +2,27 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 
 .ibexa-main-menu-popup {
+    .ibexa-popup-menu__item:not(.ibexa-main-menu-popup__group-item) > .ibexa-popup-menu__item-content {
+        height: calculateRem(36px);
+        padding: calculateRem(7.5px) calculateRem(12px);
+        font-size: calculateRem(14px);
+
+        > .ibexa-main-menu__item-text-column {
+            padding: 0;
+        }
+
+        &:hover > .ibexa-main-menu__item-text-column {
+            color: $ibexa-color-complementary-primary-400;
+        }
+    }
+
     &__group-item {
         flex-direction: column;
         height: 100%;
         align-items: initial;
-        border-top: calculateRem(1px) solid $ibexa-color-info-800;
+        // border-top: calculateRem(1px) solid $ibexa-color-dark-500;
+        // color: $ibexa-color-light-700;
+        //     font-size: $ibexa-text-font-size-small;
 
         .ibexa-popup-menu {
             &__item {
@@ -16,13 +32,39 @@
     }
 
     .ibexa-main-menu-popup &__group-name {
-        color: $ibexa-color-light-700;
+        border-top: calculateRem(1px) solid $ibexa-color-dark-500;
+        color: $ibexa-color-dark-500;
         font-size: $ibexa-text-font-size-small;
         cursor: initial;
+        padding: 1px 0;
+        margin-left: 12px;
+        margin-top: 8px;
+        border-radius: 0;
+        width: initial;
+
+        > .ibexa-main-menu__item-text-column {
+            padding: 1px 0;
+        }
 
         &:hover {
             background-color: initial;
-            color: $ibexa-color-light-700;
+            color: $ibexa-color-dark-500;
+        }
+    }
+
+    .ibexa-popup-menu__item-content--current {
+        background-color: transparent;
+
+        > .ibexa-main-menu__item-text-column {
+            color: $ibexa-color-complementary-primary-400;
+        }
+
+        &:hover {
+            background-color: transparent;
+
+            > .ibexa-main-menu__item-text-column {
+                color: $ibexa-color-complementary-primary-400;
+            }
         }
     }
 }

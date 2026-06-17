@@ -1,0 +1,10 @@
+{% set translation_domain = item.extra('translation_domain', 'messages') %}
+{% set label = item.label %}
+{% set text_column_class = text_column_class|default('') %}
+{% set text_column_classes = ['ibexa-main-menu__item-text-column', text_column_class]|filter(class => class is not empty) %}
+
+{% if translation_domain is not same as(false) %}
+    {% set label = label|trans(item.extra('translation_params', {}), translation_domain) %}
+{% endif %}
+
+<span class="{{ text_column_classes|join(' ') }}">{{ label }}</span>

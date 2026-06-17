@@ -1,0 +1,10 @@
+<ul class="ibexa-main-menu__items-list ibexa-main-menu__items-list--section-content">
+    {% for item in items %}
+        {{ include('@ibexadesign/ui/menu/main_2nd_level_subtree_item.html.twig', {
+            item: item,
+            matcher: matcher,
+            options: options,
+            renderItemAsGroup: item.children|length > 0,
+        }) }}
+    {% endfor %}
+</ul>
