@@ -1,124 +1,204 @@
 (function (global, doc, ibexa) {
-    const SECOND_LEVEL_COLLAPSED_WIDTH = 48;
-    const SECOND_LEVEL_EXPANDED_WIDTH = 220;
-    const SECOND_LEVEL_MANUAL_RESIZE_MIN_WIDTH = 80;
     const mainMenuNode = doc.querySelector('.ibexa-main-menu');
-    let activeItemName = null;
 
     if (!mainMenuNode) {
         return;
     }
 
+    const objectInstances = ibexa.helpers.objectInstances;
     const firstLevelMenuNode = mainMenuNode.querySelector('.ibexa-main-menu__navbar--first-level');
-    const secondLevelMenuNode = mainMenuNode.querySelector('.ibexa-main-menu__navbar--second-level');
-    const showFistLevelPopupButton = firstLevelMenuNode.querySelector('.ibexa-main-menu__item--more');
-    const firstLevelPopupMenu = firstLevelMenuNode.querySelector('.ibexa-main-menu__first-level-popup-menu');
-    const adaptiveMenuItemsContainer = firstLevelMenuNode.querySelector('.ibexa-adaptive-items');
-    const selectorItem = firstLevelMenuNode.querySelector('.ibexa-adaptive-items__item--selector');
-    const adaptiveItemsToPopup = firstLevelMenuNode.querySelectorAll('.ibexa-adaptive-items__item');
-    const navAnchorItems = firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item-action');
-    const activeItem = [...navAnchorItems].find((el) => el.classList.contains('active'));
-    const popupItemsToGenerate = [...adaptiveItemsToPopup].map((item) => {
-        const actionItem = item.querySelector('.ibexa-main-menu__item-action');
-        const name = item.dataset.itemName;
-        const label = item.querySelector('.ibexa-main-menu__item-text-column')?.textContent;
-        const isActive = actionItem.classList.contains('active');
+    const expandToggleButton = firstLevelMenuNode.querySelector('.ibexa-main-menu__expand-toggler');
+    const firstLevelNavItems = [...firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item[data-item-name]')];
+    const parentItemButtons = firstLevelMenuNode.querySelectorAll(
+        '.ibexa-main-menu__item-action--popup-trigger, .ibexa-main-menu__item-action--accordion-trigger',
+    );
+    const popupTriggerButtons = firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item-action--popup-trigger');
+    const popupMenuInstances = new Map();
+    const isMenuExpanded = () => !firstLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed');
+    const { collapseLabel, expandLabel } = expandToggleButton.dataset;
+    const syncExpandToggleButtonState = (isExpanded) => {
+        const tooltipInstance = global.bootstrap?.Tooltip.getInstance(expandToggleButton);
 
-        return {
-            name,
-            label,
-            isActive,
-        };
-    });
-    const { resizerWidth } = secondLevelMenuNode.dataset;
-    let resizeStartPositionX = 0;
-    let secondMenuLevelCurrentWidth = secondLevelMenuNode.getBoundingClientRect().width;
-    const collapseSecondLevelMenu = (event) => {
-        if (event.target.closest('.ibexa-main-menu__navbar') || event.target.closest('.ibexa-tooltip')) {
-            return;
+        expandToggleButton.classList.toggle('ibexa-main-menu__expand-toggler--collapsed', !isExpanded);
+        expandToggleButton.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+        expandToggleButton.setAttribute('aria-label', isExpanded ? collapseLabel : expandLabel);
+
+        if (isExpanded) {
+            tooltipInstance?.dispose();
+            expandToggleButton.removeAttribute('title');
+            expandToggleButton.removeAttribute('data-tooltip-placement');
+            expandToggleButton.removeAttribute('data-original-title');
+            expandToggleButton.removeAttribute('data-bs-original-title');
+        } else {
+            expandToggleButton.setAttribute('title', expandLabel);
         }
-
-        toggleSecondLevelMenu();
-
-        doc.removeEventListener('mousemove', collapseSecondLevelMenu);
     };
-    const switchSubMenuDisplay = ({ currentTarget }) => {
-        if (!currentTarget.dataset.bsToggle) {
-            return;
-        }
+    const parseMenuTitles = () => {
+        ibexa.helpers.tooltips.hideAll();
 
-        const { itemName } = currentTarget.parentNode.dataset;
-
-        if (activeItemName === itemName) {
-            const showedTabPanes = doc.querySelectorAll('.ibexa-main-menu__tab-pane.active.show');
-            const animationController = new AbortController();
-            const { signal } = animationController;
-
-            secondLevelMenuNode.addEventListener(
-                'transitionend',
-                () => {
-                    secondLevelMenuNode.classList.add('ibexa-main-menu__navbar--hidden');
-                    showedTabPanes.forEach((tabPane) => tabPane.classList.remove('active', 'show'));
-                    animationController.abort();
-                },
-                { signal },
+        firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item[data-item-name]').forEach((item) => {
+            const labelNode = item.querySelector('.ibexa-main-menu__item-text-column');
+            const actionNode = item.querySelector(
+                isMenuExpanded()
+                    ? '.ibexa-main-menu__item-action'
+                    : '.ibexa-main-menu__item-action--popup-trigger, .ibexa-main-menu__item-action:not(.ibexa-main-menu__item-action--accordion-trigger)',
             );
 
-            currentTarget.classList.remove('active');
-            secondLevelMenuNode.style.width = 0;
-            activeItemName = null;
-
-            return;
-        }
-
-        activeItemName = itemName;
-
-        firstLevelMenuNode.classList.add('ibexa-main-menu__navbar--collapsed');
-        secondLevelMenuNode.classList.remove('ibexa-main-menu__navbar--hidden');
-
-        currentTarget.blur();
-
-        if (secondLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed')) {
-            toggleSecondLevelMenu();
-
-            doc.addEventListener('mousemove', collapseSecondLevelMenu, false);
-        } else {
-            const secondLevelMenuWidth = ibexa.helpers.cookies.getCookie('ibexa-aui_menu-secondary-width');
-
-            if (!secondLevelMenuWidth) {
-                ibexa.helpers.cookies.setBackOfficeCookie('ibexa-aui_menu-secondary-width', SECOND_LEVEL_EXPANDED_WIDTH);
+            if (!labelNode || !actionNode) {
+                return;
             }
 
-            setWidthOfSecondLevelMenu();
+            if (firstLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed')) {
+                actionNode.setAttribute('title', labelNode.textContent.trim());
+                actionNode.setAttribute('data-tooltip-placement', 'right');
+                actionNode.setAttribute('data-tooltip-extra-class', 'ibexa-tooltip--navigation');
+            } else {
+                global.bootstrap?.Tooltip.getInstance(actionNode)?.dispose();
+                actionNode.removeAttribute('title');
+                actionNode.removeAttribute('data-tooltip-placement');
+                actionNode.removeAttribute('data-tooltip-extra-class');
+                actionNode.removeAttribute('data-original-title');
+                actionNode.removeAttribute('data-bs-original-title');
+            }
+        });
+
+        ibexa.helpers.tooltips.parse(mainMenuNode);
+    };
+    const getAccordionInstance = (accordionNode) => {
+        try {
+            return objectInstances.getInstance(accordionNode);
+        } catch (error) {
+            return null;
         }
     };
-    const setWidthOfSecondLevelMenu = () => {
-        const secondLevelMenuWidth = ibexa.helpers.cookies.getCookie('ibexa-aui_menu-secondary-width');
-        const isSecondLevelMenuHidden = secondLevelMenuNode.classList.contains('ibexa-main-menu__navbar--hidden');
+    const getAccordionNode = (itemNode) => itemNode.querySelector('.ids-accordion');
+    const getAccordionExpanderNode = (itemNode) => itemNode.querySelector('.ids-expander');
+    const setAccordionExpandedFallback = (accordionNode, isExpanded) => {
+        const expanderNode = accordionNode.querySelector('.ids-expander');
+        const contentNode = accordionNode.querySelector('.ids-accordion__content');
 
-        if (!secondLevelMenuWidth || isSecondLevelMenuHidden) {
+        accordionNode.classList.toggle('ids-accordion--is-expanded', isExpanded);
+        accordionNode.classList.toggle('ids-accordion--is-animating', false);
+
+        if (contentNode && !isExpanded) {
+            contentNode.style.height = '0px';
+        }
+
+        if (!expanderNode) {
             return;
         }
 
-        const secondLevelMenuListWidth = secondLevelMenuWidth - resizerWidth;
-
-        secondLevelMenuNode.style.width = `${secondLevelMenuWidth}px`;
-        secondLevelMenuNode.querySelectorAll('.ibexa-main-menu__tab-pane .ibexa-main-menu__items-list').forEach((itemList) => {
-            itemList.style.width = `${secondLevelMenuListWidth}px`;
-        });
-        secondLevelMenuNode.classList.toggle(
-            'ibexa-main-menu__navbar--collapsed',
-            secondLevelMenuWidth <= SECOND_LEVEL_MANUAL_RESIZE_MIN_WIDTH,
-        );
-
-        doc.body.dispatchEvent(new CustomEvent('ibexa-main-menu-resized'));
+        expanderNode.classList.toggle('ids-expander--is-expanded', isExpanded);
+        expanderNode.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
     };
-    const toggleSecondLevelMenu = () => {
-        const isSecondLevelMenuCollapsed = secondLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed');
-        const newMenuWidth = isSecondLevelMenuCollapsed ? SECOND_LEVEL_EXPANDED_WIDTH : SECOND_LEVEL_COLLAPSED_WIDTH;
+    const setAccordionExpanded = (itemNode, isExpanded) => {
+        const accordionNode = getAccordionNode(itemNode);
 
-        ibexa.helpers.cookies.setBackOfficeCookie('ibexa-aui_menu-secondary-width', newMenuWidth);
-        setWidthOfSecondLevelMenu();
+        if (!accordionNode) {
+            return;
+        }
+
+        const accordionInstance = getAccordionInstance(accordionNode);
+        const accordionExpanderNode = getAccordionExpanderNode(itemNode);
+        const isCurrentlyExpanded = accordionNode.classList.contains('ids-accordion--is-expanded');
+
+        if (accordionInstance) {
+            accordionInstance.toggleIsExpanded(isExpanded);
+        } else if (accordionExpanderNode && isCurrentlyExpanded !== isExpanded) {
+            accordionExpanderNode.click();
+        } else {
+            setAccordionExpandedFallback(accordionNode, isExpanded);
+        }
+
+        itemNode.classList.toggle('ibexa-main-menu__item--expanded', isExpanded);
+    };
+    const closeAllAccordions = (exceptItemName = null) => {
+        firstLevelNavItems.forEach((itemNode) => {
+            if (itemNode.dataset.hasChildren !== 'true' || itemNode.dataset.itemName === exceptItemName) {
+                return;
+            }
+
+            const accordionNode = getAccordionNode(itemNode);
+            const accordionExpanderNode = getAccordionExpanderNode(itemNode);
+
+            if (!accordionNode?.classList.contains('ids-accordion--is-expanded')) {
+                return;
+            }
+
+            if (accordionExpanderNode) {
+                accordionExpanderNode.click();
+
+                return;
+            }
+
+            setAccordionExpanded(itemNode, false);
+        });
+    };
+    const toggleAccordion = (itemName) => {
+        const itemNode = firstLevelMenuNode.querySelector(`.ibexa-main-menu__item[data-item-name="${CSS.escape(itemName)}"]`);
+
+        if (!itemNode || itemNode.dataset.hasChildren !== 'true') {
+            return;
+        }
+
+        const accordionNode = getAccordionNode(itemNode);
+        const accordionExpanderNode = getAccordionExpanderNode(itemNode);
+        const shouldExpand = !accordionNode?.classList.contains('ids-accordion--is-expanded');
+
+        if (shouldExpand) {
+            closeAllAccordions(itemName);
+        }
+
+        if (accordionExpanderNode) {
+            accordionExpanderNode.click();
+
+            return;
+        }
+
+        setAccordionExpanded(itemNode, shouldExpand);
+    };
+    const closeAllPopups = (exceptItemName = null) => {
+        popupMenuInstances.forEach((popupMenuInstance, itemName) => {
+            const isExpanded = !popupMenuInstance.popupMenuElement.classList.contains('ibexa-popup-menu--hidden');
+
+            if (itemName !== exceptItemName && isExpanded) {
+                popupMenuInstance.handleToggle();
+            }
+        });
+    };
+    const syncActiveItems = (itemName) => {
+        firstLevelNavItems.forEach((itemNode) => {
+            const isCurrentItem = itemNode.dataset.itemName === itemName;
+
+            itemNode.querySelectorAll('.ibexa-main-menu__item-action').forEach((actionNode) => {
+                actionNode.classList.toggle('active', isCurrentItem);
+            });
+        });
+    };
+    const openCurrentAccordion = () => {
+        const currentItemNode = firstLevelMenuNode.querySelector(
+            '.ibexa-main-menu__item[data-has-children="true"] .ibexa-main-menu__item-action--selected',
+        )?.closest('.ibexa-main-menu__item[data-item-name]');
+
+        if (!currentItemNode) {
+            return;
+        }
+
+        setAccordionExpanded(currentItemNode, true);
+    };
+    const setMenuExpanded = (isExpanded) => {
+        firstLevelMenuNode.classList.toggle('ibexa-main-menu__navbar--collapsed', !isExpanded);
+        syncExpandToggleButtonState(isExpanded);
+
+        if (isExpanded) {
+            closeAllPopups();
+            closeAllAccordions();
+            openCurrentAccordion();
+        } else {
+            closeAllAccordions();
+        }
+
+        parseMenuTitles();
     };
     const parsePopup = (button) => {
         const { popupTargetSelector } = button.dataset;
@@ -128,58 +208,99 @@
             return;
         }
 
-        new ibexa.core.PopupMenu({
+        const popupMenuInstance = new ibexa.core.PopupMenu({
             popupMenuElement: popupNode,
             triggerElement: button,
-        });
-    };
-    const parseMenuTitles = () => {
-        ibexa.helpers.tooltips.hideAll();
+            position: () => {
+                const gap = 12;
+                const viewportGap = 8;
+                const buttonRect = button.getBoundingClientRect();
+                const popupHeight = popupNode.offsetHeight;
+                const minTop = global.scrollY + viewportGap;
+                const maxTop = global.scrollY + global.innerHeight - popupHeight - viewportGap;
+                let top = buttonRect.top + global.scrollY;
 
-        firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item').forEach((item) => {
-            const labelNode = item.querySelector('.ibexa-main-menu__item-text-column');
-
-            if (labelNode) {
-                const label = labelNode.textContent;
-
-                if (firstLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed')) {
-                    item.setAttribute('title', label);
+                if (buttonRect.top + popupHeight > global.innerHeight - viewportGap) {
+                    top = buttonRect.bottom + global.scrollY - popupHeight;
                 }
 
-                ibexa.helpers.tooltips.parse(mainMenuNode);
-            }
+                top = Math.max(minTop, Math.min(top, maxTop));
+
+                popupNode.style.top = `${top}px`;
+                popupNode.style.left = `${buttonRect.right + global.scrollX + gap}px`;
+            },
         });
-    };
-    const addResizeListeners = ({ clientX }) => {
-        resizeStartPositionX = clientX;
-        secondLevelMenuNode.classList.add('ibexa-main-menu__navbar--resizing');
-        secondMenuLevelCurrentWidth = secondLevelMenuNode.getBoundingClientRect().width;
+        const { itemName } = button.closest('.ibexa-main-menu__item').dataset;
 
-        doc.addEventListener('mousemove', triggerSecondLevelChangeWidth, false);
-        doc.addEventListener('mouseup', removeResizeListeners, false);
-    };
-    const removeResizeListeners = () => {
-        secondLevelMenuNode.classList.remove('ibexa-main-menu__navbar--resizing');
-        doc.removeEventListener('mousemove', triggerSecondLevelChangeWidth, false);
-        doc.removeEventListener('mouseup', removeResizeListeners, false);
-    };
-    const triggerSecondLevelChangeWidth = ({ clientX }) => {
-        const resizeValue = secondMenuLevelCurrentWidth + (clientX - resizeStartPositionX);
-        const newMenuWidth = resizeValue > SECOND_LEVEL_MANUAL_RESIZE_MIN_WIDTH ? resizeValue : SECOND_LEVEL_COLLAPSED_WIDTH;
+        popupMenuInstances.set(itemName, popupMenuInstance);
+        button.addEventListener(
+            'click',
+            () => {
+                if (!isMenuExpanded()) {
+                    const tooltipInstance = global.bootstrap?.Tooltip.getInstance(button);
 
-        ibexa.helpers.cookies.setBackOfficeCookie('ibexa-aui_menu-secondary-width', newMenuWidth);
-        setWidthOfSecondLevelMenu();
+                    tooltipInstance?.hide();
+                    tooltipInstance?.disable();
+                    button.addEventListener(
+                        'mouseleave',
+                        () => {
+                            tooltipInstance?.enable();
+                        },
+                        { once: true },
+                    );
+                }
+            },
+            false,
+        );
+        button.addEventListener('click', () => closeAllPopups(itemName), false);
+    };
+    const handleParentItemClick = (event) => {
+        const itemNode = event.currentTarget.closest('.ibexa-main-menu__item[data-item-name]');
+
+        if (!itemNode) {
+            return;
+        }
+
+        const { itemName } = itemNode.dataset;
+
+        event.preventDefault();
+
+        if (isMenuExpanded()) {
+            closeAllPopups();
+            toggleAccordion(itemName);
+
+            return;
+        }
+
+        closeAllAccordions();
+    };
+    const handleAccordionExpanderClick = ({ currentTarget }) => {
+        const itemNode = currentTarget.closest('.ibexa-main-menu__item[data-item-name]');
+
+        if (!itemNode) {
+            return;
+        }
+
+        const { itemName } = itemNode.dataset;
+        const shouldExpand = !getAccordionNode(itemNode)?.classList.contains('ids-accordion--is-expanded');
+
+        closeAllPopups();
+
+        if (shouldExpand) {
+            closeAllAccordions(itemName);
+        }
+
+        itemNode.classList.toggle('ibexa-main-menu__item--expanded', shouldExpand);
     };
 
+    syncExpandToggleButtonState(isMenuExpanded());
     parseMenuTitles();
-
-    activeItemName = activeItem?.parentNode.dataset.itemName ?? null;
-    navAnchorItems.forEach((button) => button.addEventListener('click', switchSubMenuDisplay, false));
-
-    secondLevelMenuNode.querySelector('.ibexa-main-menu__toggler').addEventListener('click', toggleSecondLevelMenu, false);
-    secondLevelMenuNode.querySelector('.ibexa-main-menu__resizer').addEventListener('mousedown', addResizeListeners, false);
-    secondLevelMenuNode.querySelectorAll('.ibexa-main-menu__tooltip-trigger').forEach(parsePopup);
-    secondLevelMenuNode.addEventListener(
+    parentItemButtons.forEach((button) => button.addEventListener('click', handleParentItemClick, false));
+    popupTriggerButtons.forEach(parsePopup);
+    firstLevelMenuNode.querySelectorAll('.ids-expander').forEach((button) => {
+        button.addEventListener('click', handleAccordionExpanderClick, false);
+    });
+    firstLevelMenuNode.addEventListener(
         'transitionend',
         (event) => {
             if (event.propertyName === 'width') {
@@ -188,51 +309,14 @@
         },
         false,
     );
-    secondLevelMenuNode.addEventListener('ibexa-menu:hide', () => {
-        ibexa.helpers.cookies.setBackOfficeCookie('ibexa-aui_menu-secondary-width', SECOND_LEVEL_COLLAPSED_WIDTH);
+    expandToggleButton.addEventListener('click', () => setMenuExpanded(!isMenuExpanded()), false);
+
+    firstLevelNavItems.forEach((itemNode) => {
+        const accordionNode = itemNode.querySelector('.ids-accordion');
+
+        if (accordionNode?.classList.contains('ids-accordion--is-expanded')) {
+            itemNode.classList.add('ibexa-main-menu__item--expanded');
+        }
     });
 
-    if (showFistLevelPopupButton && selectorItem) {
-        const adaptiveItems = new ibexa.core.AdaptiveItems({
-            itemHiddenClass: 'ibexa-context-menu__item--hidden',
-            container: adaptiveMenuItemsContainer,
-            isVertical: true,
-            selectorItem,
-            getActiveItem: () => {},
-            onAdapted: (visibleItems, hiddenItems) => {
-                const hiddenItemNames = [...hiddenItems].map((item) => item.dataset.itemName);
-
-                popupMenu.toggleItems((popupMenuItem) => !hiddenItemNames.includes(popupMenuItem.dataset.relatedItemName));
-                popupMenu.updatePosition();
-            },
-        });
-        const popupMenu = new ibexa.core.PopupMenu({
-            popupMenuElement: firstLevelPopupMenu,
-            triggerElement: showFistLevelPopupButton,
-            onItemClick: ({ currentTarget }) => {
-                const { relatedItemName } = currentTarget.dataset;
-                const relatedItemAction = doc.querySelector(`[data-item-name="${relatedItemName}"] .ibexa-main-menu__item-action`);
-
-                relatedItemAction.click();
-            },
-            position: () => {
-                const popupLeftOffset = 5;
-                const targetTopPosition = selectorItem.offsetTop;
-                const targetLeftPosition = selectorItem.offsetLeft + selectorItem.offsetWidth + popupLeftOffset;
-
-                firstLevelPopupMenu.style.top = `${targetTopPosition}px`;
-                firstLevelPopupMenu.style.left = `${targetLeftPosition}px`;
-            },
-        });
-
-        popupMenu.generateItems(popupItemsToGenerate, (itemElement, item) => {
-            const itemElementContent = itemElement.querySelector('.ibexa-popup-menu__item-content');
-
-            itemElement.dataset.relatedItemName = item.name;
-            itemElementContent.classList.toggle('ibexa-popup-menu__item-content--current', item.isActive);
-        });
-
-        popupMenu.updatePosition();
-        adaptiveItems.init();
-    }
 })(window, window.document, window.ibexa);

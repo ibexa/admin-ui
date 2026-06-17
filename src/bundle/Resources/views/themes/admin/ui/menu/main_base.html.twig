@@ -70,7 +70,11 @@
             {%- set classes = classes|merge([options.leaf_class]) %}
         {%- endif %}
 
-        {%- set attributes = item.attributes|merge({ 'data-item-name': item.name }) %}
+        {%- set attributes = item.attributes|merge({
+            'data-item-name': item.name,
+            'data-has-children': item.hasChildren ? 'true' : 'false',
+            'data-is-leaf-link': (item.uri is not empty and not item.hasChildren) ? 'true' : 'false'
+        }) %}
 
         {%- if classes is not empty %}
             {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
@@ -78,21 +82,13 @@
 
         {% import 'knp_menu.html.twig' as knp_menu %}
 
-        {%- if ((item.extras.separate is defined and item.extras.separate) or (first_bottom_item is defined and first_bottom_item.name == item.name)) -%}
-            <li class="ibexa-main-menu__item ibexa-adaptive-items__item ibexa-adaptive-items__item--selector ibexa-main-menu__item--more ibexa-context-menu__item--hidden">
-                <button class="ibexa-main-menu__item-action">
-                    <div class="ibexa-main-menu__item-icon-column">
-                        <svg class="ibexa-main-menu__item-icon ibexa-icon ibexa-icon--medium">
-                            <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
-                        </svg>
-                    </div>
-                </button>
-            </li>
-            <li class="ibexa-main-menu__separator ibexa-main-menu__separator--top"></li>
-        {%- endif -%}
-
         <li {{ knp_menu.attributes(attributes) }}>
-            {%- if item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink) %}
+            {% set should_render_as_link = item.uri is not empty
+                and (not matcher.isCurrent(item) or options.currentAsLink)
+                and not (options.depth == 1 and item.hasChildren)
+            %}
+
+            {%- if should_render_as_link %}
                 {{ block('linkElement') }}
             {%- else %}
                 {{ block('spanElement') }}
@@ -108,9 +104,9 @@
             {%- endif %}
         </li>
 
-        {%- if item.extras.separate is defined and item.extras.separate -%}
+        {# {%- if item.extras.separate is defined and item.extras.separate -%}
             <li class="ibexa-main-menu__separator ibexa-main-menu__separator--bottom"></li>
-        {%- endif -%}
+        {%- endif -%} #}
 
         {%- if item.extras.template is defined -%}
             {% include(item.extras.template) %}

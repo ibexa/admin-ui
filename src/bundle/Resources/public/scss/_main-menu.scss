@@ -10,195 +10,130 @@
         padding: 0;
         opacity: 0;
         border: none;
+        overflow: hidden;
     }
 
     display: flex;
     height: calc(100vh - #{calculateRem(72px)});
 
     &__navbar {
+        display: flex;
+        flex-direction: column;
+        width: calculateRem(264px);
+        min-height: 0;
         font-size: $ibexa-text-font-size-medium;
         background-color: $ibexa-color-dark;
-        transition: width $ibexa-admin-transition-duration;
-        border: calculateRem(1px) solid $ibexa-color-dark-500;
+        // border: calculateRem(1px) solid $ibexa-color-dark-500;
         border-top: none;
-        overflow-y: auto;
+        overflow-y: hidden;
         overflow-x: hidden;
+        transition: width $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         &--first-level {
-            display: flex;
-            width: calculateRem(276px);
-            background-color: $ibexa-color-dark;
-            overflow: hidden;
-
-            &.ibexa-main-menu__navbar--collapsed {
-                width: calculateRem(72px);
-            }
-
-            .ibexa-main-menu {
-                &__item-action {
-                    border: calculateRem(1px) solid transparent;
-
-                    &.active:not(.ibexa-main-menu__item-action--selected) {
-                        border: calculateRem(1px) solid $ibexa-color-info;
-                        background-color: transparent;
-                    }
-
-                    &--selected {
-                        color: $ibexa-color-info;
-                        background-color: $ibexa-color-info-800;
-
-                        .ibexa-main-menu {
-                            &__item-icon {
-                                fill: $ibexa-color-info;
-                            }
-
-                            &__item-text-column {
-                                color: $ibexa-color-info;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        &--second-level {
-            position: relative;
-            width: calculateRem(220px);
-            padding-bottom: calculateRem(32px);
-            border-left: none;
-
-            .ibexa-main-menu__tooltip-trigger,
-            .ibexa-main-menu__toggler {
-                .ibexa-icon {
-                    fill: $ibexa-color-complementary-primary-400;
+            .ibexa-main-menu__item-action {
+                &--popup-trigger,
+                &--popup-trigger.ids-btn {
+                    display: none !important;
                 }
 
-                &:focus {
-                    box-shadow: none;
-                }
-
-                &:hover {
-                    .ibexa-icon {
-                        fill: $ibexa-color-complementary-primary-200;
-                    }
-                }
-            }
-
-            .ibexa-main-menu {
-                &__items-list {
-                    width: calculateRem(210px);
-                    transition: width $ibexa-admin-transition-duration;
-                    padding-top: calculateRem(8px);
-                }
-
-                &__item {
-                    padding: 0;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-
-                    &--popup-container {
-                        margin: 0;
-                    }
-                }
-
-                &__item-text-column {
-                    padding: calculateRem(10px);
-
-                    &--group {
-                        padding: calculateRem(9px) calculateRem(10px) calculateRem(5px);
-                        color: $ibexa-color-light-700;
-                        font-size: $ibexa-text-font-size-small;
-                    }
+                &--accordion-trigger,
+                &--accordion-trigger.ids-btn {
+                    width: 100%;
+                    // display: flex !important;
                 }
             }
 
             &.ibexa-main-menu__navbar--collapsed {
-                width: calculateRem(48px);
-                overflow: visible;
+                width: calculateRem(56px);
+                // overflow-x: visible;
 
                 .ibexa-main-menu {
-                    &__items-list {
-                        width: calculateRem(48px);
+                    &__toggler-container {
+                        justify-content: center;
                     }
 
-                    &__item {
+                    &__items-list > .ibexa-main-menu__item > .ibexa-main-menu__item-action > .ibexa-main-menu__item-text-column,
+                    &__items-list
+                        > .ibexa-main-menu__item
+                        > .ibexa-main-menu__item-action
+                        > .ids-btn__label
+                        > .ibexa-main-menu__item-text-column {
                         @include hidden-main-menu-node;
+                    }
 
-                        &--popup-container {
-                            display: flex;
-                            justify-content: center;
-                            align-items: flex-start;
-                            width: inherit;
-                            height: calculateRem(80px);
-                            opacity: 1;
+                    &__item-action {
+                        &--popup-trigger,
+                        &--popup-trigger.ids-btn,
+                        &--selected {
+                            display: flex !important;
+                        }
+
+                        &--accordion-trigger,
+                        &--accordion-trigger.ids-btn {
+                            display: none !important;
                         }
                     }
 
-                    &__toggler {
-                        margin-right: calculateRem(6px);
-
-                        .ibexa-icon {
-                            transform: rotate(180deg);
-                        }
-                    }
-                }
-
-                .ibexa-main-menu__item {
-                    &--group-name {
-                        width: 0;
+                    &__accordion {
+                        @include hidden-main-menu-node;
                     }
                 }
             }
-        }
-
-        &--hidden {
-            @include hidden-main-menu-node;
-
-            .ibexa-main-menu__toggler-container {
-                display: none;
-            }
-        }
-
-        &--collapsed {
-            .ibexa-main-menu__item-text-column {
-                @include hidden-main-menu-node;
-            }
-        }
-
-        &--resizing {
-            transition: none;
         }
     }
 
     &__items-list {
         display: flex;
+        flex: 0 0 auto;
         flex-direction: column;
-        flex: 1;
-        align-items: center;
-        width: inherit;
+        width: 100%;
         margin: 0;
         padding: 0;
         list-style: none;
+        align-items: stretch;
+
+        // &--section-content {
+        //     padding: 0 0 calculateRem(12px) calculateRem(24px);
+        // }
+    }
+
+    &__primary-section,
+    &__secondary-section {
+        padding: 0 calculateRem(8px);
+    }
+
+    &__primary-section {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    &__secondary-section {
+        flex: 0 0 auto;
+        width: 100%;
+        min-height: 0;
+        max-height: 75%;
+        padding-bottom: calculateRem(8px);
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        > .ibexa-main-menu__items-list {
+            // width: calc(100% - #{calculateRem(32px)});
+            // margin: calculateRem(8px) auto 0;
+            // padding-top: calculateRem(8px);
+            border-top: calculateRem(1px) solid $ibexa-color-dark-500;
+        }
     }
 
     &__item {
         width: 100%;
-        padding: calculateRem(8px) 0;
-        opacity: 1;
-
-        &--popup-container {
-            @include hidden-main-menu-node;
-
-            & {
-                overflow: hidden;
-            }
-        }
+        padding: 0;
+        white-space: nowrap;
+        text-overflow: ellipsis;
 
         .ibexa-popup-menu {
             width: calculateRem(250px);
-            top: calculateRem(12px);
-            left: calculateRem(48px);
 
             &__item-content {
                 overflow: hidden;
@@ -210,41 +145,48 @@
         &--group-name {
             color: $ibexa-color-light-700;
             position: relative;
-            margin-top: calculateRem(13px);
+            // margin-top: calculateRem(13px);
 
             & > .ibexa-main-menu__item-action {
                 height: initial;
             }
 
-            .ibexa-main-menu__item-action + .ibexa-main-menu__items-list {
-                padding-top: 0;
-            }
+            // .ibexa-main-menu__item-action + .ibexa-main-menu__items-list {
+            //     padding-top: 0;
+            // }
 
-            &::after {
-                content: '';
-                width: calc(100% + #{calculateRem(22px)});
-                height: calculateRem(1px);
-                background: $ibexa-color-dark-500;
-                position: absolute;
-                top: 0;
-                left: calculateRem(-6px);
-            }
+            // &::after {
+            //     content: '';
+            //     width: calc(100% + #{calculateRem(22px)});
+            //     height: calculateRem(1px);
+            //     background: $ibexa-color-dark-500;
+            //     position: absolute;
+            //     top: 0;
+            //     left: calculateRem(-6px);
+            // }
         }
     }
 
     &__item-action {
         display: flex;
         align-items: center;
-        margin: 0 calculateRem(12px);
+        width: 100%;
+        min-width: calculateRem(48px);
+        height: calculateRem(48px);
+        // margin: 0 calculateRem(12px);
         padding: 0;
         text-decoration: none;
-        border-radius: $ibexa-border-radius;
+        background: transparent;
         border: calculateRem(2px) solid transparent;
-        height: calculateRem(48px);
-        min-width: calculateRem(48px);
+        border-radius: $ibexa-border-radius;
+
+        &.ids-btn {
+            padding: calculateRem(9px);
+        }
 
         &:focus {
             border-color: $ibexa-color-info-800;
+            box-shadow: none;
         }
 
         &:hover {
@@ -252,7 +194,14 @@
             border-color: transparent;
             text-decoration: none;
 
+            .ids-btn__icon .ids-icon,
+            .ids-btn__icon .ibexa-icon {
+                fill: $ibexa-color-primary-200;
+            }
+
             .ibexa-main-menu {
+                border-top: calculateRem(1px) solid $ibexa-color-dark-500;
+
                 &__item-icon {
                     fill: $ibexa-color-complementary-primary-400;
                 }
@@ -261,29 +210,184 @@
                     color: $ibexa-color-complementary-primary-400;
 
                     &--group {
-                        color: $ibexa-color-light-700;
+                        color: $ibexa-color-dark-300;
                     }
                 }
             }
         }
 
-        &.active {
-            color: $ibexa-color-complementary-primary-200;
-            background-color: $ibexa-color-complementary-primary-700;
+        &.active,
+        &--selected {
+            color: $ibexa-color-white;
+            background-color: $ibexa-color-dark-500;
+
+            .ids-btn__icon .ids-icon,
+            .ids-btn__icon .ibexa-icon {
+                fill: $ibexa-color-primary-200;
+            }
 
             .ibexa-main-menu {
                 &__item-icon {
-                    fill: $ibexa-color-complementary-primary-200;
+                    fill: $ibexa-color-primary-200;
                 }
 
                 &__item-text-column {
-                    color: $ibexa-color-complementary-primary-200;
+                    color: $ibexa-color-white;
+                }
+            }
+        }
+
+        &--accordion-trigger {
+            margin: 0;
+        }
+
+        &--second-level-group {
+            width: 100%;
+            // height: calculateRem(36px);
+            margin: 0;
+            border-top: calculateRem(1px) solid $ibexa-color-dark-500;
+            margin-top: 8px;
+            margin-left: 12px;
+                padding: 1px 0 0px;
+            // padding: calculateRem(7.5px) calculateRem(12px);
+
+            // &.active,
+            // &.ibexa-main-menu__item-action--selected {
+            //     background-color: transparent;
+
+            //     .ibexa-main-menu__item-text-column {
+            //         color: $ibexa-color-complementary-primary-400;
+            //     }
+            // }
+        }
+
+        &--second-level-link {
+            width: 100%;
+            height: calculateRem(36px);
+            margin: 0;
+            padding: calculateRem(7.5px) calculateRem(12px);
+
+            &.active,
+            &.ibexa-main-menu__item-action--selected {
+                background-color: transparent;
+
+                .ibexa-main-menu__item-text-column {
+                    color: $ibexa-color-complementary-primary-400;
+                }
+            }
+        }
+
+        &.ids-btn {
+            justify-content: flex-start;
+            min-width: 0;
+
+            .ids-btn__icon {
+                .ids-icon,
+                .ibexa-icon {
+                    fill: $ibexa-color-white;
+                }
+            }
+
+            .ids-btn__label {
+                display: flex;
+                align-items: center;
+                flex: 1 1 auto;
+                width: 100%;
+                min-width: 0;
+            }
+
+            .ids-btn__label > .ibexa-main-menu__item-text-column {
+                padding-left: 0;
+            }
+        }
+
+        &.active.ids-btn,
+        &--selected.ids-btn {
+            .ids-btn__icon {
+                .ids-icon,
+                .ibexa-icon {
+                    fill: $ibexa-color-primary-200;
+                }
+            }
+        }
+    }
+
+    &__accordion {
+        // margin: 0 calculateRem(12px);
+    }
+
+    .ids-accordion {
+        // border-bottom: calculateRem(1px) solid $ibexa-color-dark-500;
+
+        &__header {
+            width: 100%;
+            gap: calculateRem(8px);
+            align-items: stretch;
+            border-bottom: none;
+
+            &:has(.ibexa-main-menu__item-action--accordion-trigger.ibexa-main-menu__item-action--selected) {
+                background-color: $ibexa-color-dark-500;
+                border-radius: $ibexa-border-radius;
+
+                .ibexa-main-menu__item-action--accordion-trigger.ibexa-main-menu__item-action--selected {
+                    background-color: transparent;
+                }
+            }
+
+            &:hover {
+                .ibexa-main-menu__item-action--accordion-trigger.ibexa-main-menu__item-action--selected {
+                    .ibexa-main-menu__item-text-column {
+                        color: $ibexa-color-complementary-primary-400;
+                    }
+                }
+
+                .ids-expander {
+                    .ibexa-icon,
+                    .ids-icon {
+                        fill: $ibexa-color-complementary-primary-400;
+                    }
+                }
+            }
+        }
+
+        &__header-content {
+            flex: 1 1 auto;
+            min-width: 0;
+            padding: 0;
+        }
+
+        &__content {
+            overflow: hidden;
+
+            > .ibexa-main-menu__items-list {
+                margin-left: 24px;
+            }
+        }
+
+        .ids-expander {
+            flex: 0 0 auto;
+            margin-right: calculateRem(8px);
+
+            .ibexa-icon,
+            .ids-icon {
+                fill: $ibexa-color-white;
+            }
+
+            &:hover {
+                .ibexa-icon,
+                .ids-icon {
+                    fill: $ibexa-color-white;
                 }
             }
         }
     }
 
     &__item-icon-column {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calculateRem(48px);
+        min-width: calculateRem(48px);
         padding: calculateRem(10px);
 
         .ibexa-icon {
@@ -292,11 +396,21 @@
     }
 
     &__item-text-column {
-        opacity: 1;
         width: 100%;
         overflow: hidden;
         padding: calculateRem(10px) calculateRem(10px) calculateRem(10px) calculateRem(4px);
         color: $ibexa-color-white;
+        text-align: left;
+
+        .ibexa-main-menu__item-action--second-level & {
+            padding: 0;
+        }
+
+        &--group {
+            padding: calculateRem(9px) calculateRem(10px) calculateRem(5px);
+            color: $ibexa-color-dark-300;
+            font-size: $ibexa-text-font-size-small;
+        }
     }
 
     &__separator {
@@ -305,7 +419,8 @@
 
         &::after {
             content: '';
-            width: calc(100% + #{calculateRem(12px)});
+            // width: calc(100% + #{calculateRem(12px)});
+            width: 40px;
             height: calculateRem(1px);
             background: $ibexa-color-dark-500;
             position: absolute;
@@ -314,7 +429,7 @@
         }
 
         &--top {
-            margin-top: auto;
+            margin-bottom: calculateRem(8px);
         }
 
         &--bottom {
@@ -323,38 +438,66 @@
         }
     }
 
-    &__resizer {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: calculateRem(1px);
-        height: 100%;
-        background-color: color.change($ibexa-color-dark, $alpha: 0.8);
-
-        &:hover {
-            background-color: $ibexa-color-info;
-            cursor: col-resize;
-            width: calculateRem(6px);
-        }
-    }
-
     &__toggler-container {
-        position: fixed;
-        bottom: 0;
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        width: inherit;
-        height: calculateRem(48px);
+        width: 100%;
+
+        &--first-level {
+            border-bottom: none;
+        }
     }
 
     &__toggler {
-        height: calculateRem(44px);
-        margin-right: calculateRem(16px);
-        padding: calculateRem(5px);
-        justify-content: center;
+        display: flex;
         align-items: center;
+        justify-content: center;
+        gap: calculateRem(8px);
+        width: auto;
+        min-width: calculateRem(48px);
+        height: calculateRem(32px);
+        padding: 0 calculateRem(12px);
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+
+        color: $ibexa-color-dark-300;
+
+        .ids-btn__icon .ids-icon,
+        .ids-btn__icon .ibexa-icon,
+        .ibexa-icon {
+            fill: $ibexa-color-dark-300;
+            transition: transform $ibexa-admin-transition-duration $ibexa-admin-transition;
+        }
+
+        &.ids-btn {
+            justify-content: center;
+        }
+    }
+
+    &__expand-toggler {
+        .ids-btn__label {
+            color: $ibexa-color-dark-300;
+            font-size: $ibexa-text-font-size-small;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        &--collapsed {
+            width: calculateRem(48px);
+            justify-content: center;
+            gap: 0;
+            padding-right: 0;
+            padding-left: 0;
+
+            .ids-icon,
+            .ibexa-icon {
+                transform: rotate(180deg);
+            }
+
+            .ids-btn__label {
+                display: none;
+            }
+        }
     }
 
     &__first-level-popup-menu {
