@@ -14,7 +14,7 @@ Feature: User profile management
     And I set content fields for user
       | label         | Username    | Password    | Confirm password  | Email          | Enabled  |
       | User account  | testeditor  | Test1234pw  | Test1234pw        | test@test.com  | Yes      |
-    And I perform the "Create" action
+    And I perform the "Save and close" action
     Then I should be on Content view Page for "/Users/Editors/EditorFirstName EditorLastName"
     And content attributes equal
       | label       | value           |
@@ -43,7 +43,7 @@ Feature: User profile management
       | Job Title  | TestJobTitle   |
       | Department | TestDepartment |
       | Location   | TestLocation   |
-    And I perform the "Update" action
+    And I perform the "Save and close" action
     Then I should be on "User profile" page
     And I should see a user profile summary with values
       | Full name                        | Email         | Job Title    | Department     | Location     |
