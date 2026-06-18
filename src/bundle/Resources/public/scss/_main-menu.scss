@@ -62,10 +62,6 @@
                     &--accordion-trigger {
                         display: none !important;
                     }
-
-                    .ids-btn__icon {
-                        margin-right: -8px;
-                    }
                 }
 
                 &__accordion {
@@ -141,6 +137,7 @@
         background: transparent;
         border: calculateRem(2px) solid transparent;
         width: 100%;
+        
 
         @at-root a#{&},
             &.ids-btn {
@@ -203,16 +200,12 @@
 
         &.ids-btn {
             min-width: 0;
-
+            justify-content: flex-start;
             fill: $ibexa-color-white;
 
             &:focus,
             &:hover {
                 fill: $ibexa-color-white;
-            }
-
-            .ids-btn__icon {
-                transition: margin-right $ibexa-admin-transition-duration $ibexa-admin-transition;
             }
 
             .ids-btn__label {
