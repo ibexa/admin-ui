@@ -6,13 +6,13 @@
     {% set top_level_items = current_item.children|filter(item => item.extras.bottom_item is not defined or not item.extras.bottom_item) %}
     {% set bottom_level_items = current_item.children|filter(item => item.extras.bottom_item is defined and item.extras.bottom_item) %}
 
-    <div class="ibexa-main-menu__navbar ibexa-main-menu__navbar--first-level {{ extra_class }}">
-        <div class="ibexa-main-menu__toggler-container ibexa-main-menu__toggler-container--first-level">
+    <div class="ibexa-main-menu__navbar {{ extra_class }}">
+        <div class="ibexa-main-menu__toggler-container">
             <twig:ibexa:button
                 type="tertiary-alt"
                 size="small"
                 htmlType="button"
-                class="ibexa-main-menu__toggler ibexa-main-menu__expand-toggler ibexa-main-menu__expand-toggler--collapsed ibexa-btn ibexa-btn--small"
+                class="ibexa-main-menu__expand-toggler ibexa-main-menu__expand-toggler--collapsed ibexa-btn ibexa-btn--small"
                 icon="arrow-collapse-left"
                 data-tooltip-extra-class="ibexa-tooltip--navigation"
                 data-delay-show="0"
@@ -26,7 +26,7 @@
             </twig:ibexa:button>
         </div>
         <div class="ibexa-main-menu__primary-section">
-            <ul class="ibexa-main-menu__items-list nav">
+            <ul class="ibexa-main-menu__items-list ibexa-main-menu__items-list--primary">
                 {% for item in top_level_items %}
                     {% if item.children|length > 0 or (item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink)) %}
                         {{ block('item') }}
@@ -36,7 +36,7 @@
         </div>
         {% if bottom_level_items|length %}
             <div class="ibexa-main-menu__secondary-section">
-                <ul class="ibexa-main-menu__items-list nav">
+                <ul class="ibexa-main-menu__items-list ibexa-main-menu__items-list--secondary">
                     {% for item in bottom_level_items %}
                         {% if item.children|length > 0 or (item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink)) %}
                             {{ block('item') }}
@@ -51,7 +51,7 @@
 {% block linkElement %}
     {% set classes = [
         'ibexa-main-menu__item-action',
-        (matcher.isCurrent(item) ? options.currentClass|trim ~ ' ibexa-main-menu__item-action--selected'),
+        (matcher.isCurrent(item) ? options.currentClass|trim),
         (item.linkAttributes.class is defined ? item.linkAttributes.class|trim)
     ] %}
     {% set icon_path = null %}
@@ -82,7 +82,7 @@
 
     {% set action_classes = [
         'ibexa-main-menu__item-action',
-        (matcher.isAncestor(item, options.matchingDepth) ? options.currentClass|trim ~ ' ibexa-main-menu__item-action--selected'),
+        (matcher.isAncestor(item, options.matchingDepth) ? options.currentClass|trim),
         (item.linkAttributes.class is defined ? item.linkAttributes.class|trim)
     ] %}
     {% set icon_path = null %}
@@ -111,7 +111,7 @@
             }) }}
         </twig:ibexa:button>
 
-        <ul id="{{ popup_id }}" class="ibexa-popup-menu ibexa-popup-menu--navigation ibexa-popup-menu--hidden ibexa-main-menu-popup">
+        <ul id="{{ popup_id }}" class="ibexa-popup-menu ibexa-popup-menu--hidden ibexa-main-menu-popup">
             {% for item in item.children %}
                 {% set renderItemAsGroup = item.children|length > 0 %}
                 {{ block('popupItem') }}
@@ -166,7 +166,8 @@
 {% block popupLinkElement %}
     {% set classes = [
         'ibexa-popup-menu__item-content',
-        (matcher.isCurrent(item) ? 'ibexa-popup-menu__item-content--current'),
+        'ibexa-main-menu-popup__item-content',
+        (matcher.isCurrent(item) ? 'ibexa-main-menu-popup__item-content--current')
     ] %}
 
     <a href="{{ item.uri }}" class="{{ classes|join(' ') }}">
@@ -180,28 +181,28 @@
     <div class="ibexa-popup-menu__item-content ibexa-main-menu-popup__group-name">
         {{ include('@ibexadesign/ui/menu/main_item_label.html.twig', {
             item: item,
-            text_column_class: 'ibexa-main-menu__item-text-column--group',
+            text_column_class: 'ibexa-main-menu-popup__group-item-content',
         }) }}
     </div>
 {% endblock %}
 
 {% block label %}
-    {% set icon_path = null %}
+    {# {% set icon_path = null %}
     {% set icon_class = icon_class|default('ibexa-main-menu__item-icon ibexa-icon ') ~ item.extras.icon_size|default('ibexa-icon--medium ') ~ item.extras.icon_class|default('')|trim %}
 
     {% if item.extras.icon_path|default %}
         {% set icon_path = item.extras.icon_path %}
     {% elseif item.extras.icon is defined and item.extras.icon is not empty %}
         {% set icon_path = ibexa_icon_path(item.extras.icon) %}
-    {% endif %}
+    {% endif %} #}
 
-    {% if icon_path is not empty %}
+    {# {% if icon_path is not empty %}
         <div class="ibexa-main-menu__item-icon-column">
             <svg class="{{ icon_class }}">
                 <use xlink:href="{{ icon_path }}"></use>
             </svg>
         </div>
-    {% endif %}
+    {% endif %} #}
 
     <div class="ibexa-main-menu__item-text-column">{{ parent() }}</div>
 {% endblock %}
