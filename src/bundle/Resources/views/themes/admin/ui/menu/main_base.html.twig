@@ -105,10 +105,6 @@
             {%- endif %}
         </li>
 
-        {# {%- if item.extras.separate is defined and item.extras.separate -%}
-            <li class="ibexa-main-menu__separator ibexa-main-menu__separator--bottom"></li>
-        {%- endif -%} #}
-
         {%- if item.extras.template is defined -%}
             {% include(item.extras.template) %}
         {%- endif -%}

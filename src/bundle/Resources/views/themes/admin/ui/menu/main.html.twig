@@ -187,22 +187,5 @@
 {% endblock %}
 
 {% block label %}
-    {# {% set icon_path = null %}
-    {% set icon_class = icon_class|default('ibexa-main-menu__item-icon ibexa-icon ') ~ item.extras.icon_size|default('ibexa-icon--medium ') ~ item.extras.icon_class|default('')|trim %}
-
-    {% if item.extras.icon_path|default %}
-        {% set icon_path = item.extras.icon_path %}
-    {% elseif item.extras.icon is defined and item.extras.icon is not empty %}
-        {% set icon_path = ibexa_icon_path(item.extras.icon) %}
-    {% endif %} #}
-
-    {# {% if icon_path is not empty %}
-        <div class="ibexa-main-menu__item-icon-column">
-            <svg class="{{ icon_class }}">
-                <use xlink:href="{{ icon_path }}"></use>
-            </svg>
-        </div>
-    {% endif %} #}
-
     <div class="ibexa-main-menu__item-text-column">{{ parent() }}</div>
 {% endblock %}
