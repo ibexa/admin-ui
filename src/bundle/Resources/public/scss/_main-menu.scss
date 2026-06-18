@@ -62,6 +62,10 @@
                     &--accordion-trigger {
                         display: none !important;
                     }
+
+                    .ids-btn__icon {
+                        margin-right: -8px;
+                    }
                 }
 
                 &__accordion {
@@ -207,9 +211,12 @@
                 fill: $ibexa-color-white;
             }
 
+            .ids-btn__icon {
+                transition: margin-right $ibexa-admin-transition-duration $ibexa-admin-transition;
+            }
+
             .ids-btn__label {
                 display: flex;
-
                 width: 100%;
                 min-width: 0;
             }
