@@ -69,8 +69,8 @@ final class UserEditRightSidebarBuilder extends AbstractBuilder implements Trans
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__UPDATE, 'ibexa_menu'))->setDesc('Update'),
-            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Cancel'),
+            (new Message(self::ITEM__UPDATE, 'ibexa_menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard changes'),
         ];
     }
 }
