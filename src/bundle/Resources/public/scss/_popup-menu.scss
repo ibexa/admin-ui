@@ -110,27 +110,19 @@
         margin-left: calculateRem(6px);
     }
 
-    &--navigation {
-        background-color: $ibexa-color-dark;
-        border-color: $ibexa-color-dark-500;
+    // &--navigation {
+    //     background-color: $ibexa-color-dark;
+    //     border-color: $ibexa-color-dark-500;
 
-        .ibexa-popup-menu__item-content {
-            color: $ibexa-color-white;
+    //     .ibexa-popup-menu__item-content {
+    //         color: $ibexa-color-white;
 
-            &:hover {
-                color: $ibexa-color-complementary-primary-400;
-                background-color: transparent;
-            }
-
-            &--current {
-                &,
-                &:hover {
-                    color: $ibexa-color-complementary-primary-200;
-                    background-color: $ibexa-color-complementary-primary-700;
-                }
-            }
-        }
-    }
+    //         &:hover {
+    //             color: $ibexa-color-complementary-primary-400;
+    //             background-color: transparent;
+    //         }
+    //     }
+    // }
 
     &--hidden {
         display: none;

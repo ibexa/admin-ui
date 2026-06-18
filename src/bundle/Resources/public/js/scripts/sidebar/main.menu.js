@@ -5,8 +5,8 @@
         return;
     }
 
-    const objectInstances = ibexa.helpers.objectInstances;
-    const firstLevelMenuNode = mainMenuNode.querySelector('.ibexa-main-menu__navbar--first-level');
+    const { objectInstances } = ibexa.helpers;
+    const firstLevelMenuNode = mainMenuNode.querySelector('.ibexa-main-menu__navbar');
     const expandToggleButton = firstLevelMenuNode.querySelector('.ibexa-main-menu__expand-toggler');
     const firstLevelNavItems = [...firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item[data-item-name]')];
     const parentItemButtons = firstLevelMenuNode.querySelectorAll(
@@ -166,18 +166,18 @@
             }
         });
     };
-    const syncActiveItems = (itemName) => {
-        firstLevelNavItems.forEach((itemNode) => {
-            const isCurrentItem = itemNode.dataset.itemName === itemName;
+    // const syncActiveItems = (itemName) => {
+    //     firstLevelNavItems.forEach((itemNode) => {
+    //         const isCurrentItem = itemNode.dataset.itemName === itemName;
 
-            itemNode.querySelectorAll('.ibexa-main-menu__item-action').forEach((actionNode) => {
-                actionNode.classList.toggle('active', isCurrentItem);
-            });
-        });
-    };
+    //         itemNode.querySelectorAll('.ibexa-main-menu__item-action').forEach((actionNode) => {
+    //             actionNode.classList.toggle('active', isCurrentItem);
+    //         });
+    //     });
+    // };
     const openCurrentAccordion = () => {
         const currentItemNode = firstLevelMenuNode.querySelector(
-            '.ibexa-main-menu__item[data-has-children="true"] .ibexa-main-menu__item-action--selected',
+            '.ibexa-main-menu__item[data-has-children="true"] .ibexa-main-menu__item-action--current',
         )?.closest('.ibexa-main-menu__item[data-item-name]');
 
         if (!currentItemNode) {
@@ -318,5 +318,4 @@
             itemNode.classList.add('ibexa-main-menu__item--expanded');
         }
     });
-
 })(window, window.document, window.ibexa);

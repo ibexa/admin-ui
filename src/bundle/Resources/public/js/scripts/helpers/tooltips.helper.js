@@ -259,9 +259,10 @@ const hideAll = (baseElement = doc) => {
     const tooltipsNode = baseElement.querySelectorAll(TOOLTIPS_SELECTOR);
 
     for (const tooltipNode of tooltipsNode) {
-        const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipNode);
+        bootstrap.Tooltip.getOrCreateInstance(tooltipNode).hide();
+        // const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipNode);
 
-        tooltipInstance?.dispose();
+        // tooltipInstance?.dispose();
     }
 };
 const observe = (baseElement = doc) => {

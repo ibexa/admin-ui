@@ -5,7 +5,7 @@
     {% if item.displayed %}
         {% set classes = [
             'ibexa-popup-menu__item',
-            (renderItemAsGroup|default(false) ? 'ibexa-main-menu-popup__group-item')
+            (renderItemAsGroup|default(false) ? 'ibexa-main-menu-popup__group-item' : 'ibexa-main-menu-popup__item'),
         ] %}
 
         {% set node_attributes = {
@@ -34,7 +34,8 @@
 {% block popupLinkElement %}
     {% set classes = [
         'ibexa-popup-menu__item-content',
-        ((matcher.isCurrent(item) ? 'ibexa-popup-menu__item-content--current')),
+        'ibexa-main-menu-popup__item-content',
+        (matcher.isCurrent(item) ? 'ibexa-main-menu-popup__item-content--current')
     ] %}
 
     {% set link_attributes = {
@@ -42,7 +43,7 @@
         'class': classes|join(' '),
     } %}
 
-    <a {{ knp_menu.attributes(link_attributes) }}>{{ block('label') }}</a>
+    <a {{ knp_menu.attributes(link_attributes) }}>!!{{ block('label') }}</a>
 {% endblock %}
 
 {% block popupSpanElement %}
