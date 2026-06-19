@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\EventSubscriber;
 
 use Ibexa\Bundle\Core\Message\PublishContentAsync;
+use Ibexa\Core\Repository\ContentService\AsyncPublicationDispatcher;
 use Ibexa\Core\Repository\ContentService\AsyncPublicationService;
 use Ibexa\Mercure\Publisher\MercurePublisher;
 use Psr\Log\LoggerInterface;
@@ -18,6 +19,7 @@ use Symfony\Component\Messenger\Event\SendMessageToTransportsEvent;
 use Symfony\Component\Messenger\Event\WorkerMessageFailedEvent;
 use Symfony\Component\Messenger\Event\WorkerMessageHandledEvent;
 use Symfony\Component\Messenger\Event\WorkerMessageReceivedEvent;
+use Symfony\Component\Messenger\Stamp\TransportMessageIdStamp;
 
 /**
  * Single orchestration point for the async content publication lifecycle: reacting to the Symfony
@@ -40,6 +42,7 @@ final class AsyncPublicationStatusSubscriber implements EventSubscriberInterface
 
     public function __construct(
         private readonly AsyncPublicationService $asyncPublicationService,
+        private readonly AsyncPublicationDispatcher $dispatcher,
         private readonly MercurePublisher $publisher,
         private readonly LoggerInterface $logger,
     ) {
@@ -58,7 +61,7 @@ final class AsyncPublicationStatusSubscriber implements EventSubscriberInterface
     public function onQueued(SendMessageToTransportsEvent $event): void
     {
         $envelope = $event->getEnvelope();
-        if (!$this->isPublishContentAsyncMessage($envelope)) {
+        if (!$this->isPublishContentAsyncMessage($envelope) || null === $envelope->last(TransportMessageIdStamp::class)) {
             return;
         }
 
@@ -86,7 +89,7 @@ final class AsyncPublicationStatusSubscriber implements EventSubscriberInterface
          * - or as separated subscriber
          * - or part of \Ibexa\Core\Repository\ContentService\AsyncPublicationService
          */
-        $this->asyncPublicationService->markProcessing($message->contentId);
+        $this->asyncPublicationService->markProcessing($message->contentId, $message->versionNo);
         $this->publishStatus($message, self::STATUS_PROCESSING);
     }
 
@@ -102,9 +105,12 @@ final class AsyncPublicationStatusSubscriber implements EventSubscriberInterface
 
         // The new published version now exists; clearing the job clears the AdminUI "in progress"
         // indicator. "completed" is faked purely on the UI.
-        $this->asyncPublicationService->markCompleted($message->contentId);
+        $this->asyncPublicationService->markCompleted($message->contentId, $message->versionNo);
         $this->publishStatus($message, self::STATUS_COMPLETED);
         $this->publishCompletedNotification($message);
+
+        // This content's in-flight slot is now free; release its next queued version (if any).
+        $this->dispatcher->dispatchQueued();
     }
 
     public function onFailed(WorkerMessageFailedEvent $event): void
@@ -122,8 +128,11 @@ final class AsyncPublicationStatusSubscriber implements EventSubscriberInterface
         /** @var PublishContentAsync $message */
         $message = $envelope->getMessage();
 
-        $this->asyncPublicationService->markFailed($message->contentId, $event->getThrowable()->getMessage());
+        $this->asyncPublicationService->markFailed($message->contentId, $message->versionNo, $event->getThrowable()->getMessage());
         $this->publishStatus($message, self::STATUS_FAILED);
+
+        // Terminal failure frees this content's in-flight slot; release its next queued version (if any).
+        $this->dispatcher->dispatchQueued();
     }
 
     private function publishStatus(PublishContentAsync $message, string $status, bool $deffered = false): void

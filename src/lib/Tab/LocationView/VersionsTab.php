@@ -144,8 +144,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
         /** @var array<int, string> $asyncPublicationStatusMap */
         $asyncPublicationStatusMap = [];
         if ($asyncPublicationEnabled) {
-            $asyncPublicationJob = $this->asyncPublicationService->getPublicationForContent($contentInfo->id);
-            if ($asyncPublicationJob !== null) {
+            foreach ($this->asyncPublicationService->getPublicationsForContent($contentInfo->id) as $asyncPublicationJob) {
                 $asyncPublicationStatusMap[$asyncPublicationJob->versionNo] = $asyncPublicationJob->status->value;
             }
         }
