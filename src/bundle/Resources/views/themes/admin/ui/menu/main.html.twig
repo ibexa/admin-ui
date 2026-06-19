@@ -94,7 +94,6 @@
     {% endif %}
 
     {% if item.hasChildren %}
-        {% set is_selected = matcher.isAncestor(item, options.matchingDepth) %}
         {% set popup_id = '%s-popup'|format(item.name) %}
         {% set popup_trigger_classes = (action_classes|merge(['ibexa-main-menu__item-action--popup-trigger']))|join(' ') %}
         {% set accordion_trigger_classes = (action_classes|merge(['ibexa-main-menu__item-action--accordion-trigger']))|join(' ') %}
@@ -120,7 +119,7 @@
 
         <twig:ibexa:accordion
             class="ibexa-main-menu__accordion"
-            :initiallyExpanded="is_selected"
+            :initiallyExpanded="false"
             expanderType="chevron"
             :expanderHasLabel="false"
         >
