@@ -6,37 +6,34 @@
     }
 
     const { objectInstances } = ibexa.helpers;
-    const firstLevelMenuNode = mainMenuNode.querySelector('.ibexa-main-menu__navbar');
-    const expandToggleButton = firstLevelMenuNode.querySelector('.ibexa-main-menu__expand-toggler');
-    const firstLevelNavItems = [...firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item[data-item-name]')];
-    const parentItemButtons = firstLevelMenuNode.querySelectorAll(
+    const navbar = mainMenuNode.querySelector('.ibexa-main-menu__navbar');
+    const expandToggleBtn = navbar.querySelector('.ibexa-main-menu__expand-toggler');
+    const firstLevelNavItems = [...navbar.querySelectorAll('.ibexa-main-menu__item[data-item-name]')];
+    const parentItemBtns = navbar.querySelectorAll(
         '.ibexa-main-menu__item-action--popup-trigger, .ibexa-main-menu__item-action--accordion-trigger',
     );
-    const popupTriggerButtons = firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item-action--popup-trigger');
+    const popupTriggerBtns = navbar.querySelectorAll('.ibexa-main-menu__item-action--popup-trigger');
     const popupMenuInstances = new Map();
-    const isMenuExpanded = () => !firstLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed');
-    const { collapseLabel, expandLabel } = expandToggleButton.dataset;
-    const syncExpandToggleButtonState = (isExpanded) => {
-        const tooltipInstance = global.bootstrap?.Tooltip.getInstance(expandToggleButton);
+    const isMenuExpanded = () => !navbar.classList.contains('ibexa-main-menu__navbar--collapsed');
+    const { collapseLabel, expandLabel } = expandToggleBtn.dataset;
+    const syncExpandToggleBtnState = (isExpanded) => {
+        const tooltipInstance = global.bootstrap?.Tooltip.getInstance(expandToggleBtn);
 
-        expandToggleButton.classList.toggle('ibexa-main-menu__expand-toggler--collapsed', !isExpanded);
-        expandToggleButton.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-        expandToggleButton.setAttribute('aria-label', isExpanded ? collapseLabel : expandLabel);
+        expandToggleBtn.classList.toggle('ibexa-main-menu__expand-toggler--collapsed', !isExpanded);
+        expandToggleBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+        expandToggleBtn.setAttribute('aria-label', isExpanded ? collapseLabel : expandLabel);
 
         if (isExpanded) {
             tooltipInstance?.dispose();
-            expandToggleButton.removeAttribute('title');
-            expandToggleButton.removeAttribute('data-tooltip-placement');
-            expandToggleButton.removeAttribute('data-original-title');
-            expandToggleButton.removeAttribute('data-bs-original-title');
+            expandToggleBtn.removeAttribute('title');
         } else {
-            expandToggleButton.setAttribute('title', expandLabel);
+            expandToggleBtn.title = expandLabel;
         }
     };
     const parseMenuTitles = () => {
         ibexa.helpers.tooltips.hideAll();
 
-        firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item[data-item-name]').forEach((item) => {
+        navbar.querySelectorAll('.ibexa-main-menu__item[data-item-name]').forEach((item) => {
             const labelNode = item.querySelector('.ibexa-main-menu__item-text-column');
             const actionNode = item.querySelector(
                 isMenuExpanded()
@@ -48,28 +45,21 @@
                 return;
             }
 
-            if (firstLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed')) {
+            if (navbar.classList.contains('ibexa-main-menu__navbar--collapsed')) {
                 actionNode.setAttribute('title', labelNode.textContent.trim());
-                actionNode.setAttribute('data-tooltip-placement', 'right');
-                actionNode.setAttribute('data-tooltip-extra-class', 'ibexa-tooltip--navigation');
+                actionNode.dataset.tooltipPlacement = 'right';
+                actionNode.dataset.tooltipExtraClass = 'ibexa-tooltip--navigation';
             } else {
                 global.bootstrap?.Tooltip.getInstance(actionNode)?.dispose();
                 actionNode.removeAttribute('title');
-                actionNode.removeAttribute('data-tooltip-placement');
-                actionNode.removeAttribute('data-tooltip-extra-class');
-                actionNode.removeAttribute('data-original-title');
-                actionNode.removeAttribute('data-bs-original-title');
+                delete actionNode.dataset.tooltipPlacement;
+                delete actionNode.dataset.tooltipExtraClass;
+                delete actionNode.dataset.originalTitle;
+                delete actionNode.dataset.bsOriginalTitle;
             }
         });
 
         ibexa.helpers.tooltips.parse(mainMenuNode);
-    };
-    const getAccordionInstance = (accordionNode) => {
-        try {
-            return objectInstances.getInstance(accordionNode);
-        } catch (error) {
-            return null;
-        }
     };
     const getAccordionNode = (itemNode) => itemNode.querySelector('.ids-accordion');
     const getAccordionExpanderNode = (itemNode) => itemNode.querySelector('.ids-expander');
@@ -98,7 +88,7 @@
             return;
         }
 
-        const accordionInstance = getAccordionInstance(accordionNode);
+        const accordionInstance = objectInstances.getInstance(accordionNode);
         const accordionExpanderNode = getAccordionExpanderNode(itemNode);
         const isCurrentlyExpanded = accordionNode.classList.contains('ids-accordion--is-expanded');
 
@@ -135,7 +125,7 @@
         });
     };
     const toggleAccordion = (itemName) => {
-        const itemNode = firstLevelMenuNode.querySelector(`.ibexa-main-menu__item[data-item-name="${CSS.escape(itemName)}"]`);
+        const itemNode = navbar.querySelector(`.ibexa-main-menu__item[data-item-name="${CSS.escape(itemName)}"]`);
 
         if (!itemNode || itemNode.dataset.hasChildren !== 'true') {
             return;
@@ -166,42 +156,21 @@
             }
         });
     };
-    // const syncActiveItems = (itemName) => {
-    //     firstLevelNavItems.forEach((itemNode) => {
-    //         const isCurrentItem = itemNode.dataset.itemName === itemName;
-
-    //         itemNode.querySelectorAll('.ibexa-main-menu__item-action').forEach((actionNode) => {
-    //             actionNode.classList.toggle('active', isCurrentItem);
-    //         });
-    //     });
-    // };
-    const openCurrentAccordion = () => {
-        const currentItemNode = firstLevelMenuNode.querySelector(
-            '.ibexa-main-menu__item[data-has-children="true"] .ibexa-main-menu__item-action--current',
-        )?.closest('.ibexa-main-menu__item[data-item-name]');
-
-        if (!currentItemNode) {
-            return;
-        }
-
-        setAccordionExpanded(currentItemNode, true);
-    };
     const setMenuExpanded = (isExpanded) => {
-        firstLevelMenuNode.classList.toggle('ibexa-main-menu__navbar--collapsed', !isExpanded);
-        syncExpandToggleButtonState(isExpanded);
+        navbar.classList.toggle('ibexa-main-menu__navbar--collapsed', !isExpanded);
+        syncExpandToggleBtnState(isExpanded);
 
         if (isExpanded) {
             closeAllPopups();
             closeAllAccordions();
-            openCurrentAccordion();
         } else {
             closeAllAccordions();
         }
 
         parseMenuTitles();
     };
-    const parsePopup = (button) => {
-        const { popupTargetSelector } = button.dataset;
+    const parsePopup = (btn) => {
+        const { popupTargetSelector } = btn.dataset;
         const popupNode = doc.querySelector(popupTargetSelector);
 
         if (!popupNode) {
@@ -210,38 +179,38 @@
 
         const popupMenuInstance = new ibexa.core.PopupMenu({
             popupMenuElement: popupNode,
-            triggerElement: button,
+            triggerElement: btn,
             position: () => {
                 const gap = 12;
                 const viewportGap = 8;
-                const buttonRect = button.getBoundingClientRect();
+                const btnRect = btn.getBoundingClientRect();
                 const popupHeight = popupNode.offsetHeight;
                 const minTop = global.scrollY + viewportGap;
                 const maxTop = global.scrollY + global.innerHeight - popupHeight - viewportGap;
-                let top = buttonRect.top + global.scrollY;
+                let top = btnRect.top + global.scrollY;
 
-                if (buttonRect.top + popupHeight > global.innerHeight - viewportGap) {
-                    top = buttonRect.bottom + global.scrollY - popupHeight;
+                if (btnRect.top + popupHeight > global.innerHeight - viewportGap) {
+                    top = btnRect.bottom + global.scrollY - popupHeight;
                 }
 
                 top = Math.max(minTop, Math.min(top, maxTop));
 
                 popupNode.style.top = `${top}px`;
-                popupNode.style.left = `${buttonRect.right + global.scrollX + gap}px`;
+                popupNode.style.left = `${btnRect.right + global.scrollX + gap}px`;
             },
         });
-        const { itemName } = button.closest('.ibexa-main-menu__item').dataset;
+        const { itemName } = btn.closest('.ibexa-main-menu__item').dataset;
 
         popupMenuInstances.set(itemName, popupMenuInstance);
-        button.addEventListener(
+        btn.addEventListener(
             'click',
             () => {
                 if (!isMenuExpanded()) {
-                    const tooltipInstance = global.bootstrap?.Tooltip.getInstance(button);
+                    const tooltipInstance = global.bootstrap?.Tooltip.getInstance(btn);
 
                     tooltipInstance?.hide();
                     tooltipInstance?.disable();
-                    button.addEventListener(
+                    btn.addEventListener(
                         'mouseleave',
                         () => {
                             tooltipInstance?.enable();
@@ -252,7 +221,7 @@
             },
             false,
         );
-        button.addEventListener('click', () => closeAllPopups(itemName), false);
+        btn.addEventListener('click', () => closeAllPopups(itemName), false);
     };
     const handleParentItemClick = (event) => {
         const itemNode = event.currentTarget.closest('.ibexa-main-menu__item[data-item-name]');
@@ -293,14 +262,14 @@
         itemNode.classList.toggle('ibexa-main-menu__item--expanded', shouldExpand);
     };
 
-    syncExpandToggleButtonState(isMenuExpanded());
+    syncExpandToggleBtnState(isMenuExpanded());
     parseMenuTitles();
-    parentItemButtons.forEach((button) => button.addEventListener('click', handleParentItemClick, false));
-    popupTriggerButtons.forEach(parsePopup);
-    firstLevelMenuNode.querySelectorAll('.ids-expander').forEach((button) => {
-        button.addEventListener('click', handleAccordionExpanderClick, false);
+    parentItemBtns.forEach((btn) => btn.addEventListener('click', handleParentItemClick, false));
+    popupTriggerBtns.forEach(parsePopup);
+    navbar.querySelectorAll('.ids-expander').forEach((btn) => {
+        btn.addEventListener('click', handleAccordionExpanderClick, false);
     });
-    firstLevelMenuNode.addEventListener(
+    navbar.addEventListener(
         'transitionend',
         (event) => {
             if (event.propertyName === 'width') {
@@ -309,7 +278,7 @@
         },
         false,
     );
-    expandToggleButton.addEventListener('click', () => setMenuExpanded(!isMenuExpanded()), false);
+    expandToggleBtn.addEventListener('click', () => setMenuExpanded(!isMenuExpanded()), false);
 
     firstLevelNavItems.forEach((itemNode) => {
         const accordionNode = itemNode.querySelector('.ids-accordion');
