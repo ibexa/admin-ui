@@ -1,3 +1,5 @@
+import { getInstance, hasInstance } from '@ibexa-design-system/src/bundle/Resources/public/ts/helpers/object.instances';
+
 (function (global, doc, ibexa) {
     const mainMenuNode = doc.querySelector('.ibexa-main-menu');
 
@@ -5,10 +7,9 @@
         return;
     }
 
-    const { objectInstances } = ibexa.helpers;
     const navbar = mainMenuNode.querySelector('.ibexa-main-menu__navbar');
     const expandToggleBtn = navbar.querySelector('.ibexa-main-menu__expand-toggler');
-    const firstLevelNavItems = [...navbar.querySelectorAll('.ibexa-main-menu__item[data-item-name]')];
+    const menuItems = [...navbar.querySelectorAll('.ibexa-main-menu__item[data-item-name]')];
     const parentItemBtns = navbar.querySelectorAll(
         '.ibexa-main-menu__item-action--popup-trigger, .ibexa-main-menu__item-action--accordion-trigger',
     );
@@ -62,62 +63,31 @@
         ibexa.helpers.tooltips.parse(mainMenuNode);
     };
     const getAccordionNode = (itemNode) => itemNode.querySelector('.ids-accordion');
-    const getAccordionExpanderNode = (itemNode) => itemNode.querySelector('.ids-expander');
-    const setAccordionExpandedFallback = (accordionNode, isExpanded) => {
-        const expanderNode = accordionNode.querySelector('.ids-expander');
-        const contentNode = accordionNode.querySelector('.ids-accordion__content');
-
-        accordionNode.classList.toggle('ids-accordion--is-expanded', isExpanded);
-        accordionNode.classList.toggle('ids-accordion--is-animating', false);
-
-        if (contentNode && !isExpanded) {
-            contentNode.style.height = '0px';
-        }
-
-        if (!expanderNode) {
-            return;
-        }
-
-        expanderNode.classList.toggle('ids-expander--is-expanded', isExpanded);
-        expanderNode.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-    };
-    const setAccordionExpanded = (itemNode, isExpanded) => {
+    const getAccordionInstance = (itemNode) => {
         const accordionNode = getAccordionNode(itemNode);
 
-        if (!accordionNode) {
-            return;
+        if (!accordionNode || !hasInstance(accordionNode)) {
+            return null;
         }
 
-        const accordionInstance = objectInstances.getInstance(accordionNode);
-        const accordionExpanderNode = getAccordionExpanderNode(itemNode);
-        const isCurrentlyExpanded = accordionNode.classList.contains('ids-accordion--is-expanded');
+        return getInstance(accordionNode);
+    };
+    const setAccordionExpanded = (itemNode, isExpanded) => {
+        const accordionInstance = getAccordionInstance(itemNode);
 
-        if (accordionInstance) {
+        if (accordionInstance && accordionInstance.isExpanded() !== isExpanded) {
             accordionInstance.toggleIsExpanded(isExpanded);
-        } else if (accordionExpanderNode && isCurrentlyExpanded !== isExpanded) {
-            accordionExpanderNode.click();
-        } else {
-            setAccordionExpandedFallback(accordionNode, isExpanded);
         }
-
-        itemNode.classList.toggle('ibexa-main-menu__item--expanded', isExpanded);
     };
     const closeAllAccordions = (exceptItemName = null) => {
-        firstLevelNavItems.forEach((itemNode) => {
+        menuItems.forEach((itemNode) => {
             if (itemNode.dataset.hasChildren !== 'true' || itemNode.dataset.itemName === exceptItemName) {
                 return;
             }
 
-            const accordionNode = getAccordionNode(itemNode);
-            const accordionExpanderNode = getAccordionExpanderNode(itemNode);
+            const accordionInstance = getAccordionInstance(itemNode);
 
-            if (!accordionNode?.classList.contains('ids-accordion--is-expanded')) {
-                return;
-            }
-
-            if (accordionExpanderNode) {
-                accordionExpanderNode.click();
-
+            if (!accordionInstance?.isExpanded()) {
                 return;
             }
 
@@ -131,18 +101,11 @@
             return;
         }
 
-        const accordionNode = getAccordionNode(itemNode);
-        const accordionExpanderNode = getAccordionExpanderNode(itemNode);
-        const shouldExpand = !accordionNode?.classList.contains('ids-accordion--is-expanded');
+        const accordionInstance = getAccordionInstance(itemNode);
+        const shouldExpand = !accordionInstance?.isExpanded();
 
         if (shouldExpand) {
             closeAllAccordions(itemName);
-        }
-
-        if (accordionExpanderNode) {
-            accordionExpanderNode.click();
-
-            return;
         }
 
         setAccordionExpanded(itemNode, shouldExpand);
@@ -251,7 +214,7 @@
         }
 
         const { itemName } = itemNode.dataset;
-        const shouldExpand = !getAccordionNode(itemNode)?.classList.contains('ids-accordion--is-expanded');
+        const shouldExpand = !getAccordionInstance(itemNode)?.isExpanded();
 
         closeAllPopups();
 
@@ -279,12 +242,4 @@
         false,
     );
     expandToggleBtn.addEventListener('click', () => setMenuExpanded(!isMenuExpanded()), false);
-
-    firstLevelNavItems.forEach((itemNode) => {
-        const accordionNode = itemNode.querySelector('.ids-accordion');
-
-        if (accordionNode?.classList.contains('ids-accordion--is-expanded')) {
-            itemNode.classList.add('ibexa-main-menu__item--expanded');
-        }
-    });
 })(window, window.document, window.ibexa);
