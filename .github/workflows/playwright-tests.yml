@@ -10,23 +10,26 @@ on:
 jobs:
     playwright-oss:
         name: "Playwright/OSS"
-        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@main
+        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@ibx-11740-playwright
         with:
             project-edition: 'oss'
+            test-suite: ''
         secrets: inherit
 
     playwright-headless:
         name: "Playwright/Headless"
-        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@main
+        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@ibx-11740-playwright
         with:
             project-edition: 'headless'
+            test-suite: ''
         secrets: inherit
 
     playwright-experience:
         name: "Playwright/Experience"
-        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@main
+        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@ibx-11740-playwright
         with:
             project-edition: 'experience'
+            test-suite: ''
         secrets: inherit
 
     playwright-commerce:
