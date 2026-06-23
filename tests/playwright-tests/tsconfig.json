@@ -1,0 +1,14 @@
+{
+  "extends": "./node_modules/@ibexa/cohesivo-playwright/tsconfig.playwright.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "."
+  },
+  "include": [
+    "Tests/**/*.ts",
+    "Pages/**/*.ts",
+    "Utils/**/*.ts",
+    "playwright.config.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
+}
