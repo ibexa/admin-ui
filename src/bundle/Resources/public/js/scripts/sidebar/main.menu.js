@@ -33,15 +33,12 @@ import { getInstance, hasInstance } from '@ibexa-design-system/src/bundle/Resour
     };
     const parseMenuTitles = () => {
         const menuExpanded = isMenuExpanded();
-        const collapsedActionSelector = '.ibexa-main-menu__item-action:not(.ibexa-main-menu__item-action--accordion-trigger)';
 
         ibexa.helpers.tooltips.hideAll();
 
         menuItems.forEach((item) => {
             const labelNode = item.querySelector('.ibexa-main-menu__item-text-column');
-            const actionNode = item.querySelector(
-                menuExpanded ? '.ibexa-main-menu__item-action' : collapsedActionSelector,
-            );
+            const actionNode = item.querySelector('.ibexa-main-menu__item-action:not(.ibexa-main-menu__item-action--accordion-trigger)');
 
             if (!labelNode || !actionNode) {
                 return;
