@@ -71,7 +71,7 @@
         aria-controls="{{ item.name }}"
         iconPath="{{ icon_path }}"
     >
-        {{ include('@ibexadesign/ui/menu/main_item_label.html.twig', {
+        {{ include('@ibexadesign/ui/menu/main_menu_item_label.html.twig', {
             item: item,
         }) }}
     </twig:ibexa:link>
@@ -105,7 +105,7 @@
             data-popup-target-selector="#{{ popup_id }}"
             iconPath="{{ icon_path }}"
         >
-            {{ include('@ibexadesign/ui/menu/main_item_label.html.twig', {
+            {{ include('@ibexadesign/ui/menu/main_menu_item_label.html.twig', {
                 item: item,
             }) }}
         </twig:ibexa:button>
@@ -132,7 +132,7 @@
                     data-item-name="{{ item.name }}"
                     iconPath="{{ icon_path }}"
                 >
-                    {{ include('@ibexadesign/ui/menu/main_item_label.html.twig', {
+                    {{ include('@ibexadesign/ui/menu/main_menu_item_label.html.twig', {
                         item: item,
                     }) }}
                 </twig:ibexa:button>
@@ -155,7 +155,7 @@
             class="{{ action_classes|join(' ') }}"
             iconPath="{{ icon_path }}"
         >
-            {{ include('@ibexadesign/ui/menu/main_item_label.html.twig', {
+            {{ include('@ibexadesign/ui/menu/main_menu_item_label.html.twig', {
                 item: item,
             }) }}
         </twig:ibexa:link>
@@ -170,7 +170,7 @@
     ] %}
 
     <a href="{{ item.uri }}" class="{{ classes|join(' ') }}">
-        {{ include('@ibexadesign/ui/menu/main_item_label.html.twig', {
+        {{ include('@ibexadesign/ui/menu/main_menu_item_label.html.twig', {
             item: item,
         }) }}
     </a>
@@ -178,7 +178,7 @@
 
 {% block popupSpanElement %}
     <div class="ibexa-popup-menu__item-content ibexa-main-menu-popup__group-name">
-        {{ include('@ibexadesign/ui/menu/main_item_label.html.twig', {
+        {{ include('@ibexadesign/ui/menu/main_menu_item_label.html.twig', {
             item: item,
             text_column_class: 'ibexa-main-menu-popup__group-item-content',
         }) }}
