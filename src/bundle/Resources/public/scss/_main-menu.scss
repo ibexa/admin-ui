@@ -29,7 +29,7 @@
 
         .ibexa-main-menu__item-action {
             &--popup-trigger {
-                display: none !important;
+                display: none;
             }
 
             &--accordion-trigger {
@@ -56,11 +56,11 @@
 
                 &__item-action {
                     &--popup-trigger {
-                        display: flex !important;
+                        display: flex;
                     }
 
                     &--accordion-trigger {
-                        display: none !important;
+                        display: none;
                     }
                 }
 
@@ -137,7 +137,6 @@
         background: transparent;
         border: calculateRem(2px) solid transparent;
         width: 100%;
-        
 
         @at-root a#{&},
             &.ids-btn {
@@ -167,6 +166,11 @@
 
             &:focus {
                 color: $ibexa-color-white;
+                background-color: $ibexa-color-dark-500;
+            }
+
+            &:hover {
+                background-color: $ibexa-color-dark-500;
             }
 
             .ibexa-main-menu {
