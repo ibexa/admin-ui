@@ -32,21 +32,22 @@ import { getInstance, hasInstance } from '@ibexa-design-system/src/bundle/Resour
         }
     };
     const parseMenuTitles = () => {
+        const menuExpanded = isMenuExpanded();
+        const collapsedActionSelector = '.ibexa-main-menu__item-action:not(.ibexa-main-menu__item-action--accordion-trigger)';
+
         ibexa.helpers.tooltips.hideAll();
 
-        navbar.querySelectorAll('.ibexa-main-menu__item[data-item-name]').forEach((item) => {
+        menuItems.forEach((item) => {
             const labelNode = item.querySelector('.ibexa-main-menu__item-text-column');
             const actionNode = item.querySelector(
-                isMenuExpanded()
-                    ? '.ibexa-main-menu__item-action'
-                    : '.ibexa-main-menu__item-action--popup-trigger, .ibexa-main-menu__item-action:not(.ibexa-main-menu__item-action--accordion-trigger)',
+                menuExpanded ? '.ibexa-main-menu__item-action' : collapsedActionSelector,
             );
 
             if (!labelNode || !actionNode) {
                 return;
             }
 
-            if (navbar.classList.contains('ibexa-main-menu__navbar--collapsed')) {
+            if (!menuExpanded) {
                 actionNode.setAttribute('title', labelNode.textContent.trim());
                 actionNode.dataset.tooltipPlacement = 'right';
                 actionNode.dataset.tooltipExtraClass = 'ibexa-tooltip--navigation';
@@ -221,8 +222,6 @@ import { getInstance, hasInstance } from '@ibexa-design-system/src/bundle/Resour
         if (shouldExpand) {
             closeAllAccordions(itemName);
         }
-
-        itemNode.classList.toggle('ibexa-main-menu__item--expanded', shouldExpand);
     };
 
     syncExpandToggleBtnState(isMenuExpanded());
