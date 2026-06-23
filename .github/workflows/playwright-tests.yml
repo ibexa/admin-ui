@@ -31,7 +31,8 @@ jobs:
 
     playwright-commerce:
         name: "Playwright/Commerce"
-        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@main
+        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@ibx-11740-playwright
         with:
             project-edition: 'commerce'
+            test-suite: ''
         secrets: inherit
