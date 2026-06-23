@@ -1,0 +1,14 @@
+{
+  "name": "@ibexa/admin-ui-playwright-tests",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "NODE_PATH=./node_modules/@ibexa/cohesivo-playwright/node_modules ./node_modules/@ibexa/cohesivo-playwright/node_modules/.bin/playwright test",
+    "test:headless": "NODE_PATH=./node_modules/@ibexa/cohesivo-playwright/node_modules ./node_modules/@ibexa/cohesivo-playwright/node_modules/.bin/playwright test --project=headless",
+    "test:experience": "NODE_PATH=./node_modules/@ibexa/cohesivo-playwright/node_modules ./node_modules/@ibexa/cohesivo-playwright/node_modules/.bin/playwright test --project=experience",
+    "test:commerce": "NODE_PATH=./node_modules/@ibexa/cohesivo-playwright/node_modules ./node_modules/@ibexa/cohesivo-playwright/node_modules/.bin/playwright test --project=commerce"
+  },
+  "dependencies": {
+    "@ibexa/cohesivo-playwright": "file:../../../cohesivo-playwright"
+  }
+}
