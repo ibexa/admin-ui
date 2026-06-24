@@ -20,7 +20,7 @@ const PopupMenuSearch = ({ numberOfItems, filterText = '', setFilterText }) => {
             <InputTextInput
                 className="c-popup-menu__search-input-wrapper"
                 extraAria={{
-                    className: 'c-popup-menu__search-input',
+                    className: 'ids-input ids-input--text ids-input--small c-popup-menu__search-input',
                 }}
                 hasSearchAction={true}
                 name="popup-menu-search"
