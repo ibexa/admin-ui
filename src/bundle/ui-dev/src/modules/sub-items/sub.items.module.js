@@ -1243,7 +1243,7 @@ export default class SubItemsModule extends Component {
         const label = Translator.trans(/* @Desc("Move") */ 'move_btn.label', {}, 'ibexa_sub_items');
 
         return this.renderActionBtnWrapper(
-            <Button disabled={disabled} onClick={this.onMoveBtnClick} icon="move" type={ButtonType.Tertiary} size={ButtonSize.Medium}>
+            <Button disabled={disabled} onClick={this.onMoveBtnClick} icon="folder-open-move" type={ButtonType.Tertiary} size={ButtonSize.Medium}>
                 {label}
             </Button>,
             '',
@@ -1308,7 +1308,7 @@ export default class SubItemsModule extends Component {
         return (
             <div style={style}>
                 <div className="m-sub-items__spinner-wrapper">
-                    <Icon name="spinner" extraClasses="m-sub-items__spinner ibexa-icon--medium ibexa-spin" />
+                    <Icon name="arrow-rotate" extraClasses="m-sub-items__spinner ibexa-icon--medium ibexa-spin" />
                 </div>
             </div>
         );

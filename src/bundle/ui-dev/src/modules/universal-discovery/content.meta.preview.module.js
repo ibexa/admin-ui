@@ -92,7 +92,7 @@ const ContentMetaPreview = () => {
             <div className="c-content-meta-preview__action-item">
                 <Button
                     type={ButtonType.TertiaryAlt}
-                    icon="view"
+                    icon="visibility"
                     onClick={previewContent}
                     className="c-content-meta-preview__preview-button"
                 >

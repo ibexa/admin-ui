@@ -47,7 +47,7 @@ export const SORTING_OPTIONS = [
             return (
                 <div className="c-simple-dropdown__option-label">
                     {Translator.trans(/* @Desc("Date") */ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
-                    <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
+                    <Icon name="arrow-left" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
                 </div>
             );
         },
@@ -57,7 +57,7 @@ export const SORTING_OPTIONS = [
             return (
                 <div className="c-simple-dropdown__option-label">
                     {Translator.trans(/* @Desc("Sort by date") */ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
-                    <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
+                    <Icon name="arrow-left" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
                 </div>
             );
         },
@@ -72,7 +72,7 @@ export const SORTING_OPTIONS = [
             return (
                 <div className="c-simple-dropdown__option-label">
                     {Translator.trans(/* @Desc("Date") */ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
-                    <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
+                    <Icon name="arrow-left" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
                 </div>
             );
         },
@@ -82,7 +82,7 @@ export const SORTING_OPTIONS = [
             return (
                 <div className="c-simple-dropdown__option-label">
                     {Translator.trans(/* @Desc("Sort by date") */ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
-                    <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
+                    <Icon name="arrow-left" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
                 </div>
             );
         },

@@ -294,7 +294,7 @@ export default class UploadItemComponent extends Component {
 
         return (
             <div className="c-upload-list-item__message c-upload-list-item__message--error">
-                <Icon name="warning" extraClasses="ibexa-icon--tiny-small" />
+                <Icon name="alert-warning" extraClasses="ibexa-icon--tiny-small" />
                 {label}
                 {hasMultipleErrors && (
                     <button
@@ -306,7 +306,7 @@ export default class UploadItemComponent extends Component {
                             }))
                         }
                     >
-                        <Icon name="caret-down" extraClasses="ibexa-icon--tiny-small" />
+                        <Icon name="arrow-chevron-down" extraClasses="ibexa-icon--tiny-small" />
                     </button>
                 )}
             </div>
@@ -325,7 +325,7 @@ export default class UploadItemComponent extends Component {
 
         return (
             <div className="c-upload-list-item__message c-upload-list-item__message--success">
-                <Icon name="checkmark" extraClasses="ibexa-icon--tiny-small" />
+                <Icon name="form-check" extraClasses="ibexa-icon--tiny-small" />
                 {message}
             </div>
         );

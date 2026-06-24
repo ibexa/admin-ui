@@ -56,7 +56,7 @@ const SearchNoResults = ({ searchText, noResultsHints: noResultsHintsCustom, ext
                         className="c-search-no-results__no-results-hint"
                     >
                         <div className="c-search-no-results__no-results-hint-icon-wrapper">
-                            <Icon name="approved" extraClasses="ibexa-icon--small-medium" />
+                            <Icon name="check-circle" extraClasses="ibexa-icon--small-medium" />
                         </div>
                         <div className="c-search-no-results__no-results-hint-text">{hint}</div>
                     </div>

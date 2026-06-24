@@ -94,7 +94,7 @@ const Dropdown = ({
                 <span className="ibexa-dropdown__item-label">{item.label}</span>
                 {single && (
                     <div className="ibexa-dropdown__item-check">
-                        <Icon name="checkmark" extraClasses="ibexa-icon--tiny-small ibexa-dropdown__item-check-icon" />
+                        <Icon name="form-check" extraClasses="ibexa-icon--tiny-small ibexa-dropdown__item-check-icon" />
                     </div>
                 )}
             </li>

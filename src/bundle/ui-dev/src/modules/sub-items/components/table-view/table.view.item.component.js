@@ -227,7 +227,7 @@ export default class TableViewItemComponent extends PureComponent {
                     <Button
                         type={ButtonType.Primary}
                         size={ButtonSize.Small}
-                        icon="checkmark"
+                        icon="form-check"
                         onClick={this.handleSubmit}
                         className="c-table-view-item__btn c-table-view-item__btn--submit"
                     />

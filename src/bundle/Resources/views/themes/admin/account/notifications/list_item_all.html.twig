@@ -51,7 +51,7 @@
         <twig:ibexa:button
             type="tertiary-alt"
             size="small"
-            icon="button"
+            icon="cursor-clicked"
             icon_size="small"
             title="{{ btn_tooltip|default(defaultTooltip) }}"
             class="ibexa-notification-view-all__show"
@@ -116,7 +116,7 @@
                 <twig:ibexa:button
                     type="tertiary-alt"
                     size="small"
-                    icon="mail-open"
+                    icon="message-email-read"
                     icon_size="small"
                     title="{{ 'notification.mark_as_read'|trans({}, 'ibexa_notifications')|desc('Mark as read') }}"
                     class="{{ ('ibexa-notification-view-all__mail ibexa-notification-view-all__mail-open ' ~ (is_read ? 'ibexa-notification-view-all__icon-hidden'))|trim }}"
@@ -124,7 +124,7 @@
                 <twig:ibexa:button
                     type="tertiary-alt"
                     size="small"
-                    icon="mail"
+                    icon="message-email"
                     icon_size="small"
                     title="{{ 'notification.mark_as_unread'|trans({}, 'ibexa_notifications')|desc('Mark as unread') }}"
                     class="{{ ('ibexa-notification-view-all__mail ibexa-notification-view-all__mail-closed ' ~ (not is_read ? 'ibexa-notification-view-all__icon-hidden'))|trim }}"

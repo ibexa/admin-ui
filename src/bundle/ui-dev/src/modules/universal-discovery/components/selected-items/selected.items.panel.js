@@ -72,7 +72,7 @@ const SelectedItemsPanel = () => {
             <Button
                 type={ButtonType.Tertiary}
                 size={ButtonSize.Small}
-                icon="expand-left"
+                icon="arrow-expand-left"
                 onClick={toggleExpanded}
                 title={togglerLabel}
                 className="c-selected-items-panel__toggle-button"
