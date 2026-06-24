@@ -82,7 +82,7 @@
                             icon="assign-user"
                             icon_size="small-medium"
                         >
-                            {{ 'role_assignment.view.list.action.add'|trans|desc('Assign to Users/Groups') }}
+                            {{ 'role_assignment.view.list.action.add'|trans({}, 'ibexa_role')|desc('Assign to Users/Groups') }}
                         </twig:ibexa:link>
                         {% set modal_data_target = 'delete-role-assignments-modal' %}
                         <twig:ibexa:button
@@ -95,7 +95,7 @@
                             data-bs-toggle="modal"
                             :data-bs-target="'#' ~ modal_data_target"
                         >
-                            {{ 'role_assignment.view.list.action.delete'|trans|desc('Unassign') }}
+                            {{ 'role_assignment.view.list.action.delete'|trans({}, 'ibexa_role')|desc('Unassign') }}
                         </twig:ibexa:button>
                         {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                             'id': modal_data_target,

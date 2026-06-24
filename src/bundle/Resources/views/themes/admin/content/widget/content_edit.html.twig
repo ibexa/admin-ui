@@ -49,14 +49,14 @@
             class="ibexa-extra-actions__confirm-btn"
             :disabled="true"
         >
-            {{ 'edit.languages.edit'|trans|desc('Edit') }}
+            {{ 'edit.languages.edit'|trans({}, 'ibexa_locationview')|desc('Edit') }}
         </twig:ibexa:button>
         {{ custom_footer|raw }}
         <twig:ibexa:button
             type="secondary"
             class="ids-btn--close"
         >
-            {{ 'edit.languages.discard'|trans|desc('Discard') }}
+            {{ 'edit.languages.discard'|trans({}, 'ibexa_locationview')|desc('Discard') }}
         </twig:ibexa:button>
     {% endblock %}
 

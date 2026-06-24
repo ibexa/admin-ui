@@ -100,7 +100,7 @@ final readonly class FocusMode implements ValueDefinitionInterface, FormMapperIn
             (new Message('user.setting.focus_mode.label', 'ibexa_user_settings'))->setDesc('Enable focus mode'),
             (new Message('user.setting.focus_mode.help', 'ibexa_user_settings'))
                 ->setDesc(
-                    '<p><strong>Focus mode</strong> – A clean and intuitive interface with a simplified content
+                    '<p><strong>Focus mode</strong> – A clean and intuitive interface with a simplified Content
                         structure, designed for new and non-advanced users. Features include:</p>
                         <ul>
                             <li>View tab displaying site preview within the context</li>

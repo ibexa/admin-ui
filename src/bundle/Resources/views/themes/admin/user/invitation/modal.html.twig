@@ -69,7 +69,7 @@
                             size="small"
                             class="ibexa-user-invitation-modal__next-issue-btn"
                         >
-                            {{ 'modal.entry_issues.alert.go_to_next'|trans|desc('Go to next issue') }}
+                            {{ 'modal.entry_issues.alert.go_to_next'|trans({}, 'ibexa_user_invitation')|desc('Go to next issue') }}
                         </twig:ibexa:button>
                     {% endblock %}
                 {% endembed %}
@@ -109,7 +109,7 @@
                     icon_size="small-medium"
                     class="ibexa-user-invitation-modal__add-next-btn"
                 >
-                    {{ 'modal.add_next'|trans|desc('Add next') }}
+                    {{ 'modal.add_next'|trans({}, 'ibexa_user_invitation')|desc('Add next') }}
                 </twig:ibexa:button>
             </div>
             <div class="ibexa-user-invitation-modal__upload">
@@ -130,7 +130,7 @@
                         class="ibexa-user-invitation-modal__file-select"
                         tabIndex="-1"
                     >
-                        {{ 'modal.upload_local'|trans|desc('Upload a local file') }}
+                        {{ 'modal.upload_local'|trans({}, 'ibexa_user_invitation')|desc('Upload a local file') }}
                     </twig:ibexa:button>
                     <input
                         id="ibexa-user-invitation-modal-file-input"
@@ -148,7 +148,7 @@
             type="primary"
             class="ibexa-user-invitation-modal__fake-submit-btn"
         >
-            {{ 'modal.submit.label'|trans|desc('Send') }}
+            {{ 'modal.submit.label'|trans({}, 'ibexa_user_invitation')|desc('Send') }}
         </twig:ibexa:button>
         {{ form_widget(form.send, {
             attr: {
@@ -161,7 +161,7 @@
             class="ibexa-user-invitation-modal__cancel-btn"
             data-bs-dismiss="modal"
         >
-            {{ 'modal.cancel.label'|trans|desc('Cancel') }}
+            {{ 'modal.cancel.label'|trans({}, 'ibexa_user_invitation')|desc('Cancel') }}
         </twig:ibexa:button>
     {% endblock %}
     {% block content_after %}

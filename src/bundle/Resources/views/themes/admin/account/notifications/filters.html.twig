@@ -25,7 +25,7 @@
                 class="ids-btn--clear"
                 :disabled="not is_any_filter_set"
             >
-                {{ 'ibexa.notifications.search_form.clear'|trans|desc('Clear') }}
+                {{ 'ibexa.notifications.search_form.clear'|trans({}, 'ibexa_notifications')|desc('Clear') }}
             </twig:ibexa:button>
             <twig:ibexa:button
                 htmlType="submit"
@@ -34,7 +34,7 @@
                 class="ids-btn--apply"
                 :disabled="not is_any_filter_set"
             >
-                {{ 'ibexa.notifications.search_form.apply'|trans|desc('Apply') }}
+                {{ 'ibexa.notifications.search_form.apply'|trans({}, 'ibexa_notifications')|desc('Apply') }}
             </twig:ibexa:button>
         </div>
     </div>

@@ -309,7 +309,7 @@
             class="ibexa-relations__cta-btn"
         >
             <span class="ibexa-relations__cta-btn-label">
-                {{ 'ibexa_object_relation_list.cta.select'|trans|desc('Select Item') }}
+                {{ 'ibexa_object_relation_list.cta.select'|trans({}, 'ibexa_content_forms_content')|desc('Select Item') }}
             </span>
         </twig:ibexa:button>
         <p class="ibexa-relations__helper-text">{{ helper }}</p>

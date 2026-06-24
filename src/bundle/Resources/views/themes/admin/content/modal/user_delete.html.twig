@@ -13,7 +13,7 @@
         {{ form_start(form, {'action': path('ibexa.user.delete')}) }}
         {{ form_widget(form.delete, {'attr': {'class': 'ids-btn ids-btn--primary ids-btn--medium'}}) }}
         <twig:ibexa:button type="secondary" data-bs-dismiss="modal">
-            {{ 'delete.form.cancel'|trans|desc('Cancel') }}
+            {{ 'delete.form.cancel'|trans({}, 'ibexa_user_delete')|desc('Cancel') }}
         </twig:ibexa:button>
         {{ form_end(form) }}
     {% endblock %}

@@ -49,7 +49,7 @@
                 icon="edit"
                 icon_size="small"
             >
-                {{ 'section.edit'|trans|desc('Edit') }}
+                {{ 'section.edit'|trans({}, 'ibexa_section')|desc('Edit') }}
             </twig:ibexa:link>
             {% set delete_btn_toggle = deletable ? 'modal' : '' %}
             {% set delete_btn_target = deletable ? '#delete-section-modal' : '' %}
@@ -62,7 +62,7 @@
                 data-bs-toggle="{{ delete_btn_toggle }}"
                 data-bs-target="{{ delete_btn_target }}"
             >
-                {{ 'section.action.delete'|trans|desc('Delete') }}
+                {{ 'section.action.delete'|trans({}, 'ibexa_section')|desc('Delete') }}
             </twig:ibexa:button>
             {% if deletable %}
                 {% include '@ibexadesign/section/modal/delete_confirmation.html.twig' with {'form': form_section_delete} %}

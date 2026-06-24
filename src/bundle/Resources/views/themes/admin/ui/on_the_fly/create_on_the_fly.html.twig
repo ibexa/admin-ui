@@ -12,12 +12,12 @@
     {% set menu_items %}
         <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
             <twig:ibexa:button type="primary" class="ids-btn--confirm">
-                {{ 'on_the_fly.confirm'|trans()|desc('Publish') }}
+                {{ 'on_the_fly.confirm'|trans({}, 'ibexa_content_create')|desc('Publish') }}
             </twig:ibexa:button>
         </li>
         <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
             <twig:ibexa:button type="secondary" class="ids-btn--cancel">
-                {{ 'on_the_fly.cancel'|trans()|desc('Discard') }}
+                {{ 'on_the_fly.cancel'|trans({}, 'ibexa_content_create')|desc('Discard') }}
             </twig:ibexa:button>
         </li>
     {% endset %}

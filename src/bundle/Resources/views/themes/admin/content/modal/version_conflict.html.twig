@@ -33,13 +33,13 @@
             variant="button"
             type="primary"
         >
-            {{ 'version.conflict.form.continue'|trans|desc('Continue') }}
+            {{ 'version.conflict.form.continue'|trans({}, 'ibexa_version_conflict')|desc('Continue') }}
         </twig:ibexa:link>
         <twig:ibexa:button
             type="secondary"
             data-bs-dismiss="modal"
         >
-            {{ 'version.conflict.form.cancel'|trans|desc('Cancel') }}
+            {{ 'version.conflict.form.cancel'|trans({}, 'ibexa_version_conflict')|desc('Cancel') }}
         </twig:ibexa:button>
     {% endblock %}
 {% endembed %}

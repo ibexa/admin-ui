@@ -29,7 +29,7 @@
                         download
                         :disabled="readonly"
                     >
-                        {{ 'ibexa_binaryfile.action.download'|trans|desc('Download') }}
+                        {{ 'ibexa_binaryfile.action.download'|trans({}, 'ibexa_content_forms_content')|desc('Download') }}
                     </twig:ibexa:link>
                     <twig:ibexa:button
                         type="tertiary-alt"
@@ -39,15 +39,15 @@
                         class="ibexa-field-edit-preview__action--remove"
                         :disabled="readonly"
                     >
-                        {{ 'ibexa_binaryfile.action.remove'|trans|desc('Delete') }}
+                        {{ 'ibexa_binaryfile.action.remove'|trans({}, 'ibexa_content_forms_content')|desc('Delete') }}
                     </twig:ibexa:button>
                 </div>
                 <div class="ibexa-field-edit-preview__file-name-wrapper">
-                    <twig:ibexa:label class="form-label">{{ 'ibexa_binaryfile.file_name.label'|trans|desc('File name') }}</twig:ibexa:label>
+                    <twig:ibexa:label class="form-label">{{ 'ibexa_binaryfile.file_name.label'|trans({}, 'ibexa_content_forms_content')|desc('File name') }}</twig:ibexa:label>
                     <p class="ibexa-field-edit-preview__file-name">{{ form.parent.vars.value.value.fileName }}</p>
                 </div>
                 <div class="ibexa-field-edit-preview__file-size-wrapper">
-                    <twig:ibexa:label class="form-label">{{ 'ibexa_binaryfile.file_size.label'|trans|desc('Size') }}</twig:ibexa:label>
+                    <twig:ibexa:label class="form-label">{{ 'ibexa_binaryfile.file_size.label'|trans({}, 'ibexa_content_forms_content')|desc('Size') }}</twig:ibexa:label>
                     <p class="ibexa-field-edit-preview__file-size">{{ form.parent.vars.value.value.fileSize|ibexa_file_size(2) }}</p>
                 </div>
             </div>

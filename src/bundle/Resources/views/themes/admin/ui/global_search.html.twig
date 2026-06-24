@@ -37,7 +37,7 @@
                 size="small"
                 form="ibexa-global-search-form"
             >
-                {{ 'autocomplete.view_all_results'|trans|desc('View all results') }}
+                {{ 'autocomplete.view_all_results'|trans({}, 'ibexa_search')|desc('View all results') }}
             </twig:ibexa:button>
         </div>
         <div class="ibexa-global-search__autocomplete-no-results">

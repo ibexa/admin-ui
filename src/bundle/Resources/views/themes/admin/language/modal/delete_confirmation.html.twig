@@ -11,7 +11,7 @@
     {% block footer_content %}
         {{ form_widget(deleteForm.delete, { 'attr': {'class': 'ids-btn ids-btn--primary ids-btn--medium'} }) }}
         <twig:ibexa:button type="secondary" data-bs-dismiss="modal">
-            {{ 'language.form.cancel'|trans|desc('Cancel') }}
+            {{ 'language.form.cancel'|trans({}, 'ibexa_language')|desc('Cancel') }}
         </twig:ibexa:button>
     {% endblock %}
 {% endembed %}

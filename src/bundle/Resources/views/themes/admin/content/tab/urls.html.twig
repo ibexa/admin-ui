@@ -56,7 +56,7 @@
             class="ids-btn--prevented"
             data-bs-toggle="modal"
             data-bs-target="#ibexa-modal--custom-url-alias"
-        >{{ 'tab.urls.action.add'|trans|desc('Add') }}</twig:ibexa:button>
+        >{{ 'tab.urls.action.add'|trans({}, 'ibexa_content_url')|desc('Add') }}</twig:ibexa:button>
 
         {% set modal_data_target = 'delete-custom-url-modal' %}
         <twig:ibexa:button
@@ -67,7 +67,7 @@
             :disabled="true"
             data-bs-toggle="modal"
             :data-bs-target="'#' ~ modal_data_target"
-        >{{ 'tab.urls.action.delete'|trans|desc('Delete') }}</twig:ibexa:button>
+        >{{ 'tab.urls.action.delete'|trans({}, 'ibexa_content_url')|desc('Delete') }}</twig:ibexa:button>
         {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
             'id': modal_data_target,
             'message': 'tab.urls.modal.message'|trans|desc('Delete the selected custom URL aliases permanently?'),

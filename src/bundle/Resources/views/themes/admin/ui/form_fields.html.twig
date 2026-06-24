@@ -605,9 +605,9 @@
                 >
                     <span
                         class="ids-btn__label"
-                        title="{{ 'distraction_free_mode.enable.tooltip'|trans|desc('Enter distraction free mode. It shows only rich text editor toolbar and focuses your attention on editing text.') }}"
+                        title="{{ 'distraction_free_mode.enable.tooltip'|trans({}, 'ibexa_admin_ui')|desc('Enter distraction free mode. It shows only rich text editor toolbar and focuses your attention on editing text.') }}"
                     >
-                        {{ 'distraction_free_mode.enable.label'|trans|desc('Distraction free mode') }}
+                        {{ 'distraction_free_mode.enable.label'|trans({}, 'ibexa_admin_ui')|desc('Distraction free mode') }}
                     </span>
                 </twig:ibexa:button>
                 <twig:ibexa:button
@@ -618,7 +618,7 @@
                     class="ibexa-field-edit__distraction-free-mode-control-btn ibexa-field-edit__distraction-free-mode-control-btn--disable"
                     :disabled="fieldtype_is_not_translatable or disabled"
                 >
-                    {{ 'distraction_free_mode.disable.label'|trans|desc('Exit distraction free mode') }}
+                    {{ 'distraction_free_mode.disable.label'|trans({}, 'ibexa_admin_ui')|desc('Exit distraction free mode') }}
                 </twig:ibexa:button>
             </div>
         </div>

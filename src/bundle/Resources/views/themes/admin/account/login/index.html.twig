@@ -63,6 +63,9 @@
                 {% endblock %}
 
                 {% block login_form_buttons %}
+                    <div class="ibexa-login__link-wrapper">
+                        <a href="{{ path('ibexa.user.forgot_password') }}" tabindex="4">{{ 'authentication.forgot_your_password'|trans|desc('Forgot your password?') }}</a>
+                    </div>
                     <twig:ibexa:button
                         type="primary"
                         htmlType="submit"
@@ -70,11 +73,22 @@
                         tabindex="3"
                         :disabled="true"
                     >
-                        {{ 'authentication.login'|trans|desc('Login') }}
+                        {{ 'authentication.sign_in'|trans|desc('Sign in') }}
                     </twig:ibexa:button>
-                    <div class="ibexa-login__link-wrapper">
-                        <a href="{{ path('ibexa.user.forgot_password') }}" tabindex="4">{{ 'authentication.forgot_password'|trans|desc('Forgot your password?') }}</a>
-                    </div>
+                    {% if is_sso %}
+                        <div class="ibexa-login__or-divider">
+                            <span>{{ 'authentication.login_or'|trans|desc('or') }}</span>
+                        </div>
+                        <twig:ibexa:button
+                            type="secondary"
+                            htmlType="submit"
+                            class="ibexa-login__btn"
+                            tabindex="3"
+                            :disabled="true"
+                        >
+                            {{ 'authentication.sso'|trans|desc('Sign in with SSO') }}
+                        </twig:ibexa:button>
+                    {% endif %}
                 {% endblock %}
             </fieldset>
         </form>
