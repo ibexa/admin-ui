@@ -55,10 +55,8 @@ const TopMenuSearchInput = ({ isSearchOpened, setIsSearchOpened }) => {
     return (
         <div className={className}>
             <InputTextInput
-                extraAria={{
-                    className: 'c-top-menu-search-input__search-input',
-                    onKeyPress: handleKeyPressed,
-                }}
+                className="c-top-menu-search-input__search-input"
+                extraAria={{ onKeyPress: handleKeyPressed }}
                 name="udw-top-menu-search"
                 onChange={updateInputValue}
                 processActions={() => []}
