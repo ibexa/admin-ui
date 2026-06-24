@@ -435,6 +435,13 @@
         {%- set attr = attr|merge({class: (attr.class|default('') ~ ' ibexa-input')|trim}) -%}
         {%- set empty_placeholder_for_hiding_clear_btn_with_css = ' ' -%}
         {%- set attr = attr|merge({placeholder: (attr.placeholder is defined and attr.placeholder is not null) ? attr.placeholder : empty_placeholder_for_hiding_clear_btn_with_css}) -%}
+        {%- if attr.placeholder != empty_placeholder_for_hiding_clear_btn_with_css -%}
+            {%- set translated_placeholder = translation_domain is same as(false)
+                ? attr.placeholder
+                : attr.placeholder|trans({}, translation_domain)
+            -%}
+            {%- set attr = attr|merge({placeholder: translated_placeholder}) -%}
+        {%- endif -%}
         {%- set input_attr = attr|merge({
             id: id,
             name: full_name,
