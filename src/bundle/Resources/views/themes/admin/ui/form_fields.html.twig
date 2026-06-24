@@ -432,7 +432,7 @@
     {%- set type = type|default('text') -%}
     {%- set is_text_input = type in ['text', 'number', 'password', 'email', 'url', 'tel', 'search'] or force_text|default(false) -%}
     {%- if is_text_input -%}
-        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' ibexa-input ibexa-input--text')|trim}) -%}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' ibexa-input')|trim}) -%}
         {%- set empty_placeholder_for_hiding_clear_btn_with_css = ' ' -%}
         {%- set attr = attr|merge({placeholder: (attr.placeholder is defined and attr.placeholder is not null) ? attr.placeholder : empty_placeholder_for_hiding_clear_btn_with_css}) -%}
         {%- set input_attr = attr|merge({

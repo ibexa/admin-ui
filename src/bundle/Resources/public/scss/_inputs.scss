@@ -34,7 +34,6 @@
     }
 
     &:focus,
-    &.ibexa-input--text.form-control:focus,
     &.ibexa-input--date.form-control:focus {
         border-color: var(--ibexa-input-focus-border-color, #{$ibexa-color-primary});
         box-shadow: 0 0 0 calculateRem(4px) var(--ibexa-input-focus-shadow-color, #{color.change($ibexa-color-primary, $alpha: 0.25)});
@@ -245,7 +244,6 @@
         }
 
         &:focus,
-        &.ibexa-input--text.form-control:focus,
         &.ibexa-input--date.form-control:focus {
             border-color: $ibexa-color-info;
             box-shadow: 0 0 calculateRem(3px) 0 color.change($ibexa-color-info, $alpha: 0.75);
@@ -457,14 +455,14 @@
     &--type-number {
         max-width: calculateRem(150px);
 
-        .ibexa-input--text {
+        .ibexa-input {
             padding-right: calculateRem(12px);
         }
     }
 
     &--password,
     &--search {
-        .ibexa-input--text {
+        .ibexa-input {
             padding-right: calculateRem(56px);
         }
     }
@@ -514,16 +512,14 @@
     }
 }
 
-.ibexa-input--date:placeholder-shown + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear,
-.ibexa-input--text:placeholder-shown + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear,
-.ibexa-input--text:disabled + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear,
-.ibexa-input--text[hidden] + .ibexa-input-text-wrapper__actions,
-.ibexa-input--text[readonly] + .ibexa-input-text-wrapper__actions {
+.ibexa-input:placeholder-shown + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear,
+.ibexa-input:disabled + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear,
+.ibexa-input[hidden] + .ibexa-input-text-wrapper__actions,
+.ibexa-input[readonly] + .ibexa-input-text-wrapper__actions {
     display: none;
 }
 
-.ibexa-input--text,
-.ibexa-input--date {
+.ibexa-input {
     &.is-invalid + .ibexa-input-text-wrapper__actions {
         .ibexa-icon {
             fill: $ibexa-color-danger;

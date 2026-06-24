@@ -6,7 +6,7 @@
         const passwordShowIcon = passwordTogglerBtn.querySelector('.ibexa-input-text-wrapper__password-show');
         const passwordHideIcon = passwordTogglerBtn.querySelector('.ibexa-input-text-wrapper__password-hide');
         const inputTextWrapper = passwordTogglerBtn.closest('.ibexa-input-text-wrapper');
-        const input = inputTextWrapper.querySelector('.ibexa-input--text');
+        const input = inputTextWrapper.querySelector('input:not([type="hidden"])');
 
         if (input) {
             const inputTypeToSet = input.type === 'password' ? 'text' : 'password';
@@ -18,7 +18,7 @@
     };
     const clearText = ({ currentTarget }) => {
         const inputWrapper = currentTarget.closest('.ibexa-input-text-wrapper');
-        const input = inputWrapper.querySelector('.ibexa-input--text, .ibexa-input--date');
+        const input = inputWrapper.querySelector('input:not([type="hidden"])');
 
         input.value = '';
         input.dispatchEvent(new Event('input'));
@@ -33,8 +33,7 @@
     };
     const attachListenersToAllInputs = () => {
         const inputClearBtns = doc.querySelectorAll(`
-                .ibexa-input--text + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear,
-                .ibexa-input--date + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear
+                .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear
         `);
         const passwordTogglerBtns = doc.querySelectorAll('.ibexa-input-text-wrapper__action-btn--password-toggler');
 
