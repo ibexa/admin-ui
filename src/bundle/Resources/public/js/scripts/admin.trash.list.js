@@ -17,7 +17,6 @@
     const sortDirection = doc.querySelector('#trash_search_sort_direction');
     const creatorInput = doc.querySelector('.ibexa-trash-search-form__item--creator .ibexa-trash-search-form__input');
     const usersList = doc.querySelector('.ibexa-trash-search-form__item--creator .ibexa-trash-search-form__user-list');
-    const resetCreatorBtn = doc.querySelector('.ids-btn--reset-creator');
     const searchCreatorInput = doc.querySelector('#trash_search_creator');
     const sortableColumns = doc.querySelectorAll('.ibexa-table__sort-column');
     const btns = doc.querySelectorAll('.ids-btn--open-udw, .ids-btn--open-udw');
@@ -95,12 +94,6 @@
         updateTrashForm([event.target]);
         enableButtons();
     };
-    const handleResetUser = () => {
-        searchCreatorInput.value = '';
-
-        creatorInput.value = '';
-        creatorInput.removeAttribute('disabled');
-    };
     const handleClickOutsideUserList = (event) => {
         if (event.target.closest('.ibexa-trash-search-form__item--creator')) {
             return;
@@ -173,13 +166,23 @@
             doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
         }
     };
+    const handleCreatorInputChange = (event) => {
+        if (event.target.value !== '') {
+            return;
+        }
+
+        searchCreatorInput.value = '';
+        creatorInput.removeAttribute('readonly');
+        usersList.classList.add('ibexa-trash-search-form__user-list--hidden');
+        doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
+    };
     const handleSelectUser = (event) => {
         searchCreatorInput.value = event.target.dataset.id;
 
         usersList.classList.add('ibexa-trash-search-form__user-list--hidden');
 
         creatorInput.value = event.target.dataset.name;
-        creatorInput.setAttribute('disabled', true);
+        creatorInput.setAttribute('readonly', true);
 
         doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
         formSearch.submit();
@@ -251,9 +254,9 @@
     autoSendNodes.forEach((node) => node.addEventListener('change', handleAutoSubmitNodes, false));
     sortableColumns.forEach((column) => column.addEventListener('click', sortTrashItems, false));
     trashedTypeInput.addEventListener('change', toggleDatesSelectVisibility, false);
-    creatorInput.addEventListener('keyup', handleTyping, false);
+    creatorInput.addEventListener('input', handleTyping, false);
+    creatorInput.addEventListener('input', handleCreatorInputChange, false);
     usersList.addEventListener('click', handleSelectUser, false);
-    resetCreatorBtn.addEventListener('click', handleResetUser, false);
     updateTrashForm(trashRestoreCheckboxes);
     enableButtons();
     trashRestoreCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', handleCheckboxChange, false));

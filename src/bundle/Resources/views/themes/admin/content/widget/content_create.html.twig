@@ -36,12 +36,13 @@
                                 ibexa-instant-filter__input-wrapper--hidden
                             {% endif %}"
                     >
-                        <input
-                            type="text"
-                            class="ibexa-instant-filter__input ids-input ids-input--text"
-                            placeholder="{{ ('content.create.input.placeholder'|trans|desc('Search by content type')) }}"
-                            value=""
-                        />
+                        {{ include('@ibexadesign/ui/component/input_text_ds.html.twig', {
+                            input_attr: {
+                                class: 'ibexa-instant-filter__input',
+                                placeholder: 'content.create.input.placeholder'|trans|desc('Search by content type'),
+                                value: '',
+                            },
+                        }) }}
                     </div>
                     <div class="ibexa-instant-filter__desc">
                         {{ ('content.create.filters.desc'|trans|desc('Select a content type from list')) }}
