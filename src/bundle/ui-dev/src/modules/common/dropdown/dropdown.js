@@ -48,7 +48,9 @@ const Dropdown = ({
         'ibexa-dropdown--expanded': isExpanded,
         [extraClasses]: true,
     });
-    const scrollContainer = scrollContainerNode || document.querySelector('.ibexa-main-container__content-column');
+    const getScrollContainer = () => {
+        return scrollContainerNode || document.querySelector('.ibexa-main-container__content-column');
+    };
     const toggleExpanded = () => {
         calculateAndSetItemsListStyles();
         setIsExpanded((prevState) => !prevState && !disabled);
@@ -117,6 +119,7 @@ const Dropdown = ({
         }
 
         if (shouldCloseOutsideContainer) {
+            const scrollContainer = getScrollContainer();
             const scrollContainerRect = scrollContainer.getBoundingClientRect();
             const { top: scrollContainerTop, bottom: scrollContainerBottom } = scrollContainerRect;
 
@@ -204,6 +207,9 @@ const Dropdown = ({
         };
 
         document.body.addEventListener('click', onInteractionOutside, false);
+
+        const scrollContainer = getScrollContainer();
+
         scrollContainer.addEventListener('scroll', calculateAndSetItemsListStyles, false);
 
         return () => {
