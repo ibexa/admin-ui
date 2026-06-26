@@ -19,6 +19,7 @@ use Ibexa\Bundle\Rest\IbexaRestBundle;
 use Ibexa\Bundle\Search\IbexaSearchBundle;
 use Ibexa\Bundle\Test\Rest\IbexaTestRestBundle;
 use Ibexa\Bundle\TwigComponents\IbexaTwigComponentsBundle;
+use Symfony\UX\TwigComponent\TwigComponentBundle;
 use Ibexa\Bundle\User\IbexaUserBundle;
 use Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
@@ -53,6 +54,7 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
         yield new IbexaTestRestBundle();
         yield new IbexaUserBundle();
         yield new IbexaNotificationsBundle();
+        yield new TwigComponentBundle();
         yield new IbexaTwigComponentsBundle();
 
         yield new IbexaAdminUiBundle();
