@@ -19,7 +19,6 @@ use Ibexa\Bundle\Rest\IbexaRestBundle;
 use Ibexa\Bundle\Search\IbexaSearchBundle;
 use Ibexa\Bundle\Test\Rest\IbexaTestRestBundle;
 use Ibexa\Bundle\TwigComponents\IbexaTwigComponentsBundle;
-use Symfony\UX\TwigComponent\TwigComponentBundle;
 use Ibexa\Bundle\User\IbexaUserBundle;
 use Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
@@ -31,6 +30,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\UX\TwigComponent\TwigComponentBundle;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
 
 /**
