@@ -7,7 +7,6 @@
     const userTimezone = ibexa.adminUiConfig.timezone;
     const pickerConfig = {
         enableTime: true,
-        time_24hr: true,
         formatDate: (date) => formatShortDateTime(date, null),
     };
     const updateInputValue = (formInput, timestamp) => {
