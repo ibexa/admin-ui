@@ -183,9 +183,9 @@
         &--second-level-group {
             margin: 0;
             border-top: calculateRem(1px) solid $ibexa-color-dark-500;
-            margin-top: 8px;
-            margin-left: 10px;
-            padding: 1px 0;
+            margin-top: calculateRem(8px);
+            margin-left: calculateRem(10px);
+            padding: calculateRem(1px) 0;
             border-radius: 0;
             height: initial;
         }
@@ -258,7 +258,7 @@
             overflow: hidden;
 
             > .ibexa-main-menu__items-list {
-                margin-left: 28px;
+                margin-left: calculateRem(28px);
             }
         }
 
