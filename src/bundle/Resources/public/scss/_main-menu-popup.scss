@@ -47,9 +47,9 @@
         color: $ibexa-color-dark-500;
         font-size: $ibexa-text-font-size-small;
         cursor: initial;
-        padding: 1px 0;
-        margin-left: 12px;
-        margin-top: 8px;
+        padding: calculateRem(1px) 0;
+        margin-left: calculateRem(12px);
+        margin-top: calculateRem(8px);
         border-radius: 0;
         width: initial;
 
