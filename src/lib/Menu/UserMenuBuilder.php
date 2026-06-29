@@ -105,7 +105,7 @@ final class UserMenuBuilder extends AbstractBuilder implements TranslationContai
     {
         return [
             (new Message(self::ITEM_LOGOUT, 'ibexa_menu'))->setDesc('Logout'),
-            (new Message(self::ITEM_VIEW_PROFILE, 'ibexa_menu'))->setDesc('Profile'),
+            (new Message(self::ITEM_VIEW_PROFILE, 'ibexa_menu'))->setDesc('View Profile'),
             (new Message(self::ITEM_USER_SETTINGS, 'ibexa_menu'))->setDesc('User settings'),
             (new Message(self::ITEM_NOTIFICATION, 'ibexa_notifications'))->setDesc('View Notifications'),
         ];
