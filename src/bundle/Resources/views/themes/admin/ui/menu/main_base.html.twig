@@ -43,7 +43,7 @@
         'class': classes|join(' '),
     } %}
 
-    <a {{ knp_menu.attributes(link_attributes) }}>!!{{ block('label') }}</a>
+    <a {{ knp_menu.attributes(link_attributes) }}>{{ block('label') }}</a>
 {% endblock %}
 
 {% block popupSpanElement %}
