@@ -51,9 +51,7 @@ const Alert = ({
                 {subtitle && <div className="ibexa-alert__subtitle">{subtitle}</div>}
                 <div className="ibexa-alert__extra_content">{children}</div>
             </div>
-            {showCloseBtn && (
-                <Button type={ButtonType.TertiaryAlt} onClick={onClose} icon="discard" className="ibexa-alert__close-btn" />
-            )}
+            {showCloseBtn && <Button type={ButtonType.TertiaryAlt} onClick={onClose} icon="discard" className="ibexa-alert__close-btn" />}
         </div>
     );
 };

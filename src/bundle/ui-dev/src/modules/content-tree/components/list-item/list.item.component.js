@@ -161,7 +161,9 @@ class ListItem extends Component {
         let loadingSpinner = null;
 
         if (isLoading) {
-            loadingSpinner = <Icon name="arrow-rotate" extraClasses="ibexa-spin ibexa-icon--small-medium c-list-item__load-more-btn-spinner" />;
+            loadingSpinner = (
+                <Icon name="arrow-rotate" extraClasses="ibexa-spin ibexa-icon--small-medium c-list-item__load-more-btn-spinner" />
+            );
         }
 
         return (

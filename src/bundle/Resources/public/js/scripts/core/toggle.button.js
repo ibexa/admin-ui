@@ -4,7 +4,8 @@
     class ToggleButton {
         constructor(config) {
             this.toggleNode = config.toggleNode;
-            this.inputsSelector = config?.inputsSelector || (this.toggleNode.classList.contains('ids-toggle') ? '.ids-toggle__source input' : 'input');
+            this.inputsSelector =
+                config?.inputsSelector || (this.toggleNode.classList.contains('ids-toggle') ? '.ids-toggle__source input' : 'input');
             this.checkedClass = this.toggleNode.classList.contains('ids-toggle') ? 'ids-toggle--checked' : 'ibexa-toggle--is-checked';
             this.disabledClass = this.toggleNode.classList.contains('ids-toggle') ? 'ids-toggle--disabled' : 'ibexa-toggle--is-disabled';
             this.focusedClass = this.toggleNode.classList.contains('ids-toggle') ? 'ids-toggle--focused' : 'ibexa-toggle--is-focused';

@@ -1,8 +1,6 @@
 (function (global, doc, ibexa) {
     const CLASS_HIDDEN = 'ibexa-side-panel--hidden';
-    const sidePanelCloseBtns = doc.querySelectorAll(
-        '.ibexa-side-panel .ids-btn--close, .ibexa-side-panel .ibexa-side-panel__btn--cancel',
-    );
+    const sidePanelCloseBtns = doc.querySelectorAll('.ibexa-side-panel .ids-btn--close, .ibexa-side-panel .ibexa-side-panel__btn--cancel');
     const sidePanelTriggers = [...doc.querySelectorAll('.ibexa-side-panel-trigger')];
     const panelBackdrops = new Map();
     const defaultBackdrop = new ibexa.core.Backdrop();

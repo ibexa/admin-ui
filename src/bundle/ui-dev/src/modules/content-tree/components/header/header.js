@@ -18,11 +18,7 @@ const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
         });
 
         return (
-            <Button
-                type={ButtonType.Tertiary}
-                onClick={toggleCollapseTree}
-                className="c-header__toggle-btn"
-            >
+            <Button type={ButtonType.Tertiary} onClick={toggleCollapseTree} className="c-header__toggle-btn">
                 {isCollapsed && <Icon name="content-tree" extraClasses="ibexa-icon--small-medium" />}
                 <Icon name={iconName} extraClasses={caretIconClass} />
             </Button>

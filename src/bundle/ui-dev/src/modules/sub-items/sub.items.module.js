@@ -1243,7 +1243,13 @@ export default class SubItemsModule extends Component {
         const label = Translator.trans(/* @Desc("Move") */ 'move_btn.label', {}, 'ibexa_sub_items');
 
         return this.renderActionBtnWrapper(
-            <Button disabled={disabled} onClick={this.onMoveBtnClick} icon="folder-open-move" type={ButtonType.Tertiary} size={ButtonSize.Medium}>
+            <Button
+                disabled={disabled}
+                onClick={this.onMoveBtnClick}
+                icon="folder-open-move"
+                type={ButtonType.Tertiary}
+                size={ButtonSize.Medium}
+            >
                 {label}
             </Button>,
             '',

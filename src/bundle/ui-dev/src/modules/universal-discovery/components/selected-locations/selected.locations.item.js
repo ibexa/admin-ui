@@ -65,14 +65,14 @@ const SelectedLocationsItem = ({ location, permissions }) => {
 
                     return <Component key={action.id} location={location} permissions={permissions} />;
                 })}
-                    <Button
-                        type={ButtonType.TertiaryAlt}
-                        icon="discard"
-                        onClick={removeFromSelection}
-                        title={removeItemLabel}
-                        className="c-selected-locations-item__remove-button"
-                        extraAria={{ 'data-tooltip-container-selector': '.c-udw-tab' }}
-                    />
+                <Button
+                    type={ButtonType.TertiaryAlt}
+                    icon="discard"
+                    onClick={removeFromSelection}
+                    title={removeItemLabel}
+                    className="c-selected-locations-item__remove-button"
+                    extraAria={{ 'data-tooltip-container-selector': '.c-udw-tab' }}
+                />
             </div>
         </div>
     );
