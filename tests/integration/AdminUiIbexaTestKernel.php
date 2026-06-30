@@ -30,6 +30,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\UX\TwigComponent\TwigComponentBundle;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
 
 /**
@@ -53,6 +54,7 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
         yield new IbexaTestRestBundle();
         yield new IbexaUserBundle();
         yield new IbexaNotificationsBundle();
+        yield new TwigComponentBundle();
         yield new IbexaTwigComponentsBundle();
 
         yield new IbexaAdminUiBundle();
