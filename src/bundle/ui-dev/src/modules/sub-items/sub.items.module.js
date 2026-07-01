@@ -981,11 +981,12 @@ export default class SubItemsModule extends Component {
         const confirmBtnAttrs = {
             label: confirmLabel,
             onClick: this.onBulkDeletePopupConfirm,
-            className: 'ids-btn--primary ids-btn--trigger',
+            type: ButtonType.Primary,
+            className: 'ids-btn--trigger',
         };
         const cancelBtnAttrs = {
             label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
-            className: 'ids-btn--secondary',
+            type: ButtonType.Secondary,
             'data-bs-dismiss': 'modal',
         };
 
@@ -996,11 +997,12 @@ export default class SubItemsModule extends Component {
         const confirmBtnAttrs = {
             label: Translator.trans(/* @Desc("Hide") */ 'bulk_hide.popup.confirm', {}, 'ibexa_sub_items'),
             onClick: this.onBulkHidePopupConfirm,
-            className: 'ids-btn--primary ids-btn--trigger',
+            type: ButtonType.Primary,
+            className: 'ids-btn--trigger',
         };
         const cancelBtnAttrs = {
             label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
-            className: 'ids-btn--secondary',
+            type: ButtonType.Secondary,
             'data-bs-dismiss': 'modal',
         };
 
@@ -1011,11 +1013,12 @@ export default class SubItemsModule extends Component {
         const confirmBtnAttrs = {
             label: Translator.trans(/* @Desc("Reveal") */ 'bulk_unhide.popup.confirm', {}, 'ibexa_sub_items'),
             onClick: this.onBulkUnhidePopupConfirm,
-            className: 'ids-btn--primary ids-btn--trigger',
+            type: ButtonType.Primary,
+            className: 'ids-btn--trigger',
         };
         const cancelBtnAttrs = {
             label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
-            className: 'ids-btn--secondary',
+            type: ButtonType.Secondary,
             'data-bs-dismiss': 'modal',
         };
 

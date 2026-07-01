@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 
+import { Button, ButtonType } from '@ids-components/components/Button';
 import { createCssClassNames } from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/common/helpers/css.class.names';
 import {
     getTranslator,
@@ -186,17 +187,18 @@ const Popup = ({
                     {!noFooter && (
                         <div className="modal-footer c-popup__footer">
                             {actionBtnsConfig.map(
-                                ({ className, onClick, disabled = false, preventClose = false, label, ...extraProps }) => (
-                                    <button
+                                ({ className = '', onClick, disabled = false, preventClose = false, label, type, size: buttonSize, ...extraProps }) => (
+                                    <Button
                                         key={label}
-                                        type="button"
-                                        className={`btn ibexa-btn ${className}`}
+                                        type={type}
+                                        size={buttonSize}
+                                        className={className}
                                         onClick={onClick ? (event) => handleOnClick(event, onClick, preventClose) : hidePopup}
                                         disabled={disabled}
                                         {...extraProps}
                                     >
                                         {label}
-                                    </button>
+                                    </Button>
                                 ),
                             )}
                         </div>
@@ -215,6 +217,8 @@ Popup.propTypes = {
             disabled: PropTypes.bool,
             className: PropTypes.string,
             preventClose: PropTypes.bool,
+            size: PropTypes.string,
+            type: PropTypes.oneOf(Object.values(ButtonType)),
         }),
     ).isRequired,
     children: PropTypes.node.isRequired,
