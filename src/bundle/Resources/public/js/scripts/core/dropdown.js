@@ -439,8 +439,14 @@
             const { width } = this.selectedItemsContainer.getBoundingClientRect();
             const minItemWidth = parseInt(this.selectedItemsContainer.dataset.minItemWidth, 10);
             const computedItemWidth = width > minItemWidth ? width : minItemWidth;
+            const customMaxHeight = Number(this.sourceInput.dataset.maxHeight);
 
-            this.itemsContainer.style['max-height'] = `${this.getItemsContainerHeight()}px`;
+            if (customMaxHeight && customMaxHeight < this.getItemsContainerHeight()) {
+                this.itemsContainer.style['max-height'] = `${customMaxHeight}px`;
+            } else {
+                this.itemsContainer.style['max-height'] = `${this.getItemsContainerHeight()}px`;
+            }
+
             this.itemsContainer.style.minWidth = `${computedItemWidth}px`;
 
             return this.itemsContainer;
