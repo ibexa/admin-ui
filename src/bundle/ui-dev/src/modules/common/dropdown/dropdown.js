@@ -53,7 +53,7 @@ const Dropdown = ({
         calculateAndSetItemsListStyles();
         setIsExpanded((prevState) => !prevState && !disabled);
     };
-    const updateFilterValue = (value, event) => setFilterText(event?.target.value ?? value);
+    const updateFilterValue = (newValue, event) => setFilterText(event?.target.value ?? newValue);
     const showItem = (itemValue, searchedTerm) => {
         if (searchedTerm.length < 3) {
             return true;

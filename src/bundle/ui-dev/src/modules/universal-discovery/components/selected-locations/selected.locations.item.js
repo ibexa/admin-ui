@@ -6,7 +6,6 @@ import {
     hideAll as hideAllTooltips,
 } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 
-import Icon from '../../../common/icon/icon';
 import Thumbnail from '../../../common/thumbnail/thumbnail';
 import { Button, ButtonType } from '@ids-components/components/Button';
 
@@ -22,7 +21,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
     const { checkIsDeselectionBlocked } = useSelectedLocationsHelpers();
     const isDeselectionBlocked = checkIsDeselectionBlocked(location);
     const contentTypesMap = useContext(ContentTypesMapContext);
-    const clearLabel = Translator.trans(
+    const removeItemLabel = Translator.trans(
         /* @Desc("Clear selection") */ 'selected_locations.clear_selection',
         {},
         'ibexa_universal_discovery_widget',
@@ -70,6 +69,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
                     icon="discard"
                     onClick={removeFromSelection}
                     title={removeItemLabel}
+                    disabled={isDeselectionBlocked}
                     className="c-selected-locations-item__remove-button"
                     extraAria={{ 'data-tooltip-container-selector': '.c-udw-tab' }}
                 />

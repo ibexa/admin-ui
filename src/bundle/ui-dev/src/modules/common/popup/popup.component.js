@@ -187,7 +187,16 @@ const Popup = ({
                     {!noFooter && (
                         <div className="modal-footer c-popup__footer">
                             {actionBtnsConfig.map(
-                                ({ className = '', onClick, disabled = false, preventClose = false, label, type, size: buttonSize, ...extraProps }) => (
+                                ({
+                                    className = '',
+                                    onClick,
+                                    disabled = false,
+                                    preventClose = false,
+                                    label,
+                                    type,
+                                    size: buttonSize,
+                                    ...extraProps
+                                }) => (
                                     <Button
                                         key={label}
                                         type={type}

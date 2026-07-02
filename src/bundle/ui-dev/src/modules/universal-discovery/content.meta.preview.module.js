@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 
-import Icon from '../common/icon/icon';
 import Thumbnail from '../common/thumbnail/thumbnail';
 import { createCssClassNames } from '../common/helpers/css.class.names';
 import Spinner from '../common/spinner/spinner';

@@ -6,8 +6,6 @@ import { getTranslator, getRootDOMElement } from '@ibexa-admin-ui/src/bundle/Res
 
 import UploadPopupComponent from './components/upload-popup/upload.popup.component';
 import { createFileStruct, publishFile, deleteFile, checkCanUpload } from './services/multi.file.upload.service';
-import Icon from '../common/icon/icon';
-import { createCssClassNames } from '../common/helpers/css.class.names';
 import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 
 export const UDW_TRIGGER_ID = 'UDW';

@@ -2,7 +2,6 @@ import React, { useContext, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import TopMenuSearchInput from './top.menu.search.input';
-import Icon from '../../../common/icon/icon';
 import { Button, ButtonType } from '@ids-components/components/Button';
 
 import { TitleContext, CancelContext } from '../../universal.discovery.module';

@@ -10,7 +10,6 @@ import {
     getTranslator,
 } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
-import Icon from '../../../common/icon/icon';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 
