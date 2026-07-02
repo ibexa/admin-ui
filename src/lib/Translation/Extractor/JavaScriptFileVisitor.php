@@ -20,7 +20,10 @@ use Peast\Syntax\Exception;
 use Peast\Syntax\Node;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
+use RuntimeException;
 use SplFileInfo;
+use Symfony\Component\Process\ExecutableFinder;
+use Symfony\Component\Process\Process;
 use Twig\Node\Node as TwigNode;
 
 final class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterface
@@ -57,6 +60,10 @@ final class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
         try {
             $source = file_get_contents($file->getRealPath());
 
+            if (str_ends_with($file->getRealPath(), '.ts')) {
+                $source = $this->transpileTypeScript($source);
+            }
+
             $parser = Peast::latest($source, [
                 'comments' => true,
                 'jsx' => true,
@@ -71,6 +78,14 @@ final class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
                 $e->getMessage(),
                 $e->getPosition()->getLine(),
                 $e->getPosition()->getColumn()
+            ));
+
+            return;
+        } catch (RuntimeException $e) {
+            $this->logger?->error(sprintf(
+                'Unable to parse file %s: %s',
+                $file->getRealPath(),
+                $e->getMessage()
             ));
 
             return;
@@ -204,8 +219,51 @@ final class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
         return null;
     }
 
+    /**
+     * Strips TypeScript syntax (type annotations, interfaces, generics, etc.) so the
+     * resulting source can be parsed by Peast, which only understands plain ECMAScript.
+     */
+    private function transpileTypeScript(string $source): string
+    {
+        $process = new Process([
+            $this->findEsbuildBinary(),
+            '--loader=ts',
+            '--format=esm',
+            '--target=esnext',
+        ]);
+        $process->setInput($source);
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            throw new RuntimeException(sprintf(
+                'Unable to transpile TypeScript source: %s',
+                $process->getErrorOutput()
+            ));
+        }
+
+        return $process->getOutput();
+    }
+
+    private function findEsbuildBinary(): string
+    {
+        $candidate = getcwd() . '/node_modules/.bin/esbuild';
+        if (is_executable($candidate)) {
+            return $candidate;
+        }
+
+        $binary = (new ExecutableFinder())->find('esbuild');
+        if ($binary !== null) {
+            return $binary;
+        }
+
+        throw new RuntimeException(
+            'Unable to locate the "esbuild" executable required to parse TypeScript files. ' .
+            'Run this command from the project root or install esbuild (yarn add -D esbuild).'
+        );
+    }
+
     private function supports(SplFileInfo $file): bool
     {
-        return str_ends_with($file->getRealPath(), '.js') && !str_ends_with($file->getRealPath(), '.min.js');
+        return (str_ends_with($file->getRealPath(), '.js') || str_ends_with($file->getRealPath(), '.ts')) && !str_ends_with($file->getRealPath(), '.min.js');
     }
 }
