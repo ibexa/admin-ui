@@ -179,7 +179,7 @@
             const stringifiedValue = JSON.stringify(String(value));
             const optionToSelect = this.itemsListContainer.querySelector(`.ibexa-dropdown__item[data-value=${stringifiedValue}]`);
 
-            if (optionToSelect?.classList.contains('ibexa-dropdown__item--disabled')) {
+            if (this.checkIsOptionDisabled(optionToSelect)) {
                 return;
             }
 
@@ -194,6 +194,10 @@
             }
 
             return JSON.stringify(String(element.dataset.value));
+        }
+
+        checkIsOptionDisabled(option) {
+            return option?.classList.contains('ibexa-dropdown__item--disabled');
         }
 
         onSelectSetSourceInputState(element, selected) {
@@ -247,7 +251,7 @@
         }
 
         onSelect(element, selected) {
-            if (!element || element.classList.contains('ibexa-dropdown__item--disabled')) {
+            if (!element || this.checkIsOptionDisabled(element)) {
                 return;
             }
 
@@ -303,7 +307,7 @@
         onOptionClick({ target }) {
             const option = target.closest('.ibexa-dropdown__item');
 
-            if (!option || option.classList.contains('ibexa-dropdown__item--disabled')) {
+            if (!option || this.checkIsOptionDisabled(option)) {
                 return;
             }
 
