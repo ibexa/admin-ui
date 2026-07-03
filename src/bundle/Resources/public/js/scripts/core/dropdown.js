@@ -649,34 +649,27 @@
             selectedItems.forEach((selectedItem) => this.attachSelectedItemEvents(selectedItem));
         }
 
-        disableOption(value) {
+        toggleOptionEnabled(value, isEnabled) {
             const stringifiedValue = JSON.stringify(String(value));
             const item = this.itemsListContainer.querySelector(`[data-value=${stringifiedValue}]`);
             const option = this.sourceInput.querySelector(`[value=${stringifiedValue}]`);
 
             if (item) {
-                item.classList.add('ibexa-dropdown__item--disabled');
-                item.setAttribute('aria-disabled', 'true');
+                item.classList.toggle('ibexa-dropdown__item--disabled', !isEnabled);
+                item.toggleAttribute('aria-disabled', !isEnabled);
             }
 
             if (option) {
-                option.disabled = true;
+                option.disabled = !isEnabled;
             }
         }
 
+        disableOption(value) {
+            this.toggleOptionEnabled(value, false);
+        }
+
         enableOption(value) {
-            const stringifiedValue = JSON.stringify(String(value));
-            const item = this.itemsListContainer.querySelector(`[data-value=${stringifiedValue}]`);
-            const option = this.sourceInput.querySelector(`[value=${stringifiedValue}]`);
-
-            if (item) {
-                item.classList.remove('ibexa-dropdown__item--disabled');
-                item.removeAttribute('aria-disabled');
-            }
-
-            if (option) {
-                option.disabled = false;
-            }
+            this.toggleOptionEnabled(value, true);
         }
 
         isOptionDisabled(value) {
