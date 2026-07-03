@@ -10,6 +10,9 @@
                             :type="tag_type|default('neutral')"
                             class="{{ (tag_attr.class|default('') ~ ' ' ~ tag_extra_classes|default(''))|trim }}"
                             style="{{ tag_attr.style|default('') }}"
+                            customTextColor="{{ tag_custom_text_color|default('') }}"
+                            customBackgroundColor="{{ tag_custom_background_color|default('') }}"
+                            customBorderColor="{{ tag_custom_border_color|default('') }}"
                         >
                             {{ tag }}
                         </twig:ibexa:tag>
