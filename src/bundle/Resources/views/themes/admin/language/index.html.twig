@@ -31,7 +31,7 @@
                     variant="button"
                     type="primary"
                 >
-                    {{ 'language.edit'|trans|desc('Edit') }}
+                    {{ 'language.edit'|trans({}, 'ibexa_language')|desc('Edit') }}
                 </twig:ibexa:link>
             </li>
             <li class="ibexa-context-menu__item">
@@ -43,7 +43,7 @@
                         data-bs-toggle="modal"
                         data-bs-target="#delete-language-modal"
                     >
-                        {{ 'language.delete_language'|trans|desc('Delete') }}
+                        {{ 'language.delete_language'|trans({}, 'ibexa_language')|desc('Delete') }}
                     </twig:ibexa:button>
 
                     {% include '@ibexadesign/language/modal/delete_confirmation.html.twig' with {'deleteForm': deleteForm} %}

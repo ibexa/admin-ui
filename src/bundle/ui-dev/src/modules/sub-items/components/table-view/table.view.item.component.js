@@ -227,16 +227,11 @@ export default class TableViewItemComponent extends PureComponent {
                     <Button
                         type={ButtonType.Primary}
                         size={ButtonSize.Small}
-                        icon="checkmark"
+                        icon="form-check"
                         onClick={this.handleSubmit}
                         className="c-table-view-item__btn c-table-view-item__btn--submit"
                     />
-                    <Button
-                        type={ButtonType.Secondary}
-                        size={ButtonSize.Small}
-                        icon="discard"
-                        onClick={this.handleCancel}
-                    />
+                    <Button type={ButtonType.Secondary} size={ButtonSize.Small} icon="discard" onClick={this.handleCancel} />
                 </div>
             </div>
         );
@@ -409,7 +404,7 @@ export default class TableViewItemComponent extends PureComponent {
         const Translator = getTranslator();
         const languages = this.props.languages.mappings;
         const { languageCodes } = this.props.item;
-        const label = Translator.trans(/* @Desc("Select language") */ 'languages.modal.label', {}, 'ibexa_sub_items');
+        const label = Translator.trans(/* @Desc("Select translation") */ 'languages.modal.label', {}, 'ibexa_sub_items');
         const languageItems = languageCodes.map((languageCode) => ({
             label: languages[languageCode].name,
             value: languageCode,
@@ -440,11 +435,7 @@ export default class TableViewItemComponent extends PureComponent {
         return (
             <tr className="ibexa-table__row c-table-view-item">
                 <td className="ibexa-table__cell c-table-view-item__cell c-table-view-item__cell--checkbox">
-                    <CheckboxInput
-                        className="c-table-view-item__checkbox"
-                        checked={isSelected}
-                        onChange={this.onSelectCheckboxChange}
-                    />
+                    <CheckboxInput className="c-table-view-item__checkbox" checked={isSelected} onChange={this.onSelectCheckboxChange} />
                 </td>
                 {this.renderBasicColumns()}
                 <td className={actionCellClassName}>

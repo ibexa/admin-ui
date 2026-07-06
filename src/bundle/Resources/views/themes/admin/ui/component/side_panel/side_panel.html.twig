@@ -23,7 +23,7 @@
             {% block header %}
                 <twig:ibexa:button
                     type="tertiary-alt"
-                    icon="caret-back"
+                    icon="arrow-chevron-left"
                     icon_size="small"
                     class="ids-btn--close-config-panel"
                 />
@@ -37,7 +37,7 @@
                         type="secondary"
                         class="ibexa-side-panel__cancel-btn ids-btn--close-config-panel"
                     >
-                        {{ 'side_panel.btn.cancel_label'|trans|desc('Cancel') }}
+                        {{ 'side_panel.btn.cancel_label'|trans({}, 'ibexa_admin_ui')|desc('Cancel') }}
                     </twig:ibexa:button>
                 {% endblock %}
             </div>

@@ -432,9 +432,16 @@
     {%- set type = type|default('text') -%}
     {%- set is_text_input = type in ['text', 'number', 'password', 'email', 'url', 'tel', 'search'] or force_text|default(false) -%}
     {%- if is_text_input -%}
-        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' ibexa-input ibexa-input--text')|trim}) -%}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' ibexa-input')|trim}) -%}
         {%- set empty_placeholder_for_hiding_clear_btn_with_css = ' ' -%}
         {%- set attr = attr|merge({placeholder: (attr.placeholder is defined and attr.placeholder is not null) ? attr.placeholder : empty_placeholder_for_hiding_clear_btn_with_css}) -%}
+        {%- if attr.placeholder != empty_placeholder_for_hiding_clear_btn_with_css -%}
+            {%- set translated_placeholder = translation_domain is same as(false)
+                ? attr.placeholder
+                : attr.placeholder|trans({}, translation_domain)
+            -%}
+            {%- set attr = attr|merge({placeholder: translated_placeholder}) -%}
+        {%- endif -%}
         {%- set input_attr = attr|merge({
             id: id,
             name: full_name,
@@ -447,6 +454,7 @@
             has_search,
             should_clear_button_send_form,
             input_attr,
+            wrapper_attr: wrapper_attr|default({}),
             is_disabled: attr.disabled|default(false) or disabled|default(false),
             extra_actions_after: extra_actions_after|default(null),
         } -%}
@@ -598,27 +606,27 @@
                 <twig:ibexa:button
                     type="tertiary-alt"
                     size="small"
-                    icon="focus"
+                    icon="arrows-outside"
                     icon_size="tiny-small"
                     class="ibexa-field-edit__distraction-free-mode-control-btn ibexa-field-edit__distraction-free-mode-control-btn--enable"
                     :disabled="fieldtype_is_not_translatable or disabled"
                 >
                     <span
                         class="ids-btn__label"
-                        title="{{ 'distraction_free_mode.enable.tooltip'|trans|desc('Enter distraction free mode. It shows only rich text editor toolbar and focuses your attention on editing text.') }}"
+                        title="{{ 'distraction_free_mode.enable.tooltip'|trans({}, 'ibexa_admin_ui')|desc('Enter distraction free mode. It shows only rich text editor toolbar and focuses your attention on editing text.') }}"
                     >
-                        {{ 'distraction_free_mode.enable.label'|trans|desc('Distraction free mode') }}
+                        {{ 'distraction_free_mode.enable.label'|trans({}, 'ibexa_admin_ui')|desc('Distraction free mode') }}
                     </span>
                 </twig:ibexa:button>
                 <twig:ibexa:button
                     type="tertiary-alt"
                     size="small"
-                    icon="un-focus"
+                    icon="arrows-inside"
                     icon_size="tiny-small"
                     class="ibexa-field-edit__distraction-free-mode-control-btn ibexa-field-edit__distraction-free-mode-control-btn--disable"
                     :disabled="fieldtype_is_not_translatable or disabled"
                 >
-                    {{ 'distraction_free_mode.disable.label'|trans|desc('Exit distraction free mode') }}
+                    {{ 'distraction_free_mode.disable.label'|trans({}, 'ibexa_admin_ui')|desc('Exit distraction free mode') }}
                 </twig:ibexa:button>
             </div>
         </div>

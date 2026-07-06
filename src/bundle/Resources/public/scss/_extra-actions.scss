@@ -89,7 +89,8 @@
         margin-top: calculateRem(42px);
         display: flex;
 
-        .ibexa-btn + .ibexa-btn {
+        .ibexa-btn + .ibexa-btn,
+        .ids-btn + .ids-btn {
             margin-left: calculateRem(16px);
         }
     }

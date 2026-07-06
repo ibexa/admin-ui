@@ -23,7 +23,7 @@
     {% trans_default_domain 'ibexa_locationview' %}
 
     <twig:ibexa:label class="ibexa-user-invitation-modal__label">
-        {{ 'modal.email_address'|trans|desc('Email address') }}
+        {{ 'modal.email_address'|trans({}, 'ibexa_locationview')|desc('Email address') }}
     </twig:ibexa:label>
 {% endblock %}
 

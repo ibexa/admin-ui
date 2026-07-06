@@ -85,7 +85,7 @@
         data-udw-config="{{ ibexa_udw_config('image_asset', {}) }}"
         :disabled="attr.readonly|default(false)"
     >
-        {{ 'fieldtype.ibexa_image_asset.select.label'|trans|desc('Select from library') }}
+        {{ 'fieldtype.ibexa_image_asset.select.label'|trans({}, 'ibexa_content_forms_content')|desc('Select from library') }}
     </twig:ibexa:button>
 {% endblock %}
 
@@ -123,7 +123,7 @@
                         class="ibexa-field-edit-preview__action--remove"
                         :disabled="readonly"
                     >
-                        {{ 'fieldtype.ibexa_image_asset.delete'|trans|desc('Delete') }}
+                        {{ 'fieldtype.ibexa_image_asset.delete'|trans({}, 'ibexa_content_forms_content')|desc('Delete') }}
                     </twig:ibexa:button>
                     <twig:ibexa:link
                         href="{{ destination_content_url }}"
@@ -136,7 +136,7 @@
                         target="_blank"
                         :disabled="readonly"
                     >
-                        {{ 'content.field_type.ibexa_image.preview'|trans|desc('Preview') }}
+                        {{ 'content.field_type.ibexa_image.preview'|trans({}, 'ibexa_content_forms_content')|desc('Preview') }}
                     </twig:ibexa:link>
 
                     {% if version_info is defined %}
@@ -162,7 +162,7 @@
             </div>
             <div class="ibexa-field-edit-preview__details">
                 <div class="ibexa-field-edit-preview__file-name-wrapper">
-                    <twig:ibexa:label class="form-label">{{ 'content.field_type.ibexa_image_asset.file_name.label'|trans|desc('File name') }}</twig:ibexa:label>
+                    <twig:ibexa:label class="form-label">{{ 'content.field_type.ibexa_image_asset.file_name.label'|trans({}, 'ibexa_content_forms_content')|desc('File name') }}</twig:ibexa:label>
                     <p>
                         <a class="ibexa-field-edit-preview__file-name" href="{{ destination_content_url }}" target="_blank">
                             {{ destination_content_name }}

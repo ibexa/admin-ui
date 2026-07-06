@@ -15,21 +15,21 @@
         <div class="ibexa-form-block">
             <div class="form-group">
                 <twig:ibexa:label class="ibexa-modal__label" :required="true">
-                    {{ 'url_wildcard.modal.create.url.wildcard'|trans|desc('URL wildcard') }}
+                    {{ 'url_wildcard.modal.create.url.wildcard'|trans({}, 'ibexa_url_wildcard')|desc('URL wildcard') }}
                 </twig:ibexa:label>
                 {{ form_widget(form.source_url) }}
             </div>
 
             <div class="form-group">
                 <twig:ibexa:label class="ibexa-modal__label" :required="true">
-                    {{ 'url_wildcard.modal.create.url.destintion'|trans|desc('Destination') }}
+                    {{ 'url_wildcard.modal.create.url.destintion'|trans({}, 'ibexa_url_wildcard')|desc('Destination') }}
                 </twig:ibexa:label>
                 {{ form_widget(form.destination_url) }}
             </div>
 
             <div class="form-group">
                 <twig:ibexa:label class="ibexa-modal__label">
-                    {{ 'url_wildcard.modal.create.redirect'|trans|desc('Redirect to wildcard destination') }}
+                    {{ 'url_wildcard.modal.create.redirect'|trans({}, 'ibexa_url_wildcard')|desc('Redirect to wildcard destination') }}
                 </twig:ibexa:label>
                 {{ form_widget(form.forward) }}
                 <small class="ibexa-form-help">
@@ -46,7 +46,7 @@
     {% block footer_content %}
         {{ form_widget(form.create, {'attr': {'class': 'ids-btn ids-btn--primary ids-btn--medium', 'disabled': 'disabled'}}) }}
         <twig:ibexa:button type="secondary" data-bs-dismiss="modal">
-            {{ 'url_wildcard.modal.create.cancel'|trans|desc('Cancel') }}
+            {{ 'url_wildcard.modal.create.cancel'|trans({}, 'ibexa_url_wildcard')|desc('Cancel') }}
         </twig:ibexa:button>
     {% endblock %}
     {% block content_after %}

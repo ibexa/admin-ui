@@ -97,7 +97,7 @@ const Taggify = forwardRef(
                 </div>
                 {bottomHint && (
                     <div className="c-taggify__bottom-hint">
-                        <Icon name="system-information" extraClasses="ibexa-icon--tiny-small" />
+                        <Icon name="info-circle" extraClasses="ibexa-icon--tiny-small" />
                         {bottomHint}
                     </div>
                 )}

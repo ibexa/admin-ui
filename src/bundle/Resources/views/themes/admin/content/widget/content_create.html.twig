@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="ibexa-extra-actions__content">
-            <twig:ibexa:label class="ibexa-extra-actions__section-header">{{ 'content.create.select_language'|trans|desc('Select a language:') }}</twig:ibexa:label>
+            <twig:ibexa:label class="ibexa-extra-actions__section-header">{{ 'content.create.select_language'|trans({}, 'ibexa_locationview')|desc('Select a language:') }}</twig:ibexa:label>
             <div class="ibexa-extra-actions__section-content">
                 {% if form.language.vars.choices|length == 1 %}
                     {{ form_widget(form.language, {'attr': {'class': 'ibexa-content-create form-control', 'readonly': true}}) }}
@@ -36,12 +36,13 @@
                                 ibexa-instant-filter__input-wrapper--hidden
                             {% endif %}"
                     >
-                        <input
-                            type="text"
-                            class="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
-                            placeholder="{{ ('content.create.input.placeholder'|trans|desc('Search by content type')) }}"
-                            value=""
-                        />
+                        {{ include('@ibexadesign/ui/component/input_text_ds.html.twig', {
+                            input_attr: {
+                                class: 'ibexa-instant-filter__input',
+                                placeholder: 'content.create.input.placeholder'|trans|desc('Search by content type'),
+                                value: '',
+                            },
+                        }) }}
                     </div>
                     <div class="ibexa-instant-filter__desc">
                         {{ ('content.create.filters.desc'|trans|desc('Select a content type from list')) }}
@@ -66,7 +67,7 @@
                 type="secondary"
                 class="ibexa-extra-actions__btn ibexa-extra-actions__btn--cancel"
             >
-                {{ 'content.create.cancel_btn.label'|trans|desc('Discard') }}
+                {{ 'content.create.cancel_btn.label'|trans({}, 'ibexa_locationview')|desc('Discard') }}
             </twig:ibexa:button>
         </div>
     </div>

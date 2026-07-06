@@ -117,7 +117,7 @@ export class UserInvitationModal {
         const emptyEmailIssueNode = entry.querySelector('.ibexa-user-invitation-modal__issue-email-empty');
         const invalidEmailIssueNode = entry.querySelector('.ibexa-user-invitation-modal__issue-email-invalid-format');
         const { issueInvalidEmailTemplate, issueEmptyEmailTemplate } = this.entriesContainer.dataset;
-        const emailInput = entry.querySelector('.ibexa-user-invitation-modal__email-wrapper .ibexa-input--text');
+        const emailInput = entry.querySelector('.ibexa-user-invitation-modal__email-wrapper .ids-input');
 
         emailInput.classList.toggle('is-invalid', isEmptyError || isInvalidFormatError);
 
@@ -138,7 +138,7 @@ export class UserInvitationModal {
     }
 
     validateEntryEmail(entry) {
-        const emailInput = entry.querySelector('.ibexa-user-invitation-modal__email-wrapper .ibexa-input--text');
+        const emailInput = entry.querySelector('.ibexa-user-invitation-modal__email-wrapper .ids-input');
         const errors = this.validateEmail(emailInput);
 
         this.toggleInvalidEmailState(entry, errors);
@@ -279,7 +279,7 @@ export class UserInvitationModal {
 
     attachEntryListeners(entry) {
         const deleteEntryBtn = entry.querySelector('.ibexa-user-invitation-modal__entry-delete-btn');
-        const emailInput = entry.querySelector('.ibexa-user-invitation-modal__email-wrapper .ibexa-input--text');
+        const emailInput = entry.querySelector('.ibexa-user-invitation-modal__email-wrapper .ids-input');
 
         deleteEntryBtn.addEventListener('click', this.handleEntryDelete, false);
         emailInput.addEventListener('blur', this.handleEmailValidation, false);
@@ -452,7 +452,7 @@ export class UserInvitationModal {
         this.initialEntries.forEach((initialEntry) => {
             this.attachEntryListeners(initialEntry);
 
-            const emailInput = initialEntry.querySelector('.ibexa-user-invitation-modal__email-wrapper .ibexa-input--text');
+            const emailInput = initialEntry.querySelector('.ibexa-user-invitation-modal__email-wrapper .ids-input');
             const isEmailEmpty = !emailInput.value;
 
             if (!isEmailEmpty) {

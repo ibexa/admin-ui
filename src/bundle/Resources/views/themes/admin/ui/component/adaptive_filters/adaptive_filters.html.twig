@@ -114,7 +114,7 @@
                             type="secondary"
                             class="ibexa-adaptive-filters__submit-btn"
                         >
-                            {{ 'actions.apply_btn'|trans|desc('Apply') }}
+                            {{ 'actions.apply_btn'|trans({}, 'ibexa_adaptive_filters')|desc('Apply') }}
                         </twig:ibexa:button>
                     {% endblock %}
                     {% block action_clear %}
@@ -124,7 +124,7 @@
                             icon_size="small"
                             class="ibexa-adaptive-filters__clear-btn"
                         >
-                            {{ 'actions.clear_btn'|trans|desc('Clear filters') }}
+                            {{ 'actions.clear_btn'|trans({}, 'ibexa_adaptive_filters')|desc('Clear filters') }}
                         </twig:ibexa:button>
                     {% endblock %}
                 {% endblock %}

@@ -32,7 +32,7 @@
                     icon="add"
                     icon_size="small-medium"
                 >
-                    {{ 'role.view.list.action.add'|trans|desc('Create') }}
+                    {{ 'role.view.list.action.add'|trans({}, 'ibexa_role')|desc('Create') }}
                 </twig:ibexa:link>
             </li>
         {% endif %}

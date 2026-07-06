@@ -20,7 +20,7 @@
             data-udw-config="{{ ibexa_udw_config('create', {'type': 'content_create'}) }}"
             :disabled="not can_create_content"
         >
-            {{ 'dashboard.create'|trans|desc('Create content') }}
+            {{ 'dashboard.create'|trans({}, 'ibexa_dashboard')|desc('Create content') }}
         </twig:ibexa:button>
     </div>
 {% endblock %}

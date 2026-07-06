@@ -5,7 +5,7 @@
         <twig:ibexa:tag type="neutral" class="ibexa-search-criteria-tags__tag">
             {{ 'search.in_language'|trans({
                 '%search_language%': form.children.search_language.vars.data.name,
-            })|desc('in %search_language%')}}
+            }, 'ibexa_search')|desc('in %search_language%')}}
         </twig:ibexa:tag>
     {% endif %}
 
@@ -23,7 +23,7 @@
     {% if form.section is defined and form.section.vars.data is not empty %}
         {{ include('@ibexadesign/ui/search_tag.html.twig', {
             'content': form.section.vars.data.name,
-            'title': "#{'search.section'|trans|desc('Section')}: #{form.section.vars.data.name}",
+            'title': "#{'search.section'|trans({}, 'ibexa_search')|desc('Section')}: #{form.section.vars.data.name}",
             'tag_class': "ibexa-search-criteria-tags__tag--section",
         }) }}
     {% endif %}
@@ -31,7 +31,7 @@
     {% if form.subtree.vars.value is not empty %}
         {{ include('@ibexadesign/ui/search_tag.html.twig', {
             'content': content_breadcrumbs,
-            'title':  "#{'search.subtree'|trans|desc('Subtree')}: #{content_breadcrumbs}",
+            'title':  "#{'search.subtree'|trans({}, 'ibexa_search')|desc('Subtree')}: #{content_breadcrumbs}",
             'tag_class': "ibexa-search-criteria-tags__tag--subtree",
         }) }}
     {% endif %}
@@ -45,7 +45,7 @@
         {% set end_date = last_modified.end_date|ibexa_short_datetime %}
 
         {{ include('@ibexadesign/ui/search_tag.html.twig', {
-            'content': "#{'search.last.modified'|trans|desc('Last modified')}: #{start_date} - #{end_date}",
+            'content': "#{'search.last.modified'|trans({}, 'ibexa_search')|desc('Last modified')}: #{start_date} - #{end_date}",
             'tag_class': "ibexa-search-criteria-tags__tag--last-modified",
         }) }}
     {% endif %}
@@ -59,7 +59,7 @@
         {% set end_date = form.vars.value.created.end_date|ibexa_short_datetime %}
 
         {{ include('@ibexadesign/ui/search_tag.html.twig', {
-            'content': "#{'search.created'|trans|desc('Created')}: #{start_date} - #{end_date}",
+            'content': "#{'search.created'|trans({}, 'ibexa_search')|desc('Created')}: #{start_date} - #{end_date}",
             'tag_class': "ibexa-search-criteria-tags__tag--last-created",
         }) }}
     {% endif %}
@@ -67,7 +67,7 @@
     {% if form.creator.vars.data is not empty %}
         {{ include('@ibexadesign/ui/search_tag.html.twig', {
             'content': form.creator.vars.data.name,
-            'title': "#{'search.creator'|trans|desc('Creator')}: #{form.creator.vars.data.name}",
+            'title': "#{'search.creator'|trans({}, 'ibexa_search')|desc('Creator')}: #{form.creator.vars.data.name}",
             'tag_class': "ibexa-search-criteria-tags__tag--creator",
         }) }}
     {% endif %}

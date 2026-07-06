@@ -76,13 +76,13 @@
         height: calculateRem(40px);
         transform: none;
 
+        .ids-icon {
+            fill: $ibexa-color-white;
+        }
+
         &:hover {
             background: $ibexa-color-info-600;
             box-shadow: 0 calculateRem(22px) calculateRem(24px) 0 color.change($ibexa-color-info, $alpha: 0.2);
-
-            .ids-icon {
-                fill: $ibexa-color-white;
-            }
         }
 
         &:focus {
@@ -90,10 +90,6 @@
             background: $ibexa-color-info-600;
             border-color: $ibexa-color-info-600;
             box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.2);
-
-            .ids-icon {
-                fill: $ibexa-color-white;
-            }
         }
     }
 

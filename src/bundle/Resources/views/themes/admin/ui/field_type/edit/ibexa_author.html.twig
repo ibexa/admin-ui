@@ -57,7 +57,7 @@
             />
         </div>
         {{- form_row(form.name, { label_wrapper_attr: { 'hidden': 'hidden' }, attr: { readonly: readonly }}) -}}
-        {{- form_row(form.email, { label_wrapper_attr: { 'hidden': 'hidden' }, attr: {'class': 'ibexa-input--text', readonly: readonly }}) -}}
+        {{- form_row(form.email, { label_wrapper_attr: { 'hidden': 'hidden' }, attr: { readonly: readonly }}) -}}
         <div class="ibexa-data-source__actions {{ readonly ? 'ibexa-data-source__actions--disabled' }}">
             <twig:ibexa:button
                 type="tertiary-alt"

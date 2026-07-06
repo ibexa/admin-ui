@@ -79,7 +79,9 @@
         padding-right: 0;
 
         &--hidden {
-            display: none;
+            &.ids-btn {
+                display: none;
+            }
         }
     }
 

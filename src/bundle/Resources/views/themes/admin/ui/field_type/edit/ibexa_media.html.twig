@@ -25,7 +25,7 @@
                         :disabled="readonly"
                         class="ibexa-field-edit-preview__action--remove"
                     >
-                        {{ 'content.field_type.ibexa_media.delete'|trans|desc('Delete') }}
+                        {{ 'content.field_type.ibexa_media.delete'|trans({}, 'ibexa_content_forms_content')|desc('Delete') }}
                     </twig:ibexa:button>
                     <twig:ibexa:link
                         href="{{ form.parent.vars.value.value.uri ?? '' }}"
@@ -37,7 +37,7 @@
                         target="_blank"
                         class="ibexa-field-edit-preview__action--preview"
                     >
-                        {{ 'content.field_type.ibexa_media.download'|trans|desc('Download') }}
+                        {{ 'content.field_type.ibexa_media.download'|trans({}, 'ibexa_content_forms_content')|desc('Download') }}
                     </twig:ibexa:link>
                 </div>
                 <svg class="ibexa-field-edit-preview__spinner ibexa-icon ibexa-spin">
@@ -53,11 +53,11 @@
 
             <div class="ibexa-field-edit-preview__details">
                 <span class="ibexa-field-edit-preview__file-name-wrapper">
-                    <twig:ibexa:label class="form-label">{{ 'content.field_type.ibexa_media.file_name.label'|trans|desc('File name') }}</twig:ibexa:label>
+                    <twig:ibexa:label class="form-label">{{ 'content.field_type.ibexa_media.file_name.label'|trans({}, 'ibexa_content_forms_content')|desc('File name') }}</twig:ibexa:label>
                     <p class="ibexa-field-edit-preview__file-name">{{ form.parent.vars.value.value.fileName }}</p>
                 </span>
                 <span class="ibexa-field-edit-preview__file-size-wrapper">
-                    <twig:ibexa:label class="form-label">{{ 'content.field_type.ibexa_media.file_size.label'|trans|desc('Size') }}</twig:ibexa:label>
+                    <twig:ibexa:label class="form-label">{{ 'content.field_type.ibexa_media.file_size.label'|trans({}, 'ibexa_content_forms_content')|desc('Size') }}</twig:ibexa:label>
                     <p class="ibexa-field-edit-preview__file-size">{{ form.parent.vars.value.value.fileSize|ibexa_file_size(2) }}</p>
                 </span>
                 <div class="ibexa-field-edit-preview__settings">

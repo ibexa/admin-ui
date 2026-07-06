@@ -156,7 +156,7 @@
         :id="'confirm-' ~ form.remove.vars.id"
         data-bs-toggle="modal"
         :data-bs-target="'#' ~ modal_data_target"
-    >{{ 'drafts.list.action.remove.confirmation.title'|trans|desc('Delete') }}</twig:ibexa:button>
+    >{{ 'drafts.list.action.remove.confirmation.title'|trans({}, 'ibexa_drafts')|desc('Delete') }}</twig:ibexa:button>
 
     {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
         'id': modal_data_target,

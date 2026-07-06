@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { getContentTypeIconUrl } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/content.type.helper';
 import { getTranslator, isExternalInstance } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
@@ -294,7 +295,7 @@ export default class UploadItemComponent extends Component {
 
         return (
             <div className="c-upload-list-item__message c-upload-list-item__message--error">
-                <Icon name="warning" extraClasses="ibexa-icon--tiny-small" />
+                <Icon name="alert-warning" extraClasses="ibexa-icon--tiny-small" />
                 {label}
                 {hasMultipleErrors && (
                     <button
@@ -306,7 +307,7 @@ export default class UploadItemComponent extends Component {
                             }))
                         }
                     >
-                        <Icon name="caret-down" extraClasses="ibexa-icon--tiny-small" />
+                        <Icon name="arrow-chevron-down" extraClasses="ibexa-icon--tiny-small" />
                     </button>
                 )}
             </div>
@@ -325,7 +326,7 @@ export default class UploadItemComponent extends Component {
 
         return (
             <div className="c-upload-list-item__message c-upload-list-item__message--success">
-                <Icon name="checkmark" extraClasses="ibexa-icon--tiny-small" />
+                <Icon name="form-check" extraClasses="ibexa-icon--tiny-small" />
                 {message}
             </div>
         );

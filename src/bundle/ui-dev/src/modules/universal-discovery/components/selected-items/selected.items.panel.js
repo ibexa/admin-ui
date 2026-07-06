@@ -10,7 +10,6 @@ import {
     getTranslator,
 } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
-import Icon from '../../../common/icon/icon';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 
@@ -72,7 +71,7 @@ const SelectedItemsPanel = () => {
             <Button
                 type={ButtonType.Tertiary}
                 size={ButtonSize.Small}
-                icon="expand-left"
+                icon="arrow-expand-left"
                 onClick={toggleExpanded}
                 title={togglerLabel}
                 className="c-selected-items-panel__toggle-button"

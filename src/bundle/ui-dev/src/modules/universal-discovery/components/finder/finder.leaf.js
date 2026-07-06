@@ -85,7 +85,7 @@ const FinderLeaf = ({ location }) => {
                 <span title={location.ContentInfo.Content.TranslatedName} data-tooltip-container-selector=".c-udw-tab">
                     {location.ContentInfo.Content.TranslatedName}
                 </span>
-                {location.hidden && <Icon name="view-hide" extraClasses="ibexa-icon--small-medium c-finder-leaf__hidden-icon" />}
+                {location.hidden && <Icon name="visibility-hidden" extraClasses="ibexa-icon--small-medium c-finder-leaf__hidden-icon" />}
             </span>
         </div>
     );
