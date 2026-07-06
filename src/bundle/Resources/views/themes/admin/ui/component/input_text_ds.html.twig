@@ -31,6 +31,7 @@
 {% if can_use_ds_input %}
     {% set ds_input = input_attr|merge({
         type: normalized_type,
+        root_class: wrapper_attr.class|default(''),
         disabled: is_disabled,
         has_search_action: has_search and normalized_type != 'password',
         search_button_type: search_button_type|default('submit'),

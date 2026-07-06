@@ -34,7 +34,7 @@
                     icon="add"
                     icon_size="small-medium"
                 >
-                    {{ 'object_state_group.new'|trans|desc('Create') }}
+                    {{ 'object_state_group.new'|trans({}, 'ibexa_object_state')|desc('Create') }}
                 </twig:ibexa:link>
             </li>
         {% endif %}

@@ -32,14 +32,16 @@
         flex-wrap: wrap;
     }
 
-    &__new-tag-input {
-        display: block;
-        width: 100%;
-        height: calculateRem(24px);
-        border: 0 none;
-        outline: none;
-        background: transparent;
-        padding: 0;
+    &__new-tag-input-wrapper {
+        .ids-input {
+            display: block;
+            width: 100%;
+            height: calculateRem(24px);
+            border: 0 none;
+            outline: none;
+            background: transparent;
+            padding: 0;
+        }
     }
 
     &__bottom-hint {

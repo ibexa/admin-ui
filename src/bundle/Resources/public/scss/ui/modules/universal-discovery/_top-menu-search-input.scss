@@ -7,8 +7,10 @@
     &--search-opened {
         .c-top-menu-search-input {
             &__search-input {
-                opacity: 1;
-                transform: translateY(-50%) scaleX(1);
+                &.ids-input-text {
+                    opacity: 1;
+                    transform: translateY(-50%) scaleX(1);
+                }
             }
         }
     }
@@ -20,7 +22,7 @@
     &__search-input {
         &.ids-input-text {
             position: absolute;
-            width: calc(100% - #{calculateRem(224px)});
+            width: calc(100% - #{calculateRem(195px)});
             top: 50%;
             left: calculateRem(65px);
             opacity: 0;

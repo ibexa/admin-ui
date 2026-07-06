@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { AssetsProvider } from '@ids-components/context/Assets';
+import { TranslatorProvider } from '@ids-components/context/Translator';
 
-import { getRootDOMElement } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getRootDOMElement, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
 import { createCssClassNames } from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/common/helpers/css.class.names';
 
 import PopupMenuSearch from './popup.menu.search';
@@ -27,6 +30,7 @@ const PopupMenu = ({
     });
     const [filterText, setFilterText] = useState('');
     const numberOfItems = useMemo(() => items.reduce((sum, group) => sum + group.items.length, 0), [items]);
+    const Translator = getTranslator();
     const popupMenuClassName = createCssClassNames({
         'c-popup-menu': true,
         'c-popup-menu--hidden': !isRendered,
@@ -91,15 +95,19 @@ const PopupMenu = ({
     }, [onClose, scrollContainer, referenceElement, calculateAndSetItemsListStyles]);
 
     return (
-        <div className={popupMenuClassName} style={itemsListStyles} ref={containerRef}>
-            <PopupMenuSearch numberOfItems={numberOfItems} filterText={filterText} setFilterText={setFilterText} />
-            <div className="c-popup-menu__groups">
-                {items.map((group) => (
-                    <PopupMenuGroup key={group.key} items={group.items} filterText={filterText} onItemClick={onItemClick} />
-                ))}
-            </div>
-            {renderFooter()}
-        </div>
+        <AssetsProvider value={{ getIconPath }}>
+            <TranslatorProvider value={Translator}>
+                <div className={popupMenuClassName} style={itemsListStyles} ref={containerRef}>
+                    <PopupMenuSearch numberOfItems={numberOfItems} filterText={filterText} setFilterText={setFilterText} />
+                    <div className="c-popup-menu__groups">
+                        {items.map((group) => (
+                            <PopupMenuGroup key={group.key} items={group.items} filterText={filterText} onItemClick={onItemClick} />
+                        ))}
+                    </div>
+                    {renderFooter()}
+                </div>
+            </TranslatorProvider>
+        </AssetsProvider>
     );
 };
 

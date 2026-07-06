@@ -32,7 +32,7 @@
                     icon="add"
                     icon_size="small-medium"
                 >
-                    {{ 'content_type_group.view.list.action.add'|trans|desc('Create') }}
+                    {{ 'content_type_group.view.list.action.add'|trans({}, 'ibexa_content_type')|desc('Create') }}
                 </twig:ibexa:link>
             </li>
         {% endif %}

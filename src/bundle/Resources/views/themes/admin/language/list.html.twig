@@ -28,7 +28,7 @@
                     variant="button"
                     type="primary"
                 >
-                    {{ 'language.new'|trans|desc('Add language') }}
+                    {{ 'language.new'|trans({}, 'ibexa_language')|desc('Add language') }}
                 </twig:ibexa:link>
             </li>
         {% endif %}

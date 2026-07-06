@@ -76,25 +76,8 @@
         cursor: pointer;
     }
 
-    &__input {
-        &.ibexa-input.form-control:disabled {
-            background-color: $ibexa-color-white;
-
-            & + .ids-btn--reset-creator {
-                display: block;
-            }
-        }
-    }
-
-    .ids-btn--reset-creator {
-        display: none;
-        position: absolute;
-        right: 0;
-        bottom: 0;
-
-        &:hover {
-            border-color: transparent;
-        }
+    &__input[readonly] {
+        background-color: $ibexa-color-white;
     }
 
     .ibexa-date-time-range-single:not(.ibexa-date-time-range-single--hidden) {

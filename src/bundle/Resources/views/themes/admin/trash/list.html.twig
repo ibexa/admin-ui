@@ -32,24 +32,19 @@
     {% set creatorSearch %}
         <div class="form-group">
             <twig:ibexa:label class="form-label" for="trash_search_content_type">
-                {{ 'search.creator_input.label' | trans | desc('Creator') }}
+                {{ 'search.creator_input.label'|trans({}, 'ibexa_trash')| desc('Creator') }}
             </twig:ibexa:label>
             <div class="ibexa-trash-search-form__item ibexa-trash-search-form__item--creator">
                 <div class="ibexa-trash-search-form__input-wrapper">
-                    <input
-                        type="text"
-                        class="form-control ibexa-input ibexa-input--text ibexa-trash-search-form__input"
-                        data-content-type-identifiers="{{ user_content_type_identifier | join(',') }}"
-                        value="{{ creator_exists ? ibexa_content_name(creator) : '' }}"
-                        placeholder="{{ 'search.creator_input.placeholder' | trans | desc('Type creator\'s name') }}"
-                        {{ creator_exists ? 'disabled' : '' }}
-                    >
-                    <twig:ibexa:button
-                        type="tertiary-alt"
-                        icon="discard"
-                        icon_size="tiny-small"
-                        class="ids-btn--reset-creator"
-                    />
+                    {{ include('@ibexadesign/ui/component/input_text_ds.html.twig', {
+                        input_attr: {
+                            class: 'ibexa-trash-search-form__input',
+                            'data-content-type-identifiers': user_content_type_identifier|join(','),
+                            value: creator_exists ? ibexa_content_name(creator) : '',
+                            placeholder: 'search.creator_input.placeholder'|trans|desc('Type creator\'s name'),
+                            readonly: creator_exists,
+                        },
+                    }) }}
                 </div>
                 <ul class="ibexa-trash-search-form__user-list ibexa-trash-search-form__user-list--hidden"></ul>
             </div>

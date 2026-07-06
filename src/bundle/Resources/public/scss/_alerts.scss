@@ -46,12 +46,19 @@
         margin-top: calculateRem(8px); // Fixing position for rows
     }
 
-    &__close-btn {
+    &__close-btn.ids-btn.ids-btn {
         grid-area: close-btn;
         fill: inherit;
         padding: calculateRem(4px);
         border-radius: 50%;
         margin-left: calculateRem(5px);
+        width: calculateRem(18px);
+        height: calculateRem(18px);
+
+        .ids-icon {
+            width: calculateRem(8px);
+            height: calculateRem(8px);
+        }
 
         &:active,
         &:focus-visible {

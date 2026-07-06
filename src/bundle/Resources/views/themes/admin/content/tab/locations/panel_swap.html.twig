@@ -1,7 +1,7 @@
 {% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
 
 {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
-    headline: 'tab.locations.location_content_swap'|trans()|desc('Swap Locations'),
+    headline: 'tab.locations.location_content_swap'|trans|desc('Swap Locations'),
 } only %}
 
 {{ form_start(form, {
@@ -9,7 +9,7 @@
     'attr': { 'class': 'ibexa-location-swap-form' }
 }) }}
     <div class="ibexa-location-swap-form__label">
-        {{ 'tab.locations.swap_with_another'|trans()|desc('Swap the Content item at this Location with another') }}
+        {{ 'tab.locations.swap_with_another'|trans|desc('Swap the Content item at this Location with another') }}
     </div>
     <div class="ibexa-location-swap-form__action-content">
         {{ form_widget(form.swap, {'attr': {

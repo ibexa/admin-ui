@@ -18,7 +18,7 @@
             class="ibexa-notification-list__mark-all-as-read"
             :disabled="no_items"
         >
-            {{ 'ibexa_notifications.btn.mark_all_as_read'|trans|desc('Mark all as read') }}
+            {{ 'ibexa_notifications.btn.mark_all_as_read'|trans({}, 'ibexa_notifications')|desc('Mark all as read') }}
         </twig:ibexa:button>
     </div>
 
@@ -118,10 +118,10 @@
             id="confirm-mark-selected-as-read"
             type="tertiary-alt"
             size="small"
-            icon="mail-open"
+            icon="message-email-read"
             class="ibexa-notification-list__btn-mark-as-read"
             :disabled="true"
-        >{{ 'notification.mark_as_read'|trans|desc('Mark as read') }}</twig:ibexa:button>
+        >{{ 'notification.mark_as_read'|trans({}, 'ibexa_notifications')|desc('Mark as read') }}</twig:ibexa:button>
         <twig:ibexa:button
             id="confirm-selection_remove"
             type="tertiary-alt"
@@ -131,7 +131,7 @@
             :disabled="true"
             data-bs-toggle="modal"
             :data-bs-target="'#' ~ modal_data_target"
-        >{{ 'notification.delete'|trans|desc('Delete') }}</twig:ibexa:button>
+        >{{ 'notification.delete'|trans({}, 'ibexa_notifications')|desc('Delete') }}</twig:ibexa:button>
     </div>
     {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
         'id': modal_data_target,

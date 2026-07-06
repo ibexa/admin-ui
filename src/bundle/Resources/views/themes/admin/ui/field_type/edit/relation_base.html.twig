@@ -27,12 +27,16 @@
     {% endset %}
 
     {% set col_raw_order_input_template %}
-        <input
-            class="ibexa-relations__order-input ibexa-input ibexa-input--small form-control"
-            type="number"
-            value="{{ '{{ order }}' }}"
-            {{ readonly ? 'disabled' }}
-        >
+        <div class="ids-input-text">
+            <div class="ids-input-text__source">
+                <input
+                    class="ibexa-relations__order-input ids-input ids-input--number ids-input--small"
+                    type="number"
+                    value="{{ '{{ order }}' }}"
+                    {{ readonly ? 'disabled' }}
+                >
+            </div>
+        </div>
     {% endset %}
 
     {% set col_raw_actions_template %}
@@ -116,12 +120,16 @@
                 {% endset %}
 
                 {% set col_raw_order_input %}
-                    <input
-                        class="ibexa-relations__order-input ibexa-input ibexa-input--small form-control"
-                        type="number"
-                        value="{{ loop.index }}"
-                        {{ readonly ? 'readonly' }}
-                    >
+                    <div class="ids-input-text">
+                        <div class="ids-input-text__source">
+                            <input
+                                class="ibexa-relations__order-input ids-input ids-input--number ids-input--small"
+                                type="number"
+                                value="{{ loop.index }}"
+                                {{ readonly ? 'readonly' }}
+                            >
+                        </div>
+                    </div>
                 {% endset %}
 
                 {% if limit != 1 %}
@@ -181,12 +189,16 @@
                 {% endset %}
 
                 {% set col_raw_order_input %}
-                    <input
-                        class="ibexa-relations__order-input ibexa-input ibexa-input--small form-control"
-                        type="number"
-                        value="{{ loop.index }}"
-                        {{ readonly ? 'disabled' }}
-                    >
+                    <div class="ids-input-text">
+                        <div class="ids-input-text__source">
+                            <input
+                                class="ibexa-relations__order-input ids-input ids-input--number ids-input--small"
+                                type="number"
+                                value="{{ loop.index }}"
+                                {{ readonly ? 'disabled' }}
+                            >
+                        </div>
+                    </div>
                 {% endset %}
 
                 {% set body_rows = body_rows|merge([{
@@ -309,7 +321,7 @@
             class="ibexa-relations__cta-btn"
         >
             <span class="ibexa-relations__cta-btn-label">
-                {{ 'ibexa_object_relation_list.cta.select'|trans|desc('Select Item') }}
+                {{ 'ibexa_object_relation_list.cta.select'|trans({}, 'ibexa_content_forms_content')|desc('Select Item') }}
             </span>
         </twig:ibexa:button>
         <p class="ibexa-relations__helper-text">{{ helper }}</p>

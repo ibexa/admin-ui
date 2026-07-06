@@ -122,7 +122,7 @@
             class="ids-btn--prevented ids-btn--add-translation"
             data-bs-toggle="modal"
             data-bs-target="#add-translation-modal"
-        >{{ 'tab.translations.action.add'|trans|desc('Add') }}</twig:ibexa:button>
+        >{{ 'tab.translations.action.add'|trans({}, 'ibexa_locationview')|desc('Add') }}</twig:ibexa:button>
 
         {% set modal_data_target = 'delete-translations-modal' %}
         <twig:ibexa:button
@@ -133,7 +133,7 @@
             :disabled="true"
             data-bs-toggle="modal"
             :data-bs-target="'#' ~ modal_data_target"
-        >{{ 'tab.translations.action.delete'|trans|desc('Delete') }}</twig:ibexa:button>
+        >{{ 'tab.translations.action.delete'|trans({}, 'ibexa_locationview')|desc('Delete') }}</twig:ibexa:button>
         {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
             'id': modal_data_target,
             'message': 'tab.translations.modal.message'|trans|desc('Do you want to delete the translation?'),

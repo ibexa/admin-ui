@@ -61,13 +61,13 @@
                     class="ibexa-extra-actions__confirm-btn ids-btn--content-edit"
                     :disabled="true"
                 >
-                    {{ 'edit_translation.languages.edit'|trans|desc('Edit') }}
+                    {{ 'edit_translation.languages.edit'|trans({}, 'ibexa_admin_ui')|desc('Edit') }}
                 </twig:ibexa:button>
                 <twig:ibexa:button
                     type="secondary"
                     class="ibexa-extra-actions__close-btn"
                 >
-                    {{ 'edit_translation.languages.discard'|trans|desc('Discard') }}
+                    {{ 'edit_translation.languages.discard'|trans({}, 'ibexa_admin_ui')|desc('Discard') }}
                 </twig:ibexa:button>
             {% endblock %}  
         {% endembed %}

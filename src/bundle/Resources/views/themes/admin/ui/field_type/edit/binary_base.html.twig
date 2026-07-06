@@ -50,7 +50,7 @@
             class="ibexa-data-source__btn-add"
             :disabled="attr.readonly|default(false)"
         >
-            <span class="ibexa-data-source__btn-label">{{ 'fieldtype.binary_base.upload_file'|trans|desc('Upload file') }}</span>
+            <span class="ibexa-data-source__btn-label">{{ 'fieldtype.binary_base.upload_file'|trans({}, 'ibexa_content_forms_content')|desc('Upload file') }}</span>
         </twig:ibexa:button>
     </div>
     {% if max_file_size is defined and max_file_size > 0 %}

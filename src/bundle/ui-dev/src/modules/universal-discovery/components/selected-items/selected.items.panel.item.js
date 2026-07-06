@@ -6,7 +6,6 @@ import {
 } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
-import Icon from '../../../common/icon/icon';
 import Thumbnail from '../../../common/thumbnail/thumbnail';
 import { Button, ButtonType } from '@ids-components/components/Button';
 

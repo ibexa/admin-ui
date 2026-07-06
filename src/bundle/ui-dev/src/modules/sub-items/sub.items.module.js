@@ -12,6 +12,7 @@ import Popup from '../common/popup/popup.component';
 import ActionButton from './components/action-btn/action.btn.js';
 import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 import { AssetsProvider } from '@ids-components/context/Assets';
+import { TranslatorProvider } from '@ids-components/context/Translator';
 import Pagination from '../common/pagination/pagination.js';
 import NoItemsComponent from './components/no-items/no.items.component.js';
 import Icon from '../common/icon/icon.js';
@@ -980,11 +981,12 @@ export default class SubItemsModule extends Component {
         const confirmBtnAttrs = {
             label: confirmLabel,
             onClick: this.onBulkDeletePopupConfirm,
-            className: 'ids-btn--primary ids-btn--trigger',
+            type: ButtonType.Primary,
+            className: 'ids-btn--trigger',
         };
         const cancelBtnAttrs = {
             label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
-            className: 'ids-btn--secondary',
+            type: ButtonType.Secondary,
             'data-bs-dismiss': 'modal',
         };
 
@@ -995,11 +997,12 @@ export default class SubItemsModule extends Component {
         const confirmBtnAttrs = {
             label: Translator.trans(/* @Desc("Hide") */ 'bulk_hide.popup.confirm', {}, 'ibexa_sub_items'),
             onClick: this.onBulkHidePopupConfirm,
-            className: 'ids-btn--primary ids-btn--trigger',
+            type: ButtonType.Primary,
+            className: 'ids-btn--trigger',
         };
         const cancelBtnAttrs = {
             label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
-            className: 'ids-btn--secondary',
+            type: ButtonType.Secondary,
             'data-bs-dismiss': 'modal',
         };
 
@@ -1010,11 +1013,12 @@ export default class SubItemsModule extends Component {
         const confirmBtnAttrs = {
             label: Translator.trans(/* @Desc("Reveal") */ 'bulk_unhide.popup.confirm', {}, 'ibexa_sub_items'),
             onClick: this.onBulkUnhidePopupConfirm,
-            className: 'ids-btn--primary ids-btn--trigger',
+            type: ButtonType.Primary,
+            className: 'ids-btn--trigger',
         };
         const cancelBtnAttrs = {
             label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
-            className: 'ids-btn--secondary',
+            type: ButtonType.Secondary,
             'data-bs-dismiss': 'modal',
         };
 
@@ -1245,7 +1249,7 @@ export default class SubItemsModule extends Component {
             <Button
                 disabled={disabled}
                 onClick={this.onMoveBtnClick}
-                icon="move"
+                icon="folder-open-move"
                 type={ButtonType.Tertiary}
                 size={ButtonSize.Medium}
             >
@@ -1313,7 +1317,7 @@ export default class SubItemsModule extends Component {
         return (
             <div style={style}>
                 <div className="m-sub-items__spinner-wrapper">
-                    <Icon name="spinner" extraClasses="m-sub-items__spinner ibexa-icon--medium ibexa-spin" />
+                    <Icon name="arrow-rotate" extraClasses="m-sub-items__spinner ibexa-icon--medium ibexa-spin" />
                 </div>
             </div>
         );
@@ -1538,43 +1542,49 @@ export default class SubItemsModule extends Component {
 
         return (
             <AssetsProvider value={{ getIconPath }}>
-                <div ref={this._refMainContainerWrapper}>
-                    <div className="m-sub-items" style={{ width: `${subItemsWidth}px` }}>
-                    <div className="ibexa-table-header ">
-                        <div className="ibexa-table-header__headline">
-                            {listTitle} ({this.state.totalCount})
+                <TranslatorProvider value={Translator}>
+                    <div ref={this._refMainContainerWrapper}>
+                        <div className="m-sub-items" style={{ width: `${subItemsWidth}px` }}>
+                            <div className="ibexa-table-header ">
+                                <div className="ibexa-table-header__headline">
+                                    {listTitle} ({this.state.totalCount})
+                                </div>
+                                <div
+                                    className="ibexa-table-header__actions ibexa-table-header__actions--adaptive ibexa-adaptive-items"
+                                    ref={this._refAdaptiveItemsWrapper}
+                                >
+                                    {actionBtns}
+                                    {this.renderMoreBtn(actionBtns)}
+                                </div>
+                                <div className="ibexa-table-header__actions">
+                                    <ViewColumnsTogglerComponent
+                                        columnsVisibility={this.filterColumnsVisibility(columnsVisibility)}
+                                        toggleColumnVisibility={this.toggleColumnVisibility}
+                                        isDisabled={activeView === VIEW_MODE_GRID}
+                                    />
+                                    <ViewSwitcherComponent
+                                        onViewChange={this.switchView}
+                                        activeView={activeView}
+                                        isDisabled={!totalCount}
+                                    />
+                                </div>
+                            </div>
+                            <div ref={this._refListViewWrapper} className={listClassName}>
+                                {this.renderSpinner()}
+                                {this.renderListView()}
+                                {this.renderNoItems()}
+                            </div>
+                            <div className="m-sub-items__pagination-container ibexa-pagination">
+                                {this.renderPaginationInfo()}
+                                {this.renderPagination()}
+                            </div>
+                            {this.renderUdw()}
+                            {this.renderDeleteConfirmationPopup()}
+                            {this.renderHideConfirmationPopup()}
+                            {this.renderUnhideConfirmationPopup()}
                         </div>
-                        <div
-                            className="ibexa-table-header__actions ibexa-table-header__actions--adaptive ibexa-adaptive-items"
-                            ref={this._refAdaptiveItemsWrapper}
-                        >
-                            {actionBtns}
-                            {this.renderMoreBtn(actionBtns)}
-                        </div>
-                        <div className="ibexa-table-header__actions">
-                            <ViewColumnsTogglerComponent
-                                columnsVisibility={this.filterColumnsVisibility(columnsVisibility)}
-                                toggleColumnVisibility={this.toggleColumnVisibility}
-                                isDisabled={activeView === VIEW_MODE_GRID}
-                            />
-                            <ViewSwitcherComponent onViewChange={this.switchView} activeView={activeView} isDisabled={!totalCount} />
-                        </div>
                     </div>
-                    <div ref={this._refListViewWrapper} className={listClassName}>
-                        {this.renderSpinner()}
-                        {this.renderListView()}
-                        {this.renderNoItems()}
-                    </div>
-                    <div className="m-sub-items__pagination-container ibexa-pagination">
-                        {this.renderPaginationInfo()}
-                        {this.renderPagination()}
-                    </div>
-                        {this.renderUdw()}
-                        {this.renderDeleteConfirmationPopup()}
-                        {this.renderHideConfirmationPopup()}
-                        {this.renderUnhideConfirmationPopup()}
-                    </div>
-                </div>
+                </TranslatorProvider>
             </AssetsProvider>
         );
     }

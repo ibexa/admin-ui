@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import TranslationSelector from '../translation-selector/translation.selector';
 import { Button, ButtonType } from '@ids-components/components/Button';
 import { getAdminUiConfig, getRouting } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';

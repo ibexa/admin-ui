@@ -153,7 +153,7 @@
         class="ibexa-btn--udw-add"
         :data-udw-config="ibexa_udw_config('add_location', {})"
         :disabled="not can_add"
-    >{{ 'tab.locations.action.add'|trans|desc('Add') }}</twig:ibexa:button>
+    >{{ 'tab.locations.action.add'|trans({}, 'ibexa_locationview')|desc('Add') }}</twig:ibexa:button>
 
     {% set modal_data_target = 'delete-content-types-modal' %}
     <twig:ibexa:button
@@ -164,7 +164,7 @@
         :disabled="true"
         data-bs-toggle="modal"
         :data-bs-target="'#' ~ modal_data_target"
-    >{{ 'tab.locations.action.delete'|trans|desc('Delete') }}</twig:ibexa:button>
+    >{{ 'tab.locations.action.delete'|trans({}, 'ibexa_locationview')|desc('Delete') }}</twig:ibexa:button>
     {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
         'id': modal_data_target,
         'message': 'tab.locations.modal.message'|trans|desc('Do you want to delete the Location? All its sub-items will be sent to Trash.'),

@@ -26,12 +26,13 @@
         <div class="ibexa-extra-actions__content">
             <div class="ibexa-instant-filter">
                     <div class="ibexa-instant-filter__input-wrapper {% if not has_search %}ibexa-instant-filter__input-wrapper--hidden{% endif %}">
-                        <input
-                            type="text"
-                            class="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
-                            placeholder="{{ filter_placeholder }}"
-                            value=""
-                        />
+                        {{ include('@ibexadesign/ui/component/input_text_ds.html.twig', {
+                            input_attr: {
+                                class: 'ibexa-instant-filter__input',
+                                placeholder: filter_placeholder,
+                                value: '',
+                            },
+                        }) }}
                     </div>
                 {% if filter_description %}
                     <div class="ibexa-instant-filter__desc">

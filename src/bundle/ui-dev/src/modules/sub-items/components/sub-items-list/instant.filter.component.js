@@ -27,18 +27,18 @@ const InstantFilter = ({ items = [], handleItemChange = () => {}, isSearchEnable
     }, [items, filterQuery]);
 
     return (
-            <div className="ibexa-instant-filter">
-                <div className={searchInputWrapperClassName}>
-                    <InputTextInput
-                        extraAria={{
-                            className: 'ibexa-instant-filter__input',
-                        }}
-                        name="sub-items-filter"
-                        onChange={setFilterQuery}
-                        placeholder={Translator.trans(/*@Desc("Search...")*/ 'instant.filter.placeholder', {}, 'ibexa_sub_items')}
-                        value={filterQuery}
-                    />
-                </div>
+        <div className="ibexa-instant-filter">
+            <div className={searchInputWrapperClassName}>
+                <InputTextInput
+                    extraAria={{
+                        className: 'ibexa-instant-filter__input',
+                    }}
+                    name="sub-items-filter"
+                    onChange={setFilterQuery}
+                    placeholder={Translator.trans(/*@Desc("Search...")*/ 'instant.filter.placeholder', {}, 'ibexa_sub_items')}
+                    value={filterQuery}
+                />
+            </div>
             <div className="ibexa-instant-filter__desc">
                 {Translator.trans(/*@Desc("Languages")*/ 'instant.filter.languages.select_language.desc', {}, 'ibexa_sub_items')}
             </div>
