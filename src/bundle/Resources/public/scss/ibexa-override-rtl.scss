@@ -2,6 +2,10 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 
 [dir='rtl'] {
+    body {
+        font-size: calculateRem(19px);
+    }
+
     .ibexa-tabs.ibexa-tabs {
         &:not(.ibexa-tabs--switcher) {
             .ibexa-tabs {
