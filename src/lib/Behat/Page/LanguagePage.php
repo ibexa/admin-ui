@@ -137,7 +137,7 @@ final class LanguagePage extends Page
         return [
             new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
             new VisibleCSSLocator('button', '.ids-btn'),
-            new VisibleCSSLocator('enabledField', '.ibexa-input--checkbox'),
+            new VisibleCSSLocator('enabledField', '.ids-input--checkbox'),
             new VisibleCSSLocator('languagePropertiesItem', '.ibexa-details__item'),
             new VisibleCSSLocator('languagePropertiesLabel', '.ibexa-details__item-label'),
             new VisibleCSSLocator('languagePropertiesValue', '.ibexa-details__item-content'),
