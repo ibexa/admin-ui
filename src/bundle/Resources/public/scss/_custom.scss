@@ -199,12 +199,12 @@ $modal-title-font-size: calculateRem(28px);
 $modal-footer-padding: calculateRem(40px) 0 calculateRem(32px);
 
 // Ibexa fonts - part 2
-$ibexa-text-font-size-extra-large: calculateRem(22px);
-$ibexa-text-font-size-large: calculateRem(18px);
-$ibexa-text-font-size: calculateRem(16px);
-$ibexa-text-font-size-medium: calculateRem(14px);
-$ibexa-text-font-size-small: calculateRem(12px);
-$ibexa-text-font-size-extra-small: calculateRem(8px);
+$ibexa-text-font-size-extra-large: calc(#{calculateRem(22px)} + var(--ibexa-rtl-font-size-boost, 0px));
+$ibexa-text-font-size-large: calc(#{calculateRem(18px)} + var(--ibexa-rtl-font-size-boost, 0px));
+$ibexa-text-font-size: calc(#{calculateRem(16px)} + var(--ibexa-rtl-font-size-boost, 0px));
+$ibexa-text-font-size-medium: calc(#{calculateRem(14px)} + var(--ibexa-rtl-font-size-boost, 0px));
+$ibexa-text-font-size-small: calc(#{calculateRem(12px)} + var(--ibexa-rtl-font-size-boost, 0px));
+$ibexa-text-font-size-extra-small: calc(#{calculateRem(8px)} + var(--ibexa-rtl-font-size-boost, 0px));
 
 $ibexa-font-weight-normal: normal;
 $ibexa-font-weight-bold: 600;
