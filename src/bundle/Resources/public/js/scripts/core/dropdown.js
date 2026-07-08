@@ -439,7 +439,7 @@
             const { width } = this.selectedItemsContainer.getBoundingClientRect();
             const minItemWidth = parseInt(this.selectedItemsContainer.dataset.minItemWidth, 10);
             const computedItemWidth = width > minItemWidth ? width : minItemWidth;
-            const customMaxHeight = Number(this.sourceInput.dataset.maxHeight);
+            const customMaxHeight = parseInt(this.sourceInput.dataset.maxHeight, 10);
 
             if (customMaxHeight && customMaxHeight < this.getItemsContainerHeight()) {
                 this.itemsContainer.style['max-height'] = `${customMaxHeight}px`;
