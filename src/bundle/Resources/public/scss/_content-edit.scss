@@ -5,7 +5,9 @@
     @include edit-right-side-container;
 
     &-width-wrapper {
-        width: calc(100% - calculateRem(300px));
+        &--with-anchor-menu {
+            width: calc(100% - calculateRem(224px));
+        }
     }
 
     &__container {
