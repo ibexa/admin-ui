@@ -24,32 +24,6 @@
         }
 
         /**
-         * Formats a file size information
-         *
-         * @method formatFileSize
-         * @param {Number} bytes file size in bytes
-         * @return {String} formatted file size information
-         */
-        formatFileSize(bytes) {
-            const units = ['B', 'KB', 'MB', 'GB'];
-            const kilobyte = 1024;
-            let size = parseInt(bytes, 10) || 0;
-            let unitIndex = 0;
-
-            while (size >= kilobyte) {
-                size = size / kilobyte;
-                unitIndex++;
-            }
-
-            const decimalUnits = unitIndex < 1 ? 0 : 1;
-
-            const sizeFixed = size.toFixed(size >= 10 || decimalUnits);
-            const unit = units[unitIndex];
-
-            return `${sizeFixed} ${unit}`;
-        }
-
-        /**
          * Finds an input element in a field container
          *
          * @method findInputField
