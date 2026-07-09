@@ -62,7 +62,7 @@ final readonly class NavigationContext implements Context
      */
     public function iGoToUserProfile(): void
     {
-        $this->upperMenu->chooseFromUserDropdown('Profile');
+        $this->upperMenu->chooseFromUserDropdown('View Profile');
     }
 
     /**
