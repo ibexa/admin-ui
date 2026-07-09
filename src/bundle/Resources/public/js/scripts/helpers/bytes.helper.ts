@@ -1,9 +1,9 @@
-const formatBytesToLargestUnit = (bytes: number): string => {
+const formatBytesToLargestUnit = (bytes = 0): string => {
     const units = ['B', 'KB', 'MB', 'GB'];
     const kilobyte = 1024;
     const twoDigitsThreshold = 10;
 
-    let size = bytes || 0;
+    let size = bytes;
     let unitIndex = 0;
 
     while (size >= kilobyte) {
