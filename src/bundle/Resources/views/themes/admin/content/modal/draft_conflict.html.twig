@@ -30,24 +30,12 @@
             headline: '',
             actions: version_modal_draft_conflict_embed.table_header_tools(show_add_draft_button),
         } only %}
-        {% component 'ibexa.Table' with {
-            data: conflicted_drafts,
-            type: 'versions',
+        {% include '@ibexadesign/content/tab/versions/table_component.html.twig' with {
+            versions: conflicted_drafts,
             variant: 'draft_conflict',
-            class: 'ibexa-table--draft-conflict',
-            parameters: {
-                location: location,
-                content_is_user: content_is_user,
-            },
-        } %}
-            {% block before_table %}
-                {{ ibexa_twig_component_group('admin-ui-versions-table-before', {
-                    is_draft: true,
-                    is_archived: false,
-                    is_draft_conflict: true,
-                }) }}
-            {% endblock %}
-        {% endcomponent %}
+            location: location,
+            content_is_user: content_is_user,
+        } only %}
     {% endblock %}
 {% endembed %}
 

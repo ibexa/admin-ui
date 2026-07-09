@@ -1,0 +1,34 @@
+{# Shared ibexa.Table invocation for the versions tables (drafts/published/archived
+   in the tab + the draft-conflict modal). The headline is read back from the
+   component inside the header block, so PostMount subscribers may override it. #}
+
+{% component 'ibexa.Table' with {
+    data: versions,
+    fullData: full_versions|default(null),
+    type: 'versions',
+    variant: variant,
+    headline: table_headline|default(null),
+    class: table_class|default('ibexa-table--draft-conflict'),
+    parameters: {
+        form: form|default(null),
+        location: location,
+        content_is_user: content_is_user,
+        header_actions: header_actions|default(''),
+    },
+} %}
+    {% block header %}
+        {% if headline is not null %}
+            {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
+                headline: headline,
+                actions: parameters.header_actions,
+            } %}
+        {% endif %}
+    {% endblock %}
+    {% block before_table %}
+        {{ ibexa_twig_component_group('admin-ui-versions-table-before', {
+            is_draft: variant == 'draft' or variant == 'draft_conflict',
+            is_archived: variant == 'archived',
+            is_draft_conflict: variant == 'draft_conflict',
+        }) }}
+    {% endblock %}
+{% endcomponent %}
