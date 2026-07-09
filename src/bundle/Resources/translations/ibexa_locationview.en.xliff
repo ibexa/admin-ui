@@ -491,6 +491,11 @@
         <target state="new">Modified language</target>
         <note>key: tab.versions.table.modified_language</note>
       </trans-unit>
+      <trans-unit id="a00851fd035094d7cee87d40cd5e6391b2193387" resname="tab.versions.table.select_all">
+        <source>Select all versions</source>
+        <target state="new">Select all versions</target>
+        <note>key: tab.versions.table.select_all</note>
+      </trans-unit>
       <trans-unit id="ddc70b29ad8ac6544843566a146ed1ea4ddab817" resname="tab.versions.table.version">
         <source>Version</source>
         <target state="new">Version</target>

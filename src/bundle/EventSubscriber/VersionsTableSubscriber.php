@@ -63,9 +63,10 @@ final readonly class VersionsTableSubscriber implements EventSubscriberInterface
         $isDraftConflict = $component->variant === self::VARIANT_DRAFT_CONFLICT;
 
         if ($form !== null) {
+            $variant = $component->variant;
             $component->addColumn(
                 'checkbox',
-                static fn (): string => $template->renderBlock('checkbox_header'),
+                static fn (): string => $template->renderBlock('checkbox_header', ['variant' => $variant]),
                 static fn (mixed $version): string => $template->renderBlock('checkbox_cell', [
                     'form' => $form,
                     'version' => $version,
