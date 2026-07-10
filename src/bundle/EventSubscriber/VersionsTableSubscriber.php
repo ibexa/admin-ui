@@ -34,6 +34,14 @@ final readonly class VersionsTableSubscriber implements EventSubscriberInterface
     public const int PRIORITY_CONSUMER_MIN = 50;
     public const int PRIORITY_CONSUMER_MAX = 89;
 
+    private const int PRIORITY_CHECKBOX = 110;
+    private const int PRIORITY_VERSION = 100;
+    private const int PRIORITY_MODIFIED_LANGUAGE = 90;
+    private const int PRIORITY_CONTRIBUTOR = 40;
+    private const int PRIORITY_CREATED = 30;
+    private const int PRIORITY_LAST_SAVED = 20;
+    private const int PRIORITY_ACTIONS = 10;
+
     private const string COLUMNS_TEMPLATE = '@ibexadesign/content/tab/versions/columns.html.twig';
 
     public function __construct(
@@ -71,7 +79,7 @@ final readonly class VersionsTableSubscriber implements EventSubscriberInterface
                     'form' => $form,
                     'version' => $version,
                 ]),
-                110,
+                self::PRIORITY_CHECKBOX,
                 [
                     'header_class' => 'ibexa-table__header-cell--checkbox',
                     'cell_class' => 'ibexa-table__cell--has-checkbox',
@@ -83,7 +91,7 @@ final readonly class VersionsTableSubscriber implements EventSubscriberInterface
             'version',
             static fn (): string => $template->renderBlock('version_header'),
             static fn (mixed $version): string => $template->renderBlock('version_cell', ['version' => $version]),
-            100,
+            self::PRIORITY_VERSION,
             $form !== null
                 ? [
                     'header_class' => 'ibexa-table__header-cell--close-left',
@@ -92,15 +100,15 @@ final readonly class VersionsTableSubscriber implements EventSubscriberInterface
                 : []
         );
 
-        $this->addTextColumn($component, $template, 'modified_language', 90);
+        $this->addTextColumn($component, $template, 'modified_language', self::PRIORITY_MODIFIED_LANGUAGE);
 
-        $this->addTextColumn($component, $template, 'contributor', 40);
+        $this->addTextColumn($component, $template, 'contributor', self::PRIORITY_CONTRIBUTOR);
 
         if (!$isDraftConflict) {
-            $this->addTextColumn($component, $template, 'created', 30);
+            $this->addTextColumn($component, $template, 'created', self::PRIORITY_CREATED);
         }
 
-        $this->addTextColumn($component, $template, 'last_saved', 20);
+        $this->addTextColumn($component, $template, 'last_saved', self::PRIORITY_LAST_SAVED);
 
         $component->addColumn(
             'actions',
@@ -110,7 +118,7 @@ final readonly class VersionsTableSubscriber implements EventSubscriberInterface
                 'is_draft_conflict' => $isDraftConflict,
                 'location' => $location,
             ]),
-            10
+            self::PRIORITY_ACTIONS
         );
     }
 
