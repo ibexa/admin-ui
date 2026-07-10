@@ -25,7 +25,6 @@
                         header_actions: tab.table_header_tools(form_version_remove_draft),
                         form: form_version_remove_draft,
                         location: location,
-                        content_is_user: content_is_user,
                     } only %}
 
                     {% if draft_pager.haveToPaginate %}
@@ -53,10 +52,10 @@
                 {% block table_published %}
                     {% include '@ibexadesign/content/tab/versions/table_component.html.twig' with {
                         versions: published_versions,
+                        full_versions: published_versions,
                         variant: 'published',
                         table_headline: 'tab.versions.published_version'|trans()|desc('Published version'),
                         location: location,
-                        content_is_user: content_is_user,
                     } only %}
                 {% endblock %}
             </section>
@@ -73,12 +72,12 @@
                 {% block table_archived %}
                     {% include '@ibexadesign/content/tab/versions/table_component.html.twig' with {
                         versions: archived_versions,
+                        full_versions: archived_versions,
                         variant: 'archived',
                         table_headline: 'tab.versions.archived_versions'|trans()|desc('Archived versions'),
                         header_actions: tab.table_header_tools(form_version_remove_archived),
                         form: form_version_remove_archived,
                         location: location,
-                        content_is_user: content_is_user,
                     } only %}
                 {% endblock %}
                 {{ form_end(form_version_remove_archived) }}

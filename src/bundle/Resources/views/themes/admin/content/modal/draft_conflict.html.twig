@@ -32,9 +32,9 @@
         } only %}
         {% include '@ibexadesign/content/tab/versions/table_component.html.twig' with {
             versions: conflicted_drafts,
+            full_versions: conflicted_drafts,
             variant: 'draft_conflict',
             location: location,
-            content_is_user: content_is_user,
         } only %}
     {% endblock %}
 {% endembed %}
