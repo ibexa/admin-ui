@@ -24,7 +24,8 @@
     {% block body_content %}
         {{ form_row(form.base_language, {
             'attr': {
-                'class': 'ibexa-translation__language-wrapper ibexa-translation__language-wrapper--base-language'
+                'class': 'ibexa-translation__language-wrapper ibexa-translation__language-wrapper--base-language',
+                'data-max-height': '450',
             },
         }) }}
         <div class="ibexa-translation__arrow">
@@ -34,7 +35,8 @@
         </div>
         {{ form_row(form.language, {
             'attr': {
-                'class': 'ibexa-translation__language-wrapper ibexa-translation__language-wrapper--language'
+                'class': 'ibexa-translation__language-wrapper ibexa-translation__language-wrapper--language',
+                'data-max-height': '450',
             },
         }) }}
 

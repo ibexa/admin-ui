@@ -92,7 +92,7 @@
         <note>key: user.setting.focus_mode.description</note>
       </trans-unit>
       <trans-unit id="cffd55da53aff9b2efc64a42454deb1984c0264c" resname="user.setting.focus_mode.help">
-        <source><![CDATA[<p><strong>Focus mode</strong> – A clean and intuitive interface with a simplified Content
+        <source><![CDATA[<p><strong>Focus mode</strong> – A clean and intuitive interface with a simplified content
                         structure, designed for new and non-advanced users. Features include:</p>
                         <ul>
                             <li>View tab displaying site preview within the context</li>
@@ -100,7 +100,7 @@
                             <li>Hidden Locations and Versions tabs in Content items</li>
                         </ul>
                     </p>]]></source>
-        <target state="new"><![CDATA[<p><strong>Focus mode</strong> – A clean and intuitive interface with a simplified Content
+        <target state="new"><![CDATA[<p><strong>Focus mode</strong> – A clean and intuitive interface with a simplified content
                         structure, designed for new and non-advanced users. Features include:</p>
                         <ul>
                             <li>View tab displaying site preview within the context</li>

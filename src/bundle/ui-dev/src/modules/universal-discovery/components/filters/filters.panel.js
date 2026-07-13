@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
-const FiltersPanel = ({ children = null, isApplyButtonEnabled, makeSearch, clearFilters }) => {
+const FiltersPanel = ({ children = null, isApplyButtonEnabled, makeSearch, clearFilters, containerRef = null }) => {
     const Translator = getTranslator();
     const filtersLabel = Translator.trans(/* @Desc("Filters") */ 'filters.title', {}, 'ibexa_universal_discovery_widget');
     const clearLabel = Translator.trans(/* @Desc("Clear") */ 'filters.clear', {}, 'ibexa_universal_discovery_widget');
     const applyLabel = Translator.trans(/* @Desc("Apply") */ 'filters.apply', {}, 'ibexa_universal_discovery_widget');
 
     return (
-        <div className="c-filters-panel">
+        <div className="c-filters-panel" ref={containerRef}>
             <div className="c-filters-panel__header">
                 <div className="c-filters-panel__header-content">{filtersLabel}</div>
                 <div className="c-filters-panel__header-actions">
@@ -37,6 +37,7 @@ FiltersPanel.propTypes = {
     isApplyButtonEnabled: PropTypes.bool.isRequired,
     makeSearch: PropTypes.func.isRequired,
     clearFilters: PropTypes.func.isRequired,
+    containerRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
 };
 
 export default FiltersPanel;
