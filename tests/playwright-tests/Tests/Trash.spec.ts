@@ -4,7 +4,7 @@ import { ContentManagementPage } from '../Pages/ContentManagementPage';
 import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
 
 
-test.describe('Trash management', { tag: ['@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
+test.describe('Trash management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
     let api: IbexaApiClient;
     let trashTestLocationId: number;
     let trashTestContentId: number;
@@ -15,8 +15,12 @@ test.describe('Trash management', { tag: ['@IbexaHeadless', '@IbexaExperience', 
         await api.init();
         runId = Date.now().toString().slice(-6);
 
-        trashTestContentId = await api.createFolder('TrashTest', 2);
+        trashTestContentId = await api.createFolder(`TrashTest${runId}`, 2);
         trashTestLocationId = await api.getMainLocationId(trashTestContentId);
+    });
+
+    test.afterAll(async () => {
+        await api.deleteContent(trashTestContentId);
     });
 
     test('Trash can be emptied', async ({ page }) => {
@@ -98,12 +102,14 @@ test.describe('Trash management', { tag: ['@IbexaHeadless', '@IbexaExperience', 
         await trash.assertItemInTrash(name);
         await trash.restoreUnderNewLocation([name], 'Media/Files');
 
-        const contentMgmt = new ContentManagementPage(page);
-        await contentMgmt.selectInUDW('Media/Files');
-        await contentMgmt.confirmUDW();
-
         await trash.assertSuccessNotification("Restored content under Location 'Files'");
         await trash.assertItemNotInTrash(name);
+
+        // Verify the content actually landed under Media/Files (path resolution throws if absent)
+        const restoredContentId = await api.getContentIdByPath(`Media/Files/${name}`);
+        expect(restoredContentId).toBe(childId);
+
+        await api.deleteContent(childId);
     });
 
     test('Element in trash can be found by search', async ({ page }) => {
@@ -124,5 +130,6 @@ test.describe('Trash management', { tag: ['@IbexaHeadless', '@IbexaExperience', 
         await trash.open();
         await trash.searchInTrash(name1);
         await trash.assertItemInTrash(name1);
+        await trash.assertItemNotInTrash(name2);
     });
 });
