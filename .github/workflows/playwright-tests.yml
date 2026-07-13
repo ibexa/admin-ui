@@ -13,7 +13,7 @@ jobs:
         uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@ibx-11740-playwright
         with:
             project-edition: 'oss'
-            test-suite: ''
+            test-package: 'admin-ui'
         secrets: inherit
 
     playwright-headless:
@@ -21,7 +21,7 @@ jobs:
         uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@ibx-11740-playwright
         with:
             project-edition: 'headless'
-            test-suite: ''
+            test-package: 'admin-ui'
         secrets: inherit
 
     playwright-experience:
@@ -29,7 +29,7 @@ jobs:
         uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@ibx-11740-playwright
         with:
             project-edition: 'experience'
-            test-suite: ''
+            test-package: 'admin-ui'
         secrets: inherit
 
     playwright-commerce:
@@ -37,5 +37,5 @@ jobs:
         uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@ibx-11740-playwright
         with:
             project-edition: 'commerce'
-            test-suite: ''
+            test-package: 'admin-ui'
         secrets: inherit
