@@ -17,3 +17,4 @@ tsconfig.json
 .button-migration/
 migrations/*/.migration-state/
 *.migration.log
+.claude/settings.local.json

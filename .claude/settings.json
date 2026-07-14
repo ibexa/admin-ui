@@ -1,0 +1,39 @@
+{
+    "permissions": {
+        "allow": [
+            "Bash(yarn test)",
+            "Bash(yarn ts-test)",
+            "Bash(yarn eslint-test)",
+            "Bash(yarn prettier-test)",
+            "Bash(composer test *)",
+            "Bash(composer test-unit *)",
+            "Bash(composer test-integration *)",
+            "Bash(composer phpstan *)",
+            "Bash(composer check-cs *)",
+            "Bash(vendor/bin/phpunit *)",
+            "Bash(php bin/console debug:router *)",
+            "mcp__playwright__browser_navigate",
+            "mcp__playwright__browser_navigate_back",
+            "mcp__playwright__browser_snapshot",
+            "mcp__playwright__browser_take_screenshot",
+            "mcp__playwright__browser_click",
+            "mcp__playwright__browser_type",
+            "mcp__playwright__browser_press_key",
+            "mcp__playwright__browser_hover",
+            "mcp__playwright__browser_fill_form",
+            "mcp__playwright__browser_select_option",
+            "mcp__playwright__browser_wait_for",
+            "mcp__playwright__browser_resize",
+            "mcp__playwright__browser_console_messages",
+            "mcp__playwright__browser_network_requests",
+            "mcp__playwright__browser_tabs",
+            "mcp__playwright__browser_find",
+            "mcp__playwright__browser_close",
+            "mcp__plugin_figma_figma__whoami",
+            "mcp__plugin_figma_figma__get_metadata",
+            "mcp__plugin_figma_figma__get_screenshot",
+            "mcp__plugin_figma_figma__get_variable_defs",
+            "mcp__plugin_figma_figma__get_design_context"
+        ]
+    }
+}
