@@ -1,3 +1,5 @@
+import { formatBytesToLargestUnit } from '../helpers/bytes.helper';
+
 (function (global, doc, ibexa, Translator) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ibexa_image';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
@@ -33,7 +35,7 @@
             const nameContainer = preview.querySelector('.ibexa-field-edit-preview__file-name');
             const sizeContainer = preview.querySelector('.ibexa-field-edit-preview__file-size');
             const files = [].slice.call(event.target.files);
-            const fileSize = this.formatFileSize(files[0].size);
+            const fileSize = formatBytesToLargestUnit(files[0].size);
             const { escapeHTML } = ibexa.helpers.text;
             const fileName = escapeHTML(files[0].name);
 
