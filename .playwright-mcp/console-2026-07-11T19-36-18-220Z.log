@@ -1,0 +1,9 @@
+[    2480ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://localhost:8060/admin/login:0
+[    2856ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://localhost:8060/bundles/ibexaadminui/font/NotoSans-Regular.ttf:0
+[    2859ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://localhost:8060/bundles/ibexaadminui/font/NotoSans-Bold.ttf:0
+[    4017ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://localhost:8060/font/NotoSans-Regular.ttf:0
+[   34875ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://localhost:8060/admin/login:0
+[   35284ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://localhost:8060/bundles/ibexaadminui/font/NotoSans-Regular.ttf:0
+[   36056ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://localhost:8060/font/NotoSans-Regular.ttf:0
+[  103806ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://localhost:8060/assets/react-dom/build/ibexa-admin-ui-react-dom-load-js.js:21
+[  104150ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://localhost:8060/bundles/ibexaadminui/font/NotoSans-Bold.ttf:0

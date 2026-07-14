@@ -1,0 +1,418 @@
+- generic [active] [ref=f3e1]:
+  - banner [ref=f3e2]:
+    - link [ref=f3e4] [cursor=pointer]:
+      - /url: https://localhost:8060/admin/dashboard
+      - img "Ibexa" [ref=f3e5]
+    - generic [ref=f3e9]:
+      - textbox "Search <span class=\"ibexa-global-search__shortcut\">⌘ + /</span>" [ref=f3e11]:
+        - /placeholder: Search...
+      - button "Search" [ref=f3e14] [cursor=pointer]
+    - generic [ref=f3e18]:
+      - generic [ref=f3e20]:
+        - combobox [ref=f3e22]:
+          - option "All context" [selected]
+          - option "site"
+        - list [ref=f3e24] [cursor=pointer]:
+          - listitem [ref=f3e25]: "Site: All context"
+          - text: +
+      - generic [ref=f3e29]:
+        - generic [ref=f3e30] [cursor=pointer]: "0"
+        - button [ref=f3e37] [cursor=pointer]
+  - main [ref=f3e43]:
+    - navigation [ref=f3e45]:
+      - generic [ref=f3e46]:
+        - button "Expand" [ref=f3e48] [cursor=pointer]
+        - list [ref=f3e53]:
+          - listitem [ref=f3e54]:
+            - link [ref=f3e55] [cursor=pointer]:
+              - /url: /admin/dashboard
+          - listitem [ref=f3e59]:
+            - button [ref=f3e60] [cursor=pointer]
+            - button [ref=f3e64] [cursor=pointer]
+          - listitem [ref=f3e68]:
+            - button [ref=f3e69] [cursor=pointer]
+            - button [ref=f3e73] [cursor=pointer]
+          - listitem [ref=f3e77]:
+            - button [ref=f3e78] [cursor=pointer]
+            - button [ref=f3e82] [cursor=pointer]
+          - listitem [ref=f3e86]:
+            - button [ref=f3e87] [cursor=pointer]
+            - button [ref=f3e91] [cursor=pointer]
+          - listitem [ref=f3e95]:
+            - button [ref=f3e96] [cursor=pointer]
+            - button [ref=f3e100] [cursor=pointer]
+          - listitem [ref=f3e104]:
+            - button [ref=f3e105] [cursor=pointer]
+            - button [ref=f3e109] [cursor=pointer]
+          - listitem [ref=f3e113]:
+            - link [ref=f3e114] [cursor=pointer]:
+              - /url: /admin/engage
+        - list [ref=f3e119]:
+          - listitem [ref=f3e120]:
+            - button [ref=f3e121] [cursor=pointer]
+            - button [ref=f3e125] [cursor=pointer]
+          - listitem [ref=f3e129]:
+            - link [ref=f3e130] [cursor=pointer]:
+              - /url: /admin/bookmark/list
+          - listitem [ref=f3e134]:
+            - link [ref=f3e135] [cursor=pointer]:
+              - /url: /admin/trash/list
+    - generic [ref=f3e140]:
+      - generic [ref=f3e144]:
+        - heading "Good evening, Administrator User!" [level=1] [ref=f3e145]
+        - button [ref=f3e148] [cursor=pointer]
+      - generic [ref=f3e152]:
+        - generic [ref=f3e153]:
+          - generic [ref=f3e155]:
+            - heading "Enhance your dashboard experience" [level=2] [ref=f3e156]
+            - generic [ref=f3e157]: Access the dashboard's customization tool, that allows you to personalize it to create a more intuitive user experience.
+            - button "Customize dashboard" [ref=f3e161] [cursor=pointer]
+          - button "Close" [ref=f3e163] [cursor=pointer]
+        - generic [ref=f3e168]:
+          - generic [ref=f3e173]:
+            - generic [ref=f3e174]: Quick actions
+            - generic [ref=f3e176]:
+              - button "Create Content" [ref=f3e177] [cursor=pointer]:
+                - generic [ref=f3e181]:
+                  - generic [ref=f3e182]: Create
+                  - generic [ref=f3e183]: Content
+              - button "Create Form" [ref=f3e184] [cursor=pointer]:
+                - generic [ref=f3e188]:
+                  - generic [ref=f3e189]: Create
+                  - generic [ref=f3e190]: Form
+              - link "Create Product" [ref=f3e191] [cursor=pointer]:
+                - /url: /admin/product/list#pre-create-product
+                - generic [ref=f3e195]:
+                  - generic [ref=f3e196]: Create
+                  - generic [ref=f3e197]: Product
+              - link "Create Catalog" [ref=f3e198] [cursor=pointer]:
+                - /url: /admin/catalog/create
+                - generic [ref=f3e202]:
+                  - generic [ref=f3e203]: Create
+                  - generic [ref=f3e204]: Catalog
+              - link "Create Company" [ref=f3e205] [cursor=pointer]:
+                - /url: /admin/company/create
+                - generic [ref=f3e209]:
+                  - generic [ref=f3e210]: Create
+                  - generic [ref=f3e211]: Company
+          - generic [ref=f3e212]:
+            - generic [ref=f3e216]:
+              - heading "Recent activity" [level=2] [ref=f3e217]
+              - generic [ref=f3e218]:
+                - generic [ref=f3e219]: July 08, 2026
+                - generic [ref=f3e220]:
+                  - generic [ref=f3e221]: 07:32
+                  - generic [ref=f3e222]:
+                    - generic [ref=f3e223]: Administrator User
+                    - generic [ref=f3e227]: created draft
+                - generic [ref=f3e228]:
+                  - generic [ref=f3e229]: 06:46
+                  - generic [ref=f3e230]:
+                    - generic [ref=f3e231]: Administrator User
+                    - generic [ref=f3e235]: created draft
+                - generic [ref=f3e236]:
+                  - generic [ref=f3e237]: 06:17
+                  - generic [ref=f3e238]:
+                    - generic [ref=f3e239]: Administrator User
+                    - generic [ref=f3e243]: update
+                - generic [ref=f3e244]:
+                  - generic [ref=f3e245]: 06:16
+                  - generic [ref=f3e246]:
+                    - generic [ref=f3e247]: Administrator User
+                    - generic [ref=f3e251]: update
+                - generic [ref=f3e252]:
+                  - generic [ref=f3e253]: 06:10
+                  - generic [ref=f3e254]:
+                    - generic [ref=f3e255]: Administrator User
+                    - generic [ref=f3e259]: create
+                - button "View all activities" [ref=f3e261] [cursor=pointer]
+            - generic [ref=f3e265]:
+              - heading "Ibexa news" [level=2] [ref=f3e266]
+              - 'link "Orchestration: How Sovereignty Becomes Operational April 27, 2026 11:10" [ref=f3e267] [cursor=pointer]':
+                - /url: https://www.ibexa.co/blog/orchestration-how-sovereignty-becomes-operational
+                - generic [ref=f3e268]:
+                  - 'heading "Orchestration: How Sovereignty Becomes Operational" [level=4] [ref=f3e269]'
+                  - generic [ref=f3e270]: April 27, 2026 11:10
+              - link "Is Your Marketing Stack Actually Yours? April 27, 2026 08:08" [ref=f3e274] [cursor=pointer]:
+                - /url: https://www.ibexa.co/blog/is-your-marketing-stack-actually-yours
+                - generic [ref=f3e275]:
+                  - heading "Is Your Marketing Stack Actually Yours?" [level=4] [ref=f3e276]
+                  - generic [ref=f3e277]: April 27, 2026 08:08
+              - 'link "Ibexa 5.0.7 Update: Levelling up the User Experience with enhanced integrations and onboarding tools April 13, 2026 20:53" [ref=f3e281] [cursor=pointer]':
+                - /url: https://www.ibexa.co/blog/ibexa-5.0.7-update-levelling-up-the-user-experience-with-enhanced-integrations-and-onboarding-tools
+                - generic [ref=f3e282]:
+                  - 'heading "Ibexa 5.0.7 Update: Levelling up the User Experience with enhanced integrations and onboarding tools" [level=4] [ref=f3e283]'
+                  - generic [ref=f3e284]: April 13, 2026 20:53
+              - link "The Orchestration Era March 17, 2026 09:52" [ref=f3e288] [cursor=pointer]:
+                - /url: https://www.ibexa.co/blog/the-orchestration-era
+                - generic [ref=f3e289]:
+                  - heading "The Orchestration Era" [level=4] [ref=f3e290]
+                  - generic [ref=f3e291]: March 17, 2026 09:52
+              - 'link "Ibexa DXP v5.0.6: New Shopping Lists - better eCommerce conversions; support for PHP 8.4 and new Ibexa Cloud configuration package March 12, 2026 11:10" [ref=f3e295] [cursor=pointer]':
+                - /url: https://www.ibexa.co/blog/ibexa-dxp-v5.0.6-new-shopping-lists-better-ecommerce-conversions-support-for-php-8.4-and-new-ibexa-cloud-configuration-package
+                - generic [ref=f3e296]:
+                  - 'heading "Ibexa DXP v5.0.6: New Shopping Lists - better eCommerce conversions; support for PHP 8.4 and new Ibexa Cloud configuration package" [level=4] [ref=f3e297]'
+                  - generic [ref=f3e298]: March 12, 2026 11:10
+              - 'link "Redefining the DXP: From Execution to Orchestration February 12, 2026 12:10" [ref=f3e302] [cursor=pointer]':
+                - /url: https://www.ibexa.co/blog/redefining-the-dxp-from-execution-to-orchestration
+                - generic [ref=f3e303]:
+                  - 'heading "Redefining the DXP: From Execution to Orchestration" [level=4] [ref=f3e304]'
+                  - generic [ref=f3e305]: February 12, 2026 12:10
+              - 'link "Success in the Spotlight: The Winners of the Ibexa Awards 2026 February 06, 2026 12:01" [ref=f3e309] [cursor=pointer]':
+                - /url: https://www.ibexa.co/blog/success-in-the-spotlight-the-winners-of-the-ibexa-awards-2026
+                - generic [ref=f3e310]:
+                  - 'heading "Success in the Spotlight: The Winners of the Ibexa Awards 2026" [level=4] [ref=f3e311]'
+                  - generic [ref=f3e312]: February 06, 2026 12:01
+          - generic [ref=f3e317]:
+            - generic [ref=f3e320]:
+              - generic [ref=f3e321]: Review queue
+              - table [ref=f3e326]:
+                - rowgroup [ref=f3e327]:
+                  - row [ref=f3e328]:
+                    - cell "There is no content to review. There is no content to review. Content items which you or your User group can review will show up here." [ref=f3e329]:
+                      - img "There is no content to review." [ref=f3e330]
+                      - generic [ref=f3e331]:
+                        - generic [ref=f3e332]: There is no content to review.
+                        - generic [ref=f3e333]: Content items which you or your User group can review will show up here.
+            - generic [ref=f3e336]:
+              - generic [ref=f3e337]: My content
+              - generic [ref=f3e338]:
+                - tablist [ref=f3e341]:
+                  - tab "Drafts" [selected]
+                  - tab "My shared drafts" [ref=f3e342] [cursor=pointer]
+                  - tab "Drafts shared with me" [ref=f3e346] [cursor=pointer]
+                  - tab "Scheduled" [ref=f3e350] [cursor=pointer]
+                  - tab "Content" [ref=f3e354] [cursor=pointer]
+                  - tab "Media" [ref=f3e358] [cursor=pointer]
+                  - tab "Drafts to review" [ref=f3e362] [cursor=pointer]
+                - tabpanel "Drafts" [ref=f3e367]:
+                  - generic [ref=f3e368]: List (2)
+                  - table [ref=f3e371]:
+                    - rowgroup [ref=f3e372]:
+                      - row [ref=f3e373]:
+                        - columnheader [ref=f3e374]
+                        - columnheader "Name" [ref=f3e375]
+                        - columnheader "Content type" [ref=f3e376]
+                        - columnheader "Modified language" [ref=f3e377]
+                        - columnheader "Version" [ref=f3e378]
+                        - columnheader "Modified" [ref=f3e379]
+                        - columnheader [ref=f3e380]
+                    - rowgroup [ref=f3e381]:
+                      - row [ref=f3e382]:
+                        - cell [ref=f3e383]
+                        - cell "New article" [ref=f3e386]
+                        - cell "Article" [ref=f3e387]
+                        - cell "English (United Kingdom)" [ref=f3e388]
+                        - cell "1" [ref=f3e389]
+                        - cell "June 30, 2026 07:03" [ref=f3e390]
+                        - cell [ref=f3e391]:
+                          - generic [ref=f3e392]:
+                            - link "Share" [ref=f3e393] [cursor=pointer]:
+                              - /url: /admin/content/edit/draft/404/1/eng-GB?open_share_modal=1
+                            - button "Edit" [ref=f3e396] [cursor=pointer]
+                      - row [ref=f3e399]:
+                        - cell [ref=f3e400]
+                        - cell "New article" [ref=f3e403]
+                        - cell "Article" [ref=f3e404]
+                        - cell "English (United Kingdom)" [ref=f3e405]
+                        - cell "1" [ref=f3e406]
+                        - cell "June 24, 2026 17:43" [ref=f3e407]
+                        - cell [ref=f3e408]:
+                          - generic [ref=f3e409]:
+                            - link "Share" [ref=f3e410] [cursor=pointer]:
+                              - /url: /admin/content/edit/draft/399/1/eng-GB?open_share_modal=1
+                            - button "Edit" [ref=f3e413] [cursor=pointer]
+            - generic [ref=f3e417]:
+              - generic [ref=f3e418]: Common content
+              - generic [ref=f3e419]:
+                - tablist [ref=f3e422]:
+                  - tab "Content" [selected]
+                  - tab "Scheduled" [ref=f3e423] [cursor=pointer]
+                  - tab "Media" [ref=f3e427] [cursor=pointer]
+                - tabpanel "Content" [ref=f3e432]:
+                  - generic [ref=f3e433]: List (10)
+                  - table [ref=f3e436]:
+                    - rowgroup [ref=f3e437]:
+                      - row [ref=f3e438]:
+                        - columnheader [ref=f3e439]
+                        - columnheader "Name" [ref=f3e440]
+                        - columnheader "Content type" [ref=f3e441]
+                        - columnheader "Contributor" [ref=f3e442]
+                        - columnheader "Modified" [ref=f3e443]
+                        - columnheader [ref=f3e444]
+                    - rowgroup [ref=f3e445]:
+                      - row [ref=f3e446]:
+                        - cell [ref=f3e447]
+                        - cell [ref=f3e450]:
+                          - link "m_p_94eb50bb-fe7a-424f-b50f-8959fe4cc24e-adult-beautiful-blur-993717_2018113010_37" [ref=f3e451] [cursor=pointer]:
+                            - /url: https://localhost:8060/admin/view/content/417/full/1/408
+                        - cell "Image" [ref=f3e452]
+                        - cell "Administrator User" [ref=f3e453]
+                        - cell "July 01, 2026 10:18" [ref=f3e459]
+                        - cell [ref=f3e460]:
+                          - button "Edit" [ref=f3e462] [cursor=pointer]
+                      - row [ref=f3e466]:
+                        - cell [ref=f3e467]
+                        - cell [ref=f3e470]:
+                          - link "m_p_94eb50bb-fe7a-424f-b50f-8959fe4cc24e-adult-beautiful-blur-993717_2018113010_37" [ref=f3e471] [cursor=pointer]:
+                            - /url: https://localhost:8060/admin/view/content/416/full/1/407
+                        - cell "Image" [ref=f3e472]
+                        - cell "Administrator User" [ref=f3e473]
+                        - cell "July 01, 2026 10:14" [ref=f3e479]
+                        - cell [ref=f3e480]:
+                          - button "Edit" [ref=f3e482] [cursor=pointer]
+                      - row [ref=f3e486]:
+                        - cell [ref=f3e487]
+                        - cell [ref=f3e490]:
+                          - link "m_p_94eb50bb-fe7a-424f-b50f-8959fe4cc24e-adult-beautiful-blur-993717_2018113010_37" [ref=f3e491] [cursor=pointer]:
+                            - /url: https://localhost:8060/admin/view/content/415/full/1/406
+                        - cell "Image" [ref=f3e492]
+                        - cell "Administrator User" [ref=f3e493]
+                        - cell "July 01, 2026 10:12" [ref=f3e499]
+                        - cell [ref=f3e500]:
+                          - button "Edit" [ref=f3e502] [cursor=pointer]
+                      - row [ref=f3e506]:
+                        - cell [ref=f3e507]
+                        - cell [ref=f3e510]:
+                          - link "sub art" [ref=f3e511] [cursor=pointer]:
+                            - /url: https://localhost:8060/admin/view/content/406/full/1/400
+                        - cell "Article" [ref=f3e512]
+                        - cell "Administrator User" [ref=f3e513]
+                        - cell "July 01, 2026 06:51" [ref=f3e519]
+                        - cell [ref=f3e520]:
+                          - button "Edit" [ref=f3e522] [cursor=pointer]
+                      - row [ref=f3e526]:
+                        - cell [ref=f3e527]
+                        - cell [ref=f3e530]:
+                          - link "asdf" [ref=f3e531] [cursor=pointer]:
+                            - /url: https://localhost:8060/admin/view/content/403/full/1/399
+                        - cell "with a map" [ref=f3e532]
+                        - cell "Administrator User" [ref=f3e533]
+                        - cell "June 29, 2026 09:24" [ref=f3e539]
+                        - cell [ref=f3e540]:
+                          - button "Edit" [ref=f3e542] [cursor=pointer]
+                      - row [ref=f3e546]:
+                        - cell [ref=f3e547]
+                        - cell [ref=f3e550]:
+                          - link "test_folder_24" [ref=f3e551] [cursor=pointer]:
+                            - /url: https://localhost:8060/admin/view/content/268/full/1/269
+                        - cell "Folder" [ref=f3e552]
+                        - cell "Administrator User" [ref=f3e553]
+                        - cell "May 18, 2026 08:49" [ref=f3e559]
+                        - cell [ref=f3e560]:
+                          - button "Edit" [ref=f3e562] [cursor=pointer]
+                      - row [ref=f3e566]:
+                        - cell [ref=f3e567]
+                        - cell [ref=f3e570]:
+                          - link "test_folder_22" [ref=f3e571] [cursor=pointer]:
+                            - /url: https://localhost:8060/admin/view/content/266/full/1/267
+                        - cell "Folder" [ref=f3e572]
+                        - cell "Administrator User" [ref=f3e573]
+                        - cell "May 18, 2026 08:49" [ref=f3e579]
+                        - cell [ref=f3e580]:
+                          - button "Edit" [ref=f3e582] [cursor=pointer]
+                      - row [ref=f3e586]:
+                        - cell [ref=f3e587]
+                        - cell [ref=f3e590]:
+                          - link "test_folder_23" [ref=f3e591] [cursor=pointer]:
+                            - /url: https://localhost:8060/admin/view/content/267/full/1/268
+                        - cell "Folder" [ref=f3e592]
+                        - cell "Administrator User" [ref=f3e593]
+                        - cell "May 18, 2026 08:49" [ref=f3e599]
+                        - cell [ref=f3e600]:
+                          - button "Edit" [ref=f3e602] [cursor=pointer]
+                      - row [ref=f3e606]:
+                        - cell [ref=f3e607]
+                        - cell [ref=f3e610]:
+                          - link "test_folder_19" [ref=f3e611] [cursor=pointer]:
+                            - /url: https://localhost:8060/admin/view/content/263/full/1/264
+                        - cell "Folder" [ref=f3e612]
+                        - cell "Administrator User" [ref=f3e613]
+                        - cell "May 18, 2026 08:49" [ref=f3e619]
+                        - cell [ref=f3e620]:
+                          - button "Edit" [ref=f3e622] [cursor=pointer]
+                      - row [ref=f3e626]:
+                        - cell [ref=f3e627]
+                        - cell [ref=f3e630]:
+                          - link "test_folder_18" [ref=f3e631] [cursor=pointer]:
+                            - /url: https://localhost:8060/admin/view/content/262/full/1/263
+                        - cell "Folder" [ref=f3e632]
+                        - cell "Administrator User" [ref=f3e633]
+                        - cell "May 18, 2026 08:49" [ref=f3e639]
+                        - cell [ref=f3e640]:
+                          - button "Edit" [ref=f3e642] [cursor=pointer]
+  - button [ref=f3e648] [cursor=pointer]
+  - region "Symfony Web Debug Toolbar" [ref=f3e652]:
+    - generic [ref=f3e655]:
+      - link "200 @ ibexa.dashboard" [ref=f3e657] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=request
+        - generic [ref=f3e658]:
+          - generic [ref=f3e659]: "200"
+          - generic [ref=f3e660]: "@"
+          - generic [ref=f3e661]: ibexa.dashboard
+      - link [ref=f3e663] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=api_platform.data_collector.request
+      - link "2934 ms" [ref=f3e690] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=time
+        - generic [ref=f3e691]:
+          - generic [ref=f3e692]: "2934"
+          - generic [ref=f3e693]: ms
+      - link "280.2 MiB" [ref=f3e695] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=time
+        - generic [ref=f3e696]:
+          - generic [ref=f3e697]: "280.2"
+          - generic [ref=f3e698]: MiB
+      - link "4" [ref=f3e700] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=validator
+      - generic [ref=f3e707]: "1"
+      - link "Cache 9" [ref=f3e715] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=form
+        - generic [ref=f3e716]:
+          - img "Cache" [ref=f3e717]
+          - generic [ref=f3e723]: "9"
+      - link "Logger 15993" [ref=f3e725] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=logger
+        - generic [ref=f3e726]:
+          - img "Logger" [ref=f3e727]
+          - generic [ref=f3e731]: "15993"
+      - link "Cache 183 in 41.18 ms" [ref=f3e733] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=cache
+        - generic [ref=f3e734]:
+          - img "Cache" [ref=f3e735]
+          - generic [ref=f3e740]: "183"
+          - generic [ref=f3e741]: in 41.18 ms
+      - link "42" [ref=f3e743] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=translation
+      - link "Security admin" [ref=f3e752] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=security
+        - generic [ref=f3e753]:
+          - img "Security" [ref=f3e754]
+          - generic [ref=f3e758]: admin
+      - link "Twig 1107 ms" [ref=f3e760] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=twig
+        - generic [ref=f3e761]:
+          - img "Twig" [ref=f3e762]
+          - generic [ref=f3e766]: "1107"
+          - generic [ref=f3e767]: ms
+      - link "232 in 63 ms" [ref=f3e769] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=twig_component
+        - generic [ref=f3e770]:
+          - generic [ref=f3e773]: "232"
+          - generic [ref=f3e774]: in 63 ms
+      - link "42 in 76.65 ms" [ref=f3e776] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=db
+        - generic [ref=f3e777]:
+          - generic [ref=f3e783]: "42"
+          - generic [ref=f3e784]: in 76.65 ms
+      - link [ref=f3e786] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=ezpublish.debug.toolbar
+      - link "GraphQL" [ref=f3e791] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=graphql
+      - link "Symfony 7.4.13" [ref=f3e803] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/cf274a?panel=config
+        - generic [ref=f3e804]:
+          - img "Symfony" [ref=f3e806]
+          - generic [ref=f3e808]: 7.4.13
+      - generic [ref=f3e809]: Server
+      - button "Toggle Symfony Toolbar" [expanded] [ref=f3e816] [cursor=pointer]:
+        - generic "Close Toolbar" [ref=f3e817]

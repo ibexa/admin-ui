@@ -1,0 +1,115 @@
+- generic [ref=f1e1]:
+  - generic [ref=f1e3]:
+    - list [ref=f1e5]:
+      - listitem [ref=f1e6]:
+        - link [ref=f1e7] [cursor=pointer]:
+          - /url: https://www.ibexa.co/
+          - generic [ref=f1e9]: Ibexa
+      - listitem [ref=f1e10]:
+        - link [ref=f1e11] [cursor=pointer]:
+          - /url: https://www.ibexa.co/orchestration/cohesivo
+          - generic [ref=f1e13]: Cohesivo
+      - listitem [ref=f1e14]:
+        - link [ref=f1e15] [cursor=pointer]:
+          - /url: https://www.actito.com/
+          - generic [ref=f1e17]: Actito
+      - listitem [ref=f1e18]:
+        - link [ref=f1e19] [cursor=pointer]:
+          - /url: https://qualifio.com/
+          - generic [ref=f1e21]: Qualifio
+      - listitem [ref=f1e22]:
+        - link [ref=f1e23] [cursor=pointer]:
+          - /url: https://www.quable.com/
+          - generic [ref=f1e25]: Quable
+      - listitem [ref=f1e26]:
+        - link [ref=f1e27] [cursor=pointer]:
+          - /url: https://www.raptorservices.com/
+          - generic [ref=f1e29]: Raptor
+    - generic [ref=f1e31]:
+      - img "ibexa" [ref=f1e32]
+      - generic [ref=f1e33]:
+        - generic [ref=f1e34]: Sign in to Cohesivo
+        - form [ref=f1e35]:
+          - group [ref=f1e36]:
+            - alert [ref=f1e38]:
+              - generic [ref=f1e42]: Bad credentials.
+            - generic [ref=f1e44]:
+              - generic [ref=f1e45]: Login
+              - textbox "Login" [active] [ref=f1e49]:
+                - /placeholder: " "
+            - generic [ref=f1e56]:
+              - generic [ref=f1e57]: Password
+              - generic [ref=f1e59]:
+                - textbox "Password" [ref=f1e61]:
+                  - /placeholder: " "
+                - button "Toggle password visibility" [ref=f1e64] [cursor=pointer]
+            - link "Forgot your password?" [ref=f1e70] [cursor=pointer]:
+              - /url: /admin/user/forgot-password
+            - button "Sign in" [disabled]
+      - generic [ref=f1e71]:
+        - link "Documentation" [ref=f1e72] [cursor=pointer]:
+          - /url: https://doc.ibexa.co/en/latest/
+        - link "Support" [ref=f1e73] [cursor=pointer]:
+          - /url: https://support.ibexa.co/login
+  - region "Symfony Web Debug Toolbar" [ref=f1e74]:
+    - generic [ref=f1e77]:
+      - link "200 Redirect @ login" [ref=f1e79] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/125287?panel=request
+        - generic [ref=f1e80]:
+          - generic [ref=f1e81]: "200"
+          - img "Redirect" [ref=f1e83]
+          - generic [ref=f1e86]: "@"
+          - generic [ref=f1e87]: login
+      - link [ref=f1e89] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/125287?panel=api_platform.data_collector.request
+      - link "291 ms" [ref=f1e116] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/125287?panel=time
+        - generic [ref=f1e117]:
+          - generic [ref=f1e118]: "291"
+          - generic [ref=f1e119]: ms
+      - link "103.7 MiB" [ref=f1e121] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/125287?panel=time
+        - generic [ref=f1e122]:
+          - generic [ref=f1e123]: "103.7"
+          - generic [ref=f1e124]: MiB
+      - link "Logger 15889" [ref=f1e126] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/125287?panel=logger
+        - generic [ref=f1e127]:
+          - img "Logger" [ref=f1e128]
+          - generic [ref=f1e132]: "15889"
+      - link "Cache 6 in 1.08 ms" [ref=f1e134] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/125287?panel=cache
+        - generic [ref=f1e135]:
+          - img "Cache" [ref=f1e136]
+          - generic [ref=f1e141]: "6"
+          - generic [ref=f1e142]: in 1.08 ms
+      - link "3" [ref=f1e144] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/125287?panel=translation
+      - link "Security n/a" [ref=f1e153] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/125287?panel=security
+        - generic [ref=f1e154]:
+          - img "Security" [ref=f1e155]
+          - generic [ref=f1e159]: n/a
+      - link "Twig 38 ms" [ref=f1e161] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/125287?panel=twig
+        - generic [ref=f1e162]:
+          - img "Twig" [ref=f1e163]
+          - generic [ref=f1e167]: "38"
+          - generic [ref=f1e168]: ms
+      - link "17 in 11 ms" [ref=f1e170] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/125287?panel=twig_component
+        - generic [ref=f1e171]:
+          - generic [ref=f1e174]: "17"
+          - generic [ref=f1e175]: in 11 ms
+      - link [ref=f1e177] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/125287?panel=ezpublish.debug.toolbar
+      - link "GraphQL" [ref=f1e182] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/125287?panel=graphql
+      - link "Symfony 7.4.13" [ref=f1e194] [cursor=pointer]:
+        - /url: https://localhost:8060/_profiler/125287?panel=config
+        - generic [ref=f1e195]:
+          - img "Symfony" [ref=f1e197]
+          - generic [ref=f1e199]: 7.4.13
+      - generic [ref=f1e200]: Server
+      - button "Toggle Symfony Toolbar" [expanded] [ref=f1e207] [cursor=pointer]:
+        - generic "Close Toolbar" [ref=f1e208]

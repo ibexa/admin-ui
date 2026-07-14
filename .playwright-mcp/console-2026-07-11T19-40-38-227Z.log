@@ -1,0 +1,3 @@
+[    2399ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://localhost:8060/admin/login:0
+[    2697ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://localhost:8060/bundles/ibexaadminui/font/NotoSans-Regular.ttf:0
+[    4220ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://localhost:8060/font/NotoSans-Regular.ttf:0
