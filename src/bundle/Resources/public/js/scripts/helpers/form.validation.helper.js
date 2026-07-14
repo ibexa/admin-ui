@@ -1,6 +1,9 @@
 import { getTranslator } from './context.helper';
 import { getIconPath } from './icon.helper';
 
+const SELECTOR_INPUT = '.ids-input, .ibexa-input';
+const SELECTOR_LABEL = '.ids-label';
+
 const formatErrorLine = (errorMessage) => {
     const errorIcon = `<svg class="ibexa-icon ibexa-icon--small-medium ibexa-form-error__icon">
         <use xlink:href="${getIconPath('notice')}"></use>
@@ -17,8 +20,8 @@ const formatErrorLine = (errorMessage) => {
 const checkIsEmpty = (field) => {
     let errorMessage = '';
     const Translator = getTranslator();
-    const input = field.querySelector('.ibexa-input');
-    const label = field.querySelector('.ids-label');
+    const input = field.querySelector(SELECTOR_INPUT);
+    const label = field.querySelector(SELECTOR_LABEL);
 
     if (label) {
         const fieldName = label.innerText;
@@ -34,8 +37,8 @@ const checkIsEmpty = (field) => {
     };
 };
 const validateIsEmptyField = (field) => {
-    const input = field.querySelector('.ibexa-input');
-    const label = field.querySelector('.ids-label');
+    const input = field.querySelector(SELECTOR_INPUT);
+    const label = field.querySelector(SELECTOR_LABEL);
     const errorWrapper = field.querySelector('.ibexa-form-error');
     const validatorOutput = checkIsEmpty(field);
     const { isValid, errorMessage } = validatorOutput;
