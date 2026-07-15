@@ -48,7 +48,8 @@
                             {% for user_setting in settings_group.settings %}
                                 {% set items = items|merge([{
                                     label: user_setting.description,
-                                    content: value_definitions[user_setting.identifier].getDisplayValue(user_setting.value)
+                                    content: value_definitions[user_setting.identifier].getDisplayValue(user_setting.value),
+                                    class: user_setting.identifier == 'short_datetime_format' or user_setting.identifier == 'full_datetime_format' ? 'ibexa-date' : ''
                                 }]) %}
                             {% endfor %}
 

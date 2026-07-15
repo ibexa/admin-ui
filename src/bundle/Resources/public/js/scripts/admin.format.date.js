@@ -88,4 +88,11 @@
 
         return this.format(form);
     };
+
+    if (backOfficeLanguage === 'ar') {
+        moment.updateLocale('ar', {
+            preparse: (string) => string,
+            postformat: (string) => string,
+        });
+    }
 })(window.moment, window.ibexa);

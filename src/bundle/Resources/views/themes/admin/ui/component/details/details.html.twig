@@ -45,7 +45,9 @@
                                 class="
                                     ibexa-details__item-content
                                     {{ item.is_ellipsized|default(false) ? 'ibexa-details__item-content--ellipsized' }}
-                                    {{ item.ellipsized_lines_no|default(false) ? 'ibexa-details__item-content--multi-line-ellipsized' }}"
+                                    {{ item.ellipsized_lines_no|default(false) ? 'ibexa-details__item-content--multi-line-ellipsized' }}
+                                    {{ item.class|default('') }}
+                                "
                                 style="
                                     {{ item.ellipsized_lines_no|default(false) ? "--ibexa-details__ellipsized-lines-no: #{item.ellipsized_lines_no};"  }}"
                             >

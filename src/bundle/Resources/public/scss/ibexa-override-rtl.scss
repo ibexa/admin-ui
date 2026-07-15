@@ -147,4 +147,28 @@
     .ibexa-icon {
         transform: rotateY(180deg);
     }
+
+    .c-finder-leaf__icon-wrapper {
+        .ibexa-icon {
+            transform: translateY(-50%) rotateY(180deg);
+        }
+    }
+
+    .ibexa-date {
+        direction: ltr;
+        unicode-bidi: isolate;
+    }
+
+    .ibexa-date-time-picker {
+        &__input {
+            direction: ltr;
+            unicode-bidi: isolate;
+            text-align: right;
+        }
+    }
+
+    .flatpickr-time.time24hr {
+        display: flex;
+        flex-direction: row-reverse;
+    }
 }
