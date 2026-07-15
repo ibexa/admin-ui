@@ -20,20 +20,25 @@ export class ContentManagementPage extends AdminUiPage {
      */
     async performAction(label: string): Promise<void> {
         const contextMenu = this.page.locator('.ibexa-context-menu');
-        await expect(contextMenu).toBeVisible({ timeout: 10_000 });
+        await expect(contextMenu.locator('.ibexa-btn').first()).toBeVisible({ timeout: 10_000 });
 
         const primaryButton = contextMenu
             .locator('.ibexa-context-menu__item:not(.ibexa-context-menu__item--more) .ibexa-btn')
             .filter({ hasText: label })
             .first();
 
-        // A primary button can be present in the DOM but covered by the "More" overflow —
-        // the click then fails its actionability check and we fall back to the "More" menu.
-        try {
-            await primaryButton.click({ timeout: 3_000 });
+        // A primary button can be present in the DOM but covered by the "More" overflow.
+        // Probe with elementFromPoint (read-only, no failed click attempt in the report)
+        // and only then click for real, with Playwright's actionability checks intact.
+        const isClickable = await primaryButton.count() > 0 && await primaryButton.evaluate((el) => {
+            const box = el.getBoundingClientRect();
+            const topmost = document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2);
+            return topmost !== null && (el === topmost || el.contains(topmost));
+        });
+
+        if (isClickable) {
+            await primaryButton.click();
             return;
-        } catch {
-            // fall through to the "More" menu
         }
 
         await contextMenu.locator('.ibexa-btn--more').click();
