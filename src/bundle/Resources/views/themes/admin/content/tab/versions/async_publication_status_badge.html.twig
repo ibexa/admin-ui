@@ -1,0 +1,14 @@
+{% set badge_variant = {
+    'queued':     'ibexa-badge--secondary',
+    'processing': 'ibexa-badge--info',
+    'failed':     'ibexa-badge--danger',
+} %}
+{% set badge_label = {
+    'queued':     'Queued',
+    'processing': 'Publishing',
+    'failed':     'Publish failed',
+} %}
+
+{% if badge_variant[status] is defined %}
+    <span class="ibexa-badge ibexa-badge--status {{ badge_variant[status] }}">{{ badge_label[status] }}</span>
+{% endif %}

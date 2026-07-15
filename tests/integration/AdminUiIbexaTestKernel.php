@@ -29,6 +29,7 @@ use Knp\Bundle\MenuBundle\KnpMenuBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\UX\TwigComponent\TwigComponentBundle;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
@@ -87,6 +88,9 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
         $loader->load(static function (ContainerBuilder $container): void {
             self::configureIbexaBundles($container);
             self::configureThirdPartyBundles($container);
+
+            // mocked fake dependency only to allow integration tests start
+            self::addSyntheticService($container, \stdClass::class, 'ibexa.messenger.bus');
         });
     }
 

@@ -13,9 +13,11 @@ use Ibexa\AdminUi\Tab\LocationView\VersionsTab;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
+use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\ContentService\AsyncPublicationService;
 use Ibexa\User\UserSetting\UserSettingService;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -56,6 +58,8 @@ final class VersionsTabVisibilityTest extends AbstractTabVisibilityTestCase
             $this->createMock(UserService::class),
             $userSettingService,
             $this->createMock(EventDispatcherInterface::class),
+            $this->createMock(AsyncPublicationService::class),
+            $this->createMock(RepositoryConfigurationProviderInterface::class),
         );
     }
 

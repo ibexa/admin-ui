@@ -1,0 +1,3 @@
+{% if mercure_enabled() and async_publish_enabled() %}
+{{ encore_entry_script_tags('ibexa-admin-ui-async-publication-status', null, 'ibexa') }}
+{% endif %}
