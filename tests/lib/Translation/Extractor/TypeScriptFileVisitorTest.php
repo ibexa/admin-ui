@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Translation\Extractor;
 
+use Ibexa\AdminUi\Translation\Extractor\TypeScriptExtractorClient;
 use Ibexa\AdminUi\Translation\Extractor\TypeScriptFileVisitor;
 use JMS\TranslationBundle\Model\MessageCatalogue;
 use PHPUnit\Framework\TestCase;
@@ -73,10 +74,7 @@ final class TypeScriptFileVisitorTest extends TestCase
             ]
             JSON);
 
-        $visitor = new TypeScriptFileVisitor(
-            parserScriptPath: $scriptPath,
-            nodeBinary: PHP_BINARY,
-        );
+        $visitor = $this->createVisitor($scriptPath);
         $catalogue = new MessageCatalogue();
 
         try {
@@ -103,10 +101,7 @@ final class TypeScriptFileVisitorTest extends TestCase
             ]
             JSON);
 
-        $visitor = new TypeScriptFileVisitor(
-            parserScriptPath: $scriptPath,
-            nodeBinary: PHP_BINARY,
-        );
+        $visitor = $this->createVisitor($scriptPath);
         $catalogue = new MessageCatalogue();
 
         try {
@@ -131,10 +126,7 @@ final class TypeScriptFileVisitorTest extends TestCase
             ]
             JSON);
 
-        $visitor = new TypeScriptFileVisitor(
-            parserScriptPath: $scriptPath,
-            nodeBinary: PHP_BINARY,
-        );
+        $visitor = $this->createVisitor($scriptPath);
 
         $logger = $this->createMock(LoggerInterface::class);
         $logger->expects(self::once())
@@ -165,10 +157,7 @@ final class TypeScriptFileVisitorTest extends TestCase
             exit(1);
             PHP);
 
-        $visitor = new TypeScriptFileVisitor(
-            parserScriptPath: $scriptPath,
-            nodeBinary: PHP_BINARY,
-        );
+        $visitor = $this->createVisitor($scriptPath);
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('TypeScript translation extractor runtime is not available.');
@@ -186,10 +175,7 @@ final class TypeScriptFileVisitorTest extends TestCase
     {
         [$temporaryDirectory, $filePath, $scriptPath, $startsFilePath] = $this->createRestartingFixture();
 
-        $visitor = new TypeScriptFileVisitor(
-            parserScriptPath: $scriptPath,
-            nodeBinary: PHP_BINARY,
-        );
+        $visitor = $this->createVisitor($scriptPath);
 
         $firstException = null;
         try {
@@ -267,6 +253,14 @@ final class TypeScriptFileVisitorTest extends TestCase
         }
 
         return $temporaryDirectory;
+    }
+
+    private function createVisitor(string $scriptPath): TypeScriptFileVisitor
+    {
+        return new TypeScriptFileVisitor(new TypeScriptExtractorClient(
+            parserScriptPath: $scriptPath,
+            nodeBinary: PHP_BINARY,
+        ));
     }
 
     private function cleanupFixture(
