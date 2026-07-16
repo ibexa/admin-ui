@@ -34,13 +34,13 @@ final class TypeScriptTranslationExtractorScriptTest extends TestCase
 
         self::assertTrue($process->isSuccessful(), $process->getErrorOutput());
 
-        $decoded = json_decode($process->getOutput(), true);
+        $extractionResponse = json_decode($process->getOutput(), true);
 
-        self::assertSame($expectedMessages, $decoded['messages']);
-        self::assertCount($expectedWarningSubstrings === [] ? 0 : count($expectedWarningSubstrings), $decoded['warnings']);
+        self::assertSame($expectedMessages, $extractionResponse['messages']);
+        self::assertCount($expectedWarningSubstrings === [] ? 0 : count($expectedWarningSubstrings), $extractionResponse['warnings']);
 
         foreach ($expectedWarningSubstrings as $index => $substring) {
-            self::assertStringContainsString($substring, $decoded['warnings'][$index]);
+            self::assertStringContainsString($substring, $extractionResponse['warnings'][$index]);
         }
 
         unlink($file);

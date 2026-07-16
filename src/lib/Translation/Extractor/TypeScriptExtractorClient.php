@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Translation\Extractor;
 
+use JsonException;
 use RuntimeException;
 use Symfony\Component\Process\InputStream;
 use Symfony\Component\Process\Process;
@@ -24,7 +25,7 @@ final class TypeScriptExtractorClient
 
     private ?InputStream $serverInput = null;
 
-    private string $serverOutputBuffer = '';
+    private string $responseBuffer = '';
 
     public function __construct(
         ?string $parserScriptPath = null,
@@ -49,7 +50,7 @@ final class TypeScriptExtractorClient
 
         $this->getServerInput()->write($filePath . "\n");
 
-        return $this->readServerLine();
+        return $this->readExtractionResponse();
     }
 
     private function assertRuntimeIsReady(): void
@@ -65,18 +66,18 @@ final class TypeScriptExtractorClient
             ));
         }
 
-        $process = new Process([
+        $runtimeCheckProcess = new Process([
             $this->nodeBinary,
             $this->parserScriptPath,
             '--check-runtime',
         ]);
-        $process->run();
+        $runtimeCheckProcess->run();
 
-        if (!$process->isSuccessful()) {
+        if (!$runtimeCheckProcess->isSuccessful()) {
             throw new RuntimeException(sprintf(
                 'TypeScript translation extractor runtime is not available. Please ensure `%s` is installed and `@typescript-eslint/typescript-estree` is available for the admin-ui package. %s',
                 $this->nodeBinary,
-                trim($process->getErrorOutput()),
+                trim($runtimeCheckProcess->getErrorOutput()),
             ));
         }
 
@@ -89,20 +90,20 @@ final class TypeScriptExtractorClient
             return;
         }
 
-        $input = new InputStream();
+        $processInput = new InputStream();
 
-        $process = new Process([
+        $extractorProcess = new Process([
             $this->nodeBinary,
             $this->parserScriptPath,
             '--serve',
         ]);
-        $process->setInput($input);
-        $process->setTimeout(null);
-        $process->start();
+        $extractorProcess->setInput($processInput);
+        $extractorProcess->setTimeout(null);
+        $extractorProcess->start();
 
-        $this->serverInput = $input;
-        $this->serverProcess = $process;
-        $this->serverOutputBuffer = '';
+        $this->serverInput = $processInput;
+        $this->serverProcess = $extractorProcess;
+        $this->responseBuffer = '';
     }
 
     private function getServerInput(): InputStream
@@ -126,12 +127,12 @@ final class TypeScriptExtractorClient
     /**
      * @return array{messages?: mixed, warnings?: mixed, error?: string}
      */
-    private function readServerLine(): array
+    private function readExtractionResponse(): array
     {
         $process = $this->getServerProcess();
-        $deadline = microtime(true) + $this->responseTimeoutSeconds;
+        $responseDeadline = microtime(true) + $this->responseTimeoutSeconds;
 
-        while (!str_contains($this->serverOutputBuffer, "\n")) {
+        while (!str_contains($this->responseBuffer, "\n")) {
             if (!$process->isRunning()) {
                 $this->discardServerProcess();
 
@@ -141,7 +142,7 @@ final class TypeScriptExtractorClient
                 ));
             }
 
-            if (microtime(true) > $deadline) {
+            if (microtime(true) > $responseDeadline) {
                 $this->discardServerProcess();
 
                 throw new RuntimeException(
@@ -149,19 +150,35 @@ final class TypeScriptExtractorClient
                 );
             }
 
-            $this->serverOutputBuffer .= $process->getIncrementalOutput();
+            $this->responseBuffer .= $process->getIncrementalOutput();
 
-            if (!str_contains($this->serverOutputBuffer, "\n")) {
+            if (!str_contains($this->responseBuffer, "\n")) {
                 usleep(2000);
             }
         }
 
-        [$line, $rest] = explode("\n", $this->serverOutputBuffer, 2);
-        $this->serverOutputBuffer = $rest;
+        [$responseLine, $rest] = explode("\n", $this->responseBuffer, 2);
+        $this->responseBuffer = $rest;
 
-        $decoded = json_decode($line, true);
+        return $this->decodeResponse($responseLine);
+    }
 
-        return is_array($decoded) ? $decoded : ['error' => 'Unable to decode extractor output.'];
+    /**
+     * @return array{messages?: mixed, warnings?: mixed, error?: string}
+     */
+    private function decodeResponse(string $responseLine): array
+    {
+        try {
+            $responseData = json_decode($responseLine, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException) {
+            return ['error' => 'Unable to decode extractor output.'];
+        }
+
+        if (!is_array($responseData)) {
+            return ['error' => 'Extractor output must be a JSON object.'];
+        }
+
+        return $responseData;
     }
 
     private function discardServerProcess(): void
@@ -171,6 +188,6 @@ final class TypeScriptExtractorClient
 
         $this->serverProcess = null;
         $this->serverInput = null;
-        $this->serverOutputBuffer = '';
+        $this->responseBuffer = '';
     }
 }

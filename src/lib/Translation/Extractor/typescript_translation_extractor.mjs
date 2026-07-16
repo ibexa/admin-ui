@@ -36,10 +36,10 @@ const TRANSLATOR_ARGUMENTS = {
 };
 
 const formatWarning = (argumentName, node, filePath) => {
-    const line = node?.loc?.start?.line ?? 0;
-    const column = node?.loc?.start?.column ?? 0;
+    const sourceLine = node?.loc?.start?.line ?? 0;
+    const sourceColumn = node?.loc?.start?.column ?? 0;
 
-    return `Could not extract ${argumentName}, expected string literal but got ${node?.type ?? 'nothing'} (in ${filePath} on line ${line} column ${column}).`;
+    return `Could not extract ${argumentName}, expected string literal but got ${node?.type ?? 'nothing'} (in ${filePath} on line ${sourceLine} column ${sourceColumn}).`;
 };
 
 const findClosestLeadingComment = (source, comments, node) => {
@@ -118,14 +118,14 @@ const visitNode = (node, context) => {
         }
     }
 
-    for (const value of Object.values(node)) {
-        if (Array.isArray(value)) {
-            value.forEach((child) => visitNode(child, context));
+    for (const childNode of Object.values(node)) {
+        if (Array.isArray(childNode)) {
+            childNode.forEach((nestedNode) => visitNode(nestedNode, context));
             continue;
         }
 
-        if (value && typeof value === 'object') {
-            visitNode(value, context);
+        if (childNode && typeof childNode === 'object') {
+            visitNode(childNode, context);
         }
     }
 };

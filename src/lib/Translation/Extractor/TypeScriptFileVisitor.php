@@ -35,13 +35,13 @@ final class TypeScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
             return;
         }
 
-        $messages = $this->extractMessages($file);
+        $extractedMessages = $this->extractMessages($file);
 
-        if ($messages === null) {
+        if ($extractedMessages === null) {
             return;
         }
 
-        foreach ($messages as $messageData) {
+        foreach ($extractedMessages as $messageData) {
             if (!is_array($messageData) || !isset($messageData['id']) || !is_string($messageData['id'])) {
                 continue;
             }
@@ -55,19 +55,19 @@ final class TypeScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
      */
     private function extractMessages(SplFileInfo $file): ?array
     {
-        $decoded = $this->extractorClient->extract((string) $file->getRealPath());
+        $extractionResponse = $this->extractorClient->extract((string) $file->getRealPath());
 
-        if (isset($decoded['error'])) {
+        if (isset($extractionResponse['error'])) {
             $this->logger?->error(sprintf(
                 'Unable to parse TypeScript file %s: %s',
                 $file->getRealPath(),
-                $decoded['error'],
+                $extractionResponse['error'],
             ));
 
             return null;
         }
 
-        if (!isset($decoded['messages']) || !is_array($decoded['messages'])) {
+        if (!isset($extractionResponse['messages']) || !is_array($extractionResponse['messages'])) {
             $this->logger?->error(sprintf(
                 'Unable to decode TypeScript extractor output for file %s.',
                 $file->getRealPath(),
@@ -76,9 +76,9 @@ final class TypeScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
             return null;
         }
 
-        $this->logWarnings($decoded['warnings'] ?? []);
+        $this->logWarnings($extractionResponse['warnings'] ?? []);
 
-        return $decoded['messages'];
+        return $extractionResponse['messages'];
     }
 
     /**
@@ -129,10 +129,10 @@ final class TypeScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
 
     private function supports(SplFileInfo $file): bool
     {
-        $path = $file->getRealPath();
+        $realPath = $file->getRealPath();
 
-        return ($path !== false)
-            && (str_ends_with($path, '.ts') || str_ends_with($path, '.tsx'))
-            && !str_ends_with($path, '.d.ts');
+        return ($realPath !== false)
+            && (str_ends_with($realPath, '.ts') || str_ends_with($realPath, '.tsx'))
+            && !str_ends_with($realPath, '.d.ts');
     }
 }
