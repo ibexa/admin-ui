@@ -7,14 +7,15 @@
         min-width: calculateRem(62px);
         border-radius: calculateRem(31px);
         padding: calculateRem(15px) calculateRem(18px);
-        display: flex;
         justify-content: center;
         align-items: center;
         background-color: $ibexa-color-white;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity $ibexa-admin-transition-duration $ibexa-admin-transition;
         box-shadow: $ibexa-edit-header-box-shadow;
+        display: none;
+        opacity: 0;
+        transition:
+            opacity $ibexa-admin-transition-duration $ibexa-admin-transition,
+            display $ibexa-admin-transition-duration $ibexa-admin-transition allow-discrete;
 
         &:hover {
             .ibexa-back-to-top__title {
@@ -23,8 +24,12 @@
         }
 
         &--visible {
+            display: flex;
             opacity: 1;
-            visibility: visible;
+
+            @starting-style {
+                opacity: 0;
+            }
         }
     }
 
