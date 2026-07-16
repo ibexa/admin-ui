@@ -18,7 +18,7 @@ final class TypeScriptExtractorClient
 
     private string $parserScriptPath;
 
-    private ?bool $runtimeReady = null;
+    private bool $isRuntimeReady = false;
 
     private ?Process $serverProcess = null;
 
@@ -54,7 +54,7 @@ final class TypeScriptExtractorClient
 
     private function assertRuntimeIsReady(): void
     {
-        if ($this->runtimeReady === true) {
+        if ($this->isRuntimeReady) {
             return;
         }
 
@@ -80,7 +80,7 @@ final class TypeScriptExtractorClient
             ));
         }
 
-        $this->runtimeReady = true;
+        $this->isRuntimeReady = true;
     }
 
     private function ensureServerStarted(): void
