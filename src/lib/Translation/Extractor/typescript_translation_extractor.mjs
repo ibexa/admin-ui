@@ -1,27 +1,26 @@
 import fs from 'node:fs';
 import readline from 'node:readline';
+import { parseArgs } from 'node:util';
 import { parse } from '@typescript-eslint/typescript-estree';
 
 const isTranslatorCall = (node) => {
-    if (!node || node.type !== 'CallExpression') {
+    if (node?.type !== 'CallExpression') {
         return false;
     }
 
-    const callee = node.callee;
+    const { callee } = node;
 
-    return callee?.type === 'MemberExpression'
-        && callee.object?.type === 'Identifier'
-        && callee.object.name === 'Translator'
-        && callee.property?.type === 'Identifier'
-        && ['trans', 'transChoice'].includes(callee.property.name);
+    return (
+        callee?.type === 'MemberExpression' &&
+        callee.object?.type === 'Identifier' &&
+        callee.object.name === 'Translator' &&
+        callee.property?.type === 'Identifier' &&
+        ['trans', 'transChoice'].includes(callee.property.name)
+    );
 };
 
 const getStringLiteralValue = (node) => {
-    if (!node) {
-        return null;
-    }
-
-    if (node.type === 'Literal' && typeof node.value === 'string') {
+    if (node?.type === 'Literal' && typeof node?.value === 'string') {
         return node.value;
     }
 
@@ -56,6 +55,7 @@ const findClosestLeadingComment = (source, comments, node) => {
         }
 
         const textBetween = source.slice(comment.range[1], nodeStart);
+
         if (!/^\s*$/.test(textBetween)) {
             continue;
         }
@@ -88,6 +88,7 @@ const extractMessage = (node, filePath, source, comments, warnings) => {
 
     if (id === null) {
         warnings.push(formatWarning('id', idNode, filePath));
+
         return null;
     }
 
@@ -139,7 +140,6 @@ const extractFromFile = (filePath) => {
         range: true,
         filePath,
     });
-
     const context = {
         filePath,
         source,
@@ -153,14 +153,20 @@ const extractFromFile = (filePath) => {
     return { messages: context.messages, warnings: context.warnings };
 };
 
-const [, , mode] = process.argv;
+const { values, positionals } = parseArgs({
+    options: {
+        'check-runtime': { type: 'boolean' },
+        serve: { type: 'boolean' },
+    },
+    allowPositionals: true,
+});
 
-if (mode === '--check-runtime') {
+if (values['check-runtime']) {
     process.stdout.write('ok');
     process.exit(0);
 }
 
-if (mode === '--serve') {
+if (values.serve) {
     const rl = readline.createInterface({ input: process.stdin, terminal: false });
 
     rl.on('line', (filePath) => {
@@ -178,7 +184,7 @@ if (mode === '--serve') {
 
     process.exitCode = 0;
 } else {
-    const filePath = mode;
+    const [filePath] = positionals;
 
     if (!filePath) {
         process.stderr.write('Missing file path argument.\n');
