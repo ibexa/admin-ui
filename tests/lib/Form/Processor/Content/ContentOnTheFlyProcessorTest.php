@@ -30,13 +30,13 @@ use Twig\Environment;
  */
 final class ContentOnTheFlyProcessorTest extends TestCase
 {
-    private const CREATE_RESPONSE_TEMPLATE = '@ibexadesign/ui/on_the_fly/content_create_response.html.twig';
-    private const EDIT_RESPONSE_TEMPLATE = '@ibexadesign/ui/on_the_fly/content_edit_response.html.twig';
+    private const string CREATE_RESPONSE_TEMPLATE = '@ibexadesign/ui/on_the_fly/content_create_response.html.twig';
+    private const string EDIT_RESPONSE_TEMPLATE = '@ibexadesign/ui/on_the_fly/content_edit_response.html.twig';
 
-    private const MAIN_LOCATION_ID = 42;
-    private const REFERRER_LOCATION_ID = 55;
-    private const LANGUAGE_CODE = 'eng-GB';
-    private const RENDERED_RESPONSE = 'rendered-response';
+    private const int MAIN_LOCATION_ID = 42;
+    private const int REFERRER_LOCATION_ID = 55;
+    private const string LANGUAGE_CODE = 'eng-GB';
+    private const string RENDERED_RESPONSE = 'rendered-response';
 
     private ContentService&MockObject $contentService;
 
@@ -54,7 +54,10 @@ final class ContentOnTheFlyProcessorTest extends TestCase
     public function testProcessCreatePublishPublishesNewContentSynchronously(): void
     {
         $draft = $this->createDraft();
-        $data = $this->createCreateData();
+        $data = new ContentCreateData([
+            'mainLanguageCode' => self::LANGUAGE_CODE,
+            'fieldsData' => [],
+        ]);
 
         $this->contentService
             ->expects(self::once())
@@ -101,7 +104,9 @@ final class ContentOnTheFlyProcessorTest extends TestCase
         $data = $this->createUpdateData($draft);
 
         $this->contentService
+            ->expects(self::once())
             ->method('updateContent')
+            ->with(self::identicalTo($draft->getVersionInfo()), self::identicalTo($data))
             ->willReturn($draft);
 
         $this->expectPublishVersion($draft);
@@ -130,14 +135,6 @@ final class ContentOnTheFlyProcessorTest extends TestCase
             ->method('render')
             ->with($template, ['locationId' => $locationId])
             ->willReturn(self::RENDERED_RESPONSE);
-    }
-
-    private function createCreateData(): ContentCreateData
-    {
-        return new ContentCreateData([
-            'mainLanguageCode' => self::LANGUAGE_CODE,
-            'fieldsData' => [],
-        ]);
     }
 
     private function createUpdateData(Content $contentDraft): ContentUpdateData
