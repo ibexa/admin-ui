@@ -8,6 +8,10 @@
     background: $ibexa-color-dark;
     border-bottom: calculateRem(1px) solid $ibexa-color-dark-500;
 
+    &:has(.modal.show) {
+        z-index: auto;
+    }
+
     &__brand-column {
         flex: 1;
         display: flex;
