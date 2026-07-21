@@ -3,8 +3,8 @@
 @use 'sass:color';
 
 :root {
-    --ibexa-hover-color: var(--ibexa-hover-color, $ibexa-color-primary);
-    --ibexa-border-color: var(--ibexa-border-color, $ibexa-color-dark);
+    --ibexa-hover-color: var(--ibexa-hover-color, #{$ibexa-color-primary});
+    --ibexa-border-color: var(--ibexa-border-color, #{$ibexa-color-dark});
 }
 
 @mixin drag-module-backdrop-background {
