@@ -214,6 +214,19 @@
         }
     }
 
+    &__body-cell-content {
+        &--ellipsis {
+            display: -webkit-box;
+            line-clamp: 2;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            word-break: break-all;
+            max-width: 40vw;
+            width: max-content;
+        }
+    }
+
     .table &__cell--close-left,
     .table &__header-cell--close-left {
         padding-left: 0;
