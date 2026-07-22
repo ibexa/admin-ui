@@ -186,6 +186,12 @@
         font-size: $text-font-size-s;
     }
 
+    &__reset-password-alert {
+        a {
+            color: inherit;
+        }
+    }
+
     &__success-toast {
         margin-top: calculateRem(4px);
 
