@@ -41,6 +41,9 @@ final class IbexaAdminUiExtension extends Extension implements PrependExtensionI
         'ibexa.config.setup.js' => [
             'ibexa.config.setup.js' => [],
         ],
+        'ibexa.rtl.config.js' => [
+            'ibexa.rtl.config.js' => [],
+        ],
     ];
 
     /**

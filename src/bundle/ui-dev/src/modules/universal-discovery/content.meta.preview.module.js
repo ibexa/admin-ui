@@ -153,7 +153,7 @@ const ContentMetaPreview = () => {
                     <div className="c-content-meta-preview__details">
                         <div className="c-content-meta-preview__details-item">
                             <div className="c-content-meta-preview__details-item-row">{lastModifiedLabel}</div>
-                            <div className="c-content-meta-preview__details-item-row">
+                            <div className="c-content-meta-preview__details-item-row ibexa-date">
                                 {formatShortDateTime(
                                     new Date(location.ContentInfo.Content.lastModificationDate),
                                     timezone,
@@ -163,7 +163,7 @@ const ContentMetaPreview = () => {
                         </div>
                         <div className="c-content-meta-preview__details-item">
                             <div className="c-content-meta-preview__details-item-row">{creationDateLabel}</div>
-                            <div className="c-content-meta-preview__details-item-row">
+                            <div className="c-content-meta-preview__details-item-row ibexa-date">
                                 {formatShortDateTime(
                                     new Date(location.ContentInfo.Content.publishedDate),
                                     timezone,

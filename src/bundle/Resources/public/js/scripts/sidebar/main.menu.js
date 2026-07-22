@@ -1,3 +1,5 @@
+import { isRtl } from '@ibexa-admin-ui-helpers/system.helper';
+
 (function (global, doc, ibexa) {
     const SECOND_LEVEL_COLLAPSED_WIDTH = 48;
     const SECOND_LEVEL_EXPANDED_WIDTH = 220;
@@ -164,8 +166,10 @@
         doc.removeEventListener('mouseup', removeResizeListeners, false);
     };
     const triggerSecondLevelChangeWidth = ({ clientX }) => {
-        const resizeValue = secondMenuLevelCurrentWidth + (clientX - resizeStartPositionX);
-        const newMenuWidth = resizeValue > SECOND_LEVEL_MANUAL_RESIZE_MIN_WIDTH ? resizeValue : SECOND_LEVEL_COLLAPSED_WIDTH;
+        const resizeValue = isRtl() ? resizeStartPositionX - clientX : clientX - resizeStartPositionX;
+        const calculatedMenuWidth = secondMenuLevelCurrentWidth + resizeValue;
+        const newMenuWidth =
+            calculatedMenuWidth > SECOND_LEVEL_MANUAL_RESIZE_MIN_WIDTH ? calculatedMenuWidth : SECOND_LEVEL_COLLAPSED_WIDTH;
 
         ibexa.helpers.cookies.setBackOfficeCookie('ibexa-aui_menu-secondary-width', newMenuWidth);
         setWidthOfSecondLevelMenu();
@@ -218,7 +222,9 @@
             position: () => {
                 const popupLeftOffset = 5;
                 const targetTopPosition = selectorItem.offsetTop;
-                const targetLeftPosition = selectorItem.offsetLeft + selectorItem.offsetWidth + popupLeftOffset;
+                const targetLeftPosition = isRtl()
+                    ? selectorItem.offsetLeft - firstLevelPopupMenu.offsetWidth - popupLeftOffset
+                    : selectorItem.offsetLeft + selectorItem.offsetWidth + popupLeftOffset;
 
                 firstLevelPopupMenu.style.top = `${targetTopPosition}px`;
                 firstLevelPopupMenu.style.left = `${targetLeftPosition}px`;

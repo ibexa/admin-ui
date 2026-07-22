@@ -69,6 +69,10 @@
     };
 
     moment.fn.formatICU = function (format) {
+        if (!format) {
+            return this.format();
+        }
+
         const form = format.replace(formatICUEx, (icuStr) => {
             // eslint-disable-next-line @stylistic/quotes
             if (icuStr[0] === "'") {
@@ -84,4 +88,11 @@
 
         return this.format(form);
     };
+
+    if (backOfficeLanguage === 'ar') {
+        moment.updateLocale('ar', {
+            preparse: (string) => string,
+            postformat: (string) => string,
+        });
+    }
 })(window.moment, window.ibexa);

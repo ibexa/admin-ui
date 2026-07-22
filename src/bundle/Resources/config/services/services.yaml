@@ -13,3 +13,9 @@ services:
 
     Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface:
         '@Ibexa\AdminUi\ContentType\ContentTypeFieldsByExpressionService'
+
+    Ibexa\AdminUi\Rtl\RtlModeResolver:
+        arguments:
+            $rtlLanguages: '%ibexa.admin_ui.rtl_languages%'
+
+    Ibexa\Contracts\AdminUi\Rtl\RtlModeResolverInterface: '@Ibexa\AdminUi\Rtl\RtlModeResolver'
