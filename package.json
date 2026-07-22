@@ -6,7 +6,7 @@
     "dependencies": {},
     "devDependencies": {
         "@ibexa/eslint-config": "https://github.com/ibexa/eslint-config-ibexa.git#~v2.0.0",
-        "@ibexa/ts-config": "https://github.com/ibexa/ts-config-ibexa#~v1.1.0",
+        "@ibexa/ts-config": "https://github.com/ibexa/ts-config-ibexa#~v2.0.0",
         "@types/react": "^19.1.2",
         "@types/react-dom": "^19.1.2",
         "@typescript-eslint/typescript-estree": "^8.62.1"
