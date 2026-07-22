@@ -1,6 +1,7 @@
 import { getInstance, hasInstance } from '@ibexa-design-system/src/bundle/Resources/public/ts/helpers/object.instances';
 
 (function (global, doc, ibexa) {
+    const MENU_EXPANDED_COOKIE_NAME = 'ibexa-aui_menu-is-expanded';
     const mainMenuNode = doc.querySelector('.ibexa-main-menu');
 
     if (!mainMenuNode) {
@@ -122,6 +123,7 @@ import { getInstance, hasInstance } from '@ibexa-design-system/src/bundle/Resour
     const setMenuExpanded = (isExpanded) => {
         navbar.classList.toggle('ibexa-main-menu__navbar--collapsed', !isExpanded);
         syncExpandToggleBtnState(isExpanded);
+        ibexa.helpers.cookies.setBackOfficeCookie(MENU_EXPANDED_COOKIE_NAME, isExpanded);
 
         if (isExpanded) {
             closeAllPopups();
