@@ -141,12 +141,14 @@
             padding: calculateRem(9px);
             color: $ibexa-color-white;
 
-            &:focus {
-                color: $ibexa-color-white;
-            }
-
             &:hover {
                 color: $ibexa-color-primary-200;
+                fill: $ibexa-color-primary-200;
+            }
+
+            &:focus {
+                color: $ibexa-color-white;
+                fill: $ibexa-color-white;
             }
         }
 
@@ -205,11 +207,6 @@
             justify-content: flex-start;
             fill: $ibexa-color-white;
 
-            &:focus,
-            &:hover {
-                fill: $ibexa-color-white;
-            }
-
             .ids-btn__label {
                 display: flex;
                 width: 100%;
@@ -235,8 +232,9 @@
             }
 
             &:hover {
-                .ibexa-main-menu__item-text-column {
+                .ids-btn {
                     color: $ibexa-color-complementary-primary-400;
+                    fill: $ibexa-color-complementary-primary-400;
                 }
 
                 .ids-expander {
@@ -262,6 +260,7 @@
 
         .ids-expander {
             flex: 0 0 auto;
+            height: calculateRem(40px);
             margin-right: calculateRem(8px);
             fill: $ibexa-color-white;
         }
