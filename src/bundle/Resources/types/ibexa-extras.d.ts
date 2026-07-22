@@ -3,6 +3,46 @@ declare global {
         iconPaths?: IbexaIconPathsConfig;
         richText: IbexaRichText;
         autocomplete: IbexaAutocomplete;
+        quickAction: IbexaQuickAction;
+        errors: IbexaErrors;
+    }
+
+    interface IbexaQuickAction {
+        registerButton(config: IbexaQuickActionButtonConfig): void;
+        unregisterButton(id: string): void;
+        recalculateButtonsLayout(): void;
+    }
+
+    interface IbexaQuickActionButtonConfig {
+        id: string;
+        container: HTMLElement;
+        priority: number;
+        zIndex?: number;
+        checkVisibility?: () => boolean;
+        extraBottomPadding?: number;
+        [key: string]: unknown;
+    }
+
+    interface IbexaErrors {
+        emailRegexp: RegExp;
+        urlRegexp: RegExp;
+        emptyField: string;
+        invalidEmail: string;
+        invalidUrl: string;
+        tooLong: string;
+        tooShort: string;
+        isNotInteger: string;
+        isNotFloat: string;
+        isLess: string;
+        isGreater: string;
+        invalidFileSize: string;
+        invalidFileType: string;
+        provideLatitudeValue: string;
+        provideLongitudeValue: string;
+        addressNotFound: string;
+        notSamePasswords: string;
+        invalidValue: string;
+        outOfRangeValue: string;
     }
 
     interface IbexaRichText {
