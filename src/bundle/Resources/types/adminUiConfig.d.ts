@@ -196,6 +196,8 @@ declare global {
         topMenuActions: unknown[];
         selectedItemActions: unknown[];
         contentTypesLoaders?: unknown[];
+        snackbarActionMenuItems?: unknown[];
+        universalSelectItemsComponentsConfigs?: unknown[];
     }
 
     interface IbexaAdminUiConfigUser {
