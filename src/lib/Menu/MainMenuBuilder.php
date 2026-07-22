@@ -363,7 +363,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         return [
             (new Message(self::ITEM_DASHBOARD, 'ibexa_menu'))->setDesc('Dashboard'),
             (new Message(self::ITEM_DRAFTS, 'ibexa_menu'))->setDesc('Drafts'),
-            (new Message(self::ITEM_BOOKMARKS, 'ibexa_menu'))->setDesc('Bookmarks'),
+            (new Message(self::ITEM_BOOKMARKS, 'ibexa_menu'))->setDesc('Favourites'),
             (new Message(self::ITEM_TRASH, 'ibexa_menu'))->setDesc('Trash'),
             (new Message(self::ITEM_CONTENT, 'ibexa_menu'))->setDesc('Content'),
             (new Message(self::ITEM_CONTENT_GROUP_SETTINGS, 'ibexa_menu'))->setDesc('Settings'),

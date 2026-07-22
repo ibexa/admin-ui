@@ -267,8 +267,8 @@
         <note>key: main__admin__users</note>
       </trans-unit>
       <trans-unit id="f68c5be5c002f6858b89d2dc5156d725425e31db" resname="main__bookmarks">
-        <source>Bookmarks</source>
-        <target state="new">Bookmarks</target>
+        <source>Favourites</source>
+        <target state="new">Favourites</target>
         <note>key: main__bookmarks</note>
       </trans-unit>
       <trans-unit id="95e1979b41321209d200f2e75416fd47270954b4" resname="main__content">
