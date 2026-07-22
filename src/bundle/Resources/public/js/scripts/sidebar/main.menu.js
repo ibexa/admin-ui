@@ -48,11 +48,13 @@ import { getInstance, hasInstance } from '@ibexa-design-system/src/bundle/Resour
                 actionNode.setAttribute('title', labelNode.textContent.trim());
                 actionNode.dataset.tooltipPlacement = 'right';
                 actionNode.dataset.tooltipExtraClass = 'ibexa-tooltip--navigation';
+                actionNode.dataset.tooltipOffset = '[0, 12]';
             } else {
                 global.bootstrap?.Tooltip.getInstance(actionNode)?.dispose();
                 actionNode.removeAttribute('title');
                 delete actionNode.dataset.tooltipPlacement;
                 delete actionNode.dataset.tooltipExtraClass;
+                delete actionNode.dataset.tooltipOffset;
                 delete actionNode.dataset.originalTitle;
                 delete actionNode.dataset.bsOriginalTitle;
             }
