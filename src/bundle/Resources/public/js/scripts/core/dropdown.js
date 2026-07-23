@@ -179,6 +179,10 @@
             const stringifiedValue = JSON.stringify(String(value));
             const optionToSelect = this.itemsListContainer.querySelector(`.ibexa-dropdown__item[data-value=${stringifiedValue}]`);
 
+            if (this.checkIsOptionDisabled(optionToSelect)) {
+                return;
+            }
+
             return this.onSelect(optionToSelect, true);
         }
 
@@ -190,6 +194,10 @@
             }
 
             return JSON.stringify(String(element.dataset.value));
+        }
+
+        checkIsOptionDisabled(option) {
+            return option?.classList.contains('ibexa-dropdown__item--disabled');
         }
 
         onSelectSetSourceInputState(element, selected) {
@@ -243,6 +251,10 @@
         }
 
         onSelect(element, selected) {
+            if (!element || this.checkIsOptionDisabled(element)) {
+                return;
+            }
+
             if (this.canSelectOnlyOne && selected) {
                 this.hideOptions();
                 this.clearCurrentSelection(false);
@@ -294,6 +306,11 @@
 
         onOptionClick({ target }) {
             const option = target.closest('.ibexa-dropdown__item');
+
+            if (!option || this.checkIsOptionDisabled(option)) {
+                return;
+            }
+
             const isSelected = this.canSelectOnlyOne || !option.classList.contains('ibexa-dropdown__item--selected');
 
             return this.onSelect(option, isSelected);
@@ -455,7 +472,7 @@
             });
 
             optionsToRecreate.forEach((option) => {
-                this.createOption(option.value, option.innerHTML);
+                this.createOption(option.value, option.innerHTML, option.disabled);
             });
 
             const selectedItems = this.getSelectedItems();
@@ -479,13 +496,18 @@
             optionNode.remove();
         }
 
-        createOption(value, label) {
+        createOption(value, label, isDisabled = false) {
             const container = doc.createElement('div');
             const itemRendered = this.itemTemplate.replaceAll('{{ value }}', escapeHTMLAttribute(value)).replaceAll('{{ label }}', label);
 
             container.insertAdjacentHTML('beforeend', itemRendered);
 
             const optionNode = container.firstElementChild;
+
+            if (isDisabled) {
+                optionNode.classList.add('ibexa-dropdown__item--disabled');
+                optionNode.setAttribute('aria-disabled', 'true');
+            }
 
             optionNode.addEventListener('click', this.onOptionClick, false);
             this.itemsListContainer.append(optionNode);
@@ -578,7 +600,7 @@
             this.itemsPopover._element.addEventListener('shown.bs.popover', this.onPopoverShow);
             this.itemsPopover._element.addEventListener('hidden.bs.popover', this.onPopoverHide);
             this.itemsListContainer
-                .querySelectorAll('.ibexa-dropdown__item:not([disabled])')
+                .querySelectorAll('.ibexa-dropdown__item:not(.ibexa-dropdown__item--disabled)')
                 .forEach((option) => option.addEventListener('click', this.onOptionClick, false));
 
             if (this.itemsFilterInput) {
@@ -625,6 +647,36 @@
             );
 
             selectedItems.forEach((selectedItem) => this.attachSelectedItemEvents(selectedItem));
+        }
+
+        toggleOptionEnabled(value, isEnabled) {
+            const stringifiedValue = JSON.stringify(String(value));
+            const item = this.itemsListContainer.querySelector(`[data-value=${stringifiedValue}]`);
+            const option = this.sourceInput.querySelector(`[value=${stringifiedValue}]`);
+
+            if (item) {
+                item.classList.toggle('ibexa-dropdown__item--disabled', !isEnabled);
+                item.toggleAttribute('aria-disabled', !isEnabled);
+            }
+
+            if (option) {
+                option.disabled = !isEnabled;
+            }
+        }
+
+        disableOption(value) {
+            this.toggleOptionEnabled(value, false);
+        }
+
+        enableOption(value) {
+            this.toggleOptionEnabled(value, true);
+        }
+
+        isOptionDisabled(value) {
+            const stringifiedValue = JSON.stringify(String(value));
+            const option = this.sourceInput.querySelector(`[value=${stringifiedValue}]`);
+
+            return option.disabled;
         }
     }
 
