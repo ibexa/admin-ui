@@ -1,12 +1,32 @@
-import { Page, expect } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 import { AdminUiPage, UniversalDiscoveryWidget } from '@ibexa/cohesivo-playwright';
 
 export class TrashPage extends AdminUiPage {
     readonly udw: UniversalDiscoveryWidget;
 
+    private readonly firstRow: Locator;
+    private readonly emptyState: Locator;
+    private readonly emptyTrashButton: Locator;
+    private readonly restoreButton: Locator;
+    private readonly restoreUnderNewLocationButton: Locator;
+    private readonly bulkDeleteButton: Locator;
+
     constructor(page: Page) {
         super(page);
         this.udw = new UniversalDiscoveryWidget(page);
+
+        this.firstRow = page.locator('.ibexa-table__row').first();
+        this.emptyState = page.locator('.ibexa-table__empty-table-text')
+            .or(page.getByText('Trash is empty'))
+            .or(page.getByText('No items'));
+        this.emptyTrashButton = page.locator('.ibexa-context-menu .ibexa-btn')
+            .filter({ hasText: /Empty( Trash)?/ })
+            .first();
+        this.restoreButton = page.getByRole('button', { name: 'Restore', exact: true });
+        this.restoreUnderNewLocationButton = page.getByRole('button', { name: 'Restore in a new location' })
+            .or(page.locator('button.ibexa-btn--open-udw')).first();
+        // toolbar Delete only — [data-bs-dismiss] excludes the modal's own dismiss button
+        this.bulkDeleteButton = page.locator('button:not([data-bs-dismiss])').filter({ hasText: 'Delete' }).first();
     }
 
     async open(): Promise<void> {
@@ -14,20 +34,15 @@ export class TrashPage extends AdminUiPage {
     }
 
     async assertNotEmpty(): Promise<void> {
-        await expect(this.page.locator('.ibexa-table__row').first()).toBeVisible({ timeout: 10_000 });
+        await expect(this.firstRow).toBeVisible({ timeout: 10_000 });
     }
 
     async assertEmpty(): Promise<void> {
-        const emptyEl = this.page.locator('.ibexa-table__empty-table-text')
-            .or(this.page.getByText('Trash is empty'))
-            .or(this.page.getByText('No items'));
-        await expect(emptyEl.first()).toBeVisible({ timeout: 10_000 });
+        await expect(this.emptyState.first()).toBeVisible({ timeout: 10_000 });
     }
 
     async emptyTrash(): Promise<void> {
-        const emptyBtn = this.page.locator('.ibexa-context-menu .ibexa-btn').filter({ hasText: 'Empty Trash' })
-            .or(this.page.locator('.ibexa-context-menu .ibexa-btn').filter({ hasText: 'Empty' })).first();
-        await emptyBtn.click();
+        await this.emptyTrashButton.click();
         await this.confirmDialogButton('Delete');
         await this.assertEmpty();
     }
@@ -44,8 +59,7 @@ export class TrashPage extends AdminUiPage {
         for (const item of items) {
             await this.checkTableRow(item);
         }
-        const deleteBtn = this.page.locator('button:not([data-bs-dismiss])').filter({ hasText: 'Delete' }).first();
-        await deleteBtn.click();
+        await this.bulkDeleteButton.click();
         await this.confirmDialogButton('Delete');
     }
 
@@ -53,9 +67,7 @@ export class TrashPage extends AdminUiPage {
         for (const item of items) {
             await this.checkTableRow(item);
         }
-        // Find "Restore" button (not "Restore in a new location") by matching inner text exactly
-        const restoreBtn = this.page.locator('button').filter({ hasNotText: 'in a new location' }).filter({ hasText: 'Restore' }).first();
-        await restoreBtn.click();
+        await this.restoreButton.click();
     }
 
     /**
@@ -66,10 +78,7 @@ export class TrashPage extends AdminUiPage {
         for (const item of items) {
             await this.checkTableRow(item);
         }
-        const restoreBtn = this.page.locator('button').filter({ hasText: 'Restore in a new location' })
-            .or(this.page.locator('button.ibexa-btn--open-udw')).first();
-        await restoreBtn.click();
-
+        await this.restoreUnderNewLocationButton.click();
         await this.udw.selectPath(newLocationPath);
         await this.udw.confirm();
     }
@@ -80,7 +89,6 @@ export class TrashPage extends AdminUiPage {
     }
 
     async filterByContentType(contentTypeName: string): Promise<void> {
-        const select = this.page.locator('select').first();
-        await select.selectOption({ label: contentTypeName });
+        await this.page.locator('select').first().selectOption({ label: contentTypeName });
     }
 }
