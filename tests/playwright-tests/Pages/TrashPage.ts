@@ -1,12 +1,12 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { AdminUiPage, UniversalDiscoveryWidget } from '@ibexa/cohesivo-playwright';
+import { AdminUiPage, UniversalDiscoveryWidget, ContextMenu } from '@ibexa/cohesivo-playwright';
 
 export class TrashPage extends AdminUiPage {
     readonly udw: UniversalDiscoveryWidget;
+    readonly contextMenu: ContextMenu;
 
     private readonly firstRow: Locator;
     private readonly emptyState: Locator;
-    private readonly emptyTrashButton: Locator;
     private readonly restoreButton: Locator;
     private readonly restoreUnderNewLocationButton: Locator;
     private readonly bulkDeleteButton: Locator;
@@ -14,14 +14,12 @@ export class TrashPage extends AdminUiPage {
     constructor(page: Page) {
         super(page);
         this.udw = new UniversalDiscoveryWidget(page);
+        this.contextMenu = new ContextMenu(page);
 
         this.firstRow = page.locator('.ibexa-table__row').first();
         this.emptyState = page.locator('.ibexa-table__empty-table-text')
             .or(page.getByText('Trash is empty'))
             .or(page.getByText('No items'));
-        this.emptyTrashButton = page.locator('.ibexa-context-menu .ibexa-btn')
-            .filter({ hasText: /Empty( Trash)?/ })
-            .first();
         this.restoreButton = page.getByRole('button', { name: 'Restore', exact: true });
         this.restoreUnderNewLocationButton = page.getByRole('button', { name: 'Restore in a new location' })
             .or(page.locator('button.ibexa-btn--open-udw')).first();
@@ -42,7 +40,7 @@ export class TrashPage extends AdminUiPage {
     }
 
     async emptyTrash(): Promise<void> {
-        await this.emptyTrashButton.click();
+        await this.contextMenu.clickAction(/Empty( Trash)?/);
         await this.confirmDialogButton('Delete');
         await this.assertEmpty();
     }
