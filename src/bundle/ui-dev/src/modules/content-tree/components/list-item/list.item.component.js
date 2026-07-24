@@ -161,7 +161,9 @@ class ListItem extends Component {
         let loadingSpinner = null;
 
         if (isLoading) {
-            loadingSpinner = <Icon name="spinner" extraClasses="ibexa-spin ibexa-icon--small-medium c-list-item__load-more-btn-spinner" />;
+            loadingSpinner = (
+                <Icon name="arrow-rotate" extraClasses="ibexa-spin ibexa-icon--small-medium c-list-item__load-more-btn-spinner" />
+            );
         }
 
         return (
@@ -217,7 +219,7 @@ class ListItem extends Component {
                     {this.renderIcon()}
                     <span className="c-list-item__label-content" title={name}>
                         {name}
-                        {isInvisible && <Icon name="view-hide" extraClasses="ibexa-icon--small-medium c-list-item__hidden-icon" />}
+                        {isInvisible && <Icon name="visibility-hidden" extraClasses="ibexa-icon--small-medium c-list-item__hidden-icon" />}
                     </span>
                 </a>
                 <div className="c-list-item__actions">

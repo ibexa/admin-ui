@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { InputTextInput } from '@ids-components/components/InputText';
 
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { createCssClassNames } from '@ibexa-admin-ui-modules/common/helpers/css.class.names';
@@ -28,12 +29,14 @@ const InstantFilter = ({ items = [], handleItemChange = () => {}, isSearchEnable
     return (
         <div className="ibexa-instant-filter">
             <div className={searchInputWrapperClassName}>
-                <input
-                    type="text"
-                    className="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
+                <InputTextInput
+                    extraAria={{
+                        className: 'ibexa-instant-filter__input',
+                    }}
+                    name="sub-items-filter"
+                    onChange={setFilterQuery}
                     placeholder={Translator.trans(/*@Desc("Search...")*/ 'instant.filter.placeholder', {}, 'ibexa_sub_items')}
                     value={filterQuery}
-                    onChange={(event) => setFilterQuery(event.target.value)}
                 />
             </div>
             <div className="ibexa-instant-filter__desc">
@@ -44,8 +47,8 @@ const InstantFilter = ({ items = [], handleItemChange = () => {}, isSearchEnable
                     const radioId = `item_${item.value}`;
                     const labelClassName = createCssClassNames({
                         'form-check-label': true,
-                        'ibexa-label': true,
-                        'ibexa-label--active': activeLanguage === item.value,
+                        'ids-label': true,
+                        'ids-label--active': activeLanguage === item.value,
                     });
 
                     return (

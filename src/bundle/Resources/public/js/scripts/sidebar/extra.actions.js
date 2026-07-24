@@ -4,10 +4,8 @@ import { getInstance } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
     const CLASS_HIDDEN = 'ibexa-extra-actions--hidden';
     const CLASS_EXPANDED = 'ibexa-context-menu--expanded';
     const CLASS_PREVENT_SHOW = 'ibexa-extra-actions--prevent-show';
-    const closeBtns = doc.querySelectorAll(
-        '.ibexa-extra-actions .ibexa-btn--close, .ibexa-extra-actions .ibexa-extra-actions__btn--cancel',
-    );
-    const btns = [...doc.querySelectorAll('.ibexa-btn--extra-actions')];
+    const closeBtns = doc.querySelectorAll('.ibexa-extra-actions .ids-btn--close, .ibexa-extra-actions .ibexa-extra-actions__btn--cancel');
+    const btns = [...doc.querySelectorAll('.ids-btn--extra-actions, .ids-btn--extra-actions')];
     const menu = doc.querySelector('.ibexa-context-menu');
     const backdrop = new ibexa.core.Backdrop();
     const formsInitialData = new Map();

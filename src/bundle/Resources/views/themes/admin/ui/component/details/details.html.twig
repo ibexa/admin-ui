@@ -39,7 +39,14 @@
                         class="{{ item.class|default('') }} ibexa-details__item {{ item_inline|default(false) ? 'ibexa-details__item--inline' ~
                         (is_field_empty ? ' ibexa-details__item--hidden') }}"
                     >
-                        <div class="ibexa-details__item-label {{ item_inline|default(false) ? '' : 'ibexa-label' }}">{{ item.label }}</div>
+                        {% if item_inline|default(false) %}
+                            <div class="ibexa-details__item-label">{{ item.label }}</div>
+                        {% else %}
+                            <twig:ibexa:label class="ibexa-details__item-label">
+                                {{ item.label }}
+                            </twig:ibexa:label>
+                        {% endif %}
+
                         <div class="ibexa-details__item-content-wrapper">
                             <div
                                 class="
@@ -59,30 +66,24 @@
                             </div>
                             {% if item.is_ellipsized|default(false) %}
                                 <div class="ibexa-details__item-content-actions">
-                                    <button
-                                        type="button"
-                                        class="
-                                            btn ibexa-btn ibexa-btn--small ibexa-btn--ghost
-                                            ibexa-details__show-more-btn ibexa-details__show-more-btn--hidden"
+                                    <twig:ibexa:button
+                                        type="tertiary-alt"
+                                        size="small"
+                                        icon="arrow-caret-down"
+                                        icon_size="tiny-small"
+                                        class="ibexa-details__show-more-btn ibexa-details__show-more-btn--hidden"
                                     >
-                                        <span class="ibexa-btn__label ibexa-details__show-more-label">
-                                            {{ 'details.show_more.label'|trans()|desc('Show more') }}
+                                        <span class="ids-btn__label ibexa-details__show-more-label">
+                                            {{ 'details.show_more.label'|trans({}, 'ibexa_admin_ui')|desc('Show more') }}
                                         </span>
                                         <span
                                             class="
-                                                ibexa-btn__label
+                                                ids-btn__label
                                                 ibexa-details__show-less-label ibexa-details__show-less-label--hidden"
                                         >
-                                            {{ 'details.show_less.label'|trans()|desc('Show less') }}
+                                            {{ 'details.show_less.label'|trans({}, 'ibexa_admin_ui')|desc('Show less') }}
                                         </span>
-                                        <svg
-                                            class="
-                                                ibexa-icon ibexa-icon--small-medium
-                                                ibexa-details__show-more-btn-icon"
-                                        >
-                                            <use xlink:href="{{ ibexa_icon_path('arrow-caret-down') }}"></use>
-                                        </svg>
-                                    </button>
+                                    </twig:ibexa:button>
                                 </div>
                             {% endif %}
                         </div>

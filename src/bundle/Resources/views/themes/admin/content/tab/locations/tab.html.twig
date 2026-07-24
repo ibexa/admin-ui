@@ -32,14 +32,12 @@
                 ]) %}
 
                 {% set col_raw %}
-                    <input
-                        class="ibexa-input ibexa-input--radio"
-                        type="radio"
-                        {{ location.main ? 'checked' }}
-                        {{ not location.canEdit ? 'disabled' }}
+                    <twig:ibexa:radio_button:input
                         name="updateMainLocation"
-                        value="{{ location.id }}"
-                    >
+                        :checked="location.main"
+                        :disabled="not location.canEdit"
+                        :value="location.id ~ ''"
+                    />
                 {% endset %}
                 {% set body_row_cols = body_row_cols|merge([{
                     content: col_raw,
@@ -48,25 +46,25 @@
 
                 {% set col_raw %}
                     <div class="ibexa-content-locations__visibility-toggler">
-                        <div class="ibexa-toggle ibexa-toggle--checkbox {{ not can_hide[location.id] ? 'ibexa-toggle--is-disabled' }} {{ not location.explicitlyHidden ? 'ibexa-toggle--is-checked' }}">
-                            <label class="ibexa-toggle__switcher">
-                                <span class="ibexa-toggle__indicator"></span>
-                                <input
-                                    type="checkbox"
-                                    class="ibexa-toggle__input ibexa-content-locations__visibility-checkbox"
-                                    {{ not location.explicitlyHidden ? 'checked' }}
+                        <twig:ibexa:toggle_button:input
+                            name="updateVisibility"
+                            :checked="not location.explicitlyHidden"
+                            :disabled="not can_hide[location.id]"
+                            :value="location.id ~ ''"
+                            onLabel="{{ 'toggle_widget.label.on'|trans|desc('On') }}"
+                            offLabel="{{ 'toggle_widget.label.off'|trans|desc('Off') }}"
+                        >
+                            <twig:block name="input">
+                                <twig:ibexa:checkbox:input
                                     name="updateVisibility"
-                                    {{ not can_hide[location.id] ? 'disabled' }}
-                                    value="{{ location.id }}"
+                                    class="ibexa-content-locations__visibility-checkbox"
+                                    :checked="not location.explicitlyHidden"
+                                    :disabled="not can_hide[location.id]"
+                                    :value="location.id ~ ''"
+                                    data-ids-custom-init="1"
                                 />
-                            </label>
-                            <span class="ibexa-toggle__label ibexa-toggle__label--on">
-                                {{ 'toggle_widget.label.on'|trans|desc('On') }}
-                            </span>
-                            <span class="ibexa-toggle__label ibexa-toggle__label--off mr-2">
-                                {{ 'toggle_widget.label.off'|trans|desc('Off') }}
-                            </span>
-                        </div>
+                            </twig:block>
+                        </twig:ibexa:toggle_button:input>
                         <label class="ibexa-content-locations__visibility-toggler-label {{ not location.invisible ? 'ibexa-content-locations__visibility-toggler-label--hidden' }}">
                             <svg class="ibexa-icon ibexa-icon--small-medium">
                                 <use xlink:href="{{ ibexa_icon_path('system-information') }}"></use>
@@ -148,35 +146,25 @@
 } %}
 
 {% macro table_header_tools(form_add, form_remove, can_add) %}
-    <button
-        data-udw-config="{{ ibexa_udw_config('add_location', {}) }}"
-        class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-btn--udw-add"
-        {{ not can_add ? 'disabled' }}
-    >
-        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-            <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-        </svg>
-        <span class="ibexa-btn__label">
-            {{ 'tab.locations.action.add'|trans|desc('Add') }}
-        </span>
-    </button>
+    <twig:ibexa:button
+        type="tertiary-alt"
+        size="small"
+        icon="add"
+        class="ibexa-btn--udw-add"
+        :data-udw-config="ibexa_udw_config('add_location', {})"
+        :disabled="not can_add"
+    >{{ 'tab.locations.action.add'|trans({}, 'ibexa_locationview')|desc('Add') }}</twig:ibexa:button>
 
     {% set modal_data_target = 'delete-content-types-modal' %}
-    <button
+    <twig:ibexa:button
         id="delete-locations"
-        type="button"
-        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-        disabled
+        type="tertiary-alt"
+        size="small"
+        icon="trash"
+        :disabled="true"
         data-bs-toggle="modal"
-        data-bs-target="#{{ modal_data_target }}"
-    >
-        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-        </svg>
-        <span class="ibexa-btn__label">
-            {{ 'tab.locations.action.delete'|trans|desc('Delete') }}
-        </span>
-    </button>
+        :data-bs-target="'#' ~ modal_data_target"
+    >{{ 'tab.locations.action.delete'|trans({}, 'ibexa_locationview')|desc('Delete') }}</twig:ibexa:button>
     {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
         'id': modal_data_target,
         'message': 'tab.locations.modal.message'|trans|desc('Do you want to delete the Location? All its sub-items will be sent to Trash.'),

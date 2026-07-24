@@ -1,6 +1,7 @@
 (function (global, doc, ibexa) {
-    const SELECTOR_REMOVE_AUTHOR = '.ibexa-btn--remove-author';
+    const SELECTOR_REMOVE_AUTHOR = '.ids-btn--remove-author';
     const SELECTOR_AUTHOR = '.ibexa-data-source__author';
+    const SELECTOR_AUTHOR_CHECKBOX = '.ibexa-data-source__author-checkbox';
     const SELECTOR_FIELD = '.ibexa-field-edit--ibexa_author';
     const SELECTOR_LABEL = '.ibexa-data-source__label';
     const SELECTOR_FIELD_EMAIL = '.ibexa-data-source__field--email';
@@ -104,17 +105,17 @@
 
         toggleBulkDeleteButtonState(event) {
             const container = event.target.closest(SELECTOR_FIELD);
-            const checkboxes = container.querySelectorAll('.ibexa-input--checkbox');
+            const checkboxes = container.querySelectorAll(SELECTOR_AUTHOR_CHECKBOX);
             const isAnyCheckboxSelected = [...checkboxes].some((checkbox) => checkbox.checked);
-            const bulkDeleteButton = container.querySelector('.ibexa-btn--bulk-remove-author');
+            const bulkDeleteButton = container.querySelector('.ids-btn--bulk-remove-author');
 
             bulkDeleteButton.toggleAttribute('disabled', !isAnyCheckboxSelected);
         }
 
         removeSelectedItems(event) {
             const container = event.target.closest(SELECTOR_FIELD);
-            const selectedCheckboxes = container.querySelectorAll('.ibexa-input--checkbox:checked');
-            const bulkDeleteButton = container.querySelector('.ibexa-btn--bulk-remove-author');
+            const selectedCheckboxes = container.querySelectorAll(`${SELECTOR_AUTHOR_CHECKBOX}:checked`);
+            const bulkDeleteButton = container.querySelector('.ids-btn--bulk-remove-author');
 
             selectedCheckboxes.forEach((checkbox) => checkbox.closest(SELECTOR_AUTHOR).remove());
 
@@ -123,7 +124,7 @@
             const authorsRowsExist = !!container.querySelector(SELECTOR_AUTHOR);
 
             if (!authorsRowsExist) {
-                container.querySelector('.ibexa-btn--add-author').click();
+                container.querySelector('.ids-btn--add-author').click();
             }
 
             this.updateDisabledState(container);
@@ -246,19 +247,19 @@
             },
             {
                 isValueValidator: false,
-                selector: '.ibexa-data-source__author .ibexa-input--checkbox',
+                selector: `.ibexa-data-source__author ${SELECTOR_AUTHOR_CHECKBOX}`,
                 eventName: 'change',
                 callback: 'toggleBulkDeleteButtonState',
             },
             {
                 isValueValidator: false,
-                selector: '.ibexa-btn--bulk-remove-author',
+                selector: '.ids-btn--bulk-remove-author',
                 eventName: 'click',
                 callback: 'removeSelectedItems',
             },
             {
                 isValueValidator: false,
-                selector: '.ibexa-btn--add-author',
+                selector: '.ids-btn--add-author',
                 eventName: 'click',
                 callback: 'addItem',
             },

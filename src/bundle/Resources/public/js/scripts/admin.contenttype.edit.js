@@ -1,7 +1,7 @@
 (function (global, doc, ibexa, Routing, Translator, bootstrap) {
     const SELECTOR_INPUTS_TO_VALIDATE = '.ibexa-input[required]:not([disabled]):not([hidden])';
     const SELETOR_FIELD_INPUTS =
-        '.ibexa-input-text-wrapper:not(.ibexa-input-text-wrapper--search) > input.ibexa-input--text:not([hidden]):not(ibexa-input-text-wrapper--search)';
+        '.ids-input-text .ids-input:not([hidden]), .ibexa-input-text-wrapper:not(.ibexa-input-text-wrapper--search) > input.ibexa-input:not([hidden]):not(.ibexa-input--date)';
     const MATRIX_COLUMN_ID_PATTERN = /^\w[\w:-]*$/;
     const MATRIX_COLUMN_ID_ERROR_CLASS = 'ibexa-matrix-settings__identifier-error';
     const TIMEOUT_REMOVE_HIGHLIGHT = 3000;
@@ -381,7 +381,7 @@
         const isMatrixColumnId = input.classList.contains('ibexa-input--matrix-column-identifier');
         const isMatrixColumnIdInvalid = !isInputEmpty && isMatrixColumnId && !MATRIX_COLUMN_ID_PATTERN.test(input.value);
         const field = input.closest('.form-group');
-        const labelNode = field?.querySelector('.ibexa-label');
+        const labelNode = field?.querySelector('.ids-label');
         const errorNode = field?.querySelector('.ibexa-form-error');
         const isInvalid = isInputEmpty || isMatrixColumnIdInvalid;
 

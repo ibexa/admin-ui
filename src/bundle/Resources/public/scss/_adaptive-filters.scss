@@ -121,7 +121,7 @@
         align-items: flex-end;
         padding-right: calculateRem(16px);
 
-        .ibexa-label {
+        .ids-label {
             margin-top: 0;
         }
     }
@@ -171,7 +171,7 @@
             }
         }
 
-        &--fake.ibexa-btn.ibexa-btn {
+        &--fake:is(.ibexa-btn, .ids-btn) {
             height: 0;
             padding-top: 0;
             padding-bottom: 0;

@@ -29,7 +29,7 @@ abstract class AbstractContentTypeRightSidebarBuilder extends AbstractBuilder
             $itemSaveIdentifier,
             [
                 'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
+                    'class' => 'ids-btn--trigger',
                     'data-click' => sprintf('#%s', $contentTypeFormView['publishContentType']->vars['id']),
                 ],
             ]
@@ -39,7 +39,7 @@ abstract class AbstractContentTypeRightSidebarBuilder extends AbstractBuilder
             $itemPublishAndEditIdentifier,
             [
                 'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
+                    'class' => 'ids-btn--trigger',
                     'data-click' => sprintf('#%s', $contentTypeFormView['publishAndEditContentType']->vars['id']),
                 ],
             ]
@@ -53,7 +53,7 @@ abstract class AbstractContentTypeRightSidebarBuilder extends AbstractBuilder
                 $itemCancelIdentifier,
                 [
                     'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
+                        'class' => 'ids-btn--trigger',
                         'data-click' => sprintf('#%s', $contentTypeFormView['removeDraft']->vars['id']),
                     ],
                 ]

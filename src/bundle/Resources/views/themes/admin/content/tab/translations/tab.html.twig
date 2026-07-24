@@ -40,14 +40,12 @@
 
         {% if main_translation_switch %}
             {% set col_raw %}
-                <input
-                    class="ibexa-input ibexa-input--radio"
-                    type="radio"
-                    {{ translation.main ? 'checked' }}
-                    {{ not translation.canEdit ? 'disabled' }}
+                <twig:ibexa:radio_button:input
                     name="main_translation_update"
+                    :checked="translation.main"
+                    :disabled="not translation.canEdit"
                     value="{{ translation.languageCode }}"
-                >
+                />
             {% endset %}
             {% set body_row_cols = body_row_cols|merge([{
                 content: col_raw,
@@ -117,36 +115,25 @@
 
 {% macro table_header_tools(form_translation_remove, can_translate) %}
     {% if can_translate %}
-        <button
-            type="button"
-            class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-btn--prevented ibexa-btn--add-translation"
+        <twig:ibexa:button
+            type="tertiary-alt"
+            size="small"
+            icon="add"
+            class="ids-btn--prevented ids-btn--add-translation"
             data-bs-toggle="modal"
             data-bs-target="#add-translation-modal"
-        >
-            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-                <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-            </svg>
-            <span class="ibexa-btn__label">
-                {{ 'tab.translations.action.add'|trans|desc('Add') }}
-            </span>
-        </button>
+        >{{ 'tab.translations.action.add'|trans({}, 'ibexa_locationview')|desc('Add') }}</twig:ibexa:button>
 
         {% set modal_data_target = 'delete-translations-modal' %}
-        <button
-            type="button"
+        <twig:ibexa:button
             id="delete-translations"
-            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-            disabled
+            type="tertiary-alt"
+            size="small"
+            icon="trash"
+            :disabled="true"
             data-bs-toggle="modal"
-            data-bs-target="#{{ modal_data_target }}"
-        >
-            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-                <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-            </svg>
-            <span class="ibexa-btn__label">
-                {{ 'tab.translations.action.delete'|trans|desc('Delete') }}
-            </span>
-        </button>
+            :data-bs-target="'#' ~ modal_data_target"
+        >{{ 'tab.translations.action.delete'|trans({}, 'ibexa_locationview')|desc('Delete') }}</twig:ibexa:button>
         {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
             'id': modal_data_target,
             'message': 'tab.translations.modal.message'|trans|desc('Do you want to delete the translation?'),

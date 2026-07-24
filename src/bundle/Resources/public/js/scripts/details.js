@@ -1,7 +1,7 @@
 (function (global, doc) {
     const showMoreBtns = doc.querySelectorAll('.ibexa-details__show-more-btn');
     const toggleShowMore = (ellipsizedContent, showMoreBtn) => {
-        const showMoreIcon = showMoreBtn.querySelector('.ibexa-details__show-more-btn-icon');
+        const showMoreIcon = showMoreBtn.querySelector('.ids-btn__icon');
         const showMoreLabel = showMoreBtn.querySelector('.ibexa-details__show-more-label');
         const showLessLabel = showMoreBtn.querySelector('.ibexa-details__show-less-label');
         const ellipsizedLinesNo = getComputedStyle(ellipsizedContent).getPropertyValue('--ibexa-details__ellipsized-lines-no');

@@ -1,7 +1,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 
 .ibexa-selection-table {
-    .ibexa-input-text-wrapper {
+    .ids-input-text {
         margin-left: calculateRem(8px);
     }
 }

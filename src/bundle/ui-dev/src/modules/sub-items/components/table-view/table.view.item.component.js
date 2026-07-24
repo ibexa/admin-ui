@@ -1,5 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { InputTextInput, InputTextInputSize } from '@ids-components/components/InputText';
+
+import { CheckboxInput } from '@ids-components/components/Checkbox';
 
 import { getTranslator } from '@ibexa-admin-ui-helpers/context.helper';
 import { getContentTypeIconUrl } from '@ibexa-admin-ui-helpers/content.type.helper';
@@ -9,6 +12,7 @@ import { parseCheckbox } from '@ibexa-admin-ui-helpers/table.helper';
 import Icon from '../../../common/icon/icon';
 import UserName from '../../../common/user-name/user.name';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 
 export default class TableViewItemComponent extends PureComponent {
     constructor(props) {
@@ -109,9 +113,7 @@ export default class TableViewItemComponent extends PureComponent {
      * @memberof TableViewItemComponent
      */
     storePriorityValue(event) {
-        event.preventDefault();
-
-        this.setState(() => ({ priorityValue: this._refPriorityInput.value }));
+        this.setState(() => ({ priorityValue: event }));
     }
 
     /**
@@ -196,17 +198,12 @@ export default class TableViewItemComponent extends PureComponent {
     renderPriorityCell() {
         const inputAttrs = {
             type: 'number',
-            defaultValue: this.state.priorityValue,
-            onChange: this.storePriorityValue,
-            key: 'editable-priority',
+            value: this.state.priorityValue,
         };
         const priorityWrapperAttrs = {};
         const innerWrapperAttrs = {};
 
         if (!this.state.priorityInputEnabled) {
-            delete inputAttrs.defaultValue;
-            inputAttrs.value = this.state.priorityValue;
-            inputAttrs.key = 'readonly-priority';
             priorityWrapperAttrs.onClick = this.enablePriorityInput;
             innerWrapperAttrs.hidden = true;
         }
@@ -214,27 +211,27 @@ export default class TableViewItemComponent extends PureComponent {
         return (
             <div className="c-table-view-item__priority-wrapper" {...priorityWrapperAttrs}>
                 <div className="c-table-view-item__inner-wrapper c-table-view-item__inner-wrapper--input">
-                    <input
-                        className="ibexa-input ibexa-input--text ibexa-input--small c-table-view-item__priority-value ibexa-input"
+                    <InputTextInput
+                        extraAria={{
+                            className: 'c-table-view-item__priority-value',
+                        }}
+                        name="priority"
+                        onChange={this.storePriorityValue}
+                        processActions={() => []}
                         ref={this.setPriorityInputRef}
+                        size={InputTextInputSize.Small}
                         {...inputAttrs}
                     />
                 </div>
                 <div className="c-table-view-item__priority-actions" {...innerWrapperAttrs}>
-                    <button
-                        type="button"
-                        className="btn ibexa-btn ibexa-btn--primary ibexa-btn--no-text ibexa-btn--small c-table-view-item__btn c-table-view-item__btn--submit"
+                    <Button
+                        type={ButtonType.Primary}
+                        size={ButtonSize.Small}
+                        icon="form-check"
                         onClick={this.handleSubmit}
-                    >
-                        <Icon name="checkmark" extraClasses="ibexa-icon--small-medium" />
-                    </button>
-                    <button
-                        type="button"
-                        className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--no-text ibexa-btn--small"
-                        onClick={this.handleCancel}
-                    >
-                        <Icon name="discard" extraClasses="ibexa-icon--small-medium" />
-                    </button>
+                        className="c-table-view-item__btn c-table-view-item__btn--submit"
+                    />
+                    <Button type={ButtonType.Secondary} size={ButtonSize.Small} icon="discard" onClick={this.handleCancel} />
                 </div>
             </div>
         );
@@ -390,9 +387,8 @@ export default class TableViewItemComponent extends PureComponent {
      *
      * @param {Event} event
      */
-    onSelectCheckboxChange(event) {
+    onSelectCheckboxChange(isSelected) {
         const { onItemSelect, item } = this.props;
-        const isSelected = event.target.checked;
 
         onItemSelect(item, isSelected);
     }
@@ -408,7 +404,7 @@ export default class TableViewItemComponent extends PureComponent {
         const Translator = getTranslator();
         const languages = this.props.languages.mappings;
         const { languageCodes } = this.props.item;
-        const label = Translator.trans(/* @Desc("Select language") */ 'languages.modal.label', {}, 'ibexa_sub_items');
+        const label = Translator.trans(/* @Desc("Select translation") */ 'languages.modal.label', {}, 'ibexa_sub_items');
         const languageItems = languageCodes.map((languageCode) => ({
             label: languages[languageCode].name,
             value: languageCode,
@@ -422,7 +418,7 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     componentDidMount() {
-        parseCheckbox('.c-table-view-item__cell .ibexa-input--checkbox', 'c-table-view-item--active');
+        parseCheckbox('.c-table-view-item__cell .c-table-view-item__checkbox', 'c-table-view-item--active');
     }
 
     render() {
@@ -439,12 +435,7 @@ export default class TableViewItemComponent extends PureComponent {
         return (
             <tr className="ibexa-table__row c-table-view-item">
                 <td className="ibexa-table__cell c-table-view-item__cell c-table-view-item__cell--checkbox">
-                    <input
-                        type="checkbox"
-                        className="ibexa-input ibexa-input--checkbox"
-                        checked={isSelected}
-                        onChange={this.onSelectCheckboxChange}
-                    />
+                    <CheckboxInput className="c-table-view-item__checkbox" checked={isSelected} onChange={this.onSelectCheckboxChange} />
                 </td>
                 {this.renderBasicColumns()}
                 <td className={actionCellClassName}>

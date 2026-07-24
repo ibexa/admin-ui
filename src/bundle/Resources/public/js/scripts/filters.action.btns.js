@@ -5,7 +5,7 @@
         const clearBtn = container.querySelector('.ibexa-adaptive-filters__clear-btn');
         const applyBtn = container.querySelector('.ibexa-adaptive-filters__submit-btn');
         const dropdownNodes = [...container.querySelectorAll('.ibexa-dropdown')];
-        const textInputNodes = [...container.querySelectorAll('.ibexa-input--text')];
+        const textInputNodes = [...container.querySelectorAll('.ids-input')];
         const dateInputNodes = [...container.querySelectorAll('.ibexa-input--date')];
         const originalValuesMap = new Map();
         const dropdownSelectionsEqual = (selection1, selection2) => {

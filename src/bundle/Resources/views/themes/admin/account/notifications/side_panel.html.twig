@@ -14,9 +14,13 @@
             <span>{{ 'ibexa_notifications'|trans|desc('Notifications')}}
                 <span class="ibexa-notifications-modal__count">({{max_visible_notifications_count}})</span>
             </span>
-            <button class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-notifications-modal__mark-all-read-btn">
+            <twig:ibexa:button
+                type="tertiary"
+                size="small"
+                class="ibexa-notifications-modal__mark-all-read-btn"
+            >
                 {{ 'ibexa_notifications.btn.mark_all_as_read'|trans|desc('Mark all as read') }}
-            </button>
+            </twig:ibexa:button>
         </div>
     {% endblock %}
     
@@ -37,10 +41,15 @@
 
     {% block footer %}
         <div class="ibexa-notifications-modal__footer">
-            <a class="btn ibexa-btn ibexa-btn--ghost ibexa-notifications-modal__view-all-btn" href="{{ path('ibexa.notifications.render.all') }}">
+            <twig:ibexa:link
+                href="{{ path('ibexa.notifications.render.all') }}"
+                variant="button"
+                type="tertiary-alt"
+                class="ibexa-notifications-modal__view-all-btn"
+            >
                 {{ 'side_panel.view_all'|trans|desc('View all notifications') }}
                 <span class="ibexa-notifications-modal__view-all-btn--count"></span>
-            </a>
+            </twig:ibexa:link>
         </div>
     {% endblock %}
 {% endembed %}
@@ -50,8 +59,12 @@
     message: 'notification.modal.delete.confirm_message'|trans({}, 'ibexa_notifications')|desc('Are you sure you want to delete this notification?'),
 } %}
     {% block confirm_button %}
-        <button class="btn ibexa-btn ibexa-btn--primary ibexa-notifications-modal--delete--confirm" data-bs-dismiss="modal">
+        <twig:ibexa:button
+            type="primary"
+            class="ibexa-notifications-modal--delete--confirm"
+            data-bs-dismiss="modal"
+        >
             {{ 'modal.delete'|trans|desc('Delete') }}
-        </button>
+        </twig:ibexa:button>
     {% endblock %}
 {% endembed %}

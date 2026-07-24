@@ -289,15 +289,15 @@ class ContentViewPage extends Page
             new VisibleCSSLocator('addLocationButton', '#ibexa-tab-location-view-locations .ibexa-table-header__actions .ibexa-btn--udw-add'),
             new VisibleCSSLocator('bookmarkButton', '.ibexa-add-to-bookmarks'),
             new VisibleCSSLocator('isBookmarked', '.ibexa-add-to-bookmarks--checked'),
-            new VisibleCSSLocator('addTranslationButton', '#ibexa-tab-location-view-translations .ibexa-table-header__actions .ibexa-btn--add-translation, [data-bs-target="#add-translation-modal"]'),
+            new VisibleCSSLocator('addTranslationButton', '#ibexa-tab-location-view-translations .ibexa-table-header__actions .ids-btn--add-translation, [data-bs-target="#add-translation-modal"]'),
             new VisibleCSSLocator('ibexaDropdownPreview', '.ibexa-raw-content-title__language-form .ibexa-dropdown__selection-info'),
             new VisibleCSSLocator('moreTab', '.ibexa-tabs__tab--more'),
             new VisibleCSSLocator('popupMenuItem', '.ibexa-popup-menu__item .ibexa-popup-menu__item-content'),
             new VisibleCSSLocator('addUrlAliasButton', '#ibexa-tab-location-view-urls [data-bs-target="#ibexa-modal--custom-url-alias"]'),
             new VisibleCSSLocator('customUrlAliasesTable', '#ibexa-tab-location-view-urls .ibexa-table'),
             new VisibleCSSLocator('alertTitle', '.ibexa-alert__title'),
-            new VisibleCSSLocator('selectHideMode', '.form-check .ibexa-input--radio'),
-            new VisibleCSSLocator('cancelScheduleButton', '.ibexa-btn--schedule-hide-cancel'),
+            new VisibleCSSLocator('selectHideMode', '.form-check .ids-input--radio'),
+            new VisibleCSSLocator('cancelScheduleButton', '.ids-btn--schedule-hide-cancel'),
         ];
     }
 

@@ -10,16 +10,16 @@
         display: flex;
         align-items: center;
 
-        .ibexa-btn__label--change {
+        .ids-btn__label--change {
             display: none;
         }
 
         &--filled {
-            .ibexa-btn__label--change {
+            .ids-btn__label--change {
                 display: inline;
             }
 
-            .ibexa-btn__label--select {
+            .ids-btn__label--select {
                 display: none;
             }
         }
