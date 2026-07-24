@@ -415,13 +415,19 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     render() {
-        const { isSelected, showScrollShadowRight } = this.props;
+        const { isSelected, showScrollShadowRight, item } = this.props;
+        const canEdit = item.permissions?.edit.hasAccess ?? true;
         const editLabel = Translator.trans(/*@Desc("Edit")*/ 'edit_item_btn.label', {}, 'ibexa_sub_items');
         const actionCellClassName = createCssClassNames({
             'ibexa-table__cell': true,
             'c-table-view-item__cell': true,
             'c-table-view-item__cell--actions': true,
             'c-table-view-item__cell--shadow-left': showScrollShadowRight,
+        });
+        const editBtnClassName = createCssClassNames({
+            'c-table-view-item__btn': true,
+            'c-table-view-item__btn--edit': true,
+            'c-table-view-item__btn--disabled': !canEdit,
         });
 
         return (
@@ -439,8 +445,8 @@ export default class TableViewItemComponent extends PureComponent {
                     <span
                         title={editLabel}
                         data-extra-classes="c-table-view-item__tooltip"
-                        onClick={this.handleEdit}
-                        className="c-table-view-item__btn c-table-view-item__btn--edit"
+                        onClick={canEdit ? this.handleEdit : () => {}}
+                        className={editBtnClassName}
                         tabIndex={-1}
                     >
                         <div className="c-table-view-item__btn-inner">

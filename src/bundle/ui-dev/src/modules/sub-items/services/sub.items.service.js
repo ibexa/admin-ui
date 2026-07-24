@@ -1,6 +1,10 @@
 import { handleRequestResponse } from '../../common/helpers/request.helper.js';
 import { ASCENDING_SORT_ORDER } from '../sub.items.module.js';
-import { LOCATION_ENDPOINT, ENDPOINT_GRAPHQL } from './endpoints.js';
+import { LOCATION_ENDPOINT, ENDPOINT_GRAPHQL, ENDPOINT_LOCATIONS_PERMISSIONS } from './endpoints.js';
+
+import { getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getRequestHeaders, getRequestMode } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/request.helper';
+import { showErrorNotification } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/notification.helper';
 
 const sortClauseGraphQLMap = {
     ContentId: '_contentId',
@@ -139,6 +143,28 @@ export const loadLocation = ({ token, siteaccess }, { locationId = 2, limit = 10
         .then(handleRequestResponse)
         .then(callback)
         .catch(() => window.ibexa.helpers.notification.showErrorNotification('Cannot load location'));
+};
+
+export const loadLocationsPermissions = (locationIds, callback) => {
+    const { instanceUrl, token, siteaccess, accessToken } = getRestInfo();
+    const request = new Request(`${ENDPOINT_LOCATIONS_PERMISSIONS}?locationIds=${locationIds}`, {
+        method: 'GET',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/json',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
+        credentials: 'same-origin',
+    });
+
+    fetch(request)
+        .then(handleRequestResponse)
+        .then(callback)
+        .catch(() => showErrorNotification('Cannot load locations permissions'));
 };
 
 /**
