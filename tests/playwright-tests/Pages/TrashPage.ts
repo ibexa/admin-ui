@@ -7,6 +7,7 @@ export class TrashPage extends AdminUiPage {
 
     private readonly firstRow: Locator;
     private readonly emptyState: Locator;
+    private readonly searchInput: Locator;
     private readonly restoreButton: Locator;
     private readonly restoreUnderNewLocationButton: Locator;
     private readonly bulkDeleteButton: Locator;
@@ -20,6 +21,7 @@ export class TrashPage extends AdminUiPage {
         this.emptyState = page.locator('.ibexa-table__empty-table-text')
             .or(page.getByText('Trash is empty'))
             .or(page.getByText('No items'));
+        this.searchInput = page.locator('input[name="trash_search[content_name]"]');
         this.restoreButton = page.getByRole('button', { name: 'Restore', exact: true });
         this.restoreUnderNewLocationButton = page.getByRole('button', { name: 'Restore in a new location' })
             .or(page.locator('button.ibexa-btn--open-udw')).first();
@@ -82,8 +84,11 @@ export class TrashPage extends AdminUiPage {
     }
 
     async searchInTrash(query: string): Promise<void> {
-        const url = this.page.url().split('?')[0];
-        await this.page.goto(`${url}?trash_search[content_name]=${encodeURIComponent(query)}`);
+        // Drive the search form as a user would: type the query and submit.
+        // The form is a plain GET, so pressing Enter navigates to the filtered list.
+        await this.searchInput.fill(query);
+        await this.searchInput.press('Enter');
+        await this.page.waitForLoadState('networkidle');
     }
 
     async filterByContentType(contentTypeName: string): Promise<void> {
