@@ -19,4 +19,8 @@
         max-height: calculateRem(390px);
         overflow-y: auto;
     }
+
+    &__branch {
+        z-index: 1080;
+    }
 }
