@@ -246,7 +246,7 @@ final class UniversalDiscoveryWidget extends Component
             new VisibleCSSLocator('bookmarkedItem', '.c-bookmarks-list__item-name'),
             new VisibleCSSLocator('markedBookmarkedItem', '.c-bookmarks-list__item--marked'),
             // search
-            new VisibleCSSLocator('inputField', '.c-top-menu-search-input__search-input'),
+            new VisibleCSSLocator('inputField', '.c-top-menu-search-input__search-input input'),
             new VisibleCSSLocator('searchButton', '.c-top-menu-search-input__search-btn'),
             new VisibleCSSLocator('searchResults', '.c-search__table-title'),
             new VisibleCSSLocator('targetResult', '.ibexa-table__row td:nth-child(2)'),
