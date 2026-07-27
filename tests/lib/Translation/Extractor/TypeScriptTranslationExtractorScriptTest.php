@@ -189,10 +189,12 @@ final class TypeScriptTranslationExtractorScriptTest extends TestCase
 
     public function testServeModeProcessesMultipleFilesSequentiallyAndSurvivesPerFileErrors(): void
     {
-        $goodFile = tempnam(sys_get_temp_dir(), 'ts_extractor_') . '.ts';
+        $goodFile = tempnam(sys_get_temp_dir(), 'ts_extractor_');
+        rename($goodFile, $goodFile .= '.ts');
         file_put_contents($goodFile, "Translator.trans('admin_ui.good', {}, 'ibexa_admin_ui');");
 
-        $badFile = tempnam(sys_get_temp_dir(), 'ts_extractor_') . '.ts';
+        $badFile = tempnam(sys_get_temp_dir(), 'ts_extractor_');
+        rename($badFile, $badFile .= '.ts');
         file_put_contents($badFile, 'const x: = ;');
 
         $process = new Process(['node', $this->getScriptPath(), '--serve']);
@@ -216,7 +218,8 @@ final class TypeScriptTranslationExtractorScriptTest extends TestCase
 
     public function testExitsWithNonZeroStatusOnSyntaxError(): void
     {
-        $file = tempnam(sys_get_temp_dir(), 'ts_extractor_') . '.ts';
+        $file = tempnam(sys_get_temp_dir(), 'ts_extractor_');
+        rename($file, $file .= '.ts');
         file_put_contents($file, 'const x: = ;');
 
         $process = new Process(['node', $this->getScriptPath(), $file]);

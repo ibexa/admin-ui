@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Translation\Extractor;
 
+use Ibexa\AdminUi\Exception\TypeScriptExtractorException;
 use Ibexa\AdminUi\Translation\Extractor\TypeScriptExtractorClient;
 use Ibexa\AdminUi\Translation\Extractor\TypeScriptFileVisitor;
 use JMS\TranslationBundle\Model\MessageCatalogue;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use RuntimeException;
 use SplFileInfo;
 
 final class TypeScriptFileVisitorTest extends TestCase
@@ -130,7 +130,7 @@ final class TypeScriptFileVisitorTest extends TestCase
 
         $logger = $this->createMock(LoggerInterface::class);
         $logger->expects(self::once())
-            ->method('error')
+            ->method('warning')
             ->with(self::stringContains('Could not extract domain'));
         $visitor->setLogger($logger);
 
@@ -159,7 +159,7 @@ final class TypeScriptFileVisitorTest extends TestCase
 
         $visitor = $this->createVisitor($scriptPath);
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(TypeScriptExtractorException::class);
         $this->expectExceptionMessage('TypeScript translation extractor runtime is not available.');
 
         try {
@@ -180,7 +180,7 @@ final class TypeScriptFileVisitorTest extends TestCase
         $firstException = null;
         try {
             $visitor->visitFile(new SplFileInfo($filePath), new MessageCatalogue());
-        } catch (RuntimeException $exception) {
+        } catch (TypeScriptExtractorException $exception) {
             $firstException = $exception;
         } finally {
             self::assertSame('x', file_get_contents($startsFilePath));

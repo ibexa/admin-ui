@@ -132,6 +132,10 @@ const visitNode = (node, context) => {
 };
 
 const extractFromFile = (filePath) => {
+    if (typeof filePath !== 'string' || !/\.tsx?$/.test(filePath)) {
+        throw new Error(`Refusing to read non-TypeScript path: ${filePath}`);
+    }
+
     const source = fs.readFileSync(filePath, 'utf8');
     const ast = parse(source, {
         comment: true,

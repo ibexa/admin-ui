@@ -8,17 +8,26 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Translation\Extractor;
 
+use Ibexa\AdminUi\Exception\TypeScriptExtractorException;
 use JsonException;
-use RuntimeException;
 use Symfony\Component\Process\InputStream;
 use Symfony\Component\Process\Process;
 
+/**
+ * Talks to the Node script that reads translations from TypeScript files.
+ *
+ * The state below is on purpose and only lives during one extraction run:
+ * we keep one Node process running ({@see self::$serverProcess}) and send it the file paths,
+ * instead of starting Node again for every file. {@see self::$isRuntimeReady} remembers that
+ * we already checked Node works, so we do not check again for each file.
+ */
 final class TypeScriptExtractorClient
 {
-    private const DEFAULT_RESPONSE_TIMEOUT_SECONDS = 30.0;
+    private const float DEFAULT_RESPONSE_TIMEOUT_SECONDS = 30.0;
 
     private string $parserScriptPath;
 
+    /** True once we checked Node works. Only kept in memory for this run. */
     private bool $isRuntimeReady = false;
 
     private ?Process $serverProcess = null;
@@ -60,12 +69,15 @@ final class TypeScriptExtractorClient
         }
 
         if (!is_file($this->parserScriptPath)) {
-            throw new RuntimeException(sprintf(
+            throw new TypeScriptExtractorException(sprintf(
                 'TypeScript translation extractor script not found: %s.',
                 $this->parserScriptPath,
             ));
         }
 
+        // Runs the Node script once to check it works: this fails early if Node is missing
+        // or the `@typescript-eslint/typescript-estree` package is not installed. Whether each
+        // file parses correctly is checked later in readExtractionResponse().
         $runtimeCheckProcess = new Process([
             $this->nodeBinary,
             $this->parserScriptPath,
@@ -74,7 +86,7 @@ final class TypeScriptExtractorClient
         $runtimeCheckProcess->run();
 
         if (!$runtimeCheckProcess->isSuccessful()) {
-            throw new RuntimeException(sprintf(
+            throw new TypeScriptExtractorException(sprintf(
                 'TypeScript translation extractor runtime is not available. Please ensure `%s` is installed and `@typescript-eslint/typescript-estree` is available for the admin-ui package. %s',
                 $this->nodeBinary,
                 trim($runtimeCheckProcess->getErrorOutput()),
@@ -109,7 +121,7 @@ final class TypeScriptExtractorClient
     private function getServerInput(): InputStream
     {
         if ($this->serverInput === null) {
-            throw new RuntimeException('TypeScript translation extractor input stream has not been started.');
+            throw new TypeScriptExtractorException('TypeScript translation extractor input stream has not been started.');
         }
 
         return $this->serverInput;
@@ -118,7 +130,7 @@ final class TypeScriptExtractorClient
     private function getServerProcess(): Process
     {
         if ($this->serverProcess === null) {
-            throw new RuntimeException('TypeScript translation extractor process has not been started.');
+            throw new TypeScriptExtractorException('TypeScript translation extractor process has not been started.');
         }
 
         return $this->serverProcess;
@@ -136,7 +148,7 @@ final class TypeScriptExtractorClient
             if (!$process->isRunning()) {
                 $this->discardServerProcess();
 
-                throw new RuntimeException(sprintf(
+                throw new TypeScriptExtractorException(sprintf(
                     'TypeScript translation extractor process terminated unexpectedly: %s',
                     trim($process->getErrorOutput()),
                 ));
@@ -145,7 +157,7 @@ final class TypeScriptExtractorClient
             if (microtime(true) > $responseDeadline) {
                 $this->discardServerProcess();
 
-                throw new RuntimeException(
+                throw new TypeScriptExtractorException(
                     'Timed out waiting for the TypeScript translation extractor process to respond.',
                 );
             }

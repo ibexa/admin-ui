@@ -35,13 +35,7 @@ final class TypeScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
             return;
         }
 
-        $extractedMessages = $this->extractMessages($file);
-
-        if ($extractedMessages === null) {
-            return;
-        }
-
-        foreach ($extractedMessages as $messageData) {
+        foreach ($this->extractMessages($file) as $messageData) {
             if (!is_array($messageData) || !isset($messageData['id']) || !is_string($messageData['id'])) {
                 continue;
             }
@@ -51,9 +45,9 @@ final class TypeScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
     }
 
     /**
-     * @return array<mixed>|null
+     * @return array<mixed>
      */
-    private function extractMessages(SplFileInfo $file): ?array
+    private function extractMessages(SplFileInfo $file): array
     {
         $extractionResponse = $this->extractorClient->extract((string) $file->getRealPath());
 
@@ -64,7 +58,7 @@ final class TypeScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
                 $extractionResponse['error'],
             ));
 
-            return null;
+            return [];
         }
 
         if (!isset($extractionResponse['messages']) || !is_array($extractionResponse['messages'])) {
@@ -73,7 +67,7 @@ final class TypeScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
                 $file->getRealPath(),
             ));
 
-            return null;
+            return [];
         }
 
         $this->logWarnings($extractionResponse['warnings'] ?? []);
@@ -92,7 +86,7 @@ final class TypeScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
 
         foreach ($warnings as $warning) {
             if (is_string($warning)) {
-                $this->logger?->error($warning);
+                $this->logger?->warning($warning);
             }
         }
     }
@@ -121,10 +115,14 @@ final class TypeScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
      */
     public function visitPhpFile(SplFileInfo $file, MessageCatalogue $catalogue, array $ast): void
     {
+        // Intentionally empty: this visitor only extracts messages from TypeScript files.
+        // PHP sources are handled by the dedicated PHP file visitors.
     }
 
     public function visitTwigFile(SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast): void
     {
+        // Intentionally empty: this visitor only extracts messages from TypeScript files.
+        // Twig templates are handled by the dedicated Twig file visitor.
     }
 
     private function supports(SplFileInfo $file): bool
