@@ -70,7 +70,7 @@
 
                 this.container.classList.toggle('is-invalid', isInvalid);
             });
-            this.disabledObserver = new MutationObserver(() => {
+            this.enabledObserver = new MutationObserver(() => {
                 this.syncPopoverEnabledState();
             });
             this.resizeObserver = new ResizeObserver(() => {
@@ -676,7 +676,7 @@
                 attributes: true,
                 attributeFilter: ['class'],
             });
-            this.disabledObserver.observe(this.container, {
+            this.enabledObserver.observe(this.container, {
                 attributes: true,
                 attributeFilter: ['class'],
             });
