@@ -64,14 +64,9 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             ->waitUntilCondition(
                 new ElementTransitionHasEndedCondition(
                     $lastFieldDefinition,
-                    $this->getLocator('collapsedToggle')
+                    new VisibleCSSLocator('transition', 'div')
                 )
             );
-        }
-
-        $this->getHTMLPage()->setTimeout(10)->waitUntilCondition(
-            new ElementTransitionHasEndedCondition($lastFieldDefinition, $this->getLocator('transition'))
-        );
     }
 
     public function specifyLocators(): array
