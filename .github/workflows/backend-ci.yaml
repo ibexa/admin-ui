@@ -84,6 +84,13 @@ jobs:
             satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
             satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
 
+      - uses: actions/setup-node@v7
+        with:
+            node-version: '24'
+
+      - name: Install frontend dependencies
+        run: yarn install --frozen-lockfile --ignore-scripts
+
       - name: Setup problem matchers for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
@@ -130,6 +137,13 @@ jobs:
               gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
               satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
               satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
+
+      -   uses: actions/setup-node@v7
+          with:
+              node-version: '24'
+
+      -   name: Install frontend dependencies
+          run: yarn install --frozen-lockfile --ignore-scripts
 
       -   name: Setup problem matchers for PHPUnit
           run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
@@ -181,6 +195,13 @@ jobs:
               gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
               satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
               satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
+
+      -   uses: actions/setup-node@v7
+          with:
+              node-version: '24'
+
+      -   name: Install frontend dependencies
+          run: yarn install --frozen-lockfile --ignore-scripts
 
       -   name: Setup problem matchers for PHPUnit
           run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
