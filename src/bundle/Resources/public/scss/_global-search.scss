@@ -6,65 +6,90 @@
     width: 100%;
     max-width: calculateRem(600px);
     position: relative;
+    --ibexa-input-text-color: #{$ibexa-color-white};
+    --ibexa-text-color: #{$ibexa-color-white};
 
-    .ibexa-input-text-wrapper {
-        &--search {
-            width: auto;
+    .ids-input-text {
+        --ids-input-default-bg-color: #{color.change($ibexa-color-white, $alpha: 0.1)};
+        --ids-input-default-border-color: transparent;
+        --ids-input-default-text-color: #{$ibexa-color-white};
+        --ids-input-hover-border-color: #{$ibexa-color-info-600};
+        --ids-input-active-border-color: #{$ibexa-color-info-600};
+        --ids-input-focus-border-color: #{$ibexa-color-info-600};
 
-            .ibexa-icon {
-                fill: $ibexa-color-white;
+        &:hover {
+            .ids-input {
+                border-color: $ibexa-color-info-600;
             }
         }
 
-        &__action-btn {
-            &:hover {
-                .ibexa-icon {
-                    fill: $ibexa-color-info;
+        &:focus-within {
+            .ids-input-text__search-btn {
+                background: $ibexa-color-info-600;
+
+                .ids-icon {
+                    fill: $ibexa-color-white;
                 }
             }
+        }
 
-            &--search {
-                width: calculateRem(40px);
-                height: calculateRem(40px);
-                transform: translateX(calculateRem(8px));
+        &:has(.ibexa-global-search__input:not(:placeholder-shown)) {
+            .ids-input-text__search-btn {
+                background: $ibexa-color-info-600;
 
-                &:hover {
-                    background: $ibexa-color-info-600;
-                    box-shadow: 0 calculateRem(22px) calculateRem(24px) 0 color.change($ibexa-color-info, $alpha: 0.2);
-
-                    .ibexa-icon {
-                        fill: $ibexa-color-white;
-                    }
-                }
-
-                &:focus {
-                    color: $ibexa-color-white;
-                    background: $ibexa-color-info-600;
-                    border-color: $ibexa-color-info-600;
-                    box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.2);
-
-                    .ibexa-icon {
-                        fill: $ibexa-color-white;
-                    }
+                .ids-icon {
+                    fill: $ibexa-color-white;
                 }
             }
+        }
+    }
 
-            &--clear {
-                &:focus {
-                    border: none;
-                    box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.2);
+    .ids-input-text__actions {
+        padding-right: 0;
+    }
 
-                    .ibexa-icon {
-                        fill: $ibexa-color-white;
-                    }
-                }
-            }
+    .ids-clear-btn {
+        margin-right: calculateRem(8px);
+
+        .ids-icon {
+            fill: $ibexa-color-light;
         }
 
         &:hover {
-            .ibexa-input {
-                border-color: $ibexa-color-info-600;
+            .ids-icon {
+                fill: $ibexa-color-info;
             }
+        }
+
+        &:focus {
+            border: none;
+            box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.2);
+
+            .ids-icon {
+                fill: $ibexa-color-white;
+            }
+        }
+    }
+
+    .ids-btn.ids-input-text__search-btn {
+        width: calculateRem(40px);
+        height: calculateRem(40px);
+        transform: none;
+
+        .ids-icon {
+            fill: $ibexa-color-white;
+        }
+
+        &:hover {
+            background: $ibexa-color-info-600;
+            box-shadow: 0 calculateRem(22px) calculateRem(24px) 0 color.change($ibexa-color-info, $alpha: 0.2);
+        }
+
+        &:focus {
+            color: $ibexa-color-white;
+            background: $ibexa-color-info-600;
+            border-color: $ibexa-color-info-600;
+            box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.2);
         }
     }
 
@@ -75,49 +100,23 @@
         background: color.change($ibexa-color-white, $alpha: 0.1);
         border-color: transparent;
 
-        &.ibexa-input--text {
-            &:not(:disabled) {
-                &:hover {
-                    box-shadow: none;
-                    border-color: $ibexa-color-info-600;
+        &:not(:disabled) {
+            &:hover {
+                box-shadow: none;
+                border-color: $ibexa-color-info-600;
+            }
 
-                    & + .ibexa-input-text-wrapper__actions {
-                        .ibexa-input-text-wrapper__action-btn--search {
-                            background: transparent;
-                        }
-                    }
-                }
-                &:focus {
-                    border-color: $ibexa-color-info-600;
-                    background: color.change($ibexa-color-white, $alpha: 0.1);
-                    box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.2);
+            &:focus {
+                color: $ibexa-color-white;
+                border-color: $ibexa-color-info-600;
+                background: color.change($ibexa-color-white, $alpha: 0.1);
+                box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.2);
+            }
 
-                    & + .ibexa-input-text-wrapper__actions {
-                        .ibexa-input-text-wrapper__action-btn--search {
-                            background: $ibexa-color-info-600;
-                        }
-                    }
-                }
-
-                &:active,
-                &:not(:placeholder-shown) {
-                    box-shadow: none;
-                    border-color: $ibexa-color-info-600;
-
-                    & + .ibexa-input-text-wrapper__actions {
-                        .ibexa-input-text-wrapper__action-btn--search {
-                            background: $ibexa-color-info-600;
-                        }
-                    }
-                }
-
-                &:not(:placeholder-shown):hover {
-                    & + .ibexa-input-text-wrapper__actions {
-                        .ibexa-input-text-wrapper__action-btn--search {
-                            background: $ibexa-color-info-600;
-                        }
-                    }
-                }
+            &:active,
+            &:not(:placeholder-shown) {
+                box-shadow: none;
+                border-color: $ibexa-color-info-600;
             }
         }
 

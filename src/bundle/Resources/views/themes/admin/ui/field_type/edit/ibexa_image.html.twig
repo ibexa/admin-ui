@@ -23,27 +23,28 @@
         <div class="ibexa-field-edit-preview__visual">
             <div class="ibexa-field-edit-preview__media-wrapper">
                 <div class="ibexa-field-edit-preview__actions">
-                    <button
-                        type="button"
-                        class="ibexa-field-edit-preview__action ibexa-field-edit-preview__action--remove btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                        {{ readonly ? 'disabled' }}
+                    <twig:ibexa:button
+                        type="tertiary-alt"
+                        size="small"
+                        icon="trash"
+                        icon_size="small-medium"
+                        :disabled="readonly"
+                        class="ibexa-field-edit-preview__action ibexa-field-edit-preview__action--remove"
                     >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                        </svg>
-                        <span class="ibexa-btn__label">{{ 'content.field_type.ibexa_image.delete'|trans|desc('Delete') }}</span>
-                    </button>
-                    <a
-                        class="ibexa-field-edit-preview__action ibexa-field-edit-preview__action--preview btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                        href="{{ form.parent.vars.value.value.uri }}"
+                        {{ 'content.field_type.ibexa_image.delete'|trans({}, 'ibexa_content_forms_content')|desc('Delete') }}
+                    </twig:ibexa:button>
+                    <twig:ibexa:link
+                        href="{{ form.parent.vars.value.value.uri ?? '' }}"
+                        variant="button"
+                        type="tertiary-alt"
+                        size="small"
+                        icon="open-new-window"
+                        icon_size="small-medium"
                         target="_blank"
-                        {{ readonly ? 'disabled' }}
+                        class="ibexa-field-edit-preview__action ibexa-field-edit-preview__action--preview"
                     >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
-                        </svg>
-                        <span class="ibexa-btn__label">{{ 'content.field_type.ibexa_image.preview'|trans|desc('Preview') }}</span>
-                    </a>
+                        {{ 'content.field_type.ibexa_image.preview'|trans({}, 'ibexa_content_forms_content')|desc('Preview') }}
+                    </twig:ibexa:link>
 
                     {% if version_info is defined %}
                         {% set content_id = version_info.contentInfo.id %}
@@ -68,11 +69,11 @@
             </div>
             <div class="ibexa-field-edit-preview__details">
                 <div class="ibexa-field-edit-preview__file-name-wrapper">
-                    <label class="ibexa-label form-label">{{ 'content.field_type.ibexa_image.file_name.label'|trans|desc('File name') }}</label>
+                    <twig:ibexa:label class="form-label">{{ 'content.field_type.ibexa_image.file_name.label'|trans({}, 'ibexa_content_forms_content')|desc('File name') }}</twig:ibexa:label>
                     <p class="ibexa-field-edit-preview__file-name">{{ form.parent.vars.value.value.fileName }}</p>
                 </div>
                 <div class="ibexa-field-edit-preview__dimensions-wrapper">
-                    <label class="ibexa-label form-label">{{ 'content.field_type.ibexa_image.dimensions.label'|trans|desc('Master dimension') }}</label>
+                    <twig:ibexa:label class="form-label">{{ 'content.field_type.ibexa_image.dimensions.label'|trans({}, 'ibexa_content_forms_content')|desc('Master dimension') }}</twig:ibexa:label>
                     <p>
                         <span class="ibexa-field-edit-preview__dimension ibexa-field-edit-preview__dimension--width">
                             {{ 'content.field_type.ibexa_image.dimensions.width'|trans({ '%width%': form.parent.vars.value.value.width})|desc('W:%width% px') }}
@@ -83,7 +84,7 @@
                     </p>
                 </div>
                 <div class="ibexa-field-edit-preview__file-size-wrapper">
-                    <label class="ibexa-label form-label">{{ 'content.field_type.ibexa_image.file_size.label'|trans|desc('Size') }}</label>
+                    <twig:ibexa:label class="form-label">{{ 'content.field_type.ibexa_image.file_size.label'|trans({}, 'ibexa_content_forms_content')|desc('Size') }}</twig:ibexa:label>
                     <p class="ibexa-field-edit-preview__file-size">{{ form.parent.vars.value.value.fileSize|ibexa_file_size(2) }}</p>
                 </div>
             </div>

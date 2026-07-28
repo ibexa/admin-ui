@@ -27,11 +27,19 @@
         </p>
     {% endblock %}
     {% block footer_content %}
-        <a id="edit-conflicted-draft" class="btn ibexa-btn ibexa-btn--primary" href="#">
-            {{ 'version.conflict.form.continue'|trans|desc('Continue') }}
-        </a>
-        <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
-            {{ 'version.conflict.form.cancel'|trans|desc('Cancel') }}
-        </button>
+        <twig:ibexa:link
+            id="edit-conflicted-draft"
+            href="#"
+            variant="button"
+            type="primary"
+        >
+            {{ 'version.conflict.form.continue'|trans({}, 'ibexa_version_conflict')|desc('Continue') }}
+        </twig:ibexa:link>
+        <twig:ibexa:button
+            type="secondary"
+            data-bs-dismiss="modal"
+        >
+            {{ 'version.conflict.form.cancel'|trans({}, 'ibexa_version_conflict')|desc('Cancel') }}
+        </twig:ibexa:button>
     {% endblock %}
 {% endembed %}

@@ -17,27 +17,28 @@
         <div class="ibexa-field-edit-preview__visual">
             <div class="ibexa-field-edit-preview__media-wrapper ibexa-field-edit-preview__media-wrapper--loading">
                 <div class="ibexa-field-edit-preview__actions">
-                    <button 
-                        type="button" 
-                        class="ibexa-field-edit-preview__action--remove btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                        {{ readonly ? 'disabled' }}
+                    <twig:ibexa:button
+                        type="tertiary-alt"
+                        size="small"
+                        icon="trash"
+                        icon_size="small-medium"
+                        :disabled="readonly"
+                        class="ibexa-field-edit-preview__action--remove"
                     >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                        </svg>
-                        <span class="ibexa-btn__label">{{ 'content.field_type.ibexa_media.delete'|trans|desc('Delete') }}</span>
-                    </button>
-                    <a 
-                        class="ibexa-field-edit-preview__action--preview btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                        href="{{ form.parent.vars.value.value.uri }}"
+                        {{ 'content.field_type.ibexa_media.delete'|trans({}, 'ibexa_content_forms_content')|desc('Delete') }}
+                    </twig:ibexa:button>
+                    <twig:ibexa:link
+                        href="{{ form.parent.vars.value.value.uri ?? '' }}"
+                        variant="button"
+                        type="tertiary-alt"
+                        size="small"
+                        icon="open-new-window"
+                        icon_size="small-medium"
                         target="_blank"
-                        {{ readonly ? 'disabled' }}
+                        class="ibexa-field-edit-preview__action--preview"
                     >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
-                        </svg>
-                        <span class="ibexa-btn__label">{{ 'content.field_type.ibexa_media.download'|trans|desc('Download') }}</span>
-                    </a>
+                        {{ 'content.field_type.ibexa_media.download'|trans({}, 'ibexa_content_forms_content')|desc('Download') }}
+                    </twig:ibexa:link>
                 </div>
                 <svg class="ibexa-field-edit-preview__spinner ibexa-icon ibexa-spin">
                     <use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>
@@ -52,11 +53,11 @@
 
             <div class="ibexa-field-edit-preview__details">
                 <span class="ibexa-field-edit-preview__file-name-wrapper">
-                    <label class="ibexa-label form-label">{{ 'content.field_type.ibexa_media.file_name.label'|trans|desc('File name') }}</label>
+                    <twig:ibexa:label class="form-label">{{ 'content.field_type.ibexa_media.file_name.label'|trans({}, 'ibexa_content_forms_content')|desc('File name') }}</twig:ibexa:label>
                     <p class="ibexa-field-edit-preview__file-name">{{ form.parent.vars.value.value.fileName }}</p>
                 </span>
                 <span class="ibexa-field-edit-preview__file-size-wrapper">
-                    <label class="ibexa-label form-label">{{ 'content.field_type.ibexa_media.file_size.label'|trans|desc('Size') }}</label>
+                    <twig:ibexa:label class="form-label">{{ 'content.field_type.ibexa_media.file_size.label'|trans({}, 'ibexa_content_forms_content')|desc('Size') }}</twig:ibexa:label>
                     <p class="ibexa-field-edit-preview__file-size">{{ form.parent.vars.value.value.fileSize|ibexa_file_size(2) }}</p>
                 </span>
                 <div class="ibexa-field-edit-preview__settings">
@@ -66,9 +67,9 @@
                     </div>
                 </div>
                 <div class="ibexa-field-edit-preview__control">
-                    <label class="ibexa-label form-label">
+                    <twig:ibexa:label class="form-label">
                         {{ 'content.field_type.ibexa_media.player_settings'|trans({}, 'ibexa_content_forms_content')|desc('Player settings') }}
-                    </label>
+                    </twig:ibexa:label>
                     <div class="ibexa-field-edit-preview__toggles">
                         {{ form_row(form.hasController, {'label_attr': {'class': 'checkbox-inline'}, attr: { disabled: readonly }}) }}
                         {{ form_row(form.autoplay, {'label_attr': {'class': 'checkbox-inline'}, attr: { disabled: readonly }}) }}

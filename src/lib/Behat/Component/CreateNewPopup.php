@@ -75,15 +75,15 @@ final class CreateNewPopup extends Component
     {
         return [
             new VisibleCSSLocator('popupHeader', '.ibexa-extra-actions__header'),
-            new VisibleCSSLocator('addButton', '.ibexa-extra-actions__pre-form-btns .ibexa-btn--primary, .ibexa-extra-actions--create .ibexa-btn--primary'),
-            new VisibleCSSLocator('cancelButton', '.ibexa-extra-actions__pre-form-btns .ibexa-btn--secondary'),
+            new VisibleCSSLocator('addButton', '.ibexa-extra-actions__pre-form-btns .ids-btn--primary, .ibexa-extra-actions--create .ids-btn--primary'),
+            new VisibleCSSLocator('cancelButton', '.ibexa-extra-actions__pre-form-btns .ids-btn--secondary'),
             new VisibleCSSLocator('popup', '.ibexa-extra-actions:not(.ibexa-extra-actions--hidden)'),
             new VisibleCSSLocator('formGroup', '.form-group'),
             new VisibleCSSLocator('dropdown', '.ibexa-dropdown'),
-            new VisibleCSSLocator('label', '.ibexa-label'),
+            new VisibleCSSLocator('label', '.ids-label'),
             new VisibleCSSLocator('dropdownValue', '.ibexa-dropdown__selection-info'),
             new VisibleCSSLocator('radioValue', '.ibexa-dc-extra-actions-applies-to__option'),
-            new VisibleCSSLocator('radioLabel', '.ibexa-label--checkbox-radio'),
+            new VisibleCSSLocator('radioLabel', '.ids-choice-input-label'),
         ];
     }
 }

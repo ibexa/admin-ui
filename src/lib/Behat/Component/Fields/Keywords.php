@@ -18,7 +18,7 @@ final class Keywords extends FieldTypeComponent
     private string $setKeywordsValueScript = <<<SCRIPT
         const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify';
         const taggifyContainer = document.querySelector(SELECTOR_TAGGIFY);
-        const keywordInput = taggifyContainer.closest('.ibexa-data-source').querySelector('.ibexa-data-source__input-wrapper .ibexa-data-source__input.form-control');
+        const keywordInput = taggifyContainer.closest('.ibexa-data-source').querySelector('.ibexa-data-source__input-wrapper .ibexa-data-source__input');
         class KeywordTaggify extends window.ibexa.core.Taggify {
             afterTagsUpdate() {
                 const tags = [...this.tags];

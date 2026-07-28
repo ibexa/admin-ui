@@ -6,8 +6,7 @@ import { getTranslator, getRootDOMElement } from '@ibexa-admin-ui/src/bundle/Res
 
 import UploadPopupComponent from './components/upload-popup/upload.popup.component';
 import { createFileStruct, publishFile, deleteFile, checkCanUpload } from './services/multi.file.upload.service';
-import Icon from '../common/icon/icon';
-import { createCssClassNames } from '../common/helpers/css.class.names';
+import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 
 export const UDW_TRIGGER_ID = 'UDW';
 export const SUBITEMS_TRIGGER_ID = 'SUBITEMS';
@@ -161,15 +160,12 @@ export default class MultiFileUploadModule extends Component {
         const { uploadDisabled } = this.state;
         const label = Translator.trans(/* @Desc("Upload") */ 'multi_file_upload_open_btn.label', {}, 'ibexa_multi_file_upload');
         const isTriggeredBySubitems = this.props.triggerId === SUBITEMS_TRIGGER_ID;
-        const buttonClassName = createCssClassNames({
-            'ibexa-btn btn': true,
-            'ibexa-btn--secondary ibexa-btn--small': !isTriggeredBySubitems,
-            'ibexa-btn--ghost': isTriggeredBySubitems,
-        });
+        const buttonType = isTriggeredBySubitems ? ButtonType.TertiaryAlt : ButtonType.Secondary;
+        const buttonSize = isTriggeredBySubitems ? ButtonSize.Medium : ButtonSize.Small;
         return (
-            <button type="button" className={buttonClassName} onClick={this.showUploadPopup} disabled={uploadDisabled}>
-                <Icon name="upload" extraClasses="ibexa-icon--small-medium" /> {label}
-            </button>
+            <Button type={buttonType} size={buttonSize} icon="upload" onClick={this.showUploadPopup} disabled={uploadDisabled}>
+                {label}
+            </Button>
         );
     }
 

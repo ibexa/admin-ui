@@ -1,5 +1,5 @@
 (function (global, doc, ibexa, React, ReactDOMClient, Translator) {
-    const btns = doc.querySelectorAll('.ibexa-btn--udw-copy');
+    const btns = doc.querySelectorAll('.ids-btn--udw-copy');
     const form = doc.querySelector('form[name="location_copy"]');
     const input = form.querySelector('#location_copy_new_parent_location');
     const udwContainer = doc.getElementById('react-udw');

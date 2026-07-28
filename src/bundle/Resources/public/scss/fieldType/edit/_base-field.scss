@@ -35,7 +35,7 @@
         display: flex;
         align-self: flex-end;
 
-        .ibexa-label {
+        .ids-label {
             display: none;
             padding-bottom: calculateRem(8px);
         }
@@ -49,16 +49,18 @@
         align-self: flex-end;
         align-items: center;
 
-        &--enable {
+        .ibexa-icon {
+            margin-right: calculateRem(8px);
+        }
+    }
+
+    &__distraction-free-mode-btns {
+        .ibexa-field-edit__distraction-free-mode-control-btn--enable {
             display: inline-flex;
         }
 
-        &--disable {
+        .ibexa-field-edit__distraction-free-mode-control-btn--disable {
             display: none;
-        }
-
-        .ibexa-icon {
-            margin-right: calculateRem(8px);
         }
     }
 
@@ -83,7 +85,7 @@
     &--disabled {
         pointer-events: none;
 
-        .ibexa-label {
+        .ids-label {
             color: $ibexa-color-black-300;
         }
 
@@ -167,7 +169,7 @@
                 justify-content: space-between;
                 width: 100%;
 
-                .ibexa-label {
+                .ids-label {
                     display: inline-flex;
                     margin: calculateRem(8px) 0 0 0;
                 }
@@ -175,12 +177,14 @@
 
             &__distraction-free-mode-control-btn {
                 margin: 0;
+            }
 
-                &--enable {
+            &__distraction-free-mode-btns {
+                .ibexa-field-edit__distraction-free-mode-control-btn--enable {
                     display: none;
                 }
 
-                &--disable {
+                .ibexa-field-edit__distraction-free-mode-control-btn--disable {
                     display: inline-flex;
                 }
             }

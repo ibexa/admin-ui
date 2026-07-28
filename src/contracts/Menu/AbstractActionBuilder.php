@@ -20,7 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 abstract class AbstractActionBuilder extends AbstractBuilder
 {
     protected const string TRANSLATION_DOMAIN = 'ibexa_action_menu';
-    protected const string IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS = 'ibexa-btn--content-draft-edit';
+    protected const string IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS = 'ids-btn--content-draft-edit';
 
     private const string ICON_EDIT = 'edit';
     private const int ORDER_NUMBER = 200;

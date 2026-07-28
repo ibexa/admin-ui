@@ -6,8 +6,8 @@ import {
     hideAll as hideAllTooltips,
 } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 
-import Icon from '../../../common/icon/icon';
 import Thumbnail from '../../../common/thumbnail/thumbnail';
+import { Button, ButtonType } from '@ids-components/components/Button';
 
 import { SelectedLocationsContext, ContentTypesMapContext } from '../../universal.discovery.module';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
@@ -21,7 +21,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
     const { checkIsDeselectionBlocked } = useSelectedLocationsHelpers();
     const isDeselectionBlocked = checkIsDeselectionBlocked(location);
     const contentTypesMap = useContext(ContentTypesMapContext);
-    const clearLabel = Translator.trans(
+    const removeItemLabel = Translator.trans(
         /* @Desc("Clear selection") */ 'selected_locations.clear_selection',
         {},
         'ibexa_universal_discovery_widget',
@@ -64,16 +64,15 @@ const SelectedLocationsItem = ({ location, permissions }) => {
 
                     return <Component key={action.id} location={location} permissions={permissions} />;
                 })}
-                <button
-                    type="button"
-                    className="c-selected-locations-item__remove-button btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                <Button
+                    type={ButtonType.TertiaryAlt}
+                    icon="discard"
                     onClick={removeFromSelection}
-                    title={clearLabel}
-                    data-tooltip-container-selector=".c-udw-tab"
+                    title={removeItemLabel}
                     disabled={isDeselectionBlocked}
-                >
-                    <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
-                </button>
+                    className="c-selected-locations-item__remove-button"
+                    extraAria={{ 'data-tooltip-container-selector': '.c-udw-tab' }}
+                />
             </div>
         </div>
     );

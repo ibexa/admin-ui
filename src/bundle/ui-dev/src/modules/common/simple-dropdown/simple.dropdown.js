@@ -53,7 +53,7 @@ const SimpleDropdown = ({
                 <span>{item.label ?? item.getLabel()}</span>
                 {isItemSelected && (
                     <div className="c-simple-dropdown__list-item-checkmark">
-                        <Icon name="checkmark" extraClasses="c-simple-dropdown__list-item-checkmark-icon ibexa-icon--tiny-small" />
+                        <Icon name="form-check" extraClasses="c-simple-dropdown__list-item-checkmark-icon ibexa-icon--tiny-small" />
                     </div>
                 )}
             </li>

@@ -41,7 +41,7 @@ final class SectionEditRightSidebarBuilder extends AbstractBuilder implements Tr
             self::ITEM__SAVE_AND_CLOSE,
             [
                 'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
+                    'class' => 'ids-btn--trigger',
                     'data-click' => sprintf('#update-section-%d_update', $section->id),
                 ],
             ]

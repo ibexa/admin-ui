@@ -52,9 +52,13 @@ final class UniversalDiscoveryWidget extends Component
 
     public function confirm(): void
     {
+        $enabledConfirmButtonLocator = new VisibleCSSLocator('enabledConfirmButton', '.c-actions-menu__confirm-btn:not([disabled])');
+        $this->getHTMLPage()
+            ->setTimeout(self::LONG_TIMEOUT)
+            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $enabledConfirmButtonLocator));
         $this->getHTMLPage()->find($this->getLocator('confirmButton'))->click();
         $this->getHTMLPage()
-            ->setTimeout(5)
+            ->setTimeout(self::LONG_TIMEOUT)
             ->waitUntilCondition(new ElementNotExistsCondition($this->getHTMLPage(), $this->getLocator('udw')));
     }
 
@@ -222,7 +226,7 @@ final class UniversalDiscoveryWidget extends Component
             new CSSLocator('categoryTabSelector', '.c-tab-selector__item'),
             new CSSLocator('selectedTab', '.c-tab-selector__item--selected'),
             new VisibleCSSLocator('contentIframe', '.c-content-edit__iframe, .m-content-create__iframe'),
-            new VisibleCSSLocator('multiselect', '.m-ud .c-finder-leaf .ibexa-input--checkbox'),
+            new VisibleCSSLocator('multiselect', '.m-ud .c-finder-leaf .ids-input--checkbox'),
             new VisibleCSSLocator('selectedItemName', '.c-content-meta-preview__content-name'),
             new VisibleCSSLocator('previewImage', '.c-content-meta-preview__preview'),
             new VisibleCSSLocator('createNewButton', '.c-content-create-button__btn'),
@@ -242,7 +246,7 @@ final class UniversalDiscoveryWidget extends Component
             new VisibleCSSLocator('bookmarkedItem', '.c-bookmarks-list__item-name'),
             new VisibleCSSLocator('markedBookmarkedItem', '.c-bookmarks-list__item--marked'),
             // search
-            new VisibleCSSLocator('inputField', '.c-top-menu-search-input__search-input'),
+            new VisibleCSSLocator('inputField', '.c-top-menu-search-input__search-input input'),
             new VisibleCSSLocator('searchButton', '.c-top-menu-search-input__search-btn'),
             new VisibleCSSLocator('searchResults', '.c-search__table-title'),
             new VisibleCSSLocator('targetResult', '.ibexa-table__row td:nth-child(2)'),

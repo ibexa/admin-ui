@@ -187,8 +187,10 @@
         display: flex;
         flex-direction: column;
 
-        .ibexa-input-text-wrapper {
+        .ibexa-input-text-wrapper,
+        .ids-input-text {
             width: 100%;
+            display: block;
             padding: calculateRem(8px) calculateRem(12px);
 
             &__actions {
@@ -197,7 +199,8 @@
         }
 
         &--search-hidden {
-            .ibexa-input-text-wrapper {
+            .ibexa-input-text-wrapper,
+            .ids-input-text {
                 display: none;
             }
         }
@@ -282,7 +285,7 @@
             }
         }
 
-        .ibexa-input {
+        .ibexa-dropdown__item-checkbox {
             flex-shrink: 0;
             margin: 0 calculateRem(16px) 0 0;
         }
@@ -565,4 +568,13 @@
     .ibexa-dropdown {
         margin: calculateRem(5px) calculateRem(8px);
     }
+}
+
+.ibexa-dropdown__item--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.ibexa-dropdown__item--disabled * {
+    pointer-events: none;
 }

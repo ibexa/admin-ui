@@ -590,7 +590,7 @@
     }
 }
 
-.ibexa-btn--content-edit {
+.ids-btn--content-edit {
     background-color: transparent;
     cursor: pointer;
 }
@@ -603,4 +603,10 @@
 
 button:focus {
     outline: 0;
+}
+
+a.ids-btn {
+    &:hover {
+        text-decoration: none;
+    }
 }

@@ -25,6 +25,10 @@
             & {
                 padding: calculateRem(2px);
             }
+
+            &.ids-btn {
+                top: calculateRem(22px);
+            }
         }
     }
 
@@ -37,7 +41,7 @@
                 margin-top: calculateRem(18px);
             }
 
-            .ibexa-label {
+            .ids-label {
                 font-size: calculateRem(16px);
             }
 

@@ -40,7 +40,7 @@ final class ContentTypeGroupCreateRightSidebarBuilder extends AbstractBuilder im
             self::ITEM__CREATE,
             [
                 'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
+                    'class' => 'ids-btn--trigger',
                     'data-click' => sprintf('#%s', $saveAndCloseId),
                 ],
             ]

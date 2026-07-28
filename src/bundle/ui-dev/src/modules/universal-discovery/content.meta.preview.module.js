@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 
-import Icon from '../common/icon/icon';
 import Thumbnail from '../common/thumbnail/thumbnail';
 import { createCssClassNames } from '../common/helpers/css.class.names';
 import Spinner from '../common/spinner/spinner';
+import { Button, ButtonType } from '@ids-components/components/Button';
 import { findMarkedLocation } from './helpers/locations.helper';
 import { addBookmark, removeBookmark } from './services/universal.discovery.service';
 import ContentEditButton from './components/content-edit-button/content.edit.button';
@@ -89,14 +89,14 @@ const ContentMetaPreview = () => {
 
         const previewButton = allowRedirects ? (
             <div className="c-content-meta-preview__action-item">
-                <button
-                    className="c-content-meta-preview__preview-button btn ibexa-btn ibexa-btn--ghost"
-                    type="button"
+                <Button
+                    type={ButtonType.TertiaryAlt}
+                    icon="visibility"
                     onClick={previewContent}
+                    className="c-content-meta-preview__preview-button"
                 >
-                    <Icon name="view" extraClasses="ibexa-icon--small-medium" />
                     {previewLabel}
-                </button>
+                </Button>
             </div>
         ) : null;
         const hasAccess = permissions && permissions.edit.hasAccess;
@@ -108,14 +108,14 @@ const ContentMetaPreview = () => {
                     <ContentEditButton location={location} version={version} isDisabled={!hasAccess} label={editLabel} />
                 </div>
                 <div className="c-content-meta-preview__action-item">
-                    <button
-                        className="c-content-meta-preview__toggle-bookmark-button btn ibexa-btn ibexa-btn--ghost"
-                        type="button"
+                    <Button
+                        type={ButtonType.TertiaryAlt}
+                        icon={bookmarkIconName}
                         onClick={toggleBookmarked}
+                        className="c-content-meta-preview__toggle-bookmark-button"
                     >
-                        <Icon name={bookmarkIconName} extraClasses="ibexa-icon--small-medium" />
                         {bookmarked ? bookmarksRemoveLabel : bookmarksAddLabel}
-                    </button>
+                    </Button>
                 </div>
             </div>
         );

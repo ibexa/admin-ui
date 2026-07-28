@@ -18,6 +18,7 @@ import UniversalDiscoveryModule, { DropdownPortalRefContext } from '../../univer
 import Dropdown from '../../../common/dropdown/dropdown';
 import ContentTypeSelector from '../content-type-selector/content.type.selector';
 import Icon from '../../../common/icon/icon';
+import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 
 import {
     removeRootFromPathString,
@@ -109,13 +110,14 @@ const Filters = ({ search }) => {
         );
 
         return (
-            <button
-                className="ibexa-tag-view-select__btn-select-path btn ibexa-btn ibexa-btn--secondary ibexa-btn--small"
-                type="button"
+            <Button
+                type={ButtonType.Secondary}
+                size={ButtonSize.Small}
                 onClick={() => setIsNestedUdwOpened(true)}
+                className="ibexa-tag-view-select__btn-select-path"
             >
                 {selectedSubtree ? changeLabel : selectLabel}
-            </button>
+            </Button>
         );
     };
     const languageLabel = Translator.trans(/* @Desc("Language") */ 'filters.language', {}, 'ibexa_universal_discovery_widget');

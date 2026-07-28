@@ -1,20 +1,20 @@
 {% extends 'bootstrap_5_layout.html.twig' %}
 
-{% use '@ibexadesign/ui/form_fields/toggle_widget.html.twig' %}
+{% use '@ibexadesign/ui/form_fields/toggle_widget_ds.html.twig' %}
 {% use '@ibexadesign/ui/form_fields/dropdown_widget.html.twig' %}
 
 {%- block button_widget -%}
-    {%- set attr = attr|merge({class: (attr.class|default('ibexa-btn ibexa-btn--secondary') ~ ' btn')|trim}) -%}
+    {%- set attr = attr|merge({class: (attr.class|default('ids-btn ids-btn--secondary ids-btn--medium'))|trim}) -%}
     {{- parent() -}}
 {%- endblock button_widget %}
 
 {%- block submit_widget -%}
-    {%- set attr = attr|merge({class: (attr.class|default('ibexa-btn ibexa-btn--primary'))|trim}) -%}
+    {%- set attr = attr|merge({class: (attr.class|default('ids-btn ids-btn--primary ids-btn--medium'))|trim}) -%}
     {{- parent() -}}
 {%- endblock submit_widget %}
 
 {% block form_label -%}
-    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ibexa-label')|trim}) -%}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ids-label')|trim}) -%}
     {%- set is_only_errors = label is same as(false) -%}
     {% if not is_only_errors -%}
         {{ parent() }}
@@ -22,7 +22,7 @@
 {%- endblock form_label %}
 
 {% block checkbox_radio_label -%}
-    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ibexa-label ibexa-label--checkbox-radio')|trim}) -%}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ids-choice-input-label ids-choice-input-field__label')|trim}) -%}
     {{ parent() }}
 {%- endblock checkbox_radio_label %}
 
@@ -148,17 +148,51 @@
 {%- endblock -%}
 
 {%- block checkbox_widget -%}
-    {%- set attr = attr|merge({class: 'ibexa-input ibexa-input--checkbox ' ~ attr.class|default('') }) -%}
+    {%- set attr_class = attr.class|default('') -%}
+    {%- if 'btn-check' not in attr_class -%}
+        {%- set attr_class = 'ids-input ids-input--checkbox form-check-input ' ~ attr_class -%}
+    {%- else -%}
+        {%- set attr_class = 'ids-input ids-input--checkbox ' ~ attr_class -%}
+    {%- endif -%}
+    {%- set attr = attr|merge({class: attr_class|trim }) -%}
     {{ parent() }}
 {%- endblock -%}
 
 {%- block radio_widget -%}
-    {%- set attr = attr|merge({class: 'ibexa-input ibexa-input--radio ' ~ attr.class|default('') }) -%}
-    {{ parent() }}
+    {%- set attr_class = attr.class|default('') -%}
+    {%- set row_class = '' -%}
+    {%- if 'btn-check' not in attr_class -%}
+        {%- set attr_class = attr_class ~ ' form-check-input' -%}
+        {%- set row_class = 'form-check' -%}
+    {%- endif -%}
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    {%- if 'radio-inline' in parent_label_class -%}
+        {%- set row_class = row_class ~ ' form-check-inline' -%}
+    {%- endif -%}
+    {%- set component_attr = attr|merge({ class: attr_class|trim }) -%}
+    {%- if row_class is not empty -%}
+        <div class="{{ row_class }}">
+    {%- endif -%}
+    {{- form_label(form, null, { widget: block('radio_widget_input_ds') }) -}}
+    {%- if row_class is not empty -%}
+        </div>
+    {%- endif -%}
+{%- endblock -%}
+
+{%- block radio_widget_input_ds -%}
+    <twig:ibexa:radio_button:input
+        id="{{ id }}"
+        name="{{ full_name }}"
+        :checked="checked"
+        :disabled="disabled"
+        :required="required"
+        value="{{ (value is defined ? value : '') ~ '' }}"
+        {{ ...component_attr }}
+    />
 {%- endblock -%}
 
 {%- block trash_item_checkbox_widget -%}
-    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <input type="checkbox" class="ids-input ids-input--checkbox form-check-input" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
 {%- endblock -%}
 
 {%- block _trash_item_restore_restore_widget -%}
@@ -396,22 +430,40 @@
     {%- set has_search = has_search|default(false) -%}
     {%- set should_clear_button_send_form = should_clear_button_send_form|default(false) -%}
     {%- set type = type|default('text') -%}
-    {%- set is_text_input = type == 'text' or type == 'number' or force_text|default(false) -%}
+    {%- set is_text_input = type in ['text', 'number', 'password', 'email', 'url', 'tel', 'search'] or force_text|default(false) -%}
     {%- if is_text_input -%}
-        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' ibexa-input ibexa-input--text')|trim}) -%}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' ibexa-input')|trim}) -%}
         {%- set empty_placeholder_for_hiding_clear_btn_with_css = ' ' -%}
         {%- set attr = attr|merge({placeholder: (attr.placeholder is defined and attr.placeholder is not null) ? attr.placeholder : empty_placeholder_for_hiding_clear_btn_with_css}) -%}
+        {%- if attr.placeholder != empty_placeholder_for_hiding_clear_btn_with_css -%}
+            {%- set translated_placeholder = translation_domain is same as(false)
+                ? attr.placeholder
+                : attr.placeholder|trans({}, translation_domain)
+            -%}
+            {%- set attr = attr|merge({placeholder: translated_placeholder}) -%}
+        {%- endif -%}
+        {%- set input_attr = attr|merge({
+            id: id,
+            name: full_name,
+            value: value is same as(null) ? '' : value,
+        }) -%}
         {%- set input_html -%}
             {{ parent() }}
         {%- endset -%}
-        {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search, should_clear_button_send_form } -%}
+        {%- embed '@ibexadesign/ui/component/input_text_ds.html.twig' with {
+            has_search,
+            should_clear_button_send_form,
+            input_attr,
+            wrapper_attr: wrapper_attr|default({}),
+            is_disabled: attr.disabled|default(false) or disabled|default(false),
+            extra_actions_after: extra_actions_after|default(null),
+        } -%}
             {% block content %}
                 {{ input_html }}
             {% endblock %}
 
             {% block actions %}
                 {{ parent() }}
-                {{ extra_actions_after|default(null) }}
             {% endblock %}
         {%- endembed -%}
     {%- else -%}
@@ -504,7 +556,7 @@
 {%- endblock %}
 
 {% block content_type_meta_field_definition_enabled_row -%}
-    {% use '@ibexadesign/ui/form_fields/toggle_widget.html.twig' %}
+    {% use '@ibexadesign/ui/form_fields/toggle_widget_ds.html.twig' %}
 
     <div class="ibexa-content-type-edit__form-field ibexa-form-field form-group">
         {{ block('form_label') }}
@@ -551,25 +603,31 @@
                 {{- form_label(form) -}}
             </div>
             <div class="ibexa-field-edit__distraction-free-mode-btns">
-                 <button {{ (fieldtype_is_not_translatable or disabled) ? 'disabled' }} type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-field-edit__distraction-free-mode-control-btn ibexa-field-edit__distraction-free-mode-control-btn--enable">
-                    <svg class="ibexa-icon ibexa-icon--tiny-small">
-                        <use xlink:href="{{ ibexa_icon_path('focus') }}"></use>
-                    </svg>
+                <twig:ibexa:button
+                    type="tertiary-alt"
+                    size="small"
+                    icon="arrows-outside"
+                    icon_size="tiny-small"
+                    class="ibexa-field-edit__distraction-free-mode-control-btn ibexa-field-edit__distraction-free-mode-control-btn--enable"
+                    :disabled="fieldtype_is_not_translatable or disabled"
+                >
                     <span
-                        class="ibexa-btn__label"
-                        title="{{ 'distraction_free_mode.enable.tooltip'|trans|desc('Enter distraction free mode. It shows only rich text editor toolbar and focuses your attention on editing text.') }}"
+                        class="ids-btn__label"
+                        title="{{ 'distraction_free_mode.enable.tooltip'|trans({}, 'ibexa_admin_ui')|desc('Enter distraction free mode. It shows only rich text editor toolbar and focuses your attention on editing text.') }}"
                     >
-                        {{ 'distraction_free_mode.enable.label'|trans|desc('Distraction free mode') }}
+                        {{ 'distraction_free_mode.enable.label'|trans({}, 'ibexa_admin_ui')|desc('Distraction free mode') }}
                     </span>
-                </button>
-                <button {{ (fieldtype_is_not_translatable or disabled) ? 'disabled' }} type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-field-edit__distraction-free-mode-control-btn ibexa-field-edit__distraction-free-mode-control-btn--disable">
-                    <svg class="ibexa-icon ibexa-icon--tiny-small">
-                        <use xlink:href="{{ ibexa_icon_path('un-focus') }}"></use>
-                    </svg>
-                    <span class="ibexa-btn__label">
-                        {{ 'distraction_free_mode.disable.label'|trans|desc('Exit distraction free mode') }}
-                    </span>
-                </button>
+                </twig:ibexa:button>
+                <twig:ibexa:button
+                    type="tertiary-alt"
+                    size="small"
+                    icon="arrows-inside"
+                    icon_size="tiny-small"
+                    class="ibexa-field-edit__distraction-free-mode-control-btn ibexa-field-edit__distraction-free-mode-control-btn--disable"
+                    :disabled="fieldtype_is_not_translatable or disabled"
+                >
+                    {{ 'distraction_free_mode.disable.label'|trans({}, 'ibexa_admin_ui')|desc('Exit distraction free mode') }}
+                </twig:ibexa:button>
             </div>
         </div>
     </div>

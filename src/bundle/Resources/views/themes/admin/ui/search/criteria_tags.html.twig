@@ -2,13 +2,11 @@
 
 <div class="ibexa-search-criteria-tags">
     {% if form.children.search_language.vars.value != '' %}
-        <div class="ibexa-tag ibexa-search-criteria-tags__tag">
-            <div class="ibexa-tag__content">
-                {{ 'search.in_language'|trans({
-                    '%search_language%': form.children.search_language.vars.data.name,
-                })|desc('in %search_language%')}}
-            </div>
-        </div>
+        <twig:ibexa:tag type="neutral" class="ibexa-search-criteria-tags__tag">
+            {{ 'search.in_language'|trans({
+                '%search_language%': form.children.search_language.vars.data.name,
+            }, 'ibexa_search')|desc('in %search_language%')}}
+        </twig:ibexa:tag>
     {% endif %}
 
     {% if form.content_types.vars.data is not empty %}
@@ -17,7 +15,7 @@
                 'content': content_type.name,
                 'title': "#{'search.content.type'|trans|desc('Content type')}: #{content_type.name}",
                 'target_selector': "#search_content_types_#{content_type.identifier}",
-                'btn_class': "ibexa-tag__remove-btn--content-types",
+                'tag_class': "ibexa-search-criteria-tags__tag--content-types",
             }) }}
         {% endfor %}
     {% endif %}
@@ -25,16 +23,16 @@
     {% if form.section is defined and form.section.vars.data is not empty %}
         {{ include('@ibexadesign/ui/search_tag.html.twig', {
             'content': form.section.vars.data.name,
-            'title': "#{'search.section'|trans|desc('Section')}: #{form.section.vars.data.name}",
-            'btn_class': "ibexa-tag__remove-btn--section",
+            'title': "#{'search.section'|trans({}, 'ibexa_search')|desc('Section')}: #{form.section.vars.data.name}",
+            'tag_class': "ibexa-search-criteria-tags__tag--section",
         }) }}
     {% endif %}
 
     {% if form.subtree.vars.value is not empty %}
         {{ include('@ibexadesign/ui/search_tag.html.twig', {
             'content': content_breadcrumbs,
-            'title':  "#{'search.subtree'|trans|desc('Subtree')}: #{content_breadcrumbs}",
-            'btn_class': "ibexa-tag__remove-btn--subtree",
+            'title':  "#{'search.subtree'|trans({}, 'ibexa_search')|desc('Subtree')}: #{content_breadcrumbs}",
+            'tag_class': "ibexa-search-criteria-tags__tag--subtree",
         }) }}
     {% endif %}
 
@@ -47,8 +45,8 @@
         {% set end_date = last_modified.end_date|ibexa_short_datetime %}
 
         {{ include('@ibexadesign/ui/search_tag.html.twig', {
-            'content': "#{'search.last.modified'|trans|desc('Last modified')}: #{start_date} - #{end_date}",
-            'btn_class': "ibexa-tag__remove-btn--last-modified",
+            'content': "#{'search.last.modified'|trans({}, 'ibexa_search')|desc('Last modified')}: #{start_date} - #{end_date}",
+            'tag_class': "ibexa-search-criteria-tags__tag--last-modified",
         }) }}
     {% endif %}
 
@@ -61,16 +59,16 @@
         {% set end_date = form.vars.value.created.end_date|ibexa_short_datetime %}
 
         {{ include('@ibexadesign/ui/search_tag.html.twig', {
-            'content': "#{'search.created'|trans|desc('Created')}: #{start_date} - #{end_date}",
-            'btn_class': "ibexa-tag__remove-btn--last-created",
+            'content': "#{'search.created'|trans({}, 'ibexa_search')|desc('Created')}: #{start_date} - #{end_date}",
+            'tag_class': "ibexa-search-criteria-tags__tag--last-created",
         }) }}
     {% endif %}
 
     {% if form.creator.vars.data is not empty %}
         {{ include('@ibexadesign/ui/search_tag.html.twig', {
             'content': form.creator.vars.data.name,
-            'title': "#{'search.creator'|trans|desc('Creator')}: #{form.creator.vars.data.name}",
-            'btn_class': "ibexa-tag__remove-btn--creator",
+            'title': "#{'search.creator'|trans({}, 'ibexa_search')|desc('Creator')}: #{form.creator.vars.data.name}",
+            'tag_class': "ibexa-search-criteria-tags__tag--creator",
         }) }}
     {% endif %}
 </div>

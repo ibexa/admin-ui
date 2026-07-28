@@ -1,8 +1,11 @@
 import React, { useContext, useState, useEffect, useRef, useMemo } from 'react';
+import { InputTextInput } from '@ids-components/components/InputText';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
 import Dropdown from '../../../common/dropdown/dropdown';
+import { Label } from '@ids-components/components/Label';
+import { Button, ButtonType } from '@ids-components/components/Button';
 
 import {
     DropdownPortalRefContext,
@@ -61,8 +64,8 @@ const ContentCreateWidget = () => {
     const close = () => {
         setCreateContentVisible(false);
     };
-    const updateFilterQuery = (event) => {
-        const query = event.target.value.toLowerCase();
+    const updateFilterQuery = (value) => {
+        const query = value.toLowerCase();
 
         setFilterQuery(query);
     };
@@ -187,7 +190,7 @@ const ContentCreateWidget = () => {
                     <div className="ibexa-extra-actions__header-subtitle">{createUnderLabel}</div>
                 </div>
                 <div className="ibexa-extra-actions__content">
-                    <label className="ibexa-label ibexa-extra-actions__section-header">{selectLanguageLabel}</label>
+                    <Label className="ibexa-extra-actions__section-header">{selectLanguageLabel}</Label>
                     <div className="ibexa-extra-actions__section-content">
                         <Dropdown
                             dropdownListRef={dropdownListRef}
@@ -201,13 +204,15 @@ const ContentCreateWidget = () => {
                     <div className="ibexa-extra-actions__section-content ibexa-extra-actions__section-content--content-type">
                         <div className="ibexa-instant-filter">
                             <div className={instantFilterInputWrapperClassName}>
-                                <input
-                                    value={filterQuery}
-                                    autoFocus={true}
-                                    className="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
-                                    type="text"
-                                    placeholder={placeholder}
+                                <InputTextInput
+                                    extraAria={{
+                                        autoFocus: true,
+                                        className: 'ibexa-instant-filter__input',
+                                    }}
+                                    name="content-type-filter"
                                     onChange={updateFilterQuery}
+                                    placeholder={placeholder}
+                                    value={filterQuery}
                                 />
                             </div>
                         </div>
@@ -243,7 +248,7 @@ const ContentCreateWidget = () => {
                                                 <div key={identifier} className={className} onClick={updateSelectedContentType}>
                                                     <Icon customPath={thumbnail} extraClasses="ibexa-icon--small-medium" />
                                                     <div className="form-check">
-                                                        <div className="ibexa-label ibexa-label--checkbox-radio form-check-label">
+                                                        <div className="ids-choice-input-label ids-choice-input-field__label form-check-label">
                                                             {name}
                                                         </div>
                                                     </div>
@@ -257,17 +262,17 @@ const ContentCreateWidget = () => {
                     </div>
                 </div>
                 <div className="c-content-create__confirm-wrapper">
-                    <button
-                        className="c-content-create__confirm-button btn ibexa-btn ibexa-btn--primary"
+                    <Button
+                        type={ButtonType.Primary}
                         onClick={createContent}
                         disabled={isConfirmDisabled}
-                        type="button"
+                        className="c-content-create__confirm-button"
                     >
                         {createLabel}
-                    </button>
-                    <button className="btn ibexa-btn ibexa-btn--secondary" onClick={close} type="button">
+                    </Button>
+                    <Button type={ButtonType.Secondary} onClick={close}>
                         {cancelLabel}
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>

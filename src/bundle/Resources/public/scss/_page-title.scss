@@ -28,7 +28,8 @@
         white-space: nowrap;
     }
 
-    .ibexa-badge {
+    .ibexa-badge,
+    .ids-tag {
         margin-left: calculateRem(16px);
         font-family: $ibexa-font-family;
     }
