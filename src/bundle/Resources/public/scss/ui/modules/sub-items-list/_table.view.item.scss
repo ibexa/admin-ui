@@ -119,9 +119,11 @@
         &--disabled {
             cursor: default;
 
-            .ibexa-icon,
-            &:hover .ibexa-icon {
-                fill: $ibexa-color-dark-400;
+            &,
+            &:hover {
+                .ibexa-icon {
+                    fill: $ibexa-color-dark-400;
+                }
             }
         }
     }

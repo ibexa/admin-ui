@@ -448,6 +448,7 @@ export default class TableViewItemComponent extends PureComponent {
                         onClick={canEdit ? this.handleEdit : () => {}}
                         className={editBtnClassName}
                         tabIndex={-1}
+                        role="button"
                     >
                         <div className="c-table-view-item__btn-inner">
                             <Icon name="edit" extraClasses="ibexa-icon--small-medium" />
