@@ -55,7 +55,7 @@ Feature: Content item translation
       | Short description | This field is empty | ibexa_richtext      |
       | Description       | This field is empty | ibexa_richtext      |
 
-  @APIUser:admin @IbexaHeadless @IbexaExperience @IbexaCommerce
+  @APIUser:admin @IbexaHeadless @IbexaExperience @IbexaCommerce @IbexaDXP
   Scenario: Publish new translation based on existing translation
     Given I create "folder" Content items in root in "eng-GB"
       | name             | short_name       | short_description | description      |
