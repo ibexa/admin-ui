@@ -9,7 +9,7 @@
 {%- endblock -%}
 
 {% block ibexa_binaryfile_preview %}
-    {% set readonly = attr.readonly|default(false) %}
+    {% set readonly = attr.readonly|default(false) ? true : false %}
     {% set inLanguageQueryParameter = 'inLanguage=' ~ form.parent.vars.languageCode %}
     {% set uri = form.parent.vars.value.value.uri %}
     {% set url = uri ~ ('?' in uri ? '&' : '?') ~ inLanguageQueryParameter %}

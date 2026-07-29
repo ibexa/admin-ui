@@ -48,7 +48,7 @@
         <twig:ibexa:button
             type="secondary"
             class="ibexa-data-source__btn-add"
-            :disabled="attr.readonly|default(false)"
+            :disabled="attr.readonly|default(false) ? true : false"
         >
             <span class="ibexa-data-source__btn-label">{{ 'fieldtype.binary_base.upload_file'|trans({}, 'ibexa_content_forms_content')|desc('Upload file') }}</span>
         </twig:ibexa:button>
