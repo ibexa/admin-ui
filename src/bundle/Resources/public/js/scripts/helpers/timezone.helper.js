@@ -24,4 +24,10 @@ const getBrowserTimezone = () => {
     return Intl.DateTimeFormat().resolvedOptions().timeZone;
 };
 
-export { convertDateToTimezone, formatFullDateTime, formatShortDateTime, getBrowserTimezone };
+const is24hrFormat = (format = getAdminUiConfig().dateFormat.shortTime) => {
+    const formatWithoutLiterals = format.replace(/\[[^\]]*]|'[^']*'/g, '');
+
+    return !formatWithoutLiterals.includes('a') && !formatWithoutLiterals.includes('A');
+};
+
+export { convertDateToTimezone, formatFullDateTime, formatShortDateTime, getBrowserTimezone, is24hrFormat };
