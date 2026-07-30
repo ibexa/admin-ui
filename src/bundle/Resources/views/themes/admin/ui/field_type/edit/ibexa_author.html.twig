@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block ezplatform_fieldtype_ibexa_author_widget %}
-    {% set readonly = attr.readonly|default(false) %}
+    {% set readonly = attr.readonly|default(false) ? true : false %}
 
     <div class="ibexa-data-source__main-actions">
         <twig:ibexa:button
@@ -45,7 +45,7 @@
 {% endblock %}
 
 {% block ezplatform_fieldtype_ibexa_author_authors_entry_row -%}
-    {% set readonly = attr.readonly|default(false) %}
+    {% set readonly = attr.readonly|default(false) ? true : false %}
 
     <div class="ibexa-data-source__author form-row">
         {{- form_widget(form.id) -}}

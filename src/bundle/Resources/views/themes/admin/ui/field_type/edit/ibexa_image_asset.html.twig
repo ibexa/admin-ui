@@ -83,7 +83,7 @@
         type="secondary"
         class="ibexa-data-source__btn-select"
         data-udw-config="{{ ibexa_udw_config('image_asset', {}) }}"
-        :disabled="attr.readonly|default(false)"
+        :disabled="attr.readonly|default(false) ? true : false"
     >
         {{ 'fieldtype.ibexa_image_asset.select.label'|trans({}, 'ibexa_content_forms_content')|desc('Select from library') }}
     </twig:ibexa:button>
@@ -92,7 +92,7 @@
 {% block ibexa_image_asset_preview %}
     {% form_theme form '@ibexadesign/ui/field_type/edit/binary_base_fields.html.twig' %}
 
-    {% set readonly = attr.readonly|default(false) %}
+    {% set readonly = attr.readonly|default(false) ? true : false %}
     {% set destination_content_url = destination_content_url ?? '//:0' %}
     {% set destination_content_name = destination_content_name ?? '' %}
     {% set image_uri = image_uri ?? '' %}
