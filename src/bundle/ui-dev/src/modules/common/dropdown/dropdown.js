@@ -11,7 +11,7 @@ const MIN_SEARCH_ITEMS_DEFAULT = 5;
 const MIN_ITEMS_LIST_HEIGHT = 150;
 const ITEMS_LIST_WIDGET_MARGIN = 8;
 const ITEMS_LIST_SITE_MARGIN = ITEMS_LIST_WIDGET_MARGIN + 4;
-const RESTRICTED_AREA_ITEMS_CONTAINER = 190;
+const RESTRICTED_AREA_ITEMS_CONTAINER = 90;
 
 const Dropdown = ({
     dropdownListRef,
@@ -46,6 +46,7 @@ const Dropdown = ({
         'ibexa-dropdown--small': small,
         'ibexa-dropdown--disabled': disabled,
         'ibexa-dropdown--expanded': isExpanded,
+        'ibexa-dropdown--overflow': overflowItemsCount > 0,
         [extraClasses]: true,
     });
     const getScrollContainer = () => {
