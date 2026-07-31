@@ -1,7 +1,7 @@
 {% trans_default_domain 'ibexa_content_forms_content' %}
 
 {%- block ezplatform_fieldtype_ibexa_gmap_location_widget -%}
-    {% set readonly = attr.readonly|default(false) %}
+    {% set readonly = attr.readonly|default(false) ? true : false %}
 
     <div class="ibexa-data-source__map {{ readonly ? 'ibexa-data-source__map--disabled' }}"></div>
     <div class="ibexa-data-source__options">

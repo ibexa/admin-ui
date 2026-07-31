@@ -17,7 +17,7 @@
 {% block ibexa_image_preview %}
     {% form_theme form '@ibexadesign/ui/field_type/edit/binary_base_fields.html.twig' %}
 
-    {% set readonly = attr.readonly|default(false) %}
+    {% set readonly = attr.readonly|default(false) ? true : false %}
 
     <div class="ibexa-field-edit-preview">
         <div class="ibexa-field-edit-preview__visual">

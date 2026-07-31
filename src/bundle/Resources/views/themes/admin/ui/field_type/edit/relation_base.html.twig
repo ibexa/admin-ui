@@ -6,7 +6,7 @@
     {% set has_relations = relations|length > 0 %}
     {% set allowed_content_types = form.parent.vars.value.fieldDefinition.fieldSettings.selectionContentTypes %}
     {% set helper = helper|default('') %}
-    {% set readonly = attr.readonly|default(false) %}
+    {% set readonly = attr.readonly|default(false) ? true : false %}
     {% set remove_item_btn %}
         <twig:ibexa:button
             type="tertiary-alt"
