@@ -1,4 +1,7 @@
-import { DropdownMultiInput, DropdownSingleInput } from '../../../../../../../design-system-twig/src/bundle/Resources/public/ts/components/dropdown';
+import {
+    DropdownMultiInput,
+    DropdownSingleInput,
+} from '../../../../../../../design-system-twig/src/bundle/Resources/public/ts/components/dropdown';
 
 (function (global, doc, ibexa, Routing, Translator, bootstrap) {
     const SELECTOR_INPUTS_TO_VALIDATE = '.ibexa-input[required]:not([disabled]):not([hidden])';

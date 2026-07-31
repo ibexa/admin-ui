@@ -40,7 +40,9 @@
             return (
                 textInputNodes.every((textInputNode) => textInputNode.disabled || textInputNode.value === '') &&
                 dropdownNodes.every((dropdownNode) => {
-                    const isDisabled = dropdownNode.classList.contains('ibexa-dropdown--disabled') || dropdownNode.classList.contains('ids-dropdown--disabled');
+                    const isDisabled =
+                        dropdownNode.classList.contains('ibexa-dropdown--disabled') ||
+                        dropdownNode.classList.contains('ids-dropdown--disabled');
                     const selectNode = dropdownNode.querySelector('.ibexa-input--select, .ids-dropdown__source select');
                     const dropdown = dropdownNode.ibexaInstance;
 
@@ -78,7 +80,9 @@
                 }
             });
             dropdownNodes.forEach((dropdownNode) => {
-                const isDisabled = dropdownNode.classList.contains('ibexa-dropdown--disabled') || dropdownNode.classList.contains('ids-dropdown--disabled');
+                const isDisabled =
+                    dropdownNode.classList.contains('ibexa-dropdown--disabled') ||
+                    dropdownNode.classList.contains('ids-dropdown--disabled');
 
                 if (!isDisabled) {
                     const dropdown = dropdownNode.ibexaInstance;

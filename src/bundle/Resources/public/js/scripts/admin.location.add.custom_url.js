@@ -26,7 +26,9 @@
         };
         const toggleSiteAccessSelect = (event) => {
             const isChecked = event.target.checked;
-            const siteAccessSelect = modal.querySelector('.ibexa-custom-url-from__item--siteacces .ibexa-dropdown, .ibexa-custom-url-from__item--siteacces .ids-dropdown');
+            const siteAccessSelect = modal.querySelector(
+                '.ibexa-custom-url-from__item--siteacces .ibexa-dropdown, .ibexa-custom-url-from__item--siteacces .ids-dropdown',
+            );
             const sourceSelect = siteAccessSelect?.querySelector('.ibexa-input--select, .ids-dropdown__source select');
 
             if (siteAccessSelect?.classList.contains('ibexa-dropdown')) {
