@@ -3,7 +3,7 @@
     const { dangerouslySetInnerHTML, dangerouslyInsertAdjacentHTML } = ibexa.helpers.dom;
 
     const EVENT_VALUE_CHANGED = 'change';
-    const RESTRICTED_AREA_ITEMS_CONTAINER = 190;
+    const RESTRICTED_AREA_ITEMS_CONTAINER = 90;
     const MINIMUM_LETTERS_TO_FILTER = 3;
 
     class DropdownPopover extends bootstrap.Popover {
