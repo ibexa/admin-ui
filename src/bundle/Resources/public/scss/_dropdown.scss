@@ -115,8 +115,8 @@
             padding-left: calculateRem(8px);
             padding-top: 0;
             padding-bottom: 0;
-            margin-right: calculateRem(8px);
-            max-width: calculateRem(380px);
+            margin-right: calculateRem(6px);
+            max-width: 100%;
             transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         }
 
@@ -479,7 +479,8 @@
     &--overflow {
         .ibexa-dropdown {
             &__selected-item {
-                max-width: calc(100% - #{calculateRem(40px)});
+                max-width: calc(100% - #{calculateRem(50px)});
+                transition: none;
             }
         }
     }
