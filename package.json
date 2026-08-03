@@ -17,6 +17,6 @@
         "ts-test": "tsc --noEmit",
         "eslint-test": "eslint \"./src/bundle/Resources/**/*.{js,ts}\" \"./src/bundle/ui-dev/**/*.{js,tsx}\"",
         "prettier-test": "yarn prettier \"./src/bundle/Resources/**/*.{js,ts,scss}\" \"./src/bundle/ui-dev/**/*.{js,tsx}\" --check",
-        "postinstall": "yarn ibexa-generate-tsconfig --use-root-project-tsconfig"
+        "postinstall": "yarn ibexa-generate-tsconfig"
     }
 }
