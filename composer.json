@@ -3,6 +3,15 @@
     "license": "(GPL-2.0-only or proprietary)",
     "type": "project",
     "description": "Ibexa Admin Ui",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../translations",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
     "replace": {
         "ezsystems/ezplatform-admin-ui": "*"
     },
@@ -34,7 +43,6 @@
         "ibexa/user": "~6.0.x-dev",
         "jms/translation-bundle": "^2.4",
         "knplabs/knp-menu-bundle": "^3.0",
-        "mck89/peast": "^1.9",
         "symfony/asset": "^7.4",
         "symfony/config": "^7.4",
         "symfony/console": "^7.4",
@@ -71,6 +79,7 @@
         "ibexa/rector": "~6.0.x-dev",
         "ibexa/test-core": "~6.0.x-dev",
         "ibexa/test-rest": "~6.0.x-dev",
+        "ibexa/translations": "~6.0.x-dev",
         "matthiasnoback/symfony-dependency-injection-test": "^5.0",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
