@@ -3,6 +3,7 @@ declare global {
         core: IbexaCore;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type IbexaCoreWidget = new (...args: any[]) => any;
 
     interface IbexaCore {

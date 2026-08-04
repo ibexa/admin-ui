@@ -66,10 +66,7 @@ declare global {
         };
     }
 
-    type IbexaAutocompleteContentRenderer = (
-        result: IbexaAutocompleteResult,
-        searchText: string,
-    ) => string;
+    type IbexaAutocompleteContentRenderer = (result: IbexaAutocompleteResult, searchText: string) => string;
 
     interface IbexaAutocompleteResult {
         locationId: number;
@@ -77,7 +74,7 @@ declare global {
         name: string;
         contentTypeIdentifier: string;
         pathString: string;
-        parentLocations: Array<{ locationId: number; name: string }>;
+        parentLocations: { locationId: number; name: string }[];
     }
 }
 

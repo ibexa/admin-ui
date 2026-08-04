@@ -62,6 +62,7 @@
     "require-dev": {
         "ext-zip": "*",
         "dama/doctrine-test-bundle": "^8.2",
+        "ibexa/admin-ui-assets": "dev-6.0-next",
         "ibexa/behat": "~6.0.x-dev",
         "ibexa/code-style": "~2.0.0",
         "ibexa/doctrine-schema": "~6.0.x-dev",

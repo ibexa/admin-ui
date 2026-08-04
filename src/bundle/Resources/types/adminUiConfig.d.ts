@@ -115,7 +115,7 @@ declare global {
 
     interface IbexaImageVariation {
         reference: string | null;
-        filters: Array<{ name: string; params: unknown[] }>;
+        filters: { name: string; params: unknown[] }[];
         [key: string]: unknown;
     }
 

@@ -31,9 +31,7 @@ declare global {
         [key: string]: unknown;
     }
 
-    interface IbexaBaseFieldValidatorConstructor {
-        new (config: IbexaFieldValidatorConfig): IbexaBaseFieldValidator;
-    }
+    type IbexaBaseFieldValidatorConstructor = new (config: IbexaFieldValidatorConfig) => IbexaBaseFieldValidator;
 
     interface IbexaBaseFileFieldValidator extends IbexaBaseFieldValidator {
         validateInput(event: Event): IbexaValidationResult;
@@ -42,19 +40,15 @@ declare global {
         showFileTypeError(): IbexaValidationResult;
     }
 
-    interface IbexaBaseFileFieldValidatorConstructor {
-        new (config: IbexaFieldValidatorConfig): IbexaBaseFileFieldValidator;
-    }
+    type IbexaBaseFileFieldValidatorConstructor = new (config: IbexaFieldValidatorConfig) => IbexaBaseFileFieldValidator;
 
     interface IbexaMultiInputFieldValidator extends IbexaBaseFieldValidator {
         containerSelectors: string[];
     }
 
-    interface IbexaMultiInputFieldValidatorConstructor {
-        new (
-            config: IbexaFieldValidatorConfig & { containerSelectors: string[] },
-        ): IbexaMultiInputFieldValidator;
-    }
+    type IbexaMultiInputFieldValidatorConstructor = new (
+        config: IbexaFieldValidatorConfig & { containerSelectors: string[] },
+    ) => IbexaMultiInputFieldValidator;
 
     interface IbexaBasePreviewFieldConfig {
         fieldContainer: HTMLElement;
@@ -72,9 +66,7 @@ declare global {
         [key: string]: unknown;
     }
 
-    interface IbexaBasePreviewFieldConstructor {
-        new (config: IbexaBasePreviewFieldConfig): IbexaBasePreviewField;
-    }
+    type IbexaBasePreviewFieldConstructor = new (config: IbexaBasePreviewFieldConfig) => IbexaBasePreviewField;
 }
 
 export {};
