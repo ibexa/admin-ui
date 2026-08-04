@@ -84,7 +84,7 @@ jobs:
             satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
             satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
 
-      - uses: ibexa/gh-workflows/actions/frontend-install@IBX-12091-install-typescript-estree
+      - uses: ibexa/gh-workflows/actions/frontend-install@main
 
       - name: Setup problem matchers for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
@@ -133,7 +133,7 @@ jobs:
               satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
               satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
 
-      -   uses: ibexa/gh-workflows/actions/frontend-install@IBX-12091-install-typescript-estree
+      -   uses: ibexa/gh-workflows/actions/frontend-install@main
 
       -   name: Setup problem matchers for PHPUnit
           run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
@@ -186,7 +186,7 @@ jobs:
               satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
               satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
 
-      -   uses: ibexa/gh-workflows/actions/frontend-install@IBX-12091-install-typescript-estree
+      -   uses: ibexa/gh-workflows/actions/frontend-install@main
 
       -   name: Setup problem matchers for PHPUnit
           run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
