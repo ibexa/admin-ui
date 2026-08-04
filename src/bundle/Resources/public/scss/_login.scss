@@ -53,6 +53,11 @@
         &:hover {
             color: $ibexa-color-primary;
         }
+
+        &--cohesivo {
+            background: $ibexa-color-white;
+            color: $ibexa-color-black;
+        }
     }
 
     &__sidebar-link-icon {
@@ -187,9 +192,11 @@
     }
 
     &__reset-password-alert {
-        a {
-            color: inherit;
-        }
+        margin-top: calculateRem(24px);
+    }
+
+    &__reset-password-alert-link {
+        color: inherit;
     }
 
     &__success-toast {
