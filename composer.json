@@ -3,15 +3,6 @@
     "license": "(GPL-2.0-only or proprietary)",
     "type": "project",
     "description": "Ibexa Admin Ui",
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../translations",
-            "options": {
-                "symlink": true
-            }
-        }
-    ],
     "replace": {
         "ezsystems/ezplatform-admin-ui": "*"
     },
