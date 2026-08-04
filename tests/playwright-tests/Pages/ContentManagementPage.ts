@@ -1,9 +1,9 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { AdminUiPage, UniversalDiscoveryWidget, ContextMenu } from '@ibexa/cohesivo-playwright';
+import { AdminUiPage, UniversalDiscoveryWidget, ContentActionsMenu } from '@ibexa/cohesivo-playwright';
 
 export class ContentManagementPage extends AdminUiPage {
     readonly udw: UniversalDiscoveryWidget;
-    readonly contextMenu: ContextMenu;
+    readonly contentActionsMenu: ContentActionsMenu;
 
     private readonly trashModal: Locator;
     private readonly trashModalSubmit: Locator;
@@ -12,7 +12,7 @@ export class ContentManagementPage extends AdminUiPage {
     constructor(page: Page) {
         super(page);
         this.udw = new UniversalDiscoveryWidget(page);
-        this.contextMenu = new ContextMenu(page);
+        this.contentActionsMenu = new ContentActionsMenu(page);
         this.trashModal = page.locator('#trash-location-modal, .ibexa-modal--trash-location').first();
         this.trashModalSubmit = this.trashModal.locator('.ibexa-btn--confirm-send-to-trash');
         this.subItems = page.locator('.m-sub-items');
@@ -24,11 +24,11 @@ export class ContentManagementPage extends AdminUiPage {
 
     async open(contentId: number, locationId: number): Promise<void> {
         await this.page.goto(`/admin/view/content/${contentId}/full/1/${locationId}`);
-        await this.contextMenu.expectVisible();
+        await this.contentActionsMenu.expectVisible();
     }
 
     async sendToTrash(): Promise<void> {
-        await this.contextMenu.clickAction('Send to trash');
+        await this.contentActionsMenu.clickButton('Send to trash');
         await expect(this.trashModal).toBeVisible({ timeout: 10_000 });
 
         // For items with children/relations the modal requires ticking confirmation
@@ -47,7 +47,7 @@ export class ContentManagementPage extends AdminUiPage {
     }
 
     async hide(): Promise<void> {
-        await this.contextMenu.clickAction('Hide');
+        await this.contentActionsMenu.clickButton('Hide');
         // "Hide" opens the "Schedule hiding" panel; confirm with the default "Hide now" option
         await expect(
             this.page.getByRole('heading', { name: 'Schedule hiding' }).filter({ visible: true }).first(),
