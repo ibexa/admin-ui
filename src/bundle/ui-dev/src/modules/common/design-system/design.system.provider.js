@@ -14,16 +14,10 @@ const DesignSystemProvider = ({ children }) => {
         }),
         [],
     );
-    const translatorContextValue = useMemo(
-        () => ({
-            trans: (key, parameters, domain) => Translator.trans(key, parameters ?? {}, domain),
-        }),
-        [Translator],
-    );
 
     return (
         <AssetsProvider value={assetsContextValue}>
-            <TranslatorProvider value={translatorContextValue}>{children}</TranslatorProvider>
+            <TranslatorProvider value={Translator}>{children}</TranslatorProvider>
         </AssetsProvider>
     );
 };
