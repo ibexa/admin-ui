@@ -1,9 +1,9 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { AdminUiPage, UniversalDiscoveryWidget, ContextMenu } from '@ibexa/cohesivo-playwright';
+import { AdminUiPage, UniversalDiscoveryWidget, ContentActionsMenu } from '@ibexa/cohesivo-playwright';
 
 export class TrashPage extends AdminUiPage {
     readonly udw: UniversalDiscoveryWidget;
-    readonly contextMenu: ContextMenu;
+    readonly contentActionsMenu: ContentActionsMenu;
 
     private readonly firstRow: Locator;
     private readonly emptyState: Locator;
@@ -15,7 +15,7 @@ export class TrashPage extends AdminUiPage {
     constructor(page: Page) {
         super(page);
         this.udw = new UniversalDiscoveryWidget(page);
-        this.contextMenu = new ContextMenu(page);
+        this.contentActionsMenu = new ContentActionsMenu(page);
 
         this.firstRow = page.locator('.ibexa-table__row').first();
         this.emptyState = page.locator('.ibexa-table__empty-table-text')
@@ -42,7 +42,7 @@ export class TrashPage extends AdminUiPage {
     }
 
     async emptyTrash(): Promise<void> {
-        await this.contextMenu.clickAction(/Empty( Trash)?/);
+        await this.contentActionsMenu.clickButton(/Empty( Trash)?/);
         await this.confirmDialogButton('Delete');
         await this.assertEmpty();
     }
