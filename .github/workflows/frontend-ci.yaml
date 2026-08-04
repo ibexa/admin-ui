@@ -33,6 +33,12 @@ jobs:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
               with:
-                  node-version: '20'
+                  node-version: '24'
+            - uses: ibexa/gh-workflows/actions/composer-install@main
+              with:
+                  gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
+                  gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
+                  satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
+                  satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
             - run: yarn install
             - run: yarn test
