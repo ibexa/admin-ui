@@ -9,6 +9,8 @@
 
     $self: &;
 
+    --ids-mode: light;
+
     background-color: $ibexa-color-white;
     padding: calculateRem(16px) 0;
     width: calculateRem(700px);
