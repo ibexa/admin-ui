@@ -16,10 +16,6 @@
         }
 
         show() {
-            if (this.dropdown.container.classList.contains('ibexa-dropdown--disabled')) {
-                return;
-            }
-
             super.show();
 
             const { offsetWidth, style } = this.dropdown.itemsContainer;
@@ -74,10 +70,14 @@
 
                 this.container.classList.toggle('is-invalid', isInvalid);
             });
+            this.enabledObserver = new MutationObserver(() => {
+                this.syncPopoverEnabledState();
+            });
             this.resizeObserver = new ResizeObserver(() => {
                 this.fitItems();
             });
             this.currentSelectedValue = this.sourceInput.value;
+            this.isPopoverDisabled = null;
 
             this.createSelectedItem = this.createSelectedItem.bind(this);
             this.hideOptions = this.hideOptions.bind(this);
@@ -98,6 +98,7 @@
             this.onSourceFocus = this.onSourceFocus.bind(this);
             this.onSourceBlur = this.onSourceBlur.bind(this);
             this.initializeDropdownUI = this.initializeDropdownUI.bind(this);
+            this.syncPopoverEnabledState = this.syncPopoverEnabledState.bind(this);
 
             ibexa.helpers.objectInstances.setInstance(this.container, this);
         }
@@ -174,6 +175,27 @@
             doc.body.removeEventListener('click', this.onClickOutside);
 
             this.itemsPopover.hide();
+        }
+
+        syncPopoverEnabledState() {
+            if (!this.itemsPopover) {
+                return;
+            }
+
+            const isDisabled = this.container.classList.contains('ibexa-dropdown--disabled');
+
+            if (isDisabled === this.isPopoverDisabled) {
+                return;
+            }
+
+            this.isPopoverDisabled = isDisabled;
+
+            if (isDisabled) {
+                this.hideOptions();
+                this.itemsPopover.disable();
+            } else {
+                this.itemsPopover.enable();
+            }
         }
 
         selectFirstOption() {
@@ -640,6 +662,8 @@
                 this.itemsFilterInput.addEventListener('keyup', this.filterItems, false);
                 this.itemsFilterInput.addEventListener('input', this.filterItems, false);
             }
+
+            this.syncPopoverEnabledState();
         }
 
         init() {
@@ -657,6 +681,10 @@
                 childList: true,
             });
             this.sourceInvalidObserver.observe(this.sourceInput, {
+                attributes: true,
+                attributeFilter: ['class'],
+            });
+            this.enabledObserver.observe(this.container, {
                 attributes: true,
                 attributeFilter: ['class'],
             });
