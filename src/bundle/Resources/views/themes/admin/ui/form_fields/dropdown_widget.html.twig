@@ -9,12 +9,16 @@
             {{- block('choice_widget_collapsed') -}}
         {% endset %}
 
-        {% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
+        {% include '@ibexadesign/ui/component/dropdown/dropdown_ds.html.twig' with {
             source: source,
+            source_id: form.vars.id,
+            source_name: full_name,
+            source_attr: attr,
             choices: choices,
             preferred_choices: preferred_choices,
             value: form.vars.value,
             multiple: form.vars.multiple,
+            required: required,
             custom_init: attr.dropdown_custom_init|default(false),
             class: attr.dropdown_class|default(''),
             translation_domain: choice_translation_domain|default(false),

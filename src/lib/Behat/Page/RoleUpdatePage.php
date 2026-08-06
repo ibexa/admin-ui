@@ -82,12 +82,12 @@ final class RoleUpdatePage extends AdminUpdateItemPage
             parent::specifyLocators(),
             [
                 new VisibleCSSLocator('limitationField', '.ibexa-update-policy__action-wrapper'),
-                new VisibleCSSLocator('limitationDropdown', '.ibexa-dropdown__selection-info'),
-                new VisibleCSSLocator('limitationDropdownOption', '.ibexa-dropdown-popover .ibexa-dropdown__items .ibexa-dropdown__item'),
-                new VisibleCSSLocator('limitationDropdownOptionRemove', '.ibexa-dropdown__remove-selection'),
+                new VisibleCSSLocator('limitationDropdown', '.ibexa-dropdown__selection-info, .ids-dropdown__selection-info'),
+                new VisibleCSSLocator('limitationDropdownOption', '.ibexa-dropdown-popover .ibexa-dropdown__items .ibexa-dropdown__item, .ids-dropdown__items-container .ids-dropdown__items .ids-dropdown__item'),
+                new VisibleCSSLocator('limitationDropdownOptionRemove', '.ibexa-dropdown__remove-selection, .ids-chip__delete'),
                 new VisibleCSSLocator('labelSelector', '.ids-label'),
                 new VisibleCSSLocator('policyAssignmentSelect', '#role_assignment_create_limitation_type_section'),
-                new VisibleCSSLocator('ibexaDropdownSelectionInfo', 'div.ibexa-dropdown__wrapper > ul.ibexa-dropdown__selection-info'),
+                new VisibleCSSLocator('ibexaDropdownSelectionInfo', 'div.ibexa-dropdown__wrapper > ul.ibexa-dropdown__selection-info, div.ids-dropdown__widget > .ids-dropdown__selection-info'),
                 new VisibleCSSLocator('newPolicySelectList', '#policy_create_policy'),
             ]
         );

@@ -74,7 +74,8 @@ Feature: Content types management
 
   @javascript
   Scenario: New content type can be added to content type group
-    Given I am logged as admin
+    Given I open Login page in admin SiteAccess
+    And I log in as "admin" with password "publish"
     And I'm on content type Page for "Content" group
     When I create a new content type
     And I set fields

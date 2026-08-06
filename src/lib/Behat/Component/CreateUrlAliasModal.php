@@ -75,7 +75,7 @@ final class CreateUrlAliasModal extends Component
             new VisibleCSSLocator('title', '#ibexa-modal--custom-url-alias .modal-title'),
             new VisibleCSSLocator('createButton', '#custom_url_add_add'),
             new VisibleCSSLocator('pathInput', '#custom_url_add_path'),
-            new VisibleCSSLocator('languageDropdown', '.ibexa-custom-url-from__item .ibexa-dropdown__selection-info'),
+            new VisibleCSSLocator('languageDropdown', '.ibexa-custom-url-from__item .ibexa-dropdown__selection-info, .ibexa-custom-url-from__item .ids-dropdown__selection-info'),
             new VisibleCSSLocator('redirectToggle', '.ibexa-custom-url-from__item .ids-toggle'),
         ];
     }

@@ -55,9 +55,9 @@ final class UserSettingsPage extends Page
         return [
             new VisibleCSSLocator('button', '.ids-btn'),
             new VisibleCSSLocator('title', '.ibexa-edit-header__title,.ibexa-page-title__content'),
-            new VisibleCSSLocator('autosaveDraftValueDropdown', '#user_setting_update_autosave div.ibexa-dropdown__wrapper > ul'),
+            new VisibleCSSLocator('autosaveDraftValueDropdown', '#user_setting_update_autosave div.ibexa-dropdown__wrapper > ul, #user_setting_update_autosave div.ids-dropdown__widget > .ids-dropdown__selection-info'),
             new VisibleCSSLocator('autosaveIntervalEdit', '#user_setting_update_autosave_interval_value'),
-            new VisibleCSSLocator('helpCenterValueDropdown', '#user_setting_update_help_center div.ibexa-dropdown__wrapper > ul'),
+            new VisibleCSSLocator('helpCenterValueDropdown', '#user_setting_update_help_center div.ibexa-dropdown__wrapper > ul, #user_setting_update_help_center div.ids-dropdown__widget > .ids-dropdown__selection-info'),
         ];
     }
 
