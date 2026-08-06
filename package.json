@@ -15,8 +15,8 @@
         "test": "yarn prettier-test && yarn ts-test && yarn eslint-test",
         "fix": "yarn prettier-test --write && yarn ts-test && yarn eslint-test --fix",
         "ts-test": "tsc --noEmit",
-        "eslint-test": "eslint \"./src/bundle/Resources/**/*.{js,ts}\" \"./src/bundle/ui-dev/**/*.{js,tsx}\"",
-        "prettier-test": "yarn prettier \"./src/bundle/Resources/**/*.{js,ts,scss}\" \"./src/bundle/ui-dev/**/*.{js,tsx}\" --check",
+        "eslint-test": "eslint .",
+        "prettier-test": "yarn prettier \"./src/bundle/**/*.{js,ts,tsx,scss}\" --check",
         "postinstall": "yarn ibexa-generate-tsconfig"
     }
 }
