@@ -1,0 +1,42 @@
+{% trans_default_domain 'ibexa_menu' %}
+
+{% import '@ibexadesign/ui/component/macros.html.twig' as html %}
+
+{% set modifier = modifier|default('') %}
+{% set active_app_name = active_app_name|default(null) %}
+{% set active_app_href = active_app_href|default(null) %}
+{% set apps = apps|default([
+    { name: 'Ibexa', href: 'https://www.ibexa.co/', icon_path: asset('bundles/ibexaadminui/img/brands/ibexa-icon.svg') },
+    { name: 'Cohesivo', href: 'https://www.ibexa.co/orchestration/cohesivo', icon_path: asset('bundles/ibexaadminui/img/brands/cohesivo-icon.svg') },
+    { name: 'Actito', href: 'https://www.actito.com/', icon_path: asset('bundles/ibexaadminui/img/brands/actito-icon.svg') },
+    { name: 'Qualifio', href: 'https://qualifio.com/', icon_path: asset('bundles/ibexaadminui/img/brands/qualifio-icon.svg') },
+    { name: 'Quable', href: 'https://www.quable.com/', icon_path: asset('bundles/ibexaadminui/img/brands/quable-icon.svg') },
+    { name: 'Raptor', href: 'https://www.raptorservices.com/', icon_path: asset('bundles/ibexaadminui/img/brands/raptor-icon.svg') },
+]) %}
+
+<nav
+    class="ibexa-app-switcher {% if modifier %}ibexa-app-switcher--{{ modifier }}{% endif %}"
+    aria-label="{{ 'app_switcher.nav.label'|trans|desc('App switcher') }}"
+    {{ html.attributes(attr|default({})) }}
+>
+    {% block items %}
+        <ul class="ibexa-app-switcher__list">
+            {% for app in apps %}
+                {% set is_active = active_app_name is not null and app.name == active_app_name %}
+                <li class="ibexa-app-switcher__item">
+                    <a
+                        class="ibexa-app-switcher__link {% if is_active %}ibexa-app-switcher__link--active{% endif %}"
+                        href="{{ is_active and active_app_href ? active_app_href : app.href }}"
+                        {% if not is_active %}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        {% endif %}
+                    >
+                        <img class="ibexa-app-switcher__link-icon" src="{{ app.icon_path }}" alt="" />
+                        <span class="ibexa-app-switcher__link-text">{{ app.name }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endblock %}
+</nav>

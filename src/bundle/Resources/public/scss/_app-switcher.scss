@@ -1,0 +1,160 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.ibexa-app-switcher {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__item {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    &__link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+    }
+
+    &__link-text {
+        text-align: center;
+    }
+
+    &--login {
+        flex: 0 0 calculateRem(64px);
+        padding-block: calculateRem(32px);
+        background-color: $ibexa-color-black;
+
+        .ibexa-app-switcher {
+            &__list {
+                gap: calculateRem(8px);
+            }
+
+            &__link {
+                gap: calculateRem(2px);
+                width: calculateRem(64px);
+                height: calculateRem(64px);
+                padding-block: calculateRem(8px);
+                color: $ibexa-color-white;
+
+                &:hover {
+                    color: $ibexa-color-primary;
+                }
+            }
+
+            &__link--active {
+                background-color: $ibexa-color-white;
+                color: $ibexa-color-black;
+
+                &:hover {
+                    color: $ibexa-color-black;
+                }
+            }
+
+            &__link-icon {
+                width: calculateRem(32px);
+                height: calculateRem(32px);
+            }
+
+            &__link-text {
+                font-size: calculateRem(10px);
+                line-height: calculateRem(15px);
+            }
+        }
+    }
+
+    &--panel {
+        width: calculateRem(64px);
+
+        .ibexa-app-switcher {
+            &__list {
+                gap: calculateRem(12px);
+                padding-block: calculateRem(12px);
+                padding-inline: calculateRem(8px);
+            }
+
+            &__link {
+                width: calculateRem(48px);
+                height: calculateRem(48px);
+                padding-block: calculateRem(8px);
+                border-radius: calculateRem(8px);
+                color: $ibexa-color-black;
+
+                &:hover {
+                    background-color: $ibexa-color-light-400;
+                }
+            }
+
+            &__link--active {
+                background-color: $ibexa-color-light-400;
+            }
+
+            &__link-icon {
+                width: calculateRem(20px);
+                height: calculateRem(20px);
+            }
+
+            &__link-text {
+                font-size: calculateRem(9px);
+                line-height: calculateRem(15px);
+                letter-spacing: calculateRem(0.12px);
+            }
+        }
+    }
+}
+
+.ibexa-app-switcher-panel {
+    flex: 0 0 auto;
+    width: calculateRem(64px);
+    overflow: hidden;
+    background-color: $ibexa-color-white;
+    transition: width $ibexa-admin-transition-duration $ibexa-admin-transition;
+
+    &::before {
+        content: '';
+        display: block;
+        width: calculateRem(48px);
+        height: calculateRem(1px);
+        margin-inline: auto;
+        background-color: $ibexa-color-light;
+    }
+
+    &--hidden {
+        width: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}
+
+.ibexa-app-switcher-toggler {
+    width: calculateRem(40px);
+    height: calculateRem(40px);
+
+    &.ids-btn {
+        --ids-default-text-color: #{$ibexa-color-white};
+        --ids-focus-text-color: #{$ibexa-color-white};
+        --ids-hover-text-color: #{$ibexa-color-white};
+        --ids-hover-bg-color: #{$ibexa-color-dark-500};
+    }
+
+    .ids-icon {
+        width: calculateRem(24px);
+        height: calculateRem(24px);
+    }
+}
