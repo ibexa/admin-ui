@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import Thumbnail from '../common/thumbnail/thumbnail';
 import { createCssClassNames } from '../common/helpers/css.class.names';
 import Spinner from '../common/spinner/spinner';
-import { Button, ButtonType } from '@ids-components/components/Button';
+import { Button, ButtonSize, ButtonType } from '@ids-components/components/Button';
 import { findMarkedLocation } from './helpers/locations.helper';
 import { addBookmark, removeBookmark } from './services/universal.discovery.service';
 import ContentEditButton from './components/content-edit-button/content.edit.button';
@@ -91,6 +91,7 @@ const ContentMetaPreview = () => {
             <div className="c-content-meta-preview__action-item">
                 <Button
                     type={ButtonType.TertiaryAlt}
+                    size={ButtonSize.Small}
                     icon="visibility"
                     onClick={previewContent}
                     className="c-content-meta-preview__preview-button"
@@ -110,6 +111,7 @@ const ContentMetaPreview = () => {
                 <div className="c-content-meta-preview__action-item">
                     <Button
                         type={ButtonType.TertiaryAlt}
+                        size={ButtonSize.Small}
                         icon={bookmarkIconName}
                         onClick={toggleBookmarked}
                         className="c-content-meta-preview__toggle-bookmark-button"
