@@ -3,7 +3,7 @@
 {% form_theme form_forgot_user_password '@ibexadesign/ui/form_fields.html.twig' %}
 
 {%- block content -%}
-    <h2 class="ibexa-login__actions-headline">{{ 'authentication.forgot_password'|trans|desc('Forgot password') }}</h2>
+    <div class="ibexa-login__actions-headline">{{ 'authentication.forgot_password'|trans|desc('Forgot password') }}</div>
     {% if reason == userForgotPasswordReasonMigration %}
         <p>{{ 'ezplatform.forgot_password.reset_your_password.reason.migration'|trans|desc('Your password has expired, change it.') }}</p>
     {% endif %}
