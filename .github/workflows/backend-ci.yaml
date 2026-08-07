@@ -174,7 +174,7 @@ jobs:
   notify-slack:
     name: Notify Slack
     needs: [cs-fix, tests, integration-tests-postgres, integration-tests-mysql]
-    if: always() && github.event_name == 'workflow_dispatch'
+    if: always() && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     steps:
       - name: Determine overall result
