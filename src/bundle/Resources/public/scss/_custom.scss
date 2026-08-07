@@ -143,8 +143,6 @@ $ibexa-text-font-size-extra-small: calculateRem(8px);
 $ibexa-font-weight-normal: normal;
 $ibexa-font-weight-bold: 600;
 
-
-
 // Ibexa shadows
 $ibexa-btn-focus-box-shadow: 0 0 0 calculateRem(3px) color.change($ibexa-color-primary, $alpha: 0.2);
 $ibexa-btn-focus-box-shadow-info: 0 0 0 calculateRem(3px) color.change($ibexa-color-info, $alpha: 0.2);
