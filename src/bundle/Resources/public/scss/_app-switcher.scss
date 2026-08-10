@@ -50,19 +50,11 @@
                 height: calculateRem(64px);
                 padding-block: calculateRem(8px);
                 color: $ibexa-color-white;
-
-                &:hover {
-                    color: $ibexa-color-primary;
-                }
             }
 
             &__link--active {
                 background-color: $ibexa-color-white;
                 color: $ibexa-color-black;
-
-                &:hover {
-                    color: $ibexa-color-black;
-                }
             }
 
             &__link-icon {
