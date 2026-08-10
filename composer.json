@@ -10,7 +10,8 @@
         "psr-4": {
             "Ibexa\\AdminUi\\": "src/lib/",
             "Ibexa\\Bundle\\AdminUi\\": "src/bundle/",
-            "Ibexa\\Contracts\\AdminUi\\": "src/contracts/"
+            "Ibexa\\Contracts\\AdminUi\\": "src/contracts/",
+            "Ibexa\\InternalContracts\\AdminUi\\": "src/internal-contracts/"
         }
     },
     "autoload-dev": {
@@ -63,6 +64,7 @@
         "ext-zip": "*",
         "dama/doctrine-test-bundle": "^8.2",
         "ibexa/admin-ui-assets": "dev-6.0-next",
+        "deptrac/deptrac": "^4.7",
         "ibexa/behat": "~6.0.x-dev",
         "ibexa/code-style": "~2.0.0",
         "ibexa/doctrine-schema": "~6.0.x-dev",
@@ -88,6 +90,7 @@
     "scripts": {
         "fix-cs": "php-cs-fixer fix --config=.php-cs-fixer.php -v --show-progress=dots",
         "check-cs": "@fix-cs --dry-run",
+        "deptrac": "php vendor/bin/deptrac analyse",
         "phpstan": "phpstan analyse",
         "test-unit": "phpunit -c phpunit.xml",
         "test-integration": "phpunit -c phpunit.integration.xml",
@@ -95,6 +98,9 @@
             "@test-unit",
             "@test-integration"
         ]
+    },
+    "scripts-descriptions": {
+        "deptrac": "Run Deptrac architecture testing"
     },
     "extra": {
         "branch-alias": {
