@@ -124,7 +124,7 @@
 
         <twig:ibexa:accordion
             class="ibexa-main-menu__accordion"
-            :initiallyExpanded="false"
+            :initiallyExpanded="is_menu_expanded and matcher.isAncestor(item, options.matchingDepth)"
             expanderType="chevron"
             :expanderHasLabel="false"
         >
