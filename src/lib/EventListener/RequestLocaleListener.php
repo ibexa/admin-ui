@@ -69,7 +69,22 @@ final readonly class RequestLocaleListener implements EventSubscriberInterface
                 break;
             }
         }
+
         $locale = $locale ?? reset($preferableLocales);
+
+        // Defence-in-depth: the fallback above is the browser's top preference, which is
+        // not guaranteed to be a valid locale (e.g. the RFC 7231 `Accept-Language: *`
+        // wildcard). Passing such a value to the translator throws an "Invalid locale"
+        // error, so fall back to an available translation instead.
+        if (!is_string($locale) || !$this->isValidLocale($locale)) {
+            $availableTranslations = $this->availableTranslations;
+            $locale = reset($availableTranslations);
+        }
+
+        if (false === $locale) {
+            return;
+        }
+
         $request->setLocale($locale);
         $request->attributes->set('_locale', $locale);
         // Set of the current locale on the translator service is needed because RequestLocaleListener has lower
@@ -85,5 +100,11 @@ final readonly class RequestLocaleListener implements EventSubscriberInterface
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy(
             $request->attributes->get('siteaccess')
         );
+    }
+
+    private function isValidLocale(string $locale): bool
+    {
+        // Mirror the validation Symfony's translator applies before accepting a locale.
+        return 1 === preg_match('/^[a-z0-9@_\.\-]+$/i', $locale);
     }
 }
