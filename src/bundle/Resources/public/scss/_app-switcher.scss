@@ -28,6 +28,10 @@
         align-items: center;
         justify-content: center;
         text-decoration: none;
+
+        &:hover {
+            text-decoration: none;
+        }
     }
 
     &__link-text {
@@ -85,10 +89,6 @@
                 padding-block: calculateRem(8px);
                 border-radius: calculateRem(8px);
                 color: $ibexa-color-black;
-
-                &:hover {
-                    background-color: $ibexa-color-light-400;
-                }
             }
 
             &__link--active {
