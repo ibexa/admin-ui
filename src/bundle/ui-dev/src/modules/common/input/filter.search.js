@@ -10,9 +10,7 @@ const Search = ({ onChange, placeholder = '', extraClasses = '', value }) => {
 
     return (
         <InputTextInput
-            extraAria={{
-                className: extraClasses,
-            }}
+            className={extraClasses}
             hasSearchAction={true}
             name="filter"
             onChange={(nextValue, event) => onChange(event ?? { target: { value: nextValue } })}
