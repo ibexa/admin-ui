@@ -1,7 +1,7 @@
 {% extends '@ibexadesign/ui/menu/main_base.html.twig' %}
 
 {% block root %}
-    {% set is_menu_expanded = app.request.cookies.get('ibexa-aui_menu-is-expanded') == 'true' %}
+    {% set is_menu_expanded = app.request.cookies.get('ibexa-aui_menu-is-expanded') != 'false' %}
     {% set extra_class = is_menu_expanded ? '' : 'ibexa-main-menu__navbar--collapsed' %}
     {% set expand_label = 'main_menu.action.expand'|trans({}, 'ibexa_menu')|desc('Expand') %}
     {% set collapse_label = 'main_menu.action.collapse'|trans({}, 'ibexa_menu')|desc('Collapse') %}
