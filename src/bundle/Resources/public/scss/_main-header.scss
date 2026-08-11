@@ -52,13 +52,6 @@
                 --ids-hover-bg-color: #{$ibexa-color-light-400};
             }
         }
-
-        @media (prefers-reduced-motion: reduce) {
-            &::before,
-            .ibexa-app-switcher-toggler .ids-icon {
-                transition: none;
-            }
-        }
     }
 
     &__brand-column {
