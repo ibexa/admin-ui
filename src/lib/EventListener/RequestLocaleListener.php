@@ -105,6 +105,8 @@ final readonly class RequestLocaleListener implements EventSubscriberInterface
     private function isValidLocale(string $locale): bool
     {
         // Mirror the validation Symfony's translator applies before accepting a locale.
+
+        // TODO: Once on Symfony 8.1+, reuse \Symfony\Component\Translation\LocaleFallbackProvider::validateLocale()
         return 1 === preg_match('/^[a-z0-9@_\.\-]+$/i', $locale);
     }
 }
