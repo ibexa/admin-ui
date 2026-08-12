@@ -262,7 +262,10 @@
 
         .type__text,
         .description__title {
-            flex-shrink: 0;
+            min-width: calculateRem(40px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .ibexa-notifications-modal__description {
