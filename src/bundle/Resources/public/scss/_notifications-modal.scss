@@ -272,7 +272,7 @@
 
         .description__text {
             flex: 1;
-            min-width: 0;
+            min-width: calculateRem(64px);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
