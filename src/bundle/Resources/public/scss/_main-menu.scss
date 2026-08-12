@@ -27,8 +27,10 @@
             background-clip: content-box;
         }
 
-        // Firefox only: setting these in Blink would disable the ::-webkit-scrollbar rules above.
-        @supports not selector(::-webkit-scrollbar) {
+        // Gecko only: in Blink these would disable the ::-webkit-scrollbar rules above,
+        // and Gecko reports ::-webkit-scrollbar as a supported selector, so feature-detect
+        // a -moz- property instead.
+        @supports (-moz-appearance: none) {
             scrollbar-color: $thumb $track;
             scrollbar-width: thin;
         }
