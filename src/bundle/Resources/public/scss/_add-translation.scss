@@ -19,8 +19,8 @@
     }
 
     &__arrow {
-        margin-top: calculateRem(32px);
-        height: calculateRem(48px);
+        align-self: flex-end;
+        height: calculateRem(40px);
         transform: rotate(180deg);
         display: flex;
         align-items: center;
