@@ -1,5 +1,6 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/colors' as *;
 @use 'sass:color';
 
 .ibexa-main-menu {
@@ -11,6 +12,26 @@
         opacity: 0;
         border: none;
         overflow: hidden;
+    }
+
+    @mixin thin-scrollbar($track: $color-neutral-230, $thumb: $color-neutral-200) {
+        &::-webkit-scrollbar {
+            width: calculateRem(16px);
+            background-color: $track;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border: calculateRem(4px) solid transparent;
+            border-radius: calculateRem(8px);
+            background-color: $thumb;
+            background-clip: content-box;
+        }
+
+        // Firefox only: setting these in Blink would disable the ::-webkit-scrollbar rules above.
+        @supports not selector(::-webkit-scrollbar) {
+            scrollbar-color: $thumb $track;
+            scrollbar-width: thin;
+        }
     }
 
     display: flex;
@@ -88,6 +109,8 @@
     }
 
     &__primary-section {
+        @include thin-scrollbar;
+
         flex: 1 1 auto;
         min-height: 0;
         overflow-y: auto;
@@ -95,6 +118,8 @@
     }
 
     &__secondary-section {
+        @include thin-scrollbar;
+
         flex: 0 0 auto;
         min-height: 0;
         max-height: 75%;
