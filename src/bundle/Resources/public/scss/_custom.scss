@@ -2,6 +2,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/colors' as *;
 @use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/shadows' as *;
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/typography' as ids-typography;
 
 // Ibexa transition function
 $ibexa-admin-transition: cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -97,17 +98,10 @@ $ibexa-color-complementary-primary-500: $color-primary_alt-70;
 $ibexa-color-complementary-primary-400: $color-primary_alt-60;
 $ibexa-color-complementary-primary-200: $color-primary_alt-40;
 
-// Ibexa fonts - part 1
-$ibexa-font-family:
-    'Noto Sans',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif !default;
-$ibexa-font-family-headings: 'Work Sans', sans-serif;
+// Ibexa fonts - part 1 (sourced from the design system)
+$ibexa-font-family: ids-typography.$font-family !default;
+$ibexa-font-family-headings: ids-typography.$font-family-alt;
+$ibexa-font-family-code: ids-typography.$font-family-code !default;
 
 //Ibexa z-index
 $ibexa-backdrop-zindex: 2175;
@@ -129,6 +123,7 @@ $h6-font-size: calculateRem(12px) !default;
 $headings-font-weight: 700;
 $headings-font-family: $ibexa-font-family-headings;
 $font-family-sans-serif: $ibexa-font-family;
+$font-family-monospace: $ibexa-font-family-code;
 $modal-title-font-size: calculateRem(28px);
 $modal-footer-padding: calculateRem(40px) 0 calculateRem(32px);
 
