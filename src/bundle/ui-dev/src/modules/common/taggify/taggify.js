@@ -77,7 +77,7 @@ const Taggify = forwardRef(
                     <div className="c-taggify__inputs">
                         <InputTextInput
                             className="c-taggify__new-tag-input-wrapper"
-                            extraAria={{
+                            extraInputAttrs={{
                                 className: 'c-taggify__new-tag-input',
                                 onKeyUp: handleInputKeyUp,
                             }}

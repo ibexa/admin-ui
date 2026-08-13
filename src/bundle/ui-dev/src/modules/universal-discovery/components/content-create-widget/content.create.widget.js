@@ -203,7 +203,7 @@ const ContentCreateWidget = () => {
                         <div className="ibexa-instant-filter">
                             <div className={instantFilterInputWrapperClassName}>
                                 <InputTextInput
-                                    extraAria={{
+                                    extraInputAttrs={{
                                         autoFocus: true,
                                         className: 'ibexa-instant-filter__input',
                                     }}
