@@ -124,7 +124,7 @@ export const BookmarksTab = {
 
         return Translator.trans(/* @Desc("Favourites") */ 'bookmarks.label', {}, 'ibexa_universal_discovery_widget');
     },
-    getIcon: () => getIconPath('bookmark'),
+    getIcon: () => getIconPath('favourite-outline'),
 };
 
 export default BookmarksTabModule;

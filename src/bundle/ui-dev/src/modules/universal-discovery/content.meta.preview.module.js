@@ -57,7 +57,7 @@ const ContentMetaPreview = () => {
     }
 
     const { bookmarked, location, version, permissions } = locationData;
-    const bookmarkIconName = bookmarked ? 'bookmark-active' : 'bookmark';
+    const bookmarkIconName = bookmarked ? 'favourite-filled' : 'favourite-outline';
     const isLocationDataLoaded = !!(location && version);
     const toggleBookmarked = () => {
         const toggleBookmark = bookmarked ? removeBookmark : addBookmark;
