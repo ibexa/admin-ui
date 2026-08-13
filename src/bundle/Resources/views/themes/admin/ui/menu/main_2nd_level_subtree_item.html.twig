@@ -1,0 +1,74 @@
+{% import 'knp_menu.html.twig' as knp_menu %}
+
+{% if item.displayed %}
+    {% set classes = item.attribute('class') is not empty ? [item.attribute('class')] : [] %}
+    {% set classes = classes|merge(['ibexa-main-menu__item']) %}
+
+    {% if renderItemAsGroup|default(false) %}
+        {% set classes = classes|merge(['ibexa-main-menu__item--group-name']) %}
+    {% endif %}
+
+    {% if item.extras.separate is defined and item.extras.separate %}
+        {% set classes = classes|merge(['ibexa-main-menu__item--separator']) %}
+    {% endif %}
+
+    {% if item.hasChildren and options.depth is not same as(0) %}
+        {% if options.branch_class is not empty and item.displayChildren %}
+            {% set classes = classes|merge([options.branch_class]) %}
+        {% endif %}
+    {% elseif options.leaf_class is not empty %}
+        {% set classes = classes|merge([options.leaf_class]) %}
+    {% endif %}
+
+    {% set attributes = item.attributes|merge({
+        'data-item-name': item.name,
+        'data-has-children': item.hasChildren ? 'true' : 'false',
+        'data-is-leaf-link': (item.uri is not empty and not item.hasChildren) ? 'true' : 'false',
+        'class': classes|join(' '),
+    }) %}
+    {% set link_classes = [
+        'ibexa-main-menu__item-action',
+        'ibexa-main-menu__item-action--second-level',
+        (renderItemAsGroup|default(false) ? 'ibexa-main-menu__item-action--second-level-group' : 'ibexa-main-menu__item-action--second-level-link'),
+        (matcher.isCurrent(item) ? options.currentClass|trim),
+        (item.linkAttributes.class is defined ? item.linkAttributes.class|trim),
+    ] %}
+    {% set link_attributes = item.linkAttributes|merge({
+        'href': item.uri,
+        'aria-controls': item.name,
+        'class': link_classes|join(' '),
+    }) %}
+
+    {% if item.extras.title is defined %}
+        {% set link_attributes = link_attributes|merge({ title: item.extras.title }) %}
+    {% endif %}
+
+    <li {{ knp_menu.attributes(attributes) }}>
+        {% if renderItemAsGroup|default(false) %}
+            <div {{ knp_menu.attributes(link_attributes) }}>
+                {{ include('@ibexadesign/ui/menu/main_menu_item_label.html.twig', {
+                    item: item,
+                    text_column_class: 'ibexa-main-menu__item-text-column--group',
+                }) }}
+            </div>
+        {% else %}
+            <a {{ knp_menu.attributes(link_attributes) }}>
+                {{ include('@ibexadesign/ui/menu/main_menu_item_label.html.twig', {
+                    item: item,
+                }) }}
+            </a>
+        {% endif %}
+
+        {% if item.children %}
+            {{ include('@ibexadesign/ui/menu/main_2nd_level_subtree.html.twig', {
+                items: item.children,
+                matcher: matcher,
+                options: options,
+            }) }}
+        {% endif %}
+    </li>
+
+    {% if item.extras.template is defined %}
+        {% include item.extras.template %}
+    {% endif %}
+{% endif %}
