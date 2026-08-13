@@ -1,0 +1,28 @@
+deptrac:
+  skip_violations:
+    Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface:
+      - Ibexa\AdminUi\Exception\FieldTypeExpressionParserException
+    Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent:
+      - Ibexa\AdminUi\Event\Options
+    Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent:
+      - Ibexa\AdminUi\Event\Options
+    Ibexa\Contracts\AdminUi\Event\FieldDefinitionMappingEvent:
+      - Ibexa\AdminUi\Form\Data\FieldDefinitionData
+    Ibexa\Contracts\AdminUi\Menu\AbstractActionBuilder:
+      - Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent
+      - Ibexa\AdminUi\Specification\ContentIsUser
+    Ibexa\Contracts\AdminUi\Menu\AbstractBuilder:
+      - Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent
+    Ibexa\Contracts\AdminUi\Menu\AbstractFormContextMenuBuilder:
+      - Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent
+    Ibexa\Contracts\AdminUi\Menu\CopyFormContextMenuBuilder:
+      - Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent
+    Ibexa\Contracts\AdminUi\Menu\CreateFormContextMenuBuilder:
+      - Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent
+    Ibexa\Contracts\AdminUi\Menu\UpdateFormContextMenuBuilder:
+      - Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent
+    Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab:
+      - Ibexa\AdminUi\Tab\Event\TabEvents
+      - Ibexa\AdminUi\Tab\Event\TabViewRenderEvent
+    Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface:
+      - Ibexa\AdminUi\UI\Action\UiActionEvent
