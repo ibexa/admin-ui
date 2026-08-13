@@ -103,6 +103,12 @@
                     &__body-content {
                         padding: 0 calculateRem(24px) calculateRem(20px);
                         min-height: calculateRem(410px);
+
+                        .ezimage-validator.max-file-size {
+                            .ibexa-input-text-wrapper--type-text {
+                                max-width: calculateRem(150px);
+                            }
+                        }
                     }
                 }
             }
