@@ -11,7 +11,11 @@
 {%- endblock mail_message_title_content -%}
 
 {%- block mail_message_content -%}
-    {{ 'ibexa.user.invitation.mail.message'|trans()|desc('Join us at:') }}
+    {% set url = url('ibexa.user.from_invite.register', {
+        'inviteHash': invite_hash,
+        'siteaccess': siteaccess
+    }) %}
+    {{ 'ibexa.user.invitation.mail.message'|trans({'%invite_link%': url})|desc('Join us at:') }}
 {%- endblock mail_message_content -%}
 
 {%- block mail_actions_content -%}
