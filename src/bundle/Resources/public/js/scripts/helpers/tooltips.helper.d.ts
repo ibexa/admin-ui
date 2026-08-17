@@ -11,8 +11,8 @@ interface TooltipsDefaultsParams {
 
 declare const TOOLTIPS_DEFAULTS_PARAMS: TooltipsDefaultsParams;
 
-declare const parse: (baseElement?: Element | Document) => void;
-declare const hideAll: (baseElement?: Element | Document) => void;
-declare const observe: (baseElement?: Element | Document) => void;
+declare const parse: (baseElement?: HTMLElement | Document) => void;
+declare const hideAll: (baseElement?: HTMLElement | Document) => void;
+declare const observe: (baseElement?: HTMLElement | Document) => void;
 
 export { parse, hideAll, observe, TOOLTIPS_DEFAULTS_PARAMS };
