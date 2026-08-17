@@ -16,6 +16,7 @@ interface ContentTypeFieldTypesResolverInterface
     /**
      * @return array<string, array{
      *     'meta'?: bool,
+     *     'unique'?: bool,
      *     'position'?: int,
      * }>
      */
@@ -25,6 +26,7 @@ interface ContentTypeFieldTypesResolverInterface
      * @return array<string, array{
      *     'meta': bool,
      *     'position': int,
+     *     'unique': bool,
      * }>
      */
     public function getMetaFieldTypes(): array;

@@ -4309,12 +4309,6 @@ parameters:
 			path: src/lib/Component/TwigComponent.php
 
 		-
-			message: '#^Offset ''meta'' might not exist on array\{position\: int, meta\?\: bool\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: src/lib/Config/AdminUiForms/ContentTypeFieldTypesResolver.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Event\\Options\:\:__construct\(\) has parameter \$options with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -11688,12 +11682,6 @@ parameters:
 			path: src/lib/Service/ContentTypeService.php
 
 		-
-			message: '#^Access to an undefined property Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:\$fieldDefinitions\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/lib/Service/MetaFieldType/MetaFieldDefinitionService.php
-
-		-
 			message: '#^Access to an undefined property Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Policy\:\:\$originalId\.$#'
 			identifier: property.notFound
 			count: 2
@@ -14593,24 +14581,6 @@ parameters:
 		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Config\\AdminUiForms\\ContentTypeFieldTypesResolverTest\:\:mockConfigResolverGetParameter\(\) has parameter \$configuredFieldTypes with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Config/AdminUiForms/ContentTypeFieldTypesResolverTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Config\\AdminUiForms\\ContentTypeFieldTypesResolverTest\:\:testGetMetaFieldTypes\(\) has parameter \$expectedMetaFieldTypes with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Config/AdminUiForms/ContentTypeFieldTypesResolverTest.php
-
-		-
-			message: '''
-				#^PHPDoc tag @param has invalid value \(array\<string, array\{
-				    'meta'\: bool,
-				    'position'\: int,
-				 \}\>
-				\$expectedMetaFieldTypes\)\: Unexpected token "\\n     \* ", expected variable at offset 279 on line 11$#
-			'''
-			identifier: phpDoc.parseError
 			count: 1
 			path: tests/lib/Config/AdminUiForms/ContentTypeFieldTypesResolverTest.php
 

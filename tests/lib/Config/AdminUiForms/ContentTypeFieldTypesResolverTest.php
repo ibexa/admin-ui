@@ -56,12 +56,13 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
      * @param array<string, array{
      *     'position'?: int,
      *     'meta'?: bool,
+     *     'unique'?: bool,
      *  }> $fieldTypes
      * @param array<string, array{
      *     'meta': bool,
      *     'position': int,
-     *  }>
-     * $expectedMetaFieldTypes
+     *    'unique': bool,
+     *  }> $expectedMetaFieldTypes
      */
     public function testGetMetaFieldTypes(
         bool $hasParameter,
@@ -83,6 +84,7 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
      * @param array<string, array{
      *     'meta'?: bool,
      *     'position'?: int,
+     *     'unique'?: bool,
      *  }> $metaFieldTypes
      * @param array<string> $expectedIdentifiers
      */
@@ -138,10 +140,12 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
      *      array<string, array{
      *          'meta'?: bool,
      *          'position'?: int,
+     *          'unique'?: bool,
      *      }>,
      *      array<string, array{
      *          'meta': bool,
      *          'position': int,
+     *          'unique': bool,
      *      }>
      * }>
      */
@@ -156,11 +160,13 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
         $foo = [
             'meta' => true,
             'position' => 2,
+            'unique' => false,
         ];
 
         $bar = [
             'meta' => true,
             'position' => 10,
+            'unique' => true,
         ];
 
         yield [
@@ -185,6 +191,7 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
      *      array<string, array{
      *          'meta': bool,
      *          'position': int,
+     *          'unique': bool,
      *      }>,
      *      array<string>
      * }>
@@ -203,10 +210,12 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
                 'foo' => [
                     'meta' => true,
                     'position' => 1,
+                    'unique' => false,
                 ],
                 'bar' => [
                     'meta' => true,
                     'position' => 2,
+                    'unique' => false,
                 ],
             ],
             ['foo', 'bar'],

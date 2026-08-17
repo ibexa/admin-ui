@@ -27,6 +27,7 @@ final class ContentTypeFieldTypesResolver implements ContentTypeFieldTypesResolv
      * @return array<string, array{
      *     'position': int,
      *     'meta'?: bool,
+     *     'unique': bool,
      * }>
      */
     public function getFieldTypes(): array
@@ -43,7 +44,7 @@ final class ContentTypeFieldTypesResolver implements ContentTypeFieldTypesResolv
         $fieldTypes = $this->getFieldTypes();
         $metaFieldTypes = array_filter(
             $fieldTypes,
-            static fn (array $config): bool => true === $config['meta']
+            static fn (array $config): bool => true === ($config['meta'] ?? false)
         );
 
         $positions = array_column($metaFieldTypes, 'position');
