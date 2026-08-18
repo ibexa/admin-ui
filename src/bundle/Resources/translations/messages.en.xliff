@@ -311,6 +311,11 @@
         <target state="new"><![CDATA[This link is not valid anymore, you can <a href="%forgot_user_password%">generate a new link</a> to reset your password.]]></target>
         <note>key: ezplatform.reset_user_password.link_is_not_valid</note>
       </trans-unit>
+      <trans-unit id="63bb0b41d6faeb69ac9495fa5b0e0244a95b5ccb" resname="ezplatform.reset_user_password.requirements_intro">
+        <source>To keep your account secure, your password must meet the following requirements:</source>
+        <target state="new">To keep your account secure, your password must meet the following requirements:</target>
+        <note>key: ezplatform.reset_user_password.requirements_intro</note>
+      </trans-unit>
       <trans-unit id="5149c594d64197e519d38a1a2e7368140716bb81" resname="ezplatform.reset_user_password.success">
         <source><![CDATA[Your password has been changed. You can <a class="ibexa-login__reset-password-alert-link" href="%login%">log in</a> to Cohesivo.]]></source>
         <target state="new"><![CDATA[Your password has been changed. You can <a class="ibexa-login__reset-password-alert-link" href="%login%">log in</a> to Cohesivo.]]></target>
