@@ -1,3 +1,5 @@
+import { getAdminUiConfig } from './context.helper';
+
 type TimeDiffUnit = 'minute' | 'hour' | 'day' | 'month' | 'year';
 
 interface TimeDiff {
@@ -13,7 +15,9 @@ const YEAR = 31_536_000_000;
 
 const formatters = new Map<string, Intl.RelativeTimeFormat>();
 
-const getFormatter = (locale: string): Intl.RelativeTimeFormat => {
+const getFormatter = (): Intl.RelativeTimeFormat => {
+    const { backOfficeLanguage }: { backOfficeLanguage: string } = getAdminUiConfig();
+    const locale = backOfficeLanguage.replace('_', '-') || 'en';
     const cachedFormatter = formatters.get(locale);
 
     if (cachedFormatter) {
@@ -62,7 +66,5 @@ export const formatTimeDiff = (from: Date | string | number): string => {
         return '';
     }
 
-    const locale = document.documentElement.lang.replace('_', '-') || 'en';
-
-    return getFormatter(locale).format(-diff.count, diff.unit);
+    return getFormatter().format(-diff.count, diff.unit);
 };
