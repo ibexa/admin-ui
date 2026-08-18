@@ -13,20 +13,17 @@ const DAY = 86_400_000;
 const MONTH = 2_592_000_000;
 const YEAR = 31_536_000_000;
 
-const formatters = new Map<string, Intl.RelativeTimeFormat>();
+let formatter: Intl.RelativeTimeFormat | null = null;
 
 const getFormatter = (): Intl.RelativeTimeFormat => {
-    const { backOfficeLanguage }: { backOfficeLanguage: string } = getAdminUiConfig();
-    const locale = backOfficeLanguage.replace('_', '-') || 'en';
-    const cachedFormatter = formatters.get(locale);
-
-    if (cachedFormatter) {
-        return cachedFormatter;
+    if (formatter) {
+        return formatter;
     }
 
-    const formatter = new Intl.RelativeTimeFormat(locale, { style: 'short' });
+    const { backOfficeLanguage }: { backOfficeLanguage: string } = getAdminUiConfig();
+    const locale = backOfficeLanguage.replace('_', '-') || 'en';
 
-    formatters.set(locale, formatter);
+    formatter = new Intl.RelativeTimeFormat(locale, { style: 'short' });
 
     return formatter;
 };
