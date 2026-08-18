@@ -91,7 +91,7 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
                 <div className="ibexa-instant-filter">
                     <div className={searchInputWrapperClassName}>
                         <InputTextInput
-                            extraAria={{
+                            extraInputAttrs={{
                                 className: 'ibexa-instant-filter__input',
                             }}
                             name="translation-filter"

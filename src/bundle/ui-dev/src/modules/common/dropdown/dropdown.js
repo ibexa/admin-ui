@@ -150,7 +150,7 @@ const Dropdown = ({
             <div className={itemsContainerClass} style={itemsListStyles} ref={containerItemsRef}>
                 <InputTextInput
                     className="ibexa-dropdown__items-filter-wrapper"
-                    extraAria={{
+                    extraInputAttrs={{
                         className: 'ibexa-dropdown__items-filter',
                     }}
                     hasSearchAction={true}

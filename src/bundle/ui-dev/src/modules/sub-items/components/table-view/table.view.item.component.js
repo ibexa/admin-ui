@@ -213,7 +213,7 @@ export default class TableViewItemComponent extends PureComponent {
             <div className="c-table-view-item__priority-wrapper" {...priorityWrapperAttrs}>
                 <div className="c-table-view-item__inner-wrapper c-table-view-item__inner-wrapper--input">
                     <InputTextInput
-                        extraAria={{
+                        extraInputAttrs={{
                             className: 'c-table-view-item__priority-value',
                         }}
                         name="priority"
