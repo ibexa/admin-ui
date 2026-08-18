@@ -8,9 +8,8 @@
     display: flex;
     justify-content: space-between;
     gap: calculateRem(16px);
-    padding: calculateRem(16px) calculateRem(20px) calculateRem(15px);
-    background: $ibexa-color-dark;
-    border-bottom: calculateRem(1px) solid $ibexa-color-dark-500;
+    padding: calculateRem(12px) calculateRem(16px);
+    background: $ibexa-color-black;
 
     &:has(.modal.show) {
         z-index: auto;
@@ -22,7 +21,7 @@
         align-items: center;
         justify-content: center;
         flex: 0 0 calculateRem(64px);
-        margin: calculateRem(-16px) 0 calculateRem(-16px) calculateRem(-20px);
+        margin: calculateRem(-12px) 0 calculateRem(-12px) calculateRem(-16px);
 
         &::before {
             content: '';
@@ -66,7 +65,7 @@
 
     &__brand-image {
         max-width: calculateRem(120px);
-        max-height: calculateRem(32px);
+        max-height: calculateRem(28px);
     }
 
     &__search-column {
