@@ -43,7 +43,8 @@
         display: flex;
         flex-direction: column;
         width: calculateRem(264px);
-        background-color: $ibexa-color-dark;
+        background-color: $ibexa-color-black;
+        border-top: calculateRem(1px) solid $color-neutral-210;
         overflow-y: hidden;
         overflow-x: hidden;
         transition: width $ibexa-admin-transition-duration $ibexa-admin-transition;
@@ -101,7 +102,7 @@
         align-items: stretch;
 
         &--secondary {
-            border-top: calculateRem(1px) solid $ibexa-color-dark-500;
+            border-top: calculateRem(1px) solid $color-neutral-210;
         }
     }
 
@@ -209,7 +210,7 @@
 
         &--second-level-group {
             margin: 0;
-            border-top: calculateRem(1px) solid $ibexa-color-dark-500;
+            border-top: calculateRem(1px) solid $color-neutral-210;
             margin-top: calculateRem(8px);
             margin-left: calculateRem(10px);
             padding: calculateRem(1px) 0;
