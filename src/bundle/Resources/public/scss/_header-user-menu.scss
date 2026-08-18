@@ -1,18 +1,21 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
-@use 'sass:color';
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/colors' as *;
 
 .ibexa-header-user-menu {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding-left: calculateRem(16px);
-    border-left: calculateRem(1px) solid $ibexa-color-light;
+    gap: calculateRem(4px);
+    height: calculateRem(32px);
+    margin-left: calculateRem(16px);
+    padding-left: calculateRem(8px);
+    border-left: calculateRem(1px) solid $color-neutral-200;
 
     &__popup-menu {
         z-index: 1060;
-        top: calculateRem(53px);
-        right: calculateRem(20px);
+        top: calculateRem(45px);
+        right: calculateRem(16px);
         min-width: calculateRem(200px);
         padding: 0;
 
@@ -37,17 +40,18 @@
     &__toggler {
         display: flex;
         align-items: center;
+        justify-content: center;
         position: relative;
-        margin-left: calculateRem(16px);
-        padding: calculateRem(2px);
-        border-radius: calculateRem(12px);
+        width: calculateRem(32px);
+        height: calculateRem(32px);
+        padding: 0;
+        border-radius: 50%;
         border: 0;
-        background: color.change($ibexa-color-white, $alpha: 0.1);
+        background: transparent;
 
         .ibexa-icon {
+            display: none;
             fill: $ibexa-color-white;
-            margin-left: calculateRem(5px);
-            margin-right: calculateRem(4px);
             transform: rotate(0deg);
             transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         }
@@ -70,17 +74,18 @@
         border-radius: 50%;
 
         .ibexa-user-thumbnail {
-            width: calculateRem(22px);
-            height: calculateRem(22px);
+            width: calculateRem(20px);
+            height: calculateRem(20px);
         }
     }
 
     &__notifications-toggler {
         display: flex;
-        align-items: flex-end;
+        align-items: center;
+        justify-content: center;
         position: relative;
-        height: calculateRem(24px);
-        padding-bottom: calculateRem(4px);
+        width: calculateRem(32px);
+        height: calculateRem(32px);
         cursor: pointer;
 
         &:hover {
@@ -91,22 +96,25 @@
     }
 
     &__notice-dot {
-        width: calculateRem(12px);
-        height: calculateRem(12px);
+        width: calculateRem(16px);
+        height: calculateRem(16px);
         border-radius: 50%;
         background: $ibexa-color-danger;
         opacity: 1;
         cursor: pointer;
         position: absolute;
-        left: calculateRem(8px);
-        top: 0;
+        left: calculateRem(16px);
+        top: calculateRem(2px);
         color: $ibexa-color-white;
 
         &::after {
             display: flex;
             justify-content: center;
+            align-items: center;
+            height: 100%;
             content: attr(data-count);
-            font-size: $ibexa-text-font-size-extra-small;
+            font-size: calculateRem(10px);
+            line-height: calculateRem(15px);
         }
 
         &--no-notice {
