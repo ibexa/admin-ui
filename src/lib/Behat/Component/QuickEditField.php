@@ -71,16 +71,57 @@ final class QuickEditField extends Component
     }
 
     /**
-     * Sends a raw Escape keydown/keyup pair at the currently open input, the same way a user
-     * pressing Escape while typing would. There is no cross-driver "named key" abstraction in
-     * Mink's DriverInterface, so this relies on 27, the DOM keyCode for Escape.
+     * Dispatches a real `keydown` event with `key: 'Escape'` at the currently open input, the
+     * same event the application's own listener checks for.
+     *
+     * This does not go through DriverInterface::keyDown()/keyPress(): the two JS drivers this
+     * suite's dependencies ship map a "press Escape" request to a native key event in mutually
+     * incompatible, non-portable ways, and neither form produces `event.key === 'Escape'` on
+     * both:
+     *  - `behat/mink-selenium2-driver` only maps the DOM key name 'Escape' when given the exact
+     *    string 'escape' (see Resources/syn.js: `keyboardEventKeys = { ..., escape: 'Escape',
+     *    ... }`, consulted at `if (options.key && keyboardEventKeys[options.key]) { ... }`
+     *    around line 2321-2323); `Selenium2Driver::charToOptions()` (line 256) turns an int
+     *    argument into `chr($char)`, a raw control character, which is not a key in that table,
+     *    so `keyDown($xpath, 27)` never becomes 'Escape' here. A string argument survives
+     *    unchanged into `options.key`, so `keyDown($xpath, 'escape')` *would* work on this driver.
+     *  - `dmore/chrome-mink-driver` requires the opposite: `triggerKeyboardEvent()`
+     *    (ChromeDriver.php line 1533) only accepts a string argument that is exactly one
+     *    character long (`mb_strlen($char) === 1`), otherwise it throws
+     *    `DriverException("Invalid character '...'")); `keyDown($xpath, 'escape')` throws here.
+     *    An int argument is looked up via `getKeycodeKeyValue()` (line 1463), where `27` does
+     *    correctly resolve to `'Escape'` (line 1488-1489) - so `keyDown($xpath, 27)` works on
+     *    this driver, the reverse of Selenium2Driver.
+     * With no single call working on both, and no way to know from here which driver a given run
+     * uses, this bypasses native key simulation entirely and dispatches the DOM event directly,
+     * the same escape hatch {@see \Ibexa\AdminUi\Behat\Component\DateAndTimePopup} already uses
+     * for a different driver limitation. `Session::executeScript()` is plain JS execution, so it
+     * behaves identically regardless of which driver is active.
      */
     public function pressEscape(string $fieldLabel): void
     {
         $xpath = $this->getEditorInput($fieldLabel)->getXPath();
-        $driver = $this->getSession()->getDriver();
-        $driver->keyDown($xpath, 27);
-        $driver->keyUp($xpath, 27);
+        $script = <<<'JS'
+            (function (xpath) {
+                var target = document.evaluate(
+                    xpath,
+                    document,
+                    null,
+                    XPathResult.FIRST_ORDERED_NODE_TYPE,
+                    null
+                ).singleNodeValue;
+
+                if (target) {
+                    target.dispatchEvent(new KeyboardEvent('keydown', {
+                        key: 'Escape',
+                        bubbles: true,
+                        cancelable: true,
+                    }));
+                }
+            })(%s);
+            JS;
+
+        $this->getSession()->executeScript(sprintf($script, json_encode($xpath)));
     }
 
     public function clickOutside(): void
