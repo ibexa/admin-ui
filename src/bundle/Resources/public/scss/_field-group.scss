@@ -123,6 +123,13 @@
         flex-direction: column;
         margin-bottom: calculateRem(24px);
 
+        &[data-quick-edit] {
+            &:hover,
+            &:focus-visible {
+                background-color: var(--ibexa-content-field-hover-bg-color, #{$ibexa-color-light-300});
+            }
+        }
+
         &__name {
             margin-bottom: calculateRem(8px);
             color: $ibexa-color-dark-300;

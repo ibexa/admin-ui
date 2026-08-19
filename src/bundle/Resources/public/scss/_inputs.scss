@@ -52,7 +52,9 @@
 
     &--text,
     &--textarea,
-    &--date {
+    &--date,
+    &--time,
+    &--datetime-local {
         font-size: $ibexa-text-font-size-medium;
         color: var(--ibexa-input-text-color, var(--ibexa-text-color, #{$ibexa-color-dark}));
         line-height: calculateRem(21px);
@@ -94,7 +96,9 @@
     }
 
     &--text,
-    &--date {
+    &--date,
+    &--time,
+    &--datetime-local {
         height: calculateRem(48px);
         padding-right: calculateRem(36px);
 

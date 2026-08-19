@@ -1,0 +1,19 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.ibexa-quick-edit {
+    display: flex;
+    align-items: center;
+    gap: calculateRem(8px);
+
+    &__input {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: calculateRem(4px);
+        flex-shrink: 0;
+    }
+}
