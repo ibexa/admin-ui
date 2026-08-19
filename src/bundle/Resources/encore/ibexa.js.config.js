@@ -152,6 +152,7 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/admin.location.view.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.location.visibility.js'),
             path.resolve(__dirname, '../public/js/scripts/quick.field.edit.editors.js'),
+            path.resolve(__dirname, '../public/js/scripts/admin.location.quick.field.edit.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.location.update.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.location.tooglecontentpreview.js'),
             path.resolve(__dirname, '../public/js/scripts/button.content.edit.js'),
