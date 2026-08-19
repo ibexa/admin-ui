@@ -51,6 +51,11 @@
         <target state="new">Select translation</target>
         <note>key: content.edit.select_language</note>
       </trans-unit>
+      <trans-unit id="82efabfdfa8a987053bc6700524466f0981744b2" resname="content.field.quick_edit_aria_label">
+        <source>Edit %fieldName% field</source>
+        <target state="new">Edit %fieldName% field</target>
+        <note>key: content.field.quick_edit_aria_label</note>
+      </trans-unit>
       <trans-unit id="e136be672df8eb27dc4eb2f1ce0650096090bf81" resname="content.hidden.message">
         <source>This Content item or its Location is hidden.</source>
         <target state="new">This Content item or its Location is hidden.</target>
