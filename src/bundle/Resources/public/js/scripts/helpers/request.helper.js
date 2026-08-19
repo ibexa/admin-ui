@@ -2,12 +2,26 @@ import { getTranslator } from './context.helper';
 
 const defaultGetErrorMessage = (error = {}) => error.errorMessage;
 
-const getErrorMessageObject = (response) => {
-    const responseErrorMessage = response.json().then((jsonResponse) => {
-        return jsonResponse.ErrorMessage ?? jsonResponse;
-    });
+const extractXmlErrorMessage = (xmlText) => {
+    const match = xmlText.match(/<errorMessage>([\s\S]*?)<\/errorMessage>/i);
 
-    return responseErrorMessage;
+    return match ? match[1].trim() : null;
+};
+
+const getErrorMessageObject = async (response) => {
+    const contentType = response.headers.get('content-type') ?? '';
+    const isJsonResponse = contentType.includes('json');
+
+    if (isJsonResponse) {
+        const jsonResponse = await response.json();
+
+        return jsonResponse.ErrorMessage ?? jsonResponse;
+    }
+
+    const textResponse = await response.text();
+    const errorMessage = extractXmlErrorMessage(textResponse) || textResponse.trim() || response.statusText;
+
+    return { errorMessage };
 };
 
 const handleRequest = async (response, getErrorMessage = defaultGetErrorMessage) => {
@@ -47,11 +61,12 @@ const getRequestMode = ({ instanceUrl }) => {
     return window.location.origin === instanceUrl ? 'same-origin' : 'cors';
 };
 
-const getRequestHeaders = ({ token, siteaccess, accessToken, extraHeaders }) => {
+const getRequestHeaders = ({ token, siteaccess, accessToken, accept, extraHeaders }) => {
     if (accessToken) {
         return {
             Authorization: `Bearer ${accessToken}`,
             ...(siteaccess && { 'X-Siteaccess': siteaccess }),
+            ...(accept && { Accept: accept }),
             ...extraHeaders,
         };
     }
@@ -59,6 +74,7 @@ const getRequestHeaders = ({ token, siteaccess, accessToken, extraHeaders }) => 
     return {
         ...(token && { 'X-CSRF-Token': token }),
         ...(siteaccess && { 'X-Siteaccess': siteaccess }),
+        ...(accept && { Accept: accept }),
         ...extraHeaders,
     };
 };
