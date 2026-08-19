@@ -1213,12 +1213,6 @@ parameters:
 			path: src/lib/EventListener/RequestLocaleListener.php
 
 		-
-			message: '#^Parameter \#1 \$locale of method Symfony\\Component\\HttpFoundation\\Request\:\:setLocale\(\) expects string, string\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/EventListener/RequestLocaleListener.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\EventListener\\SetViewParametersListener\:\:getIgnoredContentFields\(\) has parameter \$fieldsData with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1

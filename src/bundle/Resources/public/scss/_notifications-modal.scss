@@ -262,7 +262,7 @@
 
         .type__text,
         .description__title {
-            flex-shrink: 0;
+            min-width: calculateRem(40px);
         }
 
         .ibexa-notifications-modal__description {
@@ -272,7 +272,7 @@
 
         .description__text {
             flex: 1;
-            min-width: 0;
+            min-width: calculateRem(64px);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;

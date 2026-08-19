@@ -44,8 +44,8 @@ final class TranslationDialog extends Dialog
     protected function specifyLocators(): array
     {
         return array_merge(parent::specifyLocators(), [
-            new VisibleCSSLocator('expandNewTranslationDropdown', '#add-translation-modal [for="add-translation_language"] + .ibexa-dropdown .ibexa-dropdown__selection-info'),
-            new VisibleCSSLocator('expandBaseTranslationDropdown', '#add-translation-modal [for="add-translation_base_language"] + .ibexa-dropdown .ibexa-dropdown__selection-info'),
+            new VisibleCSSLocator('expandNewTranslationDropdown', '#add-translation-modal [for="add-translation_language"] + .ibexa-dropdown .ibexa-dropdown__selection-info, #add-translation-modal [for="add-translation_language"] + .ids-dropdown .ids-dropdown__selection-info'),
+            new VisibleCSSLocator('expandBaseTranslationDropdown', '#add-translation-modal [for="add-translation_base_language"] + .ibexa-dropdown .ibexa-dropdown__selection-info, #add-translation-modal [for="add-translation_base_language"] + .ids-dropdown .ids-dropdown__selection-info'),
             new VisibleCSSLocator('addTranslationPopupModalTitle', '#add-translation-modal .modal-title'),
         ]);
     }

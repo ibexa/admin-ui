@@ -6,6 +6,16 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
+      <trans-unit id="29149c1c0b3ca302aa3182e2547171c60b03d15c" resname="app_switcher.nav.label">
+        <source>App switcher</source>
+        <target state="new">App switcher</target>
+        <note>key: app_switcher.nav.label</note>
+      </trans-unit>
+      <trans-unit id="89566969891d56d87f41372602fde4fdf70e0088" resname="app_switcher.toggler.label">
+        <source>Open app switcher</source>
+        <target state="new">Open app switcher</target>
+        <note>key: app_switcher.toggler.label</note>
+      </trans-unit>
       <trans-unit id="a0e5e0f0d39b0d4d58cb089d09414a0b8bcf7e2e" resname="content__sidebar_right__copy">
         <source>Copy</source>
         <target state="new">Copy</target>
@@ -227,8 +237,8 @@
         <note>key: language_edit__sidebar_right__save_and_close</note>
       </trans-unit>
       <trans-unit id="d24d01151cf9ba69e38be735778da00850cea694" resname="main__admin">
-        <source>Admin</source>
-        <target state="new">Admin</target>
+        <source>Administration</source>
+        <target state="new">Administration</target>
         <note>key: main__admin</note>
       </trans-unit>
       <trans-unit id="f85206498106b1536c36c3231d870daa0d2805e2" resname="main__admin__content_types">
@@ -267,8 +277,8 @@
         <note>key: main__admin__users</note>
       </trans-unit>
       <trans-unit id="f68c5be5c002f6858b89d2dc5156d725425e31db" resname="main__bookmarks">
-        <source>Bookmarks</source>
-        <target state="new">Bookmarks</target>
+        <source>Favourites</source>
+        <target state="new">Favourites</target>
         <note>key: main__bookmarks</note>
       </trans-unit>
       <trans-unit id="95e1979b41321209d200f2e75416fd47270954b4" resname="main__content">
@@ -305,6 +315,16 @@
         <source>Trash</source>
         <target state="new">Trash</target>
         <note>key: main__trash</note>
+      </trans-unit>
+      <trans-unit id="c687e2ee743880fb18f7b468f8217342adf1b8c3" resname="main_menu.action.collapse">
+        <source>Collapse</source>
+        <target state="new">Collapse</target>
+        <note>key: main_menu.action.collapse</note>
+      </trans-unit>
+      <trans-unit id="8363cc2b781fe8afd3f4cc88032ba7df09ba844b" resname="main_menu.action.expand">
+        <source>Expand</source>
+        <target state="new">Expand</target>
+        <note>key: main_menu.action.expand</note>
       </trans-unit>
       <trans-unit id="f3561dffc3e7e63e03f3f5d1a4e2b4eda80e051a" resname="object_state_create__sidebar_right__cancel">
         <source>Discard changes</source>

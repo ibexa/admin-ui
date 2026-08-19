@@ -1,0 +1,14 @@
+{% trans_default_domain 'ibexa_menu' %}
+
+{% set toggler_label = 'app_switcher.toggler.label'|trans|desc('Open app switcher') %}
+
+<twig:ibexa:button
+    type="tertiary-alt"
+    size="medium"
+    class="ibexa-app-switcher-toggler"
+    icon="app-switcher"
+    aria-controls="ibexa-app-switcher-panel"
+    aria-expanded="false"
+    aria-label="{{ toggler_label }}"
+    title="{{ toggler_label }}"
+/>

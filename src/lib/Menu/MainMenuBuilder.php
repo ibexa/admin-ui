@@ -208,7 +208,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             'extras' => [
                 'separate' => true,
                 'bottom_item' => true,
-                'icon' => 'settings-block',
+                'icon' => 'user-admin',
                 'orderNumber' => 140,
             ],
         ]);
@@ -363,13 +363,13 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         return [
             (new Message(self::ITEM_DASHBOARD, 'ibexa_menu'))->setDesc('Dashboard'),
             (new Message(self::ITEM_DRAFTS, 'ibexa_menu'))->setDesc('Drafts'),
-            (new Message(self::ITEM_BOOKMARKS, 'ibexa_menu'))->setDesc('Bookmarks'),
+            (new Message(self::ITEM_BOOKMARKS, 'ibexa_menu'))->setDesc('Favourites'),
             (new Message(self::ITEM_TRASH, 'ibexa_menu'))->setDesc('Trash'),
             (new Message(self::ITEM_CONTENT, 'ibexa_menu'))->setDesc('Content'),
             (new Message(self::ITEM_CONTENT_GROUP_SETTINGS, 'ibexa_menu'))->setDesc('Settings'),
             (new Message(self::ITEM_CONTENT__CONTENT_STRUCTURE, 'ibexa_menu'))->setDesc('Content structure'),
             (new Message(self::ITEM_CONTENT__MEDIA, 'ibexa_menu'))->setDesc('Media'),
-            (new Message(self::ITEM_ADMIN, 'ibexa_menu'))->setDesc('Admin'),
+            (new Message(self::ITEM_ADMIN, 'ibexa_menu'))->setDesc('Administration'),
             (new Message(self::ITEM_ADMIN__SECTIONS, 'ibexa_menu'))->setDesc('Sections'),
             (new Message(self::ITEM_ADMIN__ROLES, 'ibexa_menu'))->setDesc('Roles'),
             (new Message(self::ITEM_ADMIN__LANGUAGES, 'ibexa_menu'))->setDesc('Languages'),

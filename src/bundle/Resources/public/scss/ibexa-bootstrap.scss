@@ -91,6 +91,7 @@ $bootstrap-danger: color.to-space($ibexa-color-danger, rgb);
     $text-muted: $bootstrap-dark-400,
     // Fonts
     $font-family-sans-serif: $ibexa-font-family,
+    $font-family-monospace: $ibexa-font-family-code,
     // Tables
     $table-bg: $bootstrap-white,
     $table-border-width: 0,
@@ -159,6 +160,8 @@ $bootstrap-danger: color.to-space($ibexa-color-danger, rgb);
     $input-focus-border-color: $bootstrap-primary,
     $input-focus-color: $bootstrap-dark-300,
     $input-focus-box-shadow: 0 0 calculateRem(2px) 0 color.change($bootstrap-primary, $alpha: 0.75),
+    //Labels
+    $form-label-margin-bottom: calculateRem(4px),
     //Buttons
     $btn-line-height: calculateRem(16px),
     $btn-font-size: calculateRem(15px),

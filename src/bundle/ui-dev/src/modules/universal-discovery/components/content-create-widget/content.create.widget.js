@@ -3,12 +3,11 @@ import { InputTextInput } from '@ids-components/components/InputText';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
-import Dropdown from '../../../common/dropdown/dropdown';
 import { Label } from '@ids-components/components/Label';
 import { Button, ButtonType } from '@ids-components/components/Button';
+import { DropdownSingleInput } from '@ids-components/components/Dropdown';
 
 import {
-    DropdownPortalRefContext,
     CreateContentWidgetContext,
     ActiveTabContext,
     ContentOnTheFlyDataContext,
@@ -32,7 +31,6 @@ const ContentCreateWidget = () => {
     const Translator = getTranslator();
     const adminUiConfig = getAdminUiConfig();
     const refContentTree = useRef(null);
-    const dropdownListRef = useContext(DropdownPortalRefContext);
     const [markedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);
     const { allowedLanguages, preselectedLanguage, preselectedContentType } = useContext(ContentOnTheFlyConfigContext);
@@ -192,20 +190,20 @@ const ContentCreateWidget = () => {
                 <div className="ibexa-extra-actions__content">
                     <Label className="ibexa-extra-actions__section-header">{selectLanguageLabel}</Label>
                     <div className="ibexa-extra-actions__section-content">
-                        <Dropdown
-                            dropdownListRef={dropdownListRef}
+                        <DropdownSingleInput
+                            className="c-udw-dropdown"
+                            items={languageOptions.map(({ value, label }) => ({ id: value, label }))}
+                            maxVisibleItems={5}
+                            name=""
                             onChange={updateSelectedLanguage}
-                            single={true}
                             value={selectedLanguage}
-                            options={languageOptions}
-                            extraClasses="c-udw-dropdown"
                         />
                     </div>
                     <div className="ibexa-extra-actions__section-content ibexa-extra-actions__section-content--content-type">
                         <div className="ibexa-instant-filter">
                             <div className={instantFilterInputWrapperClassName}>
                                 <InputTextInput
-                                    extraAria={{
+                                    extraInputAttrs={{
                                         autoFocus: true,
                                         className: 'ibexa-instant-filter__input',
                                     }}

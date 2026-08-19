@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { InputTextInput, InputTextInputSize } from '@ids-components/components/InputText';
+import { Tag, TagGhostType } from '@ids-components/components/Tag';
 
 import { CheckboxInput } from '@ids-components/components/Checkbox';
 
@@ -212,7 +213,7 @@ export default class TableViewItemComponent extends PureComponent {
             <div className="c-table-view-item__priority-wrapper" {...priorityWrapperAttrs}>
                 <div className="c-table-view-item__inner-wrapper c-table-view-item__inner-wrapper--input">
                     <InputTextInput
-                        extraAria={{
+                        extraInputAttrs={{
                             className: 'c-table-view-item__priority-value',
                         }}
                         name="priority"
@@ -278,15 +279,11 @@ export default class TableViewItemComponent extends PureComponent {
         const notVisibleLabel = Translator.trans(/* @Desc("Not Visible") */ 'items_table.row.not_visible.label', {}, 'ibexa_sub_items');
         const isVisible = !invisible && !hidden;
         const label = isVisible ? visibleLabel : notVisibleLabel;
-        const badgeClasses = createCssClassNames({
-            'ibexa-badge': true,
-            'ibexa-badge--status': true,
-            'ibexa-badge--success': isVisible,
-        });
+        const tagType = isVisible ? TagGhostType.SuccessGhost : TagGhostType.NeutralGhost;
 
         return (
             <div className="c-table-view-item__text-wrapper">
-                <span className={badgeClasses}>{label}</span>
+                <Tag type={tagType}>{label}</Tag>
             </div>
         );
     }

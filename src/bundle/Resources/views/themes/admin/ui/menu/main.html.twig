@@ -1,79 +1,65 @@
 {% extends '@ibexadesign/ui/menu/main_base.html.twig' %}
 
 {% block root %}
-    {% set extraClass = 'ibexa-main-menu__navbar--collapsed' %}
+    {% set is_menu_expanded = app.request.cookies.get('ibexa-aui_menu-is-expanded') != 'false' %}
+    {% set extra_class = is_menu_expanded ? '' : 'ibexa-main-menu__navbar--collapsed' %}
+    {% set expand_label = 'main_menu.action.expand'|trans({}, 'ibexa_menu')|desc('Expand') %}
+    {% set collapse_label = 'main_menu.action.collapse'|trans({}, 'ibexa_menu')|desc('Collapse') %}
     {% set current_item = item %}
-    {% set first_bottom_item = current_item.children|find(item => item.extras.bottom_item is defined and item.extras.bottom_item) %}
+    {% set top_level_items = current_item.children|filter(item => item.extras.bottom_item is not defined or not item.extras.bottom_item) %}
+    {% set bottom_level_items = current_item.children|filter(item => item.extras.bottom_item is defined and item.extras.bottom_item) %}
 
-    <div class="ibexa-main-menu__navbar ibexa-main-menu__navbar--first-level {{ extraClass }}">
-        <ul class="ibexa-adaptive-items ibexa-main-menu__items-list nav">
-            {% for item in current_item.children %}
-                {% if item.children|length > 0 or (item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink)) %}
-                    {{ block('item') }}
-                {% endif %}
-            {% endfor %}
-        </ul>
-        <ul
-            class="ibexa-popup-menu ibexa-popup-menu--navigation ibexa-popup-menu--hidden ibexa-main-menu__first-level-popup-menu"
-            data-item-template="{{ include('@ibexadesign/ui/menu/first_level_popup_menu_item.html.twig')|e('html_attr') }}"
-        >
-        </ul>
+    <div class="ibexa-main-menu__navbar {{ extra_class }}">
+        <div class="ibexa-main-menu__toggler-container">
+            <twig:ibexa:button
+                type="tertiary-alt"
+                size="small"
+                htmlType="button"
+                class="ibexa-main-menu__expand-toggler {{ is_menu_expanded ? '' : 'ibexa-main-menu__expand-toggler--collapsed' }} ibexa-btn ibexa-btn--small"
+                icon="arrow-collapse-left"
+                data-tooltip-extra-class="ibexa-tooltip--navigation"
+                data-tooltip-placement="right"
+                data-tooltip-offset="[0, 15]"
+                data-delay-show="0"
+                data-expand-label="{{ expand_label }}"
+                data-collapse-label="{{ collapse_label }}"
+                aria-expanded="{{ is_menu_expanded ? 'true' : 'false' }}"
+                aria-label="{{ is_menu_expanded ? collapse_label : expand_label }}"
+                title="{{ is_menu_expanded ? '' : expand_label }}"
+            >
+                {{ collapse_label }}
+            </twig:ibexa:button>
+        </div>
+        <div class="ibexa-main-menu__primary-section">
+            <ul class="ibexa-main-menu__items-list ibexa-main-menu__items-list--primary">
+                {% for item in top_level_items %}
+                    {% if item.children|length > 0 or (item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink)) %}
+                        {{ block('item') }}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% if bottom_level_items|length %}
+            <div class="ibexa-main-menu__secondary-section">
+                <ul class="ibexa-main-menu__items-list ibexa-main-menu__items-list--secondary">
+                    {% for item in bottom_level_items %}
+                        {% if item.children|length > 0 or (item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink)) %}
+                            {{ block('item') }}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
 
 {% block linkElement %}
-    {% import 'knp_menu.html.twig' as knp_menu %}
-
     {% set classes = [
         'ibexa-main-menu__item-action',
-        ((matcher.isCurrent(item) ? options.currentClass|trim ~ " ibexa-main-menu__item-action--selected")),
+        (matcher.isCurrent(item) ? options.currentClass|trim),
         (item.linkAttributes.class is defined ? item.linkAttributes.class|trim)
     ] %}
-
-    {% set link_attributes = item.linkAttributes|merge({
-        'href': item.uri,
-        'aria-controls': item.name,
-        'class': classes|join(' '),
-    }) %}
-
-    <a{{ knp_menu.attributes(link_attributes) }}>
-        {{ block('label') }}
-    </a>
-{% endblock %}
-
-{% block spanElement %}
-    {% import 'knp_menu.html.twig' as knp_menu %}
-
-    {% set classes = [
-        'ibexa-main-menu__item-action',
-        (matcher.isAncestor(item, options.matchingDepth) ? options.currentClass|trim ~ " ibexa-main-menu__item-action--selected"),
-        (item.linkAttributes.class is defined ? item.linkAttributes.class|trim)
-    ] %}
-
-    {% if item.uri is not empty %}
-        {% set link_attributes = item.linkAttributes|merge({
-            'href': item.uri
-        }) %}
-    {% else %}
-        {% set link_attributes = item.linkAttributes|merge({
-            'href': '#' ~ item.name,
-            'aria-selected': matcher.isCurrent(item) ? "true" : "false",
-            'data-bs-toggle': 'pill'
-        }) %}
-    {% endif %}
-
-    {% set link_attributes = link_attributes|merge({
-        'class': classes|join(' ')
-    }) %}
-
-    <a{{ knp_menu.attributes(link_attributes) }}>
-        {{ block('label') }}
-    </a>
-{% endblock %}
-
-{% block label %}
     {% set icon_path = null %}
-    {% set icon_class = icon_class|default('ibexa-main-menu__item-icon ibexa-icon ') ~ item.extras.icon_size|default('ibexa-icon--medium ') ~ item.extras.icon_class|default('')|trim %}
 
     {% if item.extras.icon_path|default %}
         {% set icon_path = item.extras.icon_path %}
@@ -81,13 +67,129 @@
         {% set icon_path = ibexa_icon_path(item.extras.icon) %}
     {% endif %}
 
-    {% if icon_path is not empty %}
-        <div class="ibexa-main-menu__item-icon-column">
-            <svg class="{{ icon_class }}">
-                <use xlink:href="{{ icon_path }}"></use>
-            </svg>
-        </div>
+    <twig:ibexa:link
+        href="{{ item.uri }}"
+        variant="button"
+        type="tertiary-alt"
+        size="medium"
+        class="{{ classes|join(' ') }}"
+        aria-controls="{{ item.name }}"
+        icon_url="{{ icon_path }}"
+    >
+        {{ include('@ibexadesign/ui/menu/main_menu_item_label.html.twig', {
+            item: item,
+        }) }}
+    </twig:ibexa:link>
+{% endblock %}
+
+{% block spanElement %}
+    {% import 'knp_menu.html.twig' as knp_menu %}
+
+    {% set action_classes = [
+        'ibexa-main-menu__item-action',
+        (matcher.isAncestor(item, options.matchingDepth) ? options.currentClass|trim),
+        (item.linkAttributes.class is defined ? item.linkAttributes.class|trim)
+    ] %}
+    {% set icon_path = null %}
+
+    {% if item.extras.icon_path|default %}
+        {% set icon_path = item.extras.icon_path %}
+    {% elseif item.extras.icon is defined and item.extras.icon is not empty %}
+        {% set icon_path = ibexa_icon_path(item.extras.icon) %}
     {% endif %}
 
+    {% if item.hasChildren %}
+        {% set popup_id = '%s-popup'|format(item.name) %}
+        {% set popup_trigger_classes = (action_classes|merge(['ibexa-main-menu__item-action--popup-trigger']))|join(' ') %}
+        {% set accordion_trigger_classes = (action_classes|merge(['ibexa-main-menu__item-action--accordion-trigger']))|join(' ') %}
+        <twig:ibexa:button
+            type="tertiary-alt"
+            size="medium"
+            htmlType="button"
+            class="{{ popup_trigger_classes }}"
+            data-popup-target-selector="#{{ popup_id }}"
+            icon_url="{{ icon_path }}"
+        >
+            {{ include('@ibexadesign/ui/menu/main_menu_item_label.html.twig', {
+                item: item,
+            }) }}
+        </twig:ibexa:button>
+
+        <ul id="{{ popup_id }}" class="ibexa-popup-menu ibexa-popup-menu--hidden ibexa-main-menu-popup">
+            {% for item in item.children %}
+                {% set renderItemAsGroup = item.children|length > 0 %}
+                {{ block('popupItem') }}
+            {% endfor %}
+        </ul>
+
+        <twig:ibexa:accordion
+            class="ibexa-main-menu__accordion"
+            :initiallyExpanded="is_menu_expanded and matcher.isAncestor(item, options.matchingDepth)"
+            expanderType="chevron"
+            :expanderHasLabel="false"
+        >
+            <twig:block name="header">
+                <twig:ibexa:button
+                    type="tertiary-alt"
+                    size="medium"
+                    htmlType="button"
+                    class="{{ accordion_trigger_classes }}"
+                    data-item-name="{{ item.name }}"
+                    icon_url="{{ icon_path }}"
+                >
+                    {{ include('@ibexadesign/ui/menu/main_menu_item_label.html.twig', {
+                        item: item,
+                    }) }}
+                </twig:ibexa:button>
+            </twig:block>
+
+            <twig:block name="content">
+                {{ include('@ibexadesign/ui/menu/main_2nd_level_subtree.html.twig', {
+                    items: item.children,
+                    matcher: matcher,
+                    options: options,
+                }) }}
+            </twig:block>
+        </twig:ibexa:accordion>
+    {% else %}
+        <twig:ibexa:link
+            href="{{ item.uri is not empty ? item.uri : '#' ~ item.name }}"
+            variant="button"
+            type="tertiary-alt"
+            size="medium"
+            class="{{ action_classes|join(' ') }}"
+            icon_url="{{ icon_path }}"
+        >
+            {{ include('@ibexadesign/ui/menu/main_menu_item_label.html.twig', {
+                item: item,
+            }) }}
+        </twig:ibexa:link>
+    {% endif %}
+{% endblock %}
+
+{% block popupLinkElement %}
+    {% set classes = [
+        'ibexa-popup-menu__item-content',
+        'ibexa-main-menu-popup__item-content',
+        (matcher.isCurrent(item) ? 'ibexa-main-menu-popup__item-content--current')
+    ] %}
+
+    <a href="{{ item.uri }}" class="{{ classes|join(' ') }}">
+        {{ include('@ibexadesign/ui/menu/main_menu_item_label.html.twig', {
+            item: item,
+        }) }}
+    </a>
+{% endblock %}
+
+{% block popupSpanElement %}
+    <div class="ibexa-popup-menu__item-content ibexa-main-menu-popup__group-name">
+        {{ include('@ibexadesign/ui/menu/main_menu_item_label.html.twig', {
+            item: item,
+            text_column_class: 'ibexa-main-menu-popup__group-item-content',
+        }) }}
+    </div>
+{% endblock %}
+
+{% block label %}
     <div class="ibexa-main-menu__item-text-column">{{ parent() }}</div>
 {% endblock %}

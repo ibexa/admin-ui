@@ -23,7 +23,7 @@ services:
 
     Ibexa\AdminUi\UserSetting\InContextTranslation:
         tags:
-            - { name: ibexa.user.setting.value, identifier: in_context_translation, group: location, priority: 60 }
+            - { name: ibexa.user.setting.value, identifier: in_context_translation, group: locale, priority: 60 }
             - { name: ibexa.user.setting.mapper.form, identifier: in_context_translation }
 
     Ibexa\AdminUi\UserSetting\Group\UserModeGroup:

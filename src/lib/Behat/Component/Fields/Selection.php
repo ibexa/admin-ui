@@ -43,9 +43,9 @@ class Selection extends FieldTypeComponent
     public function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('selectBar', '.ibexa-dropdown__selection-info'),
-            new VisibleCSSLocator('selectOption', '.ibexa-dropdown__item'),
-            new VisibleCSSLocator('specificOption', '.ibexa-dropdown__item:nth-child(%s)'),
+            new VisibleCSSLocator('selectBar', '.ibexa-dropdown__selection-info, .ids-dropdown__selection-info'),
+            new VisibleCSSLocator('selectOption', '.ibexa-dropdown__item, .ids-dropdown__item'),
+            new VisibleCSSLocator('specificOption', '.ibexa-dropdown__item:nth-child(%s), .ids-dropdown__item:nth-child(%s)'),
         ];
     }
 }

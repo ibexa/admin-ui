@@ -28,8 +28,8 @@ Feature: Content fields setting and editing
           | Field    | <value1> | <fieldTypeIdentifier> |
 
     Examples:
-      | fieldInternalName    | fieldName                    | fieldSettings                                                         |  label1   | value1                                                                    | contentItemName           | fieldTypeIdentifier | 
-      | ibexa_selection          | Selection                    | is_multiple:false,options:A first-Bielefeld-TestValue-Turtles-Zombies | value     | TestValue                                                                 | TestValue                 | ibexa_selection         |
+      | fieldInternalName        | fieldName                    | fieldSettings                                                         |  label1   | value1                                                                    | contentItemName           | fieldTypeIdentifier |
+      | ibexa_selection          | Selection                    | is_multiple:false,options:A first-Bielefeld-TestValue-Turtles-Zombies | value     | TestValue                                                                 | TestValue                 | ibexa_selection     |
       | ibexa_boolean            | Checkbox                     |                                                                       | value     | true                                                                      | 1                         |                     |
       | ibexa_email              | Email address                |                                                                       | value     | email@example.com                                                         | email@example.com         |                     |
       | ibexa_float              | Float                        |                                                                       | value     | 11.11                                                                     | 11.11                     |                     |
@@ -40,7 +40,8 @@ Feature: Content fields setting and editing
 
   @javascript @APIUser:admin
   Scenario Outline: Edit content item with given field
-    Given I am logged as admin
+    Given I open Login page in admin SiteAccess
+    And I log in as "admin" with password "publish"
       And I'm on Content view Page for "OtherFieldsContainer/<oldContentItemName>"
     When I perform the "Edit" action
       And I set content fields
@@ -55,7 +56,7 @@ Feature: Content fields setting and editing
 
     Examples:
       | label1    | value1                                    | oldContentItemName        | newContentItemName           | fieldTypeIdentifier |
-      | value     | Bielefeld                                 | TestValue                 | Bielefeld                    | ibexa_selection         |
+      | value     | Bielefeld                                 | TestValue                 | Bielefeld                    | ibexa_selection     |
       | value     | false                                     | 1                         | 0                            |                     |
       | value     | edited.email@example.com                  | email@example.com         | edited.email@example.com     |                     |
       | value     | 12.34                                     | 11.11                     | 12.34                        |                     |

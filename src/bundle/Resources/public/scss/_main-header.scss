@@ -7,12 +7,51 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    gap: calculateRem(16px);
     padding: calculateRem(16px) calculateRem(20px) calculateRem(15px);
     background: $ibexa-color-dark;
     border-bottom: calculateRem(1px) solid $ibexa-color-dark-500;
 
     &:has(.modal.show) {
         z-index: auto;
+    }
+
+    &__app-switcher-column {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 calculateRem(64px);
+        margin: calculateRem(-16px) 0 calculateRem(-16px) calculateRem(-20px);
+
+        &::before {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            background-color: $ibexa-color-white;
+            transition: width $ibexa-admin-transition-duration $ibexa-admin-transition;
+        }
+
+        .ibexa-app-switcher-toggler .ids-icon {
+            transition: fill $ibexa-admin-transition-duration $ibexa-admin-transition;
+        }
+
+        &--open {
+            &::before {
+                width: 100%;
+            }
+
+            .ibexa-app-switcher-toggler.ids-btn {
+                --ids-default-text-color: #{$ibexa-color-black};
+                --ids-focus-text-color: #{$ibexa-color-black};
+                --ids-hover-text-color: #{$ibexa-color-black};
+                --ids-hover-bg-color: #{$ibexa-color-light-400};
+            }
+        }
     }
 
     &__brand-column {
