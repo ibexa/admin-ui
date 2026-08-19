@@ -79,14 +79,16 @@ $bootstrap-danger: color.to-space($ibexa-color-danger, rgb);
         info: #17a2b8
     ),
     // Typography
+    $enable-rfs: false,
     $small-font-size: calculateRem(14px),
-    $h1-font-size: calculateRem(28px),
-    $h2-font-size: calculateRem(22px),
-    $h3-font-size: calculateRem(18px),
-    $h4-font-size: calculateRem(16px),
-    $h5-font-size: calculateRem(14px),
-    $h6-font-size: calculateRem(12px),
-    $headings-font-weight: 700,
+    $h1-font-size: $h1-font-size,
+    $h2-font-size: $h2-font-size,
+    $h3-font-size: $h3-font-size,
+    $h4-font-size: $h4-font-size,
+    $h5-font-size: $h5-font-size,
+    $h6-font-size: $h6-font-size,
+    $headings-font-weight: $headings-font-weight,
+    $headings-line-height: $headings-line-height,
     $headings-font-family: $ibexa-font-family-headings,
     $text-muted: $bootstrap-dark-400,
     // Fonts
