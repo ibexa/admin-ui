@@ -58,7 +58,7 @@
 
         &:hover {
             .ids-icon {
-                fill: $ibexa-color-info;
+                fill: $color-primary-30;
             }
         }
 
@@ -175,7 +175,7 @@
 
         &::before {
             content: '';
-            background-color: $ibexa-color-info-200;
+            background-color: $color-primary-10;
             width: calc(100% + #{calculateRem(4px)});
             height: 100%;
             display: block;

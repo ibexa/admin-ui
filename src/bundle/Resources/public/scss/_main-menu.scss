@@ -14,7 +14,7 @@
         overflow: hidden;
     }
 
-    @mixin thin-scrollbar($track: $color-neutral-230, $thumb: $color-neutral-200) {
+    @mixin thin-scrollbar($track: $color-neutral-240, $thumb: $color-neutral-200) {
         &::-webkit-scrollbar {
             width: calculateRem(16px);
             background-color: $track;
