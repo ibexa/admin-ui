@@ -7,21 +7,16 @@
     width: 100%;
     max-width: calculateRem(500px);
     position: relative;
+    --ids-mode: dark;
     --ibexa-input-text-color: #{$ibexa-color-white};
     --ibexa-text-color: #{$ibexa-color-white};
 
     .ids-input-text {
-        --ids-input-default-bg-color: #{$ibexa-color-dark-500};
-        --ids-input-default-border-color: #{$color-neutral-210};
-        --ids-input-default-text-color: #{$ibexa-color-white};
-        --ids-input-hover-border-color: #{$color-primary-50};
-        --ids-input-active-border-color: #{$color-primary-50};
-        --ids-input-focus-border-color: #{$color-primary-50};
-
-        &:hover {
-            .ids-input {
-                border-color: $color-primary-50;
-            }
+        // Header-specific accent; must sit on the element itself to beat the DS dark re-points there
+        .ids-input {
+            --ids-input-hover-border-color: #{$color-primary-50};
+            --ids-input-active-border-color: #{$color-primary-50};
+            --ids-input-focus-border-color: #{$color-primary-50};
         }
 
         &:focus-within {
@@ -102,37 +97,6 @@
     &__input {
         height: calculateRem(40px);
         padding: calculateRem(4px) calculateRem(56px) calculateRem(4px) calculateRem(12px);
-        color: $ibexa-color-white;
-        background: $ibexa-color-dark-500;
-        border-color: $color-neutral-210;
-
-        &:not(:disabled) {
-            &:hover {
-                box-shadow: none;
-                border-color: $color-primary-50;
-            }
-
-            &:focus {
-                color: $ibexa-color-white;
-                border-color: $color-primary-50;
-                background: $ibexa-color-dark-500;
-                box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.2);
-            }
-
-            &:active,
-            &:not(:placeholder-shown) {
-                box-shadow: none;
-                border-color: $color-primary-50;
-            }
-        }
-
-        &.form-control:focus {
-            color: $ibexa-color-light;
-        }
-
-        &::placeholder {
-            color: $ibexa-color-dark-300;
-        }
     }
 
     &__autocomplete-no-results {
@@ -274,6 +238,8 @@
 
     &__autocomplete {
         position: absolute;
+        // White floating surface inside the dark-scoped search — must re-assert light for DS components inside
+        --ids-mode: light;
         background-color: $ibexa-color-white;
         padding: calculateRem(8px);
         width: 100%;
