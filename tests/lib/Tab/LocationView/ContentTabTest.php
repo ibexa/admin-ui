@@ -116,12 +116,16 @@ final class ContentTabTest extends TestCase
         );
     }
 
-    public function testCurrentLanguageCodeComesFromRequestQueryWhenPresent(): void
+    public function testCurrentLanguageCodeComesFromRouteAttributeWhenPresent(): void
     {
         $this->permissionResolver->method('canUser')->willReturn(false);
         $this->content->method('getDefaultLanguageCode')->willReturn('eng-GB');
 
-        $request = new Request(['languageCode' => 'ger-DE']);
+        // The language switcher navigates to the 'ibexa.content.translation.view' route,
+        // whose 'languageCode' placeholder the router resolves into request attributes,
+        // never into the query string.
+        $request = new Request();
+        $request->attributes->set('languageCode', 'ger-DE');
         $this->requestStack->push($request);
 
         $parameters = $this->createTab()->getTemplateParameters([
