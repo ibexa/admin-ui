@@ -58,7 +58,9 @@
         }
 
         &--expanded {
-            background: $ibexa-color-dark-500;
+            .ibexa-header-user-menu__thumbnail-wrapper {
+                background: $ibexa-color-dark-500;
+            }
 
             .ibexa-icon {
                 transform: rotate(-180deg);
@@ -78,18 +80,25 @@
         }
 
         &:active {
-            background: $ibexa-color-dark-500;
+            .ibexa-header-user-menu__thumbnail-wrapper {
+                background: $ibexa-color-dark-500;
+            }
         }
 
         &:focus-visible {
             outline: none;
-            border: calculateRem(1px) solid $color-neutral-80;
-            box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.25);
+
+            .ibexa-header-user-menu__thumbnail-wrapper {
+                border-color: $color-neutral-80;
+                box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.25);
+            }
         }
     }
 
     &__thumbnail-wrapper {
         display: flex;
+        padding: calculateRem(2px);
+        border: calculateRem(1px) solid transparent;
         border-radius: 50%;
 
         .ibexa-user-thumbnail {
@@ -121,9 +130,17 @@
 
         &:focus-visible {
             outline: none;
-            border: calculateRem(1px) solid $color-neutral-80;
-            border-radius: calculateRem(8px);
-            box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.25);
+
+            // Overlay instead of a real border so the box never changes and the notice dot cannot shift
+            &::after {
+                content: '';
+                position: absolute;
+                inset: calculateRem(4px);
+                border: calculateRem(1px) solid $color-neutral-80;
+                border-radius: calculateRem(8px);
+                box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.25);
+                pointer-events: none;
+            }
         }
     }
 
@@ -135,7 +152,7 @@
         opacity: 1;
         cursor: pointer;
         position: absolute;
-        left: calculateRem(16px);
+        left: calculateRem(18px);
         top: calculateRem(2px);
         color: $ibexa-color-white;
 

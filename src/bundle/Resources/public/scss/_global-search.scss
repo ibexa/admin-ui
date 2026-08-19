@@ -14,19 +14,19 @@
         --ids-input-default-bg-color: #{$ibexa-color-dark-500};
         --ids-input-default-border-color: #{$color-neutral-210};
         --ids-input-default-text-color: #{$ibexa-color-white};
-        --ids-input-hover-border-color: #{$ibexa-color-info-600};
-        --ids-input-active-border-color: #{$ibexa-color-info-600};
-        --ids-input-focus-border-color: #{$ibexa-color-info-600};
+        --ids-input-hover-border-color: #{$color-primary-50};
+        --ids-input-active-border-color: #{$color-primary-50};
+        --ids-input-focus-border-color: #{$color-primary-50};
 
         &:hover {
             .ids-input {
-                border-color: $ibexa-color-info-600;
+                border-color: $color-primary-50;
             }
         }
 
         &:focus-within {
             .ids-input-text__search-btn {
-                background: $ibexa-color-info-600;
+                background: $color-primary-50;
 
                 .ids-icon {
                     fill: $ibexa-color-white;
@@ -36,7 +36,7 @@
 
         &:has(.ibexa-global-search__input:not(:placeholder-shown)) {
             .ids-input-text__search-btn {
-                background: $ibexa-color-info-600;
+                background: $color-primary-50;
 
                 .ids-icon {
                     fill: $ibexa-color-white;
@@ -87,14 +87,14 @@
         }
 
         &:hover {
-            background: $ibexa-color-info-600;
-            box-shadow: 0 calculateRem(22px) calculateRem(24px) 0 color.change($ibexa-color-info, $alpha: 0.2);
+            background: $color-primary-50;
+            box-shadow: 0 calculateRem(22px) calculateRem(24px) 0 color.change($color-primary-50, $alpha: 0.2);
         }
 
         &:focus {
             color: $ibexa-color-white;
-            background: $ibexa-color-info-600;
-            border-color: $ibexa-color-info-600;
+            background: $color-primary-50;
+            border-color: $color-primary-50;
             box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.2);
         }
     }
@@ -109,12 +109,12 @@
         &:not(:disabled) {
             &:hover {
                 box-shadow: none;
-                border-color: $ibexa-color-info-600;
+                border-color: $color-primary-50;
             }
 
             &:focus {
                 color: $ibexa-color-white;
-                border-color: $ibexa-color-info-600;
+                border-color: $color-primary-50;
                 background: $ibexa-color-dark-500;
                 box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.2);
             }
@@ -122,7 +122,7 @@
             &:active,
             &:not(:placeholder-shown) {
                 box-shadow: none;
-                border-color: $ibexa-color-info-600;
+                border-color: $color-primary-50;
             }
         }
 
