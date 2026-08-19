@@ -1,6 +1,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/colors' as *;
+@use 'sass:color';
 
 .ibexa-header-user-menu {
     display: flex;
@@ -57,15 +58,33 @@
         }
 
         &--expanded {
+            background: $ibexa-color-dark-500;
+
             .ibexa-icon {
                 transform: rotate(-180deg);
             }
         }
 
         &:hover {
-            .ibexa-icon {
-                fill: $ibexa-color-info;
+            // The avatar circle fill is baked into the SVG served by ibexa/user, out of CSS reach;
+            // brightness(0.85) turns the brand bg #4e24a5 into ~#421f8c vs the design's #431f8e
+            .ibexa-user-thumbnail {
+                filter: brightness(0.85);
             }
+
+            .ibexa-icon {
+                fill: $color-primary-30;
+            }
+        }
+
+        &:active {
+            background: $ibexa-color-dark-500;
+        }
+
+        &:focus-visible {
+            outline: none;
+            border: calculateRem(1px) solid $color-neutral-80;
+            box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.25);
         }
     }
 
@@ -90,8 +109,21 @@
 
         &:hover {
             .ibexa-icon {
-                fill: $ibexa-color-info;
+                fill: $color-primary-30;
             }
+        }
+
+        &:active {
+            .ibexa-icon {
+                fill: $color-primary-50;
+            }
+        }
+
+        &:focus-visible {
+            outline: none;
+            border: calculateRem(1px) solid $color-neutral-80;
+            border-radius: calculateRem(8px);
+            box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.25);
         }
     }
 
