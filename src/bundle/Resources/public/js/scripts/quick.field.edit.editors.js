@@ -145,7 +145,7 @@
             render: (fieldValueHash) => {
                 const textarea = doc.createElement('textarea');
 
-                textarea.className = `${CLASS_LEGACY_INPUT} ${CLASS_LEGACY_INPUT}--textarea`;
+                textarea.className = `${CLASS_LEGACY_INPUT} form-control ${CLASS_LEGACY_INPUT}--textarea`;
                 textarea.value = fieldValueHash ?? '';
 
                 return textarea;
@@ -206,7 +206,7 @@
                 const input = doc.createElement('input');
 
                 input.type = 'date';
-                input.className = `${CLASS_LEGACY_INPUT} ${CLASS_LEGACY_INPUT}--date`;
+                input.className = `${CLASS_LEGACY_INPUT} form-control ${CLASS_LEGACY_INPUT}--date`;
 
                 if (fieldValueHash && typeof fieldValueHash.timestamp === 'number') {
                     const date = new Date(fieldValueHash.timestamp * 1000);
@@ -234,7 +234,7 @@
 
                 input.type = 'datetime-local';
                 input.step = '1';
-                input.className = `${CLASS_LEGACY_INPUT} ${CLASS_LEGACY_INPUT}--datetime-local`;
+                input.className = `${CLASS_LEGACY_INPUT} form-control ${CLASS_LEGACY_INPUT}--datetime-local`;
 
                 if (fieldValueHash && typeof fieldValueHash.timestamp === 'number') {
                     const date = new Date(fieldValueHash.timestamp * 1000);
@@ -255,7 +255,7 @@
 
                 input.type = 'time';
                 input.step = '1';
-                input.className = `${CLASS_LEGACY_INPUT} ${CLASS_LEGACY_INPUT}--time`;
+                input.className = `${CLASS_LEGACY_INPUT} form-control ${CLASS_LEGACY_INPUT}--time`;
 
                 // 0 (midnight) is a legitimate value - never treat it as empty.
                 if (typeof fieldValueHash === 'number') {

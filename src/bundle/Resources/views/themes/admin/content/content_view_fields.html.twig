@@ -5,6 +5,9 @@
     </div>
 
     {% block fields %}
+        {% set inline_field_edit = inline_field_edit|default({enabled: false, field_types: []}) %}
+        {% set can_edit = can_edit|default(false) %}
+        {% set current_language_code = current_language_code|default(null) %}
         <div class="ibexa-content-preview" data-content-id="{{ content.id }}" data-language-code="{{ current_language_code }}">
             {% for group in field_definitions_by_group %}
                 {% if group.fieldDefinitions|length > 0 %}

@@ -6,8 +6,16 @@
     gap: calculateRem(8px);
 
     &__input {
-        flex: 1 1 auto;
         min-width: 0;
+
+        // Checkboxes/radios size themselves (Bootstrap's .form-check-input only sets
+        // flex-shrink and width, never flex-grow), so letting flex-grow apply to them
+        // would stretch a fixed-size control to fill the whole row. Scoped by input
+        // type rather than by field type, so any future non-growing editor is covered
+        // without another rule.
+        &:not([type='checkbox']):not([type='radio']) {
+            flex: 1 1 auto;
+        }
     }
 
     &__actions {

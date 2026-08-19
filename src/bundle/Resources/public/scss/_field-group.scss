@@ -128,6 +128,13 @@
             &:focus-visible {
                 background-color: var(--ibexa-content-field-hover-bg-color, #{$ibexa-color-light-300});
             }
+
+            // Set on the row itself while its prefill is in flight (admin.location.quick.field.edit.js),
+            // so a double-click during a slow REST round trip, or a refused open during an in-flight
+            // save, gets visible feedback instead of none at all.
+            &[aria-busy='true'] {
+                cursor: wait;
+            }
         }
 
         &__name {

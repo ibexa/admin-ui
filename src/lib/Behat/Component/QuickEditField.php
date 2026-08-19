@@ -12,6 +12,7 @@ use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
+use RuntimeException;
 
 /**
  * Drives the inline "quick edit" affordance rendered by admin.location.quick.field.edit.js on
@@ -143,20 +144,40 @@ final class QuickEditField extends Component
         );
     }
 
+    /**
+     * This method plus the `nthFieldContainer`/`fieldName` locators below are a verbatim copy of
+     * {@see \Ibexa\AdminUi\Behat\Component\ContentItemAdminPreview::getFieldPosition()} (and its
+     * locators). That method is `protected` on a component with an unrelated constructor
+     * signature (it takes `iterable $fieldTypeComponents`, which this component has no use for),
+     * and this component is `final`, so reuse would mean either widening that method's visibility
+     * for a single external caller or making QuickEditField depend on field type components it
+     * never uses - neither of which is a clean extraction, so the duplication is kept here with
+     * this pointer back to the original instead.
+     *
+     * @throws \RuntimeException if no field with the given label is found, e.g. because of a typo
+     */
     private function getFieldPosition(string $fieldLabel): int
     {
         $fields = $this->getHTMLPage()->findAll($this->getLocator('fieldName'))->assert()->hasElements();
+        $fieldLabels = [];
 
         $position = 1;
         foreach ($fields as $field) {
-            if ($field->getText() === $fieldLabel) {
+            $text = $field->getText();
+
+            if ($text === $fieldLabel) {
                 return $position;
             }
 
+            $fieldLabels[] = $text;
             ++$position;
         }
 
-        return $position;
+        throw new RuntimeException(sprintf(
+            'Field with label "%s" not found. Available field labels: %s.',
+            $fieldLabel,
+            implode(', ', $fieldLabels)
+        ));
     }
 
     public function verifyIsLoaded(): void

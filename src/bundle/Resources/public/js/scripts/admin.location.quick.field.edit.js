@@ -89,6 +89,11 @@ import { getRestInfo } from './helpers/context.helper';
         return fieldErrorMessages.join(' ') || error.errorDescription || error.errorMessage;
     };
 
+    // showErrorNotification() renders whatever it is given, so an Error object must be unwrapped
+    // to its message here rather than shown as "Error: <message>". Non-Error values (a plain
+    // string, e.g. a validation message) are passed through unchanged.
+    const getNotificationMessage = (error) => (error instanceof Error ? error.message : error);
+
     /**
      * Turns any non-2xx response into an Error carrying the server's own message, and any 2xx
      * one into its status code.
@@ -488,7 +493,7 @@ import { getRestInfo } from './helpers/context.helper';
                 await deleteDraft(draftHref).catch(() => {});
             }
 
-            ibexa.helpers.notification.showErrorNotification(error);
+            ibexa.helpers.notification.showErrorNotification(getNotificationMessage(error));
         } finally {
             // The guard stays taken on the way to a reload, so nothing can start another
             // transaction against a page that is about to be replaced. Every other way out -
@@ -581,7 +586,7 @@ import { getRestInfo } from './helpers/context.helper';
         try {
             fieldValueHash = await loadFieldValueHash(contentId, fieldDefinitionIdentifier, languageCode);
         } catch (error) {
-            ibexa.helpers.notification.showErrorNotification(error);
+            ibexa.helpers.notification.showErrorNotification(getNotificationMessage(error));
 
             return;
         } finally {
@@ -658,7 +663,8 @@ import { getRestInfo } from './helpers/context.helper';
      * Entry point wrapper: openEditor() is fired and forgotten from the listeners, so its rejection
      * has to be handled here. `quickEdit.editors` is an advertised extension point, and a
      * third-party editor whose render() throws must degrade to a visible error instead of a
-     * console-only unhandled rejection with a pending open left behind.
+     * console-only unhandled rejection with a pending open left behind. The stack is still logged
+     * to the console alongside the notification, so a throwing render() stays diagnosable.
      *
      * @function requestOpen
      * @param {HTMLElement} fieldNode
@@ -667,7 +673,8 @@ import { getRestInfo } from './helpers/context.helper';
     const requestOpen = (fieldNode) => {
         openEditor(fieldNode).catch((error) => {
             abortPendingOpen();
-            ibexa.helpers.notification.showErrorNotification(error);
+            console.error(error);
+            ibexa.helpers.notification.showErrorNotification(getNotificationMessage(error));
         });
     };
 
