@@ -111,6 +111,11 @@
         <target state="new">The server did not return the location of the new draft, so the change was not published.</target>
         <note>key: content.quick_edit.error.missing_draft_location</note>
       </trans-unit>
+      <trans-unit id="570637992f1fd0f082c8b3f8631f20b15cb89741" resname="content.quick_edit.error.missing_field_value">
+        <source>The current value of this field is not available in the language being displayed. Use the full editor instead.</source>
+        <target state="new">The current value of this field is not available in the language being displayed. Use the full editor instead.</target>
+        <note>key: content.quick_edit.error.missing_field_value</note>
+      </trans-unit>
       <trans-unit id="caf437518099b2da665eaa0216bd460e0fbd8df7" resname="content.quick_edit.error.no_published_version">
         <source>This content item has no published version yet. Use the full editor instead.</source>
         <target state="new">This content item has no published version yet. Use the full editor instead.</target>

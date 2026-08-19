@@ -2,7 +2,10 @@ import { getRestInfo } from './helpers/context.helper';
 
 (function (global, doc, ibexa, bootstrap, Translator) {
     const SELECTOR_QUICK_EDIT_FIELD = '.ibexa-content-field[data-quick-edit]';
-    const SELECTOR_FIELDS_WRAPPER = '.ibexa-content-preview';
+    // The DOM contract, not the class: `.ibexa-content-preview` is also used as a body_class in
+    // content_preview.html.twig, and matching that instead would put `undefined` in the REST URL
+    // rather than bail out.
+    const SELECTOR_FIELDS_WRAPPER = '[data-content-id]';
     const SELECTOR_FIELD_NAME = '.ibexa-content-field__name';
     const SELECTOR_FIELD_VALUE = '.ibexa-content-field__value';
     const SELECTOR_MODAL_TITLE = '.modal-title';
@@ -17,6 +20,7 @@ import { getRestInfo } from './helpers/context.helper';
     const EVENT_MODAL_HIDDEN = 'hidden.bs.modal';
     const KEY_ENTER = 'Enter';
     const KEY_ESCAPE = 'Escape';
+    const KEY_SPACE = ' ';
     const REST_PATH_PREFIX = '/api/ibexa/v2';
     // Any `application/vnd.ibexa.api.*+json` media type selects the REST JSON visitor, so a
     // single value is enough for every call here, including the ones whose success is 204 and
@@ -131,11 +135,24 @@ import { getRestInfo } from './helpers/context.helper';
         // Ibexa's JSON generator emits every list through startList()/endList(), so
         // Version.Fields.field is always an array - .find() is safe with no normalisation.
         const fields = data.Version.Fields.field;
-        const field =
-            fields.find((item) => item.fieldDefinitionIdentifier === fieldDefinitionIdentifier && item.languageCode === languageCode) ??
-            fields.find((item) => item.fieldDefinitionIdentifier === fieldDefinitionIdentifier);
+        // Matched on the language too, with no fallback to another translation: prefilling from a
+        // different language would make the PATCH copy that value into the displayed one, and
+        // silently corrupting a translation is far worse than refusing to open.
+        const field = fields.find(
+            (item) => item.fieldDefinitionIdentifier === fieldDefinitionIdentifier && item.languageCode === languageCode,
+        );
 
-        return field ? field.fieldValue : null;
+        if (field === undefined) {
+            throw new Error(
+                Translator.trans(
+                    /* @Desc("The current value of this field is not available in the language being displayed. Use the full editor instead.") */ 'content.quick_edit.error.missing_field_value',
+                    {},
+                    'ibexa_locationview',
+                ),
+            );
+        }
+
+        return field.fieldValue;
     };
 
     const loadDrafts = async (contentId) => {
@@ -351,15 +368,35 @@ import { getRestInfo } from './helpers/context.helper';
         });
     };
 
+    const restoreAttribute = (node, name, value) => {
+        if (value === null) {
+            node.removeAttribute(name);
+
+            return;
+        }
+
+        node.setAttribute(name, value);
+    };
+
     const closeSession = ({ restoreFocus }) => {
+        // Every close invalidates a prefill still in flight. Without this a pending open would
+        // render, append and steal focus after the user had already cancelled - so the bump comes
+        // before the early return, which is the case where the user cancelled an open that had not
+        // rendered yet. openEditor() calls this too, but only after its own generation gate, so the
+        // bump can never invalidate the open that is in the middle of rendering.
+        openGeneration += 1;
+
         if (activeSession === null) {
             return;
         }
 
-        const { fieldNode, valueNode, editorRow } = activeSession;
+        const { fieldNode, valueNode, editorRow, rowRole, rowTabIndex } = activeSession;
 
         editorRow.remove();
         valueNode.hidden = false;
+        // Restored before focus() - a row with no tabindex cannot take focus back.
+        restoreAttribute(fieldNode, 'role', rowRole);
+        restoreAttribute(fieldNode, 'tabindex', rowTabIndex);
         activeSession = null;
 
         if (restoreFocus) {
@@ -503,18 +540,17 @@ import { getRestInfo } from './helpers/context.helper';
         }
 
         const editor = getEditor(fieldNode);
-        const wrapperNode = fieldNode.closest(SELECTOR_FIELDS_WRAPPER);
         const valueNode = fieldNode.querySelector(SELECTOR_FIELD_VALUE);
+        const { contentId, languageCode } = fieldNode.closest(SELECTOR_FIELDS_WRAPPER)?.dataset ?? {};
+        const { fieldDefinitionIdentifier, fieldTypeIdentifier } = fieldNode.dataset;
 
-        // No editor for this field type, or an overridden template without the wrapper data or
-        // the value node: nothing to do, and nothing to complain about either.
-        if (!editor || !wrapperNode || !valueNode) {
+        // No editor for this field type, or an overridden template that dropped the value node or
+        // part of the data contract: nothing to do, and nothing to complain about either.
+        if (!editor || !valueNode || !contentId || !languageCode || !fieldDefinitionIdentifier) {
             return;
         }
 
         const generation = ++openGeneration;
-        const { contentId, languageCode } = wrapperNode.dataset;
-        const { fieldDefinitionIdentifier, fieldTypeIdentifier } = fieldNode.dataset;
         let fieldValueHash = null;
 
         fieldNode.setAttribute('aria-busy', 'true');
@@ -532,11 +568,22 @@ import { getRestInfo } from './helpers/context.helper';
         // A superseded open stops here, before anything is rendered, appended or stored: the
         // only editor that exists afterwards is the newest one, so the confirm button can only
         // ever harvest the field the user actually typed into.
-        if (generation !== openGeneration) {
+        //
+        // The guard is re-checked as well, because it can have been taken while this prefill was in
+        // flight: rendering then would run the unguarded part of closeSession() over the row that is
+        // being saved and overwrite activeSession, leaving the transaction's finally block acting on
+        // a detached session and the user's typed value gone with nowhere to retry.
+        if (generation !== openGeneration || isBusy) {
             return;
         }
 
         const fieldName = getFieldName(fieldNode);
+        // ARIA makes the children of a role="button" element presentational, so an editor row
+        // rendered inside the field row can be flattened to a label by conforming assistive tech
+        // and its input and buttons never exposed. The row gives up its button semantics for as
+        // long as a session lives inside it; closeSession() puts them back.
+        const rowRole = fieldNode.getAttribute('role');
+        const rowTabIndex = fieldNode.getAttribute('tabindex');
         const input = editor.render(fieldValueHash, {
             validators: getFieldValidators(fieldNode),
             fieldTypeIdentifier,
@@ -557,6 +604,8 @@ import { getRestInfo } from './helpers/context.helper';
         // a failed or superseded open never leaves the user without an editor.
         closeSession({ restoreFocus: false });
 
+        fieldNode.removeAttribute('role');
+        fieldNode.removeAttribute('tabindex');
         valueNode.hidden = true;
         valueNode.after(editorRow);
 
@@ -569,6 +618,8 @@ import { getRestInfo } from './helpers/context.helper';
             contentId,
             languageCode,
             fieldDefinitionIdentifier,
+            rowRole,
+            rowTabIndex,
         };
 
         input.focus();
@@ -578,6 +629,12 @@ import { getRestInfo } from './helpers/context.helper';
         fieldNode.addEventListener(
             'dblclick',
             (event) => {
+                // A double click bubbling out of the open editor keeps its native behaviour, so
+                // double-click-to-select-a-word still works inside the input.
+                if (activeSession?.editorRow.contains(event.target)) {
+                    return;
+                }
+
                 event.preventDefault();
                 global.getSelection()?.removeAllRanges();
                 openEditor(fieldNode);
@@ -587,12 +644,16 @@ import { getRestInfo } from './helpers/context.helper';
         fieldNode.addEventListener(
             'keydown',
             (event) => {
-                // Only the row itself activates; the editor row lives inside it, so its own
-                // Enter and Escape must not bubble up into another open.
-                if (event.key !== KEY_ENTER || event.target !== fieldNode) {
+                const isActivationKey = event.key === KEY_ENTER || event.key === KEY_SPACE;
+
+                // Enter and Space both activate, as the WAI-ARIA button pattern requires of the
+                // row's role="button". Only the row itself activates: the editor row lives inside
+                // it, so its own keys must not bubble up into another open.
+                if (!isActivationKey || event.target !== fieldNode) {
                     return;
                 }
 
+                // Space would otherwise scroll the page.
                 event.preventDefault();
                 openEditor(fieldNode);
             },
