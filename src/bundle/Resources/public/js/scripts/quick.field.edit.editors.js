@@ -28,18 +28,24 @@
     };
 
     /**
-     * Builds the error message for one of the reused `ibexa.errors` translations,
-     * dropping the leading `{fieldName}` token (quick edit has no field name at
-     * this layer — the row it belongs to is already visible) and substituting
-     * any other tokens the editor can compute from its own element.
+     * Builds the error message for one of the reused `ibexa.errors` translations.
+     * Every one of those strings begins with a `{fieldName}` token; this
+     * substitutes it with the field's display name (stashed on the element by
+     * render() via `dataset.fieldName`, straight out of `fieldConfig.fieldName`,
+     * following the same `.replace('{fieldName}', label)` convention used by
+     * `fieldType/ibexa_integer.js`), then substitutes any other tokens the
+     * editor can compute from its own element. Falls back to dropping the
+     * `{fieldName} ` prefix — never a literal token or a stray leading space —
+     * when the name is missing or empty.
      *
      * @function formatErrorMessage
      * @param {String} template
+     * @param {String} [fieldName]
      * @param {Object} [tokens]
      * @returns {String}
      */
-    const formatErrorMessage = (template, tokens = {}) => {
-        let message = template.replace('{fieldName} ', '');
+    const formatErrorMessage = (template, fieldName, tokens = {}) => {
+        let message = fieldName ? template.replace('{fieldName}', fieldName) : template.replace('{fieldName} ', '');
 
         Object.entries(tokens).forEach(([token, value]) => {
             message = message.replace(`{${token}}`, value);
@@ -68,13 +74,14 @@
 
     const validateStringLength = (input) => {
         const { minLength, maxLength, value } = input;
+        const { fieldName } = input.dataset;
 
         if (minLength >= 0 && value.length < minLength) {
-            return formatErrorMessage(ibexa.errors.tooShort, { minLength });
+            return formatErrorMessage(ibexa.errors.tooShort, fieldName, { minLength });
         }
 
         if (maxLength >= 0 && value.length > maxLength) {
-            return formatErrorMessage(ibexa.errors.tooLong, { maxLength });
+            return formatErrorMessage(ibexa.errors.tooLong, fieldName, { maxLength });
         }
 
         return null;
@@ -92,18 +99,19 @@
             return null;
         }
 
+        const { fieldName } = input.dataset;
         const value = parse(input.value);
 
         if (Number.isNaN(value)) {
-            return formatErrorMessage(ibexa.errors[notANumberError]);
+            return formatErrorMessage(ibexa.errors[notANumberError], fieldName);
         }
 
         if (input.min !== '' && value < parse(input.min)) {
-            return formatErrorMessage(ibexa.errors.isLess, { minValue: input.min });
+            return formatErrorMessage(ibexa.errors.isLess, fieldName, { minValue: input.min });
         }
 
         if (input.max !== '' && value > parse(input.max)) {
-            return formatErrorMessage(ibexa.errors.isGreater, { maxValue: input.max });
+            return formatErrorMessage(ibexa.errors.isGreater, fieldName, { maxValue: input.max });
         }
 
         return null;
@@ -115,6 +123,7 @@
                 const input = createTextLikeInput('text');
 
                 input.value = fieldValueHash ?? '';
+                input.dataset.fieldName = fieldConfig.fieldName ?? '';
                 applyStringLengthConstraints(input, fieldConfig.validators);
 
                 return input;
@@ -149,6 +158,7 @@
 
                 input.step = '1';
                 input.value = typeof fieldValueHash === 'number' ? fieldValueHash : '';
+                input.dataset.fieldName = fieldConfig.fieldName ?? '';
                 applyNumericRangeConstraints(input, fieldConfig.validators, 'IntegerValueValidator', 'minIntegerValue', 'maxIntegerValue');
 
                 return input;
@@ -166,6 +176,7 @@
 
                 input.step = 'any';
                 input.value = typeof fieldValueHash === 'number' ? fieldValueHash : '';
+                input.dataset.fieldName = fieldConfig.fieldName ?? '';
                 applyNumericRangeConstraints(input, fieldConfig.validators, 'FloatValueValidator', 'minFloatValue', 'maxFloatValue');
 
                 return input;
