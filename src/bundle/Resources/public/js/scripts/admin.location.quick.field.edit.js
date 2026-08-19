@@ -55,6 +55,9 @@ import { getRestInfo } from './helpers/context.helper';
     // appending a second editor whose confirm button would then harvest and publish a different
     // field than the one the user typed into.
     let openGeneration = 0;
+    // The row whose prefill is in flight, if any. A pending open has no editor and no session yet,
+    // so it has nothing for the cancel paths to act on - this is what gives it an abort affordance.
+    let pendingOpenNode = null;
     let activeSession = null;
 
     const getRestBaseUrl = () => `${getRestInfo().instanceUrl}${REST_PATH_PREFIX}`;
@@ -379,16 +382,16 @@ import { getRestInfo } from './helpers/context.helper';
     };
 
     const closeSession = ({ restoreFocus }) => {
-        // Every close invalidates a prefill still in flight. Without this a pending open would
-        // render, append and steal focus after the user had already cancelled - so the bump comes
-        // before the early return, which is the case where the user cancelled an open that had not
-        // rendered yet. openEditor() calls this too, but only after its own generation gate, so the
-        // bump can never invalidate the open that is in the middle of rendering.
-        openGeneration += 1;
-
         if (activeSession === null) {
             return;
         }
+
+        // Closing a session also invalidates a prefill still in flight, which would otherwise
+        // render, append and steal focus after the user had already cancelled. openEditor() calls
+        // this too, but only after its own generation gate, so the bump can never invalidate the
+        // open that is in the middle of rendering. A pending open with no session behind it yet is
+        // not reachable from here - abortPendingOpen() is what cancels that one.
+        openGeneration += 1;
 
         const { fieldNode, valueNode, editorRow, rowRole, rowTabIndex } = activeSession;
 
@@ -402,6 +405,25 @@ import { getRestInfo } from './helpers/context.helper';
         if (restoreFocus) {
             fieldNode.focus();
         }
+    };
+
+    /**
+     * Cancels a prefill that has not rendered yet.
+     *
+     * Bumping the token makes the pending open fail its own gate, so it renders nothing and stores
+     * nothing. Nothing else is touched - in particular this is allowed while the busy guard is
+     * held, because dropping a pending open cannot disturb a save transaction.
+     *
+     * @function abortPendingOpen
+     * @returns {void}
+     */
+    const abortPendingOpen = () => {
+        if (pendingOpenNode === null) {
+            return;
+        }
+
+        openGeneration += 1;
+        pendingOpenNode = null;
     };
 
     const cancelSession = ({ restoreFocus }) => {
@@ -553,6 +575,7 @@ import { getRestInfo } from './helpers/context.helper';
         const generation = ++openGeneration;
         let fieldValueHash = null;
 
+        pendingOpenNode = fieldNode;
         fieldNode.setAttribute('aria-busy', 'true');
 
         try {
@@ -563,6 +586,12 @@ import { getRestInfo } from './helpers/context.helper';
             return;
         } finally {
             fieldNode.removeAttribute('aria-busy');
+
+            // Only the newest generation may clear the flag: an older, superseded prefill settling
+            // late must not report that the open the user is still waiting for has finished.
+            if (generation === openGeneration) {
+                pendingOpenNode = null;
+            }
         }
 
         // A superseded open stops here, before anything is rendered, appended or stored: the
@@ -625,6 +654,23 @@ import { getRestInfo } from './helpers/context.helper';
         input.focus();
     };
 
+    /**
+     * Entry point wrapper: openEditor() is fired and forgotten from the listeners, so its rejection
+     * has to be handled here. `quickEdit.editors` is an advertised extension point, and a
+     * third-party editor whose render() throws must degrade to a visible error instead of a
+     * console-only unhandled rejection with a pending open left behind.
+     *
+     * @function requestOpen
+     * @param {HTMLElement} fieldNode
+     * @returns {void}
+     */
+    const requestOpen = (fieldNode) => {
+        openEditor(fieldNode).catch((error) => {
+            abortPendingOpen();
+            ibexa.helpers.notification.showErrorNotification(error);
+        });
+    };
+
     quickEditFields.forEach((fieldNode) => {
         fieldNode.addEventListener(
             'dblclick',
@@ -637,7 +683,7 @@ import { getRestInfo } from './helpers/context.helper';
 
                 event.preventDefault();
                 global.getSelection()?.removeAllRanges();
-                openEditor(fieldNode);
+                requestOpen(fieldNode);
             },
             false,
         );
@@ -655,7 +701,7 @@ import { getRestInfo } from './helpers/context.helper';
 
                 // Space would otherwise scroll the page.
                 event.preventDefault();
-                openEditor(fieldNode);
+                requestOpen(fieldNode);
             },
             false,
         );
@@ -664,11 +710,35 @@ import { getRestInfo } from './helpers/context.helper';
     doc.addEventListener(
         'mousedown',
         (event) => {
-            if (activeSession === null || activeSession.editorRow.contains(event.target)) {
+            if (activeSession === null) {
+                // Clicking away from the row that is still loading cancels it, the same way
+                // clicking away from an open editor does. Clicks inside that row are left alone,
+                // so the second half of a double click cannot cancel the open it just started.
+                if (pendingOpenNode !== null && !pendingOpenNode.contains(event.target)) {
+                    abortPendingOpen();
+                }
+
+                return;
+            }
+
+            if (activeSession.editorRow.contains(event.target)) {
                 return;
             }
 
             cancelSession({ restoreFocus: true });
+        },
+        false,
+    );
+
+    // Escape reaches a pending open wherever the focus is. The editor row has its own Escape
+    // handler for a rendered session; this one covers the window before anything is rendered,
+    // where there is no editor and no session to cancel.
+    doc.addEventListener(
+        'keydown',
+        (event) => {
+            if (event.key === KEY_ESCAPE) {
+                abortPendingOpen();
+            }
         },
         false,
     );
