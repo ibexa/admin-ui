@@ -5,7 +5,7 @@
     </div>
 
     {% block fields %}
-        <div class="ibexa-content-preview">
+        <div class="ibexa-content-preview" data-content-id="{{ content.id }}" data-language-code="{{ current_language_code }}">
             {% for group in field_definitions_by_group %}
                 {% if group.fieldDefinitions|length > 0 %}
                     {% set group_name = group.name|lower|replace({' ': ''})|slug %}
@@ -23,7 +23,22 @@
                         <div class="{{ collapse_class_name }} ibexa-content-preview-collapse collapse show" data-collapse-state-key="{{ collapse_state_key }}">
                             {% for field_definition in group.fieldDefinitions %}
                                 {% block field %}
-                                    <div class="ibexa-content-field">
+                                    {% set is_field_quick_editable = inline_field_edit.enabled
+                                        and can_edit
+                                        and field_definition.fieldTypeIdentifier in inline_field_edit.field_types
+                                        and (field_definition.isTranslatable or current_language_code == content.contentInfo.mainLanguageCode)
+                                    %}
+                                    <div class="ibexa-content-field"
+                                        {% if is_field_quick_editable %}
+                                            data-quick-edit
+                                            data-field-definition-identifier="{{ field_definition.identifier }}"
+                                            data-field-type-identifier="{{ field_definition.fieldTypeIdentifier }}"
+                                            data-field-validators="{{ field_definition.validatorConfiguration ? field_definition.validatorConfiguration|json_encode : '{}' }}"
+                                            tabindex="0"
+                                            role="button"
+                                            aria-label="{{ 'content.field.quick_edit_aria_label'|trans({'%fieldName%': field_definition.name}, 'ibexa_locationview')|desc('Edit %fieldName% field') }}"
+                                        {% endif %}
+                                    >
                                         <div class="ibexa-content-field__name">{{ field_definition.name }}</div>
                                         <div class="ibexa-content-field__value">
                                             {% if ibexa_field_is_empty(content, field_definition.identifier) %}
