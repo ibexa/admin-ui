@@ -31,12 +31,14 @@
      * Builds the error message for one of the reused `ibexa.errors` translations.
      * Every one of those strings begins with a `{fieldName}` token; this
      * substitutes it with the field's display name (stashed on the element by
-     * render() via `dataset.fieldName`, straight out of `fieldConfig.fieldName`,
-     * following the same `.replace('{fieldName}', label)` convention used by
-     * `fieldType/ibexa_integer.js`), then substitutes any other tokens the
-     * editor can compute from its own element. Falls back to dropping the
-     * `{fieldName} ` prefix — never a literal token or a stray leading space —
-     * when the name is missing or empty.
+     * render() via `dataset.fieldName`, straight out of `fieldConfig.fieldName`)
+     * using a replacer function rather than a replacement string, so a field
+     * name containing `$&`/`$$` is inserted literally instead of being read as
+     * a special replacement pattern. `fieldType/ibexa_integer.js` uses the
+     * plain-string form of this same substitution and predates this feature -
+     * it is left as-is. Falls back to dropping the `{fieldName} ` prefix —
+     * never a literal token or a stray leading space — when the name is
+     * missing or empty.
      *
      * @function formatErrorMessage
      * @param {String} template
@@ -45,7 +47,7 @@
      * @returns {String}
      */
     const formatErrorMessage = (template, fieldName, tokens = {}) => {
-        let message = fieldName ? template.replace('{fieldName}', fieldName) : template.replace('{fieldName} ', '');
+        let message = fieldName ? template.replace('{fieldName}', () => fieldName) : template.replace('{fieldName} ', '');
 
         Object.entries(tokens).forEach(([token, value]) => {
             message = message.replace(`{${token}}`, value);

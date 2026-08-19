@@ -17,6 +17,10 @@ import { getRestInfo } from './helpers/context.helper';
     const CLASS_EDITOR = 'ibexa-quick-edit';
     const CLASS_EDITOR_INPUT = 'ibexa-quick-edit__input';
     const CLASS_EDITOR_ACTIONS = 'ibexa-quick-edit__actions';
+    // Set on the fields wrapper for the whole save transaction, so a double-click refused on a
+    // *different* row while this one is saving still gets visible feedback: aria-busy is only set
+    // on the row being opened, never on the row that refused, so it cannot cover this case.
+    const CLASS_FIELDS_BUSY = 'ibexa-content-preview--busy';
     const EVENT_MODAL_HIDDEN = 'hidden.bs.modal';
     const KEY_ENTER = 'Enter';
     const KEY_ESCAPE = 'Escape';
@@ -436,6 +440,12 @@ import { getRestInfo } from './helpers/context.helper';
             return;
         }
 
+        // Cancelling this session leaves nothing for another field's in-flight prefill to belong
+        // to, so it is aborted here too - otherwise pendingOpenNode would keep pointing at a node
+        // whose open already settled, with no pending open left to eventually clear it. Both calls
+        // bump openGeneration; a later requestOpen() always captures a fresh generation after this
+        // function returns, so a legitimate subsequent open is never invalidated by it.
+        abortPendingOpen();
         closeSession({ restoreFocus });
     };
 
@@ -444,7 +454,7 @@ import { getRestInfo } from './helpers/context.helper';
             return;
         }
 
-        const { editor, input, contentId, languageCode, fieldDefinitionIdentifier } = activeSession;
+        const { editor, input, contentId, languageCode, fieldDefinitionIdentifier, fieldNode, rowRole, rowTabIndex } = activeSession;
         const validationError = editor.validate?.(input) ?? null;
 
         if (validationError) {
@@ -455,11 +465,15 @@ import { getRestInfo } from './helpers/context.helper';
         }
 
         const fieldValue = editor.harvest(input);
+        const fieldsWrapper = fieldNode.closest(SELECTOR_FIELDS_WRAPPER);
         let draftHref = null;
         let isPublished = false;
 
         isBusy = true;
         setSessionDisabled(true);
+        // Mirrors isBusy: added the moment the guard is taken, removed only where isBusy itself is
+        // reset below, so it is still held into the reload on success just like the guard is.
+        fieldsWrapper?.classList.add(CLASS_FIELDS_BUSY);
 
         try {
             const drafts = await loadDrafts(contentId);
@@ -480,6 +494,13 @@ import { getRestInfo } from './helpers/context.helper';
             ibexa.helpers.notification.showSuccessNotification(
                 Translator.trans(/* @Desc("Field updated and published.") */ 'content.quick_edit.success', {}, 'ibexa_locationview'),
             );
+
+            // Restored even though a reload is about to replace the page: if the reload is slow or
+            // blocked, the row must not stay inert with an aria-label that names a field on a
+            // roleless, non-focusable div. This does not touch the "restore before returning focus"
+            // ordering below - there is no focus() call on this path, the page is being replaced.
+            restoreAttribute(fieldNode, 'role', rowRole);
+            restoreAttribute(fieldNode, 'tabindex', rowTabIndex);
 
             // Reloading is always correct and refreshes the content tree, the breadcrumb and the
             // version list together with the value. Patching the value node in place instead is
@@ -502,6 +523,7 @@ import { getRestInfo } from './helpers/context.helper';
             if (!isPublished) {
                 setSessionDisabled(false);
                 isBusy = false;
+                fieldsWrapper?.classList.remove(CLASS_FIELDS_BUSY);
                 input.focus();
             }
         }

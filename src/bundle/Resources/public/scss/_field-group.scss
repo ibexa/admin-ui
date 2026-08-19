@@ -129,9 +129,8 @@
                 background-color: var(--ibexa-content-field-hover-bg-color, #{$ibexa-color-light-300});
             }
 
-            // Set on the row itself while its prefill is in flight (admin.location.quick.field.edit.js),
-            // so a double-click during a slow REST round trip, or a refused open during an in-flight
-            // save, gets visible feedback instead of none at all.
+            // Set on the row itself while its own prefill is in flight (admin.location.quick.field.edit.js),
+            // so a double-click during a slow REST round trip gets visible feedback instead of none at all.
             &[aria-busy='true'] {
                 cursor: wait;
             }
@@ -186,4 +185,12 @@
             max-width: calculateRem(2000px);
         }
     }
+}
+
+// Set on the fields wrapper for the whole save transaction (admin.location.quick.field.edit.js), so a
+// double-click refused on a *different* row while another field's save is in flight still gets visible,
+// non-interactive feedback - aria-busy above is only ever set on the row being opened, never on the
+// row that refused, so it cannot cover this case.
+.ibexa-content-preview--busy .ibexa-content-field[data-quick-edit] {
+    cursor: not-allowed;
 }
