@@ -96,7 +96,7 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     private function resolveCurrentLanguageCode(Content $content): string
     {
         $request = $this->requestStack->getCurrentRequest();
-        $languageCode = $request?->get('languageCode');
+        $languageCode = $request?->attributes->get('languageCode') ?? $request?->query->get('languageCode');
 
         return is_string($languageCode) && $languageCode !== ''
             ? $languageCode
