@@ -1,4 +1,6 @@
-<aside id="ibexa-app-switcher-panel" class="ibexa-app-switcher-panel ibexa-app-switcher-panel--hidden">
+{% set is_open = is_open|default(false) %}
+
+<aside id="ibexa-app-switcher-panel" class="ibexa-app-switcher-panel {% if not is_open %}ibexa-app-switcher-panel--hidden{% endif %}">
     {{ include('@ibexadesign/ui/component/app_switcher/app_switcher.html.twig', {
         modifier: 'panel',
         active_app_name: 'Cohesivo',

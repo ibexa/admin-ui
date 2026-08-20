@@ -1,11 +1,13 @@
 {% trans_default_domain 'ibexa_menu' %}
 
+{% set is_open = is_open|default(false) %}
+
 <twig:ibexa:button
     type="tertiary-alt"
     size="medium"
     class="ibexa-app-switcher-toggler"
     icon="app-switcher"
     aria-controls="ibexa-app-switcher-panel"
-    aria-expanded="false"
+    aria-expanded="{{ is_open ? 'true' : 'false' }}"
     aria-label="{{ 'app_switcher.toggler.label'|trans|desc('Open app switcher') }}"
 />
