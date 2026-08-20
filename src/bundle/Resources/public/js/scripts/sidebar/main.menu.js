@@ -216,13 +216,9 @@ import { getInstance, hasInstance } from '@ibexa-design-system/src/bundle/Resour
         }
 
         const { itemName } = itemNode.dataset;
-        const shouldExpand = !getAccordionInstance(itemNode)?.isExpanded();
 
         closeAllPopups();
-
-        if (shouldExpand) {
-            closeAllAccordions(itemName);
-        }
+        closeAllAccordions(itemName);
     };
 
     syncExpandToggleBtnState(isMenuExpanded());
