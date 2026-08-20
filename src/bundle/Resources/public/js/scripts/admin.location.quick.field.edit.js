@@ -17,6 +17,7 @@ import { getRestInfo } from './helpers/context.helper';
     const CLASS_EDITOR = 'ibexa-quick-edit';
     const CLASS_EDITOR_INPUT = 'ibexa-quick-edit__input';
     const CLASS_EDITOR_ACTIONS = 'ibexa-quick-edit__actions';
+    const CLASS_EDITOR_ACTION = 'ibexa-quick-edit__action';
     // Set on the fields wrapper for the whole save transaction, so a double-click refused on a
     // *different* row while this one is saving still gets visible feedback: aria-busy is only set
     // on the row being opened, never on the row that refused, so it cannot cover this case.
@@ -529,41 +530,49 @@ import { getRestInfo } from './helpers/context.helper';
         }
     };
 
-    const createActionButton = (iconName, label, onClick) => {
+    // A real <button> styled to look like a link, per design - never `<a href>`, so it keeps
+    // native button keyboard and screen-reader semantics. Its visible text is its accessible
+    // name, so no separate title/aria-label is needed the way the icon-only buttons it replaces
+    // used to require.
+    const createActionButton = (label, modifier, onClick) => {
         const button = doc.createElement('button');
 
         button.type = 'button';
-        button.className = 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--small';
-        button.title = label;
-        button.setAttribute('aria-label', label);
-        button.insertAdjacentHTML(
-            'afterbegin',
-            `<svg class="ibexa-icon ibexa-icon--small"><use xlink:href="${ibexa.helpers.icon.getIconPath(iconName)}"></use></svg>`,
-        );
+        button.className = `${CLASS_EDITOR_ACTION} ${CLASS_EDITOR_ACTION}--${modifier}`;
+        button.textContent = label;
         button.addEventListener('click', onClick, false);
 
         return button;
     };
 
-    const buildEditorRow = (input) => {
+    const buildEditorRow = (input, editor) => {
         const editorRow = doc.createElement('div');
-        const actions = doc.createElement('div');
-        const confirmButton = createActionButton(
-            'check-circle',
-            Translator.trans(/* @Desc("Save and publish") */ 'content.quick_edit.confirm_btn.label', {}, 'ibexa_locationview'),
-            () => saveSession(),
-        );
-        const cancelButton = createActionButton(
-            'discard',
-            Translator.trans(/* @Desc("Discard changes") */ 'content.quick_edit.cancel_btn.label', {}, 'ibexa_locationview'),
-            () => cancelSession({ restoreFocus: true }),
-        );
 
         editorRow.classList.add(CLASS_EDITOR);
-        actions.classList.add(CLASS_EDITOR_ACTIONS);
-        actions.append(confirmButton, cancelButton);
         input.classList.add(CLASS_EDITOR_INPUT);
-        editorRow.append(input, actions);
+        editorRow.append(input);
+
+        // Every editor saves on Enter and discards on Escape/outside-click, so no buttons are
+        // needed in the common case. Only an editor that opts in (ibexa_text, whose textarea
+        // treats a plain Enter as a newline rather than "save") gets an explicit action pair.
+        if (editor.needsExplicitActions) {
+            const actions = doc.createElement('div');
+            const saveButton = createActionButton(
+                Translator.trans(/* @Desc("Save") */ 'content.quick_edit.confirm_btn.label', {}, 'ibexa_locationview'),
+                'save',
+                () => saveSession(),
+            );
+            const discardButton = createActionButton(
+                Translator.trans(/* @Desc("Discard") */ 'content.quick_edit.cancel_btn.label', {}, 'ibexa_locationview'),
+                'discard',
+                () => cancelSession({ restoreFocus: true }),
+            );
+
+            actions.classList.add(CLASS_EDITOR_ACTIONS);
+            actions.append(saveButton, discardButton);
+            editorRow.append(actions);
+        }
+
         editorRow.addEventListener(
             'keydown',
             (event) => {
@@ -645,7 +654,7 @@ import { getRestInfo } from './helpers/context.helper';
             fieldTypeIdentifier,
             fieldName,
         });
-        const editorRow = buildEditorRow(input);
+        const editorRow = buildEditorRow(input, editor);
 
         input.setAttribute(
             'aria-label',

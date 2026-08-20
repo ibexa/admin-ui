@@ -49,6 +49,13 @@
                                             {% else %}
                                                 {{ ibexa_render_field(content, field_definition.identifier, {location: location}) }}
                                             {% endif %}
+                                            {% if is_field_quick_editable %}
+                                                {# Decorative hover/focus hint only - never focusable, never present when the row is
+                                                   not quick-editable. #}
+                                                <svg class="ibexa-quick-edit__hint-icon ibexa-icon ibexa-icon--small ibexa-icon--primary" aria-hidden="true">
+                                                    <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
+                                                </svg>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 {% endblock %}

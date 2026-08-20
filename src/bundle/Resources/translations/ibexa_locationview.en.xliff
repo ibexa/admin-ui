@@ -62,13 +62,13 @@
         <note>key: content.hidden.message</note>
       </trans-unit>
       <trans-unit id="c62fd9efe0ca2f42a22ee0a453ce3a9a0aa5ab0c" resname="content.quick_edit.cancel_btn.label">
-        <source>Discard changes</source>
-        <target state="new">Discard changes</target>
+        <source>Discard</source>
+        <target state="new">Discard</target>
         <note>key: content.quick_edit.cancel_btn.label</note>
       </trans-unit>
       <trans-unit id="05dbee6bf360cb0e0c260295a6e9fb8b9255a168" resname="content.quick_edit.confirm_btn.label">
-        <source>Save and publish</source>
-        <target state="new">Save and publish</target>
+        <source>Save</source>
+        <target state="new">Save</target>
         <note>key: content.quick_edit.confirm_btn.label</note>
       </trans-unit>
       <trans-unit id="490880238a1db08e9f02d7ff13c1b2a0e39f4653" resname="content.quick_edit.draft_conflict.cancel">

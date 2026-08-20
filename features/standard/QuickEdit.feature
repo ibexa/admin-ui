@@ -38,6 +38,14 @@
 # colon-qualified tag (`@APIUser:admin`) rather than inventing an unrelated style. Only the
 # "feature flag is off" scenario needs no override and no such tag, since it asserts today's
 # actual default; it keeps the standard edition tags instead.
+#
+# Per the approved design, the editor row renders no confirm/cancel buttons at all for most field
+# types - Enter saves, Escape/an outside click discards - so most scenarios below drive save via
+# "I press the Enter key while quick-editing ...". The one exception is `ibexa_text` (the
+# "Description" field added to the content type below): its textarea treats a plain Enter as a
+# newline, so it alone renders an explicit Save/Discard button pair, and "Quick edit updates a
+# text field via the Save button"/"Cancelling quick edit via the Discard button discards the
+# change" below are the coverage for that pair specifically.
 Feature: Inline quick edit of simple Field values from the Content view
   As an editor
   In order to make small corrections without opening the full content editor
@@ -46,34 +54,45 @@ Feature: Inline quick edit of simple Field values from the Content view
   Background:
     Given I am logged as admin
     And I create a "Quick Edit CT" content type in "Content" with "quick_edit_ct" identifier
-      | Field Type    | Name      | Identifier | Required | Searchable | Translatable |
-      | Text line     | Name      | name       | yes      | yes        | yes          |
-      | Text line     | Headline  | headline   | no       | no         | yes          |
-      | Text line     | Subtitle  | subtitle   | no       | no         | yes          |
-      | Email address | Email     | email      | no       | no         | yes          |
-      | Integer       | Score     | score      | no       | no         | yes          |
-      | Checkbox      | Active    | active     | no       | no         | yes          |
-      | Date          | Published | published  | no       | no         | yes          |
+      | Field Type    | Name        | Identifier  | Required | Searchable | Translatable |
+      | Text line     | Name        | name        | yes      | yes        | yes          |
+      | Text line     | Headline    | headline    | no       | no         | yes          |
+      | Text line     | Subtitle    | subtitle    | no       | no         | yes          |
+      | Email address | Email       | email       | no       | no         | yes          |
+      | Integer       | Score       | score       | no       | no         | yes          |
+      | Checkbox      | Active      | active      | no       | no         | yes          |
+      | Date          | Published   | published   | no       | no         | yes          |
+      | Text block    | Description | description | no       | no         | yes          |
     And a "quick_edit_ct" Content item named "QuickEditItem" exists in root
-      | name          | headline           | subtitle           | email                 | score | active | published  |
-      | QuickEditItem | Original headline  | Original subtitle  | original@example.com  | 10    | true   | 2020-06-15 |
+      | name          | headline           | subtitle           | email                 | score | active | published  | description           |
+      | QuickEditItem | Original headline  | Original subtitle  | original@example.com  | 10    | true   | 2020-06-15 | Original description  |
     And I'm on Content view Page for "QuickEditItem"
 
   @javascript @requires-config:inline_field_edit.enabled
-  Scenario: Quick edit updates a text field
+  Scenario: Quick edit updates a text field via the Save button
+    When I double-click the "Description" field
+    And I set the quick-edit input for "Description" to "Updated description"
+    And I click the quick-edit confirm button for "Description"
+    Then success notification that "Field updated and published." appears
+    And content attributes equal
+      | label       | value                |
+      | Description | Updated description  |
+
+  @javascript @requires-config:inline_field_edit.enabled
+  Scenario: Quick edit updates a text-line field via Enter
     When I double-click the "Headline" field
     And I set the quick-edit input for "Headline" to "Updated headline"
-    And I click the quick-edit confirm button for "Headline"
+    And I press the Enter key while quick-editing "Headline"
     Then success notification that "Field updated and published." appears
     And content attributes equal
       | label    | value             |
       | Headline | Updated headline  |
 
   @javascript @requires-config:inline_field_edit.enabled
-  Scenario: Quick edit updates a numeric field
+  Scenario: Quick edit updates a numeric field via Enter
     When I double-click the "Score" field
     And I set the quick-edit input for "Score" to "42"
-    And I click the quick-edit confirm button for "Score"
+    And I press the Enter key while quick-editing "Score"
     Then success notification that "Field updated and published." appears
     And content attributes equal
       | label | value |
@@ -86,7 +105,7 @@ Feature: Inline quick edit of simple Field values from the Content view
   Scenario: Quick edit updates a boolean field, publishing a cleared checkbox as false
     When I double-click the "Active" field
     And I toggle the quick-edit checkbox for "Active"
-    And I click the quick-edit confirm button for "Active"
+    And I press the Enter key while quick-editing "Active"
     Then success notification that "Field updated and published." appears
     And content attributes equal
       | label  | value |
@@ -104,21 +123,21 @@ Feature: Inline quick edit of simple Field values from the Content view
   Scenario: Quick edit updates a date field and republishes it unchanged (plain round trip, UTC only)
     When I double-click the "Published" field
     And I set the quick-edit input for "Published" to "2021-09-01"
-    And I click the quick-edit confirm button for "Published"
+    And I press the Enter key while quick-editing "Published"
     Then success notification that "Field updated and published." appears
     And content attributes equal
       | label     | value      |
       | Published | 2021-09-01 |
 
   @javascript @requires-config:inline_field_edit.enabled
-  Scenario: Cancelling quick edit via the cancel button discards the change
-    When I double-click the "Headline" field
-    And I set the quick-edit input for "Headline" to "Should be discarded"
-    And I click the quick-edit cancel button for "Headline"
+  Scenario: Cancelling quick edit via the Discard button discards the change
+    When I double-click the "Description" field
+    And I set the quick-edit input for "Description" to "Should be discarded"
+    And I click the quick-edit cancel button for "Description"
     Then there should be 0 open quick-edit editors
     And content attributes equal
-      | label    | value              |
-      | Headline | Original headline  |
+      | label       | value                 |
+      | Description | Original description |
 
   @javascript @requires-config:inline_field_edit.enabled
   Scenario: Cancelling quick edit via the Escape key discards the change
@@ -148,7 +167,7 @@ Feature: Inline quick edit of simple Field values from the Content view
     And I'm on Content view Page for "QuickEditItem"
     When I double-click the "Headline" field
     And I set the quick-edit input for "Headline" to "Should not be published"
-    And I click the quick-edit confirm button for "Headline"
+    And I press the Enter key while quick-editing "Headline"
     Then the quick-edit draft conflict should appear
     When I dismiss the quick-edit draft conflict
     Then the "Headline" field should still be open for quick edit
@@ -162,7 +181,7 @@ Feature: Inline quick edit of simple Field values from the Content view
     And I'm on Content view Page for "QuickEditItem"
     When I double-click the "Headline" field
     And I set the quick-edit input for "Headline" to "Published via quick edit"
-    And I click the quick-edit confirm button for "Headline"
+    And I press the Enter key while quick-editing "Headline"
     Then the quick-edit draft conflict should appear
     When I confirm the quick-edit draft conflict
     Then success notification that "Field updated and published." appears
@@ -181,7 +200,7 @@ Feature: Inline quick edit of simple Field values from the Content view
   Scenario: A failed save surfaces the server's own message and leaves no draft behind
     When I double-click the "Email" field
     And I set the quick-edit input for "Email" to "not-an-email"
-    And I click the quick-edit confirm button for "Email"
+    And I press the Enter key while quick-editing "Email"
     Then error notification that "value must be a valid email address" appears
     And there should be 0 draft versions for the content item
 
@@ -196,7 +215,7 @@ Feature: Inline quick edit of simple Field values from the Content view
     And I double-click the "Subtitle" field
     Then there should be 1 open quick-edit editors
     When I set the quick-edit input for "Subtitle" to "Typed into subtitle"
-    And I click the quick-edit confirm button for "Subtitle"
+    And I press the Enter key while quick-editing "Subtitle"
     Then success notification that "Field updated and published." appears
     And content attributes equal
       | label    | value                |
@@ -206,14 +225,14 @@ Feature: Inline quick edit of simple Field values from the Content view
   # Deliberately does not use the draft-conflict modal's own await window: a real user cannot
   # click a field row hidden behind that modal's backdrop either, so an interaction "refused"
   # only because Bootstrap's backdrop intercepts it would not be exercising this guard at all.
-  # This instead targets the real window the guard exists for - between clicking confirm and the
-  # eventual page reload - which is timing-dependent since this suite exposes no way to hold a
+  # This instead targets the real window the guard exists for - between pressing Enter to save and
+  # the eventual page reload - which is timing-dependent since this suite exposes no way to hold a
   # REST call open on demand; see the task report.
   @javascript @requires-config:inline_field_edit.enabled
   Scenario: An open attempted while a save is in flight is refused
     When I double-click the "Headline" field
     And I set the quick-edit input for "Headline" to "In flight"
-    And I click the quick-edit confirm button for "Headline"
+    And I press the Enter key while quick-editing "Headline"
     Then there should be 1 open quick-edit editors
     When I double-click the "Subtitle" field
     Then there should be 1 open quick-edit editors

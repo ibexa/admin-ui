@@ -18,9 +18,14 @@ use RuntimeException;
  * Drives the inline "quick edit" affordance rendered by admin.location.quick.field.edit.js on
  * top of a `.ibexa-content-field` row from content_view_fields.html.twig.
  *
- * The confirm/cancel buttons the editor row renders carry no data attribute of their own (only
- * the draft-conflict modal buttons do, see {@see QuickEditDraftConflictModal}), so they are
- * targeted by their translated aria-label, the same text a screen reader would announce.
+ * Per the approved design, most field types save on Enter and discard on Escape/outside-click
+ * and render no buttons at all - {@see pressEnter()}/{@see pressEscape()}/{@see clickOutside()}
+ * are how those are driven. The explicit Save/Discard button pair
+ * ({@see clickConfirm()}/{@see clickCancel()}) only renders for an editor that opts in
+ * (`ibexa_text`, whose textarea treats a plain Enter as a newline); they carry no data attribute
+ * of their own (only the draft-conflict modal buttons do, see
+ * {@see QuickEditDraftConflictModal}), so they are targeted by their fixed CSS modifier class
+ * rather than by their (translated, and no longer field-naming) visible text.
  */
 final class QuickEditField extends Component
 {
@@ -130,6 +135,40 @@ final class QuickEditField extends Component
         $this->getHTMLPage()->find($this->getLocator('outsideArea'))->click();
     }
 
+    /**
+     * Dispatches a real `keydown` event with `key: 'Enter'` at the currently open input - the
+     * save path for every field type except `ibexa_text` (see the class docblock), where a
+     * plain Enter means "insert a newline" instead and {@see clickConfirm()} is used.
+     *
+     * Bypasses native key simulation the same way, and for the same cross-driver reasons, as
+     * {@see pressEscape()} - see that method's docblock.
+     */
+    public function pressEnter(string $fieldLabel): void
+    {
+        $xpath = $this->getEditorInput($fieldLabel)->getXPath();
+        $script = <<<'JS'
+            (function (xpath) {
+                var target = document.evaluate(
+                    xpath,
+                    document,
+                    null,
+                    XPathResult.FIRST_ORDERED_NODE_TYPE,
+                    null
+                ).singleNodeValue;
+
+                if (target) {
+                    target.dispatchEvent(new KeyboardEvent('keydown', {
+                        key: 'Enter',
+                        bubbles: true,
+                        cancelable: true,
+                    }));
+                }
+            })(%s);
+            JS;
+
+        $this->getSession()->executeScript(sprintf($script, json_encode($xpath)));
+    }
+
     private function getEditorInput(string $fieldLabel): ElementInterface
     {
         return $this->getFieldRow($fieldLabel)->find($this->getLocator('editorInput'));
@@ -191,8 +230,8 @@ final class QuickEditField extends Component
             new VisibleCSSLocator('fieldName', '.ibexa-content-field__name'),
             new VisibleCSSLocator('editorRow', '.ibexa-quick-edit'),
             new VisibleCSSLocator('editorInput', '.ibexa-quick-edit__input'),
-            new VisibleCSSLocator('confirmButton', '.ibexa-quick-edit__actions [aria-label="Save and publish"]'),
-            new VisibleCSSLocator('cancelButton', '.ibexa-quick-edit__actions [aria-label="Discard changes"]'),
+            new VisibleCSSLocator('confirmButton', '.ibexa-quick-edit__actions .ibexa-quick-edit__action--save'),
+            new VisibleCSSLocator('cancelButton', '.ibexa-quick-edit__actions .ibexa-quick-edit__action--discard'),
             new VisibleCSSLocator('outsideArea', '.ibexa-raw-content-title__text'),
         ];
     }

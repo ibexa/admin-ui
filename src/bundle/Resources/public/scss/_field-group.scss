@@ -1,5 +1,6 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use 'sass:color';
 
 .ibexa-view-rawcontentview {
     margin-bottom: calculateRem(25px);
@@ -123,10 +124,50 @@
         flex-direction: column;
         margin-bottom: calculateRem(24px);
 
+        // Idle state is unchanged from a plain field - the hover/focus affordance below is the
+        // only visual difference, and only the value area (not the whole row, and not the
+        // field name) carries it.
         &[data-quick-edit] {
+            // Reserves room for the hint icon after the value text with a 12px gap, and lets the
+            // value's own content keep filling the row (`flex: 1 1 auto` on its first child)
+            // instead of shrinking to its own width the way an un-stretched flex item would.
+            // Scoped to `[data-quick-edit]` only: a field whose rendered value is block-level
+            // (e.g. spans multiple children, or a field type view that emits more than one root
+            // element) may lay out slightly differently here than it does outside quick edit.
+            // `:not([hidden])` matters here: admin.location.quick.field.edit.js sets the
+            // `hidden` attribute on this element for the lifetime of an editing session, and
+            // an author-origin `display` declaration - at any specificity - always wins over
+            // the UA stylesheet's `[hidden] { display: none }`. Without this guard, opening the
+            // editor would make the (still `hidden`) value box reappear as an empty flex box
+            // alongside it.
+            .ibexa-content-field__value:not([hidden]) {
+                display: flex;
+                align-items: center;
+                gap: calculateRem(12px);
+
+                > :first-child {
+                    flex: 1 1 auto;
+                    min-width: 0;
+                }
+            }
+
+            .ibexa-quick-edit__hint-icon {
+                display: none;
+                flex-shrink: 0;
+            }
+
             &:hover,
             &:focus-visible {
-                background-color: var(--ibexa-content-field-hover-bg-color, #{$ibexa-color-light-300});
+                .ibexa-content-field__value:not([hidden]) {
+                    // $ibexa-color-primary at 5% alpha, exactly the design's #4E24A5 5%.
+                    background-color: var(--ibexa-quick-edit-value-hover-bg-color, #{color.change($ibexa-color-primary, $alpha: 0.05)});
+                    border-radius: calculateRem(8px);
+                    padding: calculateRem(4px) calculateRem(8px);
+                }
+
+                .ibexa-quick-edit__hint-icon {
+                    display: block;
+                }
             }
 
             // Set on the row itself while its own prefill is in flight (admin.location.quick.field.edit.js),

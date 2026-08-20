@@ -153,6 +153,11 @@
                 return textarea;
             },
             harvest: (textarea) => textarea.value,
+            // A plain Enter inserts a newline in a textarea instead of meaning "save" (only
+            // Ctrl/Cmd+Enter does, per the editor row's own keydown handler), so this is the one
+            // editor that cannot rely on the framework's Enter-to-save affordance and needs its
+            // own explicit Save/Discard controls.
+            needsExplicitActions: true,
         },
         ibexa_integer: {
             render: (fieldValueHash, fieldConfig) => {

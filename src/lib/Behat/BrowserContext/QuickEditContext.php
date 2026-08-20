@@ -82,6 +82,14 @@ final readonly class QuickEditContext implements Context
     }
 
     /**
+     * @When I press the Enter key while quick-editing :fieldLabel
+     */
+    public function iPressEnterWhileQuickEditing(string $fieldLabel): void
+    {
+        $this->quickEditField->pressEnter($fieldLabel);
+    }
+
+    /**
      * @When I click outside the quick-edit editor
      */
     public function iClickOutsideTheQuickEditEditor(): void
