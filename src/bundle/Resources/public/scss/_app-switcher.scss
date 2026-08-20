@@ -1,5 +1,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/colors' as *;
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/shadows' as *;
 
 .ibexa-app-switcher {
     display: flex;
@@ -56,6 +58,10 @@
                 color: $ibexa-color-white;
             }
 
+            &__link:not(.ibexa-app-switcher__link--active):hover {
+                background-color: $ibexa-color-dark-500;
+            }
+
             &__link--active {
                 background-color: $ibexa-color-white;
                 color: $ibexa-color-black;
@@ -89,6 +95,10 @@
                 padding-block: calculateRem(8px);
                 border-radius: calculateRem(8px);
                 color: $ibexa-color-black;
+            }
+
+            &__link:not(.ibexa-app-switcher__link--active):hover {
+                background-color: $ibexa-color-light-200;
             }
 
             &__link--active {
@@ -135,9 +145,14 @@
 
     &.ids-btn {
         --ids-default-text-color: #{$ibexa-color-white};
+        --ids-hover-text-color: #{$color-primary-30};
+        --ids-hover-bg-color: transparent;
+        --ids-active-text-color: #{$color-primary-50};
+        --ids-active-bg-color: transparent;
         --ids-focus-text-color: #{$ibexa-color-white};
-        --ids-hover-text-color: #{$ibexa-color-white};
-        --ids-hover-bg-color: #{$ibexa-color-dark-500};
+        --ids-focus-bg-color: transparent;
+        --ids-focus-border-color: #{$color-neutral-80};
+        --ids-focus-box-shadow: #{$box-shadow-focus-dark_surface};
     }
 
     .ids-icon {
