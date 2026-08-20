@@ -68,8 +68,6 @@
         }
 
         &:hover {
-            // The avatar circle fill is baked into the SVG served by ibexa/user, out of CSS reach;
-            // brightness(0.85) turns the brand bg #4e24a5 into ~#421f8c vs the design's #431f8e
             .ibexa-user-thumbnail {
                 filter: brightness(0.85);
             }
@@ -131,7 +129,6 @@
         &:focus-visible {
             outline: none;
 
-            // Overlay instead of a real border so the box never changes and the notice dot cannot shift
             &::after {
                 content: '';
                 position: absolute;

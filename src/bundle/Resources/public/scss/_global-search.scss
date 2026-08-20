@@ -12,7 +12,6 @@
     --ibexa-text-color: #{$ibexa-color-white};
 
     .ids-input-text {
-        // Header-specific accent; must sit on the element itself to beat the DS dark re-points there
         .ids-input {
             --ids-input-hover-border-color: #{$color-primary-50};
             --ids-input-active-border-color: #{$color-primary-50};
@@ -238,7 +237,6 @@
 
     &__autocomplete {
         position: absolute;
-        // White floating surface inside the dark-scoped search — must re-assert light for DS components inside
         --ids-mode: light;
         background-color: $ibexa-color-white;
         padding: calculateRem(8px);
