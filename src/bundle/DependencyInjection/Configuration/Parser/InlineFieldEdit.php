@@ -44,7 +44,6 @@ final class InlineFieldEdit extends AbstractParser
     {
         $nodeBuilder
             ->arrayNode('inline_field_edit')
-                ->addDefaultsIfNotSet()
                 ->info('Inline editing of simple Field values directly from the Content View.')
                 ->children()
                     ->booleanNode('enabled')
