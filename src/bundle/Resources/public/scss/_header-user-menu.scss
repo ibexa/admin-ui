@@ -250,6 +250,8 @@
         opacity: 1;
         cursor: pointer;
         position: absolute;
+        // Keeps the count above the toggler's focus-ring overlay, which paints after it
+        z-index: 1;
         left: calculateRem(18px);
         top: calculateRem(2px);
         color: $ibexa-color-white;
