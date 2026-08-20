@@ -26,7 +26,6 @@
         {% set requirements = content_type is defined ? ibexa_password_requirements(content_type) : [] %}
         {% set requirement_identifiers = requirements|map((requirement) => requirement.identifier) %}
 
-        {# RepeatedType maps its errors to the first child; the compound is read too, defensively #}
         {% set password_errors = [] %}
         {% for error in new_password_form.vars.errors %}
             {% set password_errors = password_errors|merge([error]) %}
@@ -38,7 +37,6 @@
         {% set policy_errors = password_errors|filter((error) => error.cause.code|default(null) in requirement_identifiers) %}
         {% set other_errors = password_errors|filter((error) => error.cause.code|default(null) not in requirement_identifiers) %}
         {% set failed_requirement_identifiers = policy_errors|map((error) => error.cause.code) %}
-        {# on any non-policy error (e.g. passwords mismatch) the Password constraint did not run, so met/unmet is unknown #}
         {% set can_mark_requirements = form_reset_user_password.vars.submitted and other_errors is empty %}
 
         {% if requirements is not empty %}
