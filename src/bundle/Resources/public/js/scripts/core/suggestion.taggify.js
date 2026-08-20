@@ -1,4 +1,5 @@
 import { getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { escapeHTML } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/text.helper';
 
 (function (global, doc, ibexa) {
     const MIN_QUERY_LENGTH = 3;
@@ -118,7 +119,7 @@ import { getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
 
         renderSuggestionItem(item) {
             const itemTemplate = this.suggestionsListNode.dataset.template;
-            const renderedTemplate = itemTemplate.replace('{{ name }}', item.TranslatedName);
+            const renderedTemplate = itemTemplate.replace('{{ name }}', escapeHTML(item.TranslatedName));
             const container = doc.createElement('div');
 
             container.innerHTML = '';
