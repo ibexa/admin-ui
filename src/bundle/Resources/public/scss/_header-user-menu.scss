@@ -17,25 +17,126 @@
         z-index: 1060;
         top: calculateRem(45px);
         right: calculateRem(16px);
-        min-width: calculateRem(200px);
+        width: calculateRem(243px);
         padding: 0;
+        gap: 0;
+        border-color: $color-neutral-70;
+        border-radius: calculateRem(12px);
+        box-shadow: calculateRem(4px) calculateRem(32px) calculateRem(47px) 0 color.change($ibexa-color-info, $alpha: 0.1);
 
         ul {
+            display: flex;
+            flex-direction: column;
+            gap: calculateRem(8px);
             margin-bottom: 0;
             padding: calculateRem(8px);
         }
+
+        .ibexa-popup-menu__item {
+            padding: 0;
+
+            &--with-border {
+                margin-top: calculateRem(8px);
+                padding-top: calculateRem(8px);
+                border-top: 0;
+                position: relative;
+
+                // The design insets the divider 8px from the card's inner edges
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: calculateRem(8px);
+                    right: calculateRem(8px);
+                    border-top: calculateRem(1px) solid $color-neutral-70;
+                }
+            }
+        }
+
+        .ibexa-popup-menu__item-content {
+            align-items: center;
+            gap: calculateRem(8px);
+            padding: calculateRem(8px) calculateRem(4px) calculateRem(8px) calculateRem(12px);
+            border-radius: calculateRem(8px);
+            color: $ibexa-color-black;
+
+            &:hover {
+                background-color: transparent;
+                color: $ibexa-color-primary;
+
+                .ibexa-icon {
+                    fill: $ibexa-color-primary;
+                }
+            }
+
+            &:active {
+                color: $color-primary-90;
+
+                .ibexa-icon {
+                    fill: $color-primary-90;
+                }
+            }
+
+            &:focus-visible {
+                outline: none;
+                box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-primary, $alpha: 0.25);
+            }
+        }
+    }
+
+    &__item-icon {
+        flex-shrink: 0;
+        fill: $ibexa-color-black;
     }
 
     &__popup-menu-title {
-        padding: calculateRem(16px) calculateRem(24px);
-        border-bottom: calculateRem(1px) solid $ibexa-color-light;
-        color: $ibexa-color-dark-400;
+        padding: calculateRem(16px);
+        border-bottom: calculateRem(1px) solid $color-neutral-70;
+    }
+
+    &__user {
+        display: flex;
+        align-items: center;
+        gap: calculateRem(5px);
+    }
+
+    &__user-thumbnail {
+        display: flex;
+        flex-shrink: 0;
+
+        .ibexa-user-thumbnail {
+            width: calculateRem(40px);
+            height: calculateRem(40px);
+        }
+    }
+
+    &__user-details {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    &__user-name,
+    &__user-email {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    &__user-name {
+        color: $ibexa-color-primary;
+        font-size: $ibexa-text-font-size-medium;
+    }
+
+    &__user-email {
+        color: $color-neutral-150;
         font-size: $ibexa-text-font-size-small;
     }
 
     .ibexa-focus-mode-form {
         color: $ibexa-color-dark;
-        margin-top: calculateRem(12px);
+        padding: calculateRem(8px) calculateRem(12px);
+        margin: calculateRem(8px) calculateRem(8px) 0;
     }
 
     &__toggler {
