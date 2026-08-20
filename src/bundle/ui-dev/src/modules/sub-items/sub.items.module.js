@@ -1250,7 +1250,7 @@ export default class SubItemsModule extends Component {
                 disabled={disabled}
                 onClick={this.onMoveBtnClick}
                 icon="folder-open-move"
-                type={ButtonType.Tertiary}
+                type={ButtonType.TertiaryAlt}
                 size={ButtonSize.Medium}
             >
                 {label}
