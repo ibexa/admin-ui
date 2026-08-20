@@ -139,6 +139,12 @@
     }
 }
 
+:not(.ibexa-main-header) + .ibexa-main-container {
+    .ibexa-app-switcher-panel {
+        width: 0;
+    }
+}
+
 .ibexa-app-switcher-toggler {
     width: calculateRem(40px);
     height: calculateRem(40px);
