@@ -87,13 +87,13 @@
         <note>key: instant.filter.languages.select_language.desc</note>
       </trans-unit>
       <trans-unit id="eeb49235f0e3b40e651725430b85a2885174bd2b" resname="location.bookmark.add">
-        <source>Add to bookmarks</source>
-        <target state="new">Add to bookmarks</target>
+        <source>Add to favourites</source>
+        <target state="new">Add to favourites</target>
         <note>key: location.bookmark.add</note>
       </trans-unit>
       <trans-unit id="0b2f22acb619fcc5672a7dd0ccf2a39316a07274" resname="location.bookmark.remove">
-        <source>Remove from bookmarks</source>
-        <target state="new">Remove from bookmarks</target>
+        <source>Remove from favourites</source>
+        <target state="new">Remove from favourites</target>
         <note>key: location.bookmark.remove</note>
       </trans-unit>
       <trans-unit id="0ac5837ba570c72c15eae58ab98735697a790528" resname="modal.email_address">

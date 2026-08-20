@@ -7,13 +7,13 @@
     </header>
     <body>
       <trans-unit id="5cc4d552faa942983e3eb8ec85c053aeb1e42ae4" resname="bookmark.button.remove">
-        <source>Remove from bookmarks</source>
-        <target state="new">Remove from bookmarks</target>
+        <source>Remove from favourites</source>
+        <target state="new">Remove from favourites</target>
         <note>key: bookmark.button.remove</note>
       </trans-unit>
       <trans-unit id="c2c1dc512033aabc10e0c6a46cf5e99355f5c750" resname="bookmark.headline">
-        <source>Bookmarks</source>
-        <target state="new">Bookmarks</target>
+        <source>Favourites</source>
+        <target state="new">Favourites</target>
         <note>key: bookmark.headline</note>
       </trans-unit>
       <trans-unit id="5001931b6bf98acefb5138b1cdba97d97fed4844" resname="bookmark.list.content.edit">
@@ -27,8 +27,8 @@
         <note>key: bookmark.list.content_type</note>
       </trans-unit>
       <trans-unit id="e55cc61e6e0bcd97f329c00790704a381212f55b" resname="bookmark.list.empty">
-        <source>You have no bookmarks yet. Your bookmarks will show up here.</source>
-        <target state="new">You have no bookmarks yet. Your bookmarks will show up here.</target>
+        <source>You have no favourites yet. Your favourites will show up here.</source>
+        <target state="new">You have no favourites yet. Your favourites will show up here.</target>
         <note>key: bookmark.list.empty</note>
       </trans-unit>
       <trans-unit id="d84749a19f2864dd1d5d3cee0a127f2435e5cdc5" resname="bookmark.list.name">
