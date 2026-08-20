@@ -41,7 +41,6 @@
                 border-top: 0;
                 position: relative;
 
-                // The design insets the divider 8px from the card's inner edges
                 &::before {
                     content: '';
                     position: absolute;
