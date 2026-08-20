@@ -128,6 +128,14 @@
         // only visual difference, and only the value area (not the whole row, and not the
         // field name) carries it.
         &[data-quick-edit] {
+            // Hover/focus affordance duration for the value box tint and hint icon fade below.
+            // $ibexa-admin-transition-duration (0.4s, _custom.scss) is tuned for larger, slower
+            // interactions (panel open/close, the toggler chevron above) - it reads as sluggish
+            // for a hover tint a user can re-trigger dozens of times a minute while scanning a
+            // list of fields. 0.15s stays visibly eased rather than an instant snap, without
+            // feeling laggy under fast mouse movement.
+            $hover-transition-duration: 0.15s;
+
             // Reserves room for the hint icon after the value text with a 12px gap, and lets the
             // value's own content keep filling the row (`flex: 1 1 auto` on its first child)
             // instead of shrinking to its own width the way an un-stretched flex item would.
@@ -144,6 +152,17 @@
                 display: flex;
                 align-items: center;
                 gap: calculateRem(12px);
+                // Padding/radius/background are reserved here at idle too - not only in the
+                // hover/focus state below - so the hover band can bleed 8px/4px outward around
+                // the text instead of displacing it. The negative margin exactly cancels the
+                // padding's layout effect, so this element's occupied (margin) box - and
+                // therefore the text's position - is identical at idle and on hover; only the
+                // background-color differs between the two states.
+                padding: calculateRem(4px) calculateRem(8px);
+                margin: calculateRem(-4px) calculateRem(-8px);
+                border-radius: calculateRem(8px);
+                background-color: transparent;
+                transition: background-color $hover-transition-duration $ibexa-admin-transition;
 
                 > :first-child {
                     flex: 1 1 auto;
@@ -152,8 +171,22 @@
             }
 
             .ibexa-quick-edit__hint-icon {
-                display: none;
                 flex-shrink: 0;
+                // Kept in flow (not `display: none`) at all times so its box plus the 12px gap
+                // above stay reserved in both states - a `display` toggle can't be animated at
+                // all, and removing it from flow would change the value row's width between
+                // idle and hover. `opacity`/`pointer-events` are the only differences; it stays
+                // aria-hidden and non-focusable (no interactive semantics) in both states.
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity $hover-transition-duration $ibexa-admin-transition;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .ibexa-content-field__value:not([hidden]),
+                .ibexa-quick-edit__hint-icon {
+                    transition: none;
+                }
             }
 
             &:hover,
@@ -161,12 +194,10 @@
                 .ibexa-content-field__value:not([hidden]) {
                     // $ibexa-color-primary at 5% alpha, exactly the design's #4E24A5 5%.
                     background-color: var(--ibexa-quick-edit-value-hover-bg-color, #{color.change($ibexa-color-primary, $alpha: 0.05)});
-                    border-radius: calculateRem(8px);
-                    padding: calculateRem(4px) calculateRem(8px);
                 }
 
                 .ibexa-quick-edit__hint-icon {
-                    display: block;
+                    opacity: 1;
                 }
             }
 
