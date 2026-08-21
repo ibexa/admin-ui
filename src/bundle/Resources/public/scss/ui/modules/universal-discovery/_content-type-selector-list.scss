@@ -9,10 +9,6 @@
     &__item {
         padding: calculateRem(6px) 0;
 
-        .c-content-type-selector-list__checkbox {
-            flex-shrink: 0;
-        }
-
         .c-content-type-selector-list__label {
             min-width: 0;
             margin-bottom: 0;
@@ -20,5 +16,9 @@
             overflow: hidden;
             font-size: $ibexa-text-font-size-medium;
         }
+    }
+
+    &__checkbox {
+        flex-shrink: 0;
     }
 }
