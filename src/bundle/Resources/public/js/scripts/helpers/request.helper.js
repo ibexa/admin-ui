@@ -61,7 +61,7 @@ const getRequestMode = ({ instanceUrl }) => {
     return window.location.origin === instanceUrl ? 'same-origin' : 'cors';
 };
 
-const getRequestHeaders = ({ token, siteaccess, accessToken, accept, extraHeaders }) => {
+const getRequestHeaders = ({ token, siteaccess, accessToken, accept = null, extraHeaders }) => {
     if (accessToken) {
         return {
             Authorization: `Bearer ${accessToken}`,
