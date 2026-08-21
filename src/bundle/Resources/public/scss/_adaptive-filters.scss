@@ -1,6 +1,5 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
-@use 'sass:color';
 
 .ibexa-adaptive-filters {
     display: flex;
@@ -8,7 +7,7 @@
     padding: calculateRem(24px) calculateRem(24px) 0;
     border-radius: $ibexa-border-radius;
     border: calculateRem(1px) solid $ibexa-color-light;
-    box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 color.change($ibexa-color-info, $alpha: 0.05);
+    box-shadow: $ibexa-container-box-shadow;
 
     &--no-labels {
         .ibexa-adaptive-filters {
