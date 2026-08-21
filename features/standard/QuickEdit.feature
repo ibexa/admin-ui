@@ -68,6 +68,25 @@ Feature: Inline quick edit of simple Field values from the Content view
       | QuickEditItem | Original headline  | Original subtitle  | original@example.com  | 10    | true   | 2020-06-15 | Original description  |
     And I'm on Content view Page for "QuickEditItem"
 
+  # Coverage for the accessible activation affordance itself: content_view_fields.html.twig
+  # renders a real <button> (not a role="button" row) as the only focusable, keyboard-operable
+  # part of the row, and admin.location.quick.field.edit.js opens the editor on that button's
+  # `click` event. A native <button> fires the same `click` for a mouse click and for a keyboard
+  # Enter/Space activation alike, so clicking it here exercises the same code path a keyboard
+  # user's Enter/Space would, without this suite needing a separate, driver-specific "press a key
+  # on a focused element" step (see QuickEditField::pressEscape()'s docblock for why that would be
+  # fragile across this suite's drivers). Double-click-anywhere-on-the-row, covered by every other
+  # scenario in this file, keeps working as a separate, additional mouse affordance.
+  @javascript @requires-config:inline_field_edit.enabled
+  Scenario: Quick edit opens via the trigger button, not only via double-click
+    When I click the quick-edit trigger button for "Headline"
+    And I set the quick-edit input for "Headline" to "Updated via trigger button"
+    And I press the Enter key while quick-editing "Headline"
+    Then success notification that "Field updated and published." appears
+    And content attributes equal
+      | label    | value                       |
+      | Headline | Updated via trigger button |
+
   @javascript @requires-config:inline_field_edit.enabled
   Scenario: Quick edit updates a text field via the Save button
     When I double-click the "Description" field

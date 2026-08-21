@@ -8,11 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Component;
 
-use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\ElementInterface;
+use Ibexa\Behat\Browser\Exception\ElementNotFoundException;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use RuntimeException;
 
 /**
  * Drives the inline "quick edit" affordance rendered by admin.location.quick.field.edit.js on
@@ -29,16 +28,22 @@ use RuntimeException;
  */
 final class QuickEditField extends Component
 {
-    public function __construct(
-        readonly Session $session
-    ) {
-        parent::__construct($session);
-    }
-
     public function openViaDoubleClick(string $fieldLabel): void
     {
         $fieldRow = $this->getFieldRow($fieldLabel);
         $this->getSession()->getDriver()->doubleClick($fieldRow->getXPath());
+    }
+
+    /**
+     * Clicks the real `<button>` that is the field's accessible activation affordance
+     * (content_view_fields.html.twig). A native `<button>` fires the same `click` event for a
+     * mouse click and for a keyboard Enter/Space activation alike, so this one method - and the
+     * `click()` it performs - exercises the exact code path a keyboard user's Enter/Space would,
+     * without needing a separate, driver-specific "press a key on a focused element" step.
+     */
+    public function openViaTriggerButton(string $fieldLabel): void
+    {
+        $this->getFieldRow($fieldLabel)->find($this->getLocator('triggerButton'))->click();
     }
 
     public function isQuickEditable(string $fieldLabel): bool
@@ -193,7 +198,8 @@ final class QuickEditField extends Component
      * never uses - neither of which is a clean extraction, so the duplication is kept here with
      * this pointer back to the original instead.
      *
-     * @throws \RuntimeException if no field with the given label is found, e.g. because of a typo
+     * @throws \Ibexa\Behat\Browser\Exception\ElementNotFoundException if no field with the given
+     *         label is found, e.g. because of a typo
      */
     private function getFieldPosition(string $fieldLabel): int
     {
@@ -212,7 +218,7 @@ final class QuickEditField extends Component
             ++$position;
         }
 
-        throw new RuntimeException(sprintf(
+        throw new ElementNotFoundException(sprintf(
             'Field with label "%s" not found. Available field labels: %s.',
             $fieldLabel,
             implode(', ', $fieldLabels)
@@ -221,6 +227,11 @@ final class QuickEditField extends Component
 
     public function verifyIsLoaded(): void
     {
+        // The field rows this component drives are part of the Content view's server-rendered
+        // markup (ContentViewPage owns verifying that page itself has loaded) - `data-quick-edit`
+        // and the editor row either exist in the DOM as soon as the containing page has rendered,
+        // or the feature is off for this field. There is no separate async load step of this
+        // component's own for a check here to observe.
     }
 
     protected function specifyLocators(): array
@@ -230,6 +241,7 @@ final class QuickEditField extends Component
             new VisibleCSSLocator('fieldName', '.ibexa-content-field__name'),
             new VisibleCSSLocator('editorRow', '.ibexa-quick-edit'),
             new VisibleCSSLocator('editorInput', '.ibexa-quick-edit__input'),
+            new VisibleCSSLocator('triggerButton', '.ibexa-quick-edit__hint-button'),
             new VisibleCSSLocator('confirmButton', '.ibexa-quick-edit__actions .ibexa-quick-edit__action--save'),
             new VisibleCSSLocator('cancelButton', '.ibexa-quick-edit__actions .ibexa-quick-edit__action--discard'),
             new VisibleCSSLocator('outsideArea', '.ibexa-raw-content-title__text'),

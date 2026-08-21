@@ -9,7 +9,7 @@
      * @param {String} validatorName
      * @returns {Object}
      */
-    const getValidatorConstraints = (validators, validatorName) => (validators && validators[validatorName]) || {};
+    const getValidatorConstraints = (validators, validatorName) => validators?.[validatorName] || {};
 
     /**
      * Sets an attribute only when the bound is an actual number,
@@ -170,10 +170,10 @@
 
                 return input;
             },
-            harvest: (input) => (input.value === '' ? null : parseInt(input.value, 10)),
+            harvest: (input) => (input.value === '' ? null : Number.parseInt(input.value, 10)),
             validate: (input) =>
                 validateNumericRange(input, {
-                    parse: (value) => parseInt(value, 10),
+                    parse: (value) => Number.parseInt(value, 10),
                     notANumberError: 'isNotInteger',
                 }),
         },
@@ -188,10 +188,10 @@
 
                 return input;
             },
-            harvest: (input) => (input.value === '' ? null : parseFloat(input.value)),
+            harvest: (input) => (input.value === '' ? null : Number.parseFloat(input.value)),
             validate: (input) =>
                 validateNumericRange(input, {
-                    parse: (value) => parseFloat(value),
+                    parse: (value) => Number.parseFloat(value),
                     notANumberError: 'isNotFloat',
                 }),
         },

@@ -42,6 +42,14 @@ final readonly class QuickEditContext implements Context
     }
 
     /**
+     * @When I click the quick-edit trigger button for :fieldLabel
+     */
+    public function iClickTheQuickEditTriggerButtonFor(string $fieldLabel): void
+    {
+        $this->quickEditField->openViaTriggerButton($fieldLabel);
+    }
+
+    /**
      * @When I set the quick-edit input for :fieldLabel to :value
      */
     public function iSetTheQuickEditInputTo(string $fieldLabel, string $value): void

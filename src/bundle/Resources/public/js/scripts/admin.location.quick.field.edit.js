@@ -2,6 +2,7 @@ import { getRestInfo } from './helpers/context.helper';
 
 (function (global, doc, ibexa, bootstrap, Translator) {
     const SELECTOR_QUICK_EDIT_FIELD = '.ibexa-content-field[data-quick-edit]';
+    const SELECTOR_QUICK_EDIT_TRIGGER = '.ibexa-quick-edit__hint-button';
     // The DOM contract, not the class: `.ibexa-content-preview` is also used as a body_class in
     // content_preview.html.twig, and matching that instead would put `undefined` in the REST URL
     // rather than bail out.
@@ -25,7 +26,6 @@ import { getRestInfo } from './helpers/context.helper';
     const EVENT_MODAL_HIDDEN = 'hidden.bs.modal';
     const KEY_ENTER = 'Enter';
     const KEY_ESCAPE = 'Escape';
-    const KEY_SPACE = ' ';
     const REST_PATH_PREFIX = '/api/ibexa/v2';
     // Any `application/vnd.ibexa.api.*+json` media type selects the REST JSON visitor, so a
     // single value is enough for every call here, including the ones whose success is 204 and
@@ -122,6 +122,7 @@ import { getRestInfo } from './helpers/context.helper';
 
     const getEditor = (fieldNode) => ibexa.quickEdit?.editors?.[fieldNode.dataset.fieldTypeIdentifier];
     const getFieldName = (fieldNode) => fieldNode.querySelector(SELECTOR_FIELD_NAME)?.textContent.trim() ?? '';
+    const getTriggerButton = (fieldNode) => fieldNode.querySelector(SELECTOR_QUICK_EDIT_TRIGGER);
     const getFieldValidators = (fieldNode) => {
         try {
             return JSON.parse(fieldNode.dataset.fieldValidators ?? '{}');
@@ -381,16 +382,6 @@ import { getRestInfo } from './helpers/context.helper';
         });
     };
 
-    const restoreAttribute = (node, name, value) => {
-        if (value === null) {
-            node.removeAttribute(name);
-
-            return;
-        }
-
-        node.setAttribute(name, value);
-    };
-
     const closeSession = ({ restoreFocus }) => {
         if (activeSession === null) {
             return;
@@ -403,17 +394,16 @@ import { getRestInfo } from './helpers/context.helper';
         // not reachable from here - abortPendingOpen() is what cancels that one.
         openGeneration += 1;
 
-        const { fieldNode, valueNode, editorRow, rowRole, rowTabIndex } = activeSession;
+        const { fieldNode, valueNode, editorRow } = activeSession;
 
         editorRow.remove();
         valueNode.hidden = false;
-        // Restored before focus() - a row with no tabindex cannot take focus back.
-        restoreAttribute(fieldNode, 'role', rowRole);
-        restoreAttribute(fieldNode, 'tabindex', rowTabIndex);
         activeSession = null;
 
+        // The trigger button, not the row, is the focusable element now - unhiding valueNode
+        // above is what makes it available to receive focus again.
         if (restoreFocus) {
-            fieldNode.focus();
+            getTriggerButton(fieldNode)?.focus();
         }
     };
 
@@ -455,7 +445,7 @@ import { getRestInfo } from './helpers/context.helper';
             return;
         }
 
-        const { editor, input, contentId, languageCode, fieldDefinitionIdentifier, fieldNode, rowRole, rowTabIndex } = activeSession;
+        const { editor, input, contentId, languageCode, fieldDefinitionIdentifier, fieldNode } = activeSession;
         const validationError = editor.validate?.(input) ?? null;
 
         if (validationError) {
@@ -495,13 +485,6 @@ import { getRestInfo } from './helpers/context.helper';
             ibexa.helpers.notification.showSuccessNotification(
                 Translator.trans(/* @Desc("Field updated and published.") */ 'content.quick_edit.success', {}, 'ibexa_locationview'),
             );
-
-            // Restored even though a reload is about to replace the page: if the reload is slow or
-            // blocked, the row must not stay inert with an aria-label that names a field on a
-            // roleless, non-focusable div. This does not touch the "restore before returning focus"
-            // ordering below - there is no focus() call on this path, the page is being replaced.
-            restoreAttribute(fieldNode, 'role', rowRole);
-            restoreAttribute(fieldNode, 'tabindex', rowTabIndex);
 
             // Reloading is always correct and refreshes the content tree, the breadcrumb and the
             // version list together with the value. Patching the value node in place instead is
@@ -643,12 +626,6 @@ import { getRestInfo } from './helpers/context.helper';
         }
 
         const fieldName = getFieldName(fieldNode);
-        // ARIA makes the children of a role="button" element presentational, so an editor row
-        // rendered inside the field row can be flattened to a label by conforming assistive tech
-        // and its input and buttons never exposed. The row gives up its button semantics for as
-        // long as a session lives inside it; closeSession() puts them back.
-        const rowRole = fieldNode.getAttribute('role');
-        const rowTabIndex = fieldNode.getAttribute('tabindex');
         const input = editor.render(fieldValueHash, {
             validators: getFieldValidators(fieldNode),
             fieldTypeIdentifier,
@@ -669,8 +646,9 @@ import { getRestInfo } from './helpers/context.helper';
         // a failed or superseded open never leaves the user without an editor.
         closeSession({ restoreFocus: false });
 
-        fieldNode.removeAttribute('role');
-        fieldNode.removeAttribute('tabindex');
+        // Hiding the value node also hides the trigger button nested inside it, taking away the
+        // activation affordance for the duration of the session - the same thing removing
+        // role/tabindex from the row used to do.
         valueNode.hidden = true;
         valueNode.after(editorRow);
 
@@ -683,8 +661,6 @@ import { getRestInfo } from './helpers/context.helper';
             contentId,
             languageCode,
             fieldDefinitionIdentifier,
-            rowRole,
-            rowTabIndex,
         };
 
         input.focus();
@@ -719,30 +695,23 @@ import { getRestInfo } from './helpers/context.helper';
                     return;
                 }
 
+                // The trigger button already opens on a single click - and therefore on both
+                // clicks of a double-click too - so this handler is only for a double click
+                // landing elsewhere in the row.
+                if (event.target.closest(SELECTOR_QUICK_EDIT_TRIGGER)) {
+                    return;
+                }
+
                 event.preventDefault();
                 global.getSelection()?.removeAllRanges();
                 requestOpen(fieldNode);
             },
             false,
         );
-        fieldNode.addEventListener(
-            'keydown',
-            (event) => {
-                const isActivationKey = event.key === KEY_ENTER || event.key === KEY_SPACE;
 
-                // Enter and Space both activate, as the WAI-ARIA button pattern requires of the
-                // row's role="button". Only the row itself activates: the editor row lives inside
-                // it, so its own keys must not bubble up into another open.
-                if (!isActivationKey || event.target !== fieldNode) {
-                    return;
-                }
-
-                // Space would otherwise scroll the page.
-                event.preventDefault();
-                requestOpen(fieldNode);
-            },
-            false,
-        );
+        // A real <button> fires `click` for a mouse click and for a native Enter/Space
+        // activation alike, so this one listener covers both mouse and keyboard users.
+        getTriggerButton(fieldNode)?.addEventListener('click', () => requestOpen(fieldNode), false);
     });
 
     doc.addEventListener(

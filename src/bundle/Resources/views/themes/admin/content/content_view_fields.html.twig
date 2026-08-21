@@ -37,9 +37,6 @@
                                             data-field-definition-identifier="{{ field_definition.identifier }}"
                                             data-field-type-identifier="{{ field_definition.fieldTypeIdentifier }}"
                                             data-field-validators="{{ field_definition.validatorConfiguration ? field_definition.validatorConfiguration|json_encode : '{}' }}"
-                                            tabindex="0"
-                                            role="button"
-                                            aria-label="{{ 'content.field.quick_edit_aria_label'|trans({'%fieldName%': field_definition.name}, 'ibexa_locationview')|desc('Edit %fieldName% field') }}"
                                         {% endif %}
                                     >
                                         <div class="ibexa-content-field__name">{{ field_definition.name }}</div>
@@ -50,11 +47,20 @@
                                                 {{ ibexa_render_field(content, field_definition.identifier, {location: location}) }}
                                             {% endif %}
                                             {% if is_field_quick_editable %}
-                                                {# Decorative hover/focus hint only - never focusable, never present when the row is
-                                                   not quick-editable. #}
-                                                <svg class="ibexa-quick-edit__hint-icon ibexa-icon ibexa-icon--small ibexa-icon--primary" aria-hidden="true">
-                                                    <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                                                </svg>
+                                                {# The real activation affordance. A genuine <button>, not the row, carries the
+                                                   accessible name and native keyboard semantics, so Enter/Space fire an
+                                                   ordinary `click` event here - admin.location.quick.field.edit.js listens for
+                                                   that instead of hand-rolling key handling on the row. The icon inside stays
+                                                   decorative/aria-hidden; the button's aria-label is the accessible name. #}
+                                                <button
+                                                    type="button"
+                                                    class="ibexa-quick-edit__hint-button"
+                                                    aria-label="{{ 'content.field.quick_edit_aria_label'|trans({'%fieldName%': field_definition.name}, 'ibexa_locationview')|desc('Edit %fieldName% field') }}"
+                                                >
+                                                    <svg class="ibexa-quick-edit__hint-icon ibexa-icon ibexa-icon--small ibexa-icon--primary" aria-hidden="true">
+                                                        <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
+                                                    </svg>
+                                                </button>
                                             {% endif %}
                                         </div>
                                     </div>

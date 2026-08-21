@@ -170,13 +170,25 @@
                 }
             }
 
-            .ibexa-quick-edit__hint-icon {
+            // The flex item the parent's `gap`/`flex-shrink: 0` above act on is this button now,
+            // not the icon it wraps - resetting only the browser's default button chrome
+            // (padding/border/background) so wrapping the icon in a real button changes nothing
+            // about its rendered box.
+            .ibexa-quick-edit__hint-button {
+                display: inline-flex;
                 flex-shrink: 0;
+                padding: 0;
+                border: 0;
+                background: transparent;
+                cursor: pointer;
+            }
+
+            .ibexa-quick-edit__hint-icon {
                 // Kept in flow (not `display: none`) at all times so its box plus the 12px gap
                 // above stay reserved in both states - a `display` toggle can't be animated at
                 // all, and removing it from flow would change the value row's width between
                 // idle and hover. `opacity`/`pointer-events` are the only differences; it stays
-                // aria-hidden and non-focusable (no interactive semantics) in both states.
+                // aria-hidden inside the real button in both states.
                 opacity: 0;
                 pointer-events: none;
                 transition: opacity $hover-transition-duration $ibexa-admin-transition;
@@ -189,8 +201,12 @@
                 }
             }
 
+            // `:focus-within` (rather than `:focus-visible`) because focus now lands on the
+            // trigger button nested inside this row, never on the row itself - this is what
+            // makes the hover band and the pencil icon appear for a keyboard user tabbing to
+            // that button, not only for a mouse hovering the row.
             &:hover,
-            &:focus-visible {
+            &:focus-within {
                 .ibexa-content-field__value:not([hidden]) {
                     // $ibexa-color-primary at 5% alpha, exactly the design's #4E24A5 5%.
                     background-color: var(--ibexa-quick-edit-value-hover-bg-color, #{color.change($ibexa-color-primary, $alpha: 0.05)});

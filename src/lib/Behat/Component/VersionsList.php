@@ -77,6 +77,13 @@ final class VersionsList extends Component
 
     public function verifyIsLoaded(): void
     {
+        // The "Open drafts" section this component reads (see class docblock) is only rendered
+        // at all when the content item actually has open drafts - its absence is a normal, valid
+        // state, not an unloaded one. There is nothing that can be safely asserted as "loaded"
+        // here without either producing a false negative for an item with genuinely no drafts,
+        // or waiting on a section that may legitimately never appear, which would make the suite
+        // flaky. hasOpenDraftsSection() already does the correct zero-timeout existence check
+        // where a load-check is actually meaningful, i.e. per call rather than once up front.
     }
 
     private function hasOpenDraftsSection(): bool

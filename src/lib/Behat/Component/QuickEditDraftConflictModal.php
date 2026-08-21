@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Component;
 
-use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
@@ -20,12 +19,6 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
  */
 final class QuickEditDraftConflictModal extends Component
 {
-    public function __construct(
-        readonly Session $session
-    ) {
-        parent::__construct($session);
-    }
-
     public function verifyIsLoaded(): void
     {
         $this->getHTMLPage()->find($this->getLocator('modal'))->assert()->isVisible();
