@@ -27,7 +27,6 @@
 {% endblock %}
 
 {% block item -%}
-    {%- set default_classes = 'btn ibexa-btn' -%}
     {%- set list_item_default_classes = 'ibexa-context-menu__item ibexa-adaptive-items__item' -%}
     {% if item.extras.adaptiveItemsForceHide|default(false) %}
         {%- set list_item_default_classes = list_item_default_classes ~ ' ibexa-adaptive-items__item--force-hide ibexa-context-menu__item--hidden' -%}
@@ -35,7 +34,7 @@
 
     <li class="{{ list_item_default_classes }}">
         {%- if item.displayed -%}
-            {%- set attributes = item.attributes|merge({'class': (item.attributes.class|default('') ~ ' ' ~ default_classes|default('btn btn-secondary btn-block'))|trim}) -%}
+            {%- set attributes = item.attributes|merge({'class': item.attributes.class|default('')|trim}) -%}
             {%- set attributes = attributes|merge({'id': item.name ~ '-tab'}) -%}
 
             {%- if item.uri is not empty %}
@@ -160,7 +159,7 @@
             </{{element}}>
 
         {% else %}
-            {%- set default_classes = 'ids-btn ids-btn--medium' -%}
+            {%- set default_classes = 'btn ibexa-btn ids-btn ids-btn--medium' -%}
 
             {% if not item.extras.noDefaultBtnStyling|default(false) %}
                 {% if item.extras.primary|default(false) %}
