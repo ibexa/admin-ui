@@ -152,10 +152,6 @@ class UserNotificationPopup extends Component
             ->first();
     }
 
-    /**
-     * The action labels are rewritten by JavaScript once the mark as read/unread request resolves,
-     * so waiting only for the menu items to appear may read a stale label.
-     */
     private function waitForActionButton(string $buttonText): void
     {
         $this->getHTMLPage()
