@@ -77,12 +77,12 @@ const ContentMetaPreview = () => {
         const previewLabel = Translator.trans(/* @Desc("Preview") */ 'meta_preview.preview', {}, 'ibexa_universal_discovery_widget');
         const editLabel = Translator.trans(/* @Desc("Edit") */ 'meta_preview.edit', {}, 'ibexa_universal_discovery_widget');
         const bookmarksAddLabel = Translator.trans(
-            /* @Desc("Add to bookmarks") */ 'meta_preview.bookmarks_add',
+            /* @Desc("Add to favourites") */ 'meta_preview.bookmarks_add',
             {},
             'ibexa_universal_discovery_widget',
         );
         const bookmarksRemoveLabel = Translator.trans(
-            /* @Desc("Remove from bookmarks") */ 'meta_preview.bookrmarks_remove',
+            /* @Desc("Remove from favourites") */ 'meta_preview.bookrmarks_remove',
             {},
             'ibexa_universal_discovery_widget',
         );

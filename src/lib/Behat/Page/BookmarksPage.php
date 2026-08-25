@@ -35,7 +35,7 @@ final class BookmarksPage extends Page
             ->getHTMLPage()
             ->find($this->getLocator('pageTitle'))
             ->assert()
-            ->textEquals('Bookmarks');
+            ->textEquals('Favourites');
     }
 
     public function isBookmarked(string $contentName): bool
@@ -70,7 +70,7 @@ final class BookmarksPage extends Page
 
     public function getName(): string
     {
-        return 'Bookmarks';
+        return 'Favourites';
     }
 
     protected function getRoute(): string

@@ -11,7 +11,7 @@
 
 {% block header %}
     {% include '@ibexadesign/ui/page_title.html.twig' with {
-        title: 'bookmark.headline'|trans|desc('Bookmarks')
+        title: 'bookmark.headline'|trans|desc('Favourites')
     } %}
 {% endblock %}
 
@@ -93,7 +93,7 @@
                 ],
                 body_rows,
                 actions: form_widget(form_remove.remove, {'attr': {'class': 'ids-btn ids-btn--tertiary-alt ids-btn--small', 'disabled': true} }),
-                empty_table_info_text: 'bookmark.list.empty'|trans|desc('You have no bookmarks yet. Your bookmarks will show up here.'),
+                empty_table_info_text: 'bookmark.list.empty'|trans|desc('You have no favourites yet. Your favourites will show up here.'),
             } %}
             {{ form_end(form_remove) }}
 
