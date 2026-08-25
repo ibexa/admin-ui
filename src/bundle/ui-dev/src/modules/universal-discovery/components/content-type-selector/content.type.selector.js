@@ -13,8 +13,7 @@ const ContentTypeSelector = () => {
     const { contentTypes: contentTypesMap } = adminUiConfig;
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
-    const handleContentTypeSelect = (_checked, event) => {
-        const { contentTypeIdentifier } = event.currentTarget.dataset;
+    const handleContentTypeSelect = (contentTypeIdentifier) => {
         const action = { contentTypeIdentifier };
 
         action.type = selectedContentTypes.includes(contentTypeIdentifier) ? 'REMOVE_CONTENT_TYPE' : 'ADD_CONTENT_TYPE';
@@ -45,17 +44,16 @@ const ContentTypeSelector = () => {
 
                                 return (
                                     <li key={contentType.identifier} className="c-content-type-selector-list__item">
-                                        <div className="form-check form-check-inline">
+                                        <div className="ids-choice-input-field">
                                             <CheckboxInput
                                                 id={`ibexa-search-content-type-${contentType.identifier}`}
-                                                className="ids-input ids-input--checkbox c-content-type-selector-list__checkbox"
+                                                className="c-content-type-selector-list__checkbox"
                                                 value={contentType.identifier}
-                                                data-content-type-identifier={contentType.identifier}
-                                                onChange={handleContentTypeSelect}
+                                                onChange={() => handleContentTypeSelect(contentType.identifier)}
                                                 checked={selectedContentTypes.includes(contentType.identifier)}
                                             />
                                             <label
-                                                className="checkbox-inline form-check-label"
+                                                className="ids-choice-input-label ids-choice-input-field__label c-content-type-selector-list__label"
                                                 htmlFor={`ibexa-search-content-type-${contentType.identifier}`}
                                                 title={contentType.name}
                                                 data-tooltip-container-selector=".c-udw-tab"

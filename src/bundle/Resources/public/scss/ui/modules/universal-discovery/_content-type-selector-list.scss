@@ -9,19 +9,16 @@
     &__item {
         padding: calculateRem(6px) 0;
 
-        .form-check {
-            width: 100%;
-        }
-
-        .form-check-label {
-            width: 100%;
+        .c-content-type-selector-list__label {
+            min-width: 0;
+            margin-bottom: 0;
             text-overflow: ellipsis;
             overflow: hidden;
             font-size: $ibexa-text-font-size-medium;
         }
+    }
 
-        .c-content-type-selector-list__checkbox {
-            margin-right: calculateRem(8px);
-        }
+    &__checkbox {
+        flex-shrink: 0;
     }
 }
