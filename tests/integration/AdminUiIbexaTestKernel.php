@@ -17,6 +17,7 @@ use Ibexa\Bundle\DesignEngine\IbexaDesignEngineBundle;
 use Ibexa\Bundle\Notifications\IbexaNotificationsBundle;
 use Ibexa\Bundle\Rest\IbexaRestBundle;
 use Ibexa\Bundle\Search\IbexaSearchBundle;
+use Ibexa\Bundle\Test\Core\IbexaTestCoreBundle;
 use Ibexa\Bundle\Test\Rest\IbexaTestRestBundle;
 use Ibexa\Bundle\TwigComponents\IbexaTwigComponentsBundle;
 use Ibexa\Bundle\User\IbexaUserBundle;
@@ -42,6 +43,8 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
     public function registerBundles(): iterable
     {
         yield from parent::registerBundles();
+
+        yield new IbexaTestCoreBundle();
 
         yield new HautelookTemplatedUriBundle();
         yield new KnpMenuBundle();
