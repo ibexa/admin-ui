@@ -12,10 +12,8 @@ export class UserInvitationModal {
         this.searchBtn = this.modal.querySelector('.ids-input-text__search-btn, .ibexa-input-text-wrapper__action-btn--search');
         this.searchNoEntries = this.modal.querySelector('.ibexa-user-invitation-modal__search-no-entries');
         this.badFileAlert = this.modal.querySelector('.ibexa-user-invitation-modal__bad-file-alert');
-        this.badFileAlertCloseBtn = this.badFileAlert.querySelector('.ibexa-alert__close-btn');
         this.issuesAlert = this.modal.querySelector('.ibexa-user-invitation-modal__issues-alert');
         this.issuesAlertIssuesContainer = this.modal.querySelector('.ibexa-user-invitation-modal__issues-alert-issues');
-        this.issuesAlertCloseBtn = this.issuesAlert.querySelector('.ibexa-alert__close-btn');
         this.goToNextIssueBtn = this.issuesAlert.querySelector('.ibexa-user-invitation-modal__next-issue-btn');
         this.addNextBtn = this.modal.querySelector('.ibexa-user-invitation-modal__add-next-btn');
         this.entriesContainer = this.modal.querySelector('.ibexa-user-invitation-modal__entries');
@@ -38,6 +36,8 @@ export class UserInvitationModal {
         this.handleSearch = this.handleSearch.bind(this);
         this.handleEmailValidation = this.handleEmailValidation.bind(this);
         this.scrollToNextIssue = this.scrollToNextIssue.bind(this);
+        this.handleBadFileAlertDismiss = this.handleBadFileAlertDismiss.bind(this);
+        this.handleIssuesAlertDismiss = this.handleIssuesAlertDismiss.bind(this);
     }
 
     // eslint-disable-next-line no-unused-vars
@@ -203,6 +203,16 @@ export class UserInvitationModal {
         }
 
         this.toggleIssuesAlert(isAnyIssue);
+    }
+
+    handleBadFileAlertDismiss(event) {
+        event.preventDefault();
+        this.toggleBadFileAlert(false);
+    }
+
+    handleIssuesAlertDismiss(event) {
+        event.preventDefault();
+        this.toggleIssuesAlert(false);
     }
 
     toggleIssuesAlert(show) {
@@ -485,8 +495,8 @@ export class UserInvitationModal {
         );
         this.fileInput.addEventListener('change', this.handleInputUpload, false);
 
-        this.badFileAlertCloseBtn.addEventListener('click', () => this.toggleBadFileAlert(false), false);
-        this.issuesAlertCloseBtn.addEventListener('click', () => this.toggleIssuesAlert(false), false);
+        this.badFileAlert.addEventListener('ids:alert:dismiss:before', this.handleBadFileAlertDismiss, false);
+        this.issuesAlert.addEventListener('ids:alert:dismiss:before', this.handleIssuesAlertDismiss, false);
         this.goToNextIssueBtn.addEventListener('click', this.scrollToNextIssue, false);
 
         this.searchInput.addEventListener('keyup', this.handleSearch, false);

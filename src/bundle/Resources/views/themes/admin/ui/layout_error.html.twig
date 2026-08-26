@@ -59,10 +59,14 @@
 	<div
 			class="ibexa-notifications-container"
 			data-notifications="{{ app.flashes|json_encode() }}"
-			data-template="{{ include('@ibexadesign/ui/notification.html.twig', {
-				label: '{{ label }}',
-				message: '{{ message }}',
-			})|e('html_attr')  }}"></div>
+			{% for notification_type in ['info', 'success', 'warning', 'error'] %}
+				data-template-{{ notification_type }}="{{ include('@ibexadesign/ui/notification.html.twig', {
+					type: notification_type,
+					message: '{{ message }}',
+					icon_path: '{{ icon_path }}',
+				})|e('html_attr') }}"
+			{% endfor %}
+	></div>
 
 	{% if not is_back_to_top_disabled|default(false) %}
 		{% block back_to_top %}

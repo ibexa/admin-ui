@@ -19,6 +19,7 @@
 @use 'main-nav';
 @use 'modals';
 @use 'notifications';
+@use 'alert-adapter';
 @use 'instant-filter';
 @use 'login';
 @use 'forms';
@@ -31,7 +32,6 @@
 @use 'card';
 @use 'chart';
 @use 'empty-chart';
-@use 'alerts';
 @use 'pagination';
 @use 'error-page';
 @use 'custom-tag';

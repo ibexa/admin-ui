@@ -218,10 +218,14 @@
         <div
             class="ibexa-notifications-container"
             data-notifications="{{ app.flashes|json_encode() }}"
-            data-template="{{ include('@ibexadesign/ui/notification.html.twig', {
-                label: '{{ label }}',
-                message: '{{ message }}',
-            })|e('html_attr')  }}"></div>
+            {% for notification_type in ['info', 'success', 'warning', 'error'] %}
+                data-template-{{ notification_type }}="{{ include('@ibexadesign/ui/notification.html.twig', {
+                    type: notification_type,
+                    message: '{{ message }}',
+                    icon_path: '{{ icon_path }}',
+                })|e('html_attr') }}"
+            {% endfor %}
+        ></div>
         <div class="ibexa-modal-wrapper"></div>
 
         <div class="ibexa-quick-action-menu ibexa-quick-action-menu--hidden">

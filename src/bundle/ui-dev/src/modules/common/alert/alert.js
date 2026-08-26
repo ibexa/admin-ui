@@ -1,73 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../icon/icon';
-import { createCssClassNames } from '../helpers/css.class.names';
-import { Button, ButtonType } from '@ids-components/components/Button';
+import { Alert as IdsAlert, AlertType, AlertVariant } from '@ids-components/components/Alert';
 
-const ICON_NAME_MAP = {
-    info: 'about',
-    error: 'notice',
-    warning: 'warning',
-    success: 'approved',
-};
-
-const SIZES = ['small', 'medium', 'large'];
-
+/**
+ * Compatibility wrapper around the design-system Alert.
+ *
+ * @deprecated since 6.0 — use `Alert` from `@ids-components/components/Alert` directly.
+ */
 const Alert = ({
     type,
     title = null,
     subtitle = null,
-    size = 'medium',
-    iconName: iconNameProp = null,
+    iconName = null,
     iconPath = null,
-    showSubtitleBelow = false,
     showCloseBtn = false,
     onClose = () => {},
     extraClasses = '',
     children = null,
 }) => {
-    const className = createCssClassNames({
-        'alert ibexa-alert': true,
-        [`ibexa-alert--${type}`]: true,
-        [`ibexa-alert--${size}`]: true,
-        [extraClasses]: true,
-    });
-    const contentClassName = createCssClassNames({
-        'ibexa-alert__content': true,
-        'ibexa-alert__content--subtitle-below': showSubtitleBelow,
-    });
-
-    let iconName = undefined;
-
-    if (!iconPath) {
-        iconName = iconNameProp ? iconNameProp : ICON_NAME_MAP[type];
-    }
+    const hasDescription = !!subtitle || !!children;
+    const description = hasDescription ? (
+        <>
+            {subtitle}
+            {children}
+        </>
+    ) : null;
 
     return (
-        <div className={className} role="alert">
-            <Icon name={iconName} customPath={iconPath} extraClasses="ibexa-icon--small-medium ibexa-alert__icon" />
-            <div className={contentClassName}>
-                {title && <div className="ibexa-alert__title">{title}</div>}
-                {subtitle && <div className="ibexa-alert__subtitle">{subtitle}</div>}
-                <div className="ibexa-alert__extra_content">{children}</div>
-            </div>
-            {showCloseBtn && <Button type={ButtonType.TertiaryAlt} onClick={onClose} icon="discard" className="ibexa-alert__close-btn" />}
-        </div>
+        <IdsAlert
+            className={extraClasses.trim()}
+            icon={iconName ?? ''}
+            iconPath={iconPath ?? ''}
+            isDismissible={showCloseBtn}
+            onDismiss={onClose}
+            title={title ?? ''}
+            type={type}
+            variant={AlertVariant.Local}
+        >
+            {description}
+        </IdsAlert>
     );
 };
 
 Alert.propTypes = {
-    type: PropTypes.oneOf(Object.values(ICON_NAME_MAP)).isRequired,
+    type: PropTypes.oneOf(Object.values(AlertType)).isRequired,
     title: PropTypes.string,
     subtitle: PropTypes.string,
     iconName: PropTypes.string,
     iconPath: PropTypes.string,
-    showSubtitleBelow: PropTypes.bool,
     showCloseBtn: PropTypes.bool,
     onClose: PropTypes.func,
     extraClasses: PropTypes.string,
-    children: PropTypes.element,
-    size: PropTypes.oneOf(SIZES),
+    children: PropTypes.node,
 };
 
 export default Alert;
