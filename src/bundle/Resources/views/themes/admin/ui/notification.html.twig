@@ -1,8 +1,14 @@
-{% embed '@ibexadesign/ui/component/alert/alert.html.twig' with {
-    type: label,
-    title: message,
-    icon_path: '{{ icon_path }}',
-    show_close_btn: true,
-    is_toast: true,
-} only %}
-{% endembed %}
+{#
+    Toast template rendered once per notification type into the `data-template-<type>` attributes of
+    `.ibexa-notifications-container`; `message` and `icon_path` are `{{ … }}` placeholders that
+    admin.notifications.js replaces at runtime. `data-ids-custom-init` keeps the global DS init away —
+    the notifications script initialises the Alert behaviour itself for every appended toast.
+#}
+<twig:ibexa:alert
+    type="{{ type }}"
+    variant="toast"
+    title="{{ message }}"
+    iconPath="{{ icon_path }}"
+    :isDismissible="true"
+    data-ids-custom-init="true"
+/>
