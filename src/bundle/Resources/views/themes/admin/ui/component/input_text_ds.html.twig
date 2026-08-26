@@ -14,6 +14,12 @@
         type: extra_btn.type|default('button'),
     }),
 }) %}
+{% set extra_btn_component = extra_btn.attr|merge({
+    htmlType: extra_btn.attr.type|default('button'),
+    type: 'tertiary',
+    size: 'small',
+    label: extra_btn.label,
+}) %}
 
 {% set should_clear_button_send_form = should_clear_button_send_form|default(false) %}
 {% set wrapper_attr = wrapper_attr|default({}) %}
@@ -37,12 +43,7 @@
 
     {% set extra_btn_markup %}
         {% if extra_btn.label is not empty %}
-            {{ component('ibexa:button', extra_btn.attr|merge({
-                htmlType: extra_btn.attr.type|default('button'),
-                type: 'tertiary',
-                size: 'small',
-                label: extra_btn.label,
-            })) }}
+            <twig:ibexa:button {{ ...extra_btn_component }} />
         {% endif %}
     {% endset %}
 
@@ -117,13 +118,7 @@
                             </svg>
                         </button>
                     {% elseif extra_btn.label is not empty %}
-                        <button {{ html.attributes(extra_btn.attr|merge({
-                            class: (extra_btn.attr.class|default('')
-                                ~ ' btn ibexa-btn ibexa-btn--info ibexa-input-text-wrapper__action-btn--extra-btn'
-                            )|trim,
-                        })) }}>
-                            {{- extra_btn.label -}}
-                        </button>
+                        <twig:ibexa:button {{ ...extra_btn_component }} />
                     {% endif %}
                     {{ extra_actions_after|default(null) }}
                 {% endblock %}
