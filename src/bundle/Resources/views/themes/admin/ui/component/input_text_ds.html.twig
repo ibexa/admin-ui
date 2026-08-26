@@ -12,10 +12,7 @@
     label: extra_btn.label|default(''),
     attr: extra_btn.attr|default({})|merge({
         type: extra_btn.type|default('button'),
-        class: (extra_btn.attr.class|default('')
-            ~ ' btn ibexa-btn ibexa-btn--info ibexa-input-text-wrapper__action-btn--extra-btn'
-        )|trim
-    })
+    }),
 }) %}
 
 {% set should_clear_button_send_form = should_clear_button_send_form|default(false) %}
@@ -40,9 +37,12 @@
 
     {% set extra_btn_markup %}
         {% if extra_btn.label is not empty %}
-            <button {{ html.attributes(extra_btn.attr) }}>
-                {{- extra_btn.label -}}
-            </button>
+            {{ component('ibexa:button', extra_btn.attr|merge({
+                htmlType: extra_btn.attr.type|default('button'),
+                type: 'tertiary',
+                size: 'small',
+                label: extra_btn.label,
+            })) }}
         {% endif %}
     {% endset %}
 
@@ -117,7 +117,11 @@
                             </svg>
                         </button>
                     {% elseif extra_btn.label is not empty %}
-                        <button {{ html.attributes(extra_btn.attr) }}>
+                        <button {{ html.attributes(extra_btn.attr|merge({
+                            class: (extra_btn.attr.class|default('')
+                                ~ ' btn ibexa-btn ibexa-btn--info ibexa-input-text-wrapper__action-btn--extra-btn'
+                            )|trim,
+                        })) }}>
                             {{- extra_btn.label -}}
                         </button>
                     {% endif %}
