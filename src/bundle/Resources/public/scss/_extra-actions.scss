@@ -139,6 +139,7 @@
             padding-left: 0;
         }
 
+        .ids-choice-input-field__label,
         .ids-label {
             @include edit-language-item;
         }
@@ -147,7 +148,7 @@
             margin: 0 0 calculateRem(30px) 0;
         }
 
-        .ibexa-input[type='radio'] {
+        .form-check-input[type='radio'] {
             display: none;
         }
     }
