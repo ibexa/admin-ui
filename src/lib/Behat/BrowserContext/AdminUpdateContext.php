@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Step\When;
 use Ibexa\AdminUi\Behat\Page\AdminUpdateItemPage;
 
 final readonly class AdminUpdateContext implements Context
@@ -19,9 +20,7 @@ final readonly class AdminUpdateContext implements Context
     ) {
     }
 
-    /**
-     * @When I set fields
-     */
+    #[When('I set fields')]
     public function iSetFields(TableNode $table): void
     {
         $this->adminUpdateItemPage->verifyIsLoaded();

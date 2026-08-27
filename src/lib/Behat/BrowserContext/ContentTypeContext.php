@@ -10,6 +10,9 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Step\Given;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Ibexa\AdminUi\Behat\Page\ContentTypeGroupPage;
 use Ibexa\AdminUi\Behat\Page\ContentTypeGroupsPage;
 use Ibexa\AdminUi\Behat\Page\ContentTypePage;
@@ -26,9 +29,7 @@ final readonly class ContentTypeContext implements Context
     ) {
     }
 
-    /**
-     * @Then content type has proper Global properties
-     */
+    #[Then('content type has proper Global properties')]
     public function contentTypeHasProperGlobalProperties(TableNode $table): void
     {
         foreach ($table->getHash() as $row) {
@@ -36,25 +37,19 @@ final readonly class ContentTypeContext implements Context
         }
     }
 
-    /**
-     * @When I create a new content type
-     */
+    #[When('I create a new content type')]
     public function createNewContentType(): void
     {
         $this->contentTypeGroupPage->createNew();
     }
 
-    /**
-     * @When I create a new content type group
-     */
+    #[When('I create a new content type group')]
     public function createNewContentTypeGroup(): void
     {
         $this->contentTypeGroupsPage->createNew();
     }
 
-    /**
-     * @Then content type :contentTypeName has proper fields
-     */
+    #[Then('content type :contentTypeName has proper fields')]
     public function contentTypeHasProperFields(TableNode $table): void
     {
         foreach ($table->getHash() as $row) {
@@ -64,41 +59,31 @@ final readonly class ContentTypeContext implements Context
         }
     }
 
-    /**
-     * @Given there's no :contentTypeName on content types list
-     */
+    #[Given('there\'s no :contentTypeName on content types list')]
     public function thereSNoOnContentTypesList(string $contentTypeName): void
     {
         Assert::false($this->contentTypeGroupPage->isContentTypeOnTheList($contentTypeName));
     }
 
-    /**
-     * @Given there's no :contentTypeGroupName content type group on content type groups list
-     */
+    #[Given('there\'s no :contentTypeGroupName content type group on content type groups list')]
     public function thereSNoOnContentTypesGroupList(string $contentTypeGroupName): void
     {
         Assert::false($this->contentTypeGroupsPage->isContentTypeGroupOnTheList($contentTypeGroupName));
     }
 
-    /**
-     * @Given there's a :contentTypeGroupName content type group on content type groups list
-     */
+    #[Given('there\'s a :contentTypeGroupName content type group on content type groups list')]
     public function thereSAOnContentTypesGroupList(string $contentTypeGroupName): void
     {
         Assert::true($this->contentTypeGroupsPage->isContentTypeGroupOnTheList($contentTypeGroupName));
     }
 
-    /**
-     * @Given there's a :contentTypeName on content types list
-     */
+    #[Given('there\'s a :contentTypeName on content types list')]
     public function thereAContentTypeOnContentTypesList(string $contentTypeName): void
     {
         Assert::true($this->contentTypeGroupPage->isContentTypeOnTheList($contentTypeName));
     }
 
-    /**
-     * @When I select :categoryName category to content type definition
-     */
+    #[When('I select :categoryName category to content type definition')]
     public function iSelectCategory(string $categoryName): void
     {
         $this->contentTypeUpdatePage->verifyIsLoaded();
@@ -106,57 +91,43 @@ final readonly class ContentTypeContext implements Context
         $this->contentTypeUpdatePage->selectContentTypeCategory($categoryName);
     }
 
-    /**
-     * @When I add field :fieldName to content type definition
-     */
+    #[When('I add field :fieldName to content type definition')]
     public function iAddField(string $fieldName): void
     {
         $this->contentTypeUpdatePage->addFieldDefinition($fieldName);
     }
 
-    /**
-     * @When I set :field to :value for :fieldName field
-     */
+    #[When('I set :field to :value for :fieldName field')]
     public function iSetFieldDefinitionData(string $label, string $value, string $fieldName): void
     {
         $this->contentTypeUpdatePage->fillFieldDefinitionFieldWithValue($fieldName, $label, $value);
     }
 
-    /**
-     * @When I start editing content type :contentTypeName
-     */
+    #[When('I start editing content type :contentTypeName')]
     public function iStartEditingItem(string $contentTypeName): void
     {
         $this->contentTypeGroupPage->edit($contentTypeName);
     }
 
-    /**
-     * @When I start editing content type group :contentTypeGroupName
-     */
+    #[When('I start editing content type group :contentTypeGroupName')]
     public function iStartEditingContentTypeGroup(string $contentTypeGroupName): void
     {
         $this->contentTypeGroupsPage->edit($contentTypeGroupName);
     }
 
-    /**
-     * @When I delete :contentTypeName content type
-     */
+    #[When('I delete :contentTypeName content type')]
     public function iDeleteContentType(string $contentTypeName): void
     {
         $this->contentTypeGroupPage->delete($contentTypeName);
     }
 
-    /**
-     * @When I delete :contentTypeGroupName from content type groups
-     */
+    #[When('I delete :contentTypeGroupName from content type groups')]
     public function iDeleteContentTypeGroup(string $contentTypeGroupName): void
     {
         $this->contentTypeGroupsPage->delete($contentTypeGroupName);
     }
 
-    /**
-     * @Given I'm on content type Page for :contentTypeGroup group
-     */
+    #[Given('I\'m on content type Page for :contentTypeGroup group')]
     public function iMOnContentTypePageFor(string $contentTypeGroup): void
     {
         $this->contentTypeGroupPage->setExpectedContentTypeGroupName($contentTypeGroup);
@@ -164,59 +135,45 @@ final readonly class ContentTypeContext implements Context
         $this->contentTypeGroupPage->verifyIsLoaded();
     }
 
-    /**
-     * @Then I should be on content type group page for :contentTypeGroup group
-     */
+    #[Then('I should be on content type group page for :contentTypeGroup group')]
     public function iShouldBeOnContentTypeGroupPage(string $contentTypeGroup): void
     {
         $this->contentTypeGroupPage->setExpectedContentTypeGroupName($contentTypeGroup);
         $this->contentTypeGroupPage->verifyIsLoaded();
     }
 
-    /**
-     * @Then I should be on content type page for :contentTypeName
-     */
+    #[Then('I should be on content type page for :contentTypeName')]
     public function iShouldBeOnContentTypePage(string $contentTypeName): void
     {
         $this->contentTypePage->setExpectedContentTypeName($contentTypeName);
         $this->contentTypePage->verifyIsLoaded();
     }
 
-    /**
-     * @Then there're no content types for that group
-     */
+    #[Then('there\'re no content types for that group')]
     public function thereAreNoContentTypes(): void
     {
         Assert::false($this->contentTypeGroupPage->hasContentTypes());
     }
 
-    /**
-     * @Then there's an empty :contentTypeGroupName content type group on content type groups list
-     */
+    #[Then('there\'s an empty :contentTypeGroupName content type group on content type groups list')]
     public function thereIsAnEmptyContentTypeGroup(string $contentTypeGroupName): void
     {
         Assert::false($this->contentTypeGroupPage->hasAssignedContentItems($contentTypeGroupName));
     }
 
-    /**
-     * @Then there's non-empty :contentTypeGroupName content type group on content type groups list
-     */
+    #[Then('there\'s non-empty :contentTypeGroupName content type group on content type groups list')]
     public function thereIsANonEmptyContentTypeGroup(string $contentTypeGroupName): void
     {
         Assert::true($this->contentTypeGroupPage->hasAssignedContentItems($contentTypeGroupName));
     }
 
-    /**
-     * @Then content type group :contentTypeGroupName cannot be selected
-     */
+    #[Then('content type group :contentTypeGroupName cannot be selected')]
     public function contentTypeGroupCannotBeSelected(string $contentTypeGroupName): void
     {
         Assert::false($this->contentTypeGroupsPage->canBeSelected($contentTypeGroupName));
     }
 
-    /**
-     * @Given I check :blockName block in ibexa_landing_page field blocks section
-     */
+    #[Given('I check :blockName block in ibexa_landing_page field blocks section')]
     public function iCheckBlockInField(string $blockName): void
     {
         $this->contentTypeUpdatePage->verifyIsLoaded();
@@ -225,9 +182,7 @@ final readonly class ContentTypeContext implements Context
         $this->contentTypeUpdatePage->selectBlock($blockName);
     }
 
-    /**
-     * @Given I select :viewMode editor launch mode in ibexa_landing_page field options
-     */
+    #[Given('I select :viewMode editor launch mode in ibexa_landing_page field options')]
     public function iCheckEditorLaunchModeOption(string $viewMode): void
     {
         $this->contentTypeUpdatePage->verifyIsLoaded();

@@ -10,6 +10,9 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Step\Given;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Ibexa\AdminUi\Behat\Page\ObjectStateGroupPage;
 use Ibexa\AdminUi\Behat\Page\ObjectStateGroupsPage;
 use Ibexa\AdminUi\Behat\Page\ObjectStatePage;
@@ -24,9 +27,7 @@ final readonly class ObjectStatesContext implements Context
     ) {
     }
 
-    /**
-     * @Then there's a :objectStateGroupName Object State group on Object State groups list
-     */
+    #[Then('there\'s a :objectStateGroupName Object State group on Object State groups list')]
     public function isObjectStateOnTheList(string $objectStateGroupName): void
     {
         Assert::true(
@@ -34,36 +35,28 @@ final readonly class ObjectStatesContext implements Context
         );
     }
 
-    /**
-     * @Then I should be on :objectStateGroupName Object State group page
-     */
+    #[Then('I should be on :objectStateGroupName Object State group page')]
     public function iShouldBeOnRObjectStateGroupPage(string $objectStateGroupName): void
     {
         $this->objectStateGroupPage->setExpectedObjectStateGroupName($objectStateGroupName);
         $this->objectStateGroupPage->verifyIsLoaded();
     }
 
-    /**
-     * @Then I should be on :objectState Object State page
-     */
+    #[Then('I should be on :objectState Object State page')]
     public function iShouldBeOnObjectStatePage(string $objectStateGroup): void
     {
         $this->objectStatePage->setExpectedObjectStateName($objectStateGroup);
         $this->objectStatePage->verifyIsLoaded();
     }
 
-    /**
-     * @Then :objectStateGroupName Object State group has no Object States
-     */
+    #[Then(':objectStateGroupName Object State group has no Object States')]
     public function objectStateGroupIsEmpty(string $objectStateGroupName): void
     {
         $this->objectStateGroupPage->setExpectedObjectStateGroupName($objectStateGroupName);
         Assert::false($this->objectStateGroupPage->hasObjectStates());
     }
 
-    /**
-     * @Then Object State group has proper attributes
-     */
+    #[Then('Object State group has proper attributes')]
     public function objectStateGroupHasAttributes(TableNode $table): void
     {
         foreach ($table->getHash() as $row) {
@@ -71,9 +64,7 @@ final readonly class ObjectStatesContext implements Context
         }
     }
 
-    /**
-     * @Then Object State has proper attributes
-     */
+    #[Then('Object State has proper attributes')]
     public function objectStateHasAttributes(TableNode $table): void
     {
         foreach ($table->getHash() as $row) {
@@ -81,49 +72,37 @@ final readonly class ObjectStatesContext implements Context
         }
     }
 
-    /**
-     * @Then there's no :objectStateName Object State group on Object State groups list
-     */
+    #[Then('there\'s no :objectStateName Object State group on Object State groups list')]
     public function noObjectStateOnTheList(string $objectStateGroupName): void
     {
         Assert::false($this->objectStateGroupsPage->isObjectStateGroupOnTheList($objectStateGroupName));
     }
 
-    /**
-     * @Then I edit :objectStateGroupName from Object State groups list
-     */
+    #[Then('I edit :objectStateGroupName from Object State groups list')]
     public function editObjectStateGroupFromList(string $objectStateGroupName): void
     {
         $this->objectStateGroupsPage->editObjectStateGroup($objectStateGroupName);
     }
 
-    /**
-     * @Then I start editing Object State :objectStateName from Object State Group
-     */
+    #[Then('I start editing Object State :objectStateName from Object State Group')]
     public function editObjectStateFromList(string $objectStateName): void
     {
         $this->objectStateGroupPage->editObjectState($objectStateName);
     }
 
-    /**
-     * @Then I edit the Object State
-     */
+    #[Then('I edit the Object State')]
     public function editObjectState(): void
     {
         $this->objectStatePage->edit();
     }
 
-    /**
-     * @Then I edit the Object State group
-     */
+    #[Then('I edit the Object State group')]
     public function editObjectStateGroup(): void
     {
         $this->objectStateGroupPage->edit();
     }
 
-    /**
-     * @Then there's no :objectStateName Object State on Object States list for :objectStateGroupName
-     */
+    #[Then('there\'s no :objectStateName Object State on Object States list for :objectStateGroupName')]
     public function thereIsNoObjectStateOnTheList(string $objectStateName, string $objectStateGroupName): void
     {
         $this->objectStateGroupPage->setExpectedObjectStateGroupName($objectStateGroupName);
@@ -134,9 +113,7 @@ final readonly class ObjectStatesContext implements Context
         );
     }
 
-    /**
-     * @Then there's a :objectStateName Object State on Object States list for :objectStateGroupName
-     */
+    #[Then('there\'s a :objectStateName Object State on Object States list for :objectStateGroupName')]
     public function thereIsObjectStateOnTheList(string $objectStateName, string $objectStateGroupName): void
     {
         $this->objectStateGroupPage->setExpectedObjectStateGroupName($objectStateGroupName);
@@ -147,41 +124,31 @@ final readonly class ObjectStatesContext implements Context
         );
     }
 
-    /**
-     * @Given I create a new Object State group
-     */
+    #[Given('I create a new Object State group')]
     public function createObjectStateGroup(): void
     {
         $this->objectStateGroupsPage->createObjectStateGroup();
     }
 
-    /**
-     * @Given I create a new Object State
-     */
+    #[Given('I create a new Object State')]
     public function createObjectState(): void
     {
         $this->objectStateGroupPage->createObjectState();
     }
 
-    /**
-     * @When I delete Object State :objectStateName
-     */
+    #[When('I delete Object State :objectStateName')]
     public function iDeleteObjecState(string $objectStateName): void
     {
         $this->objectStateGroupPage->deleteObjectState($objectStateName);
     }
 
-    /**
-     * @When I delete Object State group :objectStateGroupName
-     */
+    #[When('I delete Object State group :objectStateGroupName')]
     public function iDeleteObjectStatesGroup(string $objectStateGroupName): void
     {
         $this->objectStateGroupsPage->deleteObjectStateGroup($objectStateGroupName);
     }
 
-    /**
-     * @Then I open :objectStateGroupName Object State group page in admin SiteAccess
-     */
+    #[Then('I open :objectStateGroupName Object State group page in admin SiteAccess')]
     public function openObjectStateGroupPage(string $objectStateGroupName): void
     {
         $this->objectStateGroupPage->setExpectedObjectStateGroupName($objectStateGroupName);
@@ -189,9 +156,7 @@ final readonly class ObjectStatesContext implements Context
         $this->objectStateGroupPage->verifyIsLoaded();
     }
 
-    /**
-     * @Then I open :objectStateName Object State page in admin SiteAccess
-     */
+    #[Then('I open :objectStateName Object State page in admin SiteAccess')]
     public function openObjectStatePage(string $objectStateName): void
     {
         $this->objectStatePage->setExpectedObjectStateName($objectStateName);

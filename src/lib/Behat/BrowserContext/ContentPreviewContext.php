@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\When;
 use Ibexa\AdminUi\Behat\Page\ContentPreviewPage;
 
 final readonly class ContentPreviewContext implements Context
@@ -17,18 +18,14 @@ final readonly class ContentPreviewContext implements Context
     {
     }
 
-    /**
-     * @When I go to :viewName preview
-     */
+    #[When('I go to :viewName preview')]
     public function iGoToPreview(string $viewName): void
     {
         $this->contentPreviewPage->verifyIsLoaded();
         $this->contentPreviewPage->goToView($viewName);
     }
 
-    /**
-     * @When I go back from content preview
-     */
+    #[When('I go back from content preview')]
     public function iGoToBackFromPreview(): void
     {
         $this->contentPreviewPage->verifyIsLoaded();

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Then;
 use Ibexa\AdminUi\Behat\Component\Notification;
 use Webmozart\Assert\Assert;
 
@@ -20,9 +21,7 @@ final readonly class NotificationContext implements Context
     ) {
     }
 
-    /**
-     * @Then notification that :itemType :itemName is :action appears
-     */
+    #[Then('notification that :itemType :itemName is :action appears')]
     public function notificationAppears(string $itemType, string $itemName, string $action): void
     {
         $expectedMessage = sprintf('%s \'%s\' %s.', $itemType, $itemName, $action);
@@ -33,9 +32,7 @@ final readonly class NotificationContext implements Context
         $this->notification->closeAlert();
     }
 
-    /**
-     * @Then warning notification that :message appears
-     */
+    #[Then('warning notification that :message appears')]
     public function warningNotificationAppears(string $message): void
     {
         $this->notification->verifyIsLoaded();
@@ -44,9 +41,7 @@ final readonly class NotificationContext implements Context
         $this->notification->closeAlert();
     }
 
-    /**
-     * @Then success notification that :message appears
-     */
+    #[Then('success notification that :message appears')]
     public function specificNotificationAppears(string $message): void
     {
         $this->notification->verifyIsLoaded();
@@ -55,9 +50,7 @@ final readonly class NotificationContext implements Context
         $this->notification->closeAlert();
     }
 
-    /**
-     * @Then error notification that :message appears
-     */
+    #[Then('error notification that :message appears')]
     public function specificErrorNotificationAppears(string $message): void
     {
         $this->notification->verifyIsLoaded();
