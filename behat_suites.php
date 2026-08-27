@@ -35,8 +35,10 @@ use Ibexa\AdminUi\Behat\BrowserContext\UDWContext;
 use Ibexa\AdminUi\Behat\BrowserContext\UserPreferencesContext;
 use Ibexa\AdminUi\Behat\BrowserContext\UserProfileContext;
 use Ibexa\Behat\API\Context\ContentContext;
+use Ibexa\Behat\API\Context\ContentTypeContext as ApiContentTypeContext;
 use Ibexa\Behat\API\Context\RoleContext;
 use Ibexa\Behat\API\Context\TestContext;
+use Ibexa\Behat\API\Context\TrashContext as ApiTrashContext;
 use Ibexa\Behat\API\Context\UserContext;
 use Ibexa\Behat\Browser\Context\AuthenticationContext;
 use Ibexa\Behat\Browser\Context\DebuggingContext;
@@ -49,11 +51,11 @@ return (new Config())
         ]))
         ->withSuite((new Suite('admin-ui'))
             ->withContexts(
-                ContentTypeContext::class,
+                ApiContentTypeContext::class,
                 ContentContext::class,
                 RoleContext::class,
                 TestContext::class,
-                TrashContext::class,
+                ApiTrashContext::class,
                 UserContext::class,
                 DebuggingContext::class,
                 AuthenticationContext::class,
@@ -106,10 +108,10 @@ return (new Config())
         ->withSuite((new Suite('admin-ui-full'))
             ->withContexts(
                 ContentContext::class,
-                ContentTypeContext::class,
+                ApiContentTypeContext::class,
                 RoleContext::class,
                 TestContext::class,
-                TrashContext::class,
+                ApiTrashContext::class,
                 UserContext::class,
                 AdminUpdateContext::class,
                 ContentActionsMenuContext::class,
