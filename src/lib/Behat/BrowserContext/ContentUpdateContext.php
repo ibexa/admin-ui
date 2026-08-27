@@ -10,6 +10,9 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Step\Given;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Ibexa\AdminUi\Behat\Component\Fields\NonEditableField;
 use Ibexa\AdminUi\Behat\Page\ContentUpdateItemPage;
 use Ibexa\AdminUi\Behat\Page\UserUpdatePage;
@@ -23,9 +26,7 @@ final readonly class ContentUpdateContext implements Context
     ) {
     }
 
-    /**
-     * @When I set content fields
-     */
+    #[When('I set content fields')]
     public function iSetFields(TableNode $table): void
     {
         $this->contentUpdateItemPage->verifyIsLoaded();
@@ -36,34 +37,26 @@ final readonly class ContentUpdateContext implements Context
         }
     }
 
-    /**
-     * @When field :fieldName contains validation error :errorMessage
-     */
+    #[When('field :fieldName contains validation error :errorMessage')]
     public function fieldContainsValidationError(string $fieldName, string $errorMessage): void
     {
         $this->contentUpdateItemPage->verifyValidationMessage($fieldName, $errorMessage);
     }
 
-    /**
-     * @Given the :fieldName field is noneditable
-     */
+    #[Given('the :fieldName field is noneditable')]
     public function verifyFieldIsNotEditable(string $fieldName): void
     {
         $field = $this->contentUpdateItemPage->getField($fieldName);
         Assert::eq($field->getValue()[0], NonEditableField::EXPECTED_NON_EDITABLE_TEXT);
     }
 
-    /**
-     * @When the :fieldName field cannot be edited due to limitation
-     */
+    #[When('the :fieldName field cannot be edited due to limitation')]
     public function fieldCannotBeEditedDueToLimitation(string $fieldName): void
     {
         $this->contentUpdateItemPage->verifyFieldCannotBeEditedDueToLimitation($fieldName);
     }
 
-    /**
-     * @When I set content fields for user
-     */
+    #[When('I set content fields for user')]
     public function iSetFieldsForUser(TableNode $table): void
     {
         $this->userUpdatePage->verifyIsLoaded();
@@ -73,9 +66,7 @@ final readonly class ContentUpdateContext implements Context
         }
     }
 
-    /**
-     * @When I select :contentPath from Image Asset Repository for :fieldName field
-     */
+    #[When('I select :contentPath from Image Asset Repository for :fieldName field')]
     public function selectContentFromIARepository(string $contentPath, string $fieldName): void
     {
         $this->contentUpdateItemPage->getField($fieldName)->selectFromRepository($contentPath);
@@ -94,9 +85,7 @@ final readonly class ContentUpdateContext implements Context
         return array_filter($values, static function ($element): bool { return !empty($element) || $element === 0;});
     }
 
-    /**
-     * @Then content fields are set
-     */
+    #[Then('content fields are set')]
     public function verifyFieldsAreSet(TableNode $table): void
     {
         foreach ($table->getHash() as $row) {
@@ -104,27 +93,21 @@ final readonly class ContentUpdateContext implements Context
         }
     }
 
-    /**
-     * @When I switch to :tabName field group
-     */
+    #[When('I switch to :tabName field group')]
     public function iSwitchToContentTab(string $tabName): void
     {
         $this->contentUpdateItemPage->verifyIsLoaded();
         $this->contentUpdateItemPage->switchToFieldGroup($tabName);
     }
 
-    /**
-     * @When I switch to :tabName field tab
-     */
+    #[When('I switch to :tabName field tab')]
     public function iSwitchToContentGroup(string $tabName): void
     {
         $this->contentUpdateItemPage->verifyIsLoaded();
         $this->contentUpdateItemPage->switchToFieldTab($tabName);
     }
 
-    /**
-     * @When I wait for Content Item to be autosaved
-     */
+    #[When('I wait for Content Item to be autosaved')]
     public function iWaitForAutosaveNotification(): void
     {
         $this->contentUpdateItemPage->verifyIsLoaded();
@@ -132,9 +115,7 @@ final readonly class ContentUpdateContext implements Context
         $this->contentUpdateItemPage->verifyAutosaveDraftIsSavedNotificationIsDisplayed();
     }
 
-    /**
-     * @When I check if "Autosave is off, draft not created" notification is displayed
-     */
+    #[When('I check if "Autosave is off, draft not created" notification is displayed')]
     public function iCheckAutosaveNotification(): void
     {
         $this->contentUpdateItemPage->verifyIsLoaded();

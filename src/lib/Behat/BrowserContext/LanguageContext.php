@@ -10,6 +10,9 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Step\Given;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Ibexa\AdminUi\Behat\Page\LanguagePage;
 use Ibexa\AdminUi\Behat\Page\LanguagesPage;
 use Webmozart\Assert\Assert;
@@ -22,50 +25,38 @@ final readonly class LanguageContext implements Context
     ) {
     }
 
-    /**
-     * @When  I delete the language
-     */
+    #[When('I delete the language')]
     public function deleteLanguage(): void
     {
         $this->languagePage->delete();
     }
 
-    /**
-     * @Given there's no :languageName Language on Languages list
-     */
+    #[Given('there\'s no :languageName Language on Languages list')]
     public function thereSNoLanguageOnLanguageList(string $languageName): void
     {
         Assert::false($this->languagesPage->isLanguageOnTheList($languageName));
     }
 
-    /**
-     * @Given I delete Language :languageName
-     */
+    #[Given('I delete Language :languageName')]
     public function deleteLanguageNamed(string $languageName): void
     {
         $this->languagesPage->deleteLanguage($languageName);
     }
 
-    /**
-     * @Given there's a :languageName Language on Languages list
-     */
+    #[Given('there\'s a :languageName Language on Languages list')]
     public function thereALanguageOnLanguageList(string $languageName): void
     {
         Assert::true($this->languagesPage->isLanguageOnTheList($languageName));
     }
 
-    /**
-     * @Then I should be on :languageName Language page
-     */
+    #[Then('I should be on :languageName Language page')]
     public function iShouldBeOnLanguagePage(string $languageName): void
     {
         $this->languagePage->setExpectedLanguageName($languageName);
         $this->languagePage->verifyIsLoaded();
     }
 
-    /**
-     * @Then Language has proper attributes
-     */
+    #[Then('Language has proper attributes')]
     public function languageHasProperAttributes(TableNode $languageData): void
     {
         $expectedName = $languageData->getHash()[0]['Name'];
@@ -81,17 +72,13 @@ final readonly class LanguageContext implements Context
         );
     }
 
-    /**
-     * @Then I edit :languageName from Languages list
-     */
+    #[Then('I edit :languageName from Languages list')]
     public function editLanguageFromLanguagesList(string $languageName): void
     {
         $this->languagesPage->editLanguage($languageName);
     }
 
-    /**
-     * @Then I open :languageName Language page in admin SiteAccess
-     */
+    #[Then('I open :languageName Language page in admin SiteAccess')]
     public function openLanguagePage(string $languageName): void
     {
         $this->languagePage->setExpectedLanguageName($languageName);
@@ -99,9 +86,7 @@ final readonly class LanguageContext implements Context
         $this->languagePage->verifyIsLoaded();
     }
 
-    /**
-     * @Then I start editing the Language
-     */
+    #[Then('I start editing the Language')]
     public function editLanguage(): void
     {
         $this->languagePage->edit();

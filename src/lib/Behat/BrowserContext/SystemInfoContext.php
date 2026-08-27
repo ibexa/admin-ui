@@ -10,6 +10,8 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Ibexa\AdminUi\Behat\Page\SystemInfoPage;
 
 final readonly class SystemInfoContext implements Context
@@ -19,35 +21,27 @@ final readonly class SystemInfoContext implements Context
     ) {
     }
 
-    /**
-     * @When I go to :tabName tab in System Information
-     */
+    #[When('I go to :tabName tab in System Information')]
     public function iGoToTabInSystemInfo(string $tabName): void
     {
         $this->systemInfoPage->verifyIsLoaded();
         $this->systemInfoPage->goToTab($tabName);
     }
 
-    /**
-     * @Then I see :tabName system information table
-     */
+    #[Then('I see :tabName system information table')]
     public function iSeeSystemInformationTable(string $tabName): void
     {
         $this->systemInfoPage->verifyCurrentTableHeader($tabName);
     }
 
-    /**
-     * @Then I see listed packages
-     */
+    #[Then('I see listed packages')]
     public function iSeeListedPackages(TableNode $packages): void
     {
         $packageNames = array_column($packages->getHash(), 'Name');
         $this->systemInfoPage->verifyPackages($packageNames);
     }
 
-    /**
-     * @Then I see listed bundles
-     */
+    #[Then('I see listed bundles')]
     public function iSeeListedBundles(TableNode $bundles): void
     {
         $bundleNames = array_column($bundles->getHash(), 'Name');
