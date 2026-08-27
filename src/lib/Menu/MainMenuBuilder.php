@@ -223,7 +223,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
                 ],
                 'extras' => [
                     'bottom_item' => true,
-                    'icon' => 'bookmark',
+                    'icon' => 'bookmarks',
                     'orderNumber' => 160,
                 ],
             ]);

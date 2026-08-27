@@ -88,6 +88,8 @@
             }
 
             .ids-btn--locate-me {
+                position: relative;
+                z-index: 1;
                 padding: calculateRem(13px);
                 border: calculateRem(1px) solid $ibexa-color-dark-200;
                 border-left: none;
