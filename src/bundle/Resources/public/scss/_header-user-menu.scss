@@ -212,6 +212,9 @@
         position: relative;
         width: calculateRem(32px);
         height: calculateRem(32px);
+        padding: 0;
+        border: 0;
+        background: transparent;
         cursor: pointer;
 
         &:hover {
