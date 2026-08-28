@@ -1,9 +1,51 @@
+import { Alert } from '@ibexa-design-system/src/bundle/Resources/public/ts/components/alert';
+
 import { getRootDOMElement } from './context.helper';
 
 const NOTIFICATION_INFO_LABEL = 'info';
 const NOTIFICATION_SUCCESS_LABEL = 'success';
 const NOTIFICATION_WARNING_LABEL = 'warning';
 const NOTIFICATION_ERROR_LABEL = 'error';
+
+/**
+ * Returns the notification template rendered for a given label
+ *
+ * @function getNotificationTemplate
+ * @param {HTMLElement} container notifications container
+ * @param {String} label
+ * @returns {String}
+ */
+const getNotificationTemplate = (container, label) => {
+    const templateName = `template${label.charAt(0).toUpperCase()}${label.slice(1)}`;
+
+    return container.dataset[templateName] ?? container.dataset.templateInfo;
+};
+
+/**
+ * Renders a notification from the container's template, initializes it and appends it to the container
+ *
+ * @function appendNotification
+ * @param {HTMLElement} container notifications container
+ * @param {Object} config
+ * @param {String} config.label
+ * @param {String} config.message escaped message
+ * @param {String} [config.iconPath] custom icon path
+ * @returns {Object} appended notification node and its Alert instance
+ */
+const appendNotification = (container, { label, message, iconPath = '' }) => {
+    const wrapper = document.createElement('div');
+    const notification = getNotificationTemplate(container, label).replace('{{ message }}', message).replace('{{ icon_path }}', iconPath);
+
+    wrapper.insertAdjacentHTML('beforeend', notification);
+
+    const notificationNode = wrapper.querySelector('.ids-alert');
+    const alertInstance = new Alert(notificationNode);
+
+    alertInstance.init();
+    container.append(notificationNode);
+
+    return { notificationNode, alertInstance };
+};
 
 /**
  * Dispatches notification event
@@ -90,4 +132,11 @@ const showErrorNotification = (error, onShow, rawPlaceholdersMap = {}) => {
     });
 };
 
-export { showNotification, showInfoNotification, showSuccessNotification, showWarningNotification, showErrorNotification };
+export {
+    appendNotification,
+    showNotification,
+    showInfoNotification,
+    showSuccessNotification,
+    showWarningNotification,
+    showErrorNotification,
+};
