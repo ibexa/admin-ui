@@ -215,17 +215,7 @@
             </main>
         {% endblock %}
 
-        <div
-            class="ibexa-notifications-container"
-            data-notifications="{{ app.flashes|json_encode() }}"
-            {% for notification_type in ['info', 'success', 'warning', 'error'] %}
-                data-template-{{ notification_type }}="{{ include('@ibexadesign/ui/notification.html.twig', {
-                    type: notification_type,
-                    message: '{{ message }}',
-                    icon_path: '{{ icon_path }}',
-                })|e('html_attr') }}"
-            {% endfor %}
-        ></div>
+        {% include '@ibexadesign/ui/notifications_container.html.twig' %}
         <div class="ibexa-modal-wrapper"></div>
 
         <div class="ibexa-quick-action-menu ibexa-quick-action-menu--hidden">
