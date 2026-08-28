@@ -1,8 +1,6 @@
 {#
-    Compatibility wrapper around the design-system <twig:ibexa:alert> component, kept for the
-    existing `include`/`embed` call sites. New code should use <twig:ibexa:alert> directly.
-    Legacy params `size`, `show_subtitle_below` and `attr` are ignored; the `title` block is gone (title is a plain string prop).
-    Inline renders get `ibexa-alert-adapter`, which restores the bottom margin Bootstrap's `.alert` used to add.
+    TODO: Remove this compatibility wrapper once every `include`/`embed` call site renders <twig:ibexa:alert> directly.
+    Legacy params `size`, `show_subtitle_below` and `attr` are ignored, and the `title` block is gone (title is a prop).
 #}
 {% set alert_variant = is_toast|default(false) ? 'toast' : 'local' %}
 {% set alert_classes = html_classes({ 'ibexa-alert-adapter': not is_toast|default(false) }, class|default('')) %}
