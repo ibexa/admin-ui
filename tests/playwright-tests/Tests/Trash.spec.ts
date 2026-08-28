@@ -1,7 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { TrashPage } from '../Pages/TrashPage';
-import { ContentManagementPage } from '../Pages/ContentManagementPage';
-import { IbexaApiClient } from '@ibexa/cohesivo-playwright';
+import { TrashPage, ContentManagementPage, IbexaApiClient } from '@ibexa/cohesivo-playwright';
 
 
 test.describe('Trash management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@IbexaExperience', '@IbexaCommerce'] }, () => {
@@ -20,7 +18,9 @@ test.describe('Trash management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@Ibexa
     });
 
     test.afterAll(async () => {
-        await api.deleteContent(trashTestContentId);
+        if (api && trashTestContentId) {
+            await api.deleteContent(trashTestContentId);
+        }
     });
 
     test('Trash can be emptied', async ({ page }) => {
@@ -47,7 +47,7 @@ test.describe('Trash management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@Ibexa
         await contentPage.open(childId, childLocId);
         await contentPage.sendToTrash();
 
-        await contentPage.assertSuccessNotification(`Location '${name}' moved to Trash`);
+        await contentPage.notifications.assertSuccess(`Location '${name}' moved to Trash`);
 
         const trash = new TrashPage(page);
         await trash.open();
@@ -67,7 +67,7 @@ test.describe('Trash management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@Ibexa
         await trash.open();
         await trash.assertItemInTrash(name);
         await trash.deleteFromTrash([name]);
-        await trash.assertSuccessNotification('Deleted selected item(s) from Trash');
+        await trash.notifications.assertSuccess('Deleted selected item(s) from Trash');
         await trash.assertItemNotInTrash(name);
     });
 
@@ -84,7 +84,7 @@ test.describe('Trash management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@Ibexa
         await trash.open();
         await trash.assertItemInTrash(name);
         await trash.restoreFromTrash([name]);
-        await trash.assertSuccessNotification('Restored content to its original Location');
+        await trash.notifications.assertSuccess('Restored content to its original Location');
         await trash.assertItemNotInTrash(name);
     });
 
@@ -102,7 +102,7 @@ test.describe('Trash management', { tag: ['@IbexaOSS', '@IbexaHeadless', '@Ibexa
         await trash.assertItemInTrash(name);
         await trash.restoreUnderNewLocation([name], 'Media/Files');
 
-        await trash.assertSuccessNotification("Restored content under Location 'Files'");
+        await trash.notifications.assertSuccess("Restored content under Location 'Files'");
         await trash.assertItemNotInTrash(name);
 
         // Verify the content actually landed under Media/Files (path resolution throws if absent)
