@@ -67,6 +67,11 @@
                     justify-content: center;
                 }
 
+                &__primary-section,
+                &__secondary-section {
+                    scrollbar-gutter: auto;
+                }
+
                 &__items-list > .ibexa-main-menu__item > .ibexa-main-menu__item-action > .ibexa-main-menu__item-text-column,
                 &__items-list
                     > .ibexa-main-menu__item
@@ -109,6 +114,7 @@
     &__primary-section,
     &__secondary-section {
         padding: 0 calculateRem(8px);
+        scrollbar-gutter: stable;
     }
 
     &__primary-section {
@@ -275,6 +281,7 @@
 
         &__header-content {
             flex: 1 1 auto;
+            min-width: 0;
             padding: 0;
         }
 
@@ -297,6 +304,7 @@
     &__item-text-column {
         width: 100%;
         overflow: hidden;
+        text-overflow: ellipsis;
         text-align: left;
         padding: 0;
 
