@@ -8,6 +8,14 @@
     &.form-label.is-invalid {
         color: $ibexa-color-danger;
     }
+
+    // Symfony renders compound field labels (radio/checkbox groups, collections, sub-forms) as <legend class="col-form-label">;
+    // Bootstrap pads it top and bottom to align with an input — labels design wants the plain 4px gap instead.
+    &.col-form-label {
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-bottom: calculateRem(4px);
+    }
 }
 
 .form-check-inline {
