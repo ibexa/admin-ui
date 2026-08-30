@@ -22,6 +22,7 @@
     const adaptiveItems = new ibexa.core.AdaptiveItems({
         itemHiddenClass: 'ibexa-context-menu__item--hidden',
         container: adaptedItemsContainer,
+        selectorFocusableElement: showPopupButton,
         getActiveItem: () => {
             return adaptedItemsContainer.querySelector('.ibexa-context-menu__item');
         },
