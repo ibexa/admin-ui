@@ -1,5 +1,7 @@
 {% do form.setRendered() %}
-{{ form_label(form) }}
-<em class="d-block">{{ "role.policy.limitation.not_implemented"
-    |trans({"%limitationTypeIdentifier%": form.vars.data.identifier}, 'ibexa_content_forms_role')
-    |desc("Editing Limitations for '%limitationTypeIdentifier%' is not available.") }}</em>
+<div class="ibexa-limitation-unavailable ibexa-form-field">
+    {{ form_label(form) }}
+    <em class="d-block">{{ "role.policy.limitation.not_implemented"
+        |trans({"%limitationTypeIdentifier%": form.vars.data.identifier}, 'ibexa_content_forms_role')
+        |desc("Editing Limitations for '%limitationTypeIdentifier%' is not available.") }}</em>
+</div>

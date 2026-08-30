@@ -29,20 +29,22 @@
 } -%}
     {%- block body_content -%}
         <div class="ibexa-content-type-edit__field-definition-content">
-            {{ form_row(form.name, {
+            {% set form_field_options = { row_attr: { class: 'ibexa-form-field' } } %}
+
+            {{ form_row(form.name, form_field_options|merge({
                 attr: { 'data-autogenerate-identifier-target-selector': '#ibexa-ct-identifier-' ~ form.identifier.vars.value }
-            }) }}
-            {{ form_row(form.identifier,  {
+            })) }}
+            {{ form_row(form.identifier, form_field_options|merge({
                 id: 'ibexa-ct-identifier-' ~ form.identifier.vars.value
-            }) }}
-            {{ form_row(form.description) }}
-            {{ form_row(form.isRequired) }}
-            {{ form_row(form.isSearchable) }}
-            {{ form_row(form.isTranslatable) }}
-            {{ form_row(form.isThumbnail) }}
-            {{ form_row(form.fieldGroup, { attr: {
+            })) }}
+            {{ form_row(form.description, form_field_options) }}
+            {{ form_row(form.isRequired, form_field_options) }}
+            {{ form_row(form.isSearchable, form_field_options) }}
+            {{ form_row(form.isTranslatable, form_field_options) }}
+            {{ form_row(form.isThumbnail, form_field_options) }}
+            {{ form_row(form.fieldGroup, form_field_options|merge({ attr: {
                 class: "ibexa-input ibexa-input--field-group"
-            }}) }}
+            }})) }}
             {{ form_widget(form.position, { attr: {
                 hidden: 'hidden',
                 class: "ibexa-input ibexa-input--position"
@@ -52,13 +54,13 @@
             {{ ibexa_render_field_definition_edit(value, {
                 'languageCode': language_code,
                 'form': form,
-                'group_class': value.group_class|default('') ~ ' form-group',
+                'group_class': value.group_class|default('') ~ ' ibexa-form-field form-group',
                 'is_translation': is_translation,
             }) }}
 
             {# Default rendering #}
             {% for child in form|filter(child => child.isRendered() == false) %}
-                {{ form_row(child) }}
+                {{ form_row(child, form_field_options) }}
             {% endfor %}
         </div>
     {%- endblock -%}
