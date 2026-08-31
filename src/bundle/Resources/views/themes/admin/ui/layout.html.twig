@@ -120,11 +120,15 @@
     <body class="{% block body_class %}ibexa-theme {% if ibexa_is_focus_mode_on() %}ibexa-theme--dark{% endif %}{% endblock %}">
         <div id="react-udw" data-filter-subtree-udw-config="{{ ibexa_udw_config('single_container', {}) }}"></div>
 
+        {% set is_app_switcher_open = app.request.cookies.get('ibexa-aui_app-switcher-is-open') == 'true' %}
+
         {% block header_row %}
             <header class="ibexa-main-header">
                 {% block app_switcher_toggler %}
-                    <div class="ibexa-main-header__app-switcher-column">
-                        {{ include('@ibexadesign/ui/component/app_switcher/app_switcher_toggler.html.twig') }}
+                    <div class="ibexa-main-header__app-switcher-column {% if is_app_switcher_open %}ibexa-main-header__app-switcher-column--open{% endif %}">
+                        {{ include('@ibexadesign/ui/component/app_switcher/app_switcher_toggler.html.twig', {
+                            is_open: is_app_switcher_open,
+                        }) }}
                     </div>
                 {% endblock %}
                 <div class="ibexa-main-header__brand-column">
@@ -157,7 +161,9 @@
         {% block main_container %}
             <main class="ibexa-main-container {% block main_container_class %}{% endblock %}">
                 {% block app_switcher_panel %}
-                    {{ include('@ibexadesign/ui/component/app_switcher/app_switcher_panel.html.twig') }}
+                    {{ include('@ibexadesign/ui/component/app_switcher/app_switcher_panel.html.twig', {
+                        is_open: is_app_switcher_open,
+                    }) }}
                 {% endblock %}
                 {% block side_column %}
                     <div class="ibexa-main-container__side-column {% block side_column_class %}{% endblock %}">
