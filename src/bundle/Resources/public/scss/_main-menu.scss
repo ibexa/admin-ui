@@ -14,7 +14,7 @@
         overflow: hidden;
     }
 
-    @mixin thin-scrollbar($track: $color-neutral-230, $thumb: $color-neutral-200) {
+    @mixin thin-scrollbar($track: $color-neutral-240, $thumb: $color-neutral-200) {
         &::-webkit-scrollbar {
             width: calculateRem(16px);
             background-color: $track;
@@ -37,13 +37,14 @@
     }
 
     display: flex;
-    height: calc(100vh - #{calculateRem(72px)});
+    height: calc(100vh - #{calculateRem(64px)});
 
     &__navbar {
         display: flex;
         flex-direction: column;
         width: calculateRem(264px);
-        background-color: $ibexa-color-dark;
+        background-color: $ibexa-color-black;
+        border-top: calculateRem(1px) solid $color-neutral-210;
         overflow-y: hidden;
         overflow-x: hidden;
         transition: width $ibexa-admin-transition-duration $ibexa-admin-transition;
@@ -101,7 +102,7 @@
         align-items: stretch;
 
         &--secondary {
-            border-top: calculateRem(1px) solid $ibexa-color-dark-500;
+            border-top: calculateRem(1px) solid $color-neutral-210;
         }
     }
 
@@ -209,7 +210,7 @@
 
         &--second-level-group {
             margin: 0;
-            border-top: calculateRem(1px) solid $ibexa-color-dark-500;
+            border-top: calculateRem(1px) solid $color-neutral-210;
             margin-top: calculateRem(8px);
             margin-left: calculateRem(10px);
             padding: calculateRem(1px) 0;

@@ -1,31 +1,26 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/colors' as *;
 @use 'sass:color';
 
 .ibexa-global-search {
     width: 100%;
-    max-width: calculateRem(600px);
+    max-width: calculateRem(500px);
     position: relative;
+    --ids-mode: dark;
     --ibexa-input-text-color: #{$ibexa-color-white};
     --ibexa-text-color: #{$ibexa-color-white};
 
     .ids-input-text {
-        --ids-input-default-bg-color: #{color.change($ibexa-color-white, $alpha: 0.1)};
-        --ids-input-default-border-color: transparent;
-        --ids-input-default-text-color: #{$ibexa-color-white};
-        --ids-input-hover-border-color: #{$ibexa-color-info-600};
-        --ids-input-active-border-color: #{$ibexa-color-info-600};
-        --ids-input-focus-border-color: #{$ibexa-color-info-600};
-
-        &:hover {
-            .ids-input {
-                border-color: $ibexa-color-info-600;
-            }
+        .ids-input {
+            --ids-input-hover-border-color: #{$color-primary-50};
+            --ids-input-active-border-color: #{$color-primary-50};
+            --ids-input-focus-border-color: #{$color-primary-50};
         }
 
         &:focus-within {
             .ids-input-text__search-btn {
-                background: $ibexa-color-info-600;
+                background: $color-primary-50;
 
                 .ids-icon {
                     fill: $ibexa-color-white;
@@ -35,7 +30,7 @@
 
         &:has(.ibexa-global-search__input:not(:placeholder-shown)) {
             .ids-input-text__search-btn {
-                background: $ibexa-color-info-600;
+                background: $color-primary-50;
 
                 .ids-icon {
                     fill: $ibexa-color-white;
@@ -57,7 +52,7 @@
 
         &:hover {
             .ids-icon {
-                fill: $ibexa-color-info;
+                fill: $color-primary-30;
             }
         }
 
@@ -77,56 +72,30 @@
         transform: none;
 
         .ids-icon {
+            fill: $ibexa-color-dark-300;
+        }
+
+        &:hover .ids-icon,
+        &:focus .ids-icon {
             fill: $ibexa-color-white;
         }
 
         &:hover {
-            background: $ibexa-color-info-600;
-            box-shadow: 0 calculateRem(22px) calculateRem(24px) 0 color.change($ibexa-color-info, $alpha: 0.2);
+            background: $color-primary-50;
+            box-shadow: 0 calculateRem(22px) calculateRem(24px) 0 color.change($color-primary-50, $alpha: 0.2);
         }
 
         &:focus {
             color: $ibexa-color-white;
-            background: $ibexa-color-info-600;
-            border-color: $ibexa-color-info-600;
+            background: $color-primary-50;
+            border-color: $color-primary-50;
             box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.2);
         }
     }
 
     &__input {
         height: calculateRem(40px);
-        padding: calculateRem(4px) calculateRem(56px) calculateRem(4px) calculateRem(16px);
-        color: $ibexa-color-white;
-        background: color.change($ibexa-color-white, $alpha: 0.1);
-        border-color: transparent;
-
-        &:not(:disabled) {
-            &:hover {
-                box-shadow: none;
-                border-color: $ibexa-color-info-600;
-            }
-
-            &:focus {
-                color: $ibexa-color-white;
-                border-color: $ibexa-color-info-600;
-                background: color.change($ibexa-color-white, $alpha: 0.1);
-                box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.2);
-            }
-
-            &:active,
-            &:not(:placeholder-shown) {
-                box-shadow: none;
-                border-color: $ibexa-color-info-600;
-            }
-        }
-
-        &.form-control:focus {
-            color: $ibexa-color-light;
-        }
-
-        &::placeholder {
-            color: $ibexa-color-light;
-        }
+        padding: calculateRem(4px) calculateRem(56px) calculateRem(4px) calculateRem(12px);
     }
 
     &__autocomplete-no-results {
@@ -169,7 +138,7 @@
 
         &::before {
             content: '';
-            background-color: $ibexa-color-info-200;
+            background-color: $color-primary-10;
             width: calc(100% + #{calculateRem(4px)});
             height: 100%;
             display: block;
@@ -268,6 +237,7 @@
 
     &__autocomplete {
         position: absolute;
+        --ids-mode: light;
         background-color: $ibexa-color-white;
         padding: calculateRem(8px);
         width: 100%;

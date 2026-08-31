@@ -70,6 +70,7 @@ final class UserMenuBuilder extends AbstractBuilder implements TranslationContai
                             ],
                             'extras' => [
                                 'orderNumber' => 40,
+                                'icon' => 'user-profile',
                             ],
                         ]
                     )
@@ -81,6 +82,7 @@ final class UserMenuBuilder extends AbstractBuilder implements TranslationContai
                     'route' => 'ibexa.user_settings.list',
                     'extras' => [
                         'orderNumber' => 50,
+                        'icon' => 'settings',
                     ],
                 ])
             );
@@ -93,6 +95,7 @@ final class UserMenuBuilder extends AbstractBuilder implements TranslationContai
                     ],
                     'extras' => [
                         'orderNumber' => 60,
+                        'icon' => 'log-out',
                     ],
                 ])
             );
