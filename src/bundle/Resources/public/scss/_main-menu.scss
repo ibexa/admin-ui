@@ -59,17 +59,21 @@
             }
         }
 
+        &.ibexa-main-menu__navbar--with-scrollbar:not(.ibexa-main-menu__navbar--collapsed) {
+            .ibexa-main-menu {
+                &__primary-section,
+                &__secondary-section {
+                    scrollbar-gutter: stable;
+                }
+            }
+        }
+
         &.ibexa-main-menu__navbar--collapsed {
             width: calculateRem(56px);
 
             .ibexa-main-menu {
                 &__toggler-container {
                     justify-content: center;
-                }
-
-                &__primary-section,
-                &__secondary-section {
-                    scrollbar-gutter: auto;
                 }
 
                 &__items-list > .ibexa-main-menu__item > .ibexa-main-menu__item-action > .ibexa-main-menu__item-text-column,
@@ -114,7 +118,6 @@
     &__primary-section,
     &__secondary-section {
         padding: 0 calculateRem(8px);
-        scrollbar-gutter: stable;
     }
 
     &__primary-section {
