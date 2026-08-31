@@ -151,8 +151,6 @@
 
         .ibexa-tabs {
             &__list {
-                // `clip` instead of `hidden` - the tabs are taller than the list,
-                // so a scrollable list would be scrolled by the browser when a tab gets keyboard focus
                 overflow: clip;
                 width: calc(100% - #{calculateRem(50px)});
                 height: calculateRem(47px);
