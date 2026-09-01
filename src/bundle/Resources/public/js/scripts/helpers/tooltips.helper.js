@@ -206,8 +206,9 @@ const parse = (baseElement = doc) => {
     }
 
     for (const tooltipNode of tooltipNodes) {
-        const computedStyle = getComputedStyle(tooltipNode);
-        const hasEllipsisStyle = computedStyle.textOverflow === 'ellipsis' || computedStyle['-webkit-line-clamp'];
+        const { textOverflow, webkitLineClamp } = getComputedStyle(tooltipNode);
+        const hasLineClamp = !!webkitLineClamp && webkitLineClamp !== 'none';
+        const hasEllipsisStyle = textOverflow === 'ellipsis' || hasLineClamp;
         const hasNewTitle = tooltipNode.hasAttribute('title');
         const tooltipInitialized = !!tooltipNode.dataset.originalTitle;
         let shouldHaveTooltip = !hasEllipsisStyle;
