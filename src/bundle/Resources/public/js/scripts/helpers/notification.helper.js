@@ -1,6 +1,7 @@
 import { Alert } from '@ibexa-design-system/src/bundle/Resources/public/ts/components/alert';
 
 import { getRootDOMElement } from './context.helper';
+import { escapeHTML } from './text.helper';
 
 const NOTIFICATION_INFO_LABEL = 'info';
 const NOTIFICATION_SUCCESS_LABEL = 'success';
@@ -28,13 +29,22 @@ const getNotificationTemplate = (container, label) => {
  * @param {HTMLElement} container notifications container
  * @param {Object} config
  * @param {String} config.label
- * @param {String} config.message escaped message
+ * @param {String} config.message message to escape and render
  * @param {String} [config.iconPath] custom icon path
+ * @param {Object} [config.rawPlaceholdersMap] `{{ placeholder }}` occurrences to fill with raw HTML
  * @returns {Object} appended notification node and its Alert instance
  */
-const appendNotification = (container, { label, message, iconPath = '' }) => {
+const appendNotification = (container, { label, message, iconPath = '', rawPlaceholdersMap = {} }) => {
     const wrapper = document.createElement('div');
-    const notification = getNotificationTemplate(container, label).replace('{{ message }}', message).replace('{{ icon_path }}', iconPath);
+    let finalMessage = escapeHTML(message);
+
+    Object.entries(rawPlaceholdersMap).forEach(([placeholder, rawText]) => {
+        finalMessage = finalMessage.replace(`{{ ${placeholder} }}`, rawText);
+    });
+
+    const notification = getNotificationTemplate(container, label)
+        .replace('{{ message }}', finalMessage)
+        .replace('{{ icon_path }}', iconPath);
 
     wrapper.insertAdjacentHTML('beforeend', notification);
 
