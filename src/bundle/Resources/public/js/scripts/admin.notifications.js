@@ -7,16 +7,11 @@ import { appendNotification } from './helpers/notification.helper';
         const { onShow, label, message, customIconPath = '', rawPlaceholdersMap = {} } = detail;
         const config = ibexa.adminUiConfig.notifications[label];
         const timeout = config ? config.timeout : 0;
-        let finalMessage = ibexa.helpers.text.escapeHTML(message);
-
-        Object.entries(rawPlaceholdersMap).forEach(([placeholder, rawText]) => {
-            finalMessage = finalMessage.replace(`{{ ${placeholder} }}`, rawText);
-        });
-
         const { notificationNode, alertInstance } = appendNotification(notificationsContainer, {
             label,
-            message: finalMessage,
+            message,
             iconPath: customIconPath,
+            rawPlaceholdersMap,
         });
 
         if (timeout) {
