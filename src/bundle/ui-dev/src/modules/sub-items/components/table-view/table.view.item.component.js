@@ -6,6 +6,7 @@ import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 const { ibexa, Translator } = window;
 const { formatShortDateTime } = ibexa.helpers.timezone;
+const { getContentTypeData } = ibexa.helpers.contentType;
 
 export default class TableViewItemComponent extends PureComponent {
     constructor(props) {
@@ -20,6 +21,7 @@ export default class TableViewItemComponent extends PureComponent {
         this.setPriorityInputRef = this.setPriorityInputRef.bind(this);
         this.getLanguageSelectorData = this.getLanguageSelectorData.bind(this);
         this.editItem = this.editItem.bind(this);
+        this.checkIfCanEdit = this.checkIfCanEdit.bind(this);
 
         this._refPriorityInput = null;
 
@@ -410,13 +412,32 @@ export default class TableViewItemComponent extends PureComponent {
         };
     }
 
+    checkIfCanEdit(item) {
+        const editPermissions = item.permissions?.edit;
+        const contentTypeData = getContentTypeData(item.content._info.contentType.identifier);
+
+        if (!editPermissions) {
+            return false;
+        }
+
+        if (!editPermissions.hasAccess) {
+            return false;
+        }
+
+        if (!editPermissions.restrictedContentTypeIds.length) {
+            return editPermissions.hasAccess;
+        }
+
+        return editPermissions.restrictedContentTypeIds.includes(contentTypeData.id.toString());
+    }
+
     componentDidMount() {
         ibexa.helpers.table.parseCheckbox('.c-table-view-item__cell .ibexa-input--checkbox', 'c-table-view-item--active');
     }
 
     render() {
         const { isSelected, showScrollShadowRight, item } = this.props;
-        const canEdit = item.permissions?.edit.hasAccess ?? true;
+        const canEdit = this.checkIfCanEdit(item);
         const editLabel = Translator.trans(/*@Desc("Edit")*/ 'edit_item_btn.label', {}, 'ibexa_sub_items');
         const actionCellClassName = createCssClassNames({
             'ibexa-table__cell': true,
