@@ -31,19 +31,14 @@ const getNotificationTemplate = (container, label) => {
  * @param {String} config.label
  * @param {String} config.message message to escape and render
  * @param {String} [config.iconPath] custom icon path
- * @param {Object} [config.rawPlaceholdersMap] `{{ placeholder }}` occurrences to fill with raw HTML
+ * @param {Function} [config.onShow] called with the notification node before it is appended, so it can still
+ *                                   be modified (e.g. markup injected into the message) without flickering
  * @returns {Object} appended notification node and its Alert instance
  */
-const appendNotification = (container, { label, message, iconPath = '', rawPlaceholdersMap = {} }) => {
+const appendNotification = (container, { label, message, iconPath = '', onShow }) => {
     const wrapper = document.createElement('div');
-    let finalMessage = escapeHTML(message);
-
-    Object.entries(rawPlaceholdersMap).forEach(([placeholder, rawText]) => {
-        finalMessage = finalMessage.replace(`{{ ${placeholder} }}`, rawText);
-    });
-
     const notification = getNotificationTemplate(container, label)
-        .replace('{{ message }}', finalMessage)
+        .replace('{{ message }}', escapeHTML(message))
         .replace('{{ icon_path }}', iconPath);
 
     wrapper.insertAdjacentHTML('beforeend', notification);
@@ -52,6 +47,7 @@ const appendNotification = (container, { label, message, iconPath = '', rawPlace
     const alertInstance = new Alert(notificationNode);
 
     alertInstance.init();
+    onShow?.(notificationNode);
     container.append(notificationNode);
 
     return { notificationNode, alertInstance };
@@ -64,8 +60,7 @@ const appendNotification = (container, { label, message, iconPath = '', rawPlace
  * @param {Object} detail
  * @param {String} detail.message
  * @param {String} detail.label
- * @param {Function} [detail.onShow] to be called after notification Node was added
- * @param {Object} detail.rawPlaceholdersMap
+ * @param {Function} [detail.onShow] to be called with the notification Node before it is shown
  */
 const showNotification = (detail) => {
     const rootDOMElement = getRootDOMElement();
@@ -79,15 +74,13 @@ const showNotification = (detail) => {
  *
  * @function showInfoNotification
  * @param {String} message
- * @param {Function} [onShow] to be called after notification Node was added
- * @param {Object} rawPlaceholdersMap
+ * @param {Function} [onShow] to be called with the notification Node before it is shown
  */
-const showInfoNotification = (message, onShow, rawPlaceholdersMap = {}) =>
+const showInfoNotification = (message, onShow) =>
     showNotification({
         message,
         label: NOTIFICATION_INFO_LABEL,
         onShow,
-        rawPlaceholdersMap,
     });
 
 /**
@@ -95,15 +88,13 @@ const showInfoNotification = (message, onShow, rawPlaceholdersMap = {}) =>
  *
  * @function showSuccessNotification
  * @param {String} message
- * @param {Function} [onShow] to be called after notification Node was added
- * @param {Object} rawPlaceholdersMap
+ * @param {Function} [onShow] to be called with the notification Node before it is shown
  */
-const showSuccessNotification = (message, onShow, rawPlaceholdersMap = {}) =>
+const showSuccessNotification = (message, onShow) =>
     showNotification({
         message,
         label: NOTIFICATION_SUCCESS_LABEL,
         onShow,
-        rawPlaceholdersMap,
     });
 
 /**
@@ -111,15 +102,13 @@ const showSuccessNotification = (message, onShow, rawPlaceholdersMap = {}) =>
  *
  * @function showWarningNotification
  * @param {String} message
- * @param {Function} [onShow] to be called after notification Node was added
- * @param {Object} rawPlaceholdersMap
+ * @param {Function} [onShow] to be called with the notification Node before it is shown
  */
-const showWarningNotification = (message, onShow, rawPlaceholdersMap = {}) =>
+const showWarningNotification = (message, onShow) =>
     showNotification({
         message,
         label: NOTIFICATION_WARNING_LABEL,
         onShow,
-        rawPlaceholdersMap,
     });
 
 /**
@@ -127,10 +116,9 @@ const showWarningNotification = (message, onShow, rawPlaceholdersMap = {}) =>
  *
  * @function showErrorNotification
  * @param {(string | Error)} error
- * @param {Function} [onShow] to be called after notification Node was added
- * @param {Object} rawPlaceholdersMap
+ * @param {Function} [onShow] to be called with the notification Node before it is shown
  */
-const showErrorNotification = (error, onShow, rawPlaceholdersMap = {}) => {
+const showErrorNotification = (error, onShow) => {
     const isErrorObj = error instanceof Error;
     const message = isErrorObj ? error.message : error;
 
@@ -138,7 +126,6 @@ const showErrorNotification = (error, onShow, rawPlaceholdersMap = {}) => {
         message,
         label: NOTIFICATION_ERROR_LABEL,
         onShow,
-        rawPlaceholdersMap,
     });
 };
 

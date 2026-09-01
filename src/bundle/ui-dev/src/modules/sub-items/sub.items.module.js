@@ -26,6 +26,14 @@ import { VIEW_MODE_GRID, VIEW_MODE_TABLE } from './constants.js';
 
 const { Translator, ibexa, Popper, document } = window;
 
+const injectRawPlaceholders = (notificationNode, rawPlaceholdersMap) => {
+    const titleNode = notificationNode.querySelector('.ids-alert__title');
+
+    Object.entries(rawPlaceholdersMap).forEach(([placeholder, rawText]) => {
+        titleNode.innerHTML = titleNode.innerHTML.replace(`{{ ${placeholder} }}`, rawText);
+    });
+};
+
 export { VIEW_MODE_GRID, VIEW_MODE_TABLE };
 export const ASCENDING_SORT_ORDER = 'ascending';
 const DESCENDING_SORT_ORDER = 'descending';
@@ -533,7 +541,7 @@ export default class SubItemsModule extends Component {
                 ),
             };
 
-            showSuccessNotification(message, () => {}, rawPlaceholdersMap);
+            showSuccessNotification(message, (notificationNode) => injectRawPlaceholders(notificationNode, rawPlaceholdersMap));
         }
     }
 
@@ -688,7 +696,9 @@ export default class SubItemsModule extends Component {
                 ),
             };
 
-            window.ibexa.helpers.notification.showSuccessNotification(message, () => {}, rawPlaceholdersMap);
+            window.ibexa.helpers.notification.showSuccessNotification(message, (notificationNode) =>
+                injectRawPlaceholders(notificationNode, rawPlaceholdersMap),
+            );
         }
     }
 
@@ -946,19 +956,17 @@ export default class SubItemsModule extends Component {
             contentName: contentInfo.ContentInfo.name,
         }));
 
-        showWarningNotification(
-            notificationMessage,
-            (notificationNode) => {
-                const showModalBtn = notificationNode.querySelector('.ibexa-notification-btn--show-modal');
+        showWarningNotification(notificationMessage, (notificationNode) => {
+            injectRawPlaceholders(notificationNode, rawPlaceholdersMap);
 
-                if (!showModalBtn) {
-                    return;
-                }
+            const showModalBtn = notificationNode.querySelector('.ibexa-notification-btn--show-modal');
 
-                showModalBtn.addEventListener('click', this.props.showBulkActionFailedModal.bind(null, modalTableTitle, failedItemsData));
-            },
-            rawPlaceholdersMap,
-        );
+            if (!showModalBtn) {
+                return;
+            }
+
+            showModalBtn.addEventListener('click', this.props.showBulkActionFailedModal.bind(null, modalTableTitle, failedItemsData));
+        });
     }
 
     refreshContentTree() {
