@@ -11,6 +11,10 @@ class RichTextValidator extends ibexa.BaseFieldValidator {
         this.labelSelector = labelSelector;
     }
 
+    getValidatorName() {
+        return 'RichTextValidator';
+    }
+
     /**
      * Validates the input
      *

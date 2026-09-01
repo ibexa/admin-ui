@@ -6,6 +6,9 @@
     const EVENT_VALUE_CHANGED = 'change';
 
     class EzTimeValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'EzTimeValidator';
+        }
         /**
          * Validates the input
          *

@@ -34,7 +34,7 @@
     const autosaveNode = doc.querySelector('.ibexa-autosave');
     const getValidationResults = (validator) => {
         const isValid = validator.isValid();
-        const validatorName = validator.constructor.name;
+        const validatorName = validator.getValidatorName();
         const result = { isValid, validatorName };
 
         return result;

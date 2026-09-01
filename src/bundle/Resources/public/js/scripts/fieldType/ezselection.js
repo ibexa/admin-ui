@@ -6,6 +6,9 @@
     const SELECTOR_LABEL = '.ibexa-field-edit__label';
 
     class EzSelectionValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'EzSelectionValidator';
+        }
         /**
          * Validates the textarea field value
          *
