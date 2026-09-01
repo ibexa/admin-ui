@@ -9,10 +9,10 @@ import { Alert as IdsAlert, AlertType, AlertVariant } from '@ids-components/comp
  */
 const Alert = ({
     type,
-    title = null,
-    subtitle = null,
-    iconName = null,
-    iconPath = null,
+    title = '',
+    subtitle = '',
+    iconName = '',
+    iconPath = '',
     showCloseBtn = false,
     onClose = () => {},
     extraClasses = '',
@@ -29,11 +29,11 @@ const Alert = ({
     return (
         <IdsAlert
             className={extraClasses.trim()}
-            icon={iconName ?? ''}
-            iconPath={iconPath ?? ''}
+            icon={iconName}
+            iconPath={iconPath}
             isDismissible={showCloseBtn}
             onDismiss={onClose}
-            title={title ?? ''}
+            title={title}
             type={type}
             variant={AlertVariant.Local}
         >
