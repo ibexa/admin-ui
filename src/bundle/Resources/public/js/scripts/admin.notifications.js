@@ -4,22 +4,18 @@ import { appendNotification } from './helpers/notification.helper';
     const notificationsContainer = doc.querySelector('.ibexa-notifications-container');
     const notifications = JSON.parse(notificationsContainer.dataset.notifications);
     const addNotification = ({ detail }) => {
-        const { onShow, label, message, customIconPath = '', rawPlaceholdersMap = {} } = detail;
+        const { onShow, label, message, customIconPath = '' } = detail;
         const config = ibexa.adminUiConfig.notifications[label];
         const timeout = config ? config.timeout : 0;
-        const { notificationNode, alertInstance } = appendNotification(notificationsContainer, {
+        const { alertInstance } = appendNotification(notificationsContainer, {
             label,
             message,
             iconPath: customIconPath,
-            rawPlaceholdersMap,
+            onShow,
         });
 
         if (timeout) {
             global.setTimeout(() => alertInstance.dismiss(), timeout);
-        }
-
-        if (typeof onShow === 'function') {
-            onShow(notificationNode);
         }
     };
 
