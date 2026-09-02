@@ -34,6 +34,8 @@
 
                 multilevelPopupMenu.toggleItemVisibility(branchItem, shouldBeVisible);
             });
+
+            multilevelPopupMenu.closeMenu();
         },
     });
     const clickRelatedBtn = (relatedBtn) => {
