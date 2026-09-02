@@ -92,7 +92,7 @@ final class UserInvitation implements InvitationSender, LoggerAwareInterface
             ->setSubject($subject)
             ->setTo($invitation->getEmail());
 
-        $embeddedHeader = $message->embed(Swift_Image::fromPath($this->locateMailImage('header.jpg')));
+        $embeddedHeader = $message->embed(Swift_Image::fromPath($this->locateMailImage('header.png')));
 
         $body = $template->renderBlock('body', [
             'invite_hash' => $invitation->getHash(),
