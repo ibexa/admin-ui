@@ -36,7 +36,11 @@
                 multilevelPopupMenu.toggleItemVisibility(branchItem, shouldBeVisible);
             });
 
-            multilevelPopupMenu.closeMenu();
+            if (hiddenButtonsIds.length === 0) {
+                multilevelPopupMenu.closeMenu();
+            } else {
+                multilevelPopupMenu.updateBranchesPositions();
+            }
         },
     });
     const clickRelatedBtn = (relatedBtn) => {
