@@ -8,3 +8,4 @@ export const LOCATION_ENDPOINT = '/api/ibexa/v2/content/locations';
 export const CONTENT_OBJECTS_ENDPOINT = '/api/ibexa/v2/content/objects';
 export const ENDPOINT_BULK = '/api/ibexa/v2/bulk';
 export const ENDPOINT_GRAPHQL = '/graphql';
+export const ENDPOINT_LOCATIONS_PERMISSIONS = '/api/ibexa/v2/module/universal-discovery/locations';
