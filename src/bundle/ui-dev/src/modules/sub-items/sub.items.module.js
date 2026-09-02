@@ -178,9 +178,21 @@ export default class SubItemsModule extends Component {
         });
     }
 
-    componentDidUpdate() {
-        const { activePageIndex, activePageItems, totalCount, isUpdate } = this.state;
+    componentDidUpdate(prevProps, prevState) {
+        const { activePageIndex, activePageItems, totalCount, isUpdate, selectedItems } = this.state;
         const { limit: itemsPerPage } = this.props;
+
+        if (prevState.selectedItems !== selectedItems) {
+            document.body.dispatchEvent(
+                new CustomEvent('ibexa-sub-items:selection-changed', {
+                    detail: {
+                        parentLocationId: this.props.parentLocationId,
+                        selectedItems: [...selectedItems.values()],
+                    },
+                }),
+            );
+        }
+
         const pagesCount = Math.ceil(totalCount / itemsPerPage);
         const pageDoesNotExist = activePageIndex > pagesCount - 1 && activePageIndex !== 0;
 
