@@ -16,7 +16,7 @@ import PaginationInfo from '../common/pagination/pagination.info.js';
 
 import deepClone from '../common/helpers/deep.clone.helper.js';
 import { createCssClassNames } from '../common/helpers/css.class.names';
-import { updateLocationPriority, loadLocation as loadLocationService } from './services/sub.items.service';
+import { updateLocationPriority, loadLocation as loadLocationService, loadLocationsPermissions } from './services/sub.items.service';
 import { bulkAddLocations, bulkDeleteItems, bulkHideLocations, bulkUnhideLocations, bulkMoveLocations } from './services/bulk.service.js';
 import { VIEW_MODE_GRID, VIEW_MODE_TABLE } from './constants.js';
 
@@ -269,10 +269,33 @@ export default class SubItemsModule extends Component {
         loadLocation({ locationId, offset, limit, sortClause, sortOrder }, (response) => {
             const { totalCount, SubItemList } = response.SubItems;
 
-            this.setState(() => ({
-                activePageItems: SubItemList,
-                totalCount,
-            }));
+            if (!activePageItems.length) {
+                this.setState(() => ({
+                    activePageItems,
+                    totalCount,
+                    pages,
+                }));
+
+                return;
+            }
+
+            const locationIds = activePageItems.map((item) => item.id).join(',');
+
+            loadLocationsPermissions(locationIds, (permissionsResponse) => {
+                const permissionsByLocationId = permissionsResponse.LocationList.locations.reduce(
+                    (permissionsMap, { location, permissions }) => ({
+                        ...permissionsMap,
+                        [location.Location.id]: permissions,
+                    }),
+                    {},
+                );
+
+                this.setState(() => ({
+                    activePageItems: activePageItems.map((item) => ({ ...item, permissions: permissionsByLocationId[item.id] })),
+                    totalCount,
+                    pages,
+                }));
+            });
         });
     }
 
