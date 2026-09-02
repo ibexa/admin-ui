@@ -75,7 +75,7 @@
 
             const isTopBranch = !triggerElement.classList.contains('ibexa-popup-menu__item');
             const branchItems = this.getBranchItems(branchElement);
-            const offset = isTopBranch ? [0, 3] : [-8, 2];
+            const offset = isTopBranch ? [0, 4] : [-5, 3];
             const branchSearchInput = branchElement.querySelector('.ibexa-multilevel-popup-menu__search-input');
             const popperInstance = Popper.createPopper(referenceElement ?? triggerElement, branchElement, {
                 placement,
@@ -219,6 +219,7 @@
             }
 
             branchElement.classList.toggle('ibexa-popup-menu--hidden', !shouldBeExpanded);
+            branchElement.itemElement?.classList.toggle('ibexa-popup-menu__item--expanded', shouldBeExpanded);
 
             if (branchElement === topBranch) {
                 if (shouldBeExpanded) {
