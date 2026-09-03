@@ -316,6 +316,9 @@
     }
 
     &__notice {
+        display: flex;
+        align-items: center;
+        gap: calculateRem(8px);
         color: $ibexa-color-dark-400;
         font-weight: normal;
         font-family: $ibexa-font-family;
@@ -327,8 +330,8 @@
     }
 
     &__notice-icon {
+        flex-shrink: 0;
         fill: $ibexa-color-dark-400;
-        margin-right: calculateRem(8px);
     }
 
     &__actions {
