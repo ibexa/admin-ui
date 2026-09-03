@@ -3,50 +3,19 @@
 {% form_theme form_forgot_user_password '@ibexadesign/ui/form_fields.html.twig' %}
 
 {%- block content -%}
-    {% from '@ibexadesign/account/macros.html.twig' import error_row %}
-
     <div class="ibexa-login__actions-headline">{{ 'authentication.forgot_password'|trans|desc('Forgot password') }}</div>
     {% if reason == userForgotPasswordReasonMigration %}
         <p>{{ 'ezplatform.forgot_password.reset_your_password.reason.migration'|trans|desc('Your password has expired, change it.') }}</p>
     {% endif %}
     {% if form_forgot_user_password is defined %}
-        {% set email_form = form_forgot_user_password.email %}
-        {% set email_errors = email_form.vars.errors %}
-        {% set email_label = email_form.vars.label|trans({}, email_form.vars.translation_domain) %}
-
-        {{ form_start(form_forgot_user_password, {
-            attr: {
-                novalidate: true,
-                class: 'ibexa-login__forgot-password-form',
-                'data-account-validate': true,
-            },
-        }) }}
+        {{ form_start(form_forgot_user_password, {'attr': {'class': 'ibexa-form-validate ibexa-login__forgot-password-form'}}) }}
         <fieldset>
-            <div class="form-group{% if email_errors is not empty %} has-error{% endif %}">
-                {{ form_label(email_form) }}
-                {{ form_widget(email_form, {
-                    attr: {
-                        class: 'ibexa-login__input' ~ (email_errors is not empty ? ' is-invalid'),
-                        error: email_errors is not empty,
-                        required: true,
-                    },
-                }) }}
-                <div class="ibexa-form-error">
-                    {% for error in email_errors %}
-                        {{ error_row(error.message) }}
-                    {% endfor %}
-                    {{ error_row(
-                        'error.required.field'|trans({ '%fieldName%': email_label }, 'forms')|desc('%fieldName% cannot be empty.'),
-                        'empty',
-                        true
-                    ) }}
-                    {{ error_row(
-                        'js.error.invalid_email'|trans({}, 'validators')|desc('A valid email address is required'),
-                        'invalid-email',
-                        true
-                    ) }}
-                </div>
-            </div>
+            {{ form_row(form_forgot_user_password.email, {
+                'attr': {
+                    'class': 'ibexa-login__input',
+                    'error': form_forgot_user_password.email.vars.errors is not empty,
+                },
+            }) }}
         </fieldset>
         {{ form_widget(form_forgot_user_password.reset, {'attr': {'class': 'ids-btn ids-btn--primary ids-btn--medium ibexa-login__btn ibexa-login__btn--reset-password'}}) }}
 
