@@ -127,6 +127,7 @@
 
             &__label-wrapper {
                 width: 80%;
+                align-self: flex-end;
             }
 
             &__data {
@@ -259,5 +260,19 @@
     &:last-child,
     &--no-bottom-margin {
         margin-bottom: 0;
+    }
+}
+
+.ibexa-data-source__input-wrapper {
+    > .form-check {
+        display: flex;
+        align-items: center;
+        gap: calculateRem(8px);
+        min-height: 0;
+        padding-left: 0;
+
+        .form-check-input {
+            margin: 0;
+        }
     }
 }
