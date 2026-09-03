@@ -9,6 +9,7 @@
                 ? [...config.items]
                 : [...this.container.querySelectorAll(':scope > .ibexa-adaptive-items__item:not(.ibexa-adaptive-items__item--selector)')];
             this.selectorItem = config.selectorItem ?? this.container.querySelector(':scope > .ibexa-adaptive-items__item--selector');
+            this.selectorFocusableElement = config.selectorFocusableElement ?? this.selectorItem;
             this.itemHiddenClass = config.itemHiddenClass;
             this.getActiveItem = config.getActiveItem;
             this.onAdapted = config.onAdapted;
@@ -94,7 +95,7 @@
                 item.classList.toggle(this.itemHiddenClass, hiddenItemsWithoutSelector.has(item));
             });
             this.selectorItem.classList.toggle(this.itemHiddenClass, !hiddenItemsWithoutSelector.size);
-            this.selectorItem.setAttribute('tabindex', !hiddenItemsWithoutSelector.size ? '-1' : '0');
+            this.selectorFocusableElement.setAttribute('tabindex', !hiddenItemsWithoutSelector.size ? '-1' : '0');
 
             const selectorAnchor = this.selectorItem.querySelector(':scope > .nav-link');
 

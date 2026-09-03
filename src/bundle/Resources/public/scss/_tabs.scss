@@ -151,7 +151,7 @@
 
         .ibexa-tabs {
             &__list {
-                overflow: hidden;
+                overflow: clip;
                 width: calc(100% - #{calculateRem(50px)});
                 height: calculateRem(47px);
                 border: 0;
