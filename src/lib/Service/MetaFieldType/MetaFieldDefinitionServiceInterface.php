@@ -17,6 +17,9 @@ use Ibexa\Contracts\Core\Repository\Values\ValueObject;
  */
 interface MetaFieldDefinitionServiceInterface
 {
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentType
+     */
     public function addMetaFieldDefinitions(
         ValueObject $contentType,
         ?Language $language = null
@@ -29,9 +32,12 @@ interface MetaFieldDefinitionServiceInterface
         int $position
     ): FieldDefinitionCreateStruct;
 
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentType
+     */
     public function metaFieldDefinitionExists(
         string $fieldTypeIdentifier,
-        string $fieldTypeGroup,
+        ?string $fieldTypeGroup,
         ValueObject $contentType
     ): bool;
 
