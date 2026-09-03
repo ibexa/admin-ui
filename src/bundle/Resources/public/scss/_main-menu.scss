@@ -249,6 +249,10 @@
                 width: 100%;
                 min-width: 0;
             }
+
+            .ids-btn__icon + .ids-btn__label {
+                padding-left: calculateRem(8px);
+            }
         }
 
         &--current.ids-btn {
