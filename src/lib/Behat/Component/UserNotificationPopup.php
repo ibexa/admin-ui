@@ -13,6 +13,7 @@ use Exception;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
+use Ibexa\Behat\Browser\Element\Condition\ElementHasTextCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
@@ -119,6 +120,8 @@ final class UserNotificationPopup extends Component
 
     public function clickActionButton(string $buttonText): void
     {
+        $this->waitForActionButton($buttonText);
+
         $this->getHTMLPage()
             ->setTimeout(10)
             ->findAll($this->getLocator('notificationMenuItemContent'))
@@ -142,20 +145,26 @@ final class UserNotificationPopup extends Component
 
     public function findActionButton(string $buttonText): ElementInterface
     {
-        $this->getHTMLPage()
-            ->setTimeout(10)
-            ->waitUntilCondition(
-                new ElementExistsCondition(
-                    $this->getHTMLPage(),
-                    $this->getLocator('notificationMenuItemContent')
-                )
-            );
+        $this->waitForActionButton($buttonText);
 
         return $this->getHTMLPage()
             ->setTimeout(10)
             ->findAll($this->getLocator('notificationMenuItemContent'))
             ->filterBy(new ElementTextCriterion($buttonText))
             ->first();
+    }
+
+    private function waitForActionButton(string $buttonText): void
+    {
+        $this->getHTMLPage()
+            ->setTimeout(10)
+            ->waitUntilCondition(
+                new ElementHasTextCondition(
+                    $this->getHTMLPage(),
+                    $this->getLocator('notificationMenuItemContent'),
+                    $buttonText
+                )
+            );
     }
 
     public function assertEmptyStateVisible(): void

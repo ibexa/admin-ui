@@ -281,7 +281,7 @@
                 <tbody>
                     <tr>
                         <td>{{ 'ibexa_media.file_name'|trans|desc('File name') }}:</td>
-                        <td>{{ value.fileName }}</td>
+                        <td>{{ value.fileName|e('html') }}</td>
                     </tr>
                     <tr>
                         <td>{{ 'ibexa_media.type'|trans|desc('Type') }}:</td>

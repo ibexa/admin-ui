@@ -46,12 +46,12 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage = 50 }) => {
         'c-bookmarks-list--no-items': areSomeBookmarksAdded,
     });
     const noBookmarksInfoText = Translator.trans(
-        /*@Desc("You have no bookmarks yet")*/ 'bookmarks_tab.no_items.info_text',
+        /*@Desc("You have no favourites yet")*/ 'bookmarks_tab.no_items.info_text',
         {},
         'ibexa_universal_discovery_widget',
     );
     const noBookmarksActionText = Translator.trans(
-        /*@Desc("Your bookmarks will show up here.")*/ 'bookmarks_tab.no_items.action_text',
+        /*@Desc("Your favourites will show up here.")*/ 'bookmarks_tab.no_items.action_text',
         {},
         'ibexa_universal_discovery_widget',
     );

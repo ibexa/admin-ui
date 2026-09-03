@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import TranslationSelector from '../translation-selector/translation.selector';
-import { Button, ButtonType } from '@ids-components/components/Button';
+import { Button, ButtonSize, ButtonType } from '@ids-components/components/Button';
 import { getAdminUiConfig, getRouting } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { createDraft } from '../../services/universal.discovery.service';
 import {
@@ -109,6 +109,7 @@ const ContentEditButton = ({ version, location, isDisabled, label = null }) => {
         <div className="c-content-edit-button">
             <Button
                 type={ButtonType.TertiaryAlt}
+                size={ButtonSize.Small}
                 icon="edit"
                 onClick={toggleTranslationSelectorVisibility}
                 disabled={!version || isDisabled}

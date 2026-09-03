@@ -15,26 +15,26 @@ Feature: Bookmarks management
 
   @IbexaExperience @IbexaCommerce
   Scenario: Bookmarks can be displayed
-    Given I open "Bookmarks" page in admin SiteAccess
+    Given I open "Favourites" page in admin SiteAccess
     Then there's a "BookmarkFolder" Content Item on Bookmarks list
 
   @IbexaExperience @IbexaCommerce
   Scenario: Content Item can be previewed from Bookmarks page
-    Given I open "Bookmarks" page in admin SiteAccess
+    Given I open "Favourites" page in admin SiteAccess
     And there's a "BookmarkFolder" Content Item on Bookmarks list
     When I go to "BookmarkFolder" Content Item from Bookmarks
     Then I should be on Content view Page for "root/BookmarkFolder"
 
   @IbexaExperience @IbexaCommerce
   Scenario: Content Item can be edited
-    Given I open "Bookmarks" page in admin SiteAccess
+    Given I open "Favourites" page in admin SiteAccess
     And there's a "BookmarkFolder" Content Item on Bookmarks list
     When I start editing "BookmarkFolder" Content Item from Bookmarks
     Then I should be on Content update page for "BookmarkFolder"
 
   @IbexaExperience @IbexaCommerce
   Scenario: Bookmark can be deleted
-    Given I open "Bookmarks" page in admin SiteAccess
+    Given I open "Favourites" page in admin SiteAccess
     And there's a "BookmarkFolder" Content Item on Bookmarks list
     When I delete the bookmark for "BookmarkFolder" Content Item
     Then there's no "BookmarkFolder" Content Item on Bookmarks list
@@ -52,7 +52,7 @@ Feature: Bookmarks management
   Scenario: Bookmarked Content Item can be edited from UDW
     Given I open "Dashboard" page in admin SiteAccess
     And I open UWD from Dashboard
-    And I change the UDW tab to "Bookmarks"
+    And I change the UDW tab to "Favourites"
     When I select bookmarked content "BookmarkUDW" through UDW
     And I edit selected content
     Then I should be on Content update page for "BookmarkUDW"

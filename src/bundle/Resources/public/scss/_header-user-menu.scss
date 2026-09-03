@@ -1,112 +1,271 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/colors' as *;
 @use 'sass:color';
 
 .ibexa-header-user-menu {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding-left: calculateRem(16px);
-    border-left: calculateRem(1px) solid $ibexa-color-light;
+    gap: calculateRem(4px);
+    height: calculateRem(32px);
+    margin-left: calculateRem(16px);
+    padding-left: calculateRem(8px);
+    border-left: calculateRem(1px) solid $color-neutral-200;
 
     &__popup-menu {
         z-index: 1060;
-        top: calculateRem(53px);
-        right: calculateRem(20px);
-        min-width: calculateRem(200px);
+        top: calculateRem(45px);
+        right: calculateRem(16px);
+        width: calculateRem(243px);
         padding: 0;
+        gap: 0;
+        border-color: $color-neutral-70;
+        border-radius: calculateRem(12px);
+        box-shadow: calculateRem(4px) calculateRem(32px) calculateRem(47px) 0 color.change($ibexa-color-info, $alpha: 0.1);
 
         ul {
+            display: flex;
+            flex-direction: column;
+            gap: calculateRem(8px);
             margin-bottom: 0;
             padding: calculateRem(8px);
         }
+
+        .ibexa-popup-menu__item {
+            padding: 0;
+
+            &--with-border {
+                margin-top: calculateRem(8px);
+                padding-top: calculateRem(8px);
+                border-top: 0;
+                position: relative;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: calculateRem(8px);
+                    right: calculateRem(8px);
+                    border-top: calculateRem(1px) solid $color-neutral-70;
+                }
+            }
+        }
+
+        .ibexa-popup-menu__item-content {
+            align-items: center;
+            gap: calculateRem(8px);
+            padding: calculateRem(8px) calculateRem(4px) calculateRem(8px) calculateRem(12px);
+            border-radius: calculateRem(8px);
+            color: $ibexa-color-black;
+
+            &:hover {
+                background-color: transparent;
+                color: $ibexa-color-primary;
+
+                .ibexa-icon {
+                    fill: $ibexa-color-primary;
+                }
+            }
+
+            &:active {
+                color: $color-primary-90;
+
+                .ibexa-icon {
+                    fill: $color-primary-90;
+                }
+            }
+
+            &:focus-visible {
+                outline: none;
+                box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-primary, $alpha: 0.25);
+            }
+        }
+    }
+
+    &__item-icon {
+        flex-shrink: 0;
+        fill: $ibexa-color-black;
     }
 
     &__popup-menu-title {
-        padding: calculateRem(16px) calculateRem(24px);
-        border-bottom: calculateRem(1px) solid $ibexa-color-light;
-        color: $ibexa-color-dark-400;
+        padding: calculateRem(16px);
+        border-bottom: calculateRem(1px) solid $color-neutral-70;
+    }
+
+    &__user {
+        display: flex;
+        align-items: center;
+        gap: calculateRem(5px);
+    }
+
+    &__user-thumbnail {
+        display: flex;
+        flex-shrink: 0;
+
+        .ibexa-user-thumbnail {
+            width: calculateRem(40px);
+            height: calculateRem(40px);
+        }
+    }
+
+    &__user-details {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    &__user-name,
+    &__user-email {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    &__user-name {
+        color: $ibexa-color-primary;
+        font-size: $ibexa-text-font-size-medium;
+    }
+
+    &__user-email {
+        color: $color-neutral-150;
         font-size: $ibexa-text-font-size-small;
     }
 
     .ibexa-focus-mode-form {
         color: $ibexa-color-dark;
-        margin-top: calculateRem(12px);
+        padding: calculateRem(8px) calculateRem(12px);
+        margin: calculateRem(8px) calculateRem(8px) 0;
     }
 
     &__toggler {
         display: flex;
         align-items: center;
+        justify-content: center;
         position: relative;
-        margin-left: calculateRem(16px);
-        padding: calculateRem(2px);
-        border-radius: calculateRem(12px);
+        width: calculateRem(32px);
+        height: calculateRem(32px);
+        padding: 0;
+        border-radius: 50%;
         border: 0;
-        background: color.change($ibexa-color-white, $alpha: 0.1);
+        background: transparent;
 
         .ibexa-icon {
+            display: none;
             fill: $ibexa-color-white;
-            margin-left: calculateRem(5px);
-            margin-right: calculateRem(4px);
             transform: rotate(0deg);
             transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         }
 
         &--expanded {
+            .ibexa-header-user-menu__thumbnail-wrapper {
+                background: $ibexa-color-dark-500;
+            }
+
             .ibexa-icon {
                 transform: rotate(-180deg);
             }
         }
 
         &:hover {
+            .ibexa-user-thumbnail {
+                filter: brightness(0.85);
+            }
+
             .ibexa-icon {
-                fill: $ibexa-color-info;
+                fill: $color-primary-30;
+            }
+        }
+
+        &:active {
+            .ibexa-header-user-menu__thumbnail-wrapper {
+                background: $ibexa-color-dark-500;
+            }
+        }
+
+        &:focus-visible {
+            outline: none;
+
+            .ibexa-header-user-menu__thumbnail-wrapper {
+                border-color: $color-neutral-80;
+                box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.25);
             }
         }
     }
 
     &__thumbnail-wrapper {
         display: flex;
+        padding: calculateRem(2px);
+        border: calculateRem(1px) solid transparent;
         border-radius: 50%;
 
         .ibexa-user-thumbnail {
-            width: calculateRem(22px);
-            height: calculateRem(22px);
+            width: calculateRem(20px);
+            height: calculateRem(20px);
         }
     }
 
     &__notifications-toggler {
         display: flex;
-        align-items: flex-end;
+        align-items: center;
+        justify-content: center;
         position: relative;
-        height: calculateRem(24px);
-        padding-bottom: calculateRem(4px);
+        width: calculateRem(32px);
+        height: calculateRem(32px);
+        padding: 0;
+        border: 0;
+        background: transparent;
         cursor: pointer;
 
         &:hover {
             .ibexa-icon {
-                fill: $ibexa-color-info;
+                fill: $color-primary-30;
+            }
+        }
+
+        &:active {
+            .ibexa-icon {
+                fill: $color-primary-50;
+            }
+        }
+
+        &:focus-visible {
+            outline: none;
+
+            &::after {
+                content: '';
+                position: absolute;
+                inset: calculateRem(4px);
+                border: calculateRem(1px) solid $color-neutral-80;
+                border-radius: calculateRem(8px);
+                box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.25);
+                pointer-events: none;
             }
         }
     }
 
     &__notice-dot {
-        width: calculateRem(12px);
-        height: calculateRem(12px);
+        width: calculateRem(16px);
+        height: calculateRem(16px);
         border-radius: 50%;
         background: $ibexa-color-danger;
         opacity: 1;
         cursor: pointer;
         position: absolute;
-        left: calculateRem(8px);
-        top: 0;
+        // Keeps the count above the toggler's focus-ring overlay, which paints after it
+        z-index: 1;
+        left: calculateRem(18px);
+        top: calculateRem(2px);
         color: $ibexa-color-white;
 
         &::after {
             display: flex;
             justify-content: center;
+            align-items: center;
+            height: 100%;
             content: attr(data-count);
-            font-size: $ibexa-text-font-size-extra-small;
+            font-size: calculateRem(10px);
+            line-height: calculateRem(15px);
         }
 
         &--no-notice {

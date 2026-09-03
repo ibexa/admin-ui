@@ -5,7 +5,7 @@
     {% set user_image = user.thumbnail|default() %}
 
     <div class="ibexa-header-user-menu">
-        <div
+        <button
             class="ibexa-header-user-menu__notifications-toggler ibexa-side-panel-trigger"
             data-side-panel-selector="#view-notifications"
         >
@@ -13,7 +13,7 @@
                 <use xlink:href="{{ ibexa_icon_path('bell') }}"></use>
             </svg>
             <span class="ibexa-header-user-menu__notice-dot ibexa-header-user-menu__notice-dot--no-notice"></span>
-        </div>
+        </button>
         {{ ibexa_twig_component_group('admin-ui-header-user-menu-middle') }}
         <button class="ibexa-header-user-menu__toggler">
             <div class="ibexa-header-user-menu__thumbnail-wrapper">
@@ -31,15 +31,25 @@
         <div class="ibexa-header-user-menu__popup-menu ibexa-popup-menu ibexa-popup-menu--hidden">
             <div class="ibexa-header-user-menu__popup-menu-title">
                 {% block current_user %}
-                    {{ 'user_menu.popup_menu.title'|trans({'%userName%': user.name})|desc('Logged as %userName%') }}
-                {% endblock %}
-
-                {% block focus_mode_toggle %}
-                    {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\User\\FocusModeController::changeAction', {
-                        returnPath: app.request.attributes.get('semanticPathinfo')
-                    })) }}
+                    <div class="ibexa-header-user-menu__user">
+                        <div class="ibexa-header-user-menu__user-thumbnail">
+                            {% include '@ibexadesign/ui/component/user_thumbnail/user_thumbnail.html.twig' with {
+                                user: user,
+                            } %}
+                        </div>
+                        <div class="ibexa-header-user-menu__user-details">
+                            <span class="ibexa-header-user-menu__user-name">{{ user.name }}</span>
+                            <span class="ibexa-header-user-menu__user-email">{{ user.email }}</span>
+                        </div>
+                    </div>
                 {% endblock %}
             </div>
+
+            {% block focus_mode_toggle %}
+                {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\User\\FocusModeController::changeAction', {
+                    returnPath: app.request.attributes.get('semanticPathinfo')
+                })) }}
+            {% endblock %}
 
             {{ parent() }}
         </div>
@@ -65,5 +75,12 @@
 {% block linkElement %}
     {% import _self as knp_menu %}
 
-    <a href="{{ item.uri }}"{{ knp_menu.attributes(item.linkAttributes) }}>{{ block('label') }}</a>
+    <a href="{{ item.uri }}"{{ knp_menu.attributes(item.linkAttributes) }}>
+        {% if item.getExtra('icon') is not null %}
+            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-header-user-menu__item-icon">
+                <use xlink:href="{{ ibexa_icon_path(item.getExtra('icon')) }}"></use>
+            </svg>
+        {% endif %}
+        <span class="ibexa-header-user-menu__item-label">{{ block('label') }}</span>
+    </a>
 {% endblock %}

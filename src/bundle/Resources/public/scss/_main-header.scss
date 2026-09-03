@@ -1,5 +1,6 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/shadows' as *;
 
 .ibexa-main-header {
     position: relative;
@@ -8,9 +9,8 @@
     display: flex;
     justify-content: space-between;
     gap: calculateRem(16px);
-    padding: calculateRem(16px) calculateRem(20px) calculateRem(15px);
-    background: $ibexa-color-dark;
-    border-bottom: calculateRem(1px) solid $ibexa-color-dark-500;
+    padding: calculateRem(12px) calculateRem(16px);
+    background: $ibexa-color-black;
 
     &:has(.modal.show) {
         z-index: auto;
@@ -22,7 +22,7 @@
         align-items: center;
         justify-content: center;
         flex: 0 0 calculateRem(64px);
-        margin: calculateRem(-16px) 0 calculateRem(-16px) calculateRem(-20px);
+        margin: calculateRem(-12px) 0 calculateRem(-12px) calculateRem(-16px);
 
         &::before {
             content: '';
@@ -48,8 +48,7 @@
             .ibexa-app-switcher-toggler.ids-btn {
                 --ids-default-text-color: #{$ibexa-color-black};
                 --ids-focus-text-color: #{$ibexa-color-black};
-                --ids-hover-text-color: #{$ibexa-color-black};
-                --ids-hover-bg-color: #{$ibexa-color-light-400};
+                --ids-focus-box-shadow: #{$box-shadow-focus-primary};
             }
         }
     }
@@ -66,7 +65,7 @@
 
     &__brand-image {
         max-width: calculateRem(120px);
-        max-height: calculateRem(32px);
+        max-height: calculateRem(28px);
     }
 
     &__search-column {

@@ -6,9 +6,9 @@
     background-color: $ibexa-color-white;
     padding: calculateRem(8px) 0;
     width: calculateRem(516px);
-    height: calc(100vh - calculateRem(73px));
+    height: calc(100vh - calculateRem(64px));
     position: fixed;
-    top: calculateRem(73px);
+    top: calculateRem(64px);
     right: 0;
     z-index: 200;
 

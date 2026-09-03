@@ -1,4 +1,5 @@
-(function (global, doc) {
+(function (global, doc, ibexa) {
+    const APP_SWITCHER_OPEN_COOKIE_NAME = 'ibexa-aui_app-switcher-is-open';
     const CLASS_PANEL_HIDDEN = 'ibexa-app-switcher-panel--hidden';
     const CLASS_TOGGLER_COLUMN_OPEN = 'ibexa-main-header__app-switcher-column--open';
     const SELECTOR_TOGGLER = '.ibexa-app-switcher-toggler';
@@ -21,6 +22,7 @@
         panel.classList.toggle(CLASS_PANEL_HIDDEN, !shouldBeOpen);
         togglerColumn.classList.toggle(CLASS_TOGGLER_COLUMN_OPEN, shouldBeOpen);
         toggler.setAttribute('aria-expanded', shouldBeOpen ? 'true' : 'false');
+        ibexa.helpers.cookies.setBackOfficeCookie(APP_SWITCHER_OPEN_COOKIE_NAME, shouldBeOpen);
     };
     const close = ({ shouldRestoreFocus = false } = {}) => {
         setOpen(false);
@@ -47,14 +49,4 @@
         },
         false,
     );
-
-    doc.addEventListener(
-        'click',
-        (event) => {
-            if (isOpen() && !panel.contains(event.target) && !toggler.contains(event.target)) {
-                close();
-            }
-        },
-        false,
-    );
-})(window, window.document);
+})(window, window.document, window.ibexa);

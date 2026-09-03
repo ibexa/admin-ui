@@ -252,7 +252,7 @@
             border-radius: $ibexa-border-radius;
 
             .ibexa-alert__icon-wrapper {
-                margin-top: calculateRem(7px);
+                margin-top: calculateRem(4.5px); // Centers the icon against the first title line
             }
 
             &--info {

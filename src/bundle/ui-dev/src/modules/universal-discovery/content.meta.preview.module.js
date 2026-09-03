@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import Thumbnail from '../common/thumbnail/thumbnail';
 import { createCssClassNames } from '../common/helpers/css.class.names';
 import Spinner from '../common/spinner/spinner';
-import { Button, ButtonType } from '@ids-components/components/Button';
+import { Button, ButtonSize, ButtonType } from '@ids-components/components/Button';
 import { findMarkedLocation } from './helpers/locations.helper';
 import { addBookmark, removeBookmark } from './services/universal.discovery.service';
 import ContentEditButton from './components/content-edit-button/content.edit.button';
@@ -57,7 +57,7 @@ const ContentMetaPreview = () => {
     }
 
     const { bookmarked, location, version, permissions } = locationData;
-    const bookmarkIconName = bookmarked ? 'bookmark-active' : 'bookmark';
+    const bookmarkIconName = bookmarked ? 'favourite-filled' : 'favourite-outline';
     const isLocationDataLoaded = !!(location && version);
     const toggleBookmarked = () => {
         const toggleBookmark = bookmarked ? removeBookmark : addBookmark;
@@ -77,12 +77,12 @@ const ContentMetaPreview = () => {
         const previewLabel = Translator.trans(/* @Desc("Preview") */ 'meta_preview.preview', {}, 'ibexa_universal_discovery_widget');
         const editLabel = Translator.trans(/* @Desc("Edit") */ 'meta_preview.edit', {}, 'ibexa_universal_discovery_widget');
         const bookmarksAddLabel = Translator.trans(
-            /* @Desc("Add to bookmarks") */ 'meta_preview.bookmarks_add',
+            /* @Desc("Add to favourites") */ 'meta_preview.bookmarks_add',
             {},
             'ibexa_universal_discovery_widget',
         );
         const bookmarksRemoveLabel = Translator.trans(
-            /* @Desc("Remove from bookmarks") */ 'meta_preview.bookrmarks_remove',
+            /* @Desc("Remove from favourites") */ 'meta_preview.bookrmarks_remove',
             {},
             'ibexa_universal_discovery_widget',
         );
@@ -91,6 +91,7 @@ const ContentMetaPreview = () => {
             <div className="c-content-meta-preview__action-item">
                 <Button
                     type={ButtonType.TertiaryAlt}
+                    size={ButtonSize.Small}
                     icon="visibility"
                     onClick={previewContent}
                     className="c-content-meta-preview__preview-button"
@@ -110,6 +111,7 @@ const ContentMetaPreview = () => {
                 <div className="c-content-meta-preview__action-item">
                     <Button
                         type={ButtonType.TertiaryAlt}
+                        size={ButtonSize.Small}
                         icon={bookmarkIconName}
                         onClick={toggleBookmarked}
                         className="c-content-meta-preview__toggle-bookmark-button"

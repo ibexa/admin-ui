@@ -2,6 +2,8 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 
 .ibexa-preview-header {
+    --ids-mode: dark;
+
     display: grid;
     grid-template-areas: 'siteaccess actions back';
     grid-template-columns: auto 1fr auto;
@@ -22,19 +24,12 @@
             align-items: center;
             margin-left: calculateRem(16px);
 
-            .ibexa-dropdown {
-                --ibexa-dropdown-primary-color: #{$ibexa-color-white};
-                --ibexa-text-color: #{$ibexa-color-white};
-                border-right: calculateRem(1px) solid $ibexa-color-dark-400;
-
-                &:hover {
-                    --ibexa-dropdown-primary-color: #{$ibexa-color-light-600};
-                }
+            .ids-dropdown__items-container {
+                --ids-mode: light;
             }
 
-            .ibexa-dropdown__selection-info {
+            .form-group {
                 margin-bottom: 0;
-                border: none;
             }
         }
 

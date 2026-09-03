@@ -7,7 +7,7 @@
     &__iframe {
         iframe {
             width: 100%;
-            height: calc(100vh - calculateRem(72px));
+            height: calc(100vh - calculateRem(64px));
             display: block;
             margin: 0 auto;
             transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;

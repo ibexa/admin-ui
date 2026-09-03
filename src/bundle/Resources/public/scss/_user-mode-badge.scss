@@ -1,17 +1,18 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/colors' as *;
 
 .ibexa-user-mode-badge {
     display: flex;
-    height: calculateRem(24px);
-    padding: calculateRem(4px) calculateRem(8px);
-    margin: 0 calculateRem(24px);
+    height: calculateRem(20px);
+    padding: 0 calculateRem(8px);
+    margin: 0 calculateRem(16px);
     align-items: center;
-    border-radius: calculateRem(16px);
-    border: calculateRem(0.5px) solid $ibexa-color-light-600;
-    background: $ibexa-color-dark;
-    color: $ibexa-color-light-600;
-    font-size: calculateRem(12px);
-    line-height: calculateRem(18px);
+    border-radius: calculateRem(12px);
+    border: calculateRem(1px) solid $color-neutral-210;
+    background: transparent;
+    color: $ibexa-color-dark-300;
+    font-size: calculateRem(10px);
+    line-height: calculateRem(15px);
     width: max-content;
 }

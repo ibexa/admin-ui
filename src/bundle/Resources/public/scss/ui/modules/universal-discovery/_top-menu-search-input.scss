@@ -16,6 +16,8 @@
     }
 
     &__search-btn {
+        position: relative;
+        z-index: 1;
         transition: none;
     }
 
@@ -42,6 +44,7 @@
 
             &:focus {
                 outline: none;
+                box-shadow: none;
             }
         }
     }

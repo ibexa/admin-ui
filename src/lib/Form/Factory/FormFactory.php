@@ -235,7 +235,7 @@ class FormFactory
     }
 
     /**
-     * @phpstan-return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData|null>
+     * @phpstan-return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData>
      */
     public function updateContentTypeGroup(
         ContentTypeGroup $group,
@@ -244,11 +244,15 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: sprintf('update-content-type-group-%d', $group->id);
 
-        return $this->formFactory->createNamed($name, ContentTypeGroupUpdateType::class, $data);
+        return $this->formFactory->createNamed(
+            $name,
+            ContentTypeGroupUpdateType::class,
+            $data ?? new ContentTypeGroupUpdateData($group)
+        );
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData|null>
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData>
      */
     public function deleteContentTypeGroup(
         ContentTypeGroup $group,
@@ -257,7 +261,11 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: sprintf('delete-content-type-group-%d', $group->id);
 
-        return $this->formFactory->createNamed($name, ContentTypeGroupDeleteType::class, $data);
+        return $this->formFactory->createNamed(
+            $name,
+            ContentTypeGroupDeleteType::class,
+            $data ?? new ContentTypeGroupDeleteData($group)
+        );
     }
 
     /**
@@ -1007,7 +1015,11 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: sprintf('update-object-state-group-%d', $group->id);
 
-        return $this->formFactory->createNamed($name, ObjectStateGroupUpdateType::class, $data);
+        return $this->formFactory->createNamed(
+            $name,
+            ObjectStateGroupUpdateType::class,
+            $data ?? new ObjectStateGroupUpdateData($group)
+        );
     }
 
     public function copyLocationSubtree(
@@ -1080,7 +1092,7 @@ class FormFactory
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData|null>
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData>
      */
     public function deleteNotification(
         ?NotificationSelectionData $data = null,
@@ -1098,7 +1110,7 @@ class FormFactory
         return $this->formFactory->createNamed(
             $name,
             NotificationSelectionType::class,
-            $data
+            $data ?? new NotificationSelectionData(),
         );
     }
 

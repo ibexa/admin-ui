@@ -30,7 +30,7 @@
         const renderedTemplate = autocompleteItemTemplate
             .replace('{{ contentName }}', highlightText(searchText, name, autocompleteHighlightTemplate))
             .replace('{{ iconHref }}', getContentTypeIconUrl(contentTypeIdentifier))
-            .replace('{{ contentTypeName }}', escapeHTML(getContentTypeName(contentTypeIdentifier)))
+            .replace('{{ contentTypeName }}', getContentTypeName(contentTypeIdentifier))
             .replaceAll('{{ contentBreadcrumbs }}', breadcrumb)
             .replaceAll('{{ breadcrumbsClass }}', breadcrumbsClass)
             .replace('{{ contentHref }}', Routing.generate('ibexa.content.view', { contentId, locationId }));

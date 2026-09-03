@@ -9,12 +9,14 @@
 
     $self: &;
 
+    --ids-mode: light;
+
     background-color: $ibexa-color-white;
     padding: calculateRem(16px) 0;
     width: calculateRem(700px);
-    height: calc(100vh - #{calculateRem(73px)});
+    height: calc(100vh - #{calculateRem(64px)});
     position: fixed;
-    top: calculateRem(73px);
+    top: calculateRem(64px);
     right: 0;
     z-index: 200;
     transform: translate(0, 0) scaleX(1);
@@ -137,6 +139,7 @@
             padding-left: 0;
         }
 
+        .ids-choice-input-field__label,
         .ids-label {
             @include edit-language-item;
         }
@@ -145,7 +148,7 @@
             margin: 0 0 calculateRem(30px) 0;
         }
 
-        .ibexa-input[type='radio'] {
+        .form-check-input[type='radio'] {
             display: none;
         }
     }

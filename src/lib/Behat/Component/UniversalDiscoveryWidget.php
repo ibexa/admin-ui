@@ -143,7 +143,7 @@ final class UniversalDiscoveryWidget extends Component
 
     public function isBookmarked(): bool
     {
-        return $this->getHTMLPage()->find($this->getLocator('bookmarkButton'))->getText() === 'Remove from bookmarks';
+        return $this->getHTMLPage()->find($this->getLocator('bookmarkButton'))->getText() === 'Remove from favourites';
     }
 
     public function changeTab($tabName): void

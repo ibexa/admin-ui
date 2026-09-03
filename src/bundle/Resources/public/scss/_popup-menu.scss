@@ -3,6 +3,8 @@
 @use 'sass:color';
 
 .ibexa-popup-menu {
+    --ids-mode: light;
+
     display: flex;
     flex-direction: column;
     gap: calculateRem(1px);

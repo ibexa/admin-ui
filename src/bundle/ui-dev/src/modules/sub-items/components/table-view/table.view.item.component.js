@@ -6,7 +6,7 @@ import { Tag, TagGhostType } from '@ids-components/components/Tag';
 import { CheckboxInput } from '@ids-components/components/Checkbox';
 
 import { getTranslator } from '@ibexa-admin-ui-helpers/context.helper';
-import { getContentTypeIconUrl } from '@ibexa-admin-ui-helpers/content.type.helper';
+import { getContentTypeIconUrl, getContentTypeData } from '@ibexa-admin-ui-helpers/content.type.helper';
 import { formatShortDateTime } from '@ibexa-admin-ui-helpers/timezone.helper';
 import { parseCheckbox } from '@ibexa-admin-ui-helpers/table.helper';
 
@@ -28,6 +28,7 @@ export default class TableViewItemComponent extends PureComponent {
         this.setPriorityInputRef = this.setPriorityInputRef.bind(this);
         this.getLanguageSelectorData = this.getLanguageSelectorData.bind(this);
         this.editItem = this.editItem.bind(this);
+        this.checkIfCanEdit = this.checkIfCanEdit.bind(this);
 
         this._refPriorityInput = null;
 
@@ -414,19 +415,44 @@ export default class TableViewItemComponent extends PureComponent {
         };
     }
 
+    checkIfCanEdit(item) {
+        const editPermissions = item.permissions?.edit;
+        const contentTypeData = getContentTypeData(item.contentType.ContentType.identifier);
+
+        if (!editPermissions) {
+            return false;
+        }
+
+        if (!editPermissions.hasAccess) {
+            return false;
+        }
+
+        if (!editPermissions.restrictedContentTypeIds.length) {
+            return editPermissions.hasAccess;
+        }
+
+        return editPermissions.restrictedContentTypeIds.includes(contentTypeData.id.toString());
+    }
+
     componentDidMount() {
         parseCheckbox('.c-table-view-item__cell .c-table-view-item__checkbox', 'c-table-view-item--active');
     }
 
     render() {
         const Translator = getTranslator();
-        const { isSelected, showScrollShadowRight } = this.props;
-        const editLabel = Translator.trans(/* @Desc("Edit") */ 'edit_item_btn.label', {}, 'ibexa_sub_items');
+        const { isSelected, showScrollShadowRight, item } = this.props;
+        const canEdit = this.checkIfCanEdit(item);
+        const editLabel = Translator.trans(/*@Desc("Edit")*/ 'edit_item_btn.label', {}, 'ibexa_sub_items');
         const actionCellClassName = createCssClassNames({
             'ibexa-table__cell': true,
             'c-table-view-item__cell': true,
             'c-table-view-item__cell--actions': true,
             'c-table-view-item__cell--shadow-left': showScrollShadowRight,
+        });
+        const editBtnClassName = createCssClassNames({
+            'c-table-view-item__btn': true,
+            'c-table-view-item__btn--edit': true,
+            'c-table-view-item__btn--disabled': !canEdit,
         });
 
         return (
@@ -439,9 +465,10 @@ export default class TableViewItemComponent extends PureComponent {
                     <span
                         title={editLabel}
                         data-extra-classes="c-table-view-item__tooltip"
-                        onClick={this.handleEdit}
-                        className="c-table-view-item__btn c-table-view-item__btn--edit"
+                        onClick={canEdit ? this.handleEdit : () => {}}
+                        className={editBtnClassName}
                         tabIndex={-1}
+                        role="button"
                     >
                         <div className="c-table-view-item__btn-inner">
                             <Icon name="edit" extraClasses="ibexa-icon--small-medium" />

@@ -3,18 +3,18 @@
 <div class="ibexa-add-to-bookmarks {{ location_is_bookmarked ? 'ibexa-add-to-bookmarks--checked'}}" data-location-id="{{ location.id }}">
     <twig:ibexa:button
         type="tertiary-alt"
-        icon="bookmark-outline"
+        icon="favourite-outline"
         icon_size="medium"
         icon_only="true"
         class="ibexa-add-to-bookmarks__icon-wrapper ibexa-add-to-bookmarks__icon-wrapper--add"
-        title="{{ 'location.bookmark.add'|trans|desc('Add to bookmarks') }}"
+        title="{{ 'location.bookmark.add'|trans|desc('Add to favourites') }}"
     />
     <twig:ibexa:button
         type="tertiary-alt"
-        icon="bookmark-filled"
+        icon="favourite-filled"
         icon_size="medium"
         icon_only="true"
         class="ibexa-add-to-bookmarks__icon-wrapper ibexa-add-to-bookmarks__icon-wrapper--remove"
-        title="{{ 'location.bookmark.remove'|trans|desc('Remove from bookmarks') }}"
+        title="{{ 'location.bookmark.remove'|trans|desc('Remove from favourites') }}"
     />
 </div>

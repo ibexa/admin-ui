@@ -7,7 +7,7 @@
     display: flex;
     flex-wrap: nowrap;
     overflow: hidden;
-    height: calc(100vh - #{calculateRem(72px)});
+    height: calc(100vh - #{calculateRem(64px)});
 
     &__content-column {
         display: flex;
