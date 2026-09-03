@@ -322,16 +322,10 @@
             --ids-hover-text-color: #{$color-neutral-100};
             --ids-active-text-color: #{$color-neutral-100};
             --ids-focus-text-color: #{$color-neutral-140};
-            --ids-focus-box-shadow: none;
+            --ids-focus-box-shadow: #{$box-shadow-focus-dark_surface};
 
-            &:focus-visible::after {
-                content: '';
-                position: absolute;
-                inset: calculateRem(4px);
-                border: calculateRem(1px) solid $color-neutral-80;
-                border-radius: calculateRem(8px);
-                box-shadow: $box-shadow-focus-dark_surface;
-                pointer-events: none;
+            &:focus-visible {
+                border-color: $color-neutral-80;
             }
         }
 
