@@ -7,6 +7,8 @@
     display: grid;
     grid-template-areas: 'siteaccess actions back';
     grid-template-columns: auto 1fr auto;
+    align-items: center;
+    padding: 0 calculateRem(16px);
     border-bottom: calculateRem(1px) solid $ibexa-color-dark-400;
     background-color: $ibexa-color-dark;
 
@@ -15,14 +17,15 @@
 
         &--back {
             grid-area: back;
-            justify-items: flex-end;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
         }
 
         &--siteaccess {
             grid-area: siteaccess;
             display: flex;
             align-items: center;
-            margin-left: calculateRem(16px);
 
             .ids-dropdown__items-container {
                 --ids-mode: light;
@@ -38,11 +41,6 @@
             display: flex;
             align-items: center;
         }
-    }
-
-    &__link {
-        display: flex;
-        align-items: center;
     }
 
     &__action {
