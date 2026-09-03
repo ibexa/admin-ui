@@ -3,14 +3,43 @@
 {% form_theme form_forgot_user_password_with_login '@ibexadesign/ui/form_fields.html.twig'  %}
 
 {%- block content -%}
+    {% from '@ibexadesign/account/macros.html.twig' import error_row %}
+
     <div class="ibexa-login__actions-headline">{{ 'authentication.forgot_password'|trans|desc('Forgot password') }}</div>
     <p>
         {{ 'ezplatform.forgot_user_password.login'|trans|desc('This email is connected with several accounts. Enter your login instead.') }}
     </p>
     {% if form_forgot_user_password_with_login is defined %}
-        {{ form_start(form_forgot_user_password_with_login, {'attr': {'class': 'ibexa-form-validate'} }) }}
+        {% set login_form = form_forgot_user_password_with_login.login %}
+        {% set login_errors = login_form.vars.errors %}
+
+        {{ form_start(form_forgot_user_password_with_login, {
+            attr: {
+                novalidate: true,
+                'data-account-validate': true,
+            },
+        }) }}
         <fieldset>
-            {{ form_row(form_forgot_user_password_with_login.login) }}
+            <div class="form-group{% if login_errors is not empty %} has-error{% endif %}">
+                {{ form_label(login_form) }}
+                {{ form_widget(login_form, {
+                    attr: {
+                        class: login_errors is not empty ? 'is-invalid' : '',
+                        error: login_errors is not empty,
+                        required: true,
+                    },
+                }) }}
+                <div class="ibexa-form-error">
+                    {% for error in login_errors %}
+                        {{ error_row(error.message) }}
+                    {% endfor %}
+                    {{ error_row(
+                        'error.required.field_not_blank'|trans({}, 'forms')|desc('This value should not be blank.'),
+                        'empty',
+                        true
+                    ) }}
+                </div>
+            </div>
         </fieldset>
         {{ form_widget(form_forgot_user_password_with_login.reset, {'attr': {'class': 'ids-btn ids-btn--primary ids-btn--medium ibexa-login__btn ibexa-login__btn--reset-password'}}) }}
 
@@ -19,4 +48,6 @@
     <p class="mt-5">
     {{ 'ezplatform.forgot_user_password.contact_administrator'|trans|desc('If you do not remember your login, contact your Administrator.') }}
     </p>
+
+    {{ encore_entry_script_tags('ibexa-admin-ui-reset-password-js', null, 'ibexa') }}
 {%- endblock content -%}
