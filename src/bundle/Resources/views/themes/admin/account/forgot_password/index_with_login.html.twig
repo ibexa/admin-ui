@@ -14,6 +14,9 @@
                 'attr': {
                     'error': form_forgot_user_password_with_login.login.vars.errors is not empty,
                 },
+                'label_attr': {
+                    'class': form_forgot_user_password_with_login.login.vars.errors is not empty ? 'ids-label--error' : '',
+                },
             }) }}
         </fieldset>
         {{ form_widget(form_forgot_user_password_with_login.reset, {'attr': {'class': 'ids-btn ids-btn--primary ids-btn--medium ibexa-login__btn ibexa-login__btn--reset-password'}}) }}
