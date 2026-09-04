@@ -91,12 +91,12 @@ final class Notification extends Component
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('alert', '.ibexa-notifications-container .alert'),
-            new VisibleCSSLocator('alertMessage', '.ibexa-notifications-container .ibexa-alert__title'),
-            new VisibleCSSLocator('successAlert', '.ibexa-alert--success'),
-            new VisibleCSSLocator('warningAlert', '.ibexa-alert--warning'),
-            new VisibleCSSLocator('failureAlert', '.ibexa-alert--error'),
-            new VisibleCSSLocator('closeAlert', '.ibexa-alert__close-btn'),
+            new VisibleCSSLocator('alert', '.ibexa-notifications-container .ids-alert'),
+            new VisibleCSSLocator('alertMessage', '.ibexa-notifications-container .ids-alert__title'),
+            new VisibleCSSLocator('successAlert', '.ids-alert--success'),
+            new VisibleCSSLocator('warningAlert', '.ids-alert--warning'),
+            new VisibleCSSLocator('failureAlert', '.ids-alert--error'),
+            new VisibleCSSLocator('closeAlert', '.ids-alert__close-btn'),
         ];
     }
 }

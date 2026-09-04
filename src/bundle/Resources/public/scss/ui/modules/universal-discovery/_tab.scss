@@ -42,10 +42,6 @@
         &--init-locations-alert-visible {
             flex-wrap: wrap;
 
-            .ibexa-alert {
-                margin: 0;
-            }
-
             .c-udw-tab__main-children {
                 height: calc(100% - calculateRem(48px));
             }

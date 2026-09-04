@@ -56,13 +56,7 @@
 
 		</main>
 	{% endblock %}
-	<div
-			class="ibexa-notifications-container"
-			data-notifications="{{ app.flashes|json_encode() }}"
-			data-template="{{ include('@ibexadesign/ui/notification.html.twig', {
-				label: '{{ label }}',
-				message: '{{ message }}',
-			})|e('html_attr')  }}"></div>
+	{% include '@ibexadesign/ui/notifications_container.html.twig' %}
 
 	{% if not is_back_to_top_disabled|default(false) %}
 		{% block back_to_top %}

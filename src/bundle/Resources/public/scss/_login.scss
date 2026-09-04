@@ -158,9 +158,5 @@
 
     &__success-toast {
         margin-top: calculateRem(4px);
-
-        &.ibexa-alert {
-            min-height: unset;
-        }
     }
 }
