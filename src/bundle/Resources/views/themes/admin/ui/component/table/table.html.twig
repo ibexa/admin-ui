@@ -1,19 +1,11 @@
-{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
-
-{% set show_head_cols_if_empty = show_head_cols_if_empty|default(false) %}
-
-{% if is_last_column_sticky is not defined %}
-    {% if body_rows is defined %}
-        {% set no_action_cell_rows = body_rows|filter((row) => not (row.cols|last).has_action_btns|default(false)) %}
-        {% set is_last_column_sticky = no_action_cell_rows|length == 0 %}
-    {% else %}
-        {% set is_last_column_sticky = false %}
-    {% endif %}
-{% endif %}
+{% use '@ibexadesign/ui/component/table/table_body_row.html.twig' %}
+{% use '@ibexadesign/ui/component/table/table_head_row.html.twig' %}
+{% use '@ibexadesign/ui/component/table/table_header.html.twig' %}
+{% use '@ibexadesign/ui/component/table/empty_table_body_row.html.twig' %}
 
 {% block header %}
     {% if headline is defined %}
-        {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
+        {% with {
             headline,
             actions: actions|default(null),
             headline_title: headline_title|default(''),
@@ -21,7 +13,9 @@
             notice_message: notice_message|default(''),
             notice_icon: notice_icon|default('about-info'),
             show_notice: show_notice|default(false),
-        } only %}
+        } %}
+            {{ block('table_header') }}
+        {% endwith %}
     {% endif %}
 {% endblock %}
 
@@ -29,12 +23,25 @@
 
 {% block table %}
     {% set table_content %}
+        {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+        {% set show_head_cols_if_empty = show_head_cols_if_empty|default(false) %}
+        {% if is_last_column_sticky is not defined %}
+            {% if body_rows is defined %}
+                {% set no_action_cell_rows = body_rows|filter((row) => not (row.cols|last).has_action_btns|default(false)) %}
+                {% set is_last_column_sticky = no_action_cell_rows|length == 0 %}
+            {% else %}
+                {% set is_last_column_sticky = false %}
+            {% endif %}
+        {% endif %}
+
         {% set empty_row %}
             {% block tbody_empty %}
-                {% include '@ibexadesign/ui/component/table/empty_table_body_row.html.twig' with {
+                {% with {
                     colspan: head_cols|length,
                     empty_image: empty_image|default(asset('/bundles/ibexaadminui/img/ibexa-empty-table.svg'))
                 } %}
+                    {{ block('empty_table_body_row') }}
+                {% endwith %}
             {% endblock %}
         {% endset %}
 
@@ -48,42 +55,42 @@
                 {{ empty_row }}
             </template>
             <thead {{ body_rows is defined and body_rows is not empty or head_cols is defined and show_head_cols_if_empty ? '' : 'hidden' }}>
-                {% block thead %}
-                    {% if head_cols is defined %}
-                        {% include '@ibexadesign/ui/component/table/table_head_row.html.twig' with {
-                            head_cols,
-                        } %}
-                    {% endif %}
-                {% endblock %}
+            {% block thead %}
+                {% if head_cols is defined %}
+                    {{ block('table_head_row') }}
+                {% endif %}
+            {% endblock %}
             </thead>
             <tbody
                 class="ibexa-table__body
                 {{ table_body_class|default('') -}}"
                 {{ html.attributes(table_body_attr|default({})) }}
             >
-                {% block tbody %}
+            {% block tbody %}
 
-                    {% if body_rows is defined %}
-                        {% if body_rows is empty %}
-                            {{ empty_row }}
-                        {% else %}
-                            {% block tbody_not_empty %}
-                                {% for row in body_rows %}
-                                    {% include '@ibexadesign/ui/component/table/table_body_row.html.twig' with {
-                                        body_row_cols: row.cols,
-                                        class: row.class|default(''),
-                                        attr: row.attr|default({}),
-                                    } %}
-                                {% endfor %}
-                            {% endblock %}
-                        {% endif %}
+                {% if body_rows is defined %}
+                    {% if body_rows is empty %}
+                        {{ empty_row }}
+                    {% else %}
+                        {% block tbody_not_empty %}
+                            {% for row in body_rows %}
+                                {% with {
+                                    body_row_cols: row.cols,
+                                    class: row.class|default(''),
+                                    attr: row.attr|default({}),
+                                } %}
+                                    {{ block('table_body_row') }}
+                                {% endwith %}
+                            {% endfor %}
+                        {% endblock %}
                     {% endif %}
-                {% endblock %}
+                {% endif %}
+            {% endblock %}
             </tbody>
         </table>
     {% endset %}
 
-    {% if is_scrollable is defined ? is_scrollable : true %}
+    {% if is_scrollable|default(true) %}
         <div class="ibexa-scrollable-wrapper">
             {{ table_content }}
         </div>
