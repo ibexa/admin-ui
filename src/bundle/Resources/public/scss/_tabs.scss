@@ -400,7 +400,7 @@
     border: calculateRem(1px) solid $ibexa-color-light;
     border-radius: 0 calculateRem(10px) calculateRem(10px) calculateRem(10px);
     overflow: hidden;
-    box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 color.change($ibexa-color-info-600, $alpha: 0.1);
+    box-shadow: $ibexa-container-box-shadow;
     background-color: $ibexa-color-white;
 
     &__single-tab {
