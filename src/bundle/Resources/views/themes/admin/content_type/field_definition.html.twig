@@ -25,23 +25,25 @@
     'extra_actions': extra_actions
 } -%}
     {% block body_content %}
+        {% set form_field_options = { row_attr: { class: 'ibexa-form-field' } } %}
+
         {% if field_definition.enabled is defined %}
-            {{ form_row(field_definition.enabled) }}
+            {{ form_row(field_definition.enabled, form_field_options) }}
         {% endif %}
-        {{ form_row(field_definition.name, {
+        {{ form_row(field_definition.name, form_field_options|merge({
             attr: { 'data-autogenerate-identifier-target-selector': '#ibexa-ct-identifier-' ~ field_definition.vars.value.identifier }
-        }) }}
-        {{ form_row(field_definition.identifier, {
+        })) }}
+        {{ form_row(field_definition.identifier, form_field_options|merge({
             id: 'ibexa-ct-identifier-' ~ field_definition.vars.value.identifier
-        }) }}
-        {{ form_row(field_definition.description) }}
-        {{ form_row(field_definition.isRequired) }}
-        {{ form_row(field_definition.isSearchable) }}
-        {{ form_row(field_definition.isTranslatable) }}
-        {{ form_row(field_definition.isThumbnail) }}
-        {{ form_row(field_definition.fieldGroup, { attr: {
+        })) }}
+        {{ form_row(field_definition.description, form_field_options) }}
+        {{ form_row(field_definition.isRequired, form_field_options) }}
+        {{ form_row(field_definition.isSearchable, form_field_options) }}
+        {{ form_row(field_definition.isTranslatable, form_field_options) }}
+        {{ form_row(field_definition.isThumbnail, form_field_options) }}
+        {{ form_row(field_definition.fieldGroup, form_field_options|merge({ attr: {
             class: "ibexa-input ibexa-input--field-group"
-        }}) }}
+        }})) }}
         {{ form_widget(field_definition.position, { attr: {
             hidden: 'hidden',
             class: "ibexa-input ibexa-input--position"
@@ -50,12 +52,12 @@
         {{ ibexa_render_field_definition_edit(value, {
             'languageCode': language_code,
             'form': field_definition,
-            'group_class': value.group_class|default('') ~ ' form-group',
+            'group_class': value.group_class|default('') ~ ' ibexa-form-field form-group',
             'is_translation': is_translation ?? false,
         }) }}
 
         {% for child in field_definition|filter(child => child.isRendered() == false) %}
-            {{ form_row(child) }}
+            {{ form_row(child, form_field_options) }}
         {% endfor %}
     {% endblock %}
 {%- endembed -%}

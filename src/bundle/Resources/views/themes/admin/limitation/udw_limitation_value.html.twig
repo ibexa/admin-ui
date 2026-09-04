@@ -1,4 +1,4 @@
-<div class="ibexa-limitation-picker">
+<div class="ibexa-limitation-picker ibexa-form-field">
     {{ form_label(form.limitationValues) }}
     {{ form_errors(form.limitationValues) }}
     {{ form_widget(form.limitationValues) }}
@@ -20,7 +20,7 @@
         {{ 'role.policy.limitation.location.udw_button'|trans({}, 'ibexa_content_forms_role')|desc('Select Locations') }}
     </twig:ibexa:button>
 
-    <ul class="list-unstyled" id="{{ form.limitationValues.vars.id }}-selected-location">
+    <ul class="list-unstyled ibexa-limitation-picker__selected-list" id="{{ form.limitationValues.vars.id }}-selected-location">
         {% for limitationValue in form.limitationValues.vars.data %}
             {% if limitationValue is not empty %}
                 {% set path_locations = ibexa_path_to_locations(limitationValue.pathString) %}
