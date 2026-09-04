@@ -1,6 +1,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/colors' as *;
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/shadows' as *;
 @use 'sass:color';
 
 .ibexa-main-menu {
@@ -310,13 +311,33 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        padding: calculateRem(4px) calculateRem(8px) 0;
     }
 
     &__expand-toggler {
+        position: relative;
+
         &.ids-btn {
-            --ids-default-text-color: #{$ibexa-color-dark-300};
-            --ids-hover-text-color: #{$ibexa-color-dark-300};
-            --ids-focus-text-color: #{$ibexa-color-dark-300};
+            --ids-default-text-color: #{$color-neutral-140};
+            --ids-hover-text-color: #{$color-neutral-100};
+            --ids-active-text-color: #{$color-neutral-100};
+            --ids-focus-text-color: #{$color-neutral-140};
+            --ids-focus-box-shadow: #{$box-shadow-focus-dark_surface};
+
+            &:focus-visible {
+                border-color: $color-neutral-80;
+            }
+        }
+
+        .ids-icon {
+            fill: $color-neutral-160;
+        }
+
+        &:hover,
+        &:active {
+            .ids-icon {
+                fill: $color-neutral-100;
+            }
         }
 
         &--collapsed {
