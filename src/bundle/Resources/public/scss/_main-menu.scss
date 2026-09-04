@@ -59,6 +59,15 @@
             }
         }
 
+        &.ibexa-main-menu__navbar--with-scrollbar:not(.ibexa-main-menu__navbar--collapsed) {
+            .ibexa-main-menu {
+                &__primary-section,
+                &__secondary-section {
+                    scrollbar-gutter: stable;
+                }
+            }
+        }
+
         &.ibexa-main-menu__navbar--collapsed {
             width: calculateRem(56px);
 
@@ -275,6 +284,7 @@
 
         &__header-content {
             flex: 1 1 auto;
+            min-width: 0;
             padding: 0;
         }
 
@@ -297,6 +307,7 @@
     &__item-text-column {
         width: 100%;
         overflow: hidden;
+        text-overflow: ellipsis;
         text-align: left;
         padding: 0;
 
