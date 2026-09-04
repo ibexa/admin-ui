@@ -34,6 +34,7 @@ browser:
                 - Ibexa\AdminUi\Behat\BrowserContext\NavigationContext
                 - Ibexa\AdminUi\Behat\BrowserContext\NotificationContext
                 - Ibexa\AdminUi\Behat\BrowserContext\ObjectStatesContext
+                - Ibexa\AdminUi\Behat\BrowserContext\QuickEditContext
                 - Ibexa\AdminUi\Behat\BrowserContext\RolesContext
                 - Ibexa\AdminUi\Behat\BrowserContext\SearchContext
                 - Ibexa\AdminUi\Behat\BrowserContext\SectionsContext
@@ -86,6 +87,7 @@ browser:
                 - Ibexa\AdminUi\Behat\BrowserContext\NavigationContext
                 - Ibexa\AdminUi\Behat\BrowserContext\NotificationContext
                 - Ibexa\AdminUi\Behat\BrowserContext\ObjectStatesContext
+                - Ibexa\AdminUi\Behat\BrowserContext\QuickEditContext
                 - Ibexa\AdminUi\Behat\BrowserContext\RolesContext
                 - Ibexa\AdminUi\Behat\BrowserContext\SearchContext
                 - Ibexa\AdminUi\Behat\BrowserContext\SectionsContext

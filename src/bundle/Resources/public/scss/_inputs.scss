@@ -52,7 +52,9 @@
 
     &--text,
     &--textarea,
-    &--date {
+    &--date,
+    &--time,
+    &--datetime-local {
         font-size: $ibexa-text-font-size-medium;
         color: var(--ibexa-input-text-color, var(--ibexa-text-color, #{$ibexa-color-dark}));
         line-height: calculateRem(21px);
@@ -94,7 +96,9 @@
     }
 
     &--text,
-    &--date {
+    &--date,
+    &--time,
+    &--datetime-local {
         height: calculateRem(48px);
         padding-right: calculateRem(36px);
 
@@ -514,6 +518,14 @@
     }
 }
 
+// Deliberately not extended to `.ibexa-input--time`/`.ibexa-input--datetime-local`: this block
+// hides the *custom* `.ibexa-input-text-wrapper__actions` clear button built by
+// admin.input.text.js next to the flatpickr-driven `.ibexa-input--date` field, a sibling that
+// only that field's own markup ever renders. Native `<input type="time">` and
+// `<input type="datetime-local">` controls (as used by the quick edit editors) render their own
+// browser clear affordance and are never wrapped in that markup, so extending this rule to them
+// would be dead CSS today and, for any future field that did add the wrapper, would duplicate a
+// clear control the browser already provides.
 .ibexa-input--date:placeholder-shown + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear,
 .ibexa-input--text:placeholder-shown + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear,
 .ibexa-input--text:disabled + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear,

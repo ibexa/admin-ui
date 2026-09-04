@@ -15,3 +15,4 @@ active_domains:
     - 'ibexa_popup_menu'
     - 'ibexa_collapse'
     - 'messages'
+    - 'ibexa_locationview'

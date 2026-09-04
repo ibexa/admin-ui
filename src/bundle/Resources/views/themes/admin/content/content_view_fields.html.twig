@@ -5,7 +5,10 @@
     </div>
 
     {% block fields %}
-        <div class="ibexa-content-preview">
+        {% set inline_field_edit = inline_field_edit|default({enabled: false, field_types: []}) %}
+        {% set can_edit = can_edit|default(false) %}
+        {% set current_language_code = current_language_code|default(null) %}
+        <div class="ibexa-content-preview" data-content-id="{{ content.id }}" data-language-code="{{ current_language_code }}">
             {% for group in field_definitions_by_group %}
                 {% if group.fieldDefinitions|length > 0 %}
                     {% set group_name = group.name|lower|replace({' ': ''})|slug %}
@@ -23,13 +26,41 @@
                         <div class="{{ collapse_class_name }} ibexa-content-preview-collapse collapse show" data-collapse-state-key="{{ collapse_state_key }}">
                             {% for field_definition in group.fieldDefinitions %}
                                 {% block field %}
-                                    <div class="ibexa-content-field">
+                                    {% set is_field_quick_editable = inline_field_edit.enabled
+                                        and can_edit
+                                        and field_definition.fieldTypeIdentifier in inline_field_edit.field_types
+                                        and (field_definition.isTranslatable or current_language_code == content.contentInfo.mainLanguageCode)
+                                    %}
+                                    <div class="ibexa-content-field"
+                                        {% if is_field_quick_editable %}
+                                            data-quick-edit
+                                            data-field-definition-identifier="{{ field_definition.identifier }}"
+                                            data-field-type-identifier="{{ field_definition.fieldTypeIdentifier }}"
+                                            data-field-validators="{{ field_definition.validatorConfiguration ? field_definition.validatorConfiguration|json_encode : '{}' }}"
+                                        {% endif %}
+                                    >
                                         <div class="ibexa-content-field__name">{{ field_definition.name }}</div>
                                         <div class="ibexa-content-field__value">
                                             {% if ibexa_field_is_empty(content, field_definition.identifier) %}
                                                 <em>{{ 'fieldview.field.empty'|trans({}, 'ibexa_fieldview')|desc('This field is empty') }}</em>
                                             {% else %}
                                                 {{ ibexa_render_field(content, field_definition.identifier, {location: location}) }}
+                                            {% endif %}
+                                            {% if is_field_quick_editable %}
+                                                {# The real activation affordance. A genuine <button>, not the row, carries the
+                                                   accessible name and native keyboard semantics, so Enter/Space fire an
+                                                   ordinary `click` event here - admin.location.quick.field.edit.js listens for
+                                                   that instead of hand-rolling key handling on the row. The icon inside stays
+                                                   decorative/aria-hidden; the button's aria-label is the accessible name. #}
+                                                <button
+                                                    type="button"
+                                                    class="ibexa-quick-edit__hint-button"
+                                                    aria-label="{{ 'content.field.quick_edit_aria_label'|trans({'%fieldName%': field_definition.name}, 'ibexa_locationview')|desc('Edit %fieldName% field') }}"
+                                                >
+                                                    <svg class="ibexa-quick-edit__hint-icon ibexa-icon ibexa-icon--small ibexa-icon--primary" aria-hidden="true">
+                                                        <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
+                                                    </svg>
+                                                </button>
                                             {% endif %}
                                         </div>
                                     </div>
