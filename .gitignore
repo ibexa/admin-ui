@@ -10,4 +10,6 @@ package-lock.json
 .phpunit.result.cache
 composer.lock
 /var
-tsconfig.json
+/tsconfig.json
+/ibexa.tsconfig.json
+/tests/playwright_ts/node_modules/
