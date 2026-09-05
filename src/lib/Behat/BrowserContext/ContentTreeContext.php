@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Then;
 use Ibexa\AdminUi\Behat\Component\ContentTree;
 
 final class ContentTreeContext implements Context
@@ -20,17 +21,13 @@ final class ContentTreeContext implements Context
         $this->contentTree = $contentTree;
     }
 
-    /**
-     * @Then I verify Content tree visibility
-     */
+    #[Then('I verify Content tree visibility')]
     public function iAmOnContentTree(): void
     {
         $this->contentTree->verifyIsLoaded();
     }
 
-    /**
-     * @Then Content item :itemPath exists in Content tree
-     */
+    #[Then('Content item :itemPath exists in Content tree')]
     public function contentItemExistsInContentTree(string $itemPath): void
     {
         $this->contentTree->verifyIsLoaded();
