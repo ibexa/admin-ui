@@ -2,12 +2,18 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 
 .ibexa-main-header {
+    position: relative;
+    z-index: 1080;
     width: 100%;
     display: flex;
     justify-content: space-between;
     padding: calculateRem(16px) calculateRem(20px) calculateRem(15px);
     background: $ibexa-color-dark;
     border-bottom: calculateRem(1px) solid $ibexa-color-dark-500;
+
+    &:has(.modal.show) {
+        z-index: auto;
+    }
 
     &__brand-column {
         flex: 1;

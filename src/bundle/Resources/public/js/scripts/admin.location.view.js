@@ -1,4 +1,5 @@
 import { checkIsContainer } from './helpers/content.type.helper';
+import { escapeHTML } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/text.helper';
 
 (function (global, doc, localStorage, bootstrap, React, ReactDOMClient, ibexa, Routing, Translator) {
     const SELECTOR_MODAL_BULK_ACTION_FAIL = '#bulk-action-failed-modal';
@@ -107,7 +108,9 @@ import { checkIsContainer } from './helpers/content.type.helper';
 
         failedItemsData.forEach(({ contentName, contentTypeName }) => {
             const container = doc.createElement('tbody');
-            const renderedItem = rowTemplate.replace('{{ content_name }}', contentName).replace('{{ content_type_name }}', contentTypeName);
+            const renderedItem = rowTemplate
+                .replace('{{ content_name }}', escapeHTML(contentName))
+                .replace('{{ content_type_name }}', escapeHTML(contentTypeName));
 
             container.insertAdjacentHTML('beforeend', renderedItem);
 

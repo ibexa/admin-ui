@@ -1,7 +1,7 @@
 import { getRestInfo, getTranslator } from '@ibexa-admin-ui-helpers/context.helper.js';
 import { getRequestHeaders, getRequestMode, getJsonFromResponse } from '@ibexa-admin-ui-helpers/request.helper';
 import { showErrorNotification } from '@ibexa-admin-ui-helpers/notification.helper';
-import { LOCATION_ENDPOINT, ENDPOINT_LOCATION_SUBITEMS } from './endpoints.js';
+import { LOCATION_ENDPOINT, ENDPOINT_LOCATION_SUBITEMS, ENDPOINT_LOCATIONS_PERMISSIONS } from './endpoints.js';
 
 /**
  * Loads location's children
@@ -42,6 +42,28 @@ export const loadLocation = ({ locationId = 2, offset = 0, limit = 10, sortClaus
                 Translator.trans(/* @Desc("Cannot load location") */ 'load_location.request.error', {}, 'ibexa_sub_items'),
             ),
         );
+};
+
+export const loadLocationsPermissions = (locationIds, callback) => {
+    const { instanceUrl, token, siteaccess, accessToken } = getRestInfo();
+    const request = new Request(`${ENDPOINT_LOCATIONS_PERMISSIONS}?locationIds=${locationIds}`, {
+        method: 'GET',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/json',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
+        credentials: 'same-origin',
+    });
+
+    fetch(request)
+        .then(getJsonFromResponse)
+        .then(callback)
+        .catch(() => showErrorNotification('Cannot load locations permissions'));
 };
 
 /**

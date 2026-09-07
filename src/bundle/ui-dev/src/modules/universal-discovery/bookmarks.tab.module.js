@@ -50,10 +50,12 @@ const BookmarksTabModule = () => {
         const isCleared = markedLocationId === null && loadedLocationsMap?.length === 0;
 
         if (!isCleared && !isMarkedLocationSetByBookmarksRef.current) {
-            restorationStateRef.current = {
-                markedLocationId,
-                loadedLocationsMap,
-            };
+            if (restorationStateRef.current === null) {
+                restorationStateRef.current = {
+                    markedLocationId,
+                    loadedLocationsMap,
+                };
+            }
 
             setMarkedLocationId(null);
             dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
@@ -62,7 +64,7 @@ const BookmarksTabModule = () => {
 
     useEffect(() => {
         return () => {
-            if (!isMarkedLocationSetByBookmarksRef.current) {
+            if (!isMarkedLocationSetByBookmarksRef.current && restorationStateRef.current) {
                 setMarkedLocationId(restorationStateRef.current.markedLocationId);
                 dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: restorationStateRef.current.loadedLocationsMap });
             }

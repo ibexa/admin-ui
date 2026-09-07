@@ -17,8 +17,8 @@
         <note>key: policy.limitation.identifier.class</note>
       </trans-unit>
       <trans-unit id="76adf2a27f1ae0ab14b623729cd3f281a6e2c285" resname="policy.limitation.identifier.group">
-        <source>Content type Group</source>
-        <target state="new">Content type Group</target>
+        <source>Content type group</source>
+        <target state="new">Content type group</target>
         <note>key: policy.limitation.identifier.group</note>
       </trans-unit>
       <trans-unit id="cee78b25ec2de77cf09109e6a2ac175a515a8350" resname="policy.limitation.identifier.language">

@@ -23,11 +23,11 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Translation\Translator;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class RequestLocaleListenerTest extends TestCase
+final class RequestLocaleListenerTest extends TestCase
 {
-    private const ADMIN_SITEACCESS = 'admin_siteaccess';
+    private const string ADMIN_SITEACCESS = 'admin_siteaccess';
 
-    private const NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
+    private const string NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
     private Request&MockObject $request;
 
@@ -172,6 +172,42 @@ class RequestLocaleListenerTest extends TestCase
         $requestLocaleListener = new RequestLocaleListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             [],
+            $this->translator,
+            $this->userLanguagePreferenceProvider,
+            $this->configResolver
+        );
+
+        $requestLocaleListener->onKernelRequest($event);
+    }
+
+    public function testInvalidPreferredLocaleFallsBackToAvailableTranslation(): void
+    {
+        $this->translator
+            ->expects(self::once())
+            ->method('setLocale')
+            ->with('en_GB');
+
+        $this->request
+            ->expects(self::once())
+            ->method('setLocale')
+            ->with('en_GB');
+
+        $event = new RequestEvent(
+            $this->httpKernel,
+            $this->request,
+            HttpKernelInterface::MAIN_REQUEST
+        );
+
+        // `Accept-Language: *` (RFC 7231 wildcard) surfaces here as the `*` locale, which
+        // is not a valid locale; it must not reach the translator.
+        $this->userLanguagePreferenceProvider
+            ->expects(self::once())
+            ->method('getPreferredLocales')
+            ->willReturn(['*']);
+
+        $requestLocaleListener = new RequestLocaleListener(
+            ['admin_group' => [self::ADMIN_SITEACCESS]],
+            ['en_GB', 'en_US'],
             $this->translator,
             $this->userLanguagePreferenceProvider,
             $this->configResolver

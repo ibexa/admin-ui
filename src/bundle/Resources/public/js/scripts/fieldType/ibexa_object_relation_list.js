@@ -174,7 +174,7 @@
         const excludeDuplicatedItems = (items) => items.filter((item) => !selectedItems.includes(item.ContentInfo.Content._id));
         const renderRow = (item, index) => {
             const contentTypeName = ibexa.helpers.contentType.getContentTypeName(item.ContentInfo.Content.ContentTypeInfo.identifier);
-            const contentTypeNameHtmlAttributeEscaped = escapeHTMLAttribute(contentTypeName);
+            const contentTypeNameHtmlAttributeEscaped = escapeHTMLAttribute(contentTypeName, false);
             const contentNameHtmlEscaped = escapeHTML(item.ContentInfo.Content.TranslatedName);
             const contentIdHtmlEscaped = escapeHTML(item.ContentInfo.Content._id);
             const { rowTemplate } = relationsWrapper.dataset;

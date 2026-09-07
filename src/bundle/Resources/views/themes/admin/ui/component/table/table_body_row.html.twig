@@ -6,12 +6,12 @@
 >
     {% block body_row_cells %}
         {% set next_is_close_left = false %}
-        {% for index, body_col in body_row_cols %}
+        {% for body_col in body_row_cols %}
             {% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with {
                 has_checkbox: body_col.has_checkbox|default(false),
                 has_action_btns: body_col.has_action_btns|default(false),
                 has_icon: body_col.has_icon|default(false),
-                is_close_left: body_col.is_close_left is defined ? body_col.is_close_left : next_is_close_left and index === 1,
+                is_close_left: body_col.is_close_left is defined ? body_col.is_close_left : next_is_close_left,
                 center_content: body_col.center_content|default(false),
                 content: body_col.content,
                 raw: body_col.raw|default(false),

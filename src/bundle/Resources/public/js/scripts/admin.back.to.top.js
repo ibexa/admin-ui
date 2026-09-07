@@ -16,11 +16,13 @@
         return backToTopBtn.classList.contains('ibexa-back-to-top__btn--visible');
     };
     let currentBackToTopAnchorHeight = backToTopAnchor.offsetHeight;
+    const AT_TOP_THRESHOLD = 4;
     const setBackToTopBtnVisibility = (container) => {
-        const shouldBeVisible = container.scrollTop !== 0;
+        const shouldBeVisible = container.scrollTop > AT_TOP_THRESHOLD;
 
         if (backToTopBtn.classList.contains('ibexa-back-to-top__btn--visible') && !shouldBeVisible) {
             backToTopBtn.classList.remove('ibexa-back-to-top__btn--visible');
+            ibexa.quickAction.recalculateButtonsLayout();
         }
 
         if (!backToTopBtn.classList.contains('ibexa-back-to-top__btn--visible') && shouldBeVisible) {

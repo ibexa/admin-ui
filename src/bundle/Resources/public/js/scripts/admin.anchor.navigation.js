@@ -173,10 +173,22 @@
             behavior: 'smooth',
         });
     };
+    const setEditContentClassForAnchorMenu = () => {
+        const editContentWrapper = doc.querySelector('.ibexa-edit-content-width-wrapper');
+
+        if (!editContentWrapper) {
+            return;
+        }
+
+        if (getVisibleSections().length > 1) {
+            editContentWrapper.classList.add('ibexa-edit-content-width-wrapper--with-anchor-menu');
+        }
+    };
 
     attachMenuTabShowEvents();
     attachMenuSectionsEvents();
     initFitSection();
     attachScrollContainerEvents();
+    setEditContentClassForAnchorMenu();
     ibexa.helpers.tooltips.parse(navigationMenu);
 })(window, window.document, window.ibexa);

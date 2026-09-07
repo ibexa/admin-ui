@@ -1213,12 +1213,6 @@ parameters:
 			path: src/lib/EventListener/RequestLocaleListener.php
 
 		-
-			message: '#^Parameter \#1 \$locale of method Symfony\\Component\\HttpFoundation\\Request\:\:setLocale\(\) expects string, string\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/EventListener/RequestLocaleListener.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\EventListener\\SetViewParametersListener\:\:getIgnoredContentFields\(\) has parameter \$fieldsData with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -2103,12 +2097,6 @@ parameters:
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\FormFactory\:\:updateLocation\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\FormFactory\:\:updateObjectStateGroup\(\) should return Symfony\\Component\\Form\\FormInterface\<Ibexa\\AdminUi\\Form\\Data\\ObjectState\\ObjectStateGroupUpdateData\> but returns Symfony\\Component\\Form\\FormInterface\<Ibexa\\AdminUi\\Form\\Data\\ObjectState\\ObjectStateGroupUpdateData\|null\>\.$#'
-			identifier: return.type
 			count: 1
 			path: src/lib/Form/Factory/FormFactory.php
 
