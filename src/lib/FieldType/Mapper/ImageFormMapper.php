@@ -74,6 +74,7 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
                 ],
                 'disabled' => $isTranslation,
                 'scale' => 1,
+                'html5' => true,
             ])
             ->add('isAlternativeTextRequired', CheckboxType::class, [
                 'required' => false,

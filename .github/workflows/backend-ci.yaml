@@ -6,6 +6,13 @@ on:
       - main
       - '[0-9]+.[0-9]+'
   pull_request: ~
+  workflow_dispatch:
+    inputs:
+      send-success-notification:
+        description: "Send a Slack notification when the build passes"
+        default: true
+        required: false
+        type: boolean
 
 jobs:
   cs-fix:
@@ -163,3 +170,37 @@ jobs:
           env:
             SEARCH_ENGINE: legacy
             DATABASE_URL: "mysql://mysql:mysql@127.0.0.1:${{ job.services.mysql.ports[3306] }}/testdb"
+
+  notify-slack:
+    name: Notify Slack
+    needs: [cs-fix, tests, integration-tests-postgres, integration-tests-mysql]
+    if: always() && github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine overall result
+        id: result
+        run: |
+          if ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}; then
+            echo "state=failure" >> "$GITHUB_OUTPUT"
+            echo "emoji=❌" >> "$GITHUB_OUTPUT"
+          else
+            echo "state=success" >> "$GITHUB_OUTPUT"
+            echo "emoji=✅" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build Slack payload
+        if: steps.result.outputs.state == 'failure' || inputs.send-success-notification
+        run: >
+          echo "SLACK_PAYLOAD=
+          {\"blocks\": [{\"type\": \"section\",\"text\": {\"type\": \"mrkdwn\",\"text\": \"
+          ${{ steps.result.outputs.emoji }} Backend CI *$GITHUB_REPOSITORY*:*$GITHUB_REF_NAME* ($GITHUB_ACTOR) |
+          <$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|Details>
+          \"}}]}" >> $GITHUB_ENV
+
+      - name: Send Slack notification
+        if: steps.result.outputs.state == 'failure' || inputs.send-success-notification
+        uses: slackapi/slack-github-action@45a88b9581bfab2566dc881e2cd66d334e621e2c # v3.0.3
+        with:
+          webhook: ${{ secrets.SLACK_PHP_BACKEND_CI_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: ${{ env.SLACK_PAYLOAD }}

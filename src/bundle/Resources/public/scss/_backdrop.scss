@@ -19,4 +19,8 @@
     & ~ main .ibexa-edit-header {
         z-index: auto;
     }
+
+    &--active ~ .ibexa-main-header {
+        z-index: auto;
+    }
 }

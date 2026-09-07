@@ -1,4 +1,5 @@
 import { getAdminUiConfig } from './context.helper';
+import { escapeHTML } from './text.helper';
 
 let contentTypesDataMap = null;
 let contentTypesDataMapByHref = null;
@@ -61,15 +62,20 @@ const getContentTypeIconUrl = (contentTypeIdentifier) => {
  *
  * @function getContentTypeName
  * @param {String} contentTypeIdentifier
+ * @param {boolean} shouldEscapeHTML
  * @returns {String|null} contentType name
  */
-const getContentTypeName = (contentTypeIdentifier) => {
+const getContentTypeName = (contentTypeIdentifier, shouldEscapeHTML = true) => {
     if (!contentTypesDataMap) {
         contentTypesDataMap = createContentTypeDataMap();
     }
 
     if (!contentTypeIdentifier || !contentTypesDataMap[contentTypeIdentifier]) {
         return null;
+    }
+
+    if (shouldEscapeHTML) {
+        return escapeHTML(contentTypesDataMap[contentTypeIdentifier].name);
     }
 
     return contentTypesDataMap[contentTypeIdentifier].name;

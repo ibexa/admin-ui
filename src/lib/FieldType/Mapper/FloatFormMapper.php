@@ -44,6 +44,7 @@ class FloatFormMapper implements FieldDefinitionFormMapperInterface
                     'property_path' => 'validatorConfiguration[FloatValueValidator][minFloatValue]',
                     'label' => /** @Desc("Minimum value") */ 'field_definition.ezfloat.min_value',
                     'disabled' => $isTranslation,
+                    'html5' => true,
                 ]
             )
             ->add(
@@ -54,6 +55,7 @@ class FloatFormMapper implements FieldDefinitionFormMapperInterface
                     'property_path' => 'validatorConfiguration[FloatValueValidator][maxFloatValue]',
                     'label' => /** @Desc("Maximum value") */ 'field_definition.ezfloat.max_value',
                     'disabled' => $isTranslation,
+                    'html5' => true,
                 ]
             )
             ->add($defaultValueForm);

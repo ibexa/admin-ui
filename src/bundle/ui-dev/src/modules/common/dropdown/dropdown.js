@@ -11,10 +11,12 @@ const MIN_SEARCH_ITEMS_DEFAULT = 5;
 const MIN_ITEMS_LIST_HEIGHT = 150;
 const ITEMS_LIST_WIDGET_MARGIN = 8;
 const ITEMS_LIST_SITE_MARGIN = ITEMS_LIST_WIDGET_MARGIN + 4;
-const RESTRICTED_AREA_ITEMS_CONTAINER = 190;
+const RESTRICTED_AREA_ITEMS_CONTAINER = 90;
 
 const Dropdown = ({
     dropdownListRef,
+    scrollContainerNode,
+    shouldCloseOutsideContainer,
     value,
     options,
     onChange,
@@ -44,8 +46,12 @@ const Dropdown = ({
         'ibexa-dropdown--small': small,
         'ibexa-dropdown--disabled': disabled,
         'ibexa-dropdown--expanded': isExpanded,
+        'ibexa-dropdown--overflow': overflowItemsCount > 0,
         [extraClasses]: true,
     });
+    const getScrollContainer = () => {
+        return scrollContainerNode || document.querySelector('.ibexa-main-container__content-column');
+    };
     const toggleExpanded = () => {
         calculateAndSetItemsListStyles();
         setIsExpanded((prevState) => !prevState && !disabled);
@@ -111,6 +117,18 @@ const Dropdown = ({
             itemsStyles.top = top - ITEMS_LIST_WIDGET_MARGIN;
             itemsStyles.maxHeight = top - headerHeight - ITEMS_LIST_SITE_MARGIN;
             itemsStyles.transform = 'translateY(-100%)';
+        }
+
+        if (shouldCloseOutsideContainer) {
+            const scrollContainer = getScrollContainer();
+            const scrollContainerRect = scrollContainer.getBoundingClientRect();
+            const { top: scrollContainerTop, bottom: scrollContainerBottom } = scrollContainerRect;
+
+            if (top <= scrollContainerTop || top >= scrollContainerBottom) {
+                setIsExpanded(false);
+
+                return;
+            }
         }
 
         setItemsListStyles(itemsStyles);
@@ -181,7 +199,6 @@ const Dropdown = ({
             return;
         }
 
-        const scrollContainer = document.querySelector('.ibexa-main-container__content-column');
         const onInteractionOutside = (event) => {
             if (containerRef.current.contains(event.target) || containerItemsRef.current?.contains(event.target)) {
                 return;
@@ -191,11 +208,14 @@ const Dropdown = ({
         };
 
         document.body.addEventListener('click', onInteractionOutside, false);
-        scrollContainer?.addEventListener('scroll', calculateAndSetItemsListStyles, false);
+
+        const scrollContainer = getScrollContainer();
+
+        scrollContainer.addEventListener('scroll', calculateAndSetItemsListStyles, false);
 
         return () => {
             document.body.removeEventListener('click', onInteractionOutside);
-            scrollContainer?.removeEventListener('scroll', calculateAndSetItemsListStyles);
+            scrollContainer.removeEventListener('scroll', calculateAndSetItemsListStyles);
 
             setItemsListStyles({});
         };
@@ -280,6 +300,8 @@ Dropdown.propTypes = {
     extraClasses: PropTypes.string,
     renderSelectedItem: PropTypes.func,
     minSearchItems: PropTypes.number,
+    scrollContainerNode: PropTypes.node,
+    shouldCloseOutsideContainer: PropTypes.bool,
 };
 
 Dropdown.defaultProps = {
@@ -290,6 +312,8 @@ Dropdown.defaultProps = {
     extraClasses: '',
     renderSelectedItem: (item) => item?.label,
     minSearchItems: MIN_SEARCH_ITEMS_DEFAULT,
+    scrollContainerNode: null,
+    shouldCloseOutsideContainer: false,
 };
 
 export default Dropdown;

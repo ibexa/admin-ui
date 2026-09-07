@@ -1,3 +1,7 @@
 .c-filters-panel {
     @include c-filters-panel('.c-filters-row');
+
+    .ibexa-btn {
+        margin-left: calculateRem(4px);
+    }
 }

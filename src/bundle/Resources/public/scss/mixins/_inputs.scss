@@ -1,5 +1,5 @@
 @mixin input-active {
-    border-color: var(--ibexa-input-focus-border-color, $ibexa-color-primary);
+    border-color: var(--ibexa-input-focus-border-color, #{$ibexa-color-primary});
     box-shadow: 0 0 0 calculateRem(4px) var(--ibexa-input-focus-shadow-color, #{rgba($ibexa-color-primary, 0.25)});
 }
 

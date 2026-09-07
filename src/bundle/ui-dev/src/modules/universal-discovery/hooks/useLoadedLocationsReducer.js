@@ -24,9 +24,11 @@ const updateLocationsMap = (state, action) => {
         return data.subitems.find((item) => item.location.id === action.data.parentLocationId);
     });
 
-    if (childrenIndex !== -1) {
-        updatedState = updatedState.slice(0, childrenIndex + 1);
+    if (childrenIndex === -1) {
+        return state;
     }
+
+    updatedState = updatedState.slice(0, childrenIndex + 1);
 
     updatedState.push(action.data);
 

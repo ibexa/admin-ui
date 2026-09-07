@@ -11,7 +11,9 @@
     {% endif %}
 {% endset %}
 
-{% if tabs|length > 1 %}
+{% set always_show_tabs = always_show_tabs|default(false) %}
+
+{% if tabs|length > 1 or always_show_tabs %}
     {% embed '@ibexadesign/ui/component/tab/tabs_header.html.twig' with {
         tabs,
         active_tab,

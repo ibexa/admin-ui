@@ -1,5 +1,5 @@
 import { getAdminUiConfig, getFlatpickr } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
-import { convertDateToTimezone, formatShortDateTime } from '../helpers/timezone.helper';
+import { convertDateToTimezone, formatShortDateTime, is24hrFormat } from '../helpers/timezone.helper';
 import { setInstance } from '../helpers/object.instances';
 
 const { ibexa } = window;
@@ -8,7 +8,6 @@ const SECTION_ADJUSTMENT = 24;
 const PICKER_ADJUSTMENT = 2;
 const DEFAULT_CONFIG = {
     enableTime: true,
-    time_24hr: true,
     formatDate: (date) => formatShortDateTime(date, null),
     onOpen: (selectedDates, dateStr, instance) => {
         instance.scrollHandler = () => {
@@ -55,12 +54,15 @@ class DateTimePicker {
         this.onInput = this.onInput.bind(this);
         this.clear = this.clear.bind(this);
 
+        const time24hr = config.is24HrFormat?.() ?? is24hrFormat();
+
         this.flatpickrConfig = {
             ...DEFAULT_CONFIG,
             inline: this.fieldWrapper.classList.contains('ibexa-date-time-picker--inline-datetime-popup'),
             onChange: this.onChange,
             ignoredFocusElements: [this.actionsWrapper],
             ...(config.flatpickrConfig ?? {}),
+            time_24hr: config.flatpickrConfig?.time_24hr ?? time24hr,
         };
 
         setInstance(this.container, this); // TODO: remove in 5.0

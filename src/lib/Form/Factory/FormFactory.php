@@ -1068,7 +1068,7 @@ class FormFactory
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData|null>
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData>
      */
     public function deleteNotification(
         ?NotificationSelectionData $data = null,
@@ -1086,7 +1086,7 @@ class FormFactory
         return $this->formFactory->createNamed(
             $name,
             NotificationSelectionType::class,
-            $data
+            $data ?? new NotificationSelectionData(),
         );
     }
 
