@@ -75,16 +75,18 @@ const FinderLeaf = ({ location }) => {
     return (
         <div className={className} onClick={markLocation}>
             {renderToggleSelection()}
-            <span className="c-finder-leaf__name">
+            <span
+                className="c-finder-leaf__name"
+                title={location.ContentInfo.Content.TranslatedName}
+                data-tooltip-container-selector=".c-udw-tab"
+            >
                 <span className="c-finder-leaf__icon-wrapper">
                     <Icon
                         extraClasses="ibexa-icon--small ibexa-icon--base-dark"
                         customPath={contentTypesMap[location.ContentInfo.Content.ContentType._href].thumbnail}
                     />
                 </span>
-                <span title={location.ContentInfo.Content.TranslatedName} data-tooltip-container-selector=".c-udw-tab">
-                    {location.ContentInfo.Content.TranslatedName}
-                </span>
+                <span className="c-finder-leaf__name-content">{location.ContentInfo.Content.TranslatedName}</span>
                 {location.hidden && <Icon name="view-hide" extraClasses="ibexa-icon--small c-finder-leaf__hidden-icon" />}
             </span>
         </div>
