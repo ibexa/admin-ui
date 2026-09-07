@@ -9,6 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Ibexa\AdminUi\Behat\Component\Breadcrumb;
 use Ibexa\AdminUi\Behat\Component\LeftMenu;
 use Ibexa\AdminUi\Behat\Component\UpperMenu;
@@ -30,10 +33,8 @@ final readonly class NavigationContext implements Context
     ) {
     }
 
-    /**
-     * @Given I open :pageName page in admin SiteAccess
-     * @Given I open the :pageName page in admin SiteAccess
-     */
+    #[Given('I open :pageName page in admin SiteAccess')]
+    #[Given('I open the :pageName page in admin SiteAccess')]
     public function openPage(string $pageName): void
     {
         $page = $this->pageRegistry->get($pageName);
@@ -41,74 +42,56 @@ final readonly class NavigationContext implements Context
         $page->verifyIsLoaded();
     }
 
-    /**
-     * @Given I try to open :pageName page in admin SiteAccess
-     */
+    #[Given('I try to open :pageName page in admin SiteAccess')]
     public function tryToOpenPage(string $pageName): void
     {
         $this->pageRegistry->get($pageName)->tryToOpen('admin');
     }
 
-    /**
-     * @Given I go to user settings
-     */
+    #[Given('I go to user settings')]
     public function iGoToUserSettings(): void
     {
         $this->upperMenu->chooseFromUserDropdown('User settings');
     }
 
-    /**
-     * @Given I go to user profile
-     */
+    #[Given('I go to user profile')]
     public function iGoToUserProfile(): void
     {
         $this->upperMenu->chooseFromUserDropdown('View Profile');
     }
 
-    /**
-     * @Then /^I should be on "?([^\"]*)"? page$/
-     */
+    #[Then('/^I should be on "?([^\"]*)"? page$/')]
     public function iAmOnPage(string $pageName): void
     {
         $this->pageRegistry->get($pageName)->verifyIsLoaded();
     }
 
-    /**
-     * @Then I go to :tab tab
-     */
+    #[Then('I go to :tab tab')]
     public function iGoToTab(string $tabName): void
     {
         $this->leftMenu->goToTab($tabName);
     }
 
-    /**
-     * @Then I go to :subTab in :tab tab
-     */
+    #[Then('I go to :subTab in :tab tab')]
     public function iGoToSubTab(string $tab, string $subTab): void
     {
         $this->leftMenu->goToSubTab($tab, $subTab);
     }
 
-    /**
-     * @Then I change subtab to :subTab
-     */
+    #[Then('I change subtab to :subTab')]
     public function iChangeSubTab(string $subTab): void
     {
         $this->leftMenu->changeSubTab($subTab);
     }
 
-    /**
-     * @When I click on :element on breadcrumb
-     */
+    #[When('I click on :element on breadcrumb')]
     public function iClickOnBreadcrumbLink(string $element): void
     {
         $this->breadcrumb->verifyIsLoaded();
         $this->breadcrumb->clickBreadcrumbItem($element);
     }
 
-    /**
-     * @Given I navigate to content :contentName of type :contentType in :path
-     */
+    #[Given('I navigate to content :contentName of type :contentType in :path')]
     public function iNavigateToContent(string $contentName, string $contentType, ?string $path = null): void
     {
         $expectedContentPath = sprintf('%s/%s', $path, $contentName);
@@ -123,26 +106,20 @@ final readonly class NavigationContext implements Context
         $this->contentViewPage->navigateToPath($expectedContentPath);
     }
 
-    /**
-     * @Given I go to user notifications
-     */
+    #[Given('I go to user notifications')]
     public function iGoToUserNotifications(): void
     {
         $this->upperMenu->openNotifications();
     }
 
-    /**
-     * @Given I log out of back office
-     */
+    #[Given('I log out of back office')]
     public function iLogOutOfBackOffice(): void
     {
         $this->upperMenu->chooseFromUserDropdown('Logout');
     }
 
-    /**
-     * @Given I'm on Content view Page for :path
-     * @Given there exists Content view Page for :path
-     */
+    #[Given('I\'m on Content view Page for :path')]
+    #[Given('there exists Content view Page for :path')]
     public function iMOnContentViewPageFor(string $path): void
     {
         $path = $this->argumentParser->parseUrl($path);
@@ -151,9 +128,7 @@ final readonly class NavigationContext implements Context
         $this->contentViewPage->verifyIsLoaded();
     }
 
-    /**
-     * @Given I should be on Content view Page for :path
-     */
+    #[Given('I should be on Content view Page for :path')]
     public function iShouldBeOnContentViewPage(string $path): void
     {
         $path = $this->argumentParser->parseUrl($path);
@@ -161,9 +136,7 @@ final readonly class NavigationContext implements Context
         $this->contentViewPage->verifyIsLoaded();
     }
 
-    /**
-     * @Given I should be on Content update page for :contentItemName
-     */
+    #[Given('I should be on Content update page for :contentItemName')]
     public function iShouldBeOnContentUpdatePageForItem(string $contentItemName = ''): void
     {
         $this->contentUpdateItemPage->setExpectedPageTitle($contentItemName);

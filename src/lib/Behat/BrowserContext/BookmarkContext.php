@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
 use Ibexa\AdminUi\Behat\Page\BookmarksPage;
 use Ibexa\AdminUi\Behat\Page\ContentViewPage;
 use Webmozart\Assert\Assert;
@@ -21,9 +22,7 @@ final readonly class BookmarkContext implements Context
     ) {
     }
 
-    /**
-     * @Given I bookmark the Content Item :path
-     */
+    #[Given('I bookmark the Content Item :path')]
     public function bookmarkContentItem(string $path): void
     {
         $this->contentViewPage->setExpectedLocationPath($path);
@@ -31,49 +30,37 @@ final readonly class BookmarkContext implements Context
         $this->contentViewPage->bookmarkContentItem();
     }
 
-    /**
-     * @Given it is marked as bookmarked
-     */
+    #[Given('it is marked as bookmarked')]
     public function contentItemIsBookmarked(): void
     {
         Assert::true($this->contentViewPage->isBookmarked());
     }
 
-    /**
-     * @Given there's a :contentName Content Item on Bookmarks list
-     */
+    #[Given('there\'s a :contentName Content Item on Bookmarks list')]
     public function contentItemIsDisplayed(string $contentName): void
     {
         Assert::true($this->bookmarksPage->isBookmarked($contentName));
     }
 
-    /**
-     * @Given there's no :contentName Content Item on Bookmarks list
-     */
+    #[Given('there\'s no :contentName Content Item on Bookmarks list')]
     public function contentItemIsNotDisplayed(string $contentName): void
     {
         Assert::false($this->bookmarksPage->isBookmarked($contentName));
     }
 
-    /**
-     * @Given I go to :contentName Content Item from Bookmarks
-     */
+    #[Given('I go to :contentName Content Item from Bookmarks')]
     public function goToContentItem(string $contentName): void
     {
         $this->bookmarksPage->goToItem($contentName);
     }
 
-    /**
-     * @Given I start editing :contentName Content Item from Bookmarks
-     */
+    #[Given('I start editing :contentName Content Item from Bookmarks')]
     public function startEditingContentItem(string $contentName): void
     {
         $this->bookmarksPage->edit($contentName);
     }
 
-    /**
-     * @Given I delete the bookmark for :contentName Content Item
-     */
+    #[Given('I delete the bookmark for :contentName Content Item')]
     public function deleteFromBookmarks(string $contentName): void
     {
         $this->bookmarksPage->delete($contentName);

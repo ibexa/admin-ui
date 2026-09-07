@@ -10,6 +10,9 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Step\Given;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Ibexa\AdminUi\Behat\Page\SectionPage;
 use Ibexa\AdminUi\Behat\Page\SectionsPage;
 use Webmozart\Assert\Assert;
@@ -22,25 +25,19 @@ final readonly class SectionsContext implements Context
     ) {
     }
 
-    /**
-     * @When I create a new Section
-     */
+    #[When('I create a new Section')]
     public function createNewSection(): void
     {
         $this->sectionsPage->createNew();
     }
 
-    /**
-     * @When  I delete the section
-     */
+    #[When('I delete the section')]
     public function deleteSection(): void
     {
         $this->sectionPage->delete();
     }
 
-    /**
-     * @Then content items list in section :sectionName contains items
-     */
+    #[Then('content items list in section :sectionName contains items')]
     public function sectionContainsProperContentItems(string $sectionName, TableNode $contentItems): void
     {
         $this->sectionPage->setExpectedSectionName($sectionName);
@@ -57,91 +54,69 @@ final readonly class SectionsContext implements Context
         }
     }
 
-    /**
-     * @Given there's no :sectionName on Sections list
-     */
+    #[Given('there\'s no :sectionName on Sections list')]
     public function thereSNoSectionOnSectionList(string $sectionName): void
     {
         Assert::false($this->sectionsPage->isSectionOnTheList($sectionName));
     }
 
-    /**
-     * @Given I start assigning to :sectionName from Sections page
-     */
+    #[Given('I start assigning to :sectionName from Sections page')]
     public function iAssignContentItems(string $sectionName): void
     {
         $this->sectionsPage->assignContentItems($sectionName);
     }
 
-    /**
-     * @Given I start assigning to :sectionName Section
-     */
+    #[Given('I start assigning to :sectionName Section')]
     public function assignContentItems(): void
     {
         $this->sectionPage->assignContentItems();
     }
 
-    /**
-     * @Given I delete Section :sectionName
-     */
+    #[Given('I delete Section :sectionName')]
     public function deleteSectionNamed(string $sectionName): void
     {
         $this->sectionsPage->deleteSection($sectionName);
     }
 
-    /**
-     * @Given there's a :sectionName on Sections list
-     */
+    #[Given('there\'s a :sectionName on Sections list')]
     public function thereASectionOnSectionList(string $sectionName): void
     {
         Assert::true($this->sectionsPage->isSectionOnTheList($sectionName));
     }
 
-    /**
-     * @Given the :sectionName on Sections list has no assigned Content Items
-     */
+    #[Given('the :sectionName on Sections list has no assigned Content Items')]
     public function sectionOnSectionListHasNoAssignedContentItems(string $sectionName): void
     {
         Assert::eq($this->sectionsPage->getAssignedContentItemsCount($sectionName), 0);
     }
 
-    /**
-     * @Given the :sectionName has no assigned Content Items
-     */
+    #[Given('the :sectionName has no assigned Content Items')]
     public function sectionHasNoAssignedContentItems(string $sectionName): void
     {
         $this->sectionPage->setExpectedSectionName($sectionName);
         Assert::eq($this->sectionPage->hasAssignedItems(), 0);
     }
 
-    /**
-     * @Then I should be on :sectionName Section page
-     */
+    #[Then('I should be on :sectionName Section page')]
     public function iShouldBeOnSectionPage(string $sectionName): void
     {
         $this->sectionPage->setExpectedSectionName($sectionName);
         $this->sectionPage->verifyIsLoaded();
     }
 
-    /**
-     * @Then Content items list in is empty for Section
-     */
+    #[Then('Content items list in is empty for Section')]
     public function contentListIsEmpty(): void
     {
         Assert::true($this->sectionPage->isContentListEmpty());
     }
 
-    /**
-     * @Then I start editing :sectionName from Sections list
-     */
+    #[Then('I start editing :sectionName from Sections list')]
     public function editSectionFromSectionsList(string $sectionName): void
     {
         $this->sectionsPage->editSection($sectionName);
     }
 
-    /**
-     * @Then Section has proper attributes
-     */
+    #[Then('Section has proper attributes')]
     public function sectionHasProperAttributes(TableNode $sectionData): void
     {
         $expectedSectionName = $sectionData->getHash()[0]['Name'];
@@ -152,9 +127,7 @@ final readonly class SectionsContext implements Context
         );
     }
 
-    /**
-     * @Then I open :sectionName Section page in admin SiteAccess
-     */
+    #[Then('I open :sectionName Section page in admin SiteAccess')]
     public function openSectionPage(string $sectionName): void
     {
         $this->sectionPage->setExpectedSectionName($sectionName);
@@ -162,25 +135,19 @@ final readonly class SectionsContext implements Context
         $this->sectionPage->verifyIsLoaded();
     }
 
-    /**
-     * @Then I start editing the Section
-     */
+    #[Then('I start editing the Section')]
     public function editSection(): void
     {
         $this->sectionPage->edit();
     }
 
-    /**
-     * @Then the :sectionName on Sections list has assigned Content Items
-     */
+    #[Then('the :sectionName on Sections list has assigned Content Items')]
     public function sectionHasAssignedContentItems(string $sectionName): void
     {
         Assert::greaterThan($this->sectionsPage->getAssignedContentItemsCount($sectionName), 0);
     }
 
-    /**
-     * @Then Section :sectionName cannot be selected
-     */
+    #[Then('Section :sectionName cannot be selected')]
     public function sectionCannotBeSelected(string $sectionName): void
     {
         Assert::false($this->sectionsPage->canBeSelected($sectionName));

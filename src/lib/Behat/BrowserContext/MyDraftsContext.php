@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
 use Ibexa\AdminUi\Behat\Page\MyDraftsPage;
 use Webmozart\Assert\Assert;
 
@@ -19,25 +20,19 @@ final readonly class MyDraftsContext implements Context
     ) {
     }
 
-    /**
-     * @Given I delete the draft :draftName from my draft lists
-     */
+    #[Given('I delete the draft :draftName from my draft lists')]
     public function iDeleteADraftFromTheList(string $draftName): void
     {
         $this->myDraftsPage->deleteDraft($draftName);
     }
 
-    /**
-     * @Given I see the draft :draftName is deleted
-     */
+    #[Given('I see the draft :draftName is deleted')]
     public function iSeeTheDraftIsDeleted(string $draftName): void
     {
         Assert::false($this->myDraftsPage->isDraftOnTheList($draftName));
     }
 
-    /**
-     * @Given I edit :draftName on MyDrafts page
-     */
+    #[Given('I edit :draftName on MyDrafts page')]
     public function iEditDraft(string $draftName): void
     {
         $this->myDraftsPage->edit($draftName);

@@ -10,6 +10,9 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Step\Given;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Ibexa\AdminUi\Behat\Component\DraftConflictDialog;
 use Ibexa\AdminUi\Behat\Page\ContentViewPage;
 use Ibexa\Behat\Core\Behat\ArgumentParser;
@@ -24,104 +27,80 @@ final readonly class ContentViewContext implements Context
     ) {
     }
 
-    /**
-     * @Given I start creating a new Content :contentType
-     * @Given I start creating a new Content :contentType in :language language
-     */
+    #[Given('I start creating a new Content :contentType')]
+    #[Given('I start creating a new Content :contentType in :language language')]
     public function startCreatingContent(string $contentType, ?string $language = null): void
     {
         $this->contentViewPage->startCreatingContent($contentType, $language);
     }
 
-    /**
-     * @Given I am using the DXP with Focus mode disabled
-     */
+    #[Given('I am using the DXP with Focus mode disabled')]
     public function disableFocusMode(): void
     {
         $this->contentViewPage->setFocusMode(false);
     }
 
-    /**
-     * @Given I am using the DXP in Focus mode
-     */
+    #[Given('I am using the DXP in Focus mode')]
     public function enableFocusMode(): void
     {
         $this->contentViewPage->setFocusMode(true);
     }
 
-    /**
-     * @Given I switch to :tab tab in Content structure
-     */
+    #[Given('I switch to :tab tab in Content structure')]
     public function switchTab(string $tabName): void
     {
         $this->contentViewPage->switchToTab($tabName);
     }
 
-    /**
-     * @Given I add a new Location under :newLocationPath
-     */
+    #[Given('I add a new Location under :newLocationPath')]
     public function iAddNewLocation(string $newLocationPath): void
     {
         $newLocationPath = $this->argumentParser->replaceRootKeyword($newLocationPath);
         $this->contentViewPage->addLocation($newLocationPath);
     }
 
-    /**
-     * @Given I add new translation :language without base translation
-     * @Given I add new translation :language basing on :base translation
-     */
+    #[Given('I add new translation :language without base translation')]
+    #[Given('I add new translation :language basing on :base translation')]
     public function iAddNewTranslation(string $language, string $base = 'none'): void
     {
         $this->contentViewPage->addTranslation($language, $base);
     }
 
-    /**
-     * @Given I choose :language preview in Content View
-     */
+    #[Given('I choose :language preview in Content View')]
     public function iChoosePreview(string $language): void
     {
         $this->contentViewPage->choosePreview($language);
     }
 
-    /**
-     * @Given I start creating a new User
-     * @Given I start creating a new User using :contentTypeName content type
-     */
+    #[Given('I start creating a new User')]
+    #[Given('I start creating a new User using :contentTypeName content type')]
     public function startCreatingUser(string $contentTypeName = 'User'): void
     {
         $this->contentViewPage->startCreatingUser($contentTypeName);
     }
 
-    /**
-     * @Given I start editing the current content
-     * @Given I start editing the current content in :language language
-     */
+    #[Given('I start editing the current content')]
+    #[Given('I start editing the current content in :language language')]
     public function startEditingContent(?string $language = null): void
     {
         $this->contentViewPage->editContent($language);
     }
 
-    /**
-     * @Then there's a :itemName :itemType on Subitems list
-     */
+    #[Then('there\'s a :itemName :itemType on Subitems list')]
     public function verifyThereIsItemInSubItemList(string $itemName, string $itemType): void
     {
         $this->contentViewPage->verifyIsLoaded();
         Assert::true($this->contentViewPage->isChildElementPresent(['Name' => $itemName, 'Content type' => $itemType]));
     }
 
-    /**
-     * @Then there's no :itemName :itemType on Subitems list
-     */
+    #[Then('there\'s no :itemName :itemType on Subitems list')]
     public function verifyThereIsNoItemInSubItemListInRoot(string $itemName, string $itemType): void
     {
         $this->contentViewPage->verifyIsLoaded();
         Assert::false($this->contentViewPage->isChildElementPresent(['Name' => $itemName, 'Content type' => $itemType]));
     }
 
-    /**
-     * @Then content attributes equal
-     */
+    #[Then('content attributes equal')]
     public function contentAttributesEqual(TableNode $parameters): void
     {
         foreach ($parameters->getHash() as $fieldData) {
@@ -132,53 +111,41 @@ final readonly class ContentViewContext implements Context
         }
     }
 
-    /**
-     * @When I start creating new draft from draft conflict modal
-     */
+    #[When('I start creating new draft from draft conflict modal')]
     public function startCreatingNewDraftFromDraftConflictModal(): void
     {
         $this->draftConflictDialog->verifyIsLoaded();
         $this->draftConflictDialog->createNewDraft();
     }
 
-    /**
-     * @When I start editing draft with version number :versionNumber from draft conflict modal
-     */
+    #[When('I start editing draft with version number :versionNumber from draft conflict modal')]
     public function startEditingDraftFromDraftConflictModal(string $versionNumber): void
     {
         $this->draftConflictDialog->verifyIsLoaded();
         $this->draftConflictDialog->edit($versionNumber);
     }
 
-    /**
-     * @When I send content to trash
-     */
+    #[When('I send content to trash')]
     public function iSendContentToTrash(): void
     {
         $this->contentViewPage->sendToTrash();
     }
 
-    /**
-     * @Then I should see the alert :alertMessage appear
-     */
+    #[Then('I should see the alert :alertMessage appear')]
     public function iShouldSeeAlertAppears(string $alertMessage): void
     {
         $this->contentViewPage->verifyIsLoaded();
         $this->contentViewPage->verifyMessage($alertMessage);
     }
 
-    /**
-     * @When I create a new Url Alias called :path in :languageName language with redirect value set to :redirect
-     */
+    #[When('I create a new Url Alias called :path in :languageName language with redirect value set to :redirect')]
     public function iCreateNewUrlAlias(string $path, string $languageName, string $redirect_string): void
     {
         $redirect = filter_var($redirect_string, FILTER_VALIDATE_BOOLEAN);
         $this->contentViewPage->createNewUrlAlias($path, $languageName, $redirect);
     }
 
-    /**
-     * @Then there should be a :path Url Alias on the list with :type type
-     */
+    #[Then('there should be a :path Url Alias on the list with :type type')]
     public function verifyUrlAliasExists(string $path, string $type): void
     {
         Assert::true(
@@ -187,43 +154,33 @@ final readonly class ContentViewContext implements Context
         );
     }
 
-    /**
-     * @Given I select hide :hideOption for field options
-     */
+    #[Given('I select hide :hideOption for field options')]
     public function iSelectForFieldOptions(string $hideOption): void
     {
         $this->contentViewPage->verifyIsLoaded();
         $this->contentViewPage->selectHideOption($hideOption);
     }
 
-    /**
-     * @Then I should see the alert contains :alertMessage appear
-     */
+    #[Then('I should see the alert contains :alertMessage appear')]
     public function iShouldSeeTheAlertContainsAppear(string $alertMessage): void
     {
         $this->contentViewPage->verifyIsLoaded();
         $this->contentViewPage->verifyMessageContains($alertMessage);
     }
 
-    /**
-     * @When I run the scheduled jobs
-     */
+    #[When('I run the scheduled jobs')]
     public function iRunTheScheduledJobs(): void
     {
         $this->contentViewPage->runScheduledJobs();
     }
 
-    /**
-     * @When I clear the behat cache directory
-     */
+    #[When('I clear the behat cache directory')]
     public function iClearTheBehatCacheDirectory(): void
     {
         $this->contentViewPage->clearBehatCacheDirectory();
     }
 
-    /**
-     * @When I cancel scheduled hiding of the content item
-     */
+    #[When('I cancel scheduled hiding of the content item')]
     public function iCancelScheduledHidingOfTheContentItem(): void
     {
         $this->contentViewPage->cancelScheduledHiding();

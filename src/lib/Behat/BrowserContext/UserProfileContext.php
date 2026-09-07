@@ -10,6 +10,8 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Step\Given;
+use Behat\Step\Then;
 use Ibexa\AdminUi\Behat\Page\UserProfilePage;
 
 final readonly class UserProfileContext implements Context
@@ -18,17 +20,13 @@ final readonly class UserProfileContext implements Context
     {
     }
 
-    /**
-     * @Given I edit user profile summary
-     */
+    #[Given('I edit user profile summary')]
     public function editUserProfileSummary(): void
     {
         $this->userProfilePage->editSummary();
     }
 
-    /**
-     * @Then I should see a user profile summary with values
-     */
+    #[Then('I should see a user profile summary with values')]
     public function iVerifyUserProfileSummary(TableNode $table): void
     {
         $this->userProfilePage->verifyIsLoaded();
