@@ -61,10 +61,12 @@
         "willdurand/js-translation-bundle": "^6.1"
     },
     "require-dev": {
-        "ext-zip": "*",
+        "behat/behat": "^4.0@alpha",
         "dama/doctrine-test-bundle": "^8.2",
-        "ibexa/admin-ui-assets": "dev-6.0-next",
         "deptrac/deptrac": "^4.7",
+        "ext-zip": "*",
+        "friends-of-behat/mink-extension": "^3.0@alpha",
+        "ibexa/admin-ui-assets": "dev-6.0-next",
         "ibexa/behat": "~6.0.x-dev",
         "ibexa/code-style": "~2.0.0",
         "ibexa/doctrine-schema": "~6.0.x-dev",
