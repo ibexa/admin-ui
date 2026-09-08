@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Service\MetaFieldType;
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\FieldTypeService;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
@@ -78,7 +79,12 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
 
         foreach ($metaFieldTypes as $metaFieldTypeIdentifier => $metaFieldTypeSettings) {
             $fieldGroup = $this->getDefaultMetaDataFieldTypeGroup() ?? $this->fieldsGroupsList->getDefaultGroup();
-            $isSingular = $this->fieldTypeService->getFieldType($metaFieldTypeIdentifier)->isSingular();
+            try {
+                $isSingular = $this->fieldTypeService->getFieldType($metaFieldTypeIdentifier)->isSingular();
+            } catch (NotFoundException $e) {
+                continue;
+            }
+
             $fieldTypeGroup = $isSingular === true ? null : $fieldGroup;
 
             if ($this->metaFieldDefinitionExists($metaFieldTypeIdentifier, $fieldTypeGroup, $contentType)) {
