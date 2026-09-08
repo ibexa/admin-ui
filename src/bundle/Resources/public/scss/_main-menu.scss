@@ -277,6 +277,14 @@
                 background-color: $ibexa-color-dark-500;
             }
 
+            &:has(.ids-btn:focus-visible) {
+                box-shadow: inset 0 0 0 calculateRem(2px) $color-neutral-80;
+            }
+
+            .ids-btn:focus-visible {
+                box-shadow: none;
+            }
+
             &:hover {
                 .ids-btn {
                     color: $ibexa-color-complementary-primary-400;
