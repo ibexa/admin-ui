@@ -349,20 +349,11 @@
             --ids-focus-text-color: #{$ibexa-color-dark-300};
 
             padding: 0 calculateRem(7px);
-            font-weight: $ibexa-font-weight-normal;
-
-            .ids-btn__icon + .ids-btn__label {
-                padding-left: calculateRem(8px);
-            }
         }
 
         &--collapsed {
             .ids-icon {
                 transform: rotate(180deg);
-            }
-
-            .ids-btn__label {
-                display: none;
             }
         }
     }
