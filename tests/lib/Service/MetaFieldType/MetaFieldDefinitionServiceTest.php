@@ -17,6 +17,7 @@ use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Ibexa\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
@@ -31,6 +32,8 @@ final class MetaFieldDefinitionServiceTest extends TestCase
 
     private const NON_SINGULAR_FIELD_TYPE_IDENTIFIER = 'eztext';
 
+    private const MISSING_FIELD_TYPE_IDENTIFIER = 'ibexa_missing';
+
     private const DEFAULT_FIELD_GROUP = 'content';
 
     private const OTHER_FIELD_GROUP = 'other-group';
@@ -41,16 +44,16 @@ final class MetaFieldDefinitionServiceTest extends TestCase
     /** @var \Ibexa\Contracts\Core\Repository\FieldTypeService&\PHPUnit\Framework\MockObject\MockObject */
     private FieldTypeService $fieldTypeService;
 
-    /** @var \Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface&\PHPUnit\Framework\MockObject\Stub */
     private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList&\PHPUnit\Framework\MockObject\Stub */
     private FieldsGroupsList $fieldsGroupsList;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService&\PHPUnit\Framework\MockObject\Stub */
     private LanguageService $languageService;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface&\PHPUnit\Framework\MockObject\Stub */
     private ConfigResolverInterface $configResolver;
 
     private MetaFieldDefinitionService $metaFieldDefinitionService;
@@ -59,10 +62,10 @@ final class MetaFieldDefinitionServiceTest extends TestCase
     {
         $this->contentTypeService = $this->createMock(ContentTypeService::class);
         $this->fieldTypeService = $this->createMock(FieldTypeService::class);
-        $this->contentTypeFieldTypesResolver = $this->createMock(ContentTypeFieldTypesResolverInterface::class);
-        $this->fieldsGroupsList = $this->createMock(FieldsGroupsList::class);
-        $this->languageService = $this->createMock(LanguageService::class);
-        $this->configResolver = $this->createMock(ConfigResolverInterface::class);
+        $this->contentTypeFieldTypesResolver = $this->createStub(ContentTypeFieldTypesResolverInterface::class);
+        $this->fieldsGroupsList = $this->createStub(FieldsGroupsList::class);
+        $this->languageService = $this->createStub(LanguageService::class);
+        $this->configResolver = $this->createStub(ConfigResolverInterface::class);
 
         $this->configResolver
             ->method('hasParameter')
@@ -88,10 +91,10 @@ final class MetaFieldDefinitionServiceTest extends TestCase
                 ])
             );
 
-        $localeConverter = $this->createMock(LocaleConverterInterface::class);
+        $localeConverter = $this->createStub(LocaleConverterInterface::class);
         $localeConverter->method('convertToPOSIX')->willReturn('en_GB');
 
-        $translator = $this->createMock(TranslatorInterface::class);
+        $translator = $this->createStub(TranslatorInterface::class);
         $translator->method('trans')->willReturn('Label');
 
         $this->metaFieldDefinitionService = new MetaFieldDefinitionService(
@@ -106,42 +109,54 @@ final class MetaFieldDefinitionServiceTest extends TestCase
         );
     }
 
-    public function testMetaFieldDefinitionExistsForSingularFieldIgnoresFieldGroup(): void
-    {
+    /**
+     * @dataProvider provideFieldGroupsForExistenceCheck
+     */
+    public function testMetaFieldDefinitionExists(
+        string $fieldTypeIdentifier,
+        string $existingFieldGroup,
+        ?string $queryFieldGroup,
+        bool $expectedResult
+    ): void {
         $contentType = $this->createContentTypeDraft([
-            $this->createFieldDefinition(self::SINGULAR_FIELD_TYPE_IDENTIFIER, self::OTHER_FIELD_GROUP),
+            $this->createFieldDefinition($fieldTypeIdentifier, $existingFieldGroup),
         ]);
 
-        self::assertTrue(
+        self::assertSame(
+            $expectedResult,
             $this->metaFieldDefinitionService->metaFieldDefinitionExists(
-                self::SINGULAR_FIELD_TYPE_IDENTIFIER,
-                null,
+                $fieldTypeIdentifier,
+                $queryFieldGroup,
                 $contentType
             )
         );
     }
 
-    public function testMetaFieldDefinitionExistsForNonSingularFieldRequiresMatchingFieldGroup(): void
+    /**
+     * @return iterable<string, array{string, string, ?string, bool}>
+     */
+    public static function provideFieldGroupsForExistenceCheck(): iterable
     {
-        $contentType = $this->createContentTypeDraft([
-            $this->createFieldDefinition(self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER, self::OTHER_FIELD_GROUP),
-        ]);
+        yield 'singular field ignores field group' => [
+            self::SINGULAR_FIELD_TYPE_IDENTIFIER,
+            self::OTHER_FIELD_GROUP,
+            null,
+            true,
+        ];
 
-        self::assertFalse(
-            $this->metaFieldDefinitionService->metaFieldDefinitionExists(
-                self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER,
-                self::DEFAULT_FIELD_GROUP,
-                $contentType
-            )
-        );
+        yield 'non-singular field in different group is not found' => [
+            self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER,
+            self::OTHER_FIELD_GROUP,
+            self::DEFAULT_FIELD_GROUP,
+            false,
+        ];
 
-        self::assertTrue(
-            $this->metaFieldDefinitionService->metaFieldDefinitionExists(
-                self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER,
-                self::OTHER_FIELD_GROUP,
-                $contentType
-            )
-        );
+        yield 'non-singular field in matching group is found' => [
+            self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER,
+            self::OTHER_FIELD_GROUP,
+            self::OTHER_FIELD_GROUP,
+            true,
+        ];
     }
 
     public function testAddMetaFieldDefinitionsDoesNotDuplicateSingularFieldAlreadyPresentInDifferentGroup(): void
@@ -157,6 +172,7 @@ final class MetaFieldDefinitionServiceTest extends TestCase
             ]);
 
         $this->fieldTypeService
+            ->expects(self::once())
             ->method('getFieldType')
             ->with(self::SINGULAR_FIELD_TYPE_IDENTIFIER)
             ->willReturn($this->createFieldType(true));
@@ -168,50 +184,100 @@ final class MetaFieldDefinitionServiceTest extends TestCase
         $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentType);
     }
 
-    public function testAddMetaFieldDefinitionsAddsNonSingularFieldEvenIfPresentInDifferentGroup(): void
-    {
-        $contentType = $this->createContentTypeDraft([
-            $this->createFieldDefinition(self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER, self::OTHER_FIELD_GROUP),
-        ]);
-
-        $this->contentTypeFieldTypesResolver
-            ->method('getMetaFieldTypes')
-            ->willReturn([
-                self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER => ['meta' => true, 'position' => 1],
-            ]);
-
-        $this->fieldTypeService
-            ->method('getFieldType')
-            ->with(self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER)
-            ->willReturn($this->createFieldType(false));
-
-        $this->contentTypeService
-            ->expects(self::once())
-            ->method('addFieldDefinition');
-
-        $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentType);
-    }
-
-    public function testAddMetaFieldDefinitionsAddsSingularFieldWhenNotYetPresent(): void
+    public function testAddMetaFieldDefinitionsSkipsMetaFieldTypeWhenFieldTypeIsNotFound(): void
     {
         $contentType = $this->createContentTypeDraft([]);
 
         $this->contentTypeFieldTypesResolver
             ->method('getMetaFieldTypes')
             ->willReturn([
-                self::SINGULAR_FIELD_TYPE_IDENTIFIER => ['meta' => true, 'position' => 1],
+                self::MISSING_FIELD_TYPE_IDENTIFIER => ['meta' => true, 'position' => 1],
+                self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER => ['meta' => true, 'position' => 2],
             ]);
 
         $this->fieldTypeService
+            ->expects(self::exactly(2))
             ->method('getFieldType')
-            ->with(self::SINGULAR_FIELD_TYPE_IDENTIFIER)
-            ->willReturn($this->createFieldType(true));
+            ->with(self::logicalOr(self::MISSING_FIELD_TYPE_IDENTIFIER, self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER))
+            ->willReturnCallback(
+                function (string $fieldTypeIdentifier): FieldType {
+                    if ($fieldTypeIdentifier === self::MISSING_FIELD_TYPE_IDENTIFIER) {
+                        throw new NotFoundException('FieldType', $fieldTypeIdentifier);
+                    }
+
+                    return $this->createFieldType(false);
+                }
+            );
 
         $this->contentTypeService
             ->expects(self::once())
-            ->method('addFieldDefinition');
+            ->method('addFieldDefinition')
+            ->with(
+                $contentType,
+                self::callback(
+                    static fn (FieldDefinitionCreateStruct $struct): bool => $struct->fieldTypeIdentifier === self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER
+                )
+            );
 
         $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentType);
+    }
+
+    /**
+     * @dataProvider provideNonDuplicateAdditionScenarios
+     *
+     * @param array<array{string, string}> $existingFieldDefinitions
+     */
+    public function testAddMetaFieldDefinitionsAddsFieldWhenNotAlreadyPresentInMatchingGroup(
+        array $existingFieldDefinitions,
+        string $fieldTypeIdentifier,
+        bool $isSingular
+    ): void {
+        $contentType = $this->createContentTypeDraft(array_map(
+            fn (array $fieldDefinition): FieldDefinition => $this->createFieldDefinition(...$fieldDefinition),
+            $existingFieldDefinitions
+        ));
+
+        $this->contentTypeFieldTypesResolver
+            ->method('getMetaFieldTypes')
+            ->willReturn([
+                $fieldTypeIdentifier => ['meta' => true, 'position' => 1],
+            ]);
+
+        $this->fieldTypeService
+            ->expects(self::once())
+            ->method('getFieldType')
+            ->with($fieldTypeIdentifier)
+            ->willReturn($this->createFieldType($isSingular));
+
+        $this->contentTypeService
+            ->expects(self::once())
+            ->method('addFieldDefinition')
+            ->with(
+                $contentType,
+                self::callback(
+                    static fn (FieldDefinitionCreateStruct $struct): bool => $struct->fieldTypeIdentifier === $fieldTypeIdentifier
+                )
+            );
+
+        $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentType);
+    }
+
+    /**
+     * @return iterable<string, array{array<array{string, string}>, string, bool}>
+     */
+    public static function provideNonDuplicateAdditionScenarios(): iterable
+    {
+        yield 'non-singular field present only in different group is still added' => [
+            [[self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER, self::OTHER_FIELD_GROUP]],
+            self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER,
+            false,
+        ];
+
+        yield 'singular field not yet present is added' => [
+            [],
+            self::SINGULAR_FIELD_TYPE_IDENTIFIER,
+            true,
+        ];
     }
 
     /**
@@ -232,12 +298,14 @@ final class MetaFieldDefinitionServiceTest extends TestCase
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\FieldType&\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Repository\FieldType&\PHPUnit\Framework\MockObject\Stub
      */
     private function createFieldType(bool $isSingular): FieldType
     {
-        $fieldType = $this->createMock(FieldType::class);
-        $fieldType->method('isSingular')->willReturn($isSingular);
+        $fieldType = $this->createStub(FieldType::class);
+        $fieldType
+            ->method('isSingular')
+            ->willReturn($isSingular);
 
         return $fieldType;
     }
