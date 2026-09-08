@@ -1,6 +1,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/colors' as *;
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/shadows' as *;
 @use 'sass:color';
 
 .ibexa-main-menu {
@@ -232,7 +233,9 @@
 
             &:focus-visible {
                 outline: none;
-                box-shadow: inset 0 0 0 calculateRem(2px) $color-neutral-80;
+                box-shadow:
+                    inset 0 0 0 calculateRem(1px) $color-primary-80,
+                    inset 0 0 0 calculateRem(5px) color.change($color-focus, $alpha: 0.25);
             }
 
             &.ibexa-main-menu__item-action--current {
@@ -278,10 +281,13 @@
             }
 
             &:has(.ids-btn:focus-visible) {
-                box-shadow: inset 0 0 0 calculateRem(2px) $color-neutral-80;
+                box-shadow:
+                    0 0 0 calculateRem(1px) $color-primary-80,
+                    $box-shadow-focus-primary;
             }
 
             .ids-btn:focus-visible {
+                border-color: transparent;
                 box-shadow: none;
             }
 
