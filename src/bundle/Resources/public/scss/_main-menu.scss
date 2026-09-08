@@ -225,6 +225,7 @@
             padding: calculateRem(4px) 0 calculateRem(2px);
             border-radius: 0;
             height: initial;
+            font-size: $ibexa-text-font-size-small;
         }
 
         &--second-level-link {
