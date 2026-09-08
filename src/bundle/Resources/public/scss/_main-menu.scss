@@ -230,6 +230,11 @@
         &--second-level-link {
             height: calculateRem(36px);
 
+            &:focus-visible {
+                outline: none;
+                box-shadow: inset 0 0 0 calculateRem(2px) $color-neutral-80;
+            }
+
             &.ibexa-main-menu__item-action--current {
                 background-color: transparent;
 
