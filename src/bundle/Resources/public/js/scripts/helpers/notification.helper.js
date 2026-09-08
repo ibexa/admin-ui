@@ -1,5 +1,3 @@
-import { Alert } from '@ibexa-design-system/src/bundle/Resources/public/ts/components/alert';
-
 import { getRootDOMElement } from './context.helper';
 import { escapeHTML } from './text.helper';
 
@@ -23,7 +21,7 @@ const getNotificationTemplate = (container, label) => {
 };
 
 /**
- * Renders a notification from the container's template, initializes it and appends it to the container
+ * Renders a notification from the container's template and appends it to the container
  *
  * @function appendNotification
  * @param {HTMLElement} container notifications container
@@ -33,7 +31,7 @@ const getNotificationTemplate = (container, label) => {
  * @param {String} [config.iconPath] custom icon path
  * @param {Function} [config.onShow] called with the notification node before it is appended, so it can still
  *                                   be modified (e.g. markup injected into the message) without flickering
- * @returns {Object} appended notification node and its Alert instance
+ * @returns {HTMLElement} appended notification node
  */
 const appendNotification = (container, { label, message, iconPath = '', onShow }) => {
     const wrapper = document.createElement('div');
@@ -44,13 +42,11 @@ const appendNotification = (container, { label, message, iconPath = '', onShow }
     wrapper.insertAdjacentHTML('beforeend', notification);
 
     const notificationNode = wrapper.querySelector('.ids-alert');
-    const alertInstance = new Alert(notificationNode);
 
-    alertInstance.init();
     onShow?.(notificationNode);
     container.append(notificationNode);
 
-    return { notificationNode, alertInstance };
+    return notificationNode;
 };
 
 /**

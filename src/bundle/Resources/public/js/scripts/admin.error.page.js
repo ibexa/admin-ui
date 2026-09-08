@@ -1,3 +1,5 @@
+import { Alert } from '@ibexa-design-system/src/bundle/Resources/public/ts/components/alert';
+
 import { appendNotification } from './helpers/notification.helper';
 
 (function (doc) {
@@ -5,8 +7,9 @@ import { appendNotification } from './helpers/notification.helper';
     const notifications = JSON.parse(notificationsContainer.dataset.notifications);
     const addNotification = ({ detail }) => {
         const { label, message } = detail;
+        const notificationNode = appendNotification(notificationsContainer, { label, message });
 
-        appendNotification(notificationsContainer, { label, message });
+        new Alert(notificationNode).init();
     };
 
     Object.entries(notifications).forEach(([label, messages]) => {

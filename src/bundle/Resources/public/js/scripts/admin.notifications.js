@@ -1,3 +1,5 @@
+import { Alert } from '@ibexa-design-system/src/bundle/Resources/public/ts/components/alert';
+
 import { appendNotification } from './helpers/notification.helper';
 
 (function (global, doc, ibexa) {
@@ -7,12 +9,15 @@ import { appendNotification } from './helpers/notification.helper';
         const { onShow, label, message, customIconPath = '' } = detail;
         const config = ibexa.adminUiConfig.notifications[label];
         const timeout = config ? config.timeout : 0;
-        const { alertInstance } = appendNotification(notificationsContainer, {
+        const notificationNode = appendNotification(notificationsContainer, {
             label,
             message,
             iconPath: customIconPath,
             onShow,
         });
+        const alertInstance = new Alert(notificationNode);
+
+        alertInstance.init();
 
         if (timeout) {
             global.setTimeout(() => alertInstance.dismiss(), timeout);
