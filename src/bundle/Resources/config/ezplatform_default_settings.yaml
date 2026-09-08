@@ -92,3 +92,8 @@ parameters:
     ibexa.site_access.config.default.user_profile.enabled: false
     ibexa.site_access.config.default.user_profile.content_types: []
     ibexa.site_access.config.default.user_profile.field_groups: []
+
+    # Inline Field Edit
+    ibexa.site_access.config.default.inline_field_edit.enabled: false
+    ibexa.site_access.config.default.inline_field_edit.supported_field_types: [ibexa_string, ibexa_text, ibexa_email, ibexa_integer, ibexa_float, ibexa_boolean, ibexa_date, ibexa_datetime, ibexa_time]
+    ibexa.site_access.config.default.inline_field_edit.excluded_field_types: []

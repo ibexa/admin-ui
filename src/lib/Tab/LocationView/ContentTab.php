@@ -12,11 +12,13 @@ use Ibexa\AdminUi\Util\FieldDefinitionGroupsUtil;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -28,7 +30,9 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         private readonly FieldDefinitionGroupsUtil $fieldDefinitionGroupsUtil,
         private readonly LanguageService $languageService,
         EventDispatcherInterface $eventDispatcher,
-        private readonly ConfigResolverInterface $configResolver
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly RequestStack $requestStack
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
     }
@@ -69,7 +73,34 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
             'field_definitions_by_group' => $fieldDefinitionsByGroup,
             'languages' => $languages,
             'location' => $contextParameters['location'],
+            'can_edit' => $this->permissionResolver->canUser('content', 'edit', $content),
+            'inline_field_edit' => $this->getInlineFieldEditConfig(),
+            'current_language_code' => $this->resolveCurrentLanguageCode($content),
         ]);
+    }
+
+    /**
+     * @return array{enabled: bool, field_types: list<string>}
+     */
+    private function getInlineFieldEditConfig(): array
+    {
+        $supportedFieldTypes = $this->configResolver->getParameter('inline_field_edit.supported_field_types');
+        $excludedFieldTypes = $this->configResolver->getParameter('inline_field_edit.excluded_field_types');
+
+        return [
+            'enabled' => $this->configResolver->getParameter('inline_field_edit.enabled'),
+            'field_types' => array_values(array_diff($supportedFieldTypes, $excludedFieldTypes)),
+        ];
+    }
+
+    private function resolveCurrentLanguageCode(Content $content): string
+    {
+        $request = $this->requestStack->getCurrentRequest();
+        $languageCode = $request?->attributes->get('languageCode') ?? $request?->query->get('languageCode');
+
+        return is_string($languageCode) && $languageCode !== ''
+            ? $languageCode
+            : $content->getDefaultLanguageCode();
     }
 
     /**

@@ -49,3 +49,5 @@ services:
   Ibexa\AdminUi\Behat\BrowserContext\MyDraftsContext: ~
 
   Ibexa\AdminUi\Behat\BrowserContext\UserProfileContext: ~
+
+  Ibexa\AdminUi\Behat\BrowserContext\QuickEditContext: ~

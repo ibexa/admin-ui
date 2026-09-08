@@ -66,3 +66,9 @@ services:
 
   Ibexa\AdminUi\Behat\Component\TrashSearch: ~
 
+  Ibexa\AdminUi\Behat\Component\QuickEditField: ~
+
+  Ibexa\AdminUi\Behat\Component\QuickEditDraftConflictModal: ~
+
+  Ibexa\AdminUi\Behat\Component\VersionsList: ~
+

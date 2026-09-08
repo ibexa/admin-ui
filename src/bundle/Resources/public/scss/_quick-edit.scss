@@ -1,0 +1,70 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.ibexa-quick-edit {
+    display: flex;
+    // Actions (where they exist at all) render below the input, not beside it.
+    flex-direction: column;
+    align-items: flex-start;
+    gap: calculateRem(4px);
+
+    &__input {
+        min-width: 0;
+
+        // Checkboxes/radios size themselves (Bootstrap's .form-check-input only sets
+        // flex-shrink and width, never flex-grow), so letting flex-grow apply to them
+        // would stretch a fixed-size control to fill the whole row. Scoped by input
+        // type rather than by field type, so any future non-growing editor is covered
+        // without another rule.
+        &:not([type='checkbox']):not([type='radio']) {
+            flex: 1 1 auto;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: calculateRem(12px);
+        flex-shrink: 0;
+    }
+
+    // Save/Discard: real <button>s (kept for keyboard/screen-reader access) styled to look
+    // like small text links rather than buttons - no border, no background, no padding.
+    &__action {
+        padding: 0;
+        border: 0;
+        background: transparent;
+        font-family: inherit;
+        font-size: $ibexa-text-font-size-small;
+        font-weight: $ibexa-font-weight-bold;
+        text-decoration: none;
+        cursor: pointer;
+
+        &--save {
+            color: var(--ibexa-quick-edit-save-color, #{$ibexa-color-primary});
+        }
+
+        &--discard {
+            // #3E4145 in the design; closest of the two candidate neutral tokens by
+            // perceptual lightness ($ibexa-color-dark-500/oklch L 0.2822 is 0.092 away,
+            // $ibexa-color-dark-400/oklch L 0.4623 is 0.088 away from the design value's
+            // ~0.374).
+            color: var(--ibexa-quick-edit-discard-color, #{$ibexa-color-dark-400});
+        }
+    }
+}
+
+// Overrides the shared `.ids-input`/`.ibexa-input` chrome for the duration of quick edit only:
+// a constant primary border (not just on hover/focus), white background, 4px radius and 8/4
+// padding, per design. Those shared classes are untouched - qualifying with the element type
+// gives this enough specificity to win over their single-class rules regardless of source
+// order, without restyling them directly. Checkboxes keep their native look; this box treatment
+// is only meaningful for text-like/date/time/number inputs and the textarea.
+input.ibexa-quick-edit__input:not([type='checkbox']):not([type='radio']),
+textarea.ibexa-quick-edit__input {
+    background-color: var(--ibexa-quick-edit-input-bg-color, #{$ibexa-color-white});
+    border: calculateRem(1px) solid var(--ibexa-quick-edit-input-border-color, #{$ibexa-color-primary});
+    border-radius: calculateRem(4px);
+    padding: calculateRem(4px) calculateRem(8px);
+    width: 100%;
+}

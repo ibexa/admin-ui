@@ -51,10 +51,80 @@
         <target state="new">Select translation</target>
         <note>key: content.edit.select_language</note>
       </trans-unit>
+      <trans-unit id="82efabfdfa8a987053bc6700524466f0981744b2" resname="content.field.quick_edit_aria_label">
+        <source>Edit %fieldName% field</source>
+        <target state="new">Edit %fieldName% field</target>
+        <note>key: content.field.quick_edit_aria_label</note>
+      </trans-unit>
       <trans-unit id="e136be672df8eb27dc4eb2f1ce0650096090bf81" resname="content.hidden.message">
         <source>This Content item or its Location is hidden.</source>
         <target state="new">This Content item or its Location is hidden.</target>
         <note>key: content.hidden.message</note>
+      </trans-unit>
+      <trans-unit id="c62fd9efe0ca2f42a22ee0a453ce3a9a0aa5ab0c" resname="content.quick_edit.cancel_btn.label">
+        <source>Discard</source>
+        <target state="new">Discard</target>
+        <note>key: content.quick_edit.cancel_btn.label</note>
+      </trans-unit>
+      <trans-unit id="05dbee6bf360cb0e0c260295a6e9fb8b9255a168" resname="content.quick_edit.confirm_btn.label">
+        <source>Save</source>
+        <target state="new">Save</target>
+        <note>key: content.quick_edit.confirm_btn.label</note>
+      </trans-unit>
+      <trans-unit id="490880238a1db08e9f02d7ff13c1b2a0e39f4653" resname="content.quick_edit.draft_conflict.cancel">
+        <source>Cancel</source>
+        <target state="new">Cancel</target>
+        <note>key: content.quick_edit.draft_conflict.cancel</note>
+      </trans-unit>
+      <trans-unit id="e01a45f43cac68e0f892be3cc7f31ad58f665a09" resname="content.quick_edit.draft_conflict.confirm">
+        <source>Continue</source>
+        <target state="new">Continue</target>
+        <note>key: content.quick_edit.draft_conflict.confirm</note>
+      </trans-unit>
+      <trans-unit id="b3413c53c688087d6634bfaa86e7ad266c549bfc" resname="content.quick_edit.draft_conflict.consequences">
+        <source>Your change will be published in a new, separate draft. The existing drafts stay untouched.</source>
+        <target state="new">Your change will be published in a new, separate draft. The existing drafts stay untouched.</target>
+        <note>key: content.quick_edit.draft_conflict.consequences</note>
+      </trans-unit>
+      <trans-unit id="4274eccae4d69124b3cc9cfe1b11cc23d0504d8c" resname="content.quick_edit.draft_conflict.draft">
+        <source>Version %versionNo%, last modified %modificationDate%</source>
+        <target state="new">Version %versionNo%, last modified %modificationDate%</target>
+        <note>key: content.quick_edit.draft_conflict.draft</note>
+      </trans-unit>
+      <trans-unit id="89b3535f3e31f7f8e9d9f04bf192bc77bf802b48" resname="content.quick_edit.draft_conflict.number.multiple">
+        <source>There are already %number% drafts for this content item:</source>
+        <target state="new">There are already %number% drafts for this content item:</target>
+        <note>key: content.quick_edit.draft_conflict.number.multiple</note>
+      </trans-unit>
+      <trans-unit id="dff6205f837740b0bc43b51d8302e20b0de2b8fb" resname="content.quick_edit.draft_conflict.number.one">
+        <source>There is already one draft for this content item:</source>
+        <target state="new">There is already one draft for this content item:</target>
+        <note>key: content.quick_edit.draft_conflict.number.one</note>
+      </trans-unit>
+      <trans-unit id="d5d14667fd35415580ee805b1af940a5c7bcd0bd" resname="content.quick_edit.draft_conflict.title">
+        <source>Draft conflict</source>
+        <target state="new">Draft conflict</target>
+        <note>key: content.quick_edit.draft_conflict.title</note>
+      </trans-unit>
+      <trans-unit id="a1483d7ad712d5cb942cb7ba2aabb58cc779a08b" resname="content.quick_edit.error.missing_draft_location">
+        <source>The server did not return the location of the new draft, so the change was not published.</source>
+        <target state="new">The server did not return the location of the new draft, so the change was not published.</target>
+        <note>key: content.quick_edit.error.missing_draft_location</note>
+      </trans-unit>
+      <trans-unit id="570637992f1fd0f082c8b3f8631f20b15cb89741" resname="content.quick_edit.error.missing_field_value">
+        <source>The current value of this field is not available in the language being displayed. Use the full editor instead.</source>
+        <target state="new">The current value of this field is not available in the language being displayed. Use the full editor instead.</target>
+        <note>key: content.quick_edit.error.missing_field_value</note>
+      </trans-unit>
+      <trans-unit id="caf437518099b2da665eaa0216bd460e0fbd8df7" resname="content.quick_edit.error.no_published_version">
+        <source>This content item has no published version yet. Use the full editor instead.</source>
+        <target state="new">This content item has no published version yet. Use the full editor instead.</target>
+        <note>key: content.quick_edit.error.no_published_version</note>
+      </trans-unit>
+      <trans-unit id="f90b3cec14e10003d0ea4680d5597b6df98bc4c9" resname="content.quick_edit.success">
+        <source>Field updated and published.</source>
+        <target state="new">Field updated and published.</target>
+        <note>key: content.quick_edit.success</note>
       </trans-unit>
       <trans-unit id="4f1f7e7763187d69da3f75ebfb74d391a451cec6" resname="content.view.subitems.bulk_action.limited_permissions">
         <source>Limited user permissions</source>

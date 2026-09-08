@@ -73,6 +73,7 @@ final class IbexaAdminUiBundle extends Bundle
             new Parser\Assets(),
             new Parser\AdminUiParser(),
             new Parser\UserProfile(),
+            new Parser\InlineFieldEdit(),
         ];
     }
 }
