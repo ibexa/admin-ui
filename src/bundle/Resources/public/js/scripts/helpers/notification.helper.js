@@ -35,7 +35,7 @@ const getNotificationTemplate = (container, label) => {
  */
 const appendNotification = (container, { label, message, onShow }) => {
     const wrapper = document.createElement('div');
-    const notification = getNotificationTemplate(container, label).replace('{{ message }}', escapeHTML(message));
+    const notification = getNotificationTemplate(container, label).replace('{{ message }}', () => escapeHTML(message));
 
     wrapper.insertAdjacentHTML('beforeend', notification);
 
