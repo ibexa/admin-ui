@@ -12,8 +12,13 @@ import { appendNotification } from './helpers/notification.helper';
         const notificationNode = appendNotification(notificationsContainer, {
             label,
             message,
-            iconPath: customIconPath,
-            onShow,
+            onShow: (node) => {
+                if (customIconPath) {
+                    node.querySelector('.ids-alert__icon use').setAttribute('xlink:href', customIconPath);
+                }
+
+                onShow?.(node);
+            },
         });
         const alertInstance = new Alert(notificationNode);
 

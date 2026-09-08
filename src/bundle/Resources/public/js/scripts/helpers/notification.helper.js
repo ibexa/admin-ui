@@ -28,16 +28,14 @@ const getNotificationTemplate = (container, label) => {
  * @param {Object} config
  * @param {String} config.label
  * @param {String} config.message message to escape and render
- * @param {String} [config.iconPath] custom icon path
  * @param {Function} [config.onShow] called with the notification node before it is appended, so it can still
- *                                   be modified (e.g. markup injected into the message) without flickering
+ *                                   be modified (e.g. markup injected into the message, a custom icon)
+ *                                   without flickering
  * @returns {HTMLElement} appended notification node
  */
-const appendNotification = (container, { label, message, iconPath = '', onShow }) => {
+const appendNotification = (container, { label, message, onShow }) => {
     const wrapper = document.createElement('div');
-    const notification = getNotificationTemplate(container, label)
-        .replace('{{ message }}', escapeHTML(message))
-        .replace('{{ icon_path }}', iconPath);
+    const notification = getNotificationTemplate(container, label).replace('{{ message }}', escapeHTML(message));
 
     wrapper.insertAdjacentHTML('beforeend', notification);
 
