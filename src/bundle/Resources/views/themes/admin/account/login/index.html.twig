@@ -3,16 +3,23 @@
 {% set is_sso = false %}
 
 {%- block content -%}
+    {% set blank_fields = error is not null and error.blankFields is defined ? error.blankFields : [] %}
+    {% set has_username_error = 'username' in blank_fields %}
+    {% set has_password_error = 'password' in blank_fields %}
+    {% set show_error_alert = error is not null and blank_fields is empty %}
+    {% set username_label = 'authentication.login'|trans|desc('Login') %}
+    {% set password_label = 'authentication.password'|trans|desc('Password') %}
+
     {# TODO: change to <twig:ibexa:label when ready #}
     <div class="ibexa-login__actions-headline">{{ 'base.sign_in'|trans|desc('Sign in to Cohesivo') }}</div>
 
     {% block login_form %}
         {{ ibexa_twig_component_group('admin-ui-login-form-before') }}
 
-        <form action="{{ path( 'login_check' ) }}" method="post" role="form">
+        <form action="{{ path( 'login_check' ) }}" method="post" role="form" novalidate>
             <fieldset>
                 {% block login_form_errors %}
-                    {% if error %}
+                    {% if show_error_alert %}
                         <div class="ibexa-login__errors-container">
                             {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
                                 type: 'error',
@@ -23,9 +30,9 @@
                 {% endblock %}
 
                 {% block login_form_fields %}
-                    <div class="form-group{% if error %} has-error{% endif %}">
+                    <div class="form-group{% if has_username_error or show_error_alert %} has-error{% endif %}">
                         <div class="ibexa-login__input-label-wrapper">
-                            <twig:ibexa:label for="username">{{ 'authentication.login'|trans|desc('Login') }}</twig:ibexa:label>
+                            <twig:ibexa:label for="username" :error="has_username_error">{{ username_label }}</twig:ibexa:label>
                         </div>
                         {%- include '@ibexadesign/ui/component/input_text_ds.html.twig' with {
                             type: 'text',
@@ -35,16 +42,27 @@
                                 name: '_username',
                                 value: last_username,
                                 required: true,
+                                error: has_username_error,
                                 autofocus: true,
                                 autocomplete: 'on',
                                 tabindex: '1',
                                 placeholder: ' '
                             }
                         } only -%}
+                        {% if has_username_error %}
+                            <div class="ibexa-form-error">
+                                <em class="ibexa-form-error__row">
+                                    <svg class="ibexa-icon ibexa-icon--small-medium ibexa-form-error__icon">
+                                        <use xlink:href="{{ ibexa_icon_path('notice') }}"></use>
+                                    </svg>
+                                    {{ 'error.required.field'|trans({ '%fieldName%': username_label }, 'forms')|desc('%fieldName% cannot be empty.') }}
+                                </em>
+                            </div>
+                        {% endif %}
                     </div>
-                    <div class="form-group{% if error %} has-error{% endif %} position-relative">
+                    <div class="form-group{% if has_password_error or show_error_alert %} has-error{% endif %} position-relative">
                         <div class="ibexa-login__input-label-wrapper">
-                            <twig:ibexa:label for="password">{{ 'authentication.password'|trans|desc('Password') }}</twig:ibexa:label>
+                            <twig:ibexa:label for="password" :error="has_password_error">{{ password_label }}</twig:ibexa:label>
                         </div>
                         {%- include '@ibexadesign/ui/component/input_text_ds.html.twig' with {
                             type: 'password',
@@ -53,10 +71,21 @@
                                 class: 'ibexa-login__input ibexa-login__input--password',
                                 name: '_password',
                                 required: true,
+                                error: has_password_error,
                                 tabindex: '2',
                                 placeholder: ' '
                             }
                         } only -%}
+                        {% if has_password_error %}
+                            <div class="ibexa-form-error">
+                                <em class="ibexa-form-error__row">
+                                    <svg class="ibexa-icon ibexa-icon--small-medium ibexa-form-error__icon">
+                                        <use xlink:href="{{ ibexa_icon_path('notice') }}"></use>
+                                    </svg>
+                                    {{ 'error.required.field'|trans({ '%fieldName%': password_label }, 'forms')|desc('%fieldName% cannot be empty.') }}
+                                </em>
+                            </div>
+                        {% endif %}
                     </div>
 
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}" />
