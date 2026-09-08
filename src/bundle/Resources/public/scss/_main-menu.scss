@@ -326,6 +326,7 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        padding-top: calculateRem(3px);
     }
 
     &__expand-toggler {
