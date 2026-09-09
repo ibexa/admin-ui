@@ -223,9 +223,10 @@
             border-top: calculateRem(1px) solid $color-neutral-210;
             margin-top: calculateRem(8px);
             margin-left: calculateRem(10px);
-            padding: calculateRem(1px) 0;
+            padding: calculateRem(4px) 0 calculateRem(2px);
             border-radius: 0;
             height: initial;
+            font-size: $ibexa-text-font-size-small;
         }
 
         &--second-level-link {
