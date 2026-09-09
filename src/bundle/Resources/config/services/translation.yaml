@@ -4,16 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-    Ibexa\AdminUi\Translation\Extractor\JavaScriptFileVisitor:
-        tags:
-            - { name: jms_translation.file_visitor }
-
-    Ibexa\AdminUi\Translation\Extractor\TypeScriptFileVisitor:
-        tags:
-            - { name: jms_translation.file_visitor }
-
-    Ibexa\AdminUi\Translation\Extractor\TypeScriptExtractorClient: ~
-
     Ibexa\AdminUi\Translation\Extractor\SortingTranslationExtractor:
         tags:
             - { name: jms_translation.extractor, alias: ez_location_sorting }
