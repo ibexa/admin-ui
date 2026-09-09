@@ -176,7 +176,7 @@
 
         @at-root a#{&},
             &.ids-btn {
-            padding: calculateRem(9px);
+            padding: calculateRem(9px) calculateRem(11px);
             color: $ibexa-color-white;
 
             &:hover {
@@ -316,7 +316,7 @@
         .ids-expander {
             flex: 0 0 auto;
             height: calculateRem(40px);
-            margin-right: calculateRem(8px);
+            margin-right: calculateRem(6px);
             fill: $ibexa-color-white;
         }
     }
