@@ -19,8 +19,10 @@
 
             this.handleClickOutside = this.handleClickOutside.bind(this);
             this.handleItemWithSubitemsClick = this.handleItemWithSubitemsClick.bind(this);
+            this.handleReposition = this.handleReposition.bind(this);
 
             doc.addEventListener('click', this.handleClickOutside, false);
+            doc.body.addEventListener('ibexa-multilevel-popup-menu:reposition', this.handleReposition, false);
 
             ibexa.helpers.objectInstances.setInstance(this.container, this);
         }
@@ -244,6 +246,10 @@
 
         closeMenu() {
             this.closeWithSubbranches(this.triggerElement.branchElement);
+        }
+
+        handleReposition() {
+            this.updateBranchesPositions();
         }
 
         updateBranchesPositions(branchElement = this.triggerElement.branchElement) {

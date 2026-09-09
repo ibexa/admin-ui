@@ -39,7 +39,7 @@
             if (hiddenButtonsIds.length === 0) {
                 multilevelPopupMenu.closeMenu();
             } else {
-                multilevelPopupMenu.updateBranchesPositions();
+                doc.body.dispatchEvent(new CustomEvent('ibexa-multilevel-popup-menu:reposition'));
             }
         },
     });
