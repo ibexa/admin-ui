@@ -44,7 +44,7 @@
             this.itemsFixedWrapperContainer = this.container.querySelector('.ibexa-dropdown__items-fixed-wrapper');
             this.itemsContainer = this.container.querySelector('.ibexa-dropdown__items');
             this.itemsListContainer = this.itemsContainer.querySelector('.ibexa-dropdown__items-list');
-            this.itemsFilterInput = this.itemsContainer.querySelector('.ibexa-dropdown__items-filter-wrapper .ids-input');
+            this.itemsFilterInput = this.itemsContainer.querySelector('.ibexa-dropdown__items-filter');
             this.itemsListFilterEmptyContainer = this.itemsContainer.querySelector('.ibexa-dropdown__items-list-filter-empty');
             this.selectionTogglerBtn = this.itemsContainer.querySelector('.ibexa-dropdown__selection-toggler-btn');
 

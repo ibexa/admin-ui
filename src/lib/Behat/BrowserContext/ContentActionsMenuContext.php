@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Step\Given;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Webmozart\Assert\Assert;
 
@@ -19,19 +20,15 @@ final readonly class ContentActionsMenuContext implements Context
     {
     }
 
-    /**
-     * @Given I click (on) the edit action bar button :buttonName
-     * @Given I perform the :buttonName action
-     * @Given I perform the :buttonName action from the :groupName group
-     */
+    #[Given('I click (on) the edit action bar button :buttonName')]
+    #[Given('I perform the :buttonName action')]
+    #[Given('I perform the :buttonName action from the :groupName group')]
     public function clickEditActionBar(string $buttonName, ?string $groupName = null): void
     {
         $this->contentActionsMenu->clickButton($buttonName, $groupName);
     }
 
-    /**
-     * @Given the buttons are disabled
-     */
+    #[Given('the buttons are disabled')]
     public function theButtonsAreDisabled(TableNode $buttons): void
     {
         foreach ($buttons->getHash() as $button) {
@@ -39,17 +36,13 @@ final readonly class ContentActionsMenuContext implements Context
         }
     }
 
-    /**
-     * @Given the :buttonName button is not visible
-     */
+    #[Given('the :buttonName button is not visible')]
     public function buttonIsNotVisible(string $buttonName): void
     {
         Assert::false($this->contentActionsMenu->isButtonVisible($buttonName));
     }
 
-    /**
-     * @Given the :buttonName button is visible
-     */
+    #[Given('the :buttonName button is visible')]
     public function buttonIsVisible(string $buttonName): void
     {
         Assert::true($this->contentActionsMenu->isButtonVisible($buttonName));

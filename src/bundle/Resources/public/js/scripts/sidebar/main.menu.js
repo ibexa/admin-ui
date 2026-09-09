@@ -15,8 +15,14 @@ import { getInstance, hasInstance } from '@ibexa-design-system/src/bundle/Resour
         '.ibexa-main-menu__item-action--popup-trigger, .ibexa-main-menu__item-action--accordion-trigger',
     );
     const popupTriggerBtns = navbar.querySelectorAll('.ibexa-main-menu__item-action--popup-trigger');
+    const scrollableSections = [...navbar.querySelectorAll('.ibexa-main-menu__primary-section, .ibexa-main-menu__secondary-section')];
     const popupMenuInstances = new Map();
     const isMenuExpanded = () => !navbar.classList.contains('ibexa-main-menu__navbar--collapsed');
+    const syncScrollbarState = () => {
+        const hasScrollbar = scrollableSections.some((section) => section.scrollHeight > section.clientHeight);
+
+        navbar.classList.toggle('ibexa-main-menu__navbar--with-scrollbar', hasScrollbar);
+    };
     const { collapseLabel, expandLabel } = expandToggleBtn.dataset;
     const syncExpandToggleBtnState = (isExpanded) => {
         const tooltipInstance = global.bootstrap?.Tooltip.getInstance(expandToggleBtn);
@@ -221,6 +227,12 @@ import { getInstance, hasInstance } from '@ibexa-design-system/src/bundle/Resour
         closeAllAccordions(itemName);
     };
 
+    const scrollbarResizeObserver = new ResizeObserver(syncScrollbarState);
+
+    scrollableSections.forEach((section) => {
+        scrollbarResizeObserver.observe(section);
+        scrollbarResizeObserver.observe(section.querySelector('.ibexa-main-menu__items-list'));
+    });
     syncExpandToggleBtnState(isMenuExpanded());
     parseMenuTitles();
     parentItemBtns.forEach((btn) => btn.addEventListener('click', handleParentItemClick, false));

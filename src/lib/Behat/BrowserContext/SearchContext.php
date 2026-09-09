@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\AdminUi\Behat\Page\SearchPage;
 use Webmozart\Assert\Assert;
@@ -21,18 +23,14 @@ final readonly class SearchContext implements Context
     ) {
     }
 
-    /**
-     * @When I search for a Content named :contentItemName
-     */
+    #[When('I search for a Content named :contentItemName')]
     public function iSearchForContent(string $contentItemName): void
     {
         $this->upperMenu->search($contentItemName);
         $this->searchPage->verifyIsLoaded();
     }
 
-    /**
-     * @Then I should see in search results an item named :contentItemName
-     */
+    #[Then('I should see in search results an item named :contentItemName')]
     public function searchResults(string $contentItemName): void
     {
         Assert::true($this->searchPage->isElementInResults(['Name' => $contentItemName]));

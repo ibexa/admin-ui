@@ -45,6 +45,7 @@ final readonly class FloatFormMapper implements FieldDefinitionFormMapperInterfa
                     'property_path' => 'validatorConfiguration[FloatValueValidator][minFloatValue]',
                     'label' => /** @Desc("Minimum value") */ 'field_definition.ibexa_float.min_value',
                     'disabled' => $isTranslation,
+                    'html5' => true,
                 ]
             )
             ->add(
@@ -55,6 +56,7 @@ final readonly class FloatFormMapper implements FieldDefinitionFormMapperInterfa
                     'property_path' => 'validatorConfiguration[FloatValueValidator][maxFloatValue]',
                     'label' => /** @Desc("Maximum value") */ 'field_definition.ibexa_float.max_value',
                     'disabled' => $isTranslation,
+                    'html5' => true,
                 ]
             )
             ->add($defaultValueForm);

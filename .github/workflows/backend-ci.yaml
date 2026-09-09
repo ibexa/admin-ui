@@ -168,7 +168,7 @@ jobs:
           run: composer run-script --timeout=600 test-integration
           env:
             SEARCH_ENGINE: legacy
-            DATABASE_URL: "pgsql://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/testdb?server_version=10"
+            DATABASE_URL: "pgsql://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/testdb?serverVersion=10"
 
   integration-tests-mysql:
     name: MySQL integration tests

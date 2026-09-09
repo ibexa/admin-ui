@@ -9,6 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Ibexa\AdminUi\Behat\Page\ChangePasswordPage;
 use Ibexa\AdminUi\Behat\Page\UserSettingsPage;
 
@@ -20,25 +23,19 @@ final readonly class UserPreferencesContext implements Context
     ) {
     }
 
-    /**
-     * @Given I switch to :tabName tab in User settings
-     */
+    #[Given('I switch to :tabName tab in User settings')]
     public function iSwitchToTabInUserSettings(string $tabName): void
     {
         $this->userSettingsPage->switchTab($tabName);
     }
 
-    /**
-     * @Given I click on the change password button
-     */
+    #[Given('I click on the change password button')]
     public function iClickChangePasswordButton(): void
     {
         $this->userSettingsPage->changePassword();
     }
 
-    /**
-     * @When I change password from :oldPassword to :newPassword
-     */
+    #[When('I change password from :oldPassword to :newPassword')]
     public function iChangePassword(string $oldPassword, string $newPassword): void
     {
         $this->changePasswordPage->verifyIsLoaded();
@@ -47,9 +44,7 @@ final readonly class UserPreferencesContext implements Context
         $this->changePasswordPage->setConfirmPassword($newPassword);
     }
 
-    /**
-     * @When I disable autosave
-     */
+    #[When('I disable autosave')]
     public function iSetAutosaveDraftValue(): void
     {
         $this->userSettingsPage->openAutosaveDraftEditionPage();
@@ -57,17 +52,13 @@ final readonly class UserPreferencesContext implements Context
         $this->userSettingsPage->disableAutosave();
     }
 
-    /**
-     * @Then :fieldName field validates with error message :expectedMessage
-     */
+    #[Then(':fieldName field validates with error message :expectedMessage')]
     public function iValidateOldPassword(string $expectedMessage): void
     {
         $this->changePasswordPage->verifyPasswordValidationMessage($expectedMessage);
     }
 
-    /**
-     * @Given I disable Help center
-     */
+    #[Given('I disable Help center')]
     public function iDisableHelpCenter(): void
     {
         $this->userSettingsPage->openBrowsingEditionPage();
@@ -75,9 +66,7 @@ final readonly class UserPreferencesContext implements Context
         $this->userSettingsPage->disableHelpCenter();
     }
 
-    /**
-     * @Given I enable help center
-     */
+    #[Given('I enable help center')]
     public function iEnableHelpCenter(): void
     {
         $this->userSettingsPage->openBrowsingEditionPage();

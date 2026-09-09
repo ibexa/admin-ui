@@ -769,12 +769,6 @@ parameters:
 			path: src/lib/Behat/BrowserContext/ContentUpdateContext.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\BrowserContext\\UDWContext\:\:changeUDWTab\(\) has parameter \$tabName with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/BrowserContext/UDWContext.php
-
-		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:withDescendant\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 2
