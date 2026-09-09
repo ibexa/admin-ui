@@ -326,7 +326,7 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        padding-top: calculateRem(3px);
+        padding: calculateRem(3px) calculateRem(8px) 0;
     }
 
     &__expand-toggler {
@@ -335,7 +335,12 @@
             --ids-hover-text-color: #{$ibexa-color-dark-300};
             --ids-focus-text-color: #{$ibexa-color-dark-300};
 
+            padding: 0 calculateRem(7px);
             font-weight: $ibexa-font-weight-normal;
+
+            .ids-btn__icon + .ids-btn__label {
+                padding-left: calculateRem(8px);
+            }
         }
 
         &--collapsed {
