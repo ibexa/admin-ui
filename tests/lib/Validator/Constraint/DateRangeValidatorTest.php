@@ -43,9 +43,7 @@ final class DateRangeValidatorTest extends ConstraintValidatorTestCase
             new DateTimeImmutable('2024-01-01 00:00:00'),
         );
 
-        $constraint = new DateRangeConstraint([
-            'message' => 'ibexa.date_range.invalid_range',
-        ]);
+        $constraint = new DateRangeConstraint(message: 'ibexa.date_range.invalid_range');
 
         $this->validator->validate($data, $constraint);
 

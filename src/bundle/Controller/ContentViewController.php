@@ -250,8 +250,8 @@ final class ContentViewController extends Controller
 
         $view->addParameters([
             'draft_pagination_params' => [
-                'route_name' => $request->get('_route'),
-                'route_params' => $request->get('_route_params'),
+                'route_name' => $request->attributes->get('_route'),
+                'route_params' => $request->attributes->get('_route_params'),
                 'page' => (int) ($page['version_draft'] ?? 1),
                 'pages_map' => $page,
                 'limit' => $this->configResolver->getParameter('pagination.version_draft_limit'),
@@ -265,8 +265,8 @@ final class ContentViewController extends Controller
 
         $view->addParameters([
             'relation_pagination_params' => [
-                'route_name' => $request->get('_route'),
-                'route_params' => $request->get('_route_params'),
+                'route_name' => $request->attributes->get('_route'),
+                'route_params' => $request->attributes->get('_route_params'),
                 'page' => (int) ($page['relation'] ?? 1),
                 'pages_map' => $page,
                 'limit' => $this->configResolver->getParameter('pagination.relation_limit'),
@@ -280,8 +280,8 @@ final class ContentViewController extends Controller
 
         $view->addParameters([
             'reverse_relation_pagination_params' => [
-                'route_name' => $request->get('_route'),
-                'route_params' => $request->get('_route_params'),
+                'route_name' => $request->attributes->get('_route'),
+                'route_params' => $request->attributes->get('_route_params'),
                 'page' => (int) ($page['reverse_relation'] ?? 1),
                 'pages_map' => $page,
                 'limit' => $this->configResolver->getParameter(
@@ -297,8 +297,8 @@ final class ContentViewController extends Controller
 
         $view->addParameters([
             'custom_urls_pagination_params' => [
-                'route_name' => $request->get('_route'),
-                'route_params' => $request->get('_route_params'),
+                'route_name' => $request->attributes->get('_route'),
+                'route_params' => $request->attributes->get('_route_params'),
                 'page' => (int) ($page['custom_url'] ?? 1),
                 'limit' => $this->configResolver->getParameter(
                     'pagination.content_custom_url_limit'
@@ -313,8 +313,8 @@ final class ContentViewController extends Controller
 
         $view->addParameters([
             'system_urls_pagination_params' => [
-                'route_name' => $request->get('_route'),
-                'route_params' => $request->get('_route_params'),
+                'route_name' => $request->attributes->get('_route'),
+                'route_params' => $request->attributes->get('_route_params'),
                 'page' => (int) ($page['system_url'] ?? 1),
                 'limit' => $this->configResolver->getParameter(
                     'pagination.content_system_url_limit'
@@ -329,8 +329,8 @@ final class ContentViewController extends Controller
 
         $view->addParameters([
             'roles_pagination_params' => [
-                'route_name' => $request->get('_route'),
-                'route_params' => $request->get('_route_params'),
+                'route_name' => $request->attributes->get('_route'),
+                'route_params' => $request->attributes->get('_route_params'),
                 'page' => (int) ($page['role'] ?? 1),
                 'limit' => $this->configResolver->getParameter(
                     'pagination.content_role_limit'
@@ -345,8 +345,8 @@ final class ContentViewController extends Controller
 
         $view->addParameters([
             'policies_pagination_params' => [
-                'route_name' => $request->get('_route'),
-                'route_params' => $request->get('_route_params'),
+                'route_name' => $request->attributes->get('_route'),
+                'route_params' => $request->attributes->get('_route_params'),
                 'page' => (int) ($page['policy'] ?? 1),
                 'limit' => $this->configResolver->getParameter(
                     'pagination.content_policy_limit'

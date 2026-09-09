@@ -75,7 +75,7 @@ final readonly class RequestAttributesListener implements EventSubscriberInterfa
     {
         return $parameterBag->has('languageCode')
             && $parameterBag->has('location')
-            && $request->get('_route') === self::TRANSLATED_CONTENT_VIEW_ROUTE_NAME;
+            && $request->attributes->get('_route') === self::TRANSLATED_CONTENT_VIEW_ROUTE_NAME;
     }
 
     private function loadLocation(int $locationId): Location
