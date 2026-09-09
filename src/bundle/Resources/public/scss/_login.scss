@@ -140,12 +140,13 @@
 
     &__panel-footer {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: center;
         align-items: center;
+        gap: calculateRem(40px);
         width: 100%;
         margin-top: auto;
         margin-bottom: calculateRem(16px);
-        font-size: $text-font-size-s;
+        font-size: $text-font-size-m;
     }
 
     &__reset-password-alert {
