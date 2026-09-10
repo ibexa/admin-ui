@@ -13,3 +13,14 @@ services:
 
     Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface:
         '@Ibexa\AdminUi\ContentType\ContentTypeFieldsByExpressionService'
+
+    Ibexa\AdminUi\Request\Resolver\AdminUiContentLanguageCodeResolver:
+        tags:
+            - { name: ibexa.admin_ui.content_language_code_resolver, priority: 100 }
+
+    Ibexa\AdminUi\Request\Resolver\ChainContentLanguageCodeResolver:
+        arguments:
+            $resolvers: !tagged_iterator ibexa.admin_ui.content_language_code_resolver
+
+    Ibexa\Contracts\AdminUi\Request\Resolver\ContentLanguageCodeResolverInterface:
+        '@Ibexa\AdminUi\Request\Resolver\ChainContentLanguageCodeResolver'
