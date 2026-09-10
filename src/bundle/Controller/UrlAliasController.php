@@ -99,7 +99,7 @@ class UrlAliasController extends Controller
             $result = $this->submitHandler->handle($form, function (CustomUrlRemoveData $data): RedirectResponse {
                 $aliasToRemoveList = [];
                 foreach ($data->getUrlAliases() as $customUrlId => $selected) {
-                    $aliasToRemoveList[] = $this->urlAliasService->load($customUrlId);
+                    $aliasToRemoveList[] = $this->urlAliasService->load($customUrlId, true);
                 }
                 $this->urlAliasService->removeAliases($aliasToRemoveList);
 
