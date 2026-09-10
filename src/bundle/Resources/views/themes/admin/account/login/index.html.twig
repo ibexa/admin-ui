@@ -37,7 +37,6 @@
                                 required: true,
                                 autofocus: true,
                                 autocomplete: 'on',
-                                tabindex: '1',
                                 placeholder: ' '
                             }
                         } only -%}
@@ -53,7 +52,6 @@
                                 class: 'ibexa-login__input ibexa-login__input--password',
                                 name: '_password',
                                 required: true,
-                                tabindex: '2',
                                 placeholder: ' '
                             }
                         } only -%}
@@ -64,13 +62,12 @@
 
                 {% block login_form_buttons %}
                     <div class="ibexa-login__link-wrapper">
-                        <a href="{{ path('ibexa.user.forgot_password') }}" tabindex="4">{{ 'authentication.forgot_your_password'|trans|desc('Forgot your password?') }}</a>
+                        <a href="{{ path('ibexa.user.forgot_password') }}">{{ 'authentication.forgot_your_password'|trans|desc('Forgot your password?') }}</a>
                     </div>
                     <twig:ibexa:button
                         type="primary"
                         htmlType="submit"
                         class="ibexa-login__btn ibexa-login__btn--sign-in"
-                        tabindex="3"
                         :disabled="true"
                     >
                         {{ 'authentication.sign_in'|trans|desc('Sign in') }}
@@ -83,7 +80,6 @@
                             type="secondary"
                             htmlType="submit"
                             class="ibexa-login__btn"
-                            tabindex="3"
                             :disabled="true"
                         >
                             {{ 'authentication.sso'|trans|desc('Sign in with SSO') }}
