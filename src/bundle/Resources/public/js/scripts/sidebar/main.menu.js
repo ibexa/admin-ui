@@ -31,12 +31,8 @@ import { getInstance, hasInstance } from '@ibexa-design-system/src/bundle/Resour
         expandToggleBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
         expandToggleBtn.setAttribute('aria-label', isExpanded ? collapseLabel : expandLabel);
 
-        if (isExpanded) {
-            tooltipInstance?.dispose();
-            expandToggleBtn.removeAttribute('title');
-        } else {
-            expandToggleBtn.title = expandLabel;
-        }
+        tooltipInstance?.dispose();
+        expandToggleBtn.title = isExpanded ? collapseLabel : expandLabel;
     };
     const parseMenuTitles = () => {
         const menuExpanded = isMenuExpanded();
