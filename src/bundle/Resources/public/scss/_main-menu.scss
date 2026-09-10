@@ -231,6 +231,14 @@
 
         &--second-level-link {
             height: calculateRem(36px);
+            border-radius: calculateRem(8px);
+
+            &:focus-visible {
+                outline: none;
+                box-shadow:
+                    0 0 0 calculateRem(1px) $color-primary-80,
+                    $box-shadow-focus-primary;
+            }
 
             &.ibexa-main-menu__item-action--current {
                 background-color: transparent;
@@ -263,6 +271,12 @@
     }
 
     .ids-accordion {
+        &--is-expanded:not(.ids-accordion--is-animating) {
+            .ids-accordion__content {
+                overflow: visible;
+            }
+        }
+
         &__header {
             width: 100%;
             gap: calculateRem(8px);
