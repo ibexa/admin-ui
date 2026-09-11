@@ -14,8 +14,8 @@
                 container: this.multilevelPopupMenuContainer,
                 triggerElement: this.toggleBtn,
                 referenceElement: this.container,
-                initialBranchPlacement: 'bottom-start',
-                initialBranchFallbackPlacements: ['bottom-end', 'top-end', 'top-start'],
+                initialBranchPlacement: 'bottom-end',
+                initialBranchFallbackPlacements: ['bottom-start', 'top-end', 'top-start'],
                 onTopBranchOpened: this.handlePopupOpened,
                 onTopBranchClosed: this.handlePopupClosed,
             });

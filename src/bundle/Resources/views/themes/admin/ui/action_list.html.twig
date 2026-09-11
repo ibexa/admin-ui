@@ -3,9 +3,7 @@
 {% set menu_items = [] %}
 
 {% for action in item.children %}
-    {% set action_attrs = action.attributes|default({})|merge({
-        class: 'ids-btn ids-btn--tertiary-alt ids-btn--medium ' ~ action.attributes.class|default(''),
-    }) %}
+    {% set action_attrs = action.attributes|default({}) %}
     {% if action.uri %}
         {% set action_attrs = action_attrs|merge({ href: action.uri }) %}
     {% else %}
@@ -41,7 +39,10 @@
 {% else %}
     {% for menu_item in menu_items %}
         {% set element = menu_item.action_attr.href is defined ? 'a' : 'button' %}
-        {% set action_attrs = menu_item.action_attr|merge({title: menu_item.label}) %}
+        {% set action_attrs = menu_item.action_attr|merge({
+            title: menu_item.label,
+            class: ('ids-btn ids-btn--tertiary-alt ids-btn--medium ' ~ menu_item.action_attr.class|default(''))|trim,
+        }) %}
         <{{ element }} {{ html.attributes(action_attrs) }}>
             <svg class="ibexa-icon ibexa-icon--small-medium">
                 <use xlink:href="{{ ibexa_icon_path(menu_item.icon) }}"></use>

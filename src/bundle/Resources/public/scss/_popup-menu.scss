@@ -1,18 +1,18 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
-@use 'sass:color';
+@use '@ids-assets/scss/variables/colors' as *;
+@use '@ids-assets/scss/variables/shadows' as *;
 
 .ibexa-popup-menu {
     --ids-mode: light;
 
     display: flex;
     flex-direction: column;
-    gap: calculateRem(1px);
-    padding: calculateRem(8px) 0;
-    background: $ibexa-color-white;
-    border: calculateRem(1px) solid $ibexa-color-light;
-    border-radius: $ibexa-border-radius;
-    box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(67px) 0 color.change($ibexa-color-info, $alpha: 0.2);
+    gap: calculateRem(4px);
+    padding: calculateRem(4px) calculateRem(8px);
+    background: $color-neutral-10;
+    border: calculateRem(1px) solid $color-neutral-80;
+    border-radius: calculateRem(8px);
     position: absolute;
     z-index: 1060;
 
@@ -22,18 +22,18 @@
 
     &__subitems-arrow {
         display: none;
-        position: absolute;
-        right: calculateRem(8px);
-        top: calc(50% - calculateRem(16px) / 2);
+        flex-shrink: 0;
+        margin-left: auto;
+        fill: currentColor;
     }
 
     &__group:not(:last-child) {
         &::after {
             content: '';
-            border-top: calculateRem(1px) solid $ibexa-color-light;
+            border-top: calculateRem(1px) solid $color-neutral-80;
             display: flex;
-            width: calc(100% - calculateRem(16px));
-            margin: calculateRem(1px) calculateRem(8px) 0;
+            width: 100%;
+            margin-top: calculateRem(4px);
         }
     }
 
@@ -41,7 +41,6 @@
         display: flex;
         align-items: center;
         min-width: calculateRem(150px);
-        padding: 0 calculateRem(8px);
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         &--hidden {
@@ -49,7 +48,7 @@
         }
 
         &--with-border {
-            border-top: calculateRem(1px) solid $ibexa-color-light;
+            border-top: calculateRem(1px) solid $color-neutral-80;
             margin-top: calculateRem(8px);
             padding-top: calculateRem(8px);
         }
@@ -59,57 +58,65 @@
                 &__subitems-arrow {
                     display: block;
                 }
+            }
+        }
 
+        &--expanded {
+            .ibexa-popup-menu {
                 &__item-content {
-                    padding-right: calculateRem(36px);
+                    color: $color-primary-50;
                 }
             }
         }
     }
 
     &__separator {
-        border-top: calculateRem(1px) solid $ibexa-color-light-500;
+        border-top: calculateRem(1px) solid $color-neutral-80;
     }
 
     &__item-content {
-        position: relative;
         display: flex;
         align-items: center;
-        align-items: baseline;
+        gap: calculateRem(8px);
         width: 100%;
         cursor: pointer;
-        padding: calculateRem(9px);
-        color: $ibexa-color-dark;
-        font-size: calculateRem(14px);
+        padding: calculateRem(4px) calculateRem(8px);
+        color: $color-neutral-240;
+        font-size: $ibexa-text-font-size-medium;
+        line-height: calculateRem(21px);
         text-align: left;
         text-decoration: none;
+        background-color: transparent;
         border: none;
-        border-radius: $ibexa-border-radius;
+        border-radius: calculateRem(4px);
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         &:hover {
-            background-color: $ibexa-color-light-300;
-            color: $ibexa-color-black;
+            color: $ibexa-color-primary;
             text-decoration: none;
+        }
+
+        &:active {
+            color: $color-primary-90;
+        }
+
+        &:focus-visible {
+            outline: none;
+            box-shadow: $box-shadow-focus-primary;
         }
 
         &[disabled],
         &:disabled,
         &--disabled {
+            color: $color-neutral-110;
             pointer-events: none;
             cursor: not-allowed;
-            opacity: 0.2;
-
-            &:hover {
-                background-color: initial;
-            }
         }
     }
 
     &__item-content-sublabel {
-        color: $ibexa-color-dark-400;
+        color: $color-neutral-160;
         font-size: $ibexa-text-font-size-small;
-        margin-left: calculateRem(6px);
     }
 
     &--hidden {
@@ -118,11 +125,5 @@
 
     &--initial-position {
         position: initial;
-    }
-}
-
-a[disabled].ibexa-popup-menu {
-    &__item-content {
-        color: $ibexa-color-black;
     }
 }
