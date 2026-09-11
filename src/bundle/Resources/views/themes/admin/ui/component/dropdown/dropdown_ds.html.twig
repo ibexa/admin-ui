@@ -35,8 +35,6 @@
 {% set has_min_search_items = min_search_items is defined and min_search_items is not null %}
 {% set has_min_select_all_toggler_items = min_select_all_toggler_items is defined and min_select_all_toggler_items is not null %}
 {% set has_min_item_width = min_item_width is defined and min_item_width is not null %}
-{% set has_grouped_preferred_choices = preferred_choices|filter(choice => choice.choices is defined)|length > 0 %}
-{% set has_grouped_choices = choices|filter(choice => choice.choices is defined)|length > 0 %}
 
 {% set can_use_ds = not (
     custom_init
@@ -51,36 +49,45 @@
     or is_ghost|default(false)
     or has_min_search_items
     or has_min_item_width
-    or has_grouped_preferred_choices
-    or has_grouped_choices
 ) %}
 
 {% if can_use_ds %}
     {% set max_visible_items = 5 %}
-    {% set normalized_preferred_choices = preferred_choices|map(choice => {
-        value: choice.value ~ '',
-        label: translation_domain is same as(false) ? choice.label : choice.label|trans({}, translation_domain),
-    }) %}
-    {% set normalized_choices = choices|map(choice => {
-        value: choice.value ~ '',
-        label: translation_domain is same as(false) ? choice.label : choice.label|trans({}, translation_domain),
-    }) %}
-    {% set normalized_items = normalized_preferred_choices
-        | merge(normalized_choices)
-        | reduce((carry, choice) => choice.value in carry.values
+    {# A ChoiceGroupView becomes a DS item group; deeper groups are flattened into their top-level group. #}
+    {% set normalized_entries = preferred_choices|merge(choices)|map(choice => choice.choices is defined
+        ? {
+            label: translation_domain is same as(false) ? choice.label : choice.label|trans({}, translation_domain),
+            items: choice.choices|reduce((group_items, sub_choice) => group_items|merge(
+                (sub_choice.choices is defined ? sub_choice.choices : [sub_choice])|map(leaf => {
+                    id: leaf.value ~ '',
+                    label: translation_domain is same as(false) ? leaf.label : leaf.label|trans({}, translation_domain),
+                })
+            ), []),
+        }
+        : {
+            id: choice.value ~ '',
+            label: translation_domain is same as(false) ? choice.label : choice.label|trans({}, translation_domain),
+        }
+    ) %}
+    {# Preferred choices come first; a leaf id seen once is dropped from later entries, and groups emptied that way disappear. #}
+    {% set normalized_items = normalized_entries|reduce((carry, entry) => entry.items is defined
+        ? (entry.items|filter(item => item.id not in carry.values)|length > 0
+            ? {
+                items: carry.items|merge([entry|merge({ items: entry.items|filter(item => item.id not in carry.values) })]),
+                values: carry.values|merge(entry.items|filter(item => item.id not in carry.values)|map(item => item.id)),
+            }
+            : carry)
+        : (entry.id in carry.values
             ? carry
             : {
-                items: carry.items|merge([choice]),
-                values: carry.values|merge([choice.value]),
-            }, {
-                items: [],
-                values: [],
-            })
+                items: carry.items|merge([entry]),
+                values: carry.values|merge([entry.id]),
+            }), {
+            items: [],
+            values: [],
+        })
     %}
-    {% set normalized_ds_items = normalized_items.items|map(choice => {
-        id: choice.value,
-        label: choice.label,
-    }) %}
+    {% set normalized_ds_items = normalized_items.items %}
     {% set ds_items = not multiple and translated_placeholder is not same as(null)
         ? [{ id: '', label: empty_placeholder_label }]|merge(normalized_ds_items)
         : normalized_ds_items
