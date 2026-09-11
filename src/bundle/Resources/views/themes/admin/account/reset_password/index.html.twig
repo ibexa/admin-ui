@@ -4,12 +4,87 @@
     {% form_theme form_reset_user_password '@ibexadesign/ui/form_fields.html.twig' %}
 {% endif %}
 
+{% macro password_field_errors(errors) %}
+    <div class="ibexa-form-error">
+        {% for error in errors %}
+            <em class="ibexa-form-error__row">
+                <svg class="ibexa-icon ibexa-icon--small ibexa-form-error__icon">
+                    <use xlink:href="{{ ibexa_icon_path('notice') }}"></use>
+                </svg>
+                {{ error.message }}
+            </em>
+        {% endfor %}
+    </div>
+{% endmacro %}
+
 {%- block content -%}
+    {% import _self as reset_password_macros %}
+
     <div class="ibexa-login__actions-headline">{{ 'ezplatform.reset_user_password.change_password'|trans|desc('Set new password') }}</div>
     {% if form_reset_user_password is defined %}
+        {% set new_password_form = form_reset_user_password.new_password %}
+        {% set requirements = content_type is defined ? ibexa_password_requirements(content_type) : [] %}
+        {% set requirement_identifiers = requirements|map((requirement) => requirement.identifier) %}
+
+        {% set password_errors = [] %}
+        {% for error in new_password_form.vars.errors %}
+            {% set password_errors = password_errors|merge([error]) %}
+        {% endfor %}
+        {% for error in new_password_form.first.vars.errors %}
+            {% set password_errors = password_errors|merge([error]) %}
+        {% endfor %}
+
+        {% set policy_errors = password_errors|filter((error) => error.cause.code|default(null) in requirement_identifiers) %}
+        {% set other_errors = password_errors|filter((error) => error.cause.code|default(null) not in requirement_identifiers) %}
+        {% set failed_requirement_identifiers = policy_errors|map((error) => error.cause.code) %}
+        {% set can_mark_requirements = form_reset_user_password.vars.submitted and other_errors is empty %}
+
+        {% if requirements is not empty %}
+            <div class="ibexa-password-requirements">
+                <p class="ibexa-password-requirements__intro">
+                    {{ 'ezplatform.reset_user_password.requirements_intro'|trans|desc('To keep your account secure, your password must meet the following requirements:') }}
+                </p>
+                <ul class="ibexa-password-requirements__list">
+                    {% for requirement in requirements %}
+                        {% set is_met = can_mark_requirements and requirement.identifier not in failed_requirement_identifiers %}
+                        <li
+                            class="ibexa-password-requirements__item{% if is_met %} ibexa-password-requirements__item--met{% endif %}"
+                            data-requirement="{{ requirement.identifier }}"
+                        >
+                            {% if is_met %}
+                                <svg class="ibexa-icon ibexa-icon--tiny-small ibexa-password-requirements__item-icon">
+                                    <use xlink:href="{{ ibexa_icon_path('checkmark') }}"></use>
+                                </svg>
+                            {% endif %}
+                            {{ requirement.translationKey|trans(requirement.parameters, 'ibexa_password_requirements') }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
         {{ form_start(form_reset_user_password, {'attr': {'class': 'ibexa-form-validate'} }) }}
         <fieldset>
-            {{ form_widget(form_reset_user_password.new_password) }}
+            <div class="form-group{% if policy_errors is not empty %} has-error{% endif %}">
+                {{ form_label(new_password_form.first) }}
+                {{ form_widget(new_password_form.first, policy_errors is not empty
+                    ? { attr: { class: 'is-invalid', error: true } }
+                    : {}
+                ) }}
+                {% if policy_errors is not empty %}
+                    {{ reset_password_macros.password_field_errors(policy_errors) }}
+                {% endif %}
+            </div>
+            <div class="form-group{% if other_errors is not empty %} has-error{% endif %}">
+                {{ form_label(new_password_form.second) }}
+                {{ form_widget(new_password_form.second, other_errors is not empty
+                    ? { attr: { class: 'is-invalid', error: true } }
+                    : {}
+                ) }}
+                {% if other_errors is not empty %}
+                    {{ reset_password_macros.password_field_errors(other_errors) }}
+                {% endif %}
+            </div>
         </fieldset>
         {{ form_widget(form_reset_user_password.update, {'attr': {'class': 'ids-btn ids-btn--primary ids-btn--medium ibexa-login__btn ibexa-login__btn--change-password'}}) }}
         {{ form_end(form_reset_user_password) }}
@@ -22,6 +97,6 @@
         >
             {{ 'authentication.reset_your_password.back_to_sign_in'|trans|desc('Back to sign in page') }}
         </twig:ibexa:link>
-        
+
     {{ encore_entry_script_tags('ibexa-admin-ui-reset-password-js', null, 'ibexa') }}
 {%- endblock content -%}
