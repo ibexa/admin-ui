@@ -357,12 +357,20 @@
     }
 
     &__expand-toggler {
+        position: relative;
+
         &.ids-btn {
-            --ids-default-text-color: #{$ibexa-color-dark-300};
-            --ids-hover-text-color: #{$ibexa-color-dark-300};
-            --ids-focus-text-color: #{$ibexa-color-dark-300};
+            --ids-default-text-color: #{$color-neutral-160};
+            --ids-hover-text-color: #{$color-neutral-100};
+            --ids-active-text-color: #{$color-neutral-100};
+            --ids-focus-text-color: #{$color-neutral-160};
+            --ids-focus-box-shadow: #{$box-shadow-focus-dark_surface};
 
             padding: 0 calculateRem(7px);
+
+            &:focus-visible {
+                border-color: $color-neutral-80;
+            }
         }
 
         &--collapsed {
