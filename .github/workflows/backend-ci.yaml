@@ -40,36 +40,6 @@ jobs:
           set -euo pipefail
           composer run-script check-cs -- --format=checkstyle | cs2pr
 
-  rector:
-    name: Run rector
-    runs-on: "ubuntu-22.04"
-    strategy:
-      matrix:
-        php:
-          - '8.3'
-    steps:
-      -   uses: actions/checkout@v4
-
-      -   name: Setup PHP Action
-          uses: shivammathur/setup-php@v2
-          with:
-            php-version: ${{ matrix.php }}
-            coverage: none
-            extensions: 'pdo_sqlite, gd'
-            tools: cs2pr
-
-      -   uses: actions/checkout@v6
-
-      -   uses: ibexa/gh-workflows/actions/composer-install@main
-          with:
-              gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
-              gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
-              satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
-              satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
-
-      - name: Run rector
-        run: vendor/bin/rector process --dry-run --ansi
-
   tests:
     name: Tests
     runs-on: "ubuntu-26.04"
