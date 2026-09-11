@@ -36,6 +36,15 @@
                 multilevelPopupMenu.toggleItemVisibility(branchItem, shouldBeVisible);
             });
 
+            hiddenItems.forEach((item) => {
+                const hiddenItemPopupMenuElement = item.querySelector('.ibexa-multilevel-popup-menu');
+                const hiddenItemPopupMenu = hiddenItemPopupMenuElement
+                    ? ibexa.helpers.objectInstances.getInstance(hiddenItemPopupMenuElement)
+                    : null;
+
+                hiddenItemPopupMenu?.closeMenu();
+            });
+
             if (hiddenButtonsIds.length === 0) {
                 multilevelPopupMenu.closeMenu();
             } else {
