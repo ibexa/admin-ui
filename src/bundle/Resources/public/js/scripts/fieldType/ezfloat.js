@@ -15,8 +15,9 @@
         validateFloat(event) {
             const isRequired = event.target.required;
             const value = +event.target.value;
-            const isEmpty = !event.target.value && event.target.value !== '0';
-            const isFloat = Number.isInteger(value) || value % 1 !== 0;
+            const { badInput } = event.target.validity;
+            const isEmpty = !badInput && !event.target.value && event.target.value !== '0';
+            const isFloat = !badInput && (Number.isInteger(value) || value % 1 !== 0);
             const isLess = value < parseFloat(event.target.getAttribute('min'));
             const isGreater = value > parseFloat(event.target.getAttribute('max'));
             const isError = (isEmpty && isRequired) || (!isEmpty && (!isFloat || isLess || isGreater));
