@@ -1,0 +1,14 @@
+{#
+    Toast container: `app.flashes` are rendered on load and each notification type gets its own template,
+    which admin.notifications.js clones with the `message` placeholder replaced.
+#}
+<div
+    class="ibexa-notifications-container"
+    data-notifications="{{ app.flashes|json_encode() }}"
+    {% for notification_type in ['info', 'success', 'warning', 'error'] %}
+        data-template-{{ notification_type }}="{{ include('@ibexadesign/ui/notification.html.twig', {
+            type: notification_type,
+            message: '{{ message }}',
+        })|e('html_attr') }}"
+    {% endfor %}
+></div>

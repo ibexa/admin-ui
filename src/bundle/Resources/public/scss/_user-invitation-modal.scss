@@ -21,19 +21,12 @@
         z-index: 1;
     }
 
-    .ibexa-alert {
-        &__actions {
-            display: flex;
-            align-items: center;
-        }
-    }
-
     &__body {
         position: relative;
     }
 
     &__issues-alert {
-        &--hidden {
+        &--hidden.ibexa-user-invitation-modal__issues-alert--hidden {
             display: none;
         }
     }
@@ -43,7 +36,7 @@
     }
 
     &__bad-file-alert {
-        &--hidden {
+        &--hidden.ibexa-user-invitation-modal__bad-file-alert--hidden {
             display: none;
         }
     }

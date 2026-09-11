@@ -1,0 +1,7 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+// TODO: Remove together with the `@ibexadesign/ui/component/alert/alert.html.twig` adapter — this only keeps
+// the bottom margin that its call sites used to get from Bootstrap's `.alert`.
+.ibexa-alert-adapter {
+    margin-bottom: calculateRem(14px);
+}

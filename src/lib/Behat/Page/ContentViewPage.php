@@ -295,7 +295,7 @@ class ContentViewPage extends Page
             new VisibleCSSLocator('popupMenuItem', '.ibexa-popup-menu__item .ibexa-popup-menu__item-content'),
             new VisibleCSSLocator('addUrlAliasButton', '#ibexa-tab-location-view-urls [data-bs-target="#ibexa-modal--custom-url-alias"]'),
             new VisibleCSSLocator('customUrlAliasesTable', '#ibexa-tab-location-view-urls .ibexa-table'),
-            new VisibleCSSLocator('alertTitle', '.ibexa-alert__title'),
+            new VisibleCSSLocator('alertTitle', '.ids-alert__title'),
             new VisibleCSSLocator('selectHideMode', '.form-check .ids-input--radio'),
             new VisibleCSSLocator('cancelScheduleButton', '.ids-btn--schedule-hide-cancel'),
         ];

@@ -2,20 +2,14 @@
 
 {%- block content -%}
     <h1 class="ibexa-login__actions-headline">{{ 'ezplatform.reset_user_password.change_password'|trans|desc('Set new password') }}</h1>
-    {% embed '@ibexadesign/ui/component/alert/alert.html.twig' with {
-        type: 'success',
-        icon_path: ibexa_icon_path('checkmark'),
-        class: 'ibexa-login__reset-password-alert',
-    } only %}
-        {% block content %}
-            <div class="ibexa-alert__content">
-                <span>
-                    {{ 'ezplatform.reset_user_password.success'|trans({ '%login%': path('login') })
-                    |desc('Your password has been changed. You can <a class="ibexa-login__reset-password-alert-link" href="%login%">log in</a> to Cohesivo.')|raw }}
-                </span>
-            </div>
-        {% endblock %}
-    {% endembed %}
+    <twig:ibexa:alert
+        type="success"
+        variant="local"
+        class="ibexa-login__reset-password-alert"
+    >
+        {{ 'ezplatform.reset_user_password.success'|trans({ '%login%': path('login') }, 'messages')
+            |desc('Your password has been changed. You can <a class="ibexa-login__reset-password-alert-link" href="%login%">log in</a> to Cohesivo.')|raw }}
+    </twig:ibexa:alert>
     <div class="ibexa-login__actions">
         <twig:ibexa:link
             href="{{ path('login') }}"
