@@ -1,0 +1,11 @@
+{
+    "recipesEndpoint": "",
+    "packages": [
+        {
+            "requirement": "dev-merge/5.0-to-6.0 as 6.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/test-core.git",
+            "package": "ibexa/test-core",
+            "shouldBeAddedAsVCS": false
+        }
+    ]
+}
