@@ -36,6 +36,7 @@ jobs:
             - uses: ibexa/gh-workflows/actions/setup-composer-root-version@main
             - uses: ibexa/gh-workflows/actions/composer-install@main
               with:
+                  php-version: '8.4'
                   gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
                   gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
                   satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}

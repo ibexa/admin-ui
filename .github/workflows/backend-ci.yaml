@@ -53,6 +53,7 @@ jobs:
 
       - uses: ibexa/gh-workflows/actions/composer-install@main
         with:
+            php-version: ${{ matrix.php }}
             gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
             gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
             satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
