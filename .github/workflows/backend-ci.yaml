@@ -1,9 +1,8 @@
-name: CI
+name: Backend CI
 
 on:
   push:
     branches:
-      - main
       - '[0-9]+.[0-9]+'
   pull_request: ~
   workflow_dispatch:
@@ -29,43 +28,17 @@ jobs:
 
       - uses: ibexa/gh-workflows/actions/composer-install@main
         with:
+            php-version: ${{ matrix.php }}
             gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
             gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
             satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
             satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
 
       - name: Run code style check
-        run: composer run-script check-cs -- --format=checkstyle | cs2pr
-
-  rector:
-    name: Run rector
-    runs-on: "ubuntu-26.04"
-    strategy:
-      matrix:
-        php:
-          - '8.4'
-    steps:
-      -   uses: actions/checkout@v7
-
-      -   name: Setup PHP Action
-          uses: shivammathur/setup-php@v2
-          with:
-            php-version: ${{ matrix.php }}
-            coverage: none
-            extensions: 'pdo_sqlite, gd'
-            tools: cs2pr
-
-      -   uses: actions/checkout@v7
-
-      -   uses: ibexa/gh-workflows/actions/composer-install@main
-          with:
-              gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
-              gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
-              satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
-              satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
-
-      - name: Run rector
-        run: vendor/bin/rector process --dry-run --ansi
+        shell: bash
+        run: |
+          set -euo pipefail
+          composer run-script check-cs -- --format=checkstyle | cs2pr
 
   deptrac:
     name: Deptrac
@@ -106,6 +79,7 @@ jobs:
 
       - uses: ibexa/gh-workflows/actions/composer-install@main
         with:
+            php-version: ${{ matrix.php }}
             gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
             gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
             satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
@@ -154,6 +128,7 @@ jobs:
 
       -   uses: ibexa/gh-workflows/actions/composer-install@main
           with:
+              php-version: ${{ matrix.php }}
               gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
               gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
               satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
@@ -206,6 +181,7 @@ jobs:
 
       -   uses: ibexa/gh-workflows/actions/composer-install@main
           with:
+              php-version: ${{ matrix.php }}
               gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
               gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
               satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
@@ -226,7 +202,7 @@ jobs:
     name: Notify Slack
     needs: [cs-fix, tests, integration-tests-postgres, integration-tests-mysql]
     if: always() && github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-26.04
+    runs-on: "ubuntu-26.04"
     steps:
       - name: Determine overall result
         id: result
@@ -250,7 +226,7 @@ jobs:
 
       - name: Send Slack notification
         if: steps.result.outputs.state == 'failure' || inputs.send-success-notification
-        uses: slackapi/slack-github-action@45a88b9581bfab2566dc881e2cd66d334e621e2c # v3.0.3
+        uses: slackapi/slack-github-action@dcb1066f776dd043e64d0e8ba94ca15cc7e1875d # v4.0.0
         with:
           webhook: ${{ secrets.SLACK_PHP_BACKEND_CI_WEBHOOK_URL }}
           webhook-type: incoming-webhook

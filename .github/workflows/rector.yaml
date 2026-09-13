@@ -1,0 +1,17 @@
+name: Rector PHP
+on:
+    push:
+        branches:
+            - '[0-9]+.[0-9]+'
+    pull_request: ~
+jobs:
+    rector:
+        name: Run rector
+        uses: ibexa/gh-workflows/.github/workflows/rector.yml@main
+        with:
+            php-version: '8.3'
+        secrets:
+            AUTOMATION_CLIENT_ID: ${{ secrets.AUTOMATION_CLIENT_ID }}
+            AUTOMATION_CLIENT_SECRET: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
+            SATIS_NETWORK_KEY: ${{ secrets.SATIS_NETWORK_KEY }}
+            SATIS_NETWORK_TOKEN: ${{ secrets.SATIS_NETWORK_TOKEN }}
