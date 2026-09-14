@@ -67,16 +67,16 @@
 {% endblock %}
 
 {% block ibexa_float_field_definition_edit %}
-    <div class="ibexa-content-type-edit__field-settings-group">
-        <div class="ibexa-content-type-edit__field-settings-field ibexa_float-validator min-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+    <div class="ibexa-content-type-edit__field-settings-group{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-content-type-edit__field-settings-field ibexa_float-validator min-value form-group">
             {{- form_row(form.minValue) -}}
         </div>
 
-        <div class="ibexa-content-type-edit__field-settings-field ibexa_float-validator max-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-content-type-edit__field-settings-field ibexa_float-validator max-value form-group">
             {{- form_row(form.maxValue) -}}
         </div>
 
-        <div class="ibexa-content-type-edit__field-settings-field ibexa_float-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-content-type-edit__field-settings-field ibexa_float-default-value form-group">
             {{- form_row(form.defaultValue) -}}
         </div>
     </div>
@@ -93,22 +93,22 @@
         </div>
     {% endif %}
 
-    <div class="ibexa_image-validator is-alternative-text-required"{% if group_class is not empty %} {{ group_class }}{% endif %}>
+    <div class="ibexa_image-validator is-alternative-text-required{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{ form_row(form.isAlternativeTextRequired) }}
     </div>
 {% endblock %}
 
 {% block ibexa_integer_field_definition_edit %}
-    <div class="ibexa-content-type-edit__field-settings-group">
-        <div class="ibexa-content-type-edit__field-settings-field ibexa_integer-validator min-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+    <div class="ibexa-content-type-edit__field-settings-group{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-content-type-edit__field-settings-field ibexa_integer-validator min-value form-group">
             {{- form_row(form.minValue) -}}
         </div>
 
-        <div class="ibexa-content-type-edit__field-settings-field ibexa_integer-validator max-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-content-type-edit__field-settings-field ibexa_integer-validator max-value form-group">
             {{- form_row(form.maxValue) -}}
         </div>
 
-        <div class="ibexa-content-type-edit__field-settings-field ibexa_integer-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-content-type-edit__field-settings-field ibexa_integer-default-value form-group">
             {{- form_row(form.defaultValue) -}}
         </div>
     </div>

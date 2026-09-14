@@ -24,7 +24,7 @@
     &__section {
         display: flex;
         flex-wrap: wrap;
-        margin: 0 0 calculateRem(36px) 0;
+        margin: 0 0 calculateRem(32px) 0;
 
         &--one-column-layout {
             .ibexa-content-type-edit__section-column {
@@ -49,14 +49,12 @@
         margin-bottom: calculateRem(24px);
 
         &--seo {
-            margin-top: calculateRem(36px);
+            margin-top: calculateRem(32px);
         }
     }
 
     &__section-column-body {
         .form-check {
-            margin-bottom: calculateRem(16px);
-
             .ids-label {
                 margin-bottom: 0;
             }
