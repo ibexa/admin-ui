@@ -1,4 +1,3 @@
-@use 'sass:color';
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 
@@ -11,19 +10,6 @@
 
     .ids-alert {
         margin-bottom: calculateRem(16px);
-    }
-
-    body:has(.ibexa-bulk-action-failed-modal.show) & .ibexa-notification--bulk-action-failed {
-        position: relative;
-        pointer-events: none;
-
-        &::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background-color: color.change($ibexa-color-black, $alpha: 0.5);
-        }
     }
 }
 
