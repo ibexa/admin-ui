@@ -91,6 +91,10 @@ class AdminExceptionListener implements LoggerAwareInterface
             return;
         }
 
+        if (!$event->isMainRequest()) {
+            return;
+        }
+
         if (!$this->isAdminException($event)) {
             return;
         }
@@ -129,6 +133,9 @@ class AdminExceptionListener implements LoggerAwareInterface
                 break;
             case 403:
                 $content = $this->twig->render('@ibexadesign/ui/error_page/403.html.twig');
+                break;
+            case 405:
+                $content = $this->twig->render('@ibexadesign/ui/error_page/405.html.twig');
                 break;
             default:
                 $content = $this->twig->render('@ibexadesign/ui/error_page/unknown.html.twig');
