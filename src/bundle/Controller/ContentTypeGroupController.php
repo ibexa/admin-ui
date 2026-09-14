@@ -226,7 +226,7 @@ final class ContentTypeGroupController extends Controller
         return $this->render('@ibexadesign/content_type/content_type_group/index.html.twig', [
             'content_type_group' => $group,
             'page' => $page,
-            'route_name' => $request->get('_route'),
+            'route_name' => $request->attributes->get('_route'),
             'can_create' => $this->isGranted(new Attribute('class', 'create')),
         ]);
     }

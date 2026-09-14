@@ -104,7 +104,7 @@ class AdminExceptionListener implements LoggerAwareInterface
         $request = $event->getRequest();
 
         /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess */
-        $siteAccess = $request->get('siteaccess', new SiteAccess('default'));
+        $siteAccess = $request->attributes->get('siteaccess', new SiteAccess('default'));
 
         return in_array(
             $siteAccess->name,

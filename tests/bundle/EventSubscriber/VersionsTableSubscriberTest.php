@@ -12,6 +12,7 @@ use Ibexa\Bundle\AdminUi\EventSubscriber\VersionsTableSubscriber;
 use Ibexa\Bundle\TwigComponents\Templating\Twig\Components\Table;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormView;
+use Symfony\UX\TwigComponent\ComponentMetadata;
 use Symfony\UX\TwigComponent\Event\PostMountEvent;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
@@ -39,7 +40,7 @@ final class VersionsTableSubscriberTest extends TestCase
     {
         $component = $this->createTable(type: 'products');
 
-        $this->subscriber->onPostMount(new PostMountEvent($component, []));
+        $this->subscriber->onPostMount(new PostMountEvent($component, [], new ComponentMetadata([])));
 
         self::assertSame([], $component->getColumns());
     }
@@ -48,7 +49,7 @@ final class VersionsTableSubscriberTest extends TestCase
     {
         $component = $this->createTable(variant: VersionsTableSubscriber::VARIANT_PUBLISHED);
 
-        $this->subscriber->onPostMount(new PostMountEvent($component, []));
+        $this->subscriber->onPostMount(new PostMountEvent($component, [], new ComponentMetadata([])));
 
         self::assertSame(
             ['version', 'modified_language', 'contributor', 'created', 'last_saved', 'actions'],
@@ -63,7 +64,7 @@ final class VersionsTableSubscriberTest extends TestCase
             parameters: ['form' => new FormView()]
         );
 
-        $this->subscriber->onPostMount(new PostMountEvent($component, []));
+        $this->subscriber->onPostMount(new PostMountEvent($component, [], new ComponentMetadata([])));
 
         $columns = $component->getColumns();
 
@@ -91,7 +92,7 @@ final class VersionsTableSubscriberTest extends TestCase
     {
         $component = $this->createTable(variant: VersionsTableSubscriber::VARIANT_DRAFT_CONFLICT);
 
-        $this->subscriber->onPostMount(new PostMountEvent($component, []));
+        $this->subscriber->onPostMount(new PostMountEvent($component, [], new ComponentMetadata([])));
 
         self::assertArrayNotHasKey('created', $component->getColumns());
     }
@@ -100,7 +101,7 @@ final class VersionsTableSubscriberTest extends TestCase
     {
         $component = $this->createTable(variant: VersionsTableSubscriber::VARIANT_DRAFT);
 
-        $this->subscriber->onPostMount(new PostMountEvent($component, []));
+        $this->subscriber->onPostMount(new PostMountEvent($component, [], new ComponentMetadata([])));
         $component->addColumn(
             'translation_status',
             static fn (): string => 'header',

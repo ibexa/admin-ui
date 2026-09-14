@@ -25,7 +25,7 @@
 {% endblock %}
 
 {% block content %}
-    {% set trash_search_params = app.request.get('trash_search') %}
+    {% set trash_search_params = app.request.query.all('trash_search') %}
     {% set creator = form_search.vars.data ? form_search.vars.data.creator : '' %}
     {% set creator_exists = creator is not empty %}
 

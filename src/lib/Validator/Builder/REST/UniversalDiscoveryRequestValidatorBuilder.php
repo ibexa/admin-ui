@@ -27,7 +27,7 @@ final readonly class UniversalDiscoveryRequestValidatorBuilder
         $this->validator
             ->atPath('{locationId}')
             ->validate(
-                $request->get('locationId'),
+                $request->attributes->get('locationId'),
                 new Assert\Type('numeric')
             );
 

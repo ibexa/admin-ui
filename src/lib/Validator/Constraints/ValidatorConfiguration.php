@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Validator\Constraints;
 
+use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 
 /**
@@ -16,6 +17,20 @@ use Symfony\Component\Validator\Constraint;
 final class ValidatorConfiguration extends Constraint
 {
     public string $message = 'ez.field_definition.validator_configuration';
+
+    /**
+     * @param array<string>|null $groups
+     */
+    #[HasNamedArguments]
+    public function __construct(
+        ?string $message = null,
+        ?array $groups = null,
+        mixed $payload = null
+    ) {
+        parent::__construct(null, $groups, $payload);
+
+        $this->message = $message ?? $this->message;
+    }
 
     public function getTargets(): string
     {

@@ -47,7 +47,7 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
             ->expects(self::never())
             ->method('addViolation');
 
-        $constraint = new LocationIsNotSubLocation(['value' => $comparedLocation]);
+        $constraint = new LocationIsNotSubLocation($comparedLocation);
 
         $this->validator->validate($location, $constraint);
     }
@@ -66,7 +66,7 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
             ->setConstructorArgs([['pathString' => '/1/2/']])
             ->getMock();
 
-        $constraint = new LocationIsNotSubLocation(['value' => $comparedLocation]);
+        $constraint = new LocationIsNotSubLocation($comparedLocation);
 
         $constraintViolationBuilder = $this
             ->getMockBuilder(ConstraintViolationBuilderInterface::class)

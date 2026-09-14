@@ -267,7 +267,7 @@ final class TrashController extends Controller
 
     private function redirectToTrashList(Request $request): RedirectResponse
     {
-        $trashSearchParams = $request->get('trash_search');
+        $trashSearchParams = $request->query->all('trash_search');
         $params = $trashSearchParams ? ['trash_search' => $trashSearchParams] : [];
 
         return $this->redirectToRoute('ibexa.trash.list', $params);

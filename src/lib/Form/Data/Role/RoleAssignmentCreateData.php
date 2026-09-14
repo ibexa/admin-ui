@@ -44,7 +44,7 @@ final class RoleAssignmentCreateData implements TranslationContainerInterface
     private array $locations;
 
     #[Assert\NotNull]
-    #[Assert\Choice([
+    #[Assert\Choice(choices: [
         RoleAssignmentCreateData::LIMITATION_TYPE_NONE,
         RoleAssignmentCreateData::LIMITATION_TYPE_SECTION,
         RoleAssignmentCreateData::LIMITATION_TYPE_LOCATION,

@@ -90,7 +90,7 @@ final class RoleController extends Controller
         return $this->render('@ibexadesign/user/role/index.html.twig', [
             'role' => $role,
             'delete_form' => $deleteForm,
-            'route_name' => $request->get('_route'),
+            'route_name' => $request->attributes->get('_route'),
             'policy_page' => $policyPage,
             'assignment_page' => $assignmentPage,
         ]);

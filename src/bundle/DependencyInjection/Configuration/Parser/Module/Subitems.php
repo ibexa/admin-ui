@@ -32,7 +32,7 @@ final class Subitems extends AbstractParser
             ->arrayNode('subitems_module')
             ->info('Subitems module configuration')
             ->children()
-            ->integerNode('limit')->isRequired()->defaultValue(10)->end()
+            ->integerNode('limit')->isRequired()->end()
             ->end()
             ->end();
     }

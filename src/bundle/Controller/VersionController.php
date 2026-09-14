@@ -41,7 +41,7 @@ final class VersionController extends Controller
      */
     public function removeAction(Request $request): Response
     {
-        $isDraftForm = null !== $request->get(
+        $isDraftForm = $request->request->has(
             sprintf('version-remove-%s', VersionsTab::FORM_REMOVE_DRAFT)
         );
 
