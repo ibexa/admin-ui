@@ -14,8 +14,9 @@
         validateInteger(event) {
             const isRequired = event.target.required;
             const value = +event.target.value;
-            const isEmpty = !event.target.value && event.target.value !== '0';
-            const isInteger = Number.isInteger(value);
+            const { badInput } = event.target.validity;
+            const isEmpty = !badInput && !event.target.value && event.target.value !== '0';
+            const isInteger = !badInput && Number.isInteger(value);
             const isLess = value < parseInt(event.target.getAttribute('min'), 10);
             const isGreater = value > parseInt(event.target.getAttribute('max'), 10);
             const isError = (isEmpty && isRequired) || (!isEmpty && (!isInteger || isLess || isGreater));
