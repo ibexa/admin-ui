@@ -11,6 +11,10 @@
     .ids-alert {
         margin-bottom: calculateRem(16px);
     }
+
+    body:has(.ibexa-bulk-action-failed-modal.show) & {
+        z-index: $ibexa-backdrop-zindex - 1;
+    }
 }
 
 .ibexa-notification-list {
