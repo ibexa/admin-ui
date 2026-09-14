@@ -93,7 +93,14 @@ final class UpperMenu extends Component
     {
         $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('siteDropdown'))->click();
         $this->ibexaDropdown->selectOptionByValueFragment($siteName);
-        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('siteDropdownSelectedItem'))->assert()->textEquals(sprintf('Site: %s', $siteName));
+        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('siteDropdownSelectedItem'))->assert()->textEquals(sprintf('Context: %s', $siteName));
+    }
+
+    public function selectAllSitesContext(): void
+    {
+        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('siteDropdown'))->click();
+        $this->ibexaDropdown->selectOptionByValueFragment('All brand context');
+        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('siteDropdownSelectedItem'))->assert()->textEquals('Context: All');
     }
 
     protected function specifyLocators(): array
