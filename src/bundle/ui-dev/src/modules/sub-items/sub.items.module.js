@@ -998,6 +998,8 @@ export default class SubItemsModule extends Component {
                 return;
             }
 
+            notificationNode.classList.add('ibexa-notification--bulk-action-failed');
+
             showModalBtn.addEventListener('click', this.props.showBulkActionFailedModal.bind(null, modalTableTitle, failedItemsData));
         });
     }
