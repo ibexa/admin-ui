@@ -44,7 +44,8 @@
     }
 
     &__logo {
-        max-width: calculateRem(250px);
+        align-self: flex-start;
+        height: calculateRem(56px);
         margin-bottom: calculateRem(32px);
     }
 
