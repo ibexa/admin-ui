@@ -66,7 +66,10 @@
         {{ form_start(form_reset_user_password, {'attr': {'class': 'ibexa-form-validate'} }) }}
         <fieldset>
             <div class="form-group{% if policy_errors is not empty %} has-error{% endif %}">
-                {{ form_label(new_password_form.first) }}
+                {{ form_label(new_password_form.first, null, policy_errors is not empty
+                    ? { label_attr: { class: 'ids-label--error' } }
+                    : {}
+                ) }}
                 {{ form_widget(new_password_form.first, policy_errors is not empty
                     ? { attr: { class: 'is-invalid', error: true } }
                     : {}
@@ -76,7 +79,10 @@
                 {% endif %}
             </div>
             <div class="form-group{% if other_errors is not empty %} has-error{% endif %}">
-                {{ form_label(new_password_form.second) }}
+                {{ form_label(new_password_form.second, null, other_errors is not empty
+                    ? { label_attr: { class: 'ids-label--error' } }
+                    : {}
+                ) }}
                 {{ form_widget(new_password_form.second, other_errors is not empty
                     ? { attr: { class: 'is-invalid', error: true } }
                     : {}
