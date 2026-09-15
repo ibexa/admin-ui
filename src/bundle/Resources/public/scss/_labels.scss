@@ -8,6 +8,12 @@
     &.form-label.is-invalid {
         color: $ibexa-color-danger;
     }
+
+    &.col-form-label {
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-bottom: calculateRem(4px);
+    }
 }
 
 .form-check-inline {
