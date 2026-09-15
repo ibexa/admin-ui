@@ -11,12 +11,12 @@ namespace Ibexa\Tests\AdminUi\Config\AdminUiForms;
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolver;
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolver
- */
+#[CoversClass(ContentTypeFieldTypesResolver::class)]
 final class ContentTypeFieldTypesResolverTest extends TestCase
 {
     private const string PARAM_NAME = 'admin_ui_forms.content_type_edit.field_types';
@@ -32,13 +32,12 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider provideDataForTestGetFieldTypes
-     *
      * @param array<string, array{
      *     'position'?: int,
      *     'meta'?: bool,
      *  }> $expectedFieldTypes
      */
+    #[DataProvider('provideDataForTestGetFieldTypes')]
     public function testGetFieldTypes(bool $hasParameter, array $expectedFieldTypes): void
     {
         $this->mockConfigResolverHasParameter($hasParameter);
@@ -51,8 +50,6 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider provideDataForTestGetMetaFieldTypes
-     *
      * @param array<string, array{
      *     'position'?: int,
      *     'meta'?: bool,
@@ -63,6 +60,7 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
      *  }> $expectedMetaFieldTypes
      * $expectedMetaFieldTypes
      */
+    #[DataProvider('provideDataForTestGetMetaFieldTypes')]
     public function testGetMetaFieldTypes(
         bool $hasParameter,
         array $fieldTypes,
@@ -78,14 +76,13 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider provideDataForTestGetMetaFieldTypeIdentifiers
-     *
      * @param array<string, array{
      *     'meta'?: bool,
      *     'position'?: int,
      *  }> $metaFieldTypes
      * @param array<string> $expectedIdentifiers
      */
+    #[DataProvider('provideDataForTestGetMetaFieldTypeIdentifiers')]
     public function testGetMetaFieldTypeIdentifiers(
         bool $hasParameter,
         array $metaFieldTypes,
@@ -109,7 +106,7 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
      *      }>
      * }>
      */
-    public function provideDataForTestGetFieldTypes(): iterable
+    public static function provideDataForTestGetFieldTypes(): iterable
     {
         yield [
             false,
@@ -145,7 +142,7 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
      *      }>
      * }>
      */
-    public function provideDataForTestGetMetaFieldTypes(): iterable
+    public static function provideDataForTestGetMetaFieldTypes(): iterable
     {
         yield [
             false,
@@ -189,7 +186,7 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
      *      array<string>
      * }>
      */
-    public function provideDataForTestGetMetaFieldTypeIdentifiers(): iterable
+    public static function provideDataForTestGetMetaFieldTypeIdentifiers(): iterable
     {
         yield [
             false,

@@ -14,6 +14,7 @@ use Ibexa\AdminUi\Form\Data\Role\RoleUpdateData;
 use Ibexa\AdminUi\Form\DataMapper\RoleUpdateMapper;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class RoleUpdateMapperTest extends TestCase
@@ -31,10 +32,9 @@ final class RoleUpdateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @param array<string, mixed> $properties
      */
+    #[DataProvider('dataProvider')]
     public function testMap(array $properties): void
     {
         $data = $this->mapper->map($this->createStruct($properties));
@@ -43,10 +43,9 @@ final class RoleUpdateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @param array<string, mixed> $properties
      */
+    #[DataProvider('dataProvider')]
     public function testReverseMap(array $properties): void
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
@@ -73,7 +72,7 @@ final class RoleUpdateMapperTest extends TestCase
     /**
      * @return array<string, array<array<string, mixed>>>
      */
-    public function dataProvider(): array
+    public static function dataProvider(): array
     {
         return [
             'simple' => [['identifier' => 'hash']],

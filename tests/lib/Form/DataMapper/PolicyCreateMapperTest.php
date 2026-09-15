@@ -14,6 +14,7 @@ use Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData;
 use Ibexa\AdminUi\Form\DataMapper\PolicyCreateMapper;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Core\Repository\Values\User\PolicyCreateStruct;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class PolicyCreateMapperTest extends TestCase
@@ -31,10 +32,9 @@ final class PolicyCreateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @param array<string, mixed> $properties
      */
+    #[DataProvider('dataProvider')]
     public function testMap(array $properties): void
     {
         $data = $this->mapper->map($this->createStruct($properties));
@@ -43,10 +43,9 @@ final class PolicyCreateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @param array<string, mixed> $properties
      */
+    #[DataProvider('dataProvider')]
     public function testReverseMap(array $properties): void
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
@@ -73,7 +72,7 @@ final class PolicyCreateMapperTest extends TestCase
     /**
      * @return array<string, array<array<string, string>>>
      */
-    public function dataProvider(): array
+    public static function dataProvider(): array
     {
         return [
             'simple' => [['module' => 'module', 'function' => 'function']],

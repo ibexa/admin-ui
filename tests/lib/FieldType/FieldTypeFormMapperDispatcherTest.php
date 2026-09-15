@@ -49,7 +49,7 @@ class FieldTypeFormMapperDispatcherTest extends TestCase
             ]),
         ]);
 
-        $formMock = $this->createMock(FormInterface::class);
+        $formMock = self::createStub(FormInterface::class);
 
         $this->fieldTypeAliasResolver
             ->method('resolveIdentifier')

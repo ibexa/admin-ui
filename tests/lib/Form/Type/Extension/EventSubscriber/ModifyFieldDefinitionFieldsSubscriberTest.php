@@ -14,15 +14,14 @@ use Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\ModifyFieldDefinitionField
 use Ibexa\AdminUi\Form\Type\FieldDefinition\FieldDefinitionType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormInterface;
 
-/**
- * @covers \Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\ModifyFieldDefinitionFieldsSubscriber
- */
+#[CoversClass(ModifyFieldDefinitionFieldsSubscriber::class)]
 final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
 {
     private const string FIELD_TYPE_IDENTIFIER = 'foo';

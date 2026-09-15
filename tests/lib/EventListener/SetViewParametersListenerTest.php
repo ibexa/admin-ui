@@ -62,20 +62,26 @@ final class SetViewParametersListenerTest extends TestCase
         $this->repository = $this->createMock(Repository::class);
 
         $configResolver = $this->createMock(ConfigResolverInterface::class);
-        $configResolver
-            ->method('getParameter')
-            ->withConsecutive(
-                ['admin_ui_forms.content_edit.fieldtypes'],
-                ['admin_ui_forms.content_edit.meta_field_groups_list']
-            )
-            ->willReturnOnConsecutiveCalls(
-                [
+        $matcher = self::any();
+        $configResolver->expects($matcher)
+            ->method('getParameter')->willReturnCallback(function (...$parameters) use ($matcher): array {
+            if ($matcher->numberOfInvocations() === 1) {
+                $this->assertSame('admin_ui_forms.content_edit.fieldtypes', $parameters[0]);
+
+                return [
                     'ibexa_taxonomy_entry_assignment' => [
                         'meta' => true,
                     ],
-                ],
-                ['metadata']
-            );
+                ];
+            }
+            if ($matcher->numberOfInvocations() === 2) {
+                $this->assertSame('admin_ui_forms.content_edit.meta_field_groups_list', $parameters[0]);
+
+                return ['metadata'];
+            }
+
+            return [];
+        });
 
         $this->groupedContentFormFieldsProvider = $this->createMock(GroupedContentFormFieldsProviderInterface::class);
 
@@ -169,7 +175,7 @@ final class SetViewParametersListenerTest extends TestCase
 
     public function testSetViewTemplateParametersWithoutContentEditViewInstance(): void
     {
-        $contentView = $this->createMock(View::class);
+        $contentView = self::createStub(View::class);
 
         $this->locationService->expects(self::never())
             ->method('loadParentLocationsForDraftContent');
@@ -181,7 +187,7 @@ final class SetViewParametersListenerTest extends TestCase
 
     public function testSetUserUpdateViewTemplateParametersWithoutUserUpdateViewInstance(): void
     {
-        $view = $this->createMock(View::class);
+        $view = self::createStub(View::class);
 
         $this->locationService->expects(self::never())
             ->method('loadParentLocationsForDraftContent');

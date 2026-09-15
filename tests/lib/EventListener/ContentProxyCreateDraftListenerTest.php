@@ -37,7 +37,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $contentService = $this->createMock(ContentService::class);
         $contentService
             ->method('createContent')
-            ->willReturn($this->createMock(Content::class));
+            ->willReturn(self::createStub(Content::class));
 
         $router = $this->createMock(RouterInterface::class);
         $router
@@ -50,7 +50,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
             ->willReturn('redirect_test_url');
 
         $createEvent = new ContentProxyCreateEvent(
-            $this->createMock(ContentType::class),
+            self::createStub(ContentType::class),
             'eng-EN',
             1234
         );
@@ -59,7 +59,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $eventDispatcher->addSubscriber(
             new ContentProxyCreateDraftListener(
                 $contentService,
-                $this->createMock(LocationService::class),
+                self::createStub(LocationService::class),
                 $autosaveService,
                 $router
             )
@@ -79,18 +79,18 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $autosaveService = $this->createMock(AutosaveServiceInterface::class);
         $autosaveService->method('isEnabled')->willReturn(true);
 
-        $contentInfo = $this->createMock(ContentInfo::class);
+        $contentInfo = self::createStub(ContentInfo::class);
 
         $content = $this->createMock(Content::class);
         $content
             ->method('__get')
-            ->will(self::returnCallback(static function ($argument) use ($contentInfo): ?ContentInfo {
+            ->willReturnCallback(static function ($argument) use ($contentInfo): ?ContentInfo {
                 if ($argument === 'contentInfo') {
                     return $contentInfo;
                 }
 
                 return null;
-            }));
+            });
 
         $contentService = $this->createMock(ContentService::class);
         $contentService
@@ -109,7 +109,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
             ->willReturn('redirect_on_the_fly_test_url');
 
         $createEvent = new ContentProxyCreateEvent(
-            $this->createMock(ContentType::class),
+            self::createStub(ContentType::class),
             'eng-EN',
             1234,
             new Options([
@@ -121,7 +121,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $eventDispatcher->addSubscriber(
             new ContentProxyCreateDraftListener(
                 $contentService,
-                $this->createMock(LocationService::class),
+                self::createStub(LocationService::class),
                 $autosaveService,
                 $router
             )
@@ -145,7 +145,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
             $this->getFieldDefinition('field_a', true),
         ]);
 
-        $contentInfo = $this->createMock(ContentInfo::class);
+        $contentInfo = self::createStub(ContentInfo::class);
 
         $content = $this->createMock(Content::class);
         $content
@@ -174,7 +174,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $contentService
             ->method('createContentDraft')
             ->with($contentInfo)
-            ->willReturn($this->createMock(Content::class));
+            ->willReturn(self::createStub(Content::class));
 
         $router = $this->createMock(RouterInterface::class);
         $router
@@ -197,7 +197,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $eventDispatcher->addSubscriber(
             new ContentProxyCreateDraftListener(
                 $contentService,
-                $this->createMock(LocationService::class),
+                self::createStub(LocationService::class),
                 $autosaveService,
                 $router
             )
@@ -243,9 +243,9 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $eventDispatcher->addSubscriber(
             new ContentProxyCreateDraftListener(
                 $contentService,
-                $this->createMock(LocationService::class),
+                self::createStub(LocationService::class),
                 $autosaveService,
-                $this->createMock(RouterInterface::class)
+                self::createStub(RouterInterface::class)
             )
         );
 
@@ -270,7 +270,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
     ): FieldDefinition {
         return new FieldDefinition([
             'identifier' => $identifier,
-            'defaultValue' => $this->createMock(Value::class),
+            'defaultValue' => self::createStub(Value::class),
             'isTranslatable' => $isTranslatable,
         ]);
     }

@@ -11,13 +11,12 @@ namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 use DateTime;
 use DateTimeImmutable;
 use Ibexa\AdminUi\Form\DataTransformer\DateTimePickerTransformer;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class DateTimePickerTransformerTest extends TestCase
 {
-    /**
-     * @dataProvider dataProviderForTestTransform
-     */
+    #[DataProvider('dataProviderForTestTransform')]
     public function testTransform(): void
     {
         $transformer = new DateTimePickerTransformer();
@@ -28,16 +27,14 @@ final class DateTimePickerTransformerTest extends TestCase
     /**
      * @return iterable<string, array{mixed, ?int}>
      */
-    public function dataProviderForTestTransform(): iterable
+    public static function dataProviderForTestTransform(): iterable
     {
         yield 'null' => [null, null];
         yield 'DateTime' => [new DateTime('2021-01-01 00:00:00'), 1609459200];
         yield 'DateTimeImmutable' => [new DateTimeImmutable('2021-01-01 00:00:00'), 1609459200];
     }
 
-    /**
-     * @dataProvider dataProviderForTestReverseTransform
-     */
+    #[DataProvider('dataProviderForTestReverseTransform')]
     public function testReverseTransform(): void
     {
         $transformer = new DateTimePickerTransformer();
@@ -48,7 +45,7 @@ final class DateTimePickerTransformerTest extends TestCase
     /**
      * @return iterable<string, array{?int, ?DateTime}>
      */
-    public function dataProviderForTestReverseTransform(): iterable
+    public static function dataProviderForTestReverseTransform(): iterable
     {
         yield 'null' => [null, null];
         yield 'DateTime' => [1609459200, new DateTime('2021-01-01 00:00:00')];

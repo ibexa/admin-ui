@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\ContentTypeFieldsByExpression;
+use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\SubtreeOperations;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\SubtreeOperations
- */
+#[CoversClass(SubtreeOperations::class)]
 final class ContentTypeFieldsByExpressionTest extends TestCase
 {
     private ContentTypeFieldsByExpression $parser;

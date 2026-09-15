@@ -16,12 +16,11 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-/**
- * @covers \Ibexa\AdminUi\PreviewUrlResolver\VersionPreviewUrlResolver
- */
+#[CoversClass(VersionPreviewUrlResolver::class)]
 final class VersionPreviewUrlResolverTest extends TestCase
 {
     private const EXAMPLE_PREVIEW_URL = 'https://example.org/preview/url';
@@ -30,10 +29,10 @@ final class VersionPreviewUrlResolverTest extends TestCase
 
     public function testResolvesPreviewUrlSuccessfully(): void
     {
-        $versionInfo = $this->createMock(VersionInfo::class);
-        $location = $this->createMock(Location::class);
-        $language = $this->createMock(Language::class);
-        $siteAccess = $this->createMock(SiteAccess::class);
+        $versionInfo = self::createStub(VersionInfo::class);
+        $location = self::createStub(Location::class);
+        $language = self::createStub(Language::class);
+        $siteAccess = self::createStub(SiteAccess::class);
 
         $event = new ResolveVersionPreviewUrlEvent(
             $versionInfo,
@@ -61,9 +60,9 @@ final class VersionPreviewUrlResolverTest extends TestCase
     public function testThrowsExceptionWhenPreviewUrlIsNotResolved(): void
     {
         $versionInfo = $this->createMock(VersionInfo::class);
-        $location = $this->createMock(Location::class);
-        $language = $this->createMock(Language::class);
-        $siteAccess = $this->createMock(SiteAccess::class);
+        $location = self::createStub(Location::class);
+        $language = self::createStub(Language::class);
+        $siteAccess = self::createStub(SiteAccess::class);
 
         $contentInfo = $this->createMock(ContentInfo::class);
         $contentInfo->method('getId')->willReturn(self::EXAMPLE_CONTENT_ID);

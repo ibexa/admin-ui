@@ -10,6 +10,7 @@ namespace Ibexa\Tests\AdminUi\Resolver;
 
 use Ibexa\AdminUi\Resolver\IconPathResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Packages;
@@ -28,9 +29,7 @@ final class IconPathResolverTest extends TestCase
         $this->packages = $this->getPackagesMock($config);
     }
 
-    /**
-     * @dataProvider resolveDataProvider
-     */
+    #[DataProvider('resolveDataProvider')]
     public function testResolve(string $icon, ?string $set, string $expectedPath): void
     {
         $iconPathResolver = new IconPathResolver($this->configResolver, $this->packages);
@@ -41,7 +40,7 @@ final class IconPathResolverTest extends TestCase
     /**
      * @return array<array{string, ?string, string}>
      */
-    public function resolveDataProvider(): array
+    public static function resolveDataProvider(): array
     {
         return [
             [

@@ -10,6 +10,7 @@ namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
 use DateInterval;
 use Ibexa\AdminUi\Form\DataTransformer\DateIntervalToArrayTransformer;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,7 +22,7 @@ final class DateIntervalToArrayTransformerTest extends TestCase
     /**
      * @phpstan-return list<array{TDataIntervalPair}>
      */
-    public function transformProvider(): array
+    public static function transformProvider(): array
     {
         return [
             [
@@ -43,10 +44,9 @@ final class DateIntervalToArrayTransformerTest extends TestCase
     }
 
     /**
-     * @dataProvider transformProvider
-     *
      * @phpstan-param TDataIntervalPair $valueAsArray
      */
+    #[DataProvider('transformProvider')]
     public function testTransform(array $valueAsArray): void
     {
         $transformer = new DateIntervalToArrayTransformer();
@@ -55,10 +55,9 @@ final class DateIntervalToArrayTransformerTest extends TestCase
     }
 
     /**
-     * @dataProvider transformProvider
-     *
      * @phpstan-param TDataIntervalPair $valueAsArray
      */
+    #[DataProvider('transformProvider')]
     public function testReverseTransform(array $valueAsArray): void
     {
         $transformer = new DateIntervalToArrayTransformer();
@@ -84,7 +83,7 @@ final class DateIntervalToArrayTransformerTest extends TestCase
     /**
      * @phpstan-return list<array{mixed}>
      */
-    public function reverseTransformNullProvider(): array
+    public static function reverseTransformNullProvider(): array
     {
         return [
             [null],
@@ -95,10 +94,9 @@ final class DateIntervalToArrayTransformerTest extends TestCase
     }
 
     /**
-     * @dataProvider reverseTransformNullProvider
-     *
      * @phpstan-param array{mixed}|null $value
      */
+    #[DataProvider('reverseTransformNullProvider')]
     public function testReverseTransformNull(?array $value): void
     {
         $transformer = new DateIntervalToArrayTransformer();

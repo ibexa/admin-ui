@@ -14,6 +14,11 @@ use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInte
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\NameSchema\SchemaIdentifierExtractorInterface;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\ContentType as CoreContentType;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -44,9 +49,8 @@ use PHPUnit\Framework\TestCase;
  *         array{field: array<string>}
  *     }
  * >
- *
- * @covers \Ibexa\AdminUi\UI\Config\Provider\Module\ImagePicker
  */
+#[CoversClass(DamWidget::class)]
 final class DamWidgetTest extends TestCase
 {
     private const IMAGE_FOO_CONTENT_TYPE_IDENTIFIER = 'content_type_foo';
@@ -119,14 +123,13 @@ final class DamWidgetTest extends TestCase
     }
 
     /**
-     * @dataProvider provideDataForTestGetConfig
-     *
      * @phpstan-param TDamWidgetConfig $expectedConfiguration
      * @phpstan-param TRepositoryConfig $repositoryConfig
      *
      * @param TContentTypeValueMap $loadContentTypeValueMap
      * @param TSchemaIdentifiersValueMap $extractSchemaIdentifiersValueMap
      */
+    #[DataProvider('provideDataForTestGetConfig')]
     public function testGetConfig(
         array $expectedConfiguration,
         array $repositoryConfig,
@@ -151,17 +154,17 @@ final class DamWidgetTest extends TestCase
      *     TSchemaIdentifiersValueMap,
      * }>
      */
-    public function provideDataForTestGetConfig(): iterable
+    public static function provideDataForTestGetConfig(): iterable
     {
-        $imageContentType = $this->createContentTypeMock(self::IMAGE_FOO_NAME_SCHEMA);
-        $imageContentType->expects(self::atLeastOnce())
-            ->method('hasFieldDefinition')
-            ->willReturn(true);
+        $imageContentType = self::createContentType(
+            self::IMAGE_FOO_NAME_SCHEMA,
+            [self::IMAGE_AGGREGATIONS['KeywordTermAggregation']['fieldDefinitionIdentifier']]
+        );
 
         $loadContentTypeValueMap = [
-            [self::FOLDER_CONTENT_TYPE_IDENTIFIER, [], $this->createContentTypeMock(self::FOLDER_NAME_SCHEMA)],
+            [self::FOLDER_CONTENT_TYPE_IDENTIFIER, [], self::createContentType(self::FOLDER_NAME_SCHEMA)],
             [self::IMAGE_FOO_CONTENT_TYPE_IDENTIFIER, [], $imageContentType],
-            [self::IMAGE_BAR_CONTENT_TYPE_IDENTIFIER, [], $this->createContentTypeMock(self::IMAGE_BAR_NAME_SCHEMA)],
+            [self::IMAGE_BAR_CONTENT_TYPE_IDENTIFIER, [], self::createContentType(self::IMAGE_BAR_NAME_SCHEMA)],
         ];
 
         $extractSchemaIdentifiersValueMap = [
@@ -171,47 +174,49 @@ final class DamWidgetTest extends TestCase
         ];
 
         yield 'Legacy Search Engine - hide filters' => [
-            $this->getExpectedConfig(false),
-            $this->getRepositoryConfig('legacy'),
+            self::getExpectedConfig(false),
+            self::getRepositoryConfig('legacy'),
             $loadContentTypeValueMap,
             $extractSchemaIdentifiersValueMap,
         ];
 
-        $expectedConfigForSolrAndElasticsearch = $this->getExpectedConfig(true);
+        $expectedConfigForSolrAndElasticsearch = self::getExpectedConfig(true);
 
         yield 'Solr - show filters' => [
             $expectedConfigForSolrAndElasticsearch,
-            $this->getRepositoryConfig('solr'),
+            self::getRepositoryConfig('solr'),
             $loadContentTypeValueMap,
             $extractSchemaIdentifiersValueMap,
         ];
 
         yield 'Elasticsearch - show filters' => [
             $expectedConfigForSolrAndElasticsearch,
-            $this->getRepositoryConfig('elasticsearch'),
+            self::getRepositoryConfig('elasticsearch'),
             $loadContentTypeValueMap,
             $extractSchemaIdentifiersValueMap,
         ];
     }
 
     /**
-     * @phpstan-return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType & \PHPUnit\Framework\MockObject\MockObject
+     * @param array<string> $fieldDefinitionIdentifiers
      */
-    private function createContentTypeMock(string $nameSchema): ContentType
+    private static function createContentType(string $nameSchema, array $fieldDefinitionIdentifiers = []): ContentType
     {
-        $contentType = $this->createMock(ContentType::class);
-        $contentType
-            ->method('__get')
-            ->with('nameSchema')
-            ->willReturn($nameSchema);
-
-        return $contentType;
+        return new CoreContentType([
+            'nameSchema' => $nameSchema,
+            'fieldDefinitions' => new FieldDefinitionCollection(
+                array_map(
+                    static fn (string $identifier): FieldDefinition => new FieldDefinition(['identifier' => $identifier]),
+                    $fieldDefinitionIdentifiers
+                )
+            ),
+        ]);
     }
 
     /**
      * @phpstan-return TDamWidgetConfig
      */
-    private function getExpectedConfig(bool $showImageFilters): array
+    private static function getExpectedConfig(bool $showImageFilters): array
     {
         return [
             'image' => [
@@ -235,7 +240,7 @@ final class DamWidgetTest extends TestCase
     /**
      * @phpstan-return TRepositoryConfig
      */
-    private function getRepositoryConfig(string $searchEngine): array
+    private static function getRepositoryConfig(string $searchEngine): array
     {
         return [
             'engine' => 'foo',

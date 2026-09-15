@@ -29,21 +29,21 @@ final class LocationsTabVisibilityTest extends AbstractTabVisibilityTestCase
     protected function createTabForVisibilityInGivenUserModeTest(UserSettingService $userSettingService): TabInterface
     {
         return new LocationsTab(
-            $this->createMock(Environment::class),
-            $this->createMock(TranslatorInterface::class),
-            $this->createMock(FormFactory::class),
-            $this->createMock(UrlGeneratorInterface::class),
-            $this->createMock(PermissionResolver::class),
-            $this->createMock(EventDispatcherInterface::class),
-            $this->createMock(SearchService::class),
-            $this->createMock(RequestStack::class),
-            new Mapper($this->createMock(ValueFactory::class)),
-            $this->createMock(ConfigResolverInterface::class),
+            self::createStub(Environment::class),
+            self::createStub(TranslatorInterface::class),
+            self::createStub(FormFactory::class),
+            self::createStub(UrlGeneratorInterface::class),
+            self::createStub(PermissionResolver::class),
+            self::createStub(EventDispatcherInterface::class),
+            self::createStub(SearchService::class),
+            self::createStub(RequestStack::class),
+            new Mapper(self::createStub(ValueFactory::class)),
+            self::createStub(ConfigResolverInterface::class),
             $userSettingService
         );
     }
 
-    public function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
+    public static function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
     {
         yield 'focus mode on' => [FocusMode::FOCUS_MODE_ON, [], false];
         yield 'focus mode off' => [FocusMode::FOCUS_MODE_OFF, [], true];

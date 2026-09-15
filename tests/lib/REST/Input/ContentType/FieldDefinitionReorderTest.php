@@ -32,7 +32,7 @@ final class FieldDefinitionReorderTest extends TestCase
                 [
                     'fieldDefinitionIdentifiers' => ['foo', 'bar', 'baz'],
                 ],
-                $this->createMock(ParsingDispatcher::class)
+                self::createStub(ParsingDispatcher::class)
             )
         );
     }
@@ -44,7 +44,7 @@ final class FieldDefinitionReorderTest extends TestCase
 
         $this->parser->parse(
             [],
-            $this->createMock(ParsingDispatcher::class)
+            self::createStub(ParsingDispatcher::class)
         );
     }
 }

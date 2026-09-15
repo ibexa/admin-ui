@@ -11,14 +11,15 @@ namespace Ibexa\Tests\Bundle\AdminUi\Templating\Twig;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\Bundle\AdminUi\Templating\Twig\EmbeddedItemEditFormExtension;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Test\IntegrationTestCase;
 
-/**
- * @covers \Ibexa\Bundle\AdminUi\Templating\Twig\EmbeddedItemEditFormExtension
- */
+#[CoversClass(EmbeddedItemEditFormExtension::class)]
 final class EmbeddedItemEditFormExtensionTest extends IntegrationTestCase
 {
     private const string FORM_ACTION = '/admin/content/edit';
@@ -34,10 +35,6 @@ final class EmbeddedItemEditFormExtensionTest extends IntegrationTestCase
     }
 
     /**
-     * @dataProvider getLegacyTests
-     *
-     * @group legacy
-     *
      * @param string $file
      * @param string $message
      * @param string $condition
@@ -46,6 +43,8 @@ final class EmbeddedItemEditFormExtensionTest extends IntegrationTestCase
      * @param array<mixed> $outputs
      * @param string $deprecation
      */
+    #[Group('legacy')]
+    #[DataProvider('provideLegacyTests')]
     public function testLegacyIntegration(
         $file,
         $message,
@@ -59,7 +58,7 @@ final class EmbeddedItemEditFormExtensionTest extends IntegrationTestCase
         self::markTestSkipped('This package does not contain Twig legacy integration test cases');
     }
 
-    protected function getFixturesDir(): string
+    protected static function getFixturesDirectory(): string
     {
         return __DIR__ . '/_fixtures/render_embedded_item_edit_form/';
     }
@@ -73,7 +72,7 @@ final class EmbeddedItemEditFormExtensionTest extends IntegrationTestCase
         $editForm
             ->method('createView')
             ->willReturn(
-                $this->createMock(FormView::class)
+                self::createStub(FormView::class)
             );
 
         return $editForm;

@@ -19,6 +19,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Ibexa\TwigComponents\Component\Registry as ComponentRegistry;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -58,9 +59,7 @@ final class TranslationsTabTest extends TestCase
         $this->translationsDataset = $this->createMock(TranslationsDataset::class);
     }
 
-    /**
-     * @dataProvider provideHasTranslationActions
-     */
+    #[DataProvider('provideHasTranslationActions')]
     public function testGetTemplateParametersSetsHasTranslationActions(
         bool $hasComponents,
         bool $expectedFlag
@@ -177,15 +176,15 @@ final class TranslationsTabTest extends TestCase
     private function createTab(bool $hasComponents): TranslationsTab
     {
         $components = $hasComponents
-            ? ['component-id' => $this->createStub(ComponentInterface::class)]
+            ? ['component-id' => self::createStub(ComponentInterface::class)]
             : [];
 
         return new TranslationsTab(
-            $this->createMock(Environment::class),
-            $this->createMock(TranslatorInterface::class),
+            self::createStub(Environment::class),
+            self::createStub(TranslatorInterface::class),
             $this->datasetFactory,
-            $this->createMock(UrlGeneratorInterface::class),
-            $this->createMock(EventDispatcherInterface::class),
+            self::createStub(UrlGeneratorInterface::class),
+            self::createStub(EventDispatcherInterface::class),
             $this->formFactory,
             $this->permissionResolver,
             $this->languageService,

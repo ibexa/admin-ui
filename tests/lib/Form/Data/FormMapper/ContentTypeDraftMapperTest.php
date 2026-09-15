@@ -25,14 +25,13 @@ use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
-/**
- * @covers \Ibexa\AdminUi\Form\Data\FormMapper\ContentTypeDraftMapper
- */
+#[CoversClass(ContentTypeDraftMapper::class)]
 final class ContentTypeDraftMapperTest extends TestCase
 {
     private const string TAB_FIELD_DEF_IDENTIFIER = 'ibexa_string';

@@ -15,6 +15,7 @@ use Ibexa\AdminUi\Form\DataMapper\SectionUpdateMapper;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -35,12 +36,11 @@ final class SelectionUpdateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @phpstan-param TSectionProperties $properties
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
+    #[DataProvider('dataProvider')]
     public function testMap(array $properties): void
     {
         $data = $this->mapper->map($this->createStruct($properties));
@@ -49,12 +49,11 @@ final class SelectionUpdateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @phpstan-param TSectionProperties $properties
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
+    #[DataProvider('dataProvider')]
     public function testReverseMap(array $properties): void
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));

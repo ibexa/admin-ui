@@ -16,8 +16,8 @@ class LimitationValueMapperRegistryTest extends TestCase
 {
     public function testGetMappers(): void
     {
-        $foo = $this->createMock(LimitationValueMapperInterface::class);
-        $bar = $this->createMock(LimitationValueMapperInterface::class);
+        $foo = self::createStub(LimitationValueMapperInterface::class);
+        $bar = self::createStub(LimitationValueMapperInterface::class);
 
         $registry = new LimitationValueMapperRegistry([
             'foo' => $foo,
@@ -33,7 +33,7 @@ class LimitationValueMapperRegistryTest extends TestCase
 
     public function testGetMapper(): void
     {
-        $foo = $this->createMock(LimitationValueMapperInterface::class);
+        $foo = self::createStub(LimitationValueMapperInterface::class);
 
         $registry = new LimitationValueMapperRegistry([
             'foo' => $foo,
@@ -47,7 +47,7 @@ class LimitationValueMapperRegistryTest extends TestCase
         $this->expectException(ValueMapperNotFoundException::class);
 
         $registry = new LimitationValueMapperRegistry([
-            'foo' => $this->createMock(LimitationValueMapperInterface::class),
+            'foo' => self::createStub(LimitationValueMapperInterface::class),
         ]);
 
         $registry->getMapper('bar');
@@ -55,7 +55,7 @@ class LimitationValueMapperRegistryTest extends TestCase
 
     public function testAddMapper(): void
     {
-        $foo = $this->createMock(LimitationValueMapperInterface::class);
+        $foo = self::createStub(LimitationValueMapperInterface::class);
 
         $registry = new LimitationValueMapperRegistry();
         $registry->addMapper($foo, 'foo');
@@ -66,7 +66,7 @@ class LimitationValueMapperRegistryTest extends TestCase
     public function testHasMapper(): void
     {
         $registry = new LimitationValueMapperRegistry([
-            'foo' => $this->createMock(LimitationValueMapperInterface::class),
+            'foo' => self::createStub(LimitationValueMapperInterface::class),
         ]);
 
         self::assertTrue($registry->hasMapper('foo'));

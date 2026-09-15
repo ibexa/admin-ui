@@ -81,7 +81,7 @@ class ObjectStateLimitationMapperTest extends TestCase
             ->expects(self::once())
             ->method('loadObjectState')
             ->with(self::EXAMPLE_OBJECT_STATE_ID_A)
-            ->willThrowException($this->createMock(NotFoundException::class));
+            ->willThrowException(self::createStub(NotFoundException::class));
 
         $this->logger
             ->expects(self::once())

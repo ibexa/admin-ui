@@ -12,13 +12,12 @@ use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType as APIContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\TestCase;
 
+#[CoversMethod(ContentTypeIsUser::class, 'isSatisfiedBy')]
 final class ContentTypeIsUserTest extends TestCase
 {
-    /**
-     * @covers \Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
-     */
     public function testIsSatisfiedByInvalidArgument(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -28,9 +27,6 @@ final class ContentTypeIsUserTest extends TestCase
         $specification->isSatisfiedBy(new \stdClass());
     }
 
-    /**
-     * @covers \Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
-     */
     public function testIsSatisfiedByCustomUserContentType(): void
     {
         $customUserContentType = 'custom_user_content_type';
@@ -44,9 +40,6 @@ final class ContentTypeIsUserTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
-     */
     public function testIsSatisfiedByContentTypeWithIbexaUserField(): void
     {
         $specification = new ContentTypeIsUser([]);
@@ -59,9 +52,6 @@ final class ContentTypeIsUserTest extends TestCase
         self::assertTrue($specification->isSatisfiedBy($contentTypeWithEzUserField));
     }
 
-    /**
-     * @covers \Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
-     */
     public function testIsSatisfiedByReturnFalse(): void
     {
         $specification = new ContentTypeIsUser([

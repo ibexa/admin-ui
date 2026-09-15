@@ -11,12 +11,11 @@ namespace Ibexa\Tests\AdminUi\Form\Data\Section;
 use Ibexa\AdminUi\Form\Data\Section\SectionCreateData;
 use Ibexa\AdminUi\Form\Type\Section\SectionCreateType;
 use Ibexa\AdminUi\Form\Type\Section\SectionType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormInterface;
 
-/**
- * @covers \Ibexa\AdminUi\Form\Type\Section\SectionCreateType
- * @covers \Ibexa\AdminUi\Form\Data\Section\SectionCreateData
- */
+#[CoversClass(SectionCreateType::class)]
+#[CoversClass(SectionCreateData::class)]
 final class SectionCreateDataValidationTest extends AbstractSectionMutationDataValidationTestCase
 {
     /**

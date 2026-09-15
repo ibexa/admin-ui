@@ -11,17 +11,16 @@ namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 use Ibexa\AdminUi\Form\DataTransformer\LocationsTransformer;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Core\Repository\Values\Content\Location;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class LocationsTransformerTest extends TestCase
 {
-    /**
-     * @dataProvider transformDataProvider
-     */
+    #[DataProvider('transformDataProvider')]
     public function testTransform(mixed $value, ?string $expected): void
     {
-        $service = $this->createMock(LocationService::class);
+        $service = self::createStub(LocationService::class);
         $transformer = new LocationsTransformer($service);
 
         $result = $transformer->transform($value);
@@ -45,9 +44,7 @@ class LocationsTransformerTest extends TestCase
         self::assertEquals([new Location(['id' => 123456]), new Location(['id' => 456789])], $result);
     }
 
-    /**
-     * @dataProvider reverseTransformWithEmptyDataProvider
-     */
+    #[DataProvider('reverseTransformWithEmptyDataProvider')]
     public function testReverseTransformWithEmpty(mixed $value): void
     {
         $service = $this->createMock(LocationService::class);
@@ -60,15 +57,13 @@ class LocationsTransformerTest extends TestCase
         self::assertEmpty($result);
     }
 
-    /**
-     * @dataProvider reverseTransformWithInvalidInputDataProvider
-     */
+    #[DataProvider('reverseTransformWithInvalidInputDataProvider')]
     public function testReverseTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a string.');
 
-        $service = $this->createMock(LocationService::class);
+        $service = self::createStub(LocationService::class);
         $transformer = new LocationsTransformer($service);
 
         $transformer->reverseTransform($value);
@@ -77,7 +72,7 @@ class LocationsTransformerTest extends TestCase
     /**
      * @return array<string, array{\Ibexa\Core\Repository\Values\Content\Location[]|string|null, string|null}>
      */
-    public function transformDataProvider(): array
+    public static function transformDataProvider(): array
     {
         $location_1 = new Location(['id' => 123456]);
         $location_2 = new Location(['id' => 456789]);
@@ -94,7 +89,7 @@ class LocationsTransformerTest extends TestCase
     /**
      * @return array<string, array{mixed}>
      */
-    public function reverseTransformWithInvalidInputDataProvider(): array
+    public static function reverseTransformWithInvalidInputDataProvider(): array
     {
         return [
             'integer' => [123456],
@@ -108,7 +103,7 @@ class LocationsTransformerTest extends TestCase
     /**
      * @return array<string, array{mixed}>
      */
-    public function reverseTransformWithEmptyDataProvider(): array
+    public static function reverseTransformWithEmptyDataProvider(): array
     {
         return [
             'an_empty_string' => [''],
