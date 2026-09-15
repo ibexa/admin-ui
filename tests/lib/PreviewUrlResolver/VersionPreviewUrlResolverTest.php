@@ -19,9 +19,7 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-/**
- * @covers \Ibexa\AdminUi\PreviewUrlResolver\VersionPreviewUrlResolver
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\PreviewUrlResolver\VersionPreviewUrlResolver::class)]
 final class VersionPreviewUrlResolverTest extends TestCase
 {
     private const EXAMPLE_PREVIEW_URL = 'https://example.org/preview/url';
@@ -30,10 +28,10 @@ final class VersionPreviewUrlResolverTest extends TestCase
 
     public function testResolvesPreviewUrlSuccessfully(): void
     {
-        $versionInfo = $this->createMock(VersionInfo::class);
-        $location = $this->createMock(Location::class);
-        $language = $this->createMock(Language::class);
-        $siteAccess = $this->createMock(SiteAccess::class);
+        $versionInfo = $this->createStub(VersionInfo::class);
+        $location = $this->createStub(Location::class);
+        $language = $this->createStub(Language::class);
+        $siteAccess = $this->createStub(SiteAccess::class);
 
         $event = new ResolveVersionPreviewUrlEvent(
             $versionInfo,
@@ -61,9 +59,9 @@ final class VersionPreviewUrlResolverTest extends TestCase
     public function testThrowsExceptionWhenPreviewUrlIsNotResolved(): void
     {
         $versionInfo = $this->createMock(VersionInfo::class);
-        $location = $this->createMock(Location::class);
-        $language = $this->createMock(Language::class);
-        $siteAccess = $this->createMock(SiteAccess::class);
+        $location = $this->createStub(Location::class);
+        $language = $this->createStub(Language::class);
+        $siteAccess = $this->createStub(SiteAccess::class);
 
         $contentInfo = $this->createMock(ContentInfo::class);
         $contentInfo->method('getId')->willReturn(self::EXAMPLE_CONTENT_ID);

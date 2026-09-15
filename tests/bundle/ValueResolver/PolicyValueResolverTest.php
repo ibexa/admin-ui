@@ -95,10 +95,9 @@ final class PolicyValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);

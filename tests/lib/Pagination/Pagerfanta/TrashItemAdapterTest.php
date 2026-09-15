@@ -104,7 +104,7 @@ class TrashItemAdapterTest extends TestCase
     {
         $query = new Query();
         $query->query = $this->createMock(CriterionInterface::class);
-        $query->sortClauses = [$this->createMock(SortClause::class)];
+        $query->sortClauses = [$this->createStub(SortClause::class)];
 
         return $query;
     }

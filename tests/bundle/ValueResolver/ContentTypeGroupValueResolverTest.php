@@ -39,7 +39,7 @@ final class ContentTypeGroupValueResolverTest extends TestCase
             'contentTypeGroupId' => '123',
         ]);
 
-        $mockContentTypeGroup = $this->createMock(ContentTypeGroup::class);
+        $mockContentTypeGroup = $this->createStub(ContentTypeGroup::class);
 
         $this->contentTypeServiceMock
             ->expects(self::once())
@@ -53,10 +53,9 @@ final class ContentTypeGroupValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
@@ -74,7 +73,7 @@ final class ContentTypeGroupValueResolverTest extends TestCase
     /**
      * @phpstan-return array<array{attributes: array<string, mixed>, expectedMessage: string}>
      */
-    public function invalidAttributesProvider(): array
+    public static function invalidAttributesProvider(): array
     {
         return [
             'missing contentTypeGroupId' => [

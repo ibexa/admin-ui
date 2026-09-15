@@ -16,9 +16,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Ibexa\AdminUi\Form\DataMapper\ContentMainLocationUpdateMapper
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\Form\DataMapper\ContentMainLocationUpdateMapper::class)]
 final class ContentMainLocationUpdateMapperTest extends TestCase
 {
     /** @var \Ibexa\Contracts\Core\Repository\LocationService&\PHPUnit\Framework\MockObject\MockObject */
@@ -40,7 +38,7 @@ final class ContentMainLocationUpdateMapperTest extends TestCase
     public function testMapWithMainLocationId(): void
     {
         $mainLocationId = 42;
-        $location = $this->createMock(Location::class);
+        $location = $this->createStub(Location::class);
 
         $struct = new ContentMetadataUpdateStruct(['mainLocationId' => $mainLocationId]);
 
@@ -81,6 +79,6 @@ final class ContentMainLocationUpdateMapperTest extends TestCase
     public function testMapThrowsOnInvalidValueObject(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->mapper->map($this->createMock(ValueObject::class));
+        $this->mapper->map($this->createStub(ValueObject::class));
     }
 }

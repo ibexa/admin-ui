@@ -33,13 +33,13 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
     {
         $location = $this
             ->getMockBuilder(Location::class)
-            ->setMethodsExcept(['__get'])
+            ->onlyMethods(array_values(array_diff(get_class_methods(Location::class), ['__get'])))
             ->setConstructorArgs([['pathString' => '/1/2/3/']])
             ->getMock();
 
         $comparedLocation = $this
             ->getMockBuilder(Location::class)
-            ->setMethodsExcept(['__get'])
+            ->onlyMethods(array_values(array_diff(get_class_methods(Location::class), ['__get'])))
             ->setConstructorArgs([['pathString' => '/3/5/']])
             ->getMock();
 
@@ -56,13 +56,13 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
     {
         $location = $this
             ->getMockBuilder(Location::class)
-            ->setMethodsExcept(['__get'])
+            ->onlyMethods(array_values(array_diff(get_class_methods(Location::class), ['__get'])))
             ->setConstructorArgs([['pathString' => '/1/2/3/']])
             ->getMock();
 
         $comparedLocation = $this
             ->getMockBuilder(Location::class)
-            ->setMethodsExcept(['__get'])
+            ->onlyMethods(array_values(array_diff(get_class_methods(Location::class), ['__get'])))
             ->setConstructorArgs([['pathString' => '/1/2/']])
             ->getMock();
 

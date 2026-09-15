@@ -32,20 +32,20 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class PreviewFormProcessorTest extends TestCase
 {
-    private ContentService&MockObject $contentService;
+    private ContentService&\PHPUnit\Framework\MockObject\Stub $contentService;
 
-    private UrlGeneratorInterface&MockObject $urlGenerator;
+    private UrlGeneratorInterface&\PHPUnit\Framework\MockObject\Stub $urlGenerator;
 
-    private TranslatableNotificationHandlerInterface&MockObject $notificationHandler;
+    private TranslatableNotificationHandlerInterface&\PHPUnit\Framework\MockObject\Stub $notificationHandler;
 
-    private LocationService&MockObject $locationService;
+    private LocationService&\PHPUnit\Framework\MockObject\Stub $locationService;
 
     protected function setUp(): void
     {
-        $this->contentService = $this->createMock(ContentService::class);
-        $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
-        $this->notificationHandler = $this->createMock(TranslatableNotificationHandlerInterface::class);
-        $this->locationService = $this->createMock(LocationService::class);
+        $this->contentService = $this->createStub(ContentService::class);
+        $this->urlGenerator = $this->createStub(UrlGeneratorInterface::class);
+        $this->notificationHandler = $this->createStub(TranslatableNotificationHandlerInterface::class);
+        $this->locationService = $this->createStub(LocationService::class);
     }
 
     private function createPreviewFormProcessor(

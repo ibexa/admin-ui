@@ -39,7 +39,7 @@ final class ContentDownloadRouteReferenceListenerTest extends TestCase
 
         $event = new RouteReferenceGenerationEvent(
             clone $expectedRouteReference,
-            $this->createMock(Request::class)
+            $this->createStub(Request::class)
         );
 
         $listener = new ContentDownloadRouteReferenceListener(self::EXAMPLE_SITEACCESS_GROUPS);

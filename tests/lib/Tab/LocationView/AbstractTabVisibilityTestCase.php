@@ -17,10 +17,9 @@ use PHPUnit\Framework\TestCase;
 abstract class AbstractTabVisibilityTestCase extends TestCase
 {
     /**
-     * @dataProvider dataProviderForTestTabVisibilityInGivenUserMode
-     *
      * @param array<string, mixed> $parameters
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForTestTabVisibilityInGivenUserMode')]
     final public function testTabVisibilityInGivenUserMode(string $userMode, array $parameters, bool $expectedResult): void
     {
         $userSetting = $this->createMock(UserSetting::class);
@@ -37,7 +36,7 @@ abstract class AbstractTabVisibilityTestCase extends TestCase
     /**
      * @return iterable<string, array{string, array<string, mixed>, bool}>
      */
-    abstract public function dataProviderForTestTabVisibilityInGivenUserMode(): iterable;
+    abstract public static function dataProviderForTestTabVisibilityInGivenUserMode(): iterable;
 
     /**
      * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface&\Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface

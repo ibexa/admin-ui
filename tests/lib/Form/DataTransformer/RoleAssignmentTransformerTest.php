@@ -18,12 +18,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class RoleAssignmentTransformerTest extends TestCase
 {
-    /**
-     * @dataProvider transformDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformDataProvider')]
     public function testTransform(?UserRoleAssignment $value, ?int $expected): void
     {
-        $service = $this->createMock(RoleService::class);
+        $service = $this->createStub(RoleService::class);
         $transformer = new RoleAssignmentTransformer($service);
 
         $result = $transformer->transform($value);
@@ -59,12 +57,10 @@ class RoleAssignmentTransformerTest extends TestCase
         self::assertNull($result);
     }
 
-    /**
-     * @dataProvider reverseTransformWithInvalidInputDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('reverseTransformWithInvalidInputDataProvider')]
     public function testReverseTransformWithInvalidInput(mixed $value): void
     {
-        $service = $this->createMock(RoleService::class);
+        $service = $this->createStub(RoleService::class);
 
         $transformer = new RoleAssignmentTransformer($service);
 
@@ -92,7 +88,7 @@ class RoleAssignmentTransformerTest extends TestCase
     /**
      * @return array<string, array{UserRoleAssignment|null, int|null}>
      */
-    public function transformDataProvider(): array
+    public static function transformDataProvider(): array
     {
         $transform = new RoleAssignment(['id' => 123456]);
 
@@ -105,7 +101,7 @@ class RoleAssignmentTransformerTest extends TestCase
     /**
      * @return array<string, array{mixed}>
      */
-    public function reverseTransformWithInvalidInputDataProvider(): array
+    public static function reverseTransformWithInvalidInputDataProvider(): array
     {
         return [
             'string' => ['string'],

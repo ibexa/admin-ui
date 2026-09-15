@@ -16,12 +16,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class SectionsTransformerTest extends TestCase
 {
-    /**
-     * @dataProvider transformDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformDataProvider')]
     public function testTransform(mixed $value, ?string $expected): void
     {
-        $service = $this->createMock(SectionService::class);
+        $service = $this->createStub(SectionService::class);
         $transformer = new SectionsTransformer($service);
 
         $result = $transformer->transform($value);
@@ -45,9 +43,7 @@ class SectionsTransformerTest extends TestCase
         self::assertEquals([new APISection(['id' => 123456]), new APISection(['id' => 456789])], $result);
     }
 
-    /**
-     * @dataProvider reverseTransformWithEmptyDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('reverseTransformWithEmptyDataProvider')]
     public function testReverseTransformWithEmpty(mixed $value): void
     {
         $service = $this->createMock(SectionService::class);
@@ -60,15 +56,13 @@ class SectionsTransformerTest extends TestCase
         self::assertNull($result);
     }
 
-    /**
-     * @dataProvider reverseTransformWithInvalidInputDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('reverseTransformWithInvalidInputDataProvider')]
     public function testReverseTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a string.');
 
-        $service = $this->createMock(SectionService::class);
+        $service = $this->createStub(SectionService::class);
         $transformer = new SectionsTransformer($service);
 
         $transformer->reverseTransform($value);
@@ -77,7 +71,7 @@ class SectionsTransformerTest extends TestCase
     /**
      * @return array<string, array{\Ibexa\Contracts\Core\Repository\Values\Content\Section[]|string|null, string|null}>
      */
-    public function transformDataProvider(): array
+    public static function transformDataProvider(): array
     {
         $sectionA = new APISection(['id' => 123456]);
         $sectionB = new APISection(['id' => 456789]);
@@ -94,7 +88,7 @@ class SectionsTransformerTest extends TestCase
     /**
      * @return array<string, array{mixed}>
      */
-    public function reverseTransformWithInvalidInputDataProvider(): array
+    public static function reverseTransformWithInvalidInputDataProvider(): array
     {
         return [
             'integer' => [123456],
@@ -108,7 +102,7 @@ class SectionsTransformerTest extends TestCase
     /**
      * @return array<string, array{mixed}>
      */
-    public function reverseTransformWithEmptyDataProvider(): array
+    public static function reverseTransformWithEmptyDataProvider(): array
     {
         return [
             'an_empty_string' => [''],

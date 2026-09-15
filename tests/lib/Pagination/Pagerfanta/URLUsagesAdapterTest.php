@@ -26,7 +26,7 @@ class URLUsagesAdapterTest extends TestCase
 
     public function testGetNbResults(): void
     {
-        $url = $this->createMock(URL::class);
+        $url = $this->createStub(URL::class);
 
         $searchResults = new UsageSearchResult([
             'items' => [],
@@ -49,15 +49,15 @@ class URLUsagesAdapterTest extends TestCase
 
     public function testGetSlice(): void
     {
-        $url = $this->createMock(URL::class);
+        $url = $this->createStub(URL::class);
         $offset = 10;
         $limit = 25;
 
         $searchResults = new UsageSearchResult([
             'items' => [
-                $this->createMock(SearchHit::class),
-                $this->createMock(SearchHit::class),
-                $this->createMock(SearchHit::class),
+                $this->createStub(SearchHit::class),
+                $this->createStub(SearchHit::class),
+                $this->createStub(SearchHit::class),
             ],
             'totalCount' => 13,
         ]);

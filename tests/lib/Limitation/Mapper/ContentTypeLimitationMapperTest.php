@@ -46,9 +46,9 @@ class ContentTypeLimitationMapperTest extends TestCase
         ];
 
         $expected = [
-            $this->createMock(ContentType::class),
-            $this->createMock(ContentType::class),
-            $this->createMock(ContentType::class),
+            $this->createStub(ContentType::class),
+            $this->createStub(ContentType::class),
+            $this->createStub(ContentType::class),
         ];
 
         $contentTypesById = [];
@@ -79,7 +79,7 @@ class ContentTypeLimitationMapperTest extends TestCase
             ->expects(self::once())
             ->method('loadContentType')
             ->with(self::EXAMPLE_CONTENT_TYPE_ID_A)
-            ->willThrowException($this->createMock(NotFoundException::class));
+            ->willThrowException($this->createStub(NotFoundException::class));
 
         $this->logger
             ->expects(self::once())

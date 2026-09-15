@@ -30,9 +30,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
-/**
- * @covers \Ibexa\AdminUi\Form\Data\FormMapper\ContentTypeDraftMapper
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\Form\Data\FormMapper\ContentTypeDraftMapper::class)]
 final class ContentTypeDraftMapperTest extends TestCase
 {
     private const string TAB_FIELD_DEF_IDENTIFIER = 'ibexa_string';

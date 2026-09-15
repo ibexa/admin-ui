@@ -31,10 +31,9 @@ final class SelectionCreateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @param array<string, mixed> $properties
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testMap(array $properties): void
     {
         $data = $this->mapper->map($this->createStruct($properties));
@@ -43,10 +42,9 @@ final class SelectionCreateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @param array<string, mixed> $properties
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testReverseMap(array $properties): void
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
@@ -73,7 +71,7 @@ final class SelectionCreateMapperTest extends TestCase
     /**
      * @return array<string, list<array<string, string|null>>>
      */
-    public function dataProvider(): array
+    public static function dataProvider(): array
     {
         return [
             'simple' => [['identifier' => 'hash', 'name' => 'Lorem']],

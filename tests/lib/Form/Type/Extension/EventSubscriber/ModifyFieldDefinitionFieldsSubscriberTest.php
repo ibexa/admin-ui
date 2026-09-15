@@ -20,9 +20,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormInterface;
 
-/**
- * @covers \Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\ModifyFieldDefinitionFieldsSubscriber
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\ModifyFieldDefinitionFieldsSubscriber::class)]
 final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
 {
     private const string FIELD_TYPE_IDENTIFIER = 'foo';

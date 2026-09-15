@@ -25,9 +25,7 @@ final class LanguageTransformerTest extends TestCase
         $this->languageService = $this->createMock(LanguageService::class);
     }
 
-    /**
-     * @dataProvider transformDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformDataProvider')]
     public function testTransform(?Language $value, ?string $expected): void
     {
         $transformer = new LanguageTransformer($this->languageService);
@@ -37,9 +35,7 @@ final class LanguageTransformerTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    /**
-     * @dataProvider transformWithInvalidInputDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformWithInvalidInputDataProvider')]
     public function testTransformWithInvalidInput(mixed $value): void
     {
         $transformer = new LanguageTransformer($this->languageService);
@@ -99,7 +95,7 @@ final class LanguageTransformerTest extends TestCase
      *     string|null,
      * }>
      */
-    public function transformDataProvider(): array
+    public static function transformDataProvider(): array
     {
         $language = new Language(['languageCode' => 'eng-GB']);
 
@@ -112,7 +108,7 @@ final class LanguageTransformerTest extends TestCase
     /**
      * @return array<string, mixed>
      */
-    public function transformWithInvalidInputDataProvider(): array
+    public static function transformWithInvalidInputDataProvider(): array
     {
         return [
             'string' => ['string'],

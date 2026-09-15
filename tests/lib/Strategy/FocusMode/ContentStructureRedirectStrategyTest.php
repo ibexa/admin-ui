@@ -31,10 +31,9 @@ final class ContentStructureRedirectStrategyTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProviderForTestSupports
-     *
      * @param array<string, string> $pathData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForTestSupports')]
     public function testSupports(array $pathData, bool $doesSupport): void
     {
         self::assertSame($doesSupport, $this->strategy->supports($pathData));
@@ -43,7 +42,7 @@ final class ContentStructureRedirectStrategyTest extends TestCase
     /**
      * @return iterable<array{array<string, string>, bool}>
      */
-    public function dataProviderForTestSupports(): iterable
+    public static function dataProviderForTestSupports(): iterable
     {
         yield 'foo.path' => [['_route' => 'foo.path'], false];
 
@@ -58,9 +57,7 @@ final class ContentStructureRedirectStrategyTest extends TestCase
         yield 'ibexa.content_type_group.view' => [['_route' => 'ibexa.content_type_group.view'], true];
     }
 
-    /**
-     * @dataProvider dataProviderForTestGenerateRedirectPath
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForTestGenerateRedirectPath')]
     public function testGenerateRedirectPath(string $path, string $expectedPath): void
     {
         self::assertSame(
@@ -72,7 +69,7 @@ final class ContentStructureRedirectStrategyTest extends TestCase
     /**
      * @return iterable<array{string, string}>
      */
-    public function dataProviderForTestGenerateRedirectPath(): iterable
+    public static function dataProviderForTestGenerateRedirectPath(): iterable
     {
         yield 'ibexa.section.list' => ['ibexa.section.list', '/admin/view/content/456/full/1/123'];
 

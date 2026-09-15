@@ -1,19 +1,19 @@
-<phpunit
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
-        bootstrap="bootstrap.php"
-        colors="true">
-    <testsuites>
-        <testsuite name="Ibexa\Bundle\AdminUi">
-            <directory>tests/bundle</directory>
-        </testsuite>
-        <testsuite name="Ibexa\AdminUi">
-            <directory>tests/lib</directory>
-        </testsuite>
-    </testsuites>
-    <coverage>
-        <include>
-            <directory>src</directory>
-        </include>
-    </coverage>
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd" bootstrap="bootstrap.php" colors="true" cacheDirectory=".phpunit.cache">
+  <testsuites>
+    <testsuite name="Ibexa\Bundle\AdminUi">
+      <directory>tests/bundle</directory>
+    </testsuite>
+    <testsuite name="Ibexa\AdminUi">
+      <directory>tests/lib</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory>src</directory>
+    </include>
+  </source>
+  <extensions>
+    <bootstrap class="Symfony\Bridge\PhpUnit\SymfonyExtension"/>
+  </extensions>
 </phpunit>

@@ -23,16 +23,15 @@ use Twig\Environment;
 
 final class VersionsTabVisibilityTest extends AbstractTabVisibilityTestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content&\PHPUnit\Framework\MockObject\MockObject */
-    private Content $exampleContent;
+    private static ?Content $exampleContent = null;
 
-    private function getExampleContent(): Content
+    private static function getExampleContent(): Content
     {
-        if (!isset($this->exampleContent)) {
-            $this->exampleContent = $this->createMock(Content::class);
+        if (self::$exampleContent === null) {
+            self::$exampleContent = self::createStub(Content::class);
         }
 
-        return $this->exampleContent;
+        return self::$exampleContent;
     }
 
     protected function createTabForVisibilityInGivenUserModeTest(UserSettingService $userSettingService): TabInterface
@@ -43,33 +42,33 @@ final class VersionsTabVisibilityTest extends AbstractTabVisibilityTestCase
             ->with(
                 'content',
                 'versionread',
-                $this->getExampleContent()
+                self::getExampleContent()
             )
             ->willReturn(true);
 
         return new VersionsTab(
-            $this->createMock(Environment::class),
-            $this->createMock(TranslatorInterface::class),
-            $this->createMock(DatasetFactory::class),
-            $this->createMock(FormFactory::class),
+            $this->createStub(Environment::class),
+            $this->createStub(TranslatorInterface::class),
+            $this->createStub(DatasetFactory::class),
+            $this->createStub(FormFactory::class),
             $permissionResolver,
-            $this->createMock(UserService::class),
+            $this->createStub(UserService::class),
             $userSettingService,
-            $this->createMock(EventDispatcherInterface::class),
+            $this->createStub(EventDispatcherInterface::class),
         );
     }
 
-    public function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
+    public static function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
     {
         yield 'focus mode on' => [
             FocusMode::FOCUS_MODE_ON,
-            ['content' => $this->getExampleContent()],
+            ['content' => self::getExampleContent()],
             false,
         ];
 
         yield 'focus mode off' => [
             FocusMode::FOCUS_MODE_OFF,
-            ['content' => $this->getExampleContent()],
+            ['content' => self::getExampleContent()],
             true,
         ];
     }

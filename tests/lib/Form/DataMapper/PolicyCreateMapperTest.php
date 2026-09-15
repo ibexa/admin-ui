@@ -31,10 +31,9 @@ final class PolicyCreateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @param array<string, mixed> $properties
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testMap(array $properties): void
     {
         $data = $this->mapper->map($this->createStruct($properties));
@@ -43,10 +42,9 @@ final class PolicyCreateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @param array<string, mixed> $properties
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testReverseMap(array $properties): void
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
@@ -73,7 +71,7 @@ final class PolicyCreateMapperTest extends TestCase
     /**
      * @return array<string, array<array<string, string>>>
      */
-    public function dataProvider(): array
+    public static function dataProvider(): array
     {
         return [
             'simple' => [['module' => 'module', 'function' => 'function']],

@@ -23,10 +23,8 @@ use Ibexa\Tests\AdminUi\Form\Data\AbstractFormDataValidationTestCase;
 use Ibexa\Tests\AdminUi\Form\Data\FormErrorDataTestWrapper;
 use Symfony\Component\Form\FormInterface;
 
-/**
- * @covers \Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData
- * @covers \Ibexa\AdminUi\Form\Type\Role\RoleAssignmentCreateType
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\Form\Type\Role\RoleAssignmentCreateType::class)]
 final class RoleAssignmentCreateDataValidationTest extends AbstractFormDataValidationTestCase
 {
     public static function getDataForTestFormSubmitValidation(): iterable
@@ -117,11 +115,11 @@ final class RoleAssignmentCreateDataValidationTest extends AbstractFormDataValid
         );
 
         $locationServiceMock = $this->createMock(LocationService::class);
-        $locationServiceMock->method('loadLocation')->willReturn($this->createMock(Location::class));
+        $locationServiceMock->method('loadLocation')->willReturn($this->createStub(Location::class));
 
         return [
-            UserGroupCollectionType::class => new UserGroupCollectionType($this->createMock(UserService::class)),
-            UserCollectionType::class => new UserCollectionType($this->createMock(UserService::class)),
+            UserGroupCollectionType::class => new UserGroupCollectionType($this->createStub(UserService::class)),
+            UserCollectionType::class => new UserCollectionType($this->createStub(UserService::class)),
             SectionChoiceType::class => new SectionChoiceType($sectionServiceMock),
             LocationType::class => new LocationType($locationServiceMock),
         ];

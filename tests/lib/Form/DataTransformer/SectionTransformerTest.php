@@ -18,12 +18,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class SectionTransformerTest extends TestCase
 {
-    /**
-     * @dataProvider transformDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformDataProvider')]
     public function testTransform(?Section $value, ?int $expected): void
     {
-        $service = $this->createMock(SectionService::class);
+        $service = $this->createStub(SectionService::class);
         $transformer = new SectionTransformer($service);
 
         $result = $transformer->transform($value);
@@ -31,12 +29,10 @@ class SectionTransformerTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    /**
-     * @dataProvider transformWithInvalidInputDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformWithInvalidInputDataProvider')]
     public function testTransformWithInvalidInput(mixed $value): void
     {
-        $languageService = $this->createMock(SectionService::class);
+        $languageService = $this->createStub(SectionService::class);
         $transformer = new SectionTransformer($languageService);
 
         $this->expectException(TransformationFailedException::class);
@@ -103,7 +99,7 @@ class SectionTransformerTest extends TestCase
     /**
      * @return array<string, array{Section|null, int|null}>
      */
-    public function transformDataProvider(): array
+    public static function transformDataProvider(): array
     {
         $transform = new APISection(['id' => 123456]);
 
@@ -116,7 +112,7 @@ class SectionTransformerTest extends TestCase
     /**
      * @return array<string, array{mixed}>
      */
-    public function transformWithInvalidInputDataProvider(): array
+    public static function transformWithInvalidInputDataProvider(): array
     {
         return [
             'string' => ['string'],

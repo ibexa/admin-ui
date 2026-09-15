@@ -41,8 +41,8 @@ final class VersionInfoValueResolverTest extends TestCase
             'contentId' => '123',
         ]);
 
-        $mockContentInfo = $this->createMock(ContentInfo::class);
-        $mockVersionInfo = $this->createMock(VersionInfo::class);
+        $mockContentInfo = $this->createStub(ContentInfo::class);
+        $mockVersionInfo = $this->createStub(VersionInfo::class);
 
         $this->contentServiceMock
             ->expects(self::once())
@@ -62,10 +62,9 @@ final class VersionInfoValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
@@ -83,7 +82,7 @@ final class VersionInfoValueResolverTest extends TestCase
     /**
      * @phpstan-return array<array{attributes: array<string, mixed>, expectedMessage: string}>
      */
-    public function invalidAttributesProvider(): array
+    public static function invalidAttributesProvider(): array
     {
         return [
             'missing versionNo' => [

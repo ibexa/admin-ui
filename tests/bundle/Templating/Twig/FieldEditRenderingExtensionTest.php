@@ -42,7 +42,7 @@ final class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTes
         ]);
 
         $fieldBlockRenderer = new FieldBlockRenderer(
-            $this->createMock(Environment::class),
+            $this->createStub(Environment::class),
             $resourceProvider,
             $this->getTemplatePath('base.html.twig')
         );
@@ -73,10 +73,6 @@ final class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTes
     }
 
     /**
-     * @dataProvider getLegacyTests
-     *
-     * @group legacy
-     *
      * @param string $file
      * @param string $message
      * @param string $condition
@@ -85,6 +81,8 @@ final class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTes
      * @param array<mixed> $outputs
      * @param string $deprecation
      */
+    #[\PHPUnit\Framework\Attributes\Group('legacy')]
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideLegacyTests')]
     public function testLegacyIntegration(
         $file,
         $message,

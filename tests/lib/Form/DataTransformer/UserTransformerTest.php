@@ -34,9 +34,7 @@ class UserTransformerTest extends TestCase
         $this->userTransformer = new UserTransformer($userService);
     }
 
-    /**
-     * @dataProvider transformDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformDataProvider')]
     public function testTransform(?User $value, ?int $expected): void
     {
         $result = $this->userTransformer->transform($value);
@@ -44,9 +42,7 @@ class UserTransformerTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    /**
-     * @dataProvider reverseTransformDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('reverseTransformDataProvider')]
     public function testReverseTransform(?int $value, ?User $expected): void
     {
         $result = $this->userTransformer->reverseTransform($value);
@@ -73,9 +69,9 @@ class UserTransformerTest extends TestCase
     /**
      * @return array<string, array{\Ibexa\Contracts\Core\Repository\Values\User\User|null, int|null}>
      */
-    public function transformDataProvider(): array
+    public static function transformDataProvider(): array
     {
-        $user = $this->generateUser(123456);
+        $user = self::generateUser(123456);
 
         return [
             'user_with_id' => [$user, 123456],
@@ -86,9 +82,9 @@ class UserTransformerTest extends TestCase
     /**
      * @return array<string, array{int|null, \Ibexa\Contracts\Core\Repository\Values\User\User|null}>
      */
-    public function reverseTransformDataProvider(): array
+    public static function reverseTransformDataProvider(): array
     {
-        $user = $this->generateUser(123456);
+        $user = self::generateUser(123456);
 
         return [
             'integer' => [123456, $user],
@@ -96,7 +92,7 @@ class UserTransformerTest extends TestCase
         ];
     }
 
-    private function generateUser(?int $id = null): User
+    private static function generateUser(?int $id = null): User
     {
         $contentInfo = new API\ContentInfo(['id' => $id]);
         $versionInfo = new Core\VersionInfo(['contentInfo' => $contentInfo]);

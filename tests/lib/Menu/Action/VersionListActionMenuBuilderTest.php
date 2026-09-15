@@ -13,10 +13,8 @@ use Ibexa\Contracts\Core\Exception\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as ApiVersionInfo;
 
-/**
- * @covers \Ibexa\AdminUi\Menu\Action\VersionListActionMenuBuilder
- */
-final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\Menu\Action\VersionListActionMenuBuilder::class)]
+final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTestCase
 {
     private const ITEM_EDIT_DRAFT = 'version_list__action__content_edit';
     private const ITEM_RESTORE_VERSION = 'version_list__action__restore_version';
@@ -57,12 +55,11 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
     }
 
     /**
-     * @dataProvider provideDataForTestBuildVersionListActionMenu
-     *
      * @param array<string, mixed> $options
      * @param array<string, mixed> $extras
      * @param array<string, mixed> $attributes
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideDataForTestBuildVersionListActionMenu')]
     public function testBuildVersionListActionMenu(
         array $options,
         string $itemName,
@@ -93,9 +90,9 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
      *     array<string, mixed>,
      * }>
      */
-    public function provideDataForTestBuildVersionListActionMenu(): iterable
+    public static function provideDataForTestBuildVersionListActionMenu(): iterable
     {
-        $versionInfo = $this->createVersionInfo();
+        $versionInfo = self::createVersionInfo();
 
         yield 'Edit draft action item' => [
             ['versionInfo' => $versionInfo],
@@ -143,7 +140,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
         ];
 
         yield 'Restore version action item' => [
-            ['versionInfo' => $this->createVersionInfo(ApiVersionInfo::STATUS_ARCHIVED)],
+            ['versionInfo' => self::createVersionInfo(ApiVersionInfo::STATUS_ARCHIVED)],
             self::ITEM_RESTORE_VERSION,
             null,
             self::RESTORE_ACTION_ITEM_EXTRAS,
@@ -159,7 +156,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
     public function testAddUserUpdateItemAction(): void
     {
         $versionInfo = $this->createVersionInfo();
-        $user = $this->createMock(Content::class);
+        $user = $this->createStub(Content::class);
 
         $this->mockUrlGeneratorGenerate();
         $this->mockContentServiceLoadContentByVersionInfo($versionInfo, $user);

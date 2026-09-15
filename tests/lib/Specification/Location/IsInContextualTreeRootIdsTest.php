@@ -13,13 +13,11 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
 
+#[\PHPUnit\Framework\Attributes\CoversMethod(\Ibexa\AdminUi\Specification\Location\IsInContextualTreeRootIds::class, 'isSatisfiedBy')]
 final class IsInContextualTreeRootIdsTest extends TestCase
 {
     private const CONTEXTUAL_ROOT_IDS = [2, 5, 43, 55, 56, 67];
 
-    /**
-     * @covers \Ibexa\AdminUi\Specification\Location\IsInContextualTreeRootIds::isSatisfiedBy
-     */
     public function testReturnsTrueWhenLocationIdIsInContextualRootList(): void
     {
         $specification = new IsInContextualTreeRootIds(
@@ -31,9 +29,6 @@ final class IsInContextualTreeRootIdsTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Ibexa\AdminUi\Specification\Location\IsInContextualTreeRootIds::isSatisfiedBy
-     */
     public function testReturnsFalseWhenLocationIdIsNotInContextualRootList(): void
     {
         $specification = new IsInContextualTreeRootIds(

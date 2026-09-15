@@ -16,6 +16,7 @@ use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -31,7 +32,7 @@ final class RequestLocaleListenerTest extends TestCase
 
     private Request&MockObject $request;
 
-    private HttpKernelInterface&MockObject $httpKernel;
+    private HttpKernelInterface&\PHPUnit\Framework\MockObject\Stub $httpKernel;
 
     private TranslatorInterface&MockObject $translator;
 
@@ -47,12 +48,12 @@ final class RequestLocaleListenerTest extends TestCase
 
         $this->request = $this
             ->getMockBuilder(Request::class)
-            ->setMethods(['getSession', 'hasSession', 'setLocale'])
             ->getMock();
+        $this->request->attributes = new ParameterBag();
 
         $this->request->attributes->set('siteaccess', new SiteAccess(self::ADMIN_SITEACCESS));
 
-        $this->httpKernel = $this->createMock(HttpKernelInterface::class);
+        $this->httpKernel = $this->createStub(HttpKernelInterface::class);
 
         $this->userLanguagePreferenceProvider = $this
             ->getMockBuilder(UserLanguagePreferenceProviderInterface::class)
@@ -275,8 +276,8 @@ final class RequestLocaleListenerTest extends TestCase
     {
         $request = $this
             ->getMockBuilder(Request::class)
-            ->setMethods(['getSession', 'hasSession', 'setLocale'])
             ->getMock();
+        $request->attributes = new ParameterBag();
         $request
             ->expects(self::never())
             ->method('setLocale');
