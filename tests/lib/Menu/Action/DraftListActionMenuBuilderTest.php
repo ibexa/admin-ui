@@ -13,10 +13,8 @@ use Ibexa\Contracts\Core\Exception\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as ApiVersionInfo;
 
-/**
- * @covers \Ibexa\AdminUi\Menu\Action\DraftListActionMenuBuilder
- */
-final class DraftListActionMenuBuilderTest extends BaseActionMenuBuilderTest
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\Menu\Action\DraftListActionMenuBuilder::class)]
+final class DraftListActionMenuBuilderTest extends BaseActionMenuBuilderTestCase
 {
     private const DRAFT_LIST_ACTION_CONTENT_EDIT = 'draft_list__action__content_edit';
 
@@ -71,7 +69,7 @@ final class DraftListActionMenuBuilderTest extends BaseActionMenuBuilderTest
     public function testAddUserUpdateItemAction(): void
     {
         $versionInfo = $this->createVersionInfo();
-        $user = $this->createMock(Content::class);
+        $user = $this->createStub(Content::class);
 
         $this->mockUrlGeneratorGenerate();
         $this->mockContentServiceLoadContentByVersionInfo($versionInfo, $user);

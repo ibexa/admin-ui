@@ -39,8 +39,8 @@ final class TabRegistryTest extends TestCase
 
     public function testGetTabsByGroupName(): void
     {
-        $twig = $this->createMock(Environment::class);
-        $translator = $this->createMock(TranslatorInterface::class);
+        $twig = $this->createStub(Environment::class);
+        $translator = $this->createStub(TranslatorInterface::class);
 
         $tabs = [
             $this->createTab('tab1', $twig, $translator),
@@ -56,8 +56,8 @@ final class TabRegistryTest extends TestCase
 
     public function testGetTabFromGroup(): void
     {
-        $twig = $this->createMock(Environment::class);
-        $translator = $this->createMock(TranslatorInterface::class);
+        $twig = $this->createStub(Environment::class);
+        $translator = $this->createStub(TranslatorInterface::class);
         $tab1 = $this->createTab('tab1', $twig, $translator);
         $tabs = [$tab1, $this->createTab('tab2', $twig, $translator)];
 
@@ -123,8 +123,8 @@ final class TabRegistryTest extends TestCase
 
     public function testAddTabToExistingGroup(): void
     {
-        $twig = $this->createMock(Environment::class);
-        $translator = $this->createMock(TranslatorInterface::class);
+        $twig = $this->createStub(Environment::class);
+        $translator = $this->createStub(TranslatorInterface::class);
         $existingTab = $this->createTab('existing_tab', $twig, $translator);
         $addedTab = $this->createTab('added_tab', $twig, $translator);
 
@@ -139,8 +139,8 @@ final class TabRegistryTest extends TestCase
 
     public function testAddTabToNonExistentGroup(): void
     {
-        $twig = $this->createMock(Environment::class);
-        $translator = $this->createMock(TranslatorInterface::class);
+        $twig = $this->createStub(Environment::class);
+        $translator = $this->createStub(TranslatorInterface::class);
         $addedTab = $this->createTab('added_tab', $twig, $translator);
 
         $tabRegistry = new TabRegistry();

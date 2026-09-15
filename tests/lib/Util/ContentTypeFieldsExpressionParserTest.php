@@ -24,9 +24,7 @@ final class ContentTypeFieldsExpressionParserTest extends TestCase
         $this->contentTypeFieldsExpressionExtractor = new ContentTypeFieldsExpressionParser();
     }
 
-    /**
-     * @dataProvider dataProviderForTestParse
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForTestParse')]
     public function testParse(string $expression, ContentTypeFieldsParsedStructure $expectedResult): void
     {
         $result = $this->contentTypeFieldsExpressionExtractor->parseExpression($expression);
@@ -36,9 +34,7 @@ final class ContentTypeFieldsExpressionParserTest extends TestCase
         self::assertSame($expectedResult->getFields(), $result->getFields());
     }
 
-    /**
-     * @dataProvider dataProviderForTestParseInvalidExpressions
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForTestParseInvalidExpressions')]
     public function testParseInvalidExpression(string $expression): void
     {
         $this->expectException(RuntimeException::class);
@@ -49,7 +45,7 @@ final class ContentTypeFieldsExpressionParserTest extends TestCase
     /**
      * @return iterable<string, array{string, \Ibexa\AdminUi\Util\ContentTypeFieldsParsedStructure}>
      */
-    public function dataProviderForTestParse(): iterable
+    public static function dataProviderForTestParse(): iterable
     {
         yield 'product content type group, every content type, few fields' => [
             'product/*/{name, description}',
@@ -118,7 +114,7 @@ final class ContentTypeFieldsExpressionParserTest extends TestCase
     /**
      * @return iterable<string, array{string}>
      */
-    public function dataProviderForTestParseInvalidExpressions(): iterable
+    public static function dataProviderForTestParseInvalidExpressions(): iterable
     {
         yield 'file content type, without fields' => [
             'file/',

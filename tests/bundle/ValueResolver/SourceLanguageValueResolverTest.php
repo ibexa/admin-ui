@@ -30,7 +30,7 @@ final class SourceLanguageValueResolverTest extends TestCase
 
     public function testResolve(): void
     {
-        $language = $this->createMock(Language::class);
+        $language = $this->createStub(Language::class);
         $attributes = ['fromLanguageCode' => 'fra-FR'];
 
         $this->languageService->expects(self::once())
@@ -53,10 +53,9 @@ final class SourceLanguageValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);

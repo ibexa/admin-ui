@@ -25,9 +25,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-/**
- * @covers \Ibexa\AdminUi\Form\Processor\Content\ContentOnTheFlyProcessor
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\Form\Processor\Content\ContentOnTheFlyProcessor::class)]
 final class ContentOnTheFlyProcessorTest extends TestCase
 {
     private const string CREATE_RESPONSE_TEMPLATE = '@ibexadesign/ui/on_the_fly/content_create_response.html.twig';

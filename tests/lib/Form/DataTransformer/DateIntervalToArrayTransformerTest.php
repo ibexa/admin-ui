@@ -21,7 +21,7 @@ final class DateIntervalToArrayTransformerTest extends TestCase
     /**
      * @phpstan-return list<array{TDataIntervalPair}>
      */
-    public function transformProvider(): array
+    public static function transformProvider(): array
     {
         return [
             [
@@ -43,10 +43,9 @@ final class DateIntervalToArrayTransformerTest extends TestCase
     }
 
     /**
-     * @dataProvider transformProvider
-     *
      * @phpstan-param TDataIntervalPair $valueAsArray
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformProvider')]
     public function testTransform(array $valueAsArray): void
     {
         $transformer = new DateIntervalToArrayTransformer();
@@ -55,10 +54,9 @@ final class DateIntervalToArrayTransformerTest extends TestCase
     }
 
     /**
-     * @dataProvider transformProvider
-     *
      * @phpstan-param TDataIntervalPair $valueAsArray
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformProvider')]
     public function testReverseTransform(array $valueAsArray): void
     {
         $transformer = new DateIntervalToArrayTransformer();
@@ -84,7 +82,7 @@ final class DateIntervalToArrayTransformerTest extends TestCase
     /**
      * @phpstan-return list<array{mixed}>
      */
-    public function reverseTransformNullProvider(): array
+    public static function reverseTransformNullProvider(): array
     {
         return [
             [null],
@@ -95,10 +93,9 @@ final class DateIntervalToArrayTransformerTest extends TestCase
     }
 
     /**
-     * @dataProvider reverseTransformNullProvider
-     *
      * @phpstan-param array{mixed}|null $value
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('reverseTransformNullProvider')]
     public function testReverseTransformNull(?array $value): void
     {
         $transformer = new DateIntervalToArrayTransformer();

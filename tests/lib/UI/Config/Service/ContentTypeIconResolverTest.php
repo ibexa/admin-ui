@@ -35,9 +35,8 @@ final class ContentTypeIconResolverTest extends TestCase
 
     /**
      * @param array<string, array{thumbnail: ?string}> $config
-     *
-     * @dataProvider dataProviderForGetContentTypeIcon
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForGetContentTypeIcon')]
     public function testGetContentTypeIcon(array $config, string $identifier, string $expected): void
     {
         $this->configResolver
@@ -71,7 +70,7 @@ final class ContentTypeIconResolverTest extends TestCase
     /**
      * @return array<array{0: array<string, array{thumbnail: ?string}>, 1: string, 2: string}>
      */
-    public function dataProviderForGetContentTypeIcon(): array
+    public static function dataProviderForGetContentTypeIcon(): array
     {
         return [
             [

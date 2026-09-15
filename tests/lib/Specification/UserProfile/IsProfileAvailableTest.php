@@ -16,9 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 final class IsProfileAvailableTest extends TestCase
 {
-    /**
-     * @dataProvider dataProviderForIsSatisfiedBy
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForIsSatisfiedBy')]
     public function testIsSatisfiedBy(
         UserProfileConfigurationInterface $configuration,
         User $value,
@@ -33,23 +31,23 @@ final class IsProfileAvailableTest extends TestCase
     /**
      * @return iterable<array{UserProfileConfigurationInterface, \Ibexa\Contracts\Core\Repository\Values\User\User, bool}>
      */
-    public function dataProviderForIsSatisfiedBy(): iterable
+    public static function dataProviderForIsSatisfiedBy(): iterable
     {
         yield 'disabled' => [
-            $this->createConfiguration(false, ['editor']),
-            $this->createUser('editor'),
+            self::createConfiguration(false, ['editor']),
+            self::createUser('editor'),
             false,
         ];
 
         yield 'invalid content type' => [
-            $this->createConfiguration(true, ['editor']),
-            $this->createUser('user'),
+            self::createConfiguration(true, ['editor']),
+            self::createUser('user'),
             false,
         ];
 
         yield 'available' => [
-            $this->createConfiguration(true, ['editor']),
-            $this->createUser('editor'),
+            self::createConfiguration(true, ['editor']),
+            self::createUser('editor'),
             true,
         ];
     }
@@ -57,21 +55,21 @@ final class IsProfileAvailableTest extends TestCase
     /**
      * @param string[] $contentTypes
      */
-    private function createConfiguration(bool $enabled, array $contentTypes): UserProfileConfigurationInterface
+    private static function createConfiguration(bool $enabled, array $contentTypes): UserProfileConfigurationInterface
     {
-        $configuration = $this->createMock(UserProfileConfigurationInterface::class);
+        $configuration = self::createStub(UserProfileConfigurationInterface::class);
         $configuration->method('isEnabled')->willReturn($enabled);
         $configuration->method('getContentTypes')->willReturn($contentTypes);
 
         return $configuration;
     }
 
-    private function createUser(string $contentTypeIdentifier): User
+    private static function createUser(string $contentTypeIdentifier): User
     {
-        $contentType = $this->createMock(ContentType::class);
+        $contentType = self::createStub(ContentType::class);
         $contentType->method('getIdentifier')->willReturn($contentTypeIdentifier);
 
-        $user = $this->createMock(User::class);
+        $user = self::createStub(User::class);
         $user->method('getContentType')->willReturn($contentType);
 
         return $user;

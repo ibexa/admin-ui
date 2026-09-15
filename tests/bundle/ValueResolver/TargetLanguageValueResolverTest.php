@@ -30,7 +30,7 @@ final class TargetLanguageValueResolverTest extends TestCase
 
     public function testResolve(): void
     {
-        $language = $this->createMock(Language::class);
+        $language = $this->createStub(Language::class);
         $attributes = ['toLanguageCode' => 'eng-GB'];
 
         $this->languageService->expects(self::once())
@@ -53,10 +53,9 @@ final class TargetLanguageValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);

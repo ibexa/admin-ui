@@ -39,10 +39,9 @@ class ContentCreateTest extends TestCase
     }
 
     /**
-     * @dataProvider createTab
-     *
      * @phpstan-param array<string, mixed> $config
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('createTab')]
     public function testUdwConfigResolveWithCreateTab(array $config): void
     {
         $event = new ConfigResolveEvent();
@@ -64,10 +63,9 @@ class ContentCreateTest extends TestCase
     }
 
     /**
-     * @dataProvider withoutCreateTab
-     *
      * @phpstan-param array<string, mixed> $config
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('withoutCreateTab')]
     public function testUdwConfigResolveWithoutCreateTab(array $config): void
     {
         $event = new ConfigResolveEvent();
@@ -83,7 +81,7 @@ class ContentCreateTest extends TestCase
     /**
      * @phpstan-return array<string, array{array<string, mixed>}>
      */
-    public function createTab(): array
+    public static function createTab(): array
     {
         return [
             'all_tabs' => [
@@ -108,7 +106,7 @@ class ContentCreateTest extends TestCase
     /**
      * @phpstan-return array<string, array{array<string, mixed>}>
      */
-    public function withoutCreateTab(): array
+    public static function withoutCreateTab(): array
     {
         return [
             'one_tab' => [

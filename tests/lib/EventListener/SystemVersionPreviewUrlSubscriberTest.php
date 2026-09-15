@@ -18,9 +18,7 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-/**
- * @covers \Ibexa\AdminUi\EventListener\SystemVersionPreviewUrlSubscriber
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\EventListener\SystemVersionPreviewUrlSubscriber::class)]
 final class SystemVersionPreviewUrlSubscriberTest extends TestCase
 {
     private const EXAMPLE_PREVIEW_URL = '/example';
@@ -41,13 +39,13 @@ final class SystemVersionPreviewUrlSubscriberTest extends TestCase
 
     public function testOnSystemVersionPreviewIsSkippedIfUrlHasBeenResolved(): void
     {
-        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+        $urlGenerator = $this->createStub(UrlGeneratorInterface::class);
 
         $event = new ResolveVersionPreviewUrlEvent(
-            $this->createMock(VersionInfo::class),
-            $this->createMock(Language::class),
-            $this->createMock(Location::class),
-            $this->createMock(SiteAccess::class)
+            $this->createStub(VersionInfo::class),
+            $this->createStub(Language::class),
+            $this->createStub(Location::class),
+            $this->createStub(SiteAccess::class)
         );
         $event->setPreviewUrl(self::EXAMPLE_PREVIEW_URL);
 
@@ -69,13 +67,13 @@ final class SystemVersionPreviewUrlSubscriberTest extends TestCase
         $language = $this->createMock(Language::class);
         $language->method('getLanguageCode')->willReturn(self::EXAMPLE_LANGUAGE_CODE);
 
-        $siteAccess = $this->createMock(SiteAccess::class);
+        $siteAccess = $this->createStub(SiteAccess::class);
         $siteAccess->name = self::EXAMPLE_SITE_ACCESS;
 
         $event = new ResolveVersionPreviewUrlEvent(
             $versionInfo,
             $language,
-            $this->createMock(Location::class),
+            $this->createStub(Location::class),
             $siteAccess
         );
 

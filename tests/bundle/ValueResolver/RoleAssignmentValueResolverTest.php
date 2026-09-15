@@ -30,7 +30,7 @@ final class RoleAssignmentValueResolverTest extends TestCase
 
     public function testResolve(): void
     {
-        $roleAssignment = $this->createMock(RoleAssignment::class);
+        $roleAssignment = $this->createStub(RoleAssignment::class);
         $attributes = ['roleAssignmentId' => '789'];
 
         $this->roleService->expects(self::once())
@@ -53,10 +53,9 @@ final class RoleAssignmentValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);

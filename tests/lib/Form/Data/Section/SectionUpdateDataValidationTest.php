@@ -13,10 +13,8 @@ use Ibexa\AdminUi\Form\Type\Section\SectionType;
 use Ibexa\AdminUi\Form\Type\Section\SectionUpdateType;
 use Symfony\Component\Form\FormInterface;
 
-/**
- * @covers \Ibexa\AdminUi\Form\Type\Section\SectionUpdateType
- * @covers \Ibexa\AdminUi\Form\Data\Section\SectionUpdateData
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\Form\Type\Section\SectionUpdateType::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\Form\Data\Section\SectionUpdateData::class)]
 final class SectionUpdateDataValidationTest extends AbstractSectionMutationDataValidationTestCase
 {
     /**

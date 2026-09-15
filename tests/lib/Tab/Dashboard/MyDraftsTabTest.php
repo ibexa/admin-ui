@@ -21,9 +21,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 
-/**
- * @covers \Ibexa\AdminUi\Tab\Dashboard\MyDraftsTab
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\Tab\Dashboard\MyDraftsTab::class)]
 final class MyDraftsTabTest extends TestCase
 {
     public function testRenderView(): void
@@ -41,11 +39,11 @@ final class MyDraftsTabTest extends TestCase
         $configResolverMock = $this->createMock(ConfigResolverInterface::class);
         $tab = new MyDraftsTab(
             $twigStub,
-            $this->createMock(TranslatorInterface::class),
-            $this->createMock(ContentService::class),
-            $this->createMock(ContentTypeService::class),
-            $this->createMock(PermissionResolver::class),
-            $this->createMock(DatasetFactory::class),
+            $this->createStub(TranslatorInterface::class),
+            $this->createStub(ContentService::class),
+            $this->createStub(ContentTypeService::class),
+            $this->createStub(PermissionResolver::class),
+            $this->createStub(DatasetFactory::class),
             $requestStackMock,
             $configResolverMock
         );

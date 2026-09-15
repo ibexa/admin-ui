@@ -47,7 +47,7 @@ final class SubtreeLimitationMapperTest extends TestCase
 
         $locationServiceMock = $this->createMock(LocationService::class);
         $searchServiceMock = $this->createMock(SearchService::class);
-        $repositoryMock = $this->createMock(Repository::class);
+        $repositoryMock = $this->createStub(Repository::class);
 
         $searchResultsByPath = [];
         $locationsById = [];

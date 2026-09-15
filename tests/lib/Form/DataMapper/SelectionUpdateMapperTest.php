@@ -35,12 +35,11 @@ final class SelectionUpdateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @phpstan-param TSectionProperties $properties
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testMap(array $properties): void
     {
         $data = $this->mapper->map($this->createStruct($properties));
@@ -49,12 +48,11 @@ final class SelectionUpdateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @phpstan-param TSectionProperties $properties
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testReverseMap(array $properties): void
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));

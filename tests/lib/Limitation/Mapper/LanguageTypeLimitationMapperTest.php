@@ -38,9 +38,9 @@ class LanguageTypeLimitationMapperTest extends TestCase
         $values = ['en_GB', 'en_US', 'pl_PL'];
 
         $expected = [
-            $this->createMock(Language::class),
-            $this->createMock(Language::class),
-            $this->createMock(Language::class),
+            $this->createStub(Language::class),
+            $this->createStub(Language::class),
+            $this->createStub(Language::class),
         ];
 
         $languagesByCode = [];
@@ -72,7 +72,7 @@ class LanguageTypeLimitationMapperTest extends TestCase
             ->expects(self::once())
             ->method('loadLanguage')
             ->with($values[0])
-            ->willThrowException($this->createMock(NotFoundException::class));
+            ->willThrowException($this->createStub(NotFoundException::class));
 
         $this->logger
             ->expects(self::once())

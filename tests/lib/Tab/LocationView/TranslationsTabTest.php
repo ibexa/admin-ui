@@ -58,9 +58,7 @@ final class TranslationsTabTest extends TestCase
         $this->translationsDataset = $this->createMock(TranslationsDataset::class);
     }
 
-    /**
-     * @dataProvider provideHasTranslationActions
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideHasTranslationActions')]
     public function testGetTemplateParametersSetsHasTranslationActions(
         bool $hasComponents,
         bool $expectedFlag
@@ -181,11 +179,11 @@ final class TranslationsTabTest extends TestCase
             : [];
 
         return new TranslationsTab(
-            $this->createMock(Environment::class),
-            $this->createMock(TranslatorInterface::class),
+            $this->createStub(Environment::class),
+            $this->createStub(TranslatorInterface::class),
             $this->datasetFactory,
-            $this->createMock(UrlGeneratorInterface::class),
-            $this->createMock(EventDispatcherInterface::class),
+            $this->createStub(UrlGeneratorInterface::class),
+            $this->createStub(EventDispatcherInterface::class),
             $this->formFactory,
             $this->permissionResolver,
             $this->languageService,

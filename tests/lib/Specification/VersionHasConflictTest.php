@@ -75,8 +75,6 @@ final class VersionHasConflictTest extends TestCase
 
     private function createVersionInfo(bool $isPublished = false, int $versionNo = 1, string $languageCode = 'eng-GB'): MockObject&VersionInfo
     {
-        $contentInfo = $this->createMock(ContentInfo::class);
-
         $versionInfo = $this->getMockForAbstractClass(
             VersionInfo::class,
             [],
@@ -102,7 +100,7 @@ final class VersionHasConflictTest extends TestCase
 
         $versionInfo
             ->method('getContentInfo')
-            ->willReturn($contentInfo);
+            ->willReturn($this->createStub(ContentInfo::class));
 
         return $versionInfo;
     }

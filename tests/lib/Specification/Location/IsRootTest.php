@@ -12,11 +12,9 @@ use Ibexa\AdminUi\Specification\Location\IsRoot;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 
+#[\PHPUnit\Framework\Attributes\CoversMethod(\Ibexa\AdminUi\Specification\Location\IsRoot::class, 'isSatisfiedBy')]
 final class IsRootTest extends TestCase
 {
-    /**
-     * @covers \Ibexa\AdminUi\Specification\Location\IsRoot::isSatisfiedBy
-     */
     public function testReturnsTrueWhenLocationDepthIsOne(): void
     {
         $specification = new IsRoot();
@@ -26,9 +24,6 @@ final class IsRootTest extends TestCase
         self::assertTrue($specification->isSatisfiedBy($location));
     }
 
-    /**
-     * @covers \Ibexa\AdminUi\Specification\Location\IsRoot::isSatisfiedBy
-     */
     public function testReturnsFalseWhenLocationDepthIsNotOne(): void
     {
         $specification = new IsRoot();

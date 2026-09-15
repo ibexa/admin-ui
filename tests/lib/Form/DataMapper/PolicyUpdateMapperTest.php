@@ -33,10 +33,9 @@ final class PolicyUpdateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @param array<string, mixed> $properties
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testMap(array $properties): void
     {
         $data = $this->mapper->map($this->createStruct($properties));
@@ -45,10 +44,9 @@ final class PolicyUpdateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @param array<string, mixed> $properties
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testReverseMap(array $properties): void
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
@@ -67,7 +65,7 @@ final class PolicyUpdateMapperTest extends TestCase
     /**
      * @return array<string, array<int, array<string, \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation>>>
      */
-    public function dataProvider(): array
+    public static function dataProvider(): array
     {
         return [
             'simple' => [['limitation' => new ContentTypeLimitation()]],

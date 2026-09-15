@@ -30,7 +30,7 @@ final class SectionValueResolverTest extends TestCase
 
     public function testResolve(): void
     {
-        $section = $this->createMock(Section::class);
+        $section = $this->createStub(Section::class);
         $attributes = ['sectionId' => '123'];
 
         $this->sectionService->expects(self::once())
@@ -53,10 +53,9 @@ final class SectionValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);

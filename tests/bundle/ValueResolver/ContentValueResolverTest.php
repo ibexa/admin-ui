@@ -29,10 +29,9 @@ final class ContentValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider validAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('validAttributesProvider')]
     public function testResolve(array $attributes): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
@@ -41,7 +40,7 @@ final class ContentValueResolverTest extends TestCase
             ->willReturn(Content::class);
 
         $request = new Request([], [], $attributes);
-        $mockContent = $this->createMock(Content::class);
+        $mockContent = $this->createStub(Content::class);
 
         $this->contentServiceMock
             ->expects(self::once())
@@ -57,7 +56,7 @@ final class ContentValueResolverTest extends TestCase
     /**
      * @phpstan-return array<array{attributes: array<string, mixed>}>
      */
-    public function validAttributesProvider(): array
+    public static function validAttributesProvider(): array
     {
         return [
             'full valid attributes' => [
@@ -77,10 +76,9 @@ final class ContentValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
@@ -98,7 +96,7 @@ final class ContentValueResolverTest extends TestCase
     /**
      * @phpstan-return array<array{attributes: array<string, mixed>, expectedMessage: string}>
      */
-    public function invalidAttributesProvider(): array
+    public static function invalidAttributesProvider(): array
     {
         return [
             'missing contentId' => [

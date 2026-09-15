@@ -22,14 +22,14 @@ final class AuthorsTabVisibilityTest extends AbstractTabVisibilityTestCase
     protected function createTabForVisibilityInGivenUserModeTest(UserSettingService $userSettingService): TabInterface
     {
         return new AuthorsTab(
-            $this->createMock(Environment::class),
-            $this->createMock(TranslatorInterface::class),
-            $this->createMock(UserService::class),
-            $this->createMock(EventDispatcherInterface::class)
+            $this->createStub(Environment::class),
+            $this->createStub(TranslatorInterface::class),
+            $this->createStub(UserService::class),
+            $this->createStub(EventDispatcherInterface::class)
         );
     }
 
-    public function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
+    public static function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
     {
         yield 'focus mode on' => [FocusMode::FOCUS_MODE_ON, [], true];
         yield 'focus mode off' => [FocusMode::FOCUS_MODE_OFF, [], true];

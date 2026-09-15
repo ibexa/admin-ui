@@ -17,6 +17,7 @@ use Ibexa\User\UserSetting\UserSetting;
 use Ibexa\User\UserSetting\UserSettingService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -32,7 +33,7 @@ final class InContextTranslationListenerTest extends TestCase
 
     private Request&MockObject $request;
 
-    private HttpKernelInterface&MockObject $httpKernel;
+    private HttpKernelInterface&\PHPUnit\Framework\MockObject\Stub $httpKernel;
 
     private UserSettingService&MockObject $userSettingService;
 
@@ -44,12 +45,12 @@ final class InContextTranslationListenerTest extends TestCase
 
         $this->request = $this
             ->getMockBuilder(Request::class)
-            ->setMethods(['setLocale'])
             ->getMock();
+        $this->request->attributes = new ParameterBag();
 
         $this->request->attributes->set('siteaccess', new SiteAccess(self::ADMIN_SITEACCESS));
 
-        $this->httpKernel = $this->createMock(HttpKernelInterface::class);
+        $this->httpKernel = $this->createStub(HttpKernelInterface::class);
 
         $this->userSettingService = $this->createMock(UserSettingService::class);
 
@@ -203,8 +204,8 @@ final class InContextTranslationListenerTest extends TestCase
     {
         $request = $this
             ->getMockBuilder(Request::class)
-            ->setMethods(['setLocale'])
             ->getMock();
+        $request->attributes = new ParameterBag();
         $request
             ->expects(self::never())
             ->method('setLocale');

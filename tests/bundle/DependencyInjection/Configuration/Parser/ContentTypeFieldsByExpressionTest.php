@@ -12,9 +12,7 @@ use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\ContentTypeFie
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\SubtreeOperations
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\SubtreeOperations::class)]
 final class ContentTypeFieldsByExpressionTest extends TestCase
 {
     private ContentTypeFieldsByExpression $parser;

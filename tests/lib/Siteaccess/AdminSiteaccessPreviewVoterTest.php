@@ -56,9 +56,7 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
         self::assertFalse($this->adminSiteaccessPreviewVoter->vote($context));
     }
 
-    /**
-     * @dataProvider dataProviderForSiteaccessPreviewVoterContext
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForSiteaccessPreviewVoterContext')]
     public function testVoteWithInvalidLanguageMatch(SiteaccessPreviewVoterContext $context): void
     {
         $this->mockConfigMethods($context, 5, null, ['ger-DE']);
@@ -76,9 +74,7 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
         self::assertFalse($this->adminSiteaccessPreviewVoter->vote($context));
     }
 
-    /**
-     * @dataProvider dataProviderForSiteaccessPreviewVoterContext
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForSiteaccessPreviewVoterContext')]
     public function testVoteWithInvalidRepositoryMatch(SiteaccessPreviewVoterContext $context): void
     {
         $this->mockConfigMethods($context, 4);
@@ -96,9 +92,7 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
         self::assertFalse($this->adminSiteaccessPreviewVoter->vote($context));
     }
 
-    /**
-     * @dataProvider dataProviderForSiteaccessPreviewVoterContext
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForSiteaccessPreviewVoterContext')]
     public function testVoteWithValidRepositoryAndLanguageMatch(SiteaccessPreviewVoterContext $context): void
     {
         $this->mockConfigMethods($context, 5, null, ['eng-GB', 'fre-FR']);
@@ -152,7 +146,7 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
     /**
      * @return array<int, array{0: \Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterContext}>
      */
-    public function dataProviderForSiteaccessPreviewVoterContext(): array
+    public static function dataProviderForSiteaccessPreviewVoterContext(): array
     {
         $languageCode = self::LANGUAGE_CODE;
         $location = new Location(['id' => 123456, 'path' => [1, 2]]);

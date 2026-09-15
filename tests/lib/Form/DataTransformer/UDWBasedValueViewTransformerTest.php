@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueViewTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Repository\Values\Content\Location as CoreLocation;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -32,9 +33,8 @@ final class UDWBasedValueViewTransformerTest extends TestCase
 
     /**
      * @param mixed[] $given
-     *
-     * @dataProvider dataProviderForTransform
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForTransform')]
     public function testTransform(?array $given, ?string $expected): void
     {
         self::assertEquals($expected, $this->transformer->transform($given));
@@ -43,15 +43,15 @@ final class UDWBasedValueViewTransformerTest extends TestCase
     /**
      * @return array<array{0: ?array<Location>, 1: ?string}>
      */
-    public function dataProviderForTransform(): array
+    public static function dataProviderForTransform(): array
     {
         return [
             [null, null],
             [
                 [
-                    $this->createLocation(54),
-                    $this->createLocation(56),
-                    $this->createLocation(58),
+                    self::createLocation(54),
+                    self::createLocation(56),
+                    self::createLocation(58),
                 ],
                 '54,56,58',
             ],
@@ -60,9 +60,8 @@ final class UDWBasedValueViewTransformerTest extends TestCase
 
     /**
      * @param mixed[] $expected
-     *
-     * @dataProvider dataProviderForReverseTransform
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForReverseTransform')]
     public function testReverseTransform(?string $given, ?array $expected): void
     {
         $this->locationService
@@ -77,16 +76,16 @@ final class UDWBasedValueViewTransformerTest extends TestCase
     /**
      * @return array<array{0: ?string, 1: ?array<\Ibexa\Contracts\Core\Repository\Values\Content\Location>}>
      */
-    public function dataProviderForReverseTransform(): array
+    public static function dataProviderForReverseTransform(): array
     {
         return [
             [null, null],
             [
                 '54,56,58',
                 [
-                    $this->createLocation(54),
-                    $this->createLocation(56),
-                    $this->createLocation(58),
+                    self::createLocation(54),
+                    self::createLocation(56),
+                    self::createLocation(58),
                 ],
             ],
         ];
@@ -99,24 +98,14 @@ final class UDWBasedValueViewTransformerTest extends TestCase
         $this->locationService
             ->method('loadLocation')
             ->willThrowException(
-                $this->createMock(UnauthorizedException::class)
+                $this->createStub(UnauthorizedException::class)
             );
 
         $this->transformer->reverseTransform('54,56,58');
     }
 
-    private function createLocation(int $id): Location
+    private static function createLocation(int $id): Location
     {
-        $location = $this->createMock(Location::class);
-        $location
-            ->method('__get')
-            ->with('id')
-            ->willReturn($id);
-        $location
-            ->method('__isset')
-            ->with('id')
-            ->willReturn(true);
-
-        return $location;
+        return new CoreLocation(['id' => $id]);
     }
 }

@@ -22,9 +22,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use Ibexa\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Ibexa\AdminUi\Limitation\Mapper\UDWBasedMapper
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\Limitation\Mapper\UDWBasedMapper::class)]
 final class UDWBasedMapperTest extends TestCase
 {
     public function testMapLimitationValue(): void
@@ -50,7 +48,7 @@ final class UDWBasedMapperTest extends TestCase
 
         $locationServiceMock = $this->createMock(LocationService::class);
         $searchServiceMock = $this->createMock(SearchService::class);
-        $repositoryMock = $this->createMock(Repository::class);
+        $repositoryMock = $this->createStub(Repository::class);
 
         $locationsById = [];
         $searchResultsByPath = [];

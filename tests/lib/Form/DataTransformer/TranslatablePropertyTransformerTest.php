@@ -13,9 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 final class TranslatablePropertyTransformerTest extends TestCase
 {
-    /**
-     * @dataProvider transformInvalidValueProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformInvalidValueProvider')]
     public function testTransformInvalidValue(mixed $value): void
     {
         $transformer = new TranslatablePropertyTransformer('fre-FR');
@@ -26,7 +24,7 @@ final class TranslatablePropertyTransformerTest extends TestCase
     /**
      * @phpstan-return list<array{mixed}>
      */
-    public function transformInvalidValueProvider(): array
+    public static function transformInvalidValueProvider(): array
     {
         return [
             ['foo'],
@@ -38,9 +36,8 @@ final class TranslatablePropertyTransformerTest extends TestCase
 
     /**
      * @param array<string, string> $inputValue
-     *
-     * @dataProvider transformValueProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformValueProvider')]
     public function testTransform(array $inputValue, string $languageCode, string $expected): void
     {
         $transformer = new TranslatablePropertyTransformer($languageCode);
@@ -50,7 +47,7 @@ final class TranslatablePropertyTransformerTest extends TestCase
     /**
      * @phpstan-return list<array{array<string, string>, string, string}>
      */
-    public function transformValueProvider(): array
+    public static function transformValueProvider(): array
     {
         return [
             [
@@ -72,10 +69,9 @@ final class TranslatablePropertyTransformerTest extends TestCase
     }
 
     /**
-     * @dataProvider reverseTransformProvider
-     *
      * @param array<string, string|null> $expected
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('reverseTransformProvider')]
     public function testReverseTransform(mixed $inputValue, string $languageCode, array $expected): void
     {
         $transformer = new TranslatablePropertyTransformer($languageCode);
@@ -86,7 +82,7 @@ final class TranslatablePropertyTransformerTest extends TestCase
     /**
      * @phpstan-return list<array{mixed, string, array<string, string|null>}>
      */
-    public function reverseTransformProvider(): array
+    public static function reverseTransformProvider(): array
     {
         return [
             [false, 'fre-FR', ['fre-FR' => null]],

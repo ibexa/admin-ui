@@ -39,7 +39,7 @@ final class ContentTypeDraftValueResolverTest extends TestCase
             'contentTypeId' => '1',
         ]);
 
-        $mockContentTypeDraft = $this->createMock(ContentTypeDraft::class);
+        $mockContentTypeDraft = $this->createStub(ContentTypeDraft::class);
 
         $this->contentTypeServiceMock
             ->expects(self::once())
@@ -53,10 +53,9 @@ final class ContentTypeDraftValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
@@ -74,7 +73,7 @@ final class ContentTypeDraftValueResolverTest extends TestCase
     /**
      * @phpstan-return array<array{attributes: array<string, mixed>, expectedMessage: string}>
      */
-    public function invalidAttributesProvider(): array
+    public static function invalidAttributesProvider(): array
     {
         return [
             'missing contentTypeId' => [

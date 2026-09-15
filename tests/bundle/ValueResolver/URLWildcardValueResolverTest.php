@@ -39,7 +39,7 @@ final class URLWildcardValueResolverTest extends TestCase
             'urlWildcardId' => '123',
         ]);
 
-        $mockURLWildcard = $this->createMock(URLWildcard::class);
+        $mockURLWildcard = $this->createStub(URLWildcard::class);
 
         $this->urlWildcardServiceMock
             ->expects(self::once())
@@ -53,10 +53,9 @@ final class URLWildcardValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
@@ -74,7 +73,7 @@ final class URLWildcardValueResolverTest extends TestCase
     /**
      * @phpstan-return array<array{attributes: array<string, mixed>, expectedMessage: string}>
      */
-    public function invalidAttributesProvider(): array
+    public static function invalidAttributesProvider(): array
     {
         return [
             'missing urlWildcardId' => [

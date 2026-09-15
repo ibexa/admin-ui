@@ -72,7 +72,7 @@ class SectionLimitationMapperTest extends TestCase
             ->expects(self::once())
             ->method('loadSection')
             ->with($values[0])
-            ->willThrowException($this->createMock(NotFoundException::class));
+            ->willThrowException($this->createStub(NotFoundException::class));
 
         $this->logger
             ->expects(self::once())

@@ -39,7 +39,7 @@ final class ObjectStateGroupValueResolverTest extends TestCase
             'objectStateGroupId' => '123',
         ]);
 
-        $mockObjectStateGroup = $this->createMock(ObjectStateGroup::class);
+        $mockObjectStateGroup = $this->createStub(ObjectStateGroup::class);
 
         $this->objectStateServiceMock
             ->expects(self::once())
@@ -53,11 +53,10 @@ final class ObjectStateGroupValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      * @param string $expectedMessage
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
@@ -75,7 +74,7 @@ final class ObjectStateGroupValueResolverTest extends TestCase
     /**
      * @phpstan-return array<array{attributes: array<string, mixed>, expectedMessage: string}>
      */
-    public function invalidAttributesProvider(): array
+    public static function invalidAttributesProvider(): array
     {
         return [
             'missing objectStateGroupId' => [

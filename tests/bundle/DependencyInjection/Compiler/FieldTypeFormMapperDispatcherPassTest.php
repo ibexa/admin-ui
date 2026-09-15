@@ -28,9 +28,7 @@ final class FieldTypeFormMapperDispatcherPassTest extends AbstractCompilerPassTe
         $container->addCompilerPass(new FieldTypeFormMapperDispatcherPass());
     }
 
-    /**
-     * @dataProvider tagsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('tagsProvider')]
     public function testRegisterMappers(string $tag): void
     {
         $fieldTypeIdentifier = 'field_type_identifier';
@@ -51,7 +49,7 @@ final class FieldTypeFormMapperDispatcherPassTest extends AbstractCompilerPassTe
     /**
      * @return array<array<string>>
      */
-    public function tagsProvider(): array
+    public static function tagsProvider(): array
     {
         return [
             [FieldTypeFormMapperDispatcherPass::FIELD_TYPE_FORM_MAPPER_DEFINITION_SERVICE_TAG],

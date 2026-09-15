@@ -28,9 +28,7 @@ final class IconPathResolverTest extends TestCase
         $this->packages = $this->getPackagesMock($config);
     }
 
-    /**
-     * @dataProvider resolveDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('resolveDataProvider')]
     public function testResolve(string $icon, ?string $set, string $expectedPath): void
     {
         $iconPathResolver = new IconPathResolver($this->configResolver, $this->packages);
@@ -41,7 +39,7 @@ final class IconPathResolverTest extends TestCase
     /**
      * @return array<array{string, ?string, string}>
      */
-    public function resolveDataProvider(): array
+    public static function resolveDataProvider(): array
     {
         return [
             [

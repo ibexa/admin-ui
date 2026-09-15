@@ -13,10 +13,8 @@ use Ibexa\AdminUi\Form\Type\Section\SectionCreateType;
 use Ibexa\AdminUi\Form\Type\Section\SectionType;
 use Symfony\Component\Form\FormInterface;
 
-/**
- * @covers \Ibexa\AdminUi\Form\Type\Section\SectionCreateType
- * @covers \Ibexa\AdminUi\Form\Data\Section\SectionCreateData
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\Form\Type\Section\SectionCreateType::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Ibexa\AdminUi\Form\Data\Section\SectionCreateData::class)]
 final class SectionCreateDataValidationTest extends AbstractSectionMutationDataValidationTestCase
 {
     /**

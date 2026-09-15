@@ -18,12 +18,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class LocationTransformerTest extends TestCase
 {
-    /**
-     * @dataProvider transformDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformDataProvider')]
     public function testTransform(?Location $value, ?int $expected): void
     {
-        $service = $this->createMock(LocationService::class);
+        $service = $this->createStub(LocationService::class);
         $transformer = new LocationTransformer($service);
 
         $result = $transformer->transform($value);
@@ -31,12 +29,10 @@ class LocationTransformerTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    /**
-     * @dataProvider transformWithInvalidInputDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformWithInvalidInputDataProvider')]
     public function testTransformWithInvalidInput(mixed $value): void
     {
-        $languageService = $this->createMock(LocationService::class);
+        $languageService = $this->createStub(LocationService::class);
         $transformer = new LocationTransformer($languageService);
 
         $this->expectException(TransformationFailedException::class);
@@ -91,7 +87,7 @@ class LocationTransformerTest extends TestCase
     /**
      * @return array<string, array{Location|null, int|null}>
      */
-    public function transformDataProvider(): array
+    public static function transformDataProvider(): array
     {
         $location = new Location(['id' => 123456]);
 
@@ -104,7 +100,7 @@ class LocationTransformerTest extends TestCase
     /**
      * @return array<string, array{mixed}>
      */
-    public function transformWithInvalidInputDataProvider(): array
+    public static function transformWithInvalidInputDataProvider(): array
     {
         return [
             'string' => ['string'],

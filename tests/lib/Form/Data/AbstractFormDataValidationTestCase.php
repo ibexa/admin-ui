@@ -28,12 +28,11 @@ abstract class AbstractFormDataValidationTestCase extends TypeTestCase
     abstract protected function getForm(): FormInterface;
 
     /**
-     * @dataProvider getDataForTestFormSubmitValidation
-     *
      * @param array<mixed> $formData
      *
      * @phpstan-param \Ibexa\Tests\AdminUi\Form\Data\FormErrorDataTestWrapper[] $expectedFormErrors
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getDataForTestFormSubmitValidation')]
     final public function testFormSubmitValidation(array $formData, array $expectedFormErrors): void
     {
         $form = $this->getForm();

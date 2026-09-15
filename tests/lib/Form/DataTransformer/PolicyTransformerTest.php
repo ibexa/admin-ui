@@ -14,9 +14,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class PolicyTransformerTest extends TestCase
 {
-    /**
-     * @dataProvider transformDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformDataProvider')]
     public function testTransform(mixed $value, ?string $expected): void
     {
         $transformer = new PolicyTransformer();
@@ -26,9 +24,7 @@ class PolicyTransformerTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    /**
-     * @dataProvider transformWithInvalidInputDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('transformWithInvalidInputDataProvider')]
     public function testTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
@@ -40,10 +36,9 @@ class PolicyTransformerTest extends TestCase
     }
 
     /**
-     * @dataProvider reverseTransformDataProvider
-     *
      * @phpstan-param array{id: int, module: string, function: string}|null $expected
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('reverseTransformDataProvider')]
     public function testReverseTransform(?string $value, ?array $expected): void
     {
         $transformer = new PolicyTransformer();
@@ -52,9 +47,7 @@ class PolicyTransformerTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    /**
-     * @dataProvider reverseTransformWithInvalidInputDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('reverseTransformWithInvalidInputDataProvider')]
     public function testReverseTransformWithInvalidInput(mixed $value, string $expectedMessage): void
     {
         $this->expectException(TransformationFailedException::class);
@@ -68,7 +61,7 @@ class PolicyTransformerTest extends TestCase
     /**
      * @return array<string, array{mixed, string|null}>
      */
-    public function transformDataProvider(): array
+    public static function transformDataProvider(): array
     {
         return [
             'policy' => [
@@ -82,7 +75,7 @@ class PolicyTransformerTest extends TestCase
     /**
      * @return array<string, array{string|null, array{id: int, module: string, function: string}|null}>
      */
-    public function reverseTransformDataProvider(): array
+    public static function reverseTransformDataProvider(): array
     {
         return [
             'string' => ['123456:module:function', ['id' => 123456, 'module' => 'module', 'function' => 'function']],
@@ -93,7 +86,7 @@ class PolicyTransformerTest extends TestCase
     /**
      * @return array<string, array{mixed}>
      */
-    public function transformWithInvalidInputDataProvider(): array
+    public static function transformWithInvalidInputDataProvider(): array
     {
         return [
             'integer' => [123456],
@@ -112,7 +105,7 @@ class PolicyTransformerTest extends TestCase
     /**
      * @return array<string, array{mixed, string}>
      */
-    public function reverseTransformWithInvalidInputDataProvider(): array
+    public static function reverseTransformWithInvalidInputDataProvider(): array
     {
         $stringExpected = 'Expected a string.';
         $atLeast3Parts = 'Policy string must contain at least 3 parts.';

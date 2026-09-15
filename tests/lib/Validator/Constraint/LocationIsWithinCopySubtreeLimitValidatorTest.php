@@ -48,7 +48,7 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
         $this->validator->initialize($this->executionContext);
         $this->location = $this
             ->getMockBuilder(Location::class)
-            ->setMethodsExcept(['__get'])
+            ->onlyMethods(array_values(array_diff(get_class_methods(Location::class), ['__get'])))
             ->setConstructorArgs([['pathString' => '/1/2/3/']])
             ->getMock();
     }

@@ -19,13 +19,13 @@ final class ContentTypeCreateViewTest extends TestCase
 {
     public function testGetParameters(): void
     {
-        $formView = $this->createMock(FormView::class);
+        $formView = $this->createStub(FormView::class);
 
         $form = $this->createMock(FormInterface::class);
         $form->method('createView')->willReturn($formView);
 
-        $contentTypeDraft = $this->createMock(ContentTypeDraft::class);
-        $contentTypeGroup = $this->createMock(ContentTypeGroup::class);
+        $contentTypeDraft = $this->createStub(ContentTypeDraft::class);
+        $contentTypeGroup = $this->createStub(ContentTypeGroup::class);
 
         $view = new ContentTypeCreateView(
             'create.html.twig',

@@ -26,7 +26,7 @@ final class PermissionCheckerTest extends TestCase
 
     private PermissionResolver&MockObject $permissionResolver;
 
-    private UserService&MockObject $userService;
+    private UserService&\PHPUnit\Framework\MockObject\Stub $userService;
 
     private PermissionChecker $permissionChecker;
 
@@ -37,7 +37,7 @@ final class PermissionCheckerTest extends TestCase
             ->method('getCurrentUserReference')
             ->willReturn($this->generateUser(self::USER_ID));
 
-        $this->userService = $this->createMock(UserService::class);
+        $this->userService = $this->createStub(UserService::class);
 
         $this->permissionChecker = new PermissionChecker(
             $this->permissionResolver,
@@ -48,9 +48,8 @@ final class PermissionCheckerTest extends TestCase
     /**
      * @param array<array{limitation: ?Limitation, policies: Policy[]}> $hasAccess
      * @param array<int> $expectedRestrictions
-     *
-     * @dataProvider restrictionsProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('restrictionsProvider')]
     public function testGetRestrictions(array $hasAccess, string $class, array $expectedRestrictions): void
     {
         $actual = $this->permissionChecker->getRestrictions($hasAccess, $class);
@@ -61,7 +60,7 @@ final class PermissionCheckerTest extends TestCase
     /**
      * @return array<string, array{0: array<array{limitation: ?Limitation, policies: Policy[]}>, 1: string, 2: array<int>}>
      */
-    public function restrictionsProvider(): array
+    public static function restrictionsProvider(): array
     {
         return [
             'noPoliciesAndNoRoleLimitation' => [

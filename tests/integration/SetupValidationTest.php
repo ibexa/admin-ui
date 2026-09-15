@@ -10,11 +10,8 @@ namespace Ibexa\Tests\Integration\AdminUi;
 
 use Ibexa\Contracts\Core\Test\IbexaKernelTestCase;
 
-/**
- * @group integration
- *
- * @coversNothing
- */
+#[\PHPUnit\Framework\Attributes\Group('integration')]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 final class SetupValidationTest extends IbexaKernelTestCase
 {
     public function testCompilesSuccessfully(): void

@@ -34,7 +34,7 @@ final class ObjectStateValueResolverTest extends TestCase
             'objectStateId' => '123',
         ]);
 
-        $objectState = $this->createMock(ObjectState::class);
+        $objectState = $this->createStub(ObjectState::class);
 
         $this->objectStateService
             ->method('loadObjectState')
@@ -51,10 +51,9 @@ final class ObjectStateValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidRequestProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidRequestProvider')]
     public function testResolveInvalidRequest(array $attributes): void
     {
         $request = new Request([], [], $attributes);
@@ -70,7 +69,7 @@ final class ObjectStateValueResolverTest extends TestCase
     /**
      * @phpstan-return array<string, array<int, array<string, mixed>>>
      */
-    public function invalidRequestProvider(): array
+    public static function invalidRequestProvider(): array
     {
         return [
             'missing objectStateId' => [
