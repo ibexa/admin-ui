@@ -1,0 +1,15 @@
+<div class="ibexa-product-page__banner ibexa-product-page__banner--{{ modifier }}">
+    <img class="ibexa-product-page__banner-watermark" src="{{ watermark }}" alt="" />
+    {% if badge|default is not empty %}
+        <div class="ibexa-product-page__banner-badge">{{ badge }}</div>
+    {% endif %}
+    <div class="ibexa-product-page__banner-content">
+        {% if tag|default is not empty %}
+            <twig:ibexa:tag type="neutral" size="medium" class="ibexa-product-page__banner-tag">
+                {{ tag }}
+            </twig:ibexa:tag>
+        {% endif %}
+        <h2 class="ibexa-product-page__banner-title">{{ title }}</h2>
+        <p class="ibexa-product-page__banner-text">{{ text|raw }}</p>
+    </div>
+</div>

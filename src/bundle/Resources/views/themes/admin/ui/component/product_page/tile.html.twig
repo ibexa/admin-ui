@@ -1,0 +1,16 @@
+<a href="{{ href }}" target="_blank" class="ibexa-product-page__tile">
+    <div class="ibexa-product-page__tile-icon-well">
+        <span class="ibexa-product-page__tile-icon-box">
+            {% if icon_path|default is not empty %}
+                <twig:ibexa:icon path="{{ icon_path }}" size="small" class="ibexa-product-page__tile-icon" />
+            {% else %}
+                <twig:ibexa:icon name="{{ icon_name }}" size="small" class="ibexa-product-page__tile-icon" />
+            {% endif %}
+        </span>
+    </div>
+    <div class="ibexa-product-page__tile-content">
+        <h4 class="ibexa-product-page__tile-title">{{ title }}</h4>
+        <p class="ibexa-product-page__tile-text">{{ text }}</p>
+    </div>
+    <twig:ibexa:icon name="open-new-window" size="tiny-small" class="ibexa-product-page__tile-link-icon" />
+</a>

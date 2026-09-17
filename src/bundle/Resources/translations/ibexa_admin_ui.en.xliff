@@ -76,6 +76,11 @@
         <target state="new">Select translation</target>
         <note>key: edit_translation.languages.select_language_title</note>
       </trans-unit>
+      <trans-unit id="e9fe16831efc5ca87a544e20f3e11aa0037ab563" resname="product_page.discover.user_guide">
+        <source>Go to User guide</source>
+        <target state="new">Go to User guide</target>
+        <note>key: product_page.discover.user_guide</note>
+      </trans-unit>
       <trans-unit id="9250a1c60c972c8566484c20e6b235ec8f2907b9" resname="side_panel.btn.cancel_label">
         <source>Cancel</source>
         <target state="new">Cancel</target>

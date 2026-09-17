@@ -1,0 +1,58 @@
+{% extends '@ibexadesign/ui/layout.html.twig' %}
+
+{% set asset_dir = '/bundles/ibexaadminui/img/brands/' ~ brand %}
+{% set brand_icon_path = asset_dir ~ '/brand-icon.svg#brand-icon' %}
+
+{% block content_column %}
+    <div class="ibexa-product-page ibexa-product-page--{{ brand }}">
+        <div class="ibexa-product-page__container">
+            <div class="ibexa-product-page__column">
+                <div class="ibexa-product-page__header">
+                    <h1 class="ibexa-product-page__title">{{ page_title }}</h1>
+                    {% block status %}{% endblock %}
+                </div>
+                <p class="ibexa-product-page__subtitle">{{ page_subtitle }}</p>
+                <div class="ibexa-product-page__description">
+                    <p class="ibexa-product-page__description-item">{{ page_description }}</p>
+                </div>
+                {% block details %}{% endblock %}
+            </div>
+            <div class="ibexa-product-page__panel">
+                <div class="ibexa-product-page__panel-figure">
+                    <img
+                        class="ibexa-product-page__panel-illustration"
+                        src="{{ asset_dir }}/illustration.png"
+                        alt=""
+                    />
+                    {% block panel_overlay %}{% endblock %}
+                    <div class="ibexa-product-page__discover">
+                        <h2 class="ibexa-product-page__discover-title">{{ discover_title }}</h2>
+                        <p class="ibexa-product-page__discover-description">{{ discover_description }}</p>
+                        <div class="ibexa-product-page__discover-btns">
+                            <twig:ibexa:link
+                                href="{{ links.brand_site }}"
+                                variant="button"
+                                type="secondary-alt"
+                                target="_blank"
+                                icon_url="{{ brand_icon_path }}"
+                            >
+                                {{ discover_brand_label }}
+                            </twig:ibexa:link>
+                            <twig:ibexa:link
+                                href="{{ links.user_guide }}"
+                                variant="button"
+                                type="secondary-alt"
+                                target="_blank"
+                                icon="arrow-right"
+                            >
+                                {{ 'product_page.discover.user_guide'|trans({}, 'ibexa_admin_ui')|desc('Go to User guide') }}
+                            </twig:ibexa:link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
