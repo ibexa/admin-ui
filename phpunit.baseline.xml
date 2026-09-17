@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<files version="1">
+ <file path="src/lib/Form/DataTransformer/ContentInfoTransformer.php">
+  <line number="48" hash="7354630459ee58656d1457552a873ddec12475a8">
+   <issue><![CDATA[ctype_digit(): Argument of type bool will be interpreted as string in the future]]></issue>
+   <issue><![CDATA[ctype_digit(): Argument of type array will be interpreted as string in the future]]></issue>
+   <issue><![CDATA[ctype_digit(): Argument of type stdClass will be interpreted as string in the future]]></issue>
+   <issue><![CDATA[ctype_digit(): Argument of type Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo will be interpreted as string in the future]]></issue>
+  </line>
+ </file>
+ <file path="src/lib/Form/DataTransformer/ContentTypeGroupTransformer.php">
+  <line number="48" hash="7354630459ee58656d1457552a873ddec12475a8">
+   <issue><![CDATA[ctype_digit(): Argument of type bool will be interpreted as string in the future]]></issue>
+   <issue><![CDATA[ctype_digit(): Argument of type array will be interpreted as string in the future]]></issue>
+   <issue><![CDATA[ctype_digit(): Argument of type stdClass will be interpreted as string in the future]]></issue>
+  </line>
+ </file>
+ <file path="src/lib/Form/DataTransformer/RoleAssignmentTransformer.php">
+  <line number="52" hash="7354630459ee58656d1457552a873ddec12475a8">
+   <issue><![CDATA[ctype_digit(): Argument of type bool will be interpreted as string in the future]]></issue>
+   <issue><![CDATA[ctype_digit(): Argument of type float will be interpreted as string in the future]]></issue>
+   <issue><![CDATA[ctype_digit(): Argument of type array will be interpreted as string in the future]]></issue>
+   <issue><![CDATA[ctype_digit(): Argument of type stdClass will be interpreted as string in the future]]></issue>
+  </line>
+ </file>
+ <file path="src/lib/Form/DataTransformer/RoleTransformer.php">
+  <line number="51" hash="7354630459ee58656d1457552a873ddec12475a8">
+   <issue><![CDATA[ctype_digit(): Argument of type bool will be interpreted as string in the future]]></issue>
+   <issue><![CDATA[ctype_digit(): Argument of type float will be interpreted as string in the future]]></issue>
+   <issue><![CDATA[ctype_digit(): Argument of type array will be interpreted as string in the future]]></issue>
+   <issue><![CDATA[ctype_digit(): Argument of type stdClass will be interpreted as string in the future]]></issue>
+  </line>
+ </file>
+</files>
