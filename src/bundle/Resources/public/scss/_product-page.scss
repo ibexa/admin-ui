@@ -171,7 +171,7 @@ $product-page-discover-content-width: 455px;
         line-height: calculateRem(21px);
     }
 
-    &__banner-badge {
+    &__badge {
         position: absolute;
         top: 0;
         right: calculateRem(24px);
@@ -195,6 +195,7 @@ $product-page-discover-content-width: 455px;
     }
 
     &__tile {
+        position: relative;
         display: flex;
         align-items: flex-start;
         gap: calculateRem(16px);
@@ -205,7 +206,7 @@ $product-page-discover-content-width: 455px;
         color: $ibexa-color-dark;
         text-decoration: none;
 
-        &:hover {
+        &:hover:not(&--disabled) {
             color: $ibexa-color-dark;
             text-decoration: none;
             box-shadow: $box-shadow-small;
@@ -214,6 +215,13 @@ $product-page-discover-content-width: 455px;
         &:focus-visible {
             outline: none;
             box-shadow: $box-shadow-focus-primary;
+        }
+
+        &--disabled {
+            --ibexa-product-page-brand-color: #{$color-neutral-160};
+            --ibexa-product-page-brand-shadow-color: #{$color-neutral-50};
+
+            color: $color-neutral-110;
         }
     }
 
@@ -272,6 +280,10 @@ $product-page-discover-content-width: 455px;
 
     &__tile-icon {
         fill: var(--ibexa-product-page-brand-color);
+
+        .ibexa-product-page__tile--disabled & {
+            fill: $color-neutral-110;
+        }
     }
 
     &__tile-content {

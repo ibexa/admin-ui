@@ -1,4 +1,4 @@
-<a href="{{ href }}" target="_blank" class="ibexa-product-page__tile">
+{% set tile_content %}
     <div class="ibexa-product-page__tile-icon-well">
         <span class="ibexa-product-page__tile-icon-box">
             {% if icon_path|default is not empty %}
@@ -12,5 +12,19 @@
         <h4 class="ibexa-product-page__tile-title">{{ title }}</h4>
         <p class="ibexa-product-page__tile-text">{{ text }}</p>
     </div>
-    <twig:ibexa:icon name="open-new-window" size="tiny-small" class="ibexa-product-page__tile-link-icon" />
-</a>
+    {% if badge|default is not empty %}
+        <span class="ibexa-product-page__badge">{{ badge }}</span>
+    {% elseif href|default is not empty %}
+        <twig:ibexa:icon name="open-new-window" size="tiny-small" class="ibexa-product-page__tile-link-icon" />
+    {% endif %}
+{% endset %}
+
+{% if href|default is not empty %}
+    <a href="{{ href }}" target="_blank" class="ibexa-product-page__tile">
+        {{ tile_content }}
+    </a>
+{% else %}
+    <div class="ibexa-product-page__tile ibexa-product-page__tile--disabled">
+        {{ tile_content }}
+    </div>
+{% endif %}
