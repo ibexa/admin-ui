@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "NODE_PATH=./node_modules/@ibexa/cohesivo-playwright/node_modules ./node_modules/@ibexa/cohesivo-playwright/node_modules/.bin/playwright test",
-    "test:headless": "NODE_PATH=./node_modules/@ibexa/cohesivo-playwright/node_modules ./node_modules/@ibexa/cohesivo-playwright/node_modules/.bin/playwright test --project=headless",
-    "test:experience": "NODE_PATH=./node_modules/@ibexa/cohesivo-playwright/node_modules ./node_modules/@ibexa/cohesivo-playwright/node_modules/.bin/playwright test --project=experience",
-    "test:commerce": "NODE_PATH=./node_modules/@ibexa/cohesivo-playwright/node_modules ./node_modules/@ibexa/cohesivo-playwright/node_modules/.bin/playwright test --project=commerce",
+    "test": "NODE_PATH=./node_modules/@ibexa/cohesivo-playwright/node_modules ./node_modules/@ibexa/cohesivo-playwright/node_modules/.bin/playwright test < /dev/null",
+    "test:headless": "NODE_PATH=./node_modules/@ibexa/cohesivo-playwright/node_modules ./node_modules/@ibexa/cohesivo-playwright/node_modules/.bin/playwright test --project=headless < /dev/null",
+    "test:experience": "NODE_PATH=./node_modules/@ibexa/cohesivo-playwright/node_modules ./node_modules/@ibexa/cohesivo-playwright/node_modules/.bin/playwright test --project=experience < /dev/null",
+    "test:commerce": "NODE_PATH=./node_modules/@ibexa/cohesivo-playwright/node_modules ./node_modules/@ibexa/cohesivo-playwright/node_modules/.bin/playwright test --project=commerce < /dev/null",
     "test:report": "./node_modules/@ibexa/cohesivo-playwright/node_modules/.bin/playwright show-report",
     "typecheck": "./node_modules/@ibexa/cohesivo-playwright/node_modules/.bin/tsc --noEmit"
   },
