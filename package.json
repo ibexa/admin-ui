@@ -21,6 +21,7 @@
         "pw:test": "npm --prefix tests/playwright-tests test --",
         "pw:test:headless": "npm --prefix tests/playwright-tests run test:headless --",
         "pw:test:experience": "npm --prefix tests/playwright-tests run test:experience --",
-        "pw:test:commerce": "npm --prefix tests/playwright-tests run test:commerce --"
+        "pw:test:commerce": "npm --prefix tests/playwright-tests run test:commerce --",
+        "pw:report": "npm --prefix tests/playwright-tests run test:report --"
     }
 }
