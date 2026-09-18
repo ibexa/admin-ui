@@ -1,6 +1,9 @@
 {#
     Toast container: `app.flashes` are rendered on load and each notification type gets its own template,
     which admin.notifications.js clones with the `message` placeholder replaced.
+
+    The second container is stacked below the modal backdrop; admin.notifications.js moves the toasts
+    that are already on screen into it while a modal is open.
 #}
 <div
     class="ibexa-notifications-container"
@@ -12,3 +15,4 @@
         })|e('html_attr') }}"
     {% endfor %}
 ></div>
+<div class="ibexa-notifications-container ibexa-notifications-container--behind-modal"></div>

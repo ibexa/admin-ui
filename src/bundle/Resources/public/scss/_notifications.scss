@@ -11,6 +11,11 @@
     .ids-alert {
         margin-bottom: calculateRem(16px);
     }
+
+    &--behind-modal {
+        z-index: $ibexa-backdrop-zindex - 1;
+        transform: translateY(calc(-1 * var(--ibexa-notifications-height, 0px)));
+    }
 }
 
 .ibexa-notification-list {
