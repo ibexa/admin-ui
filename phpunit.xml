@@ -13,7 +13,4 @@
       <directory>src</directory>
     </include>
   </source>
-  <extensions>
-    <bootstrap class="Symfony\Bridge\PhpUnit\SymfonyExtension"/>
-  </extensions>
 </phpunit>
