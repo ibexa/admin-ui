@@ -16,6 +16,7 @@ export default class TableViewItemComponent extends PureComponent {
         this.enablePriorityInput = this.enablePriorityInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
+        this.handlePriorityInputKeyDown = this.handlePriorityInputKeyDown.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.onSelectCheckboxChange = this.onSelectCheckboxChange.bind(this);
         this.setPriorityInputRef = this.setPriorityInputRef.bind(this);
@@ -98,6 +99,22 @@ export default class TableViewItemComponent extends PureComponent {
             priorityInputEnabled: false,
             startingPriorityValue: this._refPriorityInput.value,
         }));
+    }
+
+    /**
+     * Handles priority input keyboard events.
+     * Submits the new priority value on Enter and cancels the update on Escape.
+     *
+     * @method handlePriorityInputKeyDown
+     * @param {Event} event
+     * @memberof TableViewItemComponent
+     */
+    handlePriorityInputKeyDown(event) {
+        if (event.key === 'Enter') {
+            this.handleSubmit(event);
+        } else if (event.key === 'Escape') {
+            this.handleCancel(event);
+        }
     }
 
     /**
@@ -195,12 +212,14 @@ export default class TableViewItemComponent extends PureComponent {
             type: 'number',
             defaultValue: this.state.priorityValue,
             onChange: this.storePriorityValue,
+            onKeyDown: this.handlePriorityInputKeyDown,
         };
         const priorityWrapperAttrs = {};
         const innerWrapperAttrs = {};
 
         if (!this.state.priorityInputEnabled) {
             delete inputAttrs.defaultValue;
+            delete inputAttrs.onKeyDown;
             inputAttrs.value = this.state.priorityValue;
             priorityWrapperAttrs.onClick = this.enablePriorityInput;
             innerWrapperAttrs.hidden = true;
