@@ -11,6 +11,5 @@
   </php>
   <extensions>
     <bootstrap class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
-    <bootstrap class="Symfony\Bridge\PhpUnit\SymfonyExtension"/>
   </extensions>
 </phpunit>
