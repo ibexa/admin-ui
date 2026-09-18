@@ -22,10 +22,12 @@ a {
         color: $ibexa-color-dark-300;
     }
 
-    &:active,
-    &:focus,
-    &:hover {
-        color: $ibexa-color-primary;
+    &:where(:not(.ids-btn)) {
+        &:active,
+        &:focus,
+        &:hover {
+            color: $ibexa-color-primary;
+        }
     }
 
     &:focus {
