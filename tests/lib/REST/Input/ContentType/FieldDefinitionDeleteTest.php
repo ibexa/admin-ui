@@ -32,7 +32,7 @@ final class FieldDefinitionDeleteTest extends TestCase
                 [
                     'fieldDefinitionIdentifiers' => ['foo', 'bar', 'baz'],
                 ],
-                $this->createMock(ParsingDispatcher::class)
+                self::createStub(ParsingDispatcher::class)
             )
         );
     }
@@ -44,7 +44,7 @@ final class FieldDefinitionDeleteTest extends TestCase
 
         $this->parser->parse(
             [],
-            $this->createMock(ParsingDispatcher::class)
+            self::createStub(ParsingDispatcher::class)
         );
     }
 }

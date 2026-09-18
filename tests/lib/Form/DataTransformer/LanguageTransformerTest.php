@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Form\DataTransformer\LanguageTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -25,9 +26,7 @@ final class LanguageTransformerTest extends TestCase
         $this->languageService = $this->createMock(LanguageService::class);
     }
 
-    /**
-     * @dataProvider transformDataProvider
-     */
+    #[DataProvider('transformDataProvider')]
     public function testTransform(?Language $value, ?string $expected): void
     {
         $transformer = new LanguageTransformer($this->languageService);
@@ -37,9 +36,7 @@ final class LanguageTransformerTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    /**
-     * @dataProvider transformWithInvalidInputDataProvider
-     */
+    #[DataProvider('transformWithInvalidInputDataProvider')]
     public function testTransformWithInvalidInput(mixed $value): void
     {
         $transformer = new LanguageTransformer($this->languageService);
@@ -99,7 +96,7 @@ final class LanguageTransformerTest extends TestCase
      *     string|null,
      * }>
      */
-    public function transformDataProvider(): array
+    public static function transformDataProvider(): array
     {
         $language = new Language(['languageCode' => 'eng-GB']);
 
@@ -112,7 +109,7 @@ final class LanguageTransformerTest extends TestCase
     /**
      * @return array<string, mixed>
      */
-    public function transformWithInvalidInputDataProvider(): array
+    public static function transformWithInvalidInputDataProvider(): array
     {
         return [
             'string' => ['string'],

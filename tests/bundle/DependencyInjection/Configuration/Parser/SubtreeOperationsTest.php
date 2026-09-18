@@ -10,11 +10,11 @@ namespace Ibexa\Tests\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\SubtreeOperations;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\SubtreeOperations
- */
+#[CoversClass(SubtreeOperations::class)]
 final class SubtreeOperationsTest extends TestCase
 {
     private SubtreeOperations $parser;
@@ -25,7 +25,7 @@ final class SubtreeOperationsTest extends TestCase
     /**
      * @return iterable<string, array{int}>
      */
-    public function getExpectedCopySubtreeLimit(): iterable
+    public static function getExpectedCopySubtreeLimit(): iterable
     {
         yield 'default = 100' => [100];
         yield 'no limit = -1' => [-1];
@@ -35,7 +35,7 @@ final class SubtreeOperationsTest extends TestCase
     /**
      * @return iterable<string, array{int|null}>
      */
-    public function getExpectedQuerySubtreeLimit(): iterable
+    public static function getExpectedQuerySubtreeLimit(): iterable
     {
         yield 'no limit = -1' => [-1];
         yield 'custom limit = 1000' => [1000];
@@ -48,9 +48,7 @@ final class SubtreeOperationsTest extends TestCase
         $this->contextualizer = $this->createMock(ContextualizerInterface::class);
     }
 
-    /**
-     * @dataProvider getExpectedCopySubtreeLimit
-     */
+    #[DataProvider('getExpectedCopySubtreeLimit')]
     public function testCopySubtreeLimit(int $expectedCopySubtreeLimit): void
     {
         $scopeSettings = [
@@ -88,9 +86,7 @@ final class SubtreeOperationsTest extends TestCase
         $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
     }
 
-    /**
-     * @dataProvider getExpectedQuerySubtreeLimit
-     */
+    #[DataProvider('getExpectedQuerySubtreeLimit')]
     public function testQuerySubtreeLimit(int $expectedQuerySubtreeLimit): void
     {
         $scopeSettings = [
@@ -143,22 +139,22 @@ final class SubtreeOperationsTest extends TestCase
             ],
         ];
         $currentScope = 'admin_group';
+        $matcher = self::exactly(2);
 
         $this->contextualizer
-            ->expects(self::exactly(2))
-            ->method('setContextualParameter')
-            ->withConsecutive(
-                [
-                    'subtree_operations.copy_subtree.limit',
-                    $currentScope,
-                    200,
-                ],
-                [
-                    'subtree_operations.query_subtree.limit',
-                    $currentScope,
-                    500,
-                ]
-            );
+            ->expects($matcher)
+            ->method('setContextualParameter')->willReturnCallback(function (...$parameters) use ($matcher, $currentScope): void {
+            if ($matcher->numberOfInvocations() === 1) {
+                $this->assertSame('subtree_operations.copy_subtree.limit', $parameters[0]);
+                $this->assertSame($currentScope, $parameters[1]);
+                $this->assertSame(200, $parameters[2]);
+            }
+            if ($matcher->numberOfInvocations() === 2) {
+                $this->assertSame('subtree_operations.query_subtree.limit', $parameters[0]);
+                $this->assertSame($currentScope, $parameters[1]);
+                $this->assertSame(500, $parameters[2]);
+            }
+        });
 
         $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
     }

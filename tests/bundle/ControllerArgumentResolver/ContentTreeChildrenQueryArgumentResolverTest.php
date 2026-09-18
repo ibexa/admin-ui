@@ -16,6 +16,8 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeId
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
 use Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\CriterionProcessorInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
@@ -26,9 +28,8 @@ use Traversable;
  * @phpstan-type TCriterionProcessor \Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\CriterionProcessorInterface<
  *     \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion
  * >
- *
- * @covers \Ibexa\Bundle\AdminUi\ValueResolver\ContentTreeChildrenQueryValueResolver
  */
+#[CoversClass(ContentTreeChildrenQueryValueResolver::class)]
 final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 {
     private ValueResolverInterface $resolver;
@@ -44,9 +45,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider provideDataForUnsupported
-     */
+    #[DataProvider('provideDataForUnsupported')]
     public function testUnsupported(ArgumentMetadata $argumentMetadata): void
     {
         $actualResult = $this->resolver->resolve(
@@ -62,21 +61,21 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
      *     \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata
      * }>
      */
-    public function provideDataForUnsupported(): iterable
+    public static function provideDataForUnsupported(): iterable
     {
         yield 'Not supported' => [
-            $this->createMock(ArgumentMetadata::class),
+            self::createStub(ArgumentMetadata::class),
         ];
 
         yield 'Not supported - invalid argument type' => [
-            $this->createArgumentMetadata(
+            self::createArgumentMetadata(
                 'filter',
                 'foo',
             ),
         ];
 
         yield 'Not supported - invalid argument name' => [
-            $this->createArgumentMetadata(
+            self::createArgumentMetadata(
                 'foo',
                 Criterion::class,
             ),
@@ -84,13 +83,12 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider provideDataForTestResolve
-     *
      * @param array<string, string|array<mixed>> $criteriaToProcess
      * @param Traversable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface> $expectedCriteria
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
+    #[DataProvider('provideDataForTestResolve')]
     public function testResolve(
         CriterionInterface $expected,
         Request $request,
@@ -130,17 +128,17 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
      */
-    public function provideDataForTestResolve(): iterable
+    public static function provideDataForTestResolve(): iterable
     {
         yield 'Return null - missing filter query param' => [
             new LogicalAnd([]),
-            $this->createRequest(null),
+            self::createRequest(null),
             new ArrayIterator(),
         ];
 
         yield 'Return null - empty value for filter query param' => [
             new LogicalAnd([]),
-            $this->createRequest([]),
+            self::createRequest([]),
             new ArrayIterator(),
         ];
 
@@ -153,7 +151,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 
         yield 'Return filter with ContentTypeIdentifier criterion' => [
             new LogicalAnd($expectedCriteria),
-            $this->createRequest($criteriaToProcess),
+            self::createRequest($criteriaToProcess),
             new ArrayIterator($expectedCriteria),
             $criteriaToProcess,
         ];
@@ -176,7 +174,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
     /**
      * @param array<mixed>|null $filter
      */
-    private function createRequest(?array $filter): Request
+    private static function createRequest(?array $filter): Request
     {
         $request = Request::create('/');
 
@@ -187,7 +185,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
         return $request;
     }
 
-    private function createArgumentMetadata(
+    private static function createArgumentMetadata(
         string $name,
         string $type
     ): ArgumentMetadata {

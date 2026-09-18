@@ -14,6 +14,7 @@ use Ibexa\AdminUi\Form\Data\Language\LanguageDeleteData;
 use Ibexa\AdminUi\Form\DataMapper\LanguageCreateMapper;
 use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class LanguageCreateMapperTest extends TestCase
@@ -31,10 +32,9 @@ final class LanguageCreateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @param array<string, mixed> $properties
      */
+    #[DataProvider('dataProvider')]
     public function testMap(array $properties): void
     {
         $data = $this->mapper->map($this->createStruct($properties));
@@ -43,10 +43,9 @@ final class LanguageCreateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @param array<string, mixed> $properties
      */
+    #[DataProvider('dataProvider')]
     public function testReverseMap(array $properties): void
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
@@ -73,7 +72,7 @@ final class LanguageCreateMapperTest extends TestCase
     /**
      * @phpstan-return array<string, array{array{languageCode: string, name: string, enabled: bool}}>
      */
-    public function dataProvider(): array
+    public static function dataProvider(): array
     {
         return [
             'enabled_true' => [

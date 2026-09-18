@@ -10,6 +10,7 @@ namespace Ibexa\Tests\AdminUi\UI\Config\Service;
 
 use Ibexa\AdminUi\UI\Service\ContentTypeIconResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Packages;
@@ -35,9 +36,8 @@ final class ContentTypeIconResolverTest extends TestCase
 
     /**
      * @param array<string, array{thumbnail: ?string}> $config
-     *
-     * @dataProvider dataProviderForGetContentTypeIcon
      */
+    #[DataProvider('dataProviderForGetContentTypeIcon')]
     public function testGetContentTypeIcon(array $config, string $identifier, string $expected): void
     {
         $this->configResolver
@@ -71,7 +71,7 @@ final class ContentTypeIconResolverTest extends TestCase
     /**
      * @return array<array{0: array<string, array{thumbnail: ?string}>, 1: string, 2: string}>
      */
-    public function dataProviderForGetContentTypeIcon(): array
+    public static function dataProviderForGetContentTypeIcon(): array
     {
         return [
             [

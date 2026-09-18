@@ -14,6 +14,7 @@ use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -21,9 +22,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 
-/**
- * @covers \Ibexa\AdminUi\Tab\Dashboard\MyDraftsTab
- */
+#[CoversClass(MyDraftsTab::class)]
 final class MyDraftsTabTest extends TestCase
 {
     public function testRenderView(): void
@@ -41,11 +40,11 @@ final class MyDraftsTabTest extends TestCase
         $configResolverMock = $this->createMock(ConfigResolverInterface::class);
         $tab = new MyDraftsTab(
             $twigStub,
-            $this->createMock(TranslatorInterface::class),
-            $this->createMock(ContentService::class),
-            $this->createMock(ContentTypeService::class),
-            $this->createMock(PermissionResolver::class),
-            $this->createMock(DatasetFactory::class),
+            self::createStub(TranslatorInterface::class),
+            self::createStub(ContentService::class),
+            self::createStub(ContentTypeService::class),
+            self::createStub(PermissionResolver::class),
+            self::createStub(DatasetFactory::class),
             $requestStackMock,
             $configResolverMock
         );

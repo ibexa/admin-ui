@@ -11,6 +11,7 @@ namespace Ibexa\Tests\Bundle\AdminUi\ValueResolver;
 use Ibexa\Bundle\AdminUi\ValueResolver\ContentValueResolver;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,10 +30,9 @@ final class ContentValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider validAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[DataProvider('validAttributesProvider')]
     public function testResolve(array $attributes): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
@@ -41,7 +41,7 @@ final class ContentValueResolverTest extends TestCase
             ->willReturn(Content::class);
 
         $request = new Request([], [], $attributes);
-        $mockContent = $this->createMock(Content::class);
+        $mockContent = self::createStub(Content::class);
 
         $this->contentServiceMock
             ->expects(self::once())
@@ -57,7 +57,7 @@ final class ContentValueResolverTest extends TestCase
     /**
      * @phpstan-return array<array{attributes: array<string, mixed>}>
      */
-    public function validAttributesProvider(): array
+    public static function validAttributesProvider(): array
     {
         return [
             'full valid attributes' => [
@@ -77,10 +77,9 @@ final class ContentValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
@@ -98,7 +97,7 @@ final class ContentValueResolverTest extends TestCase
     /**
      * @phpstan-return array<array{attributes: array<string, mixed>, expectedMessage: string}>
      */
-    public function invalidAttributesProvider(): array
+    public static function invalidAttributesProvider(): array
     {
         return [
             'missing contentId' => [

@@ -27,7 +27,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-abstract class BaseActionMenuBuilderTest extends TestCase
+abstract class BaseActionMenuBuilderTestCase extends TestCase
 {
     protected const string ROUTE_VERSION_HAS_NO_CONFLICT = 'ibexa.version.has_no_conflict';
     protected const string ROUTE_CONTENT_EDIT_DRAFT = '/content/edit/draft/%d/%d/%s';
@@ -65,7 +65,7 @@ abstract class BaseActionMenuBuilderTest extends TestCase
 
         $this->menuItemFactory = new MenuItemFactory(
             new MenuFactory(),
-            $this->createMock(LocationService::class)
+            self::createStub(LocationService::class)
         );
 
         $this->eventDispatcher = $this->createMock(EventDispatcherInterface::class);
@@ -96,7 +96,7 @@ abstract class BaseActionMenuBuilderTest extends TestCase
         self::assertEquals($attributes, $actionItem->getAttributes());
     }
 
-    protected function createVersionInfo(int $status = ApiVersionInfo::STATUS_DRAFT): ApiVersionInfo
+    protected static function createVersionInfo(int $status = ApiVersionInfo::STATUS_DRAFT): ApiVersionInfo
     {
         return new VersionInfo(
             [
@@ -106,7 +106,7 @@ abstract class BaseActionMenuBuilderTest extends TestCase
                     'languageCode' => 'eng-GB',
                 ]),
                 'contentInfo' => new ContentInfo(['id' => 1]),
-                'creator' => $this->createMock(User::class),
+                'creator' => self::createStub(User::class),
             ]
         );
     }

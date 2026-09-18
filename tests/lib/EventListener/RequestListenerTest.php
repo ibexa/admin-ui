@@ -11,6 +11,7 @@ use Ibexa\AdminUi\EventListener\RequestListener;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -21,7 +22,7 @@ class RequestListenerTest extends TestCase
 {
     private Request&MockObject $request;
 
-    private HttpKernelInterface&MockObject $httpKernel;
+    private HttpKernelInterface&\PHPUnit\Framework\MockObject\Stub $httpKernel;
 
     private RequestListener $requestListener;
 
@@ -35,10 +36,10 @@ class RequestListenerTest extends TestCase
 
         $this->request = $this
             ->getMockBuilder(Request::class)
-            ->setMethods(['getSession', 'hasSession'])
             ->getMock();
+        $this->request->attributes = new ParameterBag();
 
-        $this->httpKernel = $this->createMock(HttpKernelInterface::class);
+        $this->httpKernel = self::createStub(HttpKernelInterface::class);
 
         $this->event = new RequestEvent(
             $this->httpKernel,

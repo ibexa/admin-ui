@@ -21,6 +21,7 @@ use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -38,9 +39,8 @@ final class ContentTranslationMapperTest extends TestCase
 
     /**
      * @param array<string, mixed> $params
-     *
-     * @dataProvider paramsProvider
      */
+    #[DataProvider('paramsProvider')]
     public function testMapToFormData(Content $content, array $params, ContentTranslationData $expectedData): void
     {
         $actualData = $this->mapper->mapToFormData($content, $params);
@@ -59,27 +59,27 @@ final class ContentTranslationMapperTest extends TestCase
      *     \Ibexa\AdminUi\Form\Data\ContentTranslationData
      * }>
      */
-    public function paramsProvider(): array
+    public static function paramsProvider(): array
     {
         $language = new Language(['languageCode' => self::LANGUAGE_CODE]);
 
-        $field1 = $this->getField();
-        $field2 = $this->getField('identifier2');
-        $field3 = $this->getField('identifier3');
+        $field1 = self::getField();
+        $field2 = self::getField('identifier2');
+        $field3 = self::getField('identifier3');
 
-        $content_with_1_field = $this->getCompleteContent([$field1]);
-        $content_with_3_fields = $this->getCompleteContent([$field1, $field2, $field3]);
+        $content_with_1_field = self::getCompleteContent([$field1]);
+        $content_with_3_fields = self::getCompleteContent([$field1, $field2, $field3]);
 
-        $contentTypeTranslatable = $this->getContentType([
-            $this->getFieldDefinition($field1->fieldDefIdentifier, true),
+        $contentTypeTranslatable = self::getContentType([
+            self::getFieldDefinition($field1->fieldDefIdentifier, true),
         ]);
-        $contentType = $this->getContentType([
-            $this->getFieldDefinition(),
+        $contentType = self::getContentType([
+            self::getFieldDefinition(),
         ]);
-        $contentTypeThreeFields = $this->getContentType([
-            $this->getFieldDefinition($field1->fieldDefIdentifier),
-            $this->getFieldDefinition($field2->fieldDefIdentifier),
-            $this->getFieldDefinition($field3->fieldDefIdentifier),
+        $contentTypeThreeFields = self::getContentType([
+            self::getFieldDefinition($field1->fieldDefIdentifier),
+            self::getFieldDefinition($field2->fieldDefIdentifier),
+            self::getFieldDefinition($field3->fieldDefIdentifier),
         ]);
 
         return [
@@ -96,8 +96,8 @@ final class ContentTranslationMapperTest extends TestCase
                     'fieldsData' => [
                         $field1->fieldDefIdentifier => new FieldData([
                             'field' => $field1,
-                            'fieldDefinition' => $this->getFieldDefinition($field1->fieldDefIdentifier, true),
-                            'value' => $this->createMock(Value::class),
+                            'fieldDefinition' => self::getFieldDefinition($field1->fieldDefIdentifier, true),
+                            'value' => self::createStub(Value::class),
                         ]),
                     ],
                     'contentType' => $contentTypeTranslatable,
@@ -116,8 +116,8 @@ final class ContentTranslationMapperTest extends TestCase
                     'fieldsData' => [
                         $field1->fieldDefIdentifier => new FieldData([
                             'field' => $field1,
-                            'fieldDefinition' => $this->getFieldDefinition(),
-                            'value' => $this->createMock(Value::class),
+                            'fieldDefinition' => self::getFieldDefinition(),
+                            'value' => self::createStub(Value::class),
                         ]),
                     ],
                     'contentType' => $contentType,
@@ -136,18 +136,18 @@ final class ContentTranslationMapperTest extends TestCase
                     'fieldsData' => [
                         $field1->fieldDefIdentifier => new FieldData([
                             'field' => $field1,
-                            'fieldDefinition' => $this->getFieldDefinition($field1->fieldDefIdentifier),
-                            'value' => $this->createMock(Value::class),
+                            'fieldDefinition' => self::getFieldDefinition($field1->fieldDefIdentifier),
+                            'value' => self::createStub(Value::class),
                         ]),
                         $field2->fieldDefIdentifier => new FieldData([
                             'field' => $field2,
-                            'fieldDefinition' => $this->getFieldDefinition($field2->fieldDefIdentifier),
-                            'value' => $this->createMock(Value::class),
+                            'fieldDefinition' => self::getFieldDefinition($field2->fieldDefIdentifier),
+                            'value' => self::createStub(Value::class),
                         ]),
                         $field3->fieldDefIdentifier => new FieldData([
                             'field' => $field3,
-                            'fieldDefinition' => $this->getFieldDefinition($field3->fieldDefIdentifier),
-                            'value' => $this->createMock(Value::class),
+                            'fieldDefinition' => self::getFieldDefinition($field3->fieldDefIdentifier),
+                            'value' => self::createStub(Value::class),
                         ]),
                     ],
                     'contentType' => $contentTypeThreeFields,
@@ -159,9 +159,8 @@ final class ContentTranslationMapperTest extends TestCase
     /**
      * @param array<string, mixed> $params
      * @param array<string, mixed> $exception
-     *
-     * @dataProvider wrongParamsProvider
      */
+    #[DataProvider('wrongParamsProvider')]
     public function testMapToFormDataWithoutRequiredParameter(Content $content, array $params, array $exception): void
     {
         $this->expectException($exception['class']);
@@ -177,11 +176,11 @@ final class ContentTranslationMapperTest extends TestCase
      *     array{class: class-string<\Throwable>, message: string}
      * }>
      */
-    public function wrongParamsProvider(): array
+    public static function wrongParamsProvider(): array
     {
         return [
             'missing_language' => [
-                $this->getCompleteContent(),
+                self::getCompleteContent(),
                 [
                     'contentType' => 'contentType',
                     'baseLanguage' => 'baseLanguage',
@@ -192,7 +191,7 @@ final class ContentTranslationMapperTest extends TestCase
                 ],
             ],
             'missing_content_type' => [
-                $this->getCompleteContent(),
+                self::getCompleteContent(),
                 [
                     'language' => 'language',
                     'baseLanguage' => null,
@@ -203,7 +202,7 @@ final class ContentTranslationMapperTest extends TestCase
                 ],
             ],
             'wrong_type_of_language' => [
-                $this->getCompleteContent(),
+                self::getCompleteContent(),
                 [
                     'language' => 'language',
                     'contentType' => new ContentType(),
@@ -215,7 +214,7 @@ final class ContentTranslationMapperTest extends TestCase
                 ],
             ],
             'wrong_type_of_content_type' => [
-                $this->getCompleteContent(),
+                self::getCompleteContent(),
                 [
                     'language' => new Language(),
                     'contentType' => 'content_type',
@@ -227,7 +226,7 @@ final class ContentTranslationMapperTest extends TestCase
                 ],
             ],
             'wrong_type_of_base_language' => [
-                $this->getCompleteContent(),
+                self::getCompleteContent(),
                 [
                     'language' => new Language(),
                     'contentType' => new ContentType(),
@@ -244,7 +243,7 @@ final class ContentTranslationMapperTest extends TestCase
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $fields
      */
-    private function getCompleteContent(array $fields = []): Content
+    private static function getCompleteContent(array $fields = []): Content
     {
         return new Content([
             'internalFields' => $fields,
@@ -254,30 +253,30 @@ final class ContentTranslationMapperTest extends TestCase
         ]);
     }
 
-    private function getField(string $fieldDefIdentifier = 'identifier', string $languageCode = self::LANGUAGE_CODE): Field
+    private static function getField(string $fieldDefIdentifier = 'identifier', string $languageCode = self::LANGUAGE_CODE): Field
     {
         return new Field([
             'fieldDefIdentifier' => $fieldDefIdentifier,
             'languageCode' => $languageCode,
-            'value' => $this->createMock(Value::class),
+            'value' => self::createStub(Value::class),
         ]);
     }
 
     /**
      * @param array<\Ibexa\Core\Repository\Values\ContentType\FieldDefinition> $fieldDefs
      */
-    private function getContentType(array $fieldDefs = []): ContentType
+    private static function getContentType(array $fieldDefs = []): ContentType
     {
         return new ContentType([
             'fieldDefinitions' => new FieldDefinitionCollection($fieldDefs),
         ]);
     }
 
-    private function getFieldDefinition(string $identifier = 'identifier', bool $isTranslatable = false): FieldDefinition
+    private static function getFieldDefinition(string $identifier = 'identifier', bool $isTranslatable = false): FieldDefinition
     {
         return new FieldDefinition([
             'identifier' => $identifier,
-            'defaultValue' => $this->createMock(Value::class),
+            'defaultValue' => self::createStub(Value::class),
             'isTranslatable' => $isTranslatable,
         ]);
     }

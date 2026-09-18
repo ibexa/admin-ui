@@ -14,6 +14,7 @@ use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -37,10 +38,9 @@ final class VersionInfoTransformerTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProviderForTransformWithValidInput
-     *
      * @phpstan-param TTransformedValue|null $expected
      */
+    #[DataProvider('dataProviderForTransformWithValidInput')]
     public function testTransformWithValidInput(?VersionInfo $value, ?array $expected): void
     {
         self::assertEquals(
@@ -52,13 +52,13 @@ final class VersionInfoTransformerTest extends TestCase
     /**
      * @phpstan-return list<array{\Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null, TTransformedValue|null, }>
      */
-    public function dataProviderForTransformWithValidInput(): array
+    public static function dataProviderForTransformWithValidInput(): array
     {
         $contentInfo = new ContentInfo([
             'id' => self::EXAMPLE_CONTENT_ID,
         ]);
 
-        $versionInfo = $this->createVersionInfoMock($contentInfo, self::EXAMPLE_VERSION_NO);
+        $versionInfo = self::createVersionInfoMock($contentInfo, self::EXAMPLE_VERSION_NO);
 
         return [
             [null, null],
@@ -72,9 +72,7 @@ final class VersionInfoTransformerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataProviderForTransformWithInvalidInput
-     */
+    #[DataProvider('dataProviderForTransformWithInvalidInput')]
     public function testTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
@@ -86,7 +84,7 @@ final class VersionInfoTransformerTest extends TestCase
     /**
      * @phpstan-return array<string, array{mixed}>
      */
-    public function dataProviderForTransformWithInvalidInput(): array
+    public static function dataProviderForTransformWithInvalidInput(): array
     {
         $object = new class() {
         };
@@ -102,13 +100,12 @@ final class VersionInfoTransformerTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProviderForReverseTransformWithValidInput
-     *
      * @phpstan-param array{
      *      content_info: \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null,
      *      version_no: int|string|null
      * }|null $value
      */
+    #[DataProvider('dataProviderForReverseTransformWithValidInput')]
     public function testReverseTransformWithValidInput(?array $value, ?VersionInfo $expected): void
     {
         if ($expected !== null && $value !== null) {
@@ -120,7 +117,7 @@ final class VersionInfoTransformerTest extends TestCase
                     self::logicalAnd(
                         self::equalTo($value['version_no']),
                         // Make sure value is cast to int
-                        self::isType('int')
+                        self::isInt()
                     )
                 )
                 ->willReturn($expected);
@@ -141,13 +138,13 @@ final class VersionInfoTransformerTest extends TestCase
      *     \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null
      * }>
      */
-    public function dataProviderForReverseTransformWithValidInput(): array
+    public static function dataProviderForReverseTransformWithValidInput(): array
     {
         $contentInfo = new ContentInfo([
             'id' => self::EXAMPLE_CONTENT_ID,
         ]);
 
-        $versionInfo = $this->createVersionInfoMock($contentInfo, self::EXAMPLE_VERSION_NO);
+        $versionInfo = self::createVersionInfoMock($contentInfo, self::EXAMPLE_VERSION_NO);
 
         return [
             'null' => [null, null],
@@ -176,10 +173,9 @@ final class VersionInfoTransformerTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProviderForReverseTransformWithInvalidInput
-     *
      * @phpstan-param array{} $value
      */
+    #[DataProvider('dataProviderForReverseTransformWithInvalidInput')]
     public function testReverseTransformWithInvalidInput(array $value): void
     {
         $this->expectException(TransformationFailedException::class);
@@ -191,7 +187,7 @@ final class VersionInfoTransformerTest extends TestCase
     /**
      * @phpstan-return array<string, array{array{}}>
      */
-    public function dataProviderForReverseTransformWithInvalidInput(): array
+    public static function dataProviderForReverseTransformWithInvalidInput(): array
     {
         return [
             'empty_array' => [
@@ -250,9 +246,9 @@ final class VersionInfoTransformerTest extends TestCase
         $this->transformer->reverseTransform($value);
     }
 
-    private function createVersionInfoMock(ContentInfo $contentInfo, int $versionNo): VersionInfo
+    private static function createVersionInfoMock(ContentInfo $contentInfo, int $versionNo): VersionInfo
     {
-        $versionInfo = $this->createMock(VersionInfo::class);
+        $versionInfo = self::createStub(VersionInfo::class);
         $versionInfo->method('getVersionNo')->willReturn($versionNo);
         $versionInfo->method('getContentInfo')->willReturn($contentInfo);
 

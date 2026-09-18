@@ -59,7 +59,7 @@ class UniqueURLValidatorTest extends TestCase
             ->expects(self::once())
             ->method('loadByUrl')
             ->with($url)
-            ->willThrowException($this->createMock(NotFoundException::class));
+            ->willThrowException(self::createStub(NotFoundException::class));
 
         $this->executionContext
             ->expects(self::never())

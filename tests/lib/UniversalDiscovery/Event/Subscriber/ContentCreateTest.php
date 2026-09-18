@@ -16,6 +16,7 @@ use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -39,10 +40,9 @@ class ContentCreateTest extends TestCase
     }
 
     /**
-     * @dataProvider createTab
-     *
      * @phpstan-param array<string, mixed> $config
      */
+    #[DataProvider('createTab')]
     public function testUdwConfigResolveWithCreateTab(array $config): void
     {
         $event = new ConfigResolveEvent();
@@ -64,10 +64,9 @@ class ContentCreateTest extends TestCase
     }
 
     /**
-     * @dataProvider withoutCreateTab
-     *
      * @phpstan-param array<string, mixed> $config
      */
+    #[DataProvider('withoutCreateTab')]
     public function testUdwConfigResolveWithoutCreateTab(array $config): void
     {
         $event = new ConfigResolveEvent();
@@ -83,7 +82,7 @@ class ContentCreateTest extends TestCase
     /**
      * @phpstan-return array<string, array{array<string, mixed>}>
      */
-    public function createTab(): array
+    public static function createTab(): array
     {
         return [
             'all_tabs' => [
@@ -108,7 +107,7 @@ class ContentCreateTest extends TestCase
     /**
      * @phpstan-return array<string, array{array<string, mixed>}>
      */
-    public function withoutCreateTab(): array
+    public static function withoutCreateTab(): array
     {
         return [
             'one_tab' => [

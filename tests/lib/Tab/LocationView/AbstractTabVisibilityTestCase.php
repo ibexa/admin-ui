@@ -12,15 +12,15 @@ use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 use Ibexa\User\UserSetting\UserSetting;
 use Ibexa\User\UserSetting\UserSettingService;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractTabVisibilityTestCase extends TestCase
 {
     /**
-     * @dataProvider dataProviderForTestTabVisibilityInGivenUserMode
-     *
      * @param array<string, mixed> $parameters
      */
+    #[DataProvider('dataProviderForTestTabVisibilityInGivenUserMode')]
     final public function testTabVisibilityInGivenUserMode(string $userMode, array $parameters, bool $expectedResult): void
     {
         $userSetting = $this->createMock(UserSetting::class);
@@ -37,7 +37,7 @@ abstract class AbstractTabVisibilityTestCase extends TestCase
     /**
      * @return iterable<string, array{string, array<string, mixed>, bool}>
      */
-    abstract public function dataProviderForTestTabVisibilityInGivenUserMode(): iterable;
+    abstract public static function dataProviderForTestTabVisibilityInGivenUserMode(): iterable;
 
     /**
      * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface&\Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface

@@ -11,6 +11,7 @@ namespace Ibexa\Tests\Bundle\AdminUi\ValueResolver;
 use Ibexa\Bundle\AdminUi\ValueResolver\ObjectStateValueResolver;
 use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +35,7 @@ final class ObjectStateValueResolverTest extends TestCase
             'objectStateId' => '123',
         ]);
 
-        $objectState = $this->createMock(ObjectState::class);
+        $objectState = self::createStub(ObjectState::class);
 
         $this->objectStateService
             ->method('loadObjectState')
@@ -51,10 +52,9 @@ final class ObjectStateValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidRequestProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[DataProvider('invalidRequestProvider')]
     public function testResolveInvalidRequest(array $attributes): void
     {
         $request = new Request([], [], $attributes);
@@ -70,7 +70,7 @@ final class ObjectStateValueResolverTest extends TestCase
     /**
      * @phpstan-return array<string, array<int, array<string, mixed>>>
      */
-    public function invalidRequestProvider(): array
+    public static function invalidRequestProvider(): array
     {
         return [
             'missing objectStateId' => [

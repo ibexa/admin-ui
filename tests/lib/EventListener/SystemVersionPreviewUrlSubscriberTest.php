@@ -15,12 +15,11 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-/**
- * @covers \Ibexa\AdminUi\EventListener\SystemVersionPreviewUrlSubscriber
- */
+#[CoversClass(SystemVersionPreviewUrlSubscriber::class)]
 final class SystemVersionPreviewUrlSubscriberTest extends TestCase
 {
     private const EXAMPLE_PREVIEW_URL = '/example';
@@ -41,13 +40,13 @@ final class SystemVersionPreviewUrlSubscriberTest extends TestCase
 
     public function testOnSystemVersionPreviewIsSkippedIfUrlHasBeenResolved(): void
     {
-        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+        $urlGenerator = self::createStub(UrlGeneratorInterface::class);
 
         $event = new ResolveVersionPreviewUrlEvent(
-            $this->createMock(VersionInfo::class),
-            $this->createMock(Language::class),
-            $this->createMock(Location::class),
-            $this->createMock(SiteAccess::class)
+            self::createStub(VersionInfo::class),
+            self::createStub(Language::class),
+            self::createStub(Location::class),
+            self::createStub(SiteAccess::class)
         );
         $event->setPreviewUrl(self::EXAMPLE_PREVIEW_URL);
 
@@ -69,13 +68,13 @@ final class SystemVersionPreviewUrlSubscriberTest extends TestCase
         $language = $this->createMock(Language::class);
         $language->method('getLanguageCode')->willReturn(self::EXAMPLE_LANGUAGE_CODE);
 
-        $siteAccess = $this->createMock(SiteAccess::class);
+        $siteAccess = self::createStub(SiteAccess::class);
         $siteAccess->name = self::EXAMPLE_SITE_ACCESS;
 
         $event = new ResolveVersionPreviewUrlEvent(
             $versionInfo,
             $language,
-            $this->createMock(Location::class),
+            self::createStub(Location::class),
             $siteAccess
         );
 

@@ -28,7 +28,7 @@ final class MainMenuBuilderTest extends TestCase
 {
     private MenuItemFactoryInterface&MockObject $factory;
 
-    private EventDispatcherInterface&MockObject $eventDispatcher;
+    private EventDispatcherInterface&\PHPUnit\Framework\MockObject\Stub $eventDispatcher;
 
     private ConfigResolverInterface&MockObject $configResolver;
 
@@ -144,13 +144,13 @@ final class MainMenuBuilderTest extends TestCase
         $this->factory = $this->createMock(MenuItemFactoryInterface::class);
         $this->factory->method('createItem')->willReturnMap($itemMap);
 
-        $this->eventDispatcher = $this->createMock(EventDispatcherInterface::class);
+        $this->eventDispatcher = self::createStub(EventDispatcherInterface::class);
         $this->configResolver = $this->createMock(ConfigResolverInterface::class);
         $this->configResolver->method('getParameter')->willReturnMap($parameterMap);
         $this->permissionResolver = $this->createMock(PermissionResolver::class);
         $this->tokenStorage = $this->createMock(TokenStorageInterface::class);
 
-        $token = new TestBrowserToken([], $this->createMock(UserInterface::class));
+        $token = new TestBrowserToken([], self::createStub(UserInterface::class));
         $this->tokenStorage->method('getToken')->willReturn($token);
 
         $userSetting = $this->createMock(UserSetting::class);

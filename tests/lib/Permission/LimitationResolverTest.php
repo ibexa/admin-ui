@@ -24,11 +24,11 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
 use Ibexa\Contracts\Core\Repository\Values\User\LookupPolicyLimitations;
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Ibexa\AdminUi\Permission\LimitationResolver
- */
+#[CoversClass(LimitationResolver::class)]
 final class LimitationResolverTest extends TestCase
 {
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver&\PHPUnit\Framework\MockObject\MockObject */
@@ -41,18 +41,16 @@ final class LimitationResolverTest extends TestCase
         $this->permissionResolver = $this->createMock(PermissionResolver::class);
 
         $this->limitationResolver = new LimitationResolver(
-            $this->createMock(ContentService::class),
-            $this->createMock(ContentTypeService::class),
-            $this->createMock(LanguageService::class),
-            $this->createMock(LocationService::class),
+            self::createStub(ContentService::class),
+            self::createStub(ContentTypeService::class),
+            self::createStub(LanguageService::class),
+            self::createStub(LocationService::class),
             new LookupLimitationsTransformer(),
             $this->permissionResolver
         );
     }
 
     /**
-     * @dataProvider provideDataForTestGetLanguageLimitations
-     *
      * @param array<array{
      *     languageCode: string,
      *     name: string,
@@ -60,6 +58,7 @@ final class LimitationResolverTest extends TestCase
      * }> $expected
      * @param iterable<\Ibexa\Contracts\Core\Repository\Values\Content\Language> $languages
      */
+    #[DataProvider('provideDataForTestGetLanguageLimitations')]
     public function testGetLanguageLimitations(
         array $expected,
         ContentInfo $contentInfo,
@@ -96,13 +95,13 @@ final class LimitationResolverTest extends TestCase
      *     iterable<\Ibexa\Contracts\Core\Repository\Values\Content\Language>
      * }>
      */
-    public function provideDataForTestGetLanguageLimitations(): iterable
+    public static function provideDataForTestGetLanguageLimitations(): iterable
     {
-        $english = $this->createLanguage(1, true, 'eng-GB', 'English');
-        $german = $this->createLanguage(2, true, 'ger-DE', 'German');
-        $french = $this->createLanguage(3, false, 'fra-FR', 'French');
-        $contentInfo = $this->createContentInfo();
-        $location = $this->createLocation();
+        $english = self::createLanguage(1, true, 'eng-GB', 'English');
+        $german = self::createLanguage(2, true, 'ger-DE', 'German');
+        $french = self::createLanguage(3, false, 'fra-FR', 'French');
+        $contentInfo = self::createContentInfo();
+        $location = self::createLocation();
         $languages = [
             $english,
             $german,
@@ -111,9 +110,9 @@ final class LimitationResolverTest extends TestCase
 
         yield 'No access to all languages' => [
             [
-                $this->getLanguageAccessData(false, $english),
-                $this->getLanguageAccessData(false, $german),
-                $this->getLanguageAccessData(false, $french),
+                self::getLanguageAccessData(false, $english),
+                self::getLanguageAccessData(false, $german),
+                self::getLanguageAccessData(false, $french),
             ],
             $contentInfo,
             $location,
@@ -123,9 +122,9 @@ final class LimitationResolverTest extends TestCase
 
         yield 'Access to all enabled languages' => [
             [
-                $this->getLanguageAccessData(true, $english),
-                $this->getLanguageAccessData(true, $german),
-                $this->getLanguageAccessData(false, $french),
+                self::getLanguageAccessData(true, $english),
+                self::getLanguageAccessData(true, $german),
+                self::getLanguageAccessData(false, $french),
             ],
             $contentInfo,
             $location,
@@ -135,9 +134,9 @@ final class LimitationResolverTest extends TestCase
 
         yield 'Limited access to English language by policy limitation' => [
             [
-                $this->getLanguageAccessData(true, $english),
-                $this->getLanguageAccessData(false, $german),
-                $this->getLanguageAccessData(false, $french),
+                self::getLanguageAccessData(true, $english),
+                self::getLanguageAccessData(false, $german),
+                self::getLanguageAccessData(false, $french),
             ],
             $contentInfo,
             $location,
@@ -146,9 +145,9 @@ final class LimitationResolverTest extends TestCase
                 [],
                 [
                     new LookupPolicyLimitations(
-                        $this->createMock(Policy::class),
+                        self::createStub(Policy::class),
                         [
-                            $this->createLanguageLimitation(['eng-GB']),
+                            self::createLanguageLimitation(['eng-GB']),
                         ]
                     ),
                 ]
@@ -158,16 +157,16 @@ final class LimitationResolverTest extends TestCase
 
         yield 'Limited access to German language by role limitation' => [
             [
-                $this->getLanguageAccessData(false, $english),
-                $this->getLanguageAccessData(true, $german),
-                $this->getLanguageAccessData(false, $french),
+                self::getLanguageAccessData(false, $english),
+                self::getLanguageAccessData(true, $german),
+                self::getLanguageAccessData(false, $french),
             ],
             $contentInfo,
             $location,
             new LookupLimitationResult(
                 true,
                 [
-                    $this->createLanguageLimitation(['ger-DE']),
+                    self::createLanguageLimitation(['ger-DE']),
                 ],
             ),
             $languages,
@@ -175,22 +174,22 @@ final class LimitationResolverTest extends TestCase
 
         yield 'Limited access to English and German languages by role and policy limitations' => [
             [
-                $this->getLanguageAccessData(true, $english),
-                $this->getLanguageAccessData(true, $german),
-                $this->getLanguageAccessData(false, $french),
+                self::getLanguageAccessData(true, $english),
+                self::getLanguageAccessData(true, $german),
+                self::getLanguageAccessData(false, $french),
             ],
             $contentInfo,
             $location,
             new LookupLimitationResult(
                 true,
                 [
-                    $this->createLanguageLimitation(['eng-GB', 'fra-FR']),
+                    self::createLanguageLimitation(['eng-GB', 'fra-FR']),
                 ],
                 [
                     new LookupPolicyLimitations(
-                        $this->createMock(Policy::class),
+                        self::createStub(Policy::class),
                         [
-                            $this->createLanguageLimitation(['ger-DE', 'fra-FR']),
+                            self::createLanguageLimitation(['ger-DE', 'fra-FR']),
                         ]
                     ),
                 ]
@@ -199,17 +198,17 @@ final class LimitationResolverTest extends TestCase
         ];
     }
 
-    private function createContentInfo(): ContentInfo
+    private static function createContentInfo(): ContentInfo
     {
-        return $this->createMock(ContentInfo::class);
+        return self::createStub(ContentInfo::class);
     }
 
-    private function createLocation(): Location
+    private static function createLocation(): Location
     {
-        return $this->createMock(Location::class);
+        return self::createStub(Location::class);
     }
 
-    private function createLanguage(
+    private static function createLanguage(
         int $id,
         bool $enabled,
         string $languageCode,
@@ -232,7 +231,7 @@ final class LimitationResolverTest extends TestCase
      *     hasAccess: bool,
      * }
      */
-    private function getLanguageAccessData(
+    private static function getLanguageAccessData(
         bool $hasAccess,
         Language $language
     ): array {
@@ -246,7 +245,7 @@ final class LimitationResolverTest extends TestCase
     /**
      * @param array<string> $limitationValues
      */
-    private function createLanguageLimitation(array $limitationValues): Limitation\LanguageLimitation
+    private static function createLanguageLimitation(array $limitationValues): Limitation\LanguageLimitation
     {
         return new Limitation\LanguageLimitation(
             [

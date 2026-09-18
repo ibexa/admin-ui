@@ -18,6 +18,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\Values\Content\Location;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormConfigInterface;
@@ -25,9 +26,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-/**
- * @covers \Ibexa\AdminUi\Form\Processor\Content\ContentOnTheFlyProcessor
- */
+#[CoversClass(ContentOnTheFlyProcessor::class)]
 final class ContentOnTheFlyProcessorTest extends TestCase
 {
     private const string CREATE_RESPONSE_TEMPLATE = '@ibexadesign/ui/on_the_fly/content_create_response.html.twig';
@@ -151,13 +150,13 @@ final class ContentOnTheFlyProcessorTest extends TestCase
             'mainLanguageCode' => self::LANGUAGE_CODE,
         ]);
 
-        $versionInfo = $this->createStub(VersionInfo::class);
+        $versionInfo = self::createStub(VersionInfo::class);
         $versionInfo->method('getInitialLanguage')->willReturn(
             new Language(['languageCode' => self::LANGUAGE_CODE])
         );
         $versionInfo->method('getContentInfo')->willReturn($contentInfo);
 
-        $draft = $this->createStub(Content::class);
+        $draft = self::createStub(Content::class);
         $draft->method('getVersionInfo')->willReturn($versionInfo);
 
         return $draft;
@@ -171,7 +170,7 @@ final class ContentOnTheFlyProcessorTest extends TestCase
             'status' => ContentInfo::STATUS_PUBLISHED,
         ]);
 
-        $publishedContent = $this->createStub(Content::class);
+        $publishedContent = self::createStub(Content::class);
         $publishedContent->method('getContentInfo')->willReturn($contentInfo);
 
         return $publishedContent;
@@ -184,10 +183,10 @@ final class ContentOnTheFlyProcessorTest extends TestCase
         ContentCreateData|ContentUpdateData $data,
         array $options = []
     ): FormActionEvent {
-        $formConfig = $this->createStub(FormConfigInterface::class);
+        $formConfig = self::createStub(FormConfigInterface::class);
         $formConfig->method('getOption')->willReturn(self::LANGUAGE_CODE);
 
-        $form = $this->createStub(FormInterface::class);
+        $form = self::createStub(FormInterface::class);
         $form->method('getConfig')->willReturn($formConfig);
 
         return new FormActionEvent($form, $data, 'publish', $options);

@@ -20,6 +20,7 @@ use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\DataMapperInterface;
@@ -29,9 +30,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 
-/**
- * @covers \Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor
- */
+#[CoversClass(ContentTypeFormProcessor::class)]
 final class ContentTypeFormProcessorTest extends TestCase
 {
     private const int EXAMPLE_CONTENT_TYPE_ID = 1;
@@ -91,20 +90,28 @@ final class ContentTypeFormProcessorTest extends TestCase
         $contentTypeData = new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]);
         $contentTypeData->addFieldDefinitionData($fieldDefData1);
         $contentTypeData->addFieldDefinitionData($fieldDefData2);
+        $matcher = self::exactly(2);
 
         $this->contentTypeService
-            ->expects(self::exactly(2))
-            ->method('updateFieldDefinition')
-            ->withConsecutive(
-                [$contentTypeDraft, $fieldDef1, $fieldDefData1],
-                [$contentTypeDraft, $fieldDef2, $fieldDefData2],
-            );
+            ->expects($matcher)
+            ->method('updateFieldDefinition')->willReturnCallback(function (...$parameters) use ($matcher, $contentTypeDraft, $fieldDef1, $fieldDefData1, $fieldDef2, $fieldDefData2): void {
+            if ($matcher->numberOfInvocations() === 1) {
+                $this->assertSame($contentTypeDraft, $parameters[0]);
+                $this->assertSame($fieldDef1, $parameters[1]);
+                $this->assertSame($fieldDefData1, $parameters[2]);
+            }
+            if ($matcher->numberOfInvocations() === 2) {
+                $this->assertSame($contentTypeDraft, $parameters[0]);
+                $this->assertSame($fieldDef2, $parameters[1]);
+                $this->assertSame($fieldDefData2, $parameters[2]);
+            }
+        });
         $this->contentTypeService
             ->expects(self::once())
             ->method('updateContentTypeDraft')
             ->with($contentTypeDraft, $contentTypeData);
 
-        $event = new FormActionEvent($this->createMock(FormInterface::class), $contentTypeData, 'fooAction');
+        $event = new FormActionEvent(self::createStub(FormInterface::class), $contentTypeData, 'fooAction');
         $this->formProcessor->processDefaultAction($event);
     }
 
@@ -180,7 +187,7 @@ final class ContentTypeFormProcessorTest extends TestCase
         $this->groupsList
             ->expects(self::once())
             ->method('getDefaultGroup')
-            ->will(self::returnValue('content'));
+            ->willReturn('content');
 
         $event = new FormActionEvent(
             $mainForm,
@@ -196,7 +203,7 @@ final class ContentTypeFormProcessorTest extends TestCase
     {
         $contentTypeDraft = $this->getContentTypeDraft();
         $event = new FormActionEvent(
-            $this->createMock(FormInterface::class),
+            self::createStub(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
             'publishContentType',
             ['languageCode' => 'eng-GB']
@@ -215,7 +222,7 @@ final class ContentTypeFormProcessorTest extends TestCase
         $redirectUrl = 'http://foo.com/bar';
         $contentTypeDraft = $this->getContentTypeDraft();
         $event = new FormActionEvent(
-            $this->createMock(FormInterface::class),
+            self::createStub(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
             'publishContentType',
             ['languageCode' => 'eng-GB']
@@ -256,7 +263,7 @@ final class ContentTypeFormProcessorTest extends TestCase
 
         $compoundFormConfig = $this->createMock(FormConfigInterface::class);
         $compoundFormConfig->method('getCompound')->willReturn(true);
-        $compoundFormConfig->method('getDataMapper')->willReturn($this->createMock(DataMapperInterface::class));
+        $compoundFormConfig->method('getDataMapper')->willReturn(self::createStub(DataMapperInterface::class));
         $fieldDefinitionsDataForm = new Form($compoundFormConfig);
         $fieldDefinitionsDataForm->add($this->mockFieldDefinitionForm($fieldDefinition1, false));
         $fieldDefinitionsDataForm->add($this->mockFieldDefinitionForm($fieldDefinition2, true));
@@ -280,7 +287,7 @@ final class ContentTypeFormProcessorTest extends TestCase
                                          FieldDefinition $actualFieldDefinition
                                      ) use ($matcher, $contentTypeDraft, $fieldDefinition2, $fieldDefinition3): void {
                                          self::assertSame($contentTypeDraft, $actualContentTypeDraft);
-                                         match ($matcher->getInvocationCount()) {
+                                         match ($matcher->numberOfInvocations()) {
                                              1 => self::assertSame($fieldDefinition2, $actualFieldDefinition),
                                              2 => self::assertSame($fieldDefinition3, $actualFieldDefinition),
                                              default => self::fail('Unexpected invocation count matched'),
@@ -303,7 +310,7 @@ final class ContentTypeFormProcessorTest extends TestCase
     {
         $contentTypeDraft = $this->getContentTypeDraft();
         $event = new FormActionEvent(
-            $this->createMock(FormInterface::class),
+            self::createStub(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
             'removeDraft',
             ['languageCode' => 'eng-GB']
@@ -322,7 +329,7 @@ final class ContentTypeFormProcessorTest extends TestCase
         $redirectUrl = 'http://foo.com/bar';
         $contentTypeDraft = $this->getContentTypeDraft();
         $event = new FormActionEvent(
-            $this->createMock(FormInterface::class),
+            self::createStub(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
             'removeDraft',
             ['languageCode' => 'eng-GB']
