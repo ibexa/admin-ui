@@ -1,0 +1,11 @@
+{
+    "recipesEndpoint": "",
+    "packages": [
+        {
+            "requirement": "dev-fix/ids-btn-selectors as 6.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/cohesivo-playwright",
+            "package": "ibexa/cohesivo-playwright",
+            "shouldBeAddedAsVCS": true
+        }
+    ]
+}
