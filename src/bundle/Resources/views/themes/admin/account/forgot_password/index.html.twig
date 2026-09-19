@@ -10,7 +10,15 @@
     {% if form_forgot_user_password is defined %}
         {{ form_start(form_forgot_user_password, {'attr': {'class': 'ibexa-form-validate ibexa-login__forgot-password-form'}}) }}
         <fieldset>
-            {{ form_row(form_forgot_user_password.email, {'attr': {'class': 'ibexa-login__input'}}) }}
+            {{ form_row(form_forgot_user_password.email, {
+                'attr': {
+                    'class': 'ibexa-login__input',
+                    'error': form_forgot_user_password.email.vars.errors is not empty,
+                },
+                'label_attr': {
+                    'class': form_forgot_user_password.email.vars.errors is not empty ? 'ids-label--error' : '',
+                },
+            }) }}
         </fieldset>
         {{ form_widget(form_forgot_user_password.reset, {'attr': {'class': 'ids-btn ids-btn--primary ids-btn--medium ibexa-login__btn ibexa-login__btn--reset-password'}}) }}
 

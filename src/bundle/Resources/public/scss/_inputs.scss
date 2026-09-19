@@ -1,6 +1,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
+@use '@ids-assets/scss/variables/colors' as *;
 @use 'sass:color';
 
 .form-control {
@@ -48,6 +49,10 @@
     &:disabled {
         cursor: not-allowed;
         border-color: var(--ibexa-input-disabled-border-color, #{$ibexa-color-dark-200});
+    }
+
+    &.ids-input--error {
+        border-color: var(--ids-input-error-border-color, #{$color-error-80});
     }
 
     &--text,
