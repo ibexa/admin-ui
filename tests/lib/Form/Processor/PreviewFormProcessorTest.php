@@ -24,6 +24,7 @@ use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormInterface;
@@ -32,13 +33,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class PreviewFormProcessorTest extends TestCase
 {
-    private ContentService&\PHPUnit\Framework\MockObject\Stub $contentService;
+    private ContentService&Stub $contentService;
 
-    private UrlGeneratorInterface&\PHPUnit\Framework\MockObject\Stub $urlGenerator;
+    private UrlGeneratorInterface&Stub $urlGenerator;
 
-    private TranslatableNotificationHandlerInterface&\PHPUnit\Framework\MockObject\Stub $notificationHandler;
+    private TranslatableNotificationHandlerInterface&Stub $notificationHandler;
 
-    private LocationService&\PHPUnit\Framework\MockObject\Stub $locationService;
+    private LocationService&Stub $locationService;
 
     protected function setUp(): void
     {
