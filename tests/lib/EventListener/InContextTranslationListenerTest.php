@@ -16,6 +16,7 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\User\UserSetting\UserSetting;
 use Ibexa\User\UserSetting\UserSettingService;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +34,7 @@ final class InContextTranslationListenerTest extends TestCase
 
     private Request&MockObject $request;
 
-    private HttpKernelInterface&\PHPUnit\Framework\MockObject\Stub $httpKernel;
+    private HttpKernelInterface&Stub $httpKernel;
 
     private UserSettingService&MockObject $userSettingService;
 
