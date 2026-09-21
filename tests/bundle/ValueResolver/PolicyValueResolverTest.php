@@ -14,6 +14,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleDraft;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -95,10 +96,9 @@ final class PolicyValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);

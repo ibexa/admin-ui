@@ -14,6 +14,7 @@ use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\Test\IbexaKernelTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 final class ContentTypeFieldsExtractorTest extends IbexaKernelTestCase
 {
@@ -81,9 +82,7 @@ final class ContentTypeFieldsExtractorTest extends IbexaKernelTestCase
         $this->contentTypeFieldsExtractor->extractFieldsFromExpression($expression);
     }
 
-    /**
-     * @dataProvider dataProviderForTestFieldIdWithinExpression
-     */
+    #[DataProvider('dataProviderForTestFieldIdWithinExpression')]
     public function testFieldIdWithinExpression(string $expression): void
     {
         $contentType = $this->contentTypeService->loadContentTypeByIdentifier('folder');
@@ -97,9 +96,7 @@ final class ContentTypeFieldsExtractorTest extends IbexaKernelTestCase
         self::assertTrue($result);
     }
 
-    /**
-     * @dataProvider dataProviderForTestFieldIdNotWithinExpression
-     */
+    #[DataProvider('dataProviderForTestFieldIdNotWithinExpression')]
     public function testFieldIdNotWithinExpression(string $expression): void
     {
         $contentType = $this->contentTypeService->loadContentTypeByIdentifier('folder');
@@ -116,7 +113,7 @@ final class ContentTypeFieldsExtractorTest extends IbexaKernelTestCase
     /**
      * @return iterable<array{string}>
      */
-    public function dataProviderForTestFieldIdWithinExpression(): iterable
+    public static function dataProviderForTestFieldIdWithinExpression(): iterable
     {
         yield '{Media,Content}/*/name' => ['{Media,Content}/*/name'];
 
@@ -130,7 +127,7 @@ final class ContentTypeFieldsExtractorTest extends IbexaKernelTestCase
     /**
      * @return iterable<array{string}>
      */
-    public function dataProviderForTestFieldIdNotWithinExpression(): iterable
+    public static function dataProviderForTestFieldIdNotWithinExpression(): iterable
     {
         yield '{Users}/*/name' => ['{Users}/*/name'];
 

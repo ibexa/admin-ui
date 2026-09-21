@@ -24,6 +24,7 @@ use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormInterface;
@@ -32,20 +33,20 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class PreviewFormProcessorTest extends TestCase
 {
-    private ContentService&MockObject $contentService;
+    private ContentService&Stub $contentService;
 
-    private UrlGeneratorInterface&MockObject $urlGenerator;
+    private UrlGeneratorInterface&Stub $urlGenerator;
 
-    private TranslatableNotificationHandlerInterface&MockObject $notificationHandler;
+    private TranslatableNotificationHandlerInterface&Stub $notificationHandler;
 
-    private LocationService&MockObject $locationService;
+    private LocationService&Stub $locationService;
 
     protected function setUp(): void
     {
-        $this->contentService = $this->createMock(ContentService::class);
-        $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
-        $this->notificationHandler = $this->createMock(TranslatableNotificationHandlerInterface::class);
-        $this->locationService = $this->createMock(LocationService::class);
+        $this->contentService = self::createStub(ContentService::class);
+        $this->urlGenerator = self::createStub(UrlGeneratorInterface::class);
+        $this->notificationHandler = self::createStub(TranslatableNotificationHandlerInterface::class);
+        $this->locationService = self::createStub(LocationService::class);
     }
 
     private function createPreviewFormProcessor(

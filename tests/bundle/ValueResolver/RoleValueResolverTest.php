@@ -11,6 +11,7 @@ namespace Ibexa\Tests\Bundle\AdminUi\ValueResolver;
 use Ibexa\Bundle\AdminUi\ValueResolver\RoleValueResolver;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,7 @@ final class RoleValueResolverTest extends TestCase
 
     public function testResolve(): void
     {
-        $role = $this->createMock(Role::class);
+        $role = self::createStub(Role::class);
         $attributes = ['roleId' => '456'];
 
         $this->roleService->expects(self::once())
@@ -53,10 +54,9 @@ final class RoleValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);

@@ -14,6 +14,8 @@ use Ibexa\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer;
 use Ibexa\Core\MVC\Symfony\Templating\Twig\ResourceProviderInterface;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use Twig\Environment;
 
 final class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
@@ -42,7 +44,7 @@ final class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTes
         ]);
 
         $fieldBlockRenderer = new FieldBlockRenderer(
-            $this->createMock(Environment::class),
+            self::createStub(Environment::class),
             $resourceProvider,
             $this->getTemplatePath('base.html.twig')
         );
@@ -73,10 +75,6 @@ final class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTes
     }
 
     /**
-     * @dataProvider getLegacyTests
-     *
-     * @group legacy
-     *
      * @param string $file
      * @param string $message
      * @param string $condition
@@ -85,6 +83,8 @@ final class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTes
      * @param array<mixed> $outputs
      * @param string $deprecation
      */
+    #[Group('legacy')]
+    #[DataProvider('provideLegacyTests')]
     public function testLegacyIntegration(
         $file,
         $message,

@@ -11,13 +11,12 @@ namespace Ibexa\Tests\AdminUi\Specification\Location;
 use Ibexa\AdminUi\Specification\Location\IsContentStructureRoot;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(IsContentStructureRoot::class)]
 final class IsContentStructureRootTest extends TestCase
 {
-    /**
-     * @covers \Ibexa\AdminUi\Specification\Location\IsContentStructureRoot::isSatisfiedBy
-     */
     public function testReturnsTrueWhenLocationDepthMatchesRoot(): void
     {
         $id = 1;
@@ -31,9 +30,6 @@ final class IsContentStructureRootTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Ibexa\AdminUi\Specification\Location\IsContentStructureRoot::isSatisfiedBy
-     */
     public function testReturnsFalseWhenLocationDepthDoesNotMatchRoot(): void
     {
         $specification = new IsContentStructureRoot(

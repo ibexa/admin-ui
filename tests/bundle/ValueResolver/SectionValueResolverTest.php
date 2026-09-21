@@ -11,6 +11,7 @@ namespace Ibexa\Tests\Bundle\AdminUi\ValueResolver;
 use Ibexa\Bundle\AdminUi\ValueResolver\SectionValueResolver;
 use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,7 @@ final class SectionValueResolverTest extends TestCase
 
     public function testResolve(): void
     {
-        $section = $this->createMock(Section::class);
+        $section = self::createStub(Section::class);
         $attributes = ['sectionId' => '123'];
 
         $this->sectionService->expects(self::once())
@@ -53,10 +54,9 @@ final class SectionValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);

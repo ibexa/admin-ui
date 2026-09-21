@@ -12,17 +12,16 @@ use Ibexa\AdminUi\Form\DataTransformer\RoleTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Core\Repository\Values\User\Role;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class RoleTransformerTest extends TestCase
 {
-    /**
-     * @dataProvider transformDataProvider
-     */
+    #[DataProvider('transformDataProvider')]
     public function testTransform(?Role $value, ?int $expected): void
     {
-        $service = $this->createMock(RoleService::class);
+        $service = self::createStub(RoleService::class);
         $transformer = new RoleTransformer($service);
 
         $result = $transformer->transform($value);
@@ -58,12 +57,10 @@ class RoleTransformerTest extends TestCase
         self::assertNull($result);
     }
 
-    /**
-     * @dataProvider reverseTransformWithInvalidInputDataProvider
-     */
+    #[DataProvider('reverseTransformWithInvalidInputDataProvider')]
     public function testReverseTransformWithInvalidInput(mixed $value): void
     {
-        $roleService = $this->createMock(RoleService::class);
+        $roleService = self::createStub(RoleService::class);
         $transformer = new RoleTransformer($roleService);
 
         $this->expectException(TransformationFailedException::class);
@@ -90,7 +87,7 @@ class RoleTransformerTest extends TestCase
     /**
      * @return array<string, array{\Ibexa\Core\Repository\Values\User\Role|null, int|null}>
      */
-    public function transformDataProvider(): array
+    public static function transformDataProvider(): array
     {
         $transform = new Role(['id' => 123456]);
 
@@ -103,7 +100,7 @@ class RoleTransformerTest extends TestCase
     /**
      * @return array<string, array{mixed}>
      */
-    public function reverseTransformWithInvalidInputDataProvider(): array
+    public static function reverseTransformWithInvalidInputDataProvider(): array
     {
         return [
             'string' => ['string'],

@@ -9,6 +9,7 @@ yarn-error.log
 package-lock.json
 .DS_Store
 .phpunit.result.cache
+.phpunit.cache/
 composer.lock
 /var
 tsconfig.json

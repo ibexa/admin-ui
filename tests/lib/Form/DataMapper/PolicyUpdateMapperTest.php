@@ -14,6 +14,7 @@ use Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Ibexa\Core\Repository\Values\User\PolicyUpdateStruct;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class PolicyUpdateMapperTest extends TestCase
@@ -33,10 +34,9 @@ final class PolicyUpdateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @param array<string, mixed> $properties
      */
+    #[DataProvider('dataProvider')]
     public function testMap(array $properties): void
     {
         $data = $this->mapper->map($this->createStruct($properties));
@@ -45,10 +45,9 @@ final class PolicyUpdateMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
-     *
      * @param array<string, mixed> $properties
      */
+    #[DataProvider('dataProvider')]
     public function testReverseMap(array $properties): void
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
@@ -67,7 +66,7 @@ final class PolicyUpdateMapperTest extends TestCase
     /**
      * @return array<string, array<int, array<string, \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation>>>
      */
-    public function dataProvider(): array
+    public static function dataProvider(): array
     {
         return [
             'simple' => [['limitation' => new ContentTypeLimitation()]],

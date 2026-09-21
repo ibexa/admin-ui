@@ -25,18 +25,18 @@ final class DetailsTabVisibilityTest extends AbstractTabVisibilityTestCase
     protected function createTabForVisibilityInGivenUserModeTest(UserSettingService $userSettingService): TabInterface
     {
         return new DetailsTab(
-            $this->createMock(Environment::class),
-            $this->createMock(TranslatorInterface::class),
-            $this->createMock(SectionService::class),
-            $this->createMock(DatasetFactory::class),
-            $this->createMock(FormFactoryInterface::class),
-            $this->createMock(PermissionResolver::class),
+            self::createStub(Environment::class),
+            self::createStub(TranslatorInterface::class),
+            self::createStub(SectionService::class),
+            self::createStub(DatasetFactory::class),
+            self::createStub(FormFactoryInterface::class),
+            self::createStub(PermissionResolver::class),
             $userSettingService,
-            $this->createMock(EventDispatcherInterface::class)
+            self::createStub(EventDispatcherInterface::class)
         );
     }
 
-    public function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
+    public static function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
     {
         yield 'focus mode on' => [FocusMode::FOCUS_MODE_ON, [], false];
         yield 'focus mode off' => [FocusMode::FOCUS_MODE_OFF, [], true];

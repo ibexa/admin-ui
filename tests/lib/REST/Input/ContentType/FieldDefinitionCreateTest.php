@@ -32,7 +32,7 @@ final class FieldDefinitionCreateTest extends TestCase
                 [
                     'fieldTypeIdentifier' => 'ibexa_string',
                 ],
-                $this->createMock(ParsingDispatcher::class)
+                self::createStub(ParsingDispatcher::class)
             )
         );
 
@@ -44,7 +44,7 @@ final class FieldDefinitionCreateTest extends TestCase
                     'fieldGroupIdentifier' => 'foo_identifier',
                     'position' => 10,
                 ],
-                $this->createMock(ParsingDispatcher::class)
+                self::createStub(ParsingDispatcher::class)
             )
         );
     }
@@ -56,7 +56,7 @@ final class FieldDefinitionCreateTest extends TestCase
 
         $this->parser->parse(
             [],
-            $this->createMock(ParsingDispatcher::class)
+            self::createStub(ParsingDispatcher::class)
         );
     }
 }

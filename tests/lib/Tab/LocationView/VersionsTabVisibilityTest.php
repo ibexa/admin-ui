@@ -23,18 +23,6 @@ use Twig\Environment;
 
 final class VersionsTabVisibilityTest extends AbstractTabVisibilityTestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content&\PHPUnit\Framework\MockObject\MockObject */
-    private Content $exampleContent;
-
-    private function getExampleContent(): Content
-    {
-        if (!isset($this->exampleContent)) {
-            $this->exampleContent = $this->createMock(Content::class);
-        }
-
-        return $this->exampleContent;
-    }
-
     protected function createTabForVisibilityInGivenUserModeTest(UserSettingService $userSettingService): TabInterface
     {
         $permissionResolver = $this->createMock(PermissionResolver::class);
@@ -43,33 +31,33 @@ final class VersionsTabVisibilityTest extends AbstractTabVisibilityTestCase
             ->with(
                 'content',
                 'versionread',
-                $this->getExampleContent()
+                self::isInstanceOf(Content::class)
             )
             ->willReturn(true);
 
         return new VersionsTab(
-            $this->createMock(Environment::class),
-            $this->createMock(TranslatorInterface::class),
-            $this->createMock(DatasetFactory::class),
-            $this->createMock(FormFactory::class),
+            self::createStub(Environment::class),
+            self::createStub(TranslatorInterface::class),
+            self::createStub(DatasetFactory::class),
+            self::createStub(FormFactory::class),
             $permissionResolver,
-            $this->createMock(UserService::class),
+            self::createStub(UserService::class),
             $userSettingService,
-            $this->createMock(EventDispatcherInterface::class),
+            self::createStub(EventDispatcherInterface::class),
         );
     }
 
-    public function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
+    public static function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
     {
         yield 'focus mode on' => [
             FocusMode::FOCUS_MODE_ON,
-            ['content' => $this->getExampleContent()],
+            ['content' => self::createStub(Content::class)],
             false,
         ];
 
         yield 'focus mode off' => [
             FocusMode::FOCUS_MODE_OFF,
-            ['content' => $this->getExampleContent()],
+            ['content' => self::createStub(Content::class)],
             true,
         ];
     }

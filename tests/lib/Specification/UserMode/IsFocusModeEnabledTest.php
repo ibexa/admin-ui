@@ -12,13 +12,12 @@ use Ibexa\AdminUi\Specification\UserMode\IsFocusModeEnabled;
 use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\User\UserSetting\UserSetting;
 use Ibexa\User\UserSetting\UserSettingService;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class IsFocusModeEnabledTest extends TestCase
 {
-    /**
-     * @dataProvider dataProviderForTestIsSatisfiedBy
-     */
+    #[DataProvider('dataProviderForTestIsSatisfiedBy')]
     public function testIsSatisfiedBy(string $userMode, string $value, bool $expectedResult): void
     {
         self::assertEquals(
@@ -27,9 +26,7 @@ final class IsFocusModeEnabledTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider dataProviderForTestIsSatisfiedBy
-     */
+    #[DataProvider('dataProviderForTestIsSatisfiedBy')]
     public function testFromUserSetting(string $userMode, string $value, bool $expectedResult): void
     {
         $userSetting = $this->createMock(UserSetting::class);
@@ -52,7 +49,7 @@ final class IsFocusModeEnabledTest extends TestCase
     /**
      * @return iterable<array{string, string, bool}>
      */
-    public function dataProviderForTestIsSatisfiedBy(): iterable
+    public static function dataProviderForTestIsSatisfiedBy(): iterable
     {
         yield [FocusMode::FOCUS_MODE_ON, FocusMode::FOCUS_MODE_ON, true];
         yield [FocusMode::FOCUS_MODE_ON, FocusMode::FOCUS_MODE_OFF, false];

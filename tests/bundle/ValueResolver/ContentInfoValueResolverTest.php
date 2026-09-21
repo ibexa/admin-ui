@@ -11,6 +11,7 @@ namespace Ibexa\Tests\Bundle\AdminUi\ValueResolver;
 use Ibexa\Bundle\AdminUi\ValueResolver\ContentInfoValueResolver;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,7 +40,7 @@ final class ContentInfoValueResolverTest extends TestCase
             ContentInfoValueResolver::ATTRIBUTE_CONTENT_INFO_ID => '1',
         ]);
 
-        $mockContentInfo = $this->createMock(ContentInfo::class);
+        $mockContentInfo = self::createStub(ContentInfo::class);
 
         $this->contentServiceMock
             ->expects(self::once())
@@ -53,10 +54,9 @@ final class ContentInfoValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
@@ -74,7 +74,7 @@ final class ContentInfoValueResolverTest extends TestCase
     /**
      * @phpstan-return array<array{attributes: array<string, mixed>, expectedMessage: string}>
      */
-    public function invalidAttributesProvider(): array
+    public static function invalidAttributesProvider(): array
     {
         return [
             'missing contentInfoId' => [

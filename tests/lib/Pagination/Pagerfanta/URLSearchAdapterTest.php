@@ -60,9 +60,9 @@ class URLSearchAdapterTest extends TestCase
 
         $searchResults = new SearchResult([
             'items' => [
-                $this->createMock(URL::class),
-                $this->createMock(URL::class),
-                $this->createMock(URL::class),
+                self::createStub(URL::class),
+                self::createStub(URL::class),
+                self::createStub(URL::class),
             ],
             'totalCount' => 13,
         ]);

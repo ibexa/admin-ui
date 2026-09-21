@@ -11,6 +11,7 @@ namespace Ibexa\Tests\Bundle\AdminUi\ValueResolver;
 use Ibexa\Bundle\AdminUi\ValueResolver\ContentTypeGroupValueResolver;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,7 +40,7 @@ final class ContentTypeGroupValueResolverTest extends TestCase
             'contentTypeGroupId' => '123',
         ]);
 
-        $mockContentTypeGroup = $this->createMock(ContentTypeGroup::class);
+        $mockContentTypeGroup = self::createStub(ContentTypeGroup::class);
 
         $this->contentTypeServiceMock
             ->expects(self::once())
@@ -53,10 +54,9 @@ final class ContentTypeGroupValueResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidAttributesProvider
-     *
      * @param array<string, mixed> $attributes
      */
+    #[DataProvider('invalidAttributesProvider')]
     public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
@@ -74,7 +74,7 @@ final class ContentTypeGroupValueResolverTest extends TestCase
     /**
      * @phpstan-return array<array{attributes: array<string, mixed>, expectedMessage: string}>
      */
-    public function invalidAttributesProvider(): array
+    public static function invalidAttributesProvider(): array
     {
         return [
             'missing contentTypeGroupId' => [

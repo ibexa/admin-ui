@@ -18,7 +18,7 @@ class NonAdminRESTRequestMatcherTest extends TestCase
 {
     public function testMatchRESTRequestInAdminContext(): void
     {
-        $siteAccessMock = $this->createMock(SiteAccess::class);
+        $siteAccessMock = self::createStub(SiteAccess::class);
         $siteAccessMock->name = 'admin';
         $adminRESTRequestMatcher = new NonAdminRESTRequestMatcher(
             [
@@ -28,7 +28,7 @@ class NonAdminRESTRequestMatcherTest extends TestCase
             ]
         );
 
-        $request = $this->createMock(Request::class);
+        $request = self::createStub(Request::class);
         $request->attributes = $this->createMock(ParameterBag::class);
 
         $request->attributes
@@ -51,7 +51,7 @@ class NonAdminRESTRequestMatcherTest extends TestCase
     {
         $adminRESTRequestMatcher = new NonAdminRESTRequestMatcher([]);
 
-        $request = $this->createMock(Request::class);
+        $request = self::createStub(Request::class);
         $request->attributes = $this->createMock(ParameterBag::class);
 
         $request->attributes
@@ -65,9 +65,9 @@ class NonAdminRESTRequestMatcherTest extends TestCase
 
     public function testMatchRESTRequestNotInAdminContext(): void
     {
-        $siteAccessMock = $this->createMock(SiteAccess::class);
+        $siteAccessMock = self::createStub(SiteAccess::class);
         $siteAccessMock->name = 'admin';
-        $nonAdminSiteAccessMock = $this->createMock(SiteAccess::class);
+        $nonAdminSiteAccessMock = self::createStub(SiteAccess::class);
         $nonAdminSiteAccessMock->name = 'ibexa';
         $adminRESTRequestMatcher = new NonAdminRESTRequestMatcher(
             [
@@ -80,7 +80,7 @@ class NonAdminRESTRequestMatcherTest extends TestCase
             ]
         );
 
-        $request = $this->createMock(Request::class);
+        $request = self::createStub(Request::class);
         $request->attributes = $this->createMock(ParameterBag::class);
 
         $request->attributes
