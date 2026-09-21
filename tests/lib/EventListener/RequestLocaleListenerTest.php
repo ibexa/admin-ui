@@ -15,6 +15,7 @@ use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +33,7 @@ final class RequestLocaleListenerTest extends TestCase
 
     private Request&MockObject $request;
 
-    private HttpKernelInterface&\PHPUnit\Framework\MockObject\Stub $httpKernel;
+    private HttpKernelInterface&Stub $httpKernel;
 
     private TranslatorInterface&MockObject $translator;
 
