@@ -31,17 +31,9 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
 
     public function testValid(): void
     {
-        $location = $this
-            ->getMockBuilder(Location::class)
-            ->onlyMethods(array_values(array_diff(get_class_methods(Location::class), ['__get'])))
-            ->setConstructorArgs([['pathString' => '/1/2/3/']])
-            ->getMock();
+        $location = $this->createLocationWithPathString('/1/2/3/');
 
-        $comparedLocation = $this
-            ->getMockBuilder(Location::class)
-            ->onlyMethods(array_values(array_diff(get_class_methods(Location::class), ['__get'])))
-            ->setConstructorArgs([['pathString' => '/3/5/']])
-            ->getMock();
+        $comparedLocation = $this->createLocationWithPathString('/3/5/');
 
         $this->executionContext
             ->expects(self::never())
@@ -54,17 +46,9 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
 
     public function testInvalid(): void
     {
-        $location = $this
-            ->getMockBuilder(Location::class)
-            ->onlyMethods(array_values(array_diff(get_class_methods(Location::class), ['__get'])))
-            ->setConstructorArgs([['pathString' => '/1/2/3/']])
-            ->getMock();
+        $location = $this->createLocationWithPathString('/1/2/3/');
 
-        $comparedLocation = $this
-            ->getMockBuilder(Location::class)
-            ->onlyMethods(array_values(array_diff(get_class_methods(Location::class), ['__get'])))
-            ->setConstructorArgs([['pathString' => '/1/2/']])
-            ->getMock();
+        $comparedLocation = $this->createLocationWithPathString('/1/2/');
 
         $constraint = new LocationIsNotSubLocation($comparedLocation);
 
@@ -89,5 +73,18 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
             ->method('buildViolation');
 
         $this->validator->validate($location, $constraint);
+    }
+
+    /**
+     * Location::__get() must stay real so that reading $location->pathString works, which is what
+     * the removed MockBuilder::setMethodsExcept() used to express.
+     */
+    private function createLocationWithPathString(string $pathString): Location&MockObject
+    {
+        return $this
+            ->getMockBuilder(Location::class)
+            ->onlyMethods(array_values(array_diff(get_class_methods(Location::class), ['__get'])))
+            ->setConstructorArgs([['pathString' => $pathString]])
+            ->getMock();
     }
 }
