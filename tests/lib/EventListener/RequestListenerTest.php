@@ -10,6 +10,7 @@ namespace Ibexa\Tests\AdminUi\EventListener;
 use Ibexa\AdminUi\EventListener\RequestListener;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +23,7 @@ class RequestListenerTest extends TestCase
 {
     private Request&MockObject $request;
 
-    private HttpKernelInterface&\PHPUnit\Framework\MockObject\Stub $httpKernel;
+    private HttpKernelInterface&Stub $httpKernel;
 
     private RequestListener $requestListener;
 
