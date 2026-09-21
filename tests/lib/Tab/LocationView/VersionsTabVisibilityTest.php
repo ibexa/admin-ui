@@ -23,17 +23,6 @@ use Twig\Environment;
 
 final class VersionsTabVisibilityTest extends AbstractTabVisibilityTestCase
 {
-    private static ?Content $exampleContent = null;
-
-    private static function getExampleContent(): Content
-    {
-        if (self::$exampleContent === null) {
-            self::$exampleContent = self::createStub(Content::class);
-        }
-
-        return self::$exampleContent;
-    }
-
     protected function createTabForVisibilityInGivenUserModeTest(UserSettingService $userSettingService): TabInterface
     {
         $permissionResolver = $this->createMock(PermissionResolver::class);
@@ -42,7 +31,7 @@ final class VersionsTabVisibilityTest extends AbstractTabVisibilityTestCase
             ->with(
                 'content',
                 'versionread',
-                self::getExampleContent()
+                self::isInstanceOf(Content::class)
             )
             ->willReturn(true);
 
@@ -62,13 +51,13 @@ final class VersionsTabVisibilityTest extends AbstractTabVisibilityTestCase
     {
         yield 'focus mode on' => [
             FocusMode::FOCUS_MODE_ON,
-            ['content' => self::getExampleContent()],
+            ['content' => self::createStub(Content::class)],
             false,
         ];
 
         yield 'focus mode off' => [
             FocusMode::FOCUS_MODE_OFF,
-            ['content' => self::getExampleContent()],
+            ['content' => self::createStub(Content::class)],
             true,
         ];
     }
