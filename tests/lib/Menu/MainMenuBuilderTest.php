@@ -19,6 +19,7 @@ use Ibexa\User\UserSetting\UserSettingService;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\MenuItem;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\TestBrowserToken;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -28,7 +29,7 @@ final class MainMenuBuilderTest extends TestCase
 {
     private MenuItemFactoryInterface&MockObject $factory;
 
-    private EventDispatcherInterface&\PHPUnit\Framework\MockObject\Stub $eventDispatcher;
+    private EventDispatcherInterface&Stub $eventDispatcher;
 
     private ConfigResolverInterface&MockObject $configResolver;
 
