@@ -3,7 +3,7 @@
 {% trans_default_domain 'ibexa_linkmanager' %}
 
 {%- block content -%}
-    <section>
+    <section class="ibexa-url-management-tab__section ibexa-url-management-tab__section--search">
         {{ form_start(form, {'attr': {'class': 'ibexa-search-links-form'}}) }}
             <div class="ibexa-search-links-form__input-wrapper">
                 {{ form_widget(form.searchQuery, { attr: {
@@ -17,7 +17,7 @@
         {{ form_end(form) }}
     </section>
 
-    <section>
+    <section class="ibexa-url-management-tab__section ibexa-url-management-tab__section--list">
         {% set body_rows = [] %}
         {% for url in urls %}
             {% set body_row_cols = [] %}
