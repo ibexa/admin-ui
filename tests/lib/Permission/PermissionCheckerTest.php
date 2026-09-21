@@ -19,6 +19,7 @@ use Ibexa\Core\Repository\Values\User\Policy;
 use Ibexa\Core\Repository\Values\User\User as CoreUser;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 final class PermissionCheckerTest extends TestCase
@@ -27,7 +28,7 @@ final class PermissionCheckerTest extends TestCase
 
     private PermissionResolver&MockObject $permissionResolver;
 
-    private UserService&\PHPUnit\Framework\MockObject\Stub $userService;
+    private UserService&Stub $userService;
 
     private PermissionChecker $permissionChecker;
 
