@@ -12,10 +12,10 @@ use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType as APIContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
-use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversMethod(ContentTypeIsUser::class, 'isSatisfiedBy')]
+#[CoversClass(ContentTypeIsUser::class)]
 final class ContentTypeIsUserTest extends TestCase
 {
     public function testIsSatisfiedByInvalidArgument(): void

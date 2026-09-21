@@ -10,10 +10,10 @@ namespace Ibexa\Tests\AdminUi\Specification\Location;
 
 use Ibexa\AdminUi\Specification\Location\IsRoot;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversMethod(IsRoot::class, 'isSatisfiedBy')]
+#[CoversClass(IsRoot::class)]
 final class IsRootTest extends TestCase
 {
     public function testReturnsTrueWhenLocationDepthIsOne(): void

@@ -11,10 +11,10 @@ namespace Ibexa\Tests\AdminUi\Specification\Location;
 use Ibexa\AdminUi\Specification\Location\IsInContextualTreeRootIds;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
-use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversMethod(IsInContextualTreeRootIds::class, 'isSatisfiedBy')]
+#[CoversClass(IsInContextualTreeRootIds::class)]
 final class IsInContextualTreeRootIdsTest extends TestCase
 {
     private const CONTEXTUAL_ROOT_IDS = [2, 5, 43, 55, 56, 67];
