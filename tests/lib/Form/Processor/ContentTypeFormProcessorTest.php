@@ -94,16 +94,16 @@ final class ContentTypeFormProcessorTest extends TestCase
 
         $this->contentTypeService
             ->expects($matcher)
-            ->method('updateFieldDefinition')->willReturnCallback(function (...$parameters) use ($matcher, $contentTypeDraft, $fieldDef1, $fieldDefData1, $fieldDef2, $fieldDefData2): void {
+            ->method('updateFieldDefinition')->willReturnCallback(static function (...$parameters) use ($matcher, $contentTypeDraft, $fieldDef1, $fieldDefData1, $fieldDef2, $fieldDefData2): void {
             if ($matcher->numberOfInvocations() === 1) {
-                $this->assertSame($contentTypeDraft, $parameters[0]);
-                $this->assertSame($fieldDef1, $parameters[1]);
-                $this->assertSame($fieldDefData1, $parameters[2]);
+                self::assertSame($contentTypeDraft, $parameters[0]);
+                self::assertSame($fieldDef1, $parameters[1]);
+                self::assertSame($fieldDefData1, $parameters[2]);
             }
             if ($matcher->numberOfInvocations() === 2) {
-                $this->assertSame($contentTypeDraft, $parameters[0]);
-                $this->assertSame($fieldDef2, $parameters[1]);
-                $this->assertSame($fieldDefData2, $parameters[2]);
+                self::assertSame($contentTypeDraft, $parameters[0]);
+                self::assertSame($fieldDef2, $parameters[1]);
+                self::assertSame($fieldDefData2, $parameters[2]);
             }
         });
         $this->contentTypeService

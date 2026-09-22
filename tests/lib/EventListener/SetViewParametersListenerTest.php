@@ -64,9 +64,9 @@ final class SetViewParametersListenerTest extends TestCase
         $configResolver = $this->createMock(ConfigResolverInterface::class);
         $matcher = self::any();
         $configResolver->expects($matcher)
-            ->method('getParameter')->willReturnCallback(function (...$parameters) use ($matcher): array {
+            ->method('getParameter')->willReturnCallback(static function (...$parameters) use ($matcher): array {
             if ($matcher->numberOfInvocations() === 1) {
-                $this->assertSame('admin_ui_forms.content_edit.fieldtypes', $parameters[0]);
+                self::assertSame('admin_ui_forms.content_edit.fieldtypes', $parameters[0]);
 
                 return [
                     'ibexa_taxonomy_entry_assignment' => [
@@ -75,7 +75,7 @@ final class SetViewParametersListenerTest extends TestCase
                 ];
             }
             if ($matcher->numberOfInvocations() === 2) {
-                $this->assertSame('admin_ui_forms.content_edit.meta_field_groups_list', $parameters[0]);
+                self::assertSame('admin_ui_forms.content_edit.meta_field_groups_list', $parameters[0]);
 
                 return ['metadata'];
             }

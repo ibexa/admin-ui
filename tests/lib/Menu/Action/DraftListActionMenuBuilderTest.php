@@ -53,7 +53,7 @@ final class DraftListActionMenuBuilderTest extends BaseActionMenuBuilderTestCase
         $this->mockUrlGeneratorGenerate();
         $this->mockTranslatorTranslate();
 
-        $menu = $this->actionMenuBuilder->build(['versionInfo' => $this->createVersionInfo()]);
+        $menu = $this->actionMenuBuilder->build(['versionInfo' => self::createVersionInfo()]);
 
         $this->assertActionItemSame(
             $menu,
@@ -69,7 +69,7 @@ final class DraftListActionMenuBuilderTest extends BaseActionMenuBuilderTestCase
 
     public function testAddUserUpdateItemAction(): void
     {
-        $versionInfo = $this->createVersionInfo();
+        $versionInfo = self::createVersionInfo();
         $user = self::createStub(Content::class);
 
         $this->mockUrlGeneratorGenerate();
