@@ -16,6 +16,8 @@ namespace Ibexa\Contracts\AdminUi\Headless;
  *
  * `isEnabled()` only reflects the flag: consumers must also check that the URL they need is configured
  * (for example `getPageBuilderPreviewUrl() !== null`) before switching to the headless behaviour.
+ *
+ * @internal
  */
 interface HeadlessConfigurationInterface
 {

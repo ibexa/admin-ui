@@ -22,7 +22,6 @@ imports:
     - { resource: services/views.yaml }
     - { resource: services/translation.yaml }
     - { resource: services/user_profile.yaml }
-    - { resource: services/headless.yaml }
     - { resource: services/user_settings.yaml }
     - { resource: services/rest.yaml }
     - { resource: services/permissions.yaml }

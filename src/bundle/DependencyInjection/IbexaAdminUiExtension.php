@@ -14,6 +14,7 @@ use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Yaml\Yaml;
 
@@ -51,14 +52,15 @@ final class IbexaAdminUiExtension extends Extension implements PrependExtensionI
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new YamlFileLoader(
-            $container,
-            new FileLocator(__DIR__ . '/../Resources/config')
-        );
+        $configLocator = new FileLocator(__DIR__ . '/../Resources/config');
+        $loader = new YamlFileLoader($container, $configLocator);
 
         $loader->load('default_parameters.yaml');
         $loader->load('services.yaml');
         $loader->load('role.yaml');
+
+        $phpLoader = new PhpFileLoader($container, $configLocator);
+        $phpLoader->load('services.php');
 
         $shouldLoadTestServices = $this->shouldLoadTestServices($container);
         if ($shouldLoadTestServices) {
