@@ -20,6 +20,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Ibexa\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use JMS\TranslationBundle\Annotation\Ignore;
@@ -81,7 +82,7 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
             $fieldGroup = $this->getDefaultMetaDataFieldTypeGroup() ?? $this->fieldsGroupsList->getDefaultGroup();
             try {
                 $isSingular = $this->fieldTypeService->getFieldType($metaFieldTypeIdentifier)->isSingular();
-            } catch (NotFoundException $e) {
+            } catch (NotFoundException|FieldTypeNotFoundException $e) {
                 continue;
             }
 
