@@ -141,11 +141,6 @@
         <target state="new">This content is used by other Content item(s). To avoid errors, update or remove all related content listed in the Relations tab.</target>
         <note>key: content.hide.modal.warning_content_used_by_other_content</note>
       </trans-unit>
-      <trans-unit id="fb19ae886e63bac3aa3b851ac00aae8a3b777992" resname="content.in_trash">
-        <source>In Trash</source>
-        <target state="new">In Trash</target>
-        <note>key: content.in_trash</note>
-      </trans-unit>
       <trans-unit id="02f6ddfcdd8bbd05cdd1b954503a3801288b74eb" resname="content_type.modal.message">
         <source>Do you want to delete the content type?</source>
         <target state="new">Do you want to delete the content type?</target>
