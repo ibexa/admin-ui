@@ -7,7 +7,7 @@
 declare(strict_types=1);
 
 use Ibexa\AdminUi\Headless\HeadlessConfiguration;
-use Ibexa\Contracts\AdminUi\Headless\HeadlessConfigurationInterface;
+use Ibexa\AdminUi\Headless\HeadlessConfigurationInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $container): void {

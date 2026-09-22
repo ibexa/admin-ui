@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Headless;
 
-use Ibexa\Contracts\AdminUi\Headless\HeadlessConfigurationInterface;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 final readonly class HeadlessConfiguration implements HeadlessConfigurationInterface

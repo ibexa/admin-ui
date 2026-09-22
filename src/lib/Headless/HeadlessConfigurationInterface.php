@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Contracts\AdminUi\Headless;
+namespace Ibexa\AdminUi\Headless;
 
 /**
  * Siteaccess-aware configuration of the headless mode, where the site is rendered by an external
