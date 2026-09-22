@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\AdminUi\Headless\HeadlessConfiguration: ~
+
+    Ibexa\Contracts\AdminUi\Headless\HeadlessConfigurationInterface:
+        alias: Ibexa\AdminUi\Headless\HeadlessConfiguration
