@@ -36,6 +36,11 @@
         <target state="new">Content item '%name%' hidden.</target>
         <note>key: content.hide.success</note>
       </trans-unit>
+      <trans-unit id="fb19ae886e63bac3aa3b851ac00aae8a3b777992" resname="content.in_trash">
+        <source>In Trash</source>
+        <target state="new">In Trash</target>
+        <note>key: content.in_trash</note>
+      </trans-unit>
       <trans-unit id="d773dd487e4e5467fd20fc4fc4987eba33eaf1b7" resname="content.main_language_update.success">
         <source>Main language for '%name%' updated.</source>
         <target state="new">Main language for '%name%' updated.</target>
