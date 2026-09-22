@@ -36,7 +36,8 @@ class IbexaDropdown extends Component
     public function selectOption(string $value)
     {
         $dropdownOptionLocator = $this->getLocator('ibexaDropdownExtended');
-        $listElement = $this->getHTMLPage()
+        $listElement = $this->getHTMLPage()->setTimeout(5)
+            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $dropdownOptionLocator))
             ->findAll($dropdownOptionLocator)
             ->getByCriterion(new ElementTextCriterion($value));
         usleep(2000000);
