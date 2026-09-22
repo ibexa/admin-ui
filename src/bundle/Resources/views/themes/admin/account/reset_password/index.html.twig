@@ -26,18 +26,12 @@
         {% set requirements = content_type is defined ? ibexa_password_requirements(content_type) : [] %}
         {% set requirement_identifiers = requirements|map((requirement) => requirement.identifier) %}
 
-        {% set password_errors = [] %}
-        {% for error in new_password_form.vars.errors %}
-            {% set password_errors = password_errors|merge([error]) %}
-        {% endfor %}
-        {% for error in new_password_form.first.vars.errors %}
-            {% set password_errors = password_errors|merge([error]) %}
-        {% endfor %}
-
-        {% set policy_errors = password_errors|filter((error) => error.cause.code|default(null) in requirement_identifiers) %}
-        {% set other_errors = password_errors|filter((error) => error.cause.code|default(null) not in requirement_identifiers) %}
+        {% set new_password_errors = new_password_form.first.vars.errors %}
+        {% set confirm_password_errors = new_password_form.second.vars.errors %}
+        {% set policy_errors = new_password_errors|filter((error) => error.cause.code|default(null) in requirement_identifiers) %}
         {% set failed_requirement_identifiers = policy_errors|map((error) => error.cause.code) %}
-        {% set can_mark_requirements = form_reset_user_password.vars.submitted and other_errors is empty %}
+        {% set can_mark_requirements = form_reset_user_password.vars.submitted
+            and new_password_errors|length == policy_errors|length %}
 
         {% if requirements is not empty %}
             <div class="ibexa-password-requirements">
@@ -65,24 +59,30 @@
 
         {{ form_start(form_reset_user_password, {'attr': {'class': 'ibexa-form-validate'} }) }}
         <fieldset>
-            <div class="form-group{% if policy_errors is not empty %} has-error{% endif %}">
-                {{ form_label(new_password_form.first) }}
-                {{ form_widget(new_password_form.first, policy_errors is not empty
+            <div class="form-group{% if new_password_errors is not empty %} has-error{% endif %}">
+                {{ form_label(new_password_form.first, null, new_password_errors is not empty
+                    ? { label_attr: { class: 'ids-label--error' } }
+                    : {}
+                ) }}
+                {{ form_widget(new_password_form.first, new_password_errors is not empty
                     ? { attr: { class: 'is-invalid', error: true } }
                     : {}
                 ) }}
-                {% if policy_errors is not empty %}
-                    {{ reset_password_macros.password_field_errors(policy_errors) }}
+                {% if new_password_errors is not empty %}
+                    {{ reset_password_macros.password_field_errors(new_password_errors) }}
                 {% endif %}
             </div>
-            <div class="form-group{% if other_errors is not empty %} has-error{% endif %}">
-                {{ form_label(new_password_form.second) }}
-                {{ form_widget(new_password_form.second, other_errors is not empty
+            <div class="form-group{% if confirm_password_errors is not empty %} has-error{% endif %}">
+                {{ form_label(new_password_form.second, null, confirm_password_errors is not empty
+                    ? { label_attr: { class: 'ids-label--error' } }
+                    : {}
+                ) }}
+                {{ form_widget(new_password_form.second, confirm_password_errors is not empty
                     ? { attr: { class: 'is-invalid', error: true } }
                     : {}
                 ) }}
-                {% if other_errors is not empty %}
-                    {{ reset_password_macros.password_field_errors(other_errors) }}
+                {% if confirm_password_errors is not empty %}
+                    {{ reset_password_macros.password_field_errors(confirm_password_errors) }}
                 {% endif %}
             </div>
         </fieldset>
