@@ -71,9 +71,9 @@
     }
 
     &__name {
-        white-space: nowrap;
+        display: flex;
+        align-items: center;
         overflow: hidden;
-        text-overflow: ellipsis;
         font-size: $ibexa-text-font-size-medium;
         line-height: calculateRem(21px);
         color: $ibexa-color-dark;
@@ -82,6 +82,12 @@
         .ibexa-icon {
             margin-right: calculateRem(8px);
         }
+    }
+
+    &__name-content {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &__icon-wrapper {
