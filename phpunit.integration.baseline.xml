@@ -18,9 +18,6 @@
    <issue><![CDATA[Since ibexa/core 5.0: Since ibexa/core 5.0: The "Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider" service is deprecated and will be removed in 6.0. Use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface instead]]></issue>
    <issue><![CDATA[Since ibexa/core 5.0: Since ibexa/core 5.0: The "Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider" service is deprecated and will be removed in 6.0. Use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface instead]]></issue>
    <issue><![CDATA[Since ibexa/core 5.0: Since ibexa/core 5.0: The "Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider" service is deprecated and will be removed in 6.0. Use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface instead]]></issue>
-   <issue><![CDATA[Since twig/twig 3.28: Using the "use" tag outside the root of a template is deprecated in /home/runner/work/admin-ui/admin-ui/src/bundle/DependencyInjection/../../../src/bundle/Resources/views/themes/admin/ui/form_fields.html.twig at line 551.]]></issue>
-   <issue><![CDATA[Since ibexa/admin-ui 4.6.19: Twig Function "ibexa_render_component_group" is deprecated; use "ibexa_twig_component_group" instead in /home/runner/work/admin-ui/admin-ui/src/bundle/DependencyInjection/../../../src/bundle/Resources/views/themes/admin/ui/edit_header.html.twig at line 31.]]></issue>
-   <issue><![CDATA[Since twig/twig 3.28: Using the "macro" tag outside the root of a template is deprecated in /home/runner/work/admin-ui/admin-ui/src/bundle/DependencyInjection/../../../src/bundle/Resources/views/themes/admin/content/tab/url/modal_add_custom_url.html.twig at line 16.]]></issue>
   </line>
  </file>
  <file path="vendor/ibexa/core/src/bundle/Core/DependencyInjection/Compiler/SlugConverterConfigurationPass.php">
