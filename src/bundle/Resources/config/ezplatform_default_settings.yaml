@@ -92,3 +92,9 @@ parameters:
     ibexa.site_access.config.default.user_profile.enabled: false
     ibexa.site_access.config.default.user_profile.content_types: []
     ibexa.site_access.config.default.user_profile.field_groups: []
+
+    # Headless mode (external front-end application)
+    ibexa.site_access.config.default.headless.enabled: false
+    ibexa.site_access.config.default.headless.page_builder.preview_url: ~
+    ibexa.site_access.config.default.headless.content.preview_url: ~
+    ibexa.site_access.config.default.headless.configuration_url: ~
