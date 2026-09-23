@@ -3,30 +3,7 @@
     height: 100%;
     position: relative;
 
-    &--single-select {
-        .c-list-item--is-selected {
-            & > .c-list-item__row {
-                color: $ibexa-color-primary;
-
-                .c-list-item__label {
-                    color: $ibexa-color-primary;
-                }
-
-                .ibexa-icon {
-                    fill: $ibexa-color-primary;
-                }
-            }
-        }
-    }
-
-    .m-tree {
-        border-radius: $ibexa-border-radius;
-        background: $ibexa-color-white;
-    }
-
-    .c-list-item__prefix-actions-item {
-        .c-udw-toggle-selection {
-            margin-right: calculateRem(8px);
-        }
+    .c-tb-element {
+        --ibexa-tb-bg-color: #{$ibexa-color-white};
     }
 }

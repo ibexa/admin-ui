@@ -1,12 +1,10 @@
-import React, { useContext, useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
 
 import { getId as getUserId } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/user.helper';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { findMarkedLocation } from '../../helpers/locations.helper';
 
-import ContentTreeModule from '../../../content-tree/content.tree.module';
-import { loadAccordionData } from '../../services/universal.discovery.service';
+import { findLocationsById, loadAccordionData } from '../../services/universal.discovery.service';
 import {
     AllowedContentTypesContext,
     ContainersOnlyContext,
@@ -17,17 +15,23 @@ import {
     RestInfoContext,
     RootLocationIdContext,
     SelectedLocationsContext,
+    SelectionConfigContext,
     SortOrderContext,
     SortingContext,
 } from '../../universal.discovery.module';
 import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
-const TreeView = ({ itemsPerPage }) => {
+const { ibexa, document } = window;
+
+const CONTENT_TREE_MODULE_ID = 'ibexa-udw-content-tree';
+
+const TreeView = () => {
     const adminUiConfig = getAdminUiConfig();
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [multiple] = useContext(MultipleConfigContext);
-    const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
+    const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const { isInitLocationsDeselectionBlocked, initSelectedLocationsIds } = useContext(SelectionConfigContext);
     const [sortOrder] = useContext(SortOrderContext);
     const [sorting] = useContext(SortingContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
@@ -36,13 +40,15 @@ const TreeView = ({ itemsPerPage }) => {
     const restInfo = useContext(RestInfoContext);
     const rootLocationId = useContext(RootLocationIdContext);
     const locationData = useMemo(() => findMarkedLocation(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
+    const selectedLocationsIds = useMemo(() => selectedLocations.map(({ location }) => location.id), [selectedLocations]);
+    const selectedLocationsIdsRef = useRef(selectedLocationsIds);
     const userId = getUserId();
     const expandItem = (item, event) => {
         event.preventDefault();
-        event.currentTarget.closest('.c-list-item__row').querySelector('.c-list-item__toggler').click();
+        event.currentTarget.closest('.c-tb-list-item-single__element').querySelector('.c-tb-toggler').click();
     };
     const markLocation = (item) => {
-        const { locationId } = item;
+        const { locationId } = item.internalItem;
 
         if (locationId === markedLocationId) {
             return;
@@ -76,24 +82,18 @@ const TreeView = ({ itemsPerPage }) => {
             },
         );
     };
-    const readSubtreeRecursive = (tree) => {
-        if (tree.length === 0) {
-            return [];
-        }
-
-        const location = tree.shift();
-
-        return [
-            {
-                children: readSubtreeRecursive(tree),
-                limit: itemsPerPage,
-                locationId: location.parentLocationId,
-                offset: 0,
-                '_media-type': 'application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode',
-            },
-        ];
+    const handleItemClick = (item, event) => {
+        markLocation(item);
+        expandItem(item, event);
     };
-    const readSubtree = () => readSubtreeRecursive([...loadedLocationsMap]);
+    const checkIsInputDisabled = (item, { isSelected }) => {
+        const { locationId, isContainer, contentTypeIdentifier } = item.internalItem;
+        const isNotSelectable =
+            (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeIdentifier));
+        const isDeselectionBlocked = isSelected && initSelectedLocationsIds.includes(locationId) && isInitLocationsDeselectionBlocked;
+
+        return isNotSelectable || isDeselectionBlocked;
+    };
     const currentLocationPath = locationData && locationData.location ? locationData.location.pathString : '/1/';
     const locationsLoaded = loadedLocationsMap.length > 1 || (loadedLocationsMap.length === 1 && loadedLocationsMap[0].subitems.length > 0);
     const contentTreeVisible = (markedLocationId !== null && locationsLoaded) || markedLocationId === null;
@@ -102,37 +102,67 @@ const TreeView = ({ itemsPerPage }) => {
         'c-tree--single-select': !multiple,
     });
 
+    selectedLocationsIdsRef.current = selectedLocationsIds;
+
+    useEffect(() => {
+        const updateSelectedLocations = ({ detail }) => {
+            if (detail.id !== CONTENT_TREE_MODULE_ID) {
+                return;
+            }
+
+            const treeSelectedIds = detail.items.map(({ id }) => id);
+            const removedIds = selectedLocationsIdsRef.current.filter((id) => !treeSelectedIds.includes(id));
+            const addedIds = treeSelectedIds.filter((id) => !selectedLocationsIdsRef.current.includes(id));
+
+            removedIds.forEach((id) => dispatchSelectedLocationsAction({ type: 'REMOVE_SELECTED_LOCATION', id }));
+
+            if (addedIds.length) {
+                findLocationsById({ ...restInfo, id: addedIds.join(',') }, (locations) => {
+                    const notSelectedLocations = locations.filter(({ id }) => !selectedLocationsIdsRef.current.includes(id));
+
+                    dispatchSelectedLocationsAction({ type: 'ADD_SELECTED_LOCATIONS', locations: notSelectedLocations });
+                });
+            }
+        };
+
+        document.body.addEventListener('ibexa-tb-update-selected', updateSelectedLocations, false);
+
+        return () => {
+            document.body.removeEventListener('ibexa-tb-update-selected', updateSelectedLocations, false);
+        };
+    }, [restInfo, dispatchSelectedLocationsAction]);
+
     return (
         <div className={className}>
             {contentTreeVisible && (
-                <ContentTreeModule
+                <ibexa.modules.ContentTree
+                    moduleId={CONTENT_TREE_MODULE_ID}
                     userId={userId}
                     currentLocationPath={currentLocationPath}
                     rootLocationId={rootLocationId}
-                    subitemsLimit={adminUiConfig.contentTree.childrenLoadMaxLimi}
+                    subitemsLimit={adminUiConfig.contentTree.childrenLoadMaxLimit}
                     subitemsLoadLimit={adminUiConfig.contentTree.loadMoreLimit}
                     treeMaxDepth={adminUiConfig.contentTree.treeMaxDepth}
                     restInfo={restInfo}
-                    onClickItem={expandItem}
-                    readSubtree={readSubtree}
-                    afterItemToggle={markLocation}
+                    onClickItem={handleItemClick}
                     sort={{
                         sortClause: sorting,
                         sortOrder,
                     }}
-                    resizable={false}
+                    isResizable={false}
+                    headerVisible={false}
+                    actionsVisible={false}
+                    linksDisabled={true}
+                    isLocalStorageActive={false}
+                    useTheme={false}
+                    selectionDisabled={!multiple}
+                    selectedLimit={multiple && multipleItemsLimit ? multipleItemsLimit : null}
+                    checkIsInputDisabled={checkIsInputDisabled}
+                    initiallySelectedItemsIds={selectedLocationsIds}
                 />
             )}
         </div>
     );
-};
-
-TreeView.propTypes = {
-    itemsPerPage: PropTypes.number,
-};
-
-TreeView.defaultProps = {
-    itemsPerPage: 50,
 };
 
 export default TreeView;
