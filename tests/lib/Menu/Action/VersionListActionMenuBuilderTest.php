@@ -157,7 +157,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTestCa
 
     public function testAddUserUpdateItemAction(): void
     {
-        $versionInfo = $this->createVersionInfo();
+        $versionInfo = self::createVersionInfo();
         $user = self::createStub(Content::class);
 
         $this->mockUrlGeneratorGenerate();

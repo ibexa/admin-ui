@@ -101,7 +101,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 
         $generator = $this->resolver->resolve(
             $request,
-            $this->createArgumentMetadata(
+            self::createArgumentMetadata(
                 'filter',
                 Criterion::class
             )

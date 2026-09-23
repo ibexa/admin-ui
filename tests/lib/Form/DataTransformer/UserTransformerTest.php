@@ -30,7 +30,7 @@ class UserTransformerTest extends TestCase
             ->expects(self::any())
             ->method('loadUser')
             ->with(123456)
-            ->willReturn($this->generateUser(123456));
+            ->willReturn(self::generateUser(123456));
 
         $this->userTransformer = new UserTransformer($userService);
     }

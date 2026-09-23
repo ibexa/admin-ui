@@ -143,16 +143,16 @@ final class SubtreeOperationsTest extends TestCase
 
         $this->contextualizer
             ->expects($matcher)
-            ->method('setContextualParameter')->willReturnCallback(function (...$parameters) use ($matcher, $currentScope): void {
+            ->method('setContextualParameter')->willReturnCallback(static function (...$parameters) use ($matcher, $currentScope): void {
             if ($matcher->numberOfInvocations() === 1) {
-                $this->assertSame('subtree_operations.copy_subtree.limit', $parameters[0]);
-                $this->assertSame($currentScope, $parameters[1]);
-                $this->assertSame(200, $parameters[2]);
+                self::assertSame('subtree_operations.copy_subtree.limit', $parameters[0]);
+                self::assertSame($currentScope, $parameters[1]);
+                self::assertSame(200, $parameters[2]);
             }
             if ($matcher->numberOfInvocations() === 2) {
-                $this->assertSame('subtree_operations.query_subtree.limit', $parameters[0]);
-                $this->assertSame($currentScope, $parameters[1]);
-                $this->assertSame(500, $parameters[2]);
+                self::assertSame('subtree_operations.query_subtree.limit', $parameters[0]);
+                self::assertSame($currentScope, $parameters[1]);
+                self::assertSame(500, $parameters[2]);
             }
         });
 

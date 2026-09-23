@@ -67,8 +67,8 @@ final class UDWBasedValueViewTransformerTest extends TestCase
     {
         $this->locationService
             ->method('loadLocation')
-            ->willReturnCallback(function ($id): Location {
-                return $this->createLocation($id);
+            ->willReturnCallback(static function ($id): Location {
+                return self::createLocation($id);
             });
 
         self::assertEquals($expected, $this->transformer->reverseTransform($given));

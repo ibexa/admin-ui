@@ -38,11 +38,11 @@ class URLSearchAdapterTest extends TestCase
         $this->urlService
             ->expects(self::once())
             ->method('findUrls')
-            ->willReturnCallback(function (URLQuery $q) use ($query, $searchResults): SearchResult {
-                $this->assertEquals($query->filter, $q->filter);
-                $this->assertEquals($query->sortClauses, $q->sortClauses);
-                $this->assertEquals(0, $q->offset);
-                $this->assertEquals(0, $q->limit);
+            ->willReturnCallback(static function (URLQuery $q) use ($query, $searchResults): SearchResult {
+                self::assertEquals($query->filter, $q->filter);
+                self::assertEquals($query->sortClauses, $q->sortClauses);
+                self::assertEquals(0, $q->offset);
+                self::assertEquals(0, $q->limit);
 
                 return $searchResults;
             });
@@ -70,11 +70,11 @@ class URLSearchAdapterTest extends TestCase
         $this->urlService
             ->expects(self::once())
             ->method('findUrls')
-            ->willReturnCallback(function (URLQuery $q) use ($query, $limit, $offset, $searchResults): SearchResult {
-                $this->assertEquals($query->filter, $q->filter);
-                $this->assertEquals($query->sortClauses, $q->sortClauses);
-                $this->assertEquals($limit, $q->limit);
-                $this->assertEquals($offset, $q->offset);
+            ->willReturnCallback(static function (URLQuery $q) use ($query, $limit, $offset, $searchResults): SearchResult {
+                self::assertEquals($query->filter, $q->filter);
+                self::assertEquals($query->sortClauses, $q->sortClauses);
+                self::assertEquals($limit, $q->limit);
+                self::assertEquals($offset, $q->offset);
 
                 return $searchResults;
             });
