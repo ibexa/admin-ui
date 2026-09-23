@@ -1,5 +1,13 @@
 <?xml version="1.0"?>
 <files version="1">
+ <file path="vendor/league/flysystem/src/Local/LocalFilesystemAdapter.php">
+  <line number="84" hash="ceb043f6ab1e59b0d2e3038886d66ec328517fc4">
+   <issue><![CDATA[League\Flysystem\Local\LocalFilesystemAdapter::__construct(): Implicitly marking parameter $visibility as nullable is deprecated, the explicit nullable type must be used instead]]></issue>
+  </line>
+  <line number="87" hash="165df3579a764873c0a79588b58033eeea0f5bc2">
+   <issue><![CDATA[League\Flysystem\Local\LocalFilesystemAdapter::__construct(): Implicitly marking parameter $mimeTypeDetector as nullable is deprecated, the explicit nullable type must be used instead]]></issue>
+  </line>
+ </file>
  <file path="src/lib/Form/DataTransformer/ContentInfoTransformer.php">
   <line number="48" hash="7354630459ee58656d1457552a873ddec12475a8">
    <issue><![CDATA[ctype_digit(): Argument of type bool will be interpreted as string in the future]]></issue>
