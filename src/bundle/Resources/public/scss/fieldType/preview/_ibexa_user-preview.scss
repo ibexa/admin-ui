@@ -1,8 +1,6 @@
-@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
-
 .ibexa-field-preview--ibexa_user {
     .ibexa-user__type {
         font-weight: bold;
-        padding-right: calculateRem(28px);
+        padding-right: 2rem;
     }
 }

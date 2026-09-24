@@ -1,7 +1,5 @@
 (function (global, doc) {
-    const ACTION_BTN_VERTICAL_SPACING = 60.2;
-    const ACTION_BTN_RIGHT_OFFSET = 28;
-    const DEFAULT_EXTRA_BOTTOM_PADDING = 28;
+    const ACTION_BTN_VERTICAL_SPACING = 4.3;
     const isIframe = global.self !== global.top;
     let actionButtonConfigs = [];
 
@@ -40,7 +38,7 @@
             return false;
         });
 
-        const maxExtraPadding = Math.max(...buttonsToRender.map((config) => config.extraBottomPadding || DEFAULT_EXTRA_BOTTOM_PADDING));
+        const maxExtraPadding = Math.max(...buttonsToRender.map((config) => config.extraBottomPadding || 2));
 
         buttonsToRender.forEach((buttonConfig, index) => {
             const { container } = buttonConfig;
@@ -50,10 +48,10 @@
             }
 
             container.style.position = 'fixed';
-            container.style.right = `${ACTION_BTN_RIGHT_OFFSET}px`;
+            container.style.right = '2rem';
             container.style.zIndex = buttonConfig.zIndex || 1040;
 
-            const bottomPosition = `${index * ACTION_BTN_VERTICAL_SPACING + maxExtraPadding}px`;
+            const bottomPosition = `${index * ACTION_BTN_VERTICAL_SPACING + maxExtraPadding}rem`;
 
             container.style.bottom = bottomPosition;
         });

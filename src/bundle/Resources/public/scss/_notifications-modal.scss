@@ -62,7 +62,7 @@
         }
 
         .type__text {
-            margin-left: calculateRem(14px);
+            margin-left: 1rem;
         }
     }
 
@@ -179,8 +179,8 @@
     }
 
     &__spinner {
-        width: calculateRem(28px);
-        height: calculateRem(28px);
+        width: 2rem;
+        height: 2rem;
         position: absolute;
         bottom: 50%;
         left: 50%;
@@ -188,8 +188,8 @@
         display: none;
 
         .ibexa-icon {
-            width: calculateRem(28px);
-            height: calculateRem(28px);
+            width: 2rem;
+            height: 2rem;
         }
     }
 
