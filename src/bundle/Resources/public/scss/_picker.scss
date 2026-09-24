@@ -1,4 +1,5 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 
 .ibexa-picker {
     position: relative;
@@ -11,13 +12,13 @@
         position: absolute;
         z-index: 2;
         top: 50%;
-        right: 0.25rem;
+        right: calculateRem(3.5px);
         transform: translate(0, -50%);
         background: none;
         border: 0;
-        width: 1.5rem;
-        height: 1.5rem;
-        line-height: 0.5rem;
+        width: calculateRem(21px);
+        height: calculateRem(21px);
+        line-height: calculateRem(7px);
         text-align: center;
         padding: 0;
         margin: 0;
