@@ -19,7 +19,7 @@
         <pathString>/1/2/</pathString>
         <contentId>57</contentId>
         <versionNo>1</versionNo>
-        <mainLanguageCode>eng-GB</mainLanguageCode>
+        <mainLanguageCode>eng-US</mainLanguageCode>
         <name>Home</name>
         <contentTypeIdentifier>landing_page</contentTypeIdentifier>
         <isContainer>true</isContainer>
@@ -35,7 +35,7 @@
         <pathString>/1/43/</pathString>
         <contentId>41</contentId>
         <versionNo>1</versionNo>
-        <mainLanguageCode>eng-US</mainLanguageCode>
+        <mainLanguageCode>eng-GB</mainLanguageCode>
         <name>Media</name>
         <contentTypeIdentifier>folder</contentTypeIdentifier>
         <isContainer>true</isContainer>
@@ -51,14 +51,14 @@
         <pathString>/1/48/</pathString>
         <contentId>45</contentId>
         <versionNo>1</versionNo>
-        <mainLanguageCode>eng-US</mainLanguageCode>
+        <mainLanguageCode>eng-GB</mainLanguageCode>
         <name>Setup</name>
         <contentTypeIdentifier>folder</contentTypeIdentifier>
         <isContainer>true</isContainer>
         <isInvisible>false</isInvisible>
         <isHidden>false</isHidden>
         <displayLimit>30</displayLimit>
-        <totalChildrenCount>0</totalChildrenCount>
+        <totalChildrenCount>1</totalChildrenCount>
         <reverseRelationsCount>0</reverseRelationsCount>
         <isBookmarked>false</isBookmarked>
     </ContentTreeNode>
@@ -67,7 +67,7 @@
         <pathString>/1/5/</pathString>
         <contentId>4</contentId>
         <versionNo>1</versionNo>
-        <mainLanguageCode>eng-US</mainLanguageCode>
+        <mainLanguageCode>eng-GB</mainLanguageCode>
         <name>Users</name>
         <contentTypeIdentifier>user_group</contentTypeIdentifier>
         <isContainer>true</isContainer>
@@ -83,14 +83,14 @@
         <pathString>/1/58/</pathString>
         <contentId>56</contentId>
         <versionNo>1</versionNo>
-        <mainLanguageCode>eng-US</mainLanguageCode>
+        <mainLanguageCode>eng-GB</mainLanguageCode>
         <name>Design</name>
         <contentTypeIdentifier>folder</contentTypeIdentifier>
         <isContainer>true</isContainer>
         <isInvisible>false</isInvisible>
         <isHidden>false</isHidden>
         <displayLimit>30</displayLimit>
-        <totalChildrenCount>0</totalChildrenCount>
+        <totalChildrenCount>1</totalChildrenCount>
         <reverseRelationsCount>0</reverseRelationsCount>
         <isBookmarked>false</isBookmarked>
     </ContentTreeNode>

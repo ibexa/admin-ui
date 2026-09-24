@@ -5,7 +5,7 @@
       {
         "_media-type": "application\/vnd.ibexa.api.ContentTreeNode+json",
         "locationId": 2,
-        "mainLanguageCode": "eng-GB",
+        "mainLanguageCode": "eng-US",
         "contentId": 57,
         "versionNo": 1,
         "name": "Home",
@@ -22,7 +22,7 @@
           {
             "_media-type": "application\/vnd.ibexa.api.ContentTreeNode+json",
             "locationId": 60,
-            "mainLanguageCode": "eng-GB",
+            "mainLanguageCode": "eng-US",
             "contentId": 58,
             "versionNo": 1,
             "name": "Contact Us",

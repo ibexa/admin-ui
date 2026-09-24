@@ -14,7 +14,7 @@
     <function name="edit">
         <hasAccess>true</hasAccess>
         <restrictedLanguageCodesList>
-            <value>eng-GB</value>
+            <value>eng-US</value>
         </restrictedLanguageCodesList>
     </function>
     <function name="delete">
@@ -24,9 +24,9 @@
         <hasAccess>false</hasAccess>
     </function>
     <previewableTranslations>
-        <value>eng-GB</value>
+        <value>eng-US</value>
     </previewableTranslations>
     <translations>
-        <value>eng-GB</value>
+        <value>eng-US</value>
     </translations>
 </ContentTreeNodeExtendedInfo>
