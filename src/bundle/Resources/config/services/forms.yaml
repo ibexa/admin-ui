@@ -282,8 +282,6 @@ services:
 
     Ibexa\AdminUi\Form\Type\RoleAssignment\RoleAssignmentType: ~
 
-    Ibexa\AdminUi\Form\Type\Search\DateIntervalType: ~
-
     Ibexa\AdminUi\Form\Type\Search\SearchType:
         arguments:
             $baseType: '@Ibexa\Bundle\Search\Form\Type\SearchType'

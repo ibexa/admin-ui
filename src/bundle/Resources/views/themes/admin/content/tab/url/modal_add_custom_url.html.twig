@@ -13,16 +13,7 @@
         {{ form_start(form, {'action': path('ibexa.custom_url.add')}) }}
     {% endblock %}
     {% block body_content %}
-        {% macro info_text(message, modifier = '') %}
-            <div class="ibexa-custom-url-from__info-text{{ modifier ? ' ibexa-custom-url-from__info-text--' ~ modifier : '' }}">
-                <svg class="ibexa-icon ibexa-icon--small">
-                    <use xlink:href="{{ ibexa_icon_path('system-information') }}"></use>
-                </svg>
-                {{ message }}
-            </div>
-        {% endmacro %}
-
-        {% import _self as component %}
+        {% import '@ibexadesign/content/tab/url/macros.html.twig' as component %}
 
         <div class="ibexa-custom-url-from">
             <div class="ibexa-custom-url-from__item">
