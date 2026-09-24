@@ -16,7 +16,7 @@ parameters:
 			path: src/bundle/Controller/ContentDraftController.php
 
 		-
-			message: "#^Parameter \\#1 \\$versions of class Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\Content\\\\Draft\\\\ContentRemoveData constructor expects array\\|null, array\\<mixed, false\\>\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$versions of class Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\Content\\\\Draft\\\\ContentRemoveData constructor expects array\\|null, array\\<false\\>\\|false given\\.$#"
 			count: 1
 			path: src/bundle/Controller/ContentDraftController.php
 
@@ -236,37 +236,37 @@ parameters:
 			path: tests/lib/Form/Data/ContentTypeDataTest.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController\:\:getContentTypesNumbers\(\) should return array but returns array\<mixed, false\>\|false\.$#'
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController\:\:getContentTypesNumbers\(\) should return array but returns array\<false\>\|false\.$#'
 			identifier: return.type
 			count: 1
 			path: src/bundle/Controller/ContentTypeController.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeGroupController\:\:getContentTypeGroupsNumbers\(\) should return array but returns array\<mixed, false\>\|false\.$#'
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeGroupController\:\:getContentTypeGroupsNumbers\(\) should return array but returns array\<false\>\|false\.$#'
 			identifier: return.type
 			count: 1
 			path: src/bundle/Controller/ContentTypeGroupController.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\LanguageController\:\:getLanguagesNumbers\(\) should return array but returns array\<mixed, false\>\|false\.$#'
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\LanguageController\:\:getLanguagesNumbers\(\) should return array but returns array\<false\>\|false\.$#'
 			identifier: return.type
 			count: 1
 			path: src/bundle/Controller/LanguageController.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ObjectStateGroupController\:\:getObjectStateGroupsIds\(\) should return array but returns array\<mixed, false\>\|false\.$#'
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ObjectStateGroupController\:\:getObjectStateGroupsIds\(\) should return array but returns array\<false\>\|false\.$#'
 			identifier: return.type
 			count: 1
 			path: src/bundle/Controller/ObjectStateGroupController.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\PolicyController\:\:getPoliciesNumbers\(\) should return array but returns array\<mixed, false\>\|false\.$#'
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\PolicyController\:\:getPoliciesNumbers\(\) should return array but returns array\<false\>\|false\.$#'
 			identifier: return.type
 			count: 1
 			path: src/bundle/Controller/PolicyController.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\SectionController\:\:getSectionsNumbers\(\) should return array but returns array\<mixed, false\>\|false\.$#'
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\SectionController\:\:getSectionsNumbers\(\) should return array but returns array\<false\>\|false\.$#'
 			identifier: return.type
 			count: 1
 			path: src/bundle/Controller/SectionController.php
