@@ -15,6 +15,28 @@ body {
     overflow: hidden;
 }
 
+ol,
+ul {
+    padding-left: calculateRem(28px);
+}
+
+ol,
+ul,
+dl,
+address,
+pre {
+    margin-bottom: calculateRem(14px);
+}
+
+dd {
+    margin-bottom: calculateRem(7px);
+}
+
+blockquote,
+figure {
+    margin: 0 0 calculateRem(14px);
+}
+
 a {
     transition: color $ibexa-admin-transition-duration $ibexa-admin-transition;
 

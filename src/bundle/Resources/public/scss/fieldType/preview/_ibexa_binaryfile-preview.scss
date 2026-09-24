@@ -1,8 +1,10 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
 .ibexa-field-preview--ibexa_binaryfile {
     display: flex;
     align-items: center;
 
     .ibexa-icon--file {
-        margin-right: 1rem;
+        margin-right: calculateRem(14px);
     }
 }
