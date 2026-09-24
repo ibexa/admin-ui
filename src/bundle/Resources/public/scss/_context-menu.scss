@@ -8,7 +8,7 @@
 .ibexa-context-menu {
     display: flex;
     justify-content: flex-end;
-    height: calculateRem(48px);
+    height: calculateRem(40px);
     width: 100%;
     padding: 0;
     margin: 0;
@@ -18,7 +18,7 @@
         overflow: hidden;
         display: flex;
         flex-wrap: wrap;
-        height: calculateRem(48px);
+        height: calculateRem(40px);
         padding: 0;
     }
 
