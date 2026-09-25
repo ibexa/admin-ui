@@ -5,7 +5,7 @@
         <identifier>name</identifier>
         <position>1</position>
         <names>
-            <value languageCode="eng-US">Name</value>
+            <value languageCode="eng-GB">Name</value>
         </names>
     </FieldDefinitionInfo>
 </FieldDefinitions>

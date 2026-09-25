@@ -46,7 +46,7 @@ final class GetContentTreeExtendedInfoTest extends BaseAdminUiRestWebTestCase
                     ],
                     'content/edit' => [
                         new LanguageLimitation(
-                            ['limitationValues' => ['eng-GB']]
+                            ['limitationValues' => ['eng-US']]
                         ),
                     ],
                 ]

@@ -23,7 +23,7 @@
                 "hasAccess": true,
                 "restrictedLanguageCodesList": {
                     "restrictedLanguageCodes": [
-                        "eng-GB"
+                        "eng-US"
                     ]
                 }
             },
@@ -37,10 +37,10 @@
             }
         ],
         "previewableTranslations": {
-            "values": ["eng-GB"]
+            "values": ["eng-US"]
         },
         "translations": {
-            "values": ["eng-GB"]
+            "values": ["eng-US"]
         }
     }
 }
