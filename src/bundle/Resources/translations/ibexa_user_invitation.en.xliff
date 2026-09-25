@@ -12,8 +12,8 @@
         <note>key: ibexa.user.invitation.mail.join</note>
       </trans-unit>
       <trans-unit id="bc254dd11e21f88f3d7b2a1a9c8ab30bb6825702" resname="ibexa.user.invitation.mail.message">
-        <source>Join us at:</source>
-        <target state="new">Join us at:</target>
+        <source>Join us at: %invite_link%</source>
+        <target state="new">Join us at: %invite_link%</target>
         <note>key: ibexa.user.invitation.mail.message</note>
       </trans-unit>
       <trans-unit id="56996e20d695f581a1344e83a8c542c7df1a04ec" resname="ibexa.user.invitation.mail.message_title">
