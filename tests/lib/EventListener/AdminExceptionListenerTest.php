@@ -28,25 +28,24 @@ use Throwable;
 use Twig\Environment;
 use Twig\Error\RuntimeError;
 
-class AdminExceptionListenerTest extends TestCase
+final class AdminExceptionListenerTest extends TestCase
 {
     private const ADMIN_SITEACCESS = 'admin_siteaccess';
     private const NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
-    /** @var \Twig\Environment|\PHPUnit\Framework\MockObject\MockObject */
-    private $twig;
+    /** @var \Twig\Environment&\PHPUnit\Framework\MockObject\MockObject */
+    private Environment $twig;
 
-    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface|\PHPUnit\Framework\MockObject\Stub */
-    private $notificationHandler;
+    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface&\PHPUnit\Framework\MockObject\Stub */
+    private NotificationHandlerInterface $notificationHandler;
 
-    /** @var \Symfony\WebpackEncoreBundle\Asset\TagRenderer|\PHPUnit\Framework\MockObject\MockObject */
-    private $encoreTagRenderer;
+    /** @var \Symfony\WebpackEncoreBundle\Asset\TagRenderer&\PHPUnit\Framework\MockObject\MockObject */
+    private TagRenderer $encoreTagRenderer;
 
-    /** @var \Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $entrypointLookupCollection;
+    /** @var \Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface&\PHPUnit\Framework\MockObject\MockObject */
+    private EntrypointLookupCollectionInterface $entrypointLookupCollection;
 
-    /** @var \Ibexa\AdminUi\EventListener\AdminExceptionListener */
-    private $listener;
+    private AdminExceptionListener $listener;
 
     protected function setUp(): void
     {
@@ -68,18 +67,18 @@ class AdminExceptionListenerTest extends TestCase
         int $requestType,
         string $siteaccessName
     ): void {
-        $this->twig->expects($this->never())->method('render');
+        $this->twig->expects(self::never())->method('render');
 
         $event = $this->createExceptionEvent(new NotFoundHttpException(), $requestType, $siteaccessName);
         $this->createListener($environment)->onKernelException($event);
 
-        $this->assertNull($event->getResponse());
+        self::assertNull($event->getResponse());
     }
 
     /**
      * @return iterable<string, array{0: string, 1: int, 2: string}>
      */
-    public function provideNoOpConditions(): iterable
+    public static function provideNoOpConditions(): iterable
     {
         yield 'non-prod environment' => ['test', HttpKernelInterface::MAIN_REQUEST, self::ADMIN_SITEACCESS];
         yield 'sub-request' => ['prod', HttpKernelInterface::SUB_REQUEST, self::ADMIN_SITEACCESS];
@@ -98,7 +97,7 @@ class AdminExceptionListenerTest extends TestCase
         array $expectedHeaders
     ): void {
         $this->twig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('render')
             ->with($expectedTemplate)
             ->willReturn('rendered_error_page_content');
@@ -107,19 +106,19 @@ class AdminExceptionListenerTest extends TestCase
         $this->listener->onKernelException($event);
 
         $response = $event->getResponse();
-        $this->assertInstanceOf(Response::class, $response);
-        $this->assertSame($expectedStatusCode, $response->getStatusCode());
-        $this->assertSame('rendered_error_page_content', $response->getContent());
+        self::assertInstanceOf(Response::class, $response);
+        self::assertSame($expectedStatusCode, $response->getStatusCode());
+        self::assertSame('rendered_error_page_content', $response->getContent());
 
         foreach ($expectedHeaders as $name => $value) {
-            $this->assertSame($value, $response->headers->get($name));
+            self::assertSame($value, $response->headers->get($name));
         }
     }
 
     /**
      * @return iterable<string, array{0: \Throwable, 1: int, 2: string, 3: array<string, string>}>
      */
-    public function provideHttpExceptionsWithDedicatedErrorPages(): iterable
+    public static function provideHttpExceptionsWithDedicatedErrorPages(): iterable
     {
         yield 'not found' => [
             new NotFoundHttpException(),
@@ -146,18 +145,18 @@ class AdminExceptionListenerTest extends TestCase
     public function testOnKernelExceptionResetsEncoreAssetsForRuntimeError(): void
     {
         $entrypointLookup = $this->createMock(EntrypointLookupInterface::class);
-        $entrypointLookup->expects($this->once())->method('reset');
+        $entrypointLookup->expects(self::once())->method('reset');
 
         $this->entrypointLookupCollection
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getEntrypointLookup')
             ->with('ibexa')
             ->willReturn($entrypointLookup);
 
-        $this->encoreTagRenderer->expects($this->once())->method('reset');
+        $this->encoreTagRenderer->expects(self::once())->method('reset');
 
         $this->twig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('render')
             ->with('@ibexadesign/ui/error_page/unknown.html.twig')
             ->willReturn('unknown_page_content');
@@ -170,8 +169,8 @@ class AdminExceptionListenerTest extends TestCase
         $this->listener->onKernelException($event);
 
         $response = $event->getResponse();
-        $this->assertInstanceOf(Response::class, $response);
-        $this->assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
+        self::assertInstanceOf(Response::class, $response);
+        self::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
     }
 
     private function createListener(string $environment = 'prod'): AdminExceptionListener
