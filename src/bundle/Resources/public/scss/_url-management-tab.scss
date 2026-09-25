@@ -1,0 +1,14 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.ibexa-url-management-tab {
+    &__section {
+        &--list {
+            margin-top: calculateRem(24px);
+        }
+    }
+
+    &__alert {
+        margin-bottom: calculateRem(24px);
+    }
+}

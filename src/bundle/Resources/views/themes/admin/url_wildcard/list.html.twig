@@ -12,7 +12,7 @@
     }
 %}
 
-<section class="container">
+<section class="ibexa-url-management-tab__section ibexa-url-management-tab__section--search">
     {{ form_start(form_list, {'attr': {'class': 'ibexa-search-links-form'}}) }}
     <div class="ibexa-search-links-form__input-wrapper">
         {{ form_widget(form_list.searchQuery, {
@@ -30,12 +30,12 @@
     {{ form_end(form_list) }}
 </section>
 
-<section class="mt-4">
+<section class="ibexa-url-management-tab__section ibexa-url-management-tab__section--list">
     {% if not url_wildcards_enabled %}
         {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
             type: 'warning',
             title: 'url_wildcard.disabled'|trans|desc('URL wildcards are disabled. Contact your Administrator.'),
-            class: 'mb-4',
+            class: 'ibexa-url-management-tab__alert',
         } only %}
     {% endif %}
 
