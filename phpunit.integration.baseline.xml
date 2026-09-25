@@ -2,18 +2,6 @@
 <files version="1">
  <file path="vendor/symfony/deprecation-contracts/function.php">
   <line number="25" hash="c6af5d66288d0667e424978000f29571e4954b81">
-   <issue><![CDATA[Since symfony/config 7.4: Setting a default value to a required node is deprecated. Remove the default value from the node "min_query_length" or make it optional.]]></issue>
-   <issue><![CDATA[Since symfony/config 7.4: Setting a default value to a required node is deprecated. Remove the default value from the node "result_limit" or make it optional.]]></issue>
-   <issue><![CDATA[Since symfony/framework-bundle 7.3: Not setting the "property_info.with_constructor_extractor" option explicitly is deprecated because its default value will change in version 8.0.]]></issue>
-   <issue><![CDATA[Since symfony/dependency-injection 7.4: XML configuration format is deprecated, use YAML or PHP instead.]]></issue>
-   <issue><![CDATA[Since symfony/twig-component-bundle 2.13: Not setting the "twig_component.anonymous_template_directory" config option is deprecated. It will default to "components" in 3.0.]]></issue>
-   <issue><![CDATA[Since symfony/ux-twig-component 2.13: Not setting the "twig_component.defaults" config option is deprecated. Check the documentation for an example configuration.]]></issue>
-   <issue><![CDATA[Since symfony/dependency-injection 7.4: Service id "Ibexa\Rest\Server\Common\Parser" looks like a FQCN but no corresponding class or interface exists. To resolve this ambiguity, please rename this service to a non-FQCN (e.g. using dots), or create the missing class or interface.]]></issue>
-   <issue><![CDATA[Since symfony/config 7.4: Setting a default value to a required node is deprecated. Remove the default value from the node "min_query_length" or make it optional.]]></issue>
-   <issue><![CDATA[Since symfony/config 7.4: Setting a default value to a required node is deprecated. Remove the default value from the node "result_limit" or make it optional.]]></issue>
-   <issue><![CDATA[Since symfony/framework-bundle 7.3: Not setting the "property_info.with_constructor_extractor" option explicitly is deprecated because its default value will change in version 8.0.]]></issue>
-   <issue><![CDATA[Since symfony/config 7.4: Setting a default value to a required node is deprecated. Remove the default value from the node "min_query_length" or make it optional.]]></issue>
-   <issue><![CDATA[Since symfony/config 7.4: Setting a default value to a required node is deprecated. Remove the default value from the node "result_limit" or make it optional.]]></issue>
    <issue><![CDATA[Since ibexa/core 5.0: Since ibexa/core 5.0: The "Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider" service is deprecated and will be removed in 6.0. Use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface instead]]></issue>
    <issue><![CDATA[Since ibexa/core 5.0: Since ibexa/core 5.0: The "Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider" service is deprecated and will be removed in 6.0. Use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface instead]]></issue>
    <issue><![CDATA[Since ibexa/core 5.0: Since ibexa/core 5.0: The "Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider" service is deprecated and will be removed in 6.0. Use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface instead]]></issue>
