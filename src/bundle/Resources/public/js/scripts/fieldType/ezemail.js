@@ -4,6 +4,9 @@
     const SELECTOR_LABEL = '.ibexa-field-edit__label';
 
     class EzEmailValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'EzEmailValidator';
+        }
         /**
          * Validates the input
          *
