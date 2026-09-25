@@ -6,7 +6,7 @@
                 "contentId": 57,
                 "translatedNames": [
                     {
-                        "languageCode": "eng-GB",
+                        "languageCode": "eng-US",
                         "name": "Home"
                     }
                 ]
@@ -15,7 +15,7 @@
                 "contentId": 41,
                 "translatedNames": [
                     {
-                        "languageCode": "eng-US",
+                        "languageCode": "eng-GB",
                         "name": "Media"
                     }
                 ]

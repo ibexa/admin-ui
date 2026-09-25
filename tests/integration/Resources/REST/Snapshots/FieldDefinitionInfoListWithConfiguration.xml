@@ -5,7 +5,7 @@
         <identifier>publish_date</identifier>
         <position>8</position>
         <names>
-            <value languageCode="eng-GB">Publish date</value>
+            <value languageCode="eng-US">Publish date</value>
         </names>
     </FieldDefinitionInfo>
 </FieldDefinitions>
