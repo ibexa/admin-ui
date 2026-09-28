@@ -248,7 +248,7 @@ final class RequestLocaleListenerTest extends TestCase
     }
 
     /**
-     * @return MockObject|TranslatorInterface
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Symfony\Contracts\Translation\TranslatorInterface
      *
      * @throws \ReflectionException
      */
