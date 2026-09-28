@@ -17,7 +17,8 @@ final readonly class SiteAccessInfo
     public function __construct(
         private string $name,
         private ?string $domain = null
-    ) {}
+    ) {
+    }
 
     public function getName(): string
     {
