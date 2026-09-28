@@ -11,15 +11,12 @@ namespace Ibexa\Tests\AdminUi\REST\Security;
 use Ibexa\AdminUi\REST\Security\NonAdminRESTRequestMatcher;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
 class NonAdminRESTRequestMatcherTest extends TestCase
 {
     public function testMatchRESTRequestInAdminContext(): void
     {
-        $siteAccessMock = self::createStub(SiteAccess::class);
-        $siteAccessMock->name = 'admin';
         $adminRESTRequestMatcher = new NonAdminRESTRequestMatcher(
             [
                 'admin_group' => [
@@ -28,21 +25,10 @@ class NonAdminRESTRequestMatcherTest extends TestCase
             ]
         );
 
-        $request = self::createStub(Request::class);
-        $request->attributes = $this->createMock(ParameterBag::class);
-
-        $request->attributes
-            ->expects(self::exactly(2))
-            ->method('get')
-            ->willReturnCallback(static function (string $attribute) use ($siteAccessMock): mixed {
-                self::assertContains($attribute, ['is_rest_request', 'siteaccess']);
-
-                if ($attribute === 'is_rest_request') {
-                    return true;
-                }
-
-                return $siteAccessMock;
-            });
+        $request = new Request(attributes: [
+            'is_rest_request' => true,
+            'siteaccess' => new SiteAccess('admin'),
+        ]);
 
         self::assertFalse($adminRESTRequestMatcher->matches($request));
     }
@@ -51,24 +37,15 @@ class NonAdminRESTRequestMatcherTest extends TestCase
     {
         $adminRESTRequestMatcher = new NonAdminRESTRequestMatcher([]);
 
-        $request = self::createStub(Request::class);
-        $request->attributes = $this->createMock(ParameterBag::class);
-
-        $request->attributes
-            ->expects(self::once())
-            ->method('get')
-            ->with('is_rest_request')
-            ->willReturn(false);
+        $request = new Request(attributes: [
+            'is_rest_request' => false,
+        ]);
 
         self::assertFalse($adminRESTRequestMatcher->matches($request));
     }
 
     public function testMatchRESTRequestNotInAdminContext(): void
     {
-        $siteAccessMock = self::createStub(SiteAccess::class);
-        $siteAccessMock->name = 'admin';
-        $nonAdminSiteAccessMock = self::createStub(SiteAccess::class);
-        $nonAdminSiteAccessMock->name = 'ibexa';
         $adminRESTRequestMatcher = new NonAdminRESTRequestMatcher(
             [
                 'admin_group' => [
@@ -80,21 +57,10 @@ class NonAdminRESTRequestMatcherTest extends TestCase
             ]
         );
 
-        $request = self::createStub(Request::class);
-        $request->attributes = $this->createMock(ParameterBag::class);
-
-        $request->attributes
-            ->expects(self::exactly(2))
-            ->method('get')
-            ->willReturnCallback(static function (string $attribute) use ($nonAdminSiteAccessMock): mixed {
-                self::assertContains($attribute, ['is_rest_request', 'siteaccess']);
-
-                if ($attribute === 'is_rest_request') {
-                    return true;
-                }
-
-                return $nonAdminSiteAccessMock;
-            });
+        $request = new Request(attributes: [
+            'is_rest_request' => true,
+            'siteaccess' => new SiteAccess('ibexa'),
+        ]);
 
         self::assertTrue($adminRESTRequestMatcher->matches($request));
     }
