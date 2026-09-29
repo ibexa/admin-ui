@@ -13,8 +13,8 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
 /**
  * Resolves how a SiteAccess is presented to back office users.
  *
- * The default implementation knows only the SiteAccess name. Packages that provide SiteAccesses
- * (e.g. Site Factory) decorate it to contribute richer information.
+ * Packages that provide SiteAccesses (e.g. Site Factory) contribute richer information through
+ * tagged {@see \Ibexa\Contracts\AdminUi\Siteaccess\SiteAccessInfoProviderInterface} services.
  */
 interface SiteAccessInfoResolverInterface
 {
