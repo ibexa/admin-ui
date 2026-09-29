@@ -31,7 +31,7 @@ final class InContextTranslationListenerTest extends TestCase
 
     private const NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
-    private const ACHOLI_LOCALE = 'ach-UG';
+    private const string ACHOLI_LOCALE = 'ach-UG';
 
     private Request $request;
 
