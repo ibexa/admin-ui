@@ -17,7 +17,6 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -31,15 +30,15 @@ final class RequestLocaleListenerTest extends TestCase
 
     private const string NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
-    private Request&MockObject $request;
+    private Request $request;
 
-    private HttpKernelInterface&Stub $httpKernel;
+    private HttpKernelInterface & Stub $httpKernel;
 
-    private TranslatorInterface&MockObject $translator;
+    private TranslatorInterface & MockObject $translator;
 
-    private UserLanguagePreferenceProviderInterface&MockObject $userLanguagePreferenceProvider;
+    private UserLanguagePreferenceProviderInterface & MockObject $userLanguagePreferenceProvider;
 
-    private ConfigResolverInterface&MockObject $configResolver;
+    private ConfigResolverInterface & MockObject $configResolver;
 
     protected function setUp(): void
     {
@@ -47,12 +46,7 @@ final class RequestLocaleListenerTest extends TestCase
 
         $this->translator = $this->createMock(Translator::class);
 
-        $this->request = $this
-            ->getMockBuilder(Request::class)
-            ->getMock();
-        $this->request->attributes = new ParameterBag();
-
-        $this->request->attributes->set('siteaccess', new SiteAccess(self::ADMIN_SITEACCESS));
+        $this->request = $this->createRequest(self::ADMIN_SITEACCESS);
 
         $this->httpKernel = self::createStub(HttpKernelInterface::class);
 
@@ -70,9 +64,7 @@ final class RequestLocaleListenerTest extends TestCase
     {
         $translator = $this->translatorWithSetLocaleExpectsNever();
 
-        $request = $this->requestWithSetLocaleExpectsNever();
-
-        $request->attributes->set('siteaccess', new SiteAccess(self::NON_ADMIN_SITEACCESS));
+        $request = $this->createRequest(self::NON_ADMIN_SITEACCESS);
 
         $event = new RequestEvent(
             $this->httpKernel,
@@ -89,15 +81,16 @@ final class RequestLocaleListenerTest extends TestCase
         );
 
         $requestLocaleListener->onKernelRequest($event);
+
+        self::assertSame($request->getDefaultLocale(), $request->getLocale());
+        self::assertFalse($request->attributes->has('_locale'));
     }
 
     public function testLocaleIsNotSetOnSubRequest(): void
     {
         $translator = $this->translatorWithSetLocaleExpectsNever();
 
-        $request = $this->requestWithSetLocaleExpectsNever();
-
-        $request->attributes->set('siteaccess', new SiteAccess(self::ADMIN_SITEACCESS));
+        $request = $this->createRequest(self::ADMIN_SITEACCESS);
 
         $event = new RequestEvent(
             $this->httpKernel,
@@ -114,16 +107,14 @@ final class RequestLocaleListenerTest extends TestCase
         );
 
         $requestLocaleListener->onKernelRequest($event);
+
+        self::assertSame($request->getDefaultLocale(), $request->getLocale());
+        self::assertFalse($request->attributes->has('_locale'));
     }
 
     public function testLocaleIsSet(): void
     {
         $this->translator
-            ->expects(self::once())
-            ->method('setLocale')
-            ->with('en_US');
-
-        $this->request
             ->expects(self::once())
             ->method('setLocale')
             ->with('en_US');
@@ -147,16 +138,14 @@ final class RequestLocaleListenerTest extends TestCase
         );
 
         $requestLocaleListener->onKernelRequest($event);
+
+        self::assertSame('en_US', $this->request->getLocale());
+        self::assertSame('en_US', $this->request->attributes->get('_locale'));
     }
 
     public function testLocaleIsSetWithoutAvailableTranslation(): void
     {
         $this->translator
-            ->expects(self::once())
-            ->method('setLocale')
-            ->with('en_US');
-
-        $this->request
             ->expects(self::once())
             ->method('setLocale')
             ->with('en_US');
@@ -180,16 +169,14 @@ final class RequestLocaleListenerTest extends TestCase
         );
 
         $requestLocaleListener->onKernelRequest($event);
+
+        self::assertSame('en_US', $this->request->getLocale());
+        self::assertSame('en_US', $this->request->attributes->get('_locale'));
     }
 
     public function testInvalidPreferredLocaleFallsBackToAvailableTranslation(): void
     {
         $this->translator
-            ->expects(self::once())
-            ->method('setLocale')
-            ->with('en_GB');
-
-        $this->request
             ->expects(self::once())
             ->method('setLocale')
             ->with('en_GB');
@@ -216,6 +203,9 @@ final class RequestLocaleListenerTest extends TestCase
         );
 
         $requestLocaleListener->onKernelRequest($event);
+
+        self::assertSame('en_GB', $this->request->getLocale());
+        self::assertSame('en_GB', $this->request->attributes->get('_locale'));
     }
 
     public function testSubscribedEvents(): void
@@ -236,11 +226,13 @@ final class RequestLocaleListenerTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf('Must be an instance of %s', SiteAccess::class));
 
-        $this->request->attributes->set('siteaccess', new Attribute());
+        $request = new Request(attributes: [
+            'siteaccess' => new Attribute(),
+        ]);
 
         $event = new RequestEvent(
             $this->httpKernel,
-            $this->request,
+            $request,
             HttpKernelInterface::MAIN_REQUEST
         );
 
@@ -270,19 +262,10 @@ final class RequestLocaleListenerTest extends TestCase
         return $translator;
     }
 
-    /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
-     */
-    private function requestWithSetLocaleExpectsNever(): MockObject
+    private function createRequest(string $siteAccessName): Request
     {
-        $request = $this
-            ->getMockBuilder(Request::class)
-            ->getMock();
-        $request->attributes = new ParameterBag();
-        $request
-            ->expects(self::never())
-            ->method('setLocale');
-
-        return $request;
+        return new Request(attributes: [
+            'siteaccess' => new SiteAccess($siteAccessName),
+        ]);
     }
 }

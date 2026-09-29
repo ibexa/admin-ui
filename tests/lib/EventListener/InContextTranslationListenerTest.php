@@ -18,7 +18,6 @@ use Ibexa\User\UserSetting\UserSettingService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -32,24 +31,21 @@ final class InContextTranslationListenerTest extends TestCase
 
     private const NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
-    private Request&MockObject $request;
+    private const string ACHOLI_LOCALE = 'ach-UG';
 
-    private HttpKernelInterface&Stub $httpKernel;
+    private Request $request;
 
-    private UserSettingService&MockObject $userSettingService;
+    private HttpKernelInterface & Stub $httpKernel;
 
-    private TranslatorInterface&MockObject $translator;
+    private UserSettingService & MockObject $userSettingService;
+
+    private TranslatorInterface & MockObject $translator;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->request = $this
-            ->getMockBuilder(Request::class)
-            ->getMock();
-        $this->request->attributes = new ParameterBag();
-
-        $this->request->attributes->set('siteaccess', new SiteAccess(self::ADMIN_SITEACCESS));
+        $this->request = $this->createRequest(self::ADMIN_SITEACCESS);
 
         $this->httpKernel = self::createStub(HttpKernelInterface::class);
 
@@ -60,9 +56,7 @@ final class InContextTranslationListenerTest extends TestCase
 
     public function testLocaleIsNotSetOnNonAdminSiteaccess(): void
     {
-        $request = $this->requestWithSetLocaleExpectsNever();
-
-        $request->attributes->set('siteaccess', new SiteAccess(self::NON_ADMIN_SITEACCESS));
+        $request = $this->createRequest(self::NON_ADMIN_SITEACCESS);
 
         $event = new RequestEvent(
             $this->httpKernel,
@@ -77,13 +71,14 @@ final class InContextTranslationListenerTest extends TestCase
         );
 
         $listener->setInContextTranslation($event);
+
+        self::assertSame($request->getDefaultLocale(), $request->getLocale());
+        self::assertFalse($request->attributes->has('_locale'));
     }
 
     public function testLocaleIsNotSetOnSubRequest(): void
     {
-        $request = $this->requestWithSetLocaleExpectsNever();
-
-        $request->attributes->set('siteaccess', new SiteAccess(self::ADMIN_SITEACCESS));
+        $request = $this->createRequest(self::ADMIN_SITEACCESS);
 
         $event = new RequestEvent(
             $this->httpKernel,
@@ -98,19 +93,17 @@ final class InContextTranslationListenerTest extends TestCase
         );
 
         $listener->setInContextTranslation($event);
+
+        self::assertSame($request->getDefaultLocale(), $request->getLocale());
+        self::assertFalse($request->attributes->has('_locale'));
     }
 
     public function testLocaleIsSet(): void
     {
-        $this->request
-            ->expects(self::once())
-            ->method('setLocale')
-            ->with('ach-UG');
-
         $this->translator
             ->expects(self::once())
             ->method('setLocale')
-            ->with('ach-UG');
+            ->with(self::ACHOLI_LOCALE);
 
         $event = new RequestEvent(
             $this->httpKernel,
@@ -132,11 +125,14 @@ final class InContextTranslationListenerTest extends TestCase
         );
 
         $listener->setInContextTranslation($event);
+
+        self::assertSame(self::ACHOLI_LOCALE, $this->request->getLocale());
+        self::assertSame(self::ACHOLI_LOCALE, $this->request->attributes->get('_locale'));
     }
 
     public function testLocaleIsNotSet(): void
     {
-        $this->request
+        $this->translator
             ->expects(self::never())
             ->method('setLocale');
 
@@ -160,6 +156,9 @@ final class InContextTranslationListenerTest extends TestCase
         );
 
         $listener->setInContextTranslation($event);
+
+        self::assertSame($this->request->getDefaultLocale(), $this->request->getLocale());
+        self::assertFalse($this->request->attributes->has('_locale'));
     }
 
     public function testSubscribedEvents(): void
@@ -198,19 +197,10 @@ final class InContextTranslationListenerTest extends TestCase
         $listener->setInContextTranslation($event);
     }
 
-    /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
-     */
-    private function requestWithSetLocaleExpectsNever(): MockObject
+    private function createRequest(string $siteAccessName): Request
     {
-        $request = $this
-            ->getMockBuilder(Request::class)
-            ->getMock();
-        $request->attributes = new ParameterBag();
-        $request
-            ->expects(self::never())
-            ->method('setLocale');
-
-        return $request;
+        return new Request(attributes: [
+            'siteaccess' => new SiteAccess($siteAccessName),
+        ]);
     }
 }

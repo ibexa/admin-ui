@@ -9,10 +9,8 @@ namespace Ibexa\Tests\AdminUi\EventListener;
 
 use Ibexa\AdminUi\EventListener\RequestListener;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -21,9 +19,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class RequestListenerTest extends TestCase
 {
-    private Request&MockObject $request;
+    private Request $request;
 
-    private HttpKernelInterface&Stub $httpKernel;
+    private HttpKernelInterface & Stub $httpKernel;
 
     private RequestListener $requestListener;
 
@@ -35,10 +33,7 @@ class RequestListenerTest extends TestCase
 
         $this->requestListener = new RequestListener(['some_name' => ['group_1']]);
 
-        $this->request = $this
-            ->getMockBuilder(Request::class)
-            ->getMock();
-        $this->request->attributes = new ParameterBag();
+        $this->request = new Request();
 
         $this->httpKernel = self::createStub(HttpKernelInterface::class);
 
