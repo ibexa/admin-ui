@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Siteaccess;
 
 use Ibexa\Contracts\AdminUi\Siteaccess\SiteAccessInfo;
-use Ibexa\Contracts\AdminUi\Siteaccess\SiteAccessInfoProviderInterface;
 use Ibexa\Contracts\AdminUi\Siteaccess\SiteAccessInfoResolverInterface;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 
