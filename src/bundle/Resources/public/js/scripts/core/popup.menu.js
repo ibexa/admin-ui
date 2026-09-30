@@ -24,11 +24,14 @@
 
             itemsToGenerate.forEach((item) => {
                 const container = doc.createElement('ul');
-                const renderedItem = itemTemplate.replace('{{ label }}', item.label);
+                const renderedItem = itemTemplate.replace('{{ label }}', '');
 
                 container.insertAdjacentHTML('beforeend', renderedItem);
 
                 const popupMenuItem = container.querySelector('.ibexa-popup-menu__item');
+                const popupMenuItemContent = popupMenuItem.querySelector('.ibexa-popup-menu__item-content');
+
+                popupMenuItemContent.textContent = item.label;
 
                 processAfterCreated(popupMenuItem, item);
 
