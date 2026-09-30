@@ -1,4 +1,5 @@
 (function (global, doc, ibexa) {
+    const { escapeHTML } = ibexa.helpers.text;
     const CLASS_POPUP_MENU_HIDDEN = 'ibexa-popup-menu--hidden';
     class PopupMenu {
         constructor(config) {
@@ -24,14 +25,11 @@
 
             itemsToGenerate.forEach((item) => {
                 const container = doc.createElement('ul');
-                const renderedItem = itemTemplate.replace('{{ label }}', '');
+                const renderedItem = itemTemplate.replace('{{ label }}', escapeHTML(item.label));
 
                 container.insertAdjacentHTML('beforeend', renderedItem);
 
                 const popupMenuItem = container.querySelector('.ibexa-popup-menu__item');
-                const popupMenuItemContent = popupMenuItem.querySelector('.ibexa-popup-menu__item-content');
-
-                popupMenuItemContent.textContent = item.label;
 
                 processAfterCreated(popupMenuItem, item);
 
