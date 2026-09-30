@@ -28,12 +28,12 @@ final class TrashPage extends Page
     private TrashSearch $trashSearch;
 
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
+        public readonly Session $session,
+        public readonly Router $router,
         private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
         private readonly Dialog $dialog,
         private readonly ContentActionsMenu $contentActionsMenu,
-        readonly TableBuilder $tableBuilder,
+        public readonly TableBuilder $tableBuilder,
         TrashSearch $trashSearch
     ) {
         parent::__construct($session, $router);

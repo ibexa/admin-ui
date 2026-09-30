@@ -19,8 +19,8 @@ final class DraftConflictDialog extends Component
     private TableInterface $table;
 
     public function __construct(
-        readonly Session $session,
-        readonly TableBuilder $tableBuilder
+        public readonly Session $session,
+        public readonly TableBuilder $tableBuilder
     ) {
         parent::__construct($session);
 
