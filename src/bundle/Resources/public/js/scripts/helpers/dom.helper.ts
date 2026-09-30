@@ -30,4 +30,17 @@ const notNullQuerySelector = function <T extends HTMLElement>(node: HTMLElement 
     return selectedNode;
 };
 
-export { safelySetInnerHTML, dangerouslySetInnerHTML, dangerouslyInsertAdjacentHTML, dangerouslyAppend, notNullQuerySelector };
+const calculateRem = (sizeInPx: number): string => {
+    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+    return `${sizeInPx / rootFontSize}rem`;
+};
+
+export {
+    safelySetInnerHTML,
+    dangerouslySetInnerHTML,
+    dangerouslyInsertAdjacentHTML,
+    dangerouslyAppend,
+    notNullQuerySelector,
+    calculateRem,
+};
