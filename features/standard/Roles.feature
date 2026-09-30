@@ -197,6 +197,9 @@ Feature: Roles management
       | Content  |
     Then success notification that "Removed Policies from Role 'Test Role edited'." appears
     And there is no policy "Content/Read" with "Content type: File" limitation on the "Test Role edited" policies list
+    And there are assignments on the "Test Role edited" assignments list
+      | User/Group          | Limitation             |
+      | Anonymous User      | Subtree: /Media/Images |
 
   @javascript
   Scenario: Role can be deleted
