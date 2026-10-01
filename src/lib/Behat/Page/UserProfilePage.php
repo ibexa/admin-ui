@@ -20,8 +20,8 @@ final class UserProfilePage extends Page
     private string $locationPath;
 
     public function __construct(
-        public readonly Session $session,
-        public readonly Router $router,
+        Session $session,
+        Router $router,
         private readonly ContentFacade $contentFacade
     ) {
         parent::__construct($session, $router);

@@ -22,8 +22,8 @@ use Ibexa\Behat\Browser\Routing\Router;
 final class RoleUpdatePage extends AdminUpdateItemPage
 {
     public function __construct(
-        public readonly Session $session,
-        public readonly Router $router,
+        Session $session,
+        Router $router,
         ContentActionsMenu $contentActionsMenu,
         private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
         private readonly IbexaDropdown $ibexaDropdown

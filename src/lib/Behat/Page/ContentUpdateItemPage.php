@@ -37,8 +37,8 @@ class ContentUpdateItemPage extends Page
      * @param \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent[] $fieldTypeComponents
      */
     public function __construct(
-        public readonly Session $session,
-        public readonly Router $router,
+        Session $session,
+        Router $router,
         private readonly ContentActionsMenu $contentActionsMenu,
         protected readonly iterable $fieldTypeComponents,
         private readonly Notification $notification,

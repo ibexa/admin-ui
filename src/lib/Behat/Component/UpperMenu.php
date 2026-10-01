@@ -16,7 +16,7 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 final class UpperMenu extends Component
 {
     public function __construct(
-        public readonly Session $session,
+        Session $session,
         private readonly IbexaDropdown $ibexaDropdown
     ) {
         parent::__construct($session);

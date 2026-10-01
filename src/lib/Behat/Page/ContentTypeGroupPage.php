@@ -27,10 +27,10 @@ class ContentTypeGroupPage extends Page
     private TableInterface $table;
 
     public function __construct(
-        public readonly Session $session,
-        public readonly Router $router,
+        Session $session,
+        Router $router,
         private readonly ContentTypeService $contentTypeService,
-        public readonly TableBuilder $tableBuilder,
+        TableBuilder $tableBuilder,
         private readonly Dialog $dialog
     ) {
         parent::__construct($session, $router);

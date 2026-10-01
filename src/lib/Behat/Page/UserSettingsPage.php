@@ -22,8 +22,8 @@ use Webmozart\Assert\Assert;
 final class UserSettingsPage extends Page
 {
     public function __construct(
-        public readonly Session $session,
-        public readonly Router $router,
+        Session $session,
+        Router $router,
         private readonly ContentActionsMenu $contentActionsMenu,
         private readonly TableNavigationTab $tableNavigationTab,
         private readonly IbexaDropdown $ibexaDropdown

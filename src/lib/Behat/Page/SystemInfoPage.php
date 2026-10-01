@@ -24,10 +24,10 @@ final class SystemInfoPage extends Page
     private TableInterface $table;
 
     public function __construct(
-        public readonly Session $session,
-        public readonly Router $router,
+        Session $session,
+        Router $router,
         private readonly TableNavigationTab $tableNavigationTab,
-        public readonly TableBuilder $tableBuilder
+        TableBuilder $tableBuilder
     ) {
         parent::__construct($session, $router);
 

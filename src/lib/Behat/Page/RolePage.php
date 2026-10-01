@@ -32,12 +32,12 @@ class RolePage extends Page
     private TableInterface $assignments;
 
     public function __construct(
-        public readonly Session $session,
-        public readonly Router $router,
+        Session $session,
+        Router $router,
         private readonly TableNavigationTab $tableNavigationTab,
         public readonly Dialog $dialog,
         private readonly Repository $repository,
-        public readonly TableBuilder $tableBuilder
+        TableBuilder $tableBuilder
     ) {
         parent::__construct($session, $router);
 
