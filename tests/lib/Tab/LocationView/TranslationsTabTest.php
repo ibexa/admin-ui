@@ -177,7 +177,7 @@ final class TranslationsTabTest extends TestCase
     private function createTab(bool $hasComponents): TranslationsTab
     {
         $components = $hasComponents
-            ? ['component-id' => $this->createStub(ComponentInterface::class)]
+            ? ['component-id' => self::createStub(ComponentInterface::class)]
             : [];
 
         return new TranslationsTab(
