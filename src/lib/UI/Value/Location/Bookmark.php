@@ -25,8 +25,8 @@ class Bookmark extends CoreLocation
      * @param array<string, mixed> $properties
      */
     public function __construct(
-        readonly Location $location,
-        readonly array $properties = []
+        public readonly Location $location,
+        public readonly array $properties = []
     ) {
         parent::__construct(get_object_vars($location) + $properties);
     }

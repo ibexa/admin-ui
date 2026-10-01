@@ -27,8 +27,8 @@ final class SubItemsList extends Component
     protected bool $isGridViewEnabled;
 
     public function __construct(
-        readonly Session $session,
-        readonly TableBuilder $tableBuilder,
+        public readonly Session $session,
+        public readonly TableBuilder $tableBuilder,
         private readonly SubitemsGrid $grid
     ) {
         parent::__construct($session);

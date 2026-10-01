@@ -34,8 +34,8 @@ class Location extends CoreLocation
      * @param array<string, mixed> $properties
      */
     public function __construct(
-        readonly APILocation $location,
-        readonly array $properties = []
+        public readonly APILocation $location,
+        public readonly array $properties = []
     ) {
         parent::__construct(get_object_vars($location) + $properties);
     }

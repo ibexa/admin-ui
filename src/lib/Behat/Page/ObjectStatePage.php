@@ -25,8 +25,8 @@ final class ObjectStatePage extends Page
     private mixed $expectedObjectStateId;
 
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
+        public readonly Session $session,
+        public readonly Router $router,
         private readonly Repository $repository
     ) {
         parent::__construct($session, $router);
