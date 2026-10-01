@@ -1,5 +1,5 @@
 (function (global, doc, ibexa) {
-    const { calculateRem } = ibexa.helpers.dom;
+    const { calculateRem } = ibexa.helpers.css;
     const ACTION_BTN_VERTICAL_SPACING = 70;
     const isIframe = global.self !== global.top;
     let actionButtonConfigs = [];
