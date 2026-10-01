@@ -48,8 +48,8 @@ class ContentViewPage extends Page
     private ?string $route = null;
 
     public function __construct(
-        public readonly Session $session,
-        public readonly Router $router,
+        Session $session,
+        Router $router,
         private readonly ContentActionsMenu $contentActionsMenu,
         private readonly SubItemsList $subItemList,
         private readonly ContentTypePicker $contentTypePicker,

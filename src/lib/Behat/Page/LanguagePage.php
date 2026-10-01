@@ -25,8 +25,8 @@ final class LanguagePage extends Page
     private int $expectedLanguageId;
 
     public function __construct(
-        public readonly Session $session,
-        public readonly Router $router,
+        Session $session,
+        Router $router,
         private readonly Dialog $dialog,
         private readonly Repository $repository
     ) {

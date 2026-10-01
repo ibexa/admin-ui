@@ -18,7 +18,7 @@ use Webmozart\Assert\Assert;
 final class Media extends FieldTypeComponent
 {
     public function __construct(
-        public readonly Session $session,
+        Session $session,
         private readonly FileUploadHelper $fileUploadHelper
     ) {
         parent::__construct($session);

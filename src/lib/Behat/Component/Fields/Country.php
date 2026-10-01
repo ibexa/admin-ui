@@ -15,7 +15,7 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 final class Country extends FieldTypeComponent
 {
     public function __construct(
-        public readonly Session $session,
+        Session $session,
         private readonly IbexaDropdown $dropdown
     ) {
         parent::__construct($session);

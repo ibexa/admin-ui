@@ -55,8 +55,8 @@ class Relation extends CoreRelation implements RelationInterface
      * @param array<string, mixed> $properties
      */
     public function __construct(
-        public readonly APIRelation $relation,
-        public readonly array $properties = []
+        APIRelation $relation,
+        array $properties = []
     ) {
         parent::__construct(get_object_vars($relation) + $properties);
     }

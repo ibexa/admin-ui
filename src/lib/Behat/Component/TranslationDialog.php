@@ -14,7 +14,7 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 final class TranslationDialog extends Dialog
 {
     public function __construct(
-        public readonly Session $session,
+        Session $session,
         private readonly IbexaDropdown $ibexaDropdown
     ) {
         parent::__construct($session);

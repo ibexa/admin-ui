@@ -26,8 +26,8 @@ class Policy extends APIPolicy
      * @param array<string, mixed> $properties
      */
     public function __construct(
-        public readonly APIPolicy $policy,
-        public readonly array $properties = []
+        APIPolicy $policy,
+        array $properties = []
     ) {
         parent::__construct(get_object_vars($policy) + $properties);
 

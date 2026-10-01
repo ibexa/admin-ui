@@ -26,8 +26,8 @@ class Language extends APILanguage
      * @param array<string, mixed> $properties
      */
     public function __construct(
-        public readonly APILanguage $language,
-        public readonly array $properties = []
+        APILanguage $language,
+        array $properties = []
     ) {
         parent::__construct(get_object_vars($language) + $properties);
     }

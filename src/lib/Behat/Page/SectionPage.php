@@ -32,9 +32,9 @@ final class SectionPage extends Page
      * @throws \Ibexa\Core\Base\Exceptions\BadStateException
      */
     public function __construct(
-        public readonly Session $session,
-        public readonly Router $router,
-        public readonly TableBuilder $tableBuilder,
+        Session $session,
+        Router $router,
+        TableBuilder $tableBuilder,
         private readonly Dialog $dialog,
         private readonly Repository $repository
     ) {

@@ -21,7 +21,7 @@ final class ContentRelationMultiple extends FieldTypeComponent
     private TableInterface $table;
 
     public function __construct(
-        public readonly Session $session,
+        Session $session,
         private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
         private readonly TableBuilder $tableBuilder
     ) {

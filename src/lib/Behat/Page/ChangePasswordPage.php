@@ -17,8 +17,8 @@ use Ibexa\Behat\Browser\Routing\Router;
 final class ChangePasswordPage extends Page
 {
     public function __construct(
-        public readonly Session $session,
-        public readonly Router $router,
+        Session $session,
+        Router $router,
         private readonly ContentActionsMenu $contentActionsMenu
     ) {
         parent::__construct($session, $router);

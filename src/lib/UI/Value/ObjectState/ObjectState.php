@@ -22,8 +22,8 @@ class ObjectState extends CoreObjectState
      * @param array<string, mixed> $properties
      */
     public function __construct(
-        public readonly APIObjectState $objectState,
-        public readonly array $properties = []
+        APIObjectState $objectState,
+        array $properties = []
     ) {
         parent::__construct(get_object_vars($objectState) + $properties);
     }

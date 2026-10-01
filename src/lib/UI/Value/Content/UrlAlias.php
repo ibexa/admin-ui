@@ -16,8 +16,8 @@ class UrlAlias extends CoreURLAlias
      * @param array<string, mixed> $properties
      */
     public function __construct(
-        public readonly CoreURLAlias $urlAlias,
-        public readonly array $properties = []
+        CoreURLAlias $urlAlias,
+        array $properties = []
     ) {
         parent::__construct(get_object_vars($urlAlias) + $properties);
     }
