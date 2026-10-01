@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
+use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\ElementInterface;
@@ -68,8 +69,13 @@ class AdminUpdateItemPage extends Page
             ->findAll($this->getLocator('button'))
             ->getByCriterion(new ElementTextCriterion($label));
 
-        $button->mouseOver();
-        $button->find(new VisibleCSSLocator('label', 'span'))->click();
+        // The click is retried, because the button can be temporarily obscured
+        // by elements which are still being repositioned after the last interaction.
+        $this->getHTMLPage()->setTimeout(3)->waitUntil(static function () use ($button): bool {
+            $button->find(new VisibleCSSLocator('label', 'span'))->execute(new MouseOverAndClick());
+
+            return true;
+        }, sprintf('Button "%s" could not be clicked.', $label));
     }
 
     public function verifyIsLoaded(): void
