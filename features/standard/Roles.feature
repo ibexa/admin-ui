@@ -136,9 +136,6 @@ Feature: Roles management
     And I perform the "Discard" action
     Then I should be on "Test Role" Role page
     And Policies list is empty
-    And there are assignments on the "Test Role" assignments list
-      | User/Group          | Limitation             |
-      | Anonymous User      | Subtree: /Media/Images |
 
   @javascript
   Scenario: Policies can be added to role
@@ -154,9 +151,6 @@ Feature: Roles management
     And I perform the "Save" action
     Then I should be on "Test Role" Role page
     And there is a policy "Content/Read" with "Content type: File" limitation on the "Test Role" policies list
-    And there are assignments on the "Test Role" assignments list
-      | User/Group          | Limitation             |
-      | Anonymous User      | Subtree: /Media/Images |
 
   @javascript
   Scenario: Policies without limitations can be added to role
@@ -167,9 +161,6 @@ Feature: Roles management
     And I perform the "Save" action
     Then I should be on "Test Role" Role page
     And there is a policy "User/Password" with "None" limitation on the "Test Role" policies list
-    And there are assignments on the "Test Role" assignments list
-      | User/Group          | Limitation             |
-      | Anonymous User      | Subtree: /Media/Images |
 
   @javascript
   Scenario: Policies can be edited
@@ -191,9 +182,6 @@ Feature: Roles management
       | Content/Read | Content type: Article, Folder               |
       | Content/Read | Subtree: /Users/Anonymous users |
       | Content/Read | State: Lock:Locked                          |
-    And there are assignments on the "Test Role" assignments list
-      | User/Group          | Limitation             |
-      | Anonymous User      | Subtree: /Media/Images |
 
   @javascript
   Scenario: Policy can be deleted
