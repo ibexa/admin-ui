@@ -39,4 +39,34 @@
    <issue><![CDATA[ctype_digit(): Argument of type stdClass will be interpreted as string in the future]]></issue>
   </line>
  </file>
+ <file path="vendor/symfony/deprecation-contracts/function.php">
+  <line number="25" hash="c6af5d66288d0667e424978000f29571e4954b81">
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+   <issue><![CDATA[Since symfony/validator 8.1: The "ConstraintValidator::initialize()" method is deprecated. Use the "validateInContext()" method instead of the "initialize()" and "validate()" ones.]]></issue>
+  </line>
+ </file>
 </files>
