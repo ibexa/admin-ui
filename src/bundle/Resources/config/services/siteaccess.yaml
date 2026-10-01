@@ -10,6 +10,12 @@ services:
 
     Ibexa\AdminUi\Siteaccess\SiteAccessNameGenerator: ~
 
+    Ibexa\AdminUi\Siteaccess\SiteAccessInfoResolver:
+        arguments:
+            $siteAccessInfoProviders: !tagged_iterator ibexa.admin_ui.site_access.info_provider
+
+    Ibexa\Contracts\AdminUi\Siteaccess\SiteAccessInfoResolverInterface: '@Ibexa\AdminUi\Siteaccess\SiteAccessInfoResolver'
+
     Ibexa\AdminUi\Siteaccess\SiteaccessResolver:
         arguments:
             $siteAccessPreviewVoters: !tagged_iterator ibexa.admin_ui.site_access.preview.voter
