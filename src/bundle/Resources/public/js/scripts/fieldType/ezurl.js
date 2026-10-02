@@ -6,6 +6,10 @@
     const SELECTOR_ERROR_NODE = '.ibexa-data-source__field--link .ibexa-form-error';
 
     class EzUrlValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'EzUrlValidator';
+        }
+        
         validateUrl(event) {
             const result = {
                 isError: false,
