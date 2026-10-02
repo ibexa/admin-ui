@@ -23,8 +23,9 @@
 
     &__expand-icon {
         position: absolute;
-        top: calculateRem(7px);
+        top: 50%;
         right: calculateRem(8px);
+        transform: translateY(-50%);
     }
 
     &__items {
