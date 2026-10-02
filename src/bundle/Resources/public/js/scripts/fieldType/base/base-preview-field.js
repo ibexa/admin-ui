@@ -80,7 +80,7 @@
             const [file] = event.dataTransfer.files;
 
             if (!this.checkCanDrop(file)) {
-                return;
+                return this.showFileTypeError();
             }
 
             if (this.maxFileSize > 0 && file.size > this.maxFileSize) {
