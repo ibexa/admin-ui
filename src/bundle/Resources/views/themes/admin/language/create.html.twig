@@ -29,8 +29,7 @@
                 </div>
             </div>
         </section>
-        {# Enter key triggers the first submit button, keep "Save and close" first so it ends up on the language view #}
-        {{ form_widget(form.save_and_close, { attr: { hidden: 'hidden' }}) }}
         {{ form_widget(form.save, { attr: { hidden: 'hidden' }}) }}
+        {{ form_widget(form.save_and_close, { attr: { hidden: 'hidden' }}) }}
     {{ form_end(form) }}
 {% endblock %}
