@@ -25,12 +25,14 @@
             {% set view_url = path('ibexa.link_manager.view', { urlId: url.id }) %}
 
             {% set col_raw %}
-                <a href="{{ view_url }}">{{ url.url|u.truncate(50) }}</a>
-                <a href="{{ url.url }}" target="_blank">
-                    <svg class="ibexa-icon ibexa-icon--small-medium">
-                        <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
-                    </svg>
-                </a>
+                <div class="ibexa-url-management-tab__url">
+                    <a href="{{ view_url }}">{{ url.url|u.truncate(50) }}</a>
+                    <a href="{{ url.url }}" target="_blank" class="ibexa-url-management-tab__url-external-link">
+                        <svg class="ibexa-icon ibexa-icon--small-medium">
+                            <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
+                        </svg>
+                    </a>
+                </div>
             {% endset %}
             {% set body_row_cols = body_row_cols|merge([{
                 content: col_raw,
