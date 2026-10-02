@@ -33,6 +33,19 @@ Feature: Languages management
         | Deutsch      | de-DE           | true    |
 
   @javascript
+  Scenario: New Language can be added by pressing Enter
+    When I perform the "Add language" action
+      And I set fields
+        | label         | value   |
+        | Name          | Español |
+        | Language code | es-ES   |
+      And I press Enter in the "Name" field
+    Then I should be on "Español" Language page
+      And Language has proper attributes
+        | Name         | Language code   | Enabled |
+        | Español      | es-ES           | true    |
+
+  @javascript
   Scenario: New Language with existing language code cannot be added
     When I perform the "Add language" action
       And I set fields
