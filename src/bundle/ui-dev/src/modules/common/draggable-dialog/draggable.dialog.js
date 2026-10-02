@@ -6,6 +6,8 @@ import { createCssClassNames } from '@ibexa-admin-ui/src/bundle/ui-dev/src/modul
 
 export const DraggableContext = createContext();
 
+const OFFSET_FROM_RIGHT_EDGE = 16;
+
 const DraggableDialog = ({ children = null, referenceElement, positionOffset = () => ({ x: 0, y: 0 }) }) => {
     const rootDOMElement = getRootDOMElement();
     const containerRef = useRef();
@@ -116,8 +118,8 @@ const DraggableDialog = ({ children = null, referenceElement, positionOffset = (
 
         if (x < 0) {
             x = 0;
-        } else if (x + containerWidth > window.innerWidth) {
-            x = window.innerWidth - containerWidth;
+        } else if (x + containerWidth > window.innerWidth - OFFSET_FROM_RIGHT_EDGE) {
+            x = window.innerWidth - containerWidth - OFFSET_FROM_RIGHT_EDGE;
         }
 
         if (y < 0) {
