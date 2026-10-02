@@ -11,4 +11,14 @@
     &__alert {
         margin-bottom: calculateRem(24px);
     }
+
+    &__url {
+        display: flex;
+        align-items: center;
+        gap: calculateRem(4px);
+    }
+
+    &__url-external-link {
+        display: flex;
+    }
 }
