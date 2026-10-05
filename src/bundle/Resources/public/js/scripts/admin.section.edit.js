@@ -1,5 +1,5 @@
 (function (global, doc, ibexa) {
-    const form = doc.querySelector('form[name="section_create"], form[name="section_update"]');
+    const form = doc.querySelector('.ibexa-section-edit__form');
     const inputsToValidate = [...form.querySelectorAll('.ibexa-input[required]')];
     const validateInput = (input) => ibexa.helpers.formValidation.validateIsEmptyField(input.closest('.form-group'));
     const validateForm = (event) => {
