@@ -35,10 +35,10 @@ final readonly class MediaFormMapper implements FieldDefinitionFormMapperInterfa
                 'property_path' => 'validatorConfiguration[FileSizeValidator][maxFileSize]',
                 'label' => /** @Desc("Maximum file size (MB)") */ 'field_definition.ibexa_media.max_file_size',
                 'constraints' => [
-                    new Range([
-                        'min' => 0,
-                        'max' => $this->maxUploadSize->get(MaxUploadSize::MEGABYTES),
-                    ]),
+                    new Range(
+                        min: 0,
+                        max: $this->maxUploadSize->get(MaxUploadSize::MEGABYTES),
+                    ),
                 ],
                 'attr' => [
                     'min' => 0,
