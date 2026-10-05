@@ -1,6 +1,7 @@
 import * as browser from './browser.helper';
 import * as contentType from './content.type.helper';
 import * as cookies from './cookies.helper';
+import * as css from './css.helper';
 import * as dom from './dom.helper';
 import * as formValidation from './form.validation.helper';
 import * as highlight from './highlight.helper';
@@ -27,6 +28,7 @@ import * as user from './user.helper';
     ibexa.addConfig('helpers.browser', browser);
     ibexa.addConfig('helpers.contentType', contentType);
     ibexa.addConfig('helpers.cookies', cookies);
+    ibexa.addConfig('helpers.css', css);
     ibexa.addConfig('helpers.dom', dom);
     ibexa.addConfig('helpers.formValidation', formValidation);
     ibexa.addConfig('helpers.highlight', highlight);

@@ -1,5 +1,6 @@
-(function (global, doc) {
-    const ACTION_BTN_VERTICAL_SPACING = 4.3;
+(function (global, doc, ibexa) {
+    const { calculateRem } = ibexa.helpers.css;
+    const ACTION_BTN_VERTICAL_SPACING = 70;
     const isIframe = global.self !== global.top;
     let actionButtonConfigs = [];
 
@@ -38,7 +39,7 @@
             return false;
         });
 
-        const maxExtraPadding = Math.max(...buttonsToRender.map((config) => config.extraBottomPadding || 2));
+        const maxExtraPadding = Math.max(...buttonsToRender.map((config) => config.extraBottomPadding || 32));
 
         buttonsToRender.forEach((buttonConfig, index) => {
             const { container } = buttonConfig;
@@ -48,12 +49,10 @@
             }
 
             container.style.position = 'fixed';
-            container.style.right = '2rem';
+            container.style.right = calculateRem(32);
             container.style.zIndex = buttonConfig.zIndex || 1040;
 
-            const bottomPosition = `${index * ACTION_BTN_VERTICAL_SPACING + maxExtraPadding}rem`;
-
-            container.style.bottom = bottomPosition;
+            container.style.bottom = calculateRem(index * ACTION_BTN_VERTICAL_SPACING + maxExtraPadding);
         });
     };
 
@@ -62,4 +61,4 @@
         unregisterButton,
         recalculateButtonsLayout,
     };
-})(window, window.document);
+})(window, window.document, window.ibexa);
