@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Bundle\AdminUi\Templating\Twig;
 
 use Ibexa\Bundle\AdminUi\Templating\Twig\DropdownExtension;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\ChoiceList\View\ChoiceGroupView;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
@@ -114,6 +115,55 @@ final class DropdownExtensionTest extends TestCase
             $items,
             'The preferred choice should come first, its duplicates should be dropped and a group left empty by that should disappear.'
         );
+    }
+
+    public function testGroupLikeObjectsAreAcceptedAndUnlabelledGroupsAreFlattened(): void
+    {
+        $groupLike = static fn (?string $label, array $choices): object => new class($label, $choices) {
+            /**
+             * @param array<int, object> $choices
+             */
+            public function __construct(
+                public ?string $label,
+                public array $choices
+            ) {
+            }
+        };
+
+        $items = $this->extension->getItems(
+            [
+                $groupLike('Brand', [new ChoiceView(null, 'site-1', 'Site 1')]),
+                $groupLike(null, [
+                    new ChoiceView(null, 'site-2', 'Site 2'),
+                    $groupLike('Nested', [new ChoiceView(null, 'site-3', 'Site 3')]),
+                ]),
+            ],
+            [],
+            false
+        );
+
+        self::assertSame(
+            [
+                [
+                    'label' => 'Brand',
+                    'items' => [['id' => 'site-1', 'label' => 'Site 1']],
+                ],
+                ['id' => 'site-2', 'label' => 'Site 2'],
+                [
+                    'label' => 'Nested',
+                    'items' => [['id' => 'site-3', 'label' => 'Site 3']],
+                ],
+            ],
+            $items,
+            'Any object with label and choices should act as a group; a group without a label should contribute its entries to the surrounding level.'
+        );
+    }
+
+    public function testUnknownChoiceObjectsAreRejected(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->extension->getItems([new \stdClass()], [], false);
     }
 
     public function testLabelsAreTranslatedOnlyWithADomain(): void

@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
-use Symfony\Component\Form\ChoiceList\View\ChoiceGroupView;
+use InvalidArgumentException;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -18,6 +18,7 @@ use Twig\TwigFunction;
 /**
  * @phpstan-type TDropdownItem array{id: string, label: string}
  * @phpstan-type TDropdownGroup array{label: string, items: array<int, array<string, mixed>>}
+ * @phpstan-type TGroupView object{label: string|null, choices: iterable<object>}
  */
 final class DropdownExtension extends AbstractExtension
 {
@@ -40,8 +41,8 @@ final class DropdownExtension extends AbstractExtension
     }
 
     /**
-     * @param iterable<\Symfony\Component\Form\ChoiceList\View\ChoiceView|\Symfony\Component\Form\ChoiceList\View\ChoiceGroupView> $choices
-     * @param iterable<\Symfony\Component\Form\ChoiceList\View\ChoiceView|\Symfony\Component\Form\ChoiceList\View\ChoiceGroupView> $preferredChoices
+     * @param iterable<object> $choices
+     * @param iterable<object> $preferredChoices
      *
      * @return array<int, TDropdownItem|TDropdownGroup>
      */
@@ -56,7 +57,7 @@ final class DropdownExtension extends AbstractExtension
     }
 
     /**
-     * @param iterable<\Symfony\Component\Form\ChoiceList\View\ChoiceView|\Symfony\Component\Form\ChoiceList\View\ChoiceGroupView> $choiceViews
+     * @param iterable<object> $choiceViews
      * @param array<string, true> $seenIds
      *
      * @return array<int, TDropdownItem|TDropdownGroup>
@@ -66,35 +67,59 @@ final class DropdownExtension extends AbstractExtension
         $entries = [];
 
         foreach ($choiceViews as $choiceView) {
-            $entry = $choiceView instanceof ChoiceGroupView
-                ? $this->mapGroupView($choiceView, $translationDomain, $seenIds)
-                : $this->mapChoiceView($choiceView, $translationDomain, $seenIds);
+            if ($choiceView instanceof ChoiceView) {
+                $item = $this->mapChoiceView($choiceView, $translationDomain, $seenIds);
 
-            if ($entry !== null) {
-                $entries[] = $entry;
+                if ($item !== null) {
+                    $entries[] = $item;
+                }
+
+                continue;
             }
+
+            if (!self::isGroupView($choiceView)) {
+                throw new InvalidArgumentException(sprintf(
+                    'Dropdown choices must be %s instances or group views with "label" and "choices", "%s" given.',
+                    ChoiceView::class,
+                    get_debug_type($choiceView)
+                ));
+            }
+
+            array_push($entries, ...$this->mapGroupView($choiceView, $translationDomain, $seenIds));
         }
 
         return $entries;
     }
 
     /**
+     * @phpstan-assert-if-true TGroupView $choiceView
+     */
+    private static function isGroupView(object $choiceView): bool
+    {
+        return property_exists($choiceView, 'label') && property_exists($choiceView, 'choices');
+    }
+
+    /**
+     * A group without a label has no header to show, so its items join the surrounding level.
+     *
+     * @param TGroupView $groupView
      * @param array<string, true> $seenIds
      *
-     * @return TDropdownGroup|null
+     * @return array<int, TDropdownItem|TDropdownGroup>
      */
-    private function mapGroupView(ChoiceGroupView $groupView, string|false $translationDomain, array &$seenIds): ?array
+    private function mapGroupView(object $groupView, string|false $translationDomain, array &$seenIds): array
     {
         $items = $this->mapChoiceViews($groupView->choices, $translationDomain, $seenIds);
+        $label = $groupView->label === null ? '' : $this->translateLabel($groupView->label, [], $translationDomain);
 
-        if ($items === []) {
-            return null;
+        if ($items === [] || $label === '') {
+            return $items;
         }
 
-        return [
-            'label' => $this->translateLabel($groupView->label, [], $translationDomain),
+        return [[
+            'label' => $label,
             'items' => $items,
-        ];
+        ]];
     }
 
     /**
