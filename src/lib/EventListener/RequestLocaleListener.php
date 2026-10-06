@@ -16,6 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
+use Symfony\Component\Translation\LocaleFallbackProvider;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class RequestLocaleListener implements EventSubscriberInterface
@@ -104,9 +106,16 @@ final readonly class RequestLocaleListener implements EventSubscriberInterface
 
     private function isValidLocale(string $locale): bool
     {
-        // Mirror the validation Symfony's translator applies before accepting a locale.
+        if ('' === $locale) {
+            return false;
+        }
 
-        // TODO: Once on Symfony 8.1+, reuse \Symfony\Component\Translation\LocaleFallbackProvider::validateLocale()
-        return 1 === preg_match('/^[a-z0-9@_\.\-]+$/i', $locale);
+        try {
+            LocaleFallbackProvider::validateLocale($locale);
+        } catch (InvalidArgumentException) {
+            return false;
+        }
+
+        return true;
     }
 }
