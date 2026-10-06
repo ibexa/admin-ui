@@ -74,7 +74,7 @@ final readonly class UserAccountFormMapper implements FieldDefinitionFormMapperI
             'property_path' => $validatorPropertyPathPrefix . '[minLength]',
             'label' => /** @Desc("Minimum password length") */ 'field_definition.ibexa_user.min_length',
             'constraints' => [
-                new Range(['min' => 0, 'max' => 255]),
+                new Range(min: 0, max: 255),
             ],
         ]);
 
@@ -83,7 +83,7 @@ final readonly class UserAccountFormMapper implements FieldDefinitionFormMapperI
             'property_path' => 'fieldSettings[PasswordTTL]',
             'label' => /** @Desc("Days before password expires") */ 'field_definition.ibexa_user.password_ttl',
             'constraints' => [
-                new Range(['min' => 0, 'max' => null]),
+                new Range(min: 0, max: null),
             ],
         ]);
 
@@ -92,7 +92,7 @@ final readonly class UserAccountFormMapper implements FieldDefinitionFormMapperI
             'property_path' => 'fieldSettings[PasswordTTLWarning]',
             'label' => /** @Desc("Days before a user is notified about expiration") */ 'field_definition.ibexa_user.password_ttl_warning',
             'constraints' => [
-                new Range(['min' => 0, 'max' => null]),
+                new Range(min: 0, max: null),
             ],
         ]);
 

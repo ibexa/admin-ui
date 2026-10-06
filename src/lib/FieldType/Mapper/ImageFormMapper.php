@@ -53,10 +53,10 @@ final readonly class ImageFormMapper implements FieldDefinitionFormMapperInterfa
                 'property_path' => 'validatorConfiguration[FileSizeValidator][maxFileSize]',
                 'label' => /** @Desc("Maximum file size (MB)") */ 'field_definition.ibexa_image.max_file_size',
                 'constraints' => [
-                    new Range([
-                        'min' => 0,
-                        'max' => $this->maxUploadSize->get(MaxUploadSize::MEGABYTES),
-                    ]),
+                    new Range(
+                        min: 0,
+                        max: $this->maxUploadSize->get(MaxUploadSize::MEGABYTES),
+                    ),
                 ],
                 'attr' => [
                     'min' => 0,
