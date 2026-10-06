@@ -34,16 +34,16 @@ final class IconPathResolver implements IconPathResolverInterface, EventSubscrib
     {
         $icon = $this->resolveIconAlias($icon);
 
-        if (isset($this->iconCache[$set][$icon])) {
-            return $this->iconCache[$set][$icon];
+        if (isset($this->iconCache[$set ?? ''][$icon])) {
+            return $this->iconCache[$set ?? ''][$icon];
         }
 
         $iconSetName = $set ?? $this->configResolver->getParameter('assets.default_icon_set');
         $iconSets = $this->configResolver->getParameter('assets.icon_sets');
 
-        $this->iconCache[$set][$icon] = sprintf('%s#%s', $this->packages->getUrl($iconSets[$iconSetName]), $icon);
+        $this->iconCache[$set ?? ''][$icon] = sprintf('%s#%s', $this->packages->getUrl($iconSets[$iconSetName]), $icon);
 
-        return $this->iconCache[$set][$icon];
+        return $this->iconCache[$set ?? ''][$icon];
     }
 
     public static function getSubscribedEvents(): array

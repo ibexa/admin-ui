@@ -144,11 +144,11 @@ final readonly class PermissionChecker implements PermissionCheckerInterface
                 $policyLimitations = $policy->getLimitations();
                 if (!empty($policyLimitations)) {
                     foreach ($policyLimitations as $policyLimitation) {
-                        $limitations[$policy->id][] = $policyLimitation;
+                        $limitations[$policy->id ?? ''][] = $policyLimitation;
                     }
                 }
                 if ($permissionSet['limitation'] !== null) {
-                    $limitations[$policy->id][] = $permissionSet['limitation'];
+                    $limitations[$policy->id ?? ''][] = $permissionSet['limitation'];
                 }
             }
         }
