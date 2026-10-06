@@ -23,6 +23,7 @@ final class HeadlessTest extends AbstractParserTestCase
     private const string PAGE_BUILDER_PREVIEW_URL = 'https://frontend.example.com/page-builder';
     private const string CONTENT_PREVIEW_URL = 'https://frontend.example.com/preview';
     private const string CONFIGURATION_URL = 'https://admin.example.com/frontend';
+    private const string DOCUMENTATION_URL = 'https://doc.example.com/headless';
 
     protected function getContainerExtensions(): array
     {
@@ -68,12 +69,14 @@ final class HeadlessTest extends AbstractParserTestCase
                 'page_builder' => ['preview_url' => self::PAGE_BUILDER_PREVIEW_URL],
                 'content' => ['preview_url' => self::CONTENT_PREVIEW_URL],
                 'configuration_url' => self::CONFIGURATION_URL,
+                'documentation_url' => self::DOCUMENTATION_URL,
             ],
             [
                 'headless.enabled' => true,
                 'headless.page_builder.preview_url' => self::PAGE_BUILDER_PREVIEW_URL,
                 'headless.content.preview_url' => self::CONTENT_PREVIEW_URL,
                 'headless.configuration_url' => self::CONFIGURATION_URL,
+                'headless.documentation_url' => self::DOCUMENTATION_URL,
             ],
             [],
         ];
@@ -85,6 +88,7 @@ final class HeadlessTest extends AbstractParserTestCase
                 'headless.page_builder.preview_url',
                 'headless.content.preview_url',
                 'headless.configuration_url',
+                'headless.documentation_url',
             ],
         ];
 
@@ -100,6 +104,7 @@ final class HeadlessTest extends AbstractParserTestCase
             [
                 'headless.enabled',
                 'headless.content.preview_url',
+                'headless.documentation_url',
             ],
         ];
 
@@ -111,6 +116,7 @@ final class HeadlessTest extends AbstractParserTestCase
                 'headless.page_builder.preview_url',
                 'headless.content.preview_url',
                 'headless.configuration_url',
+                'headless.documentation_url',
             ],
         ];
     }
@@ -125,6 +131,7 @@ final class HeadlessTest extends AbstractParserTestCase
                         'page_builder' => ['preview_url' => self::PAGE_BUILDER_PREVIEW_URL],
                         'content' => ['preview_url' => self::CONTENT_PREVIEW_URL],
                         'configuration_url' => self::CONFIGURATION_URL,
+                        'documentation_url' => self::DOCUMENTATION_URL,
                     ],
                 ],
                 // A siteaccess block without the "headless" node must not shadow the group values
@@ -147,6 +154,11 @@ final class HeadlessTest extends AbstractParserTestCase
         $this->assertConfigResolverParameterValue(
             'headless.configuration_url',
             self::CONFIGURATION_URL,
+            self::SITE_ACCESS
+        );
+        $this->assertConfigResolverParameterValue(
+            'headless.documentation_url',
+            self::DOCUMENTATION_URL,
             self::SITE_ACCESS
         );
     }
