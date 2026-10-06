@@ -3,12 +3,16 @@
     const SELECTOR_TAB = '.ibexa-tabs__tab';
     const SELECTOR_TAB_ACTIVE = '.ibexa-tabs__tab--active';
     const CLASS_TAB_ACTIVE = 'ibexa-tabs__tab--active';
+    const toggleTabSelected = (tab, isSelected) => {
+        tab.classList.toggle(CLASS_TAB_ACTIVE, isSelected);
+        tab.querySelector('.ibexa-tabs__link')?.classList.toggle('ids-tabs__tab--selected', isSelected);
+    };
     const switchActiveTabs = (currentTab, previousTab) => {
         if (previousTab) {
-            previousTab.classList.remove(CLASS_TAB_ACTIVE);
+            toggleTabSelected(previousTab, false);
         }
 
-        currentTab.classList.add(CLASS_TAB_ACTIVE);
+        toggleTabSelected(currentTab, true);
     };
     const changeHashForPageReload = (hash) => {
         global.history.replaceState(null, '', `${hash}#tab`);

@@ -89,7 +89,7 @@
         }
     });
 
-    doc.querySelectorAll('.ibexa-tabs__link').forEach((tabLink) => {
+    doc.querySelectorAll('.ibexa-tabs--switcher .ibexa-tabs__link').forEach((tabLink) => {
         const tab = tabLink.parentElement;
 
         tabLink.addEventListener('focus', () => {

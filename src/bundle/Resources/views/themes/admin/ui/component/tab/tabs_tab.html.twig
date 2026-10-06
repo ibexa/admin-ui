@@ -1,16 +1,28 @@
-<li
-    class="
-        nav-item ibexa-tabs__tab ibexa-adaptive-items__item
-        {% if active|default(false) %}ibexa-tabs__tab--active{% endif %}
-        {% if has_error|default(false) %}ibexa-tabs__tab--error{% endif %}"
->
-    {% block tab_link %}
-        {% include '@ibexadesign/ui/component/tab/tabs_link.html.twig' with {
-            id: tab.id,
-            label: tab.label,
-        } %}
-    {% endblock %}
-    {% if not tab_corner_disabled|default(false) %}
-        {% include '@ibexadesign/ui/component/tab/tab_corner.html.twig' %}
-    {% endif %}
-</li>
+{% if is_switcher|default(false) %}
+    <li
+        class="
+            nav-item ibexa-tabs__tab ibexa-adaptive-items__item
+            {% if active|default(false) %}ibexa-tabs__tab--active{% endif %}
+            {% if has_error|default(false) %}ibexa-tabs__tab--error{% endif %}"
+    >
+        {% block tab_link %}
+            {% include '@ibexadesign/ui/component/tab/tabs_link.html.twig' with {
+                id,
+                label,
+                active: active|default(false),
+            } %}
+        {% endblock %}
+    </li>
+{% else %}
+    <twig:ibexa:tabs:tab
+        :label="label"
+        :isSelected="active|default(false)"
+        :hasError="has_error|default(false)"
+        href="#ibexa-tab-{{ id }}"
+        panelId="ibexa-tab-{{ id }}"
+        itemClass="ibexa-tabs__tab ibexa-adaptive-items__item{{ active|default(false) ? ' ibexa-tabs__tab--active' }}{{ has_error|default(false) ? ' ibexa-tabs__tab--error' }}"
+        id="ibexa-tab-label-{{ id }}"
+        class="ibexa-tabs__link{{ active|default(false) ? ' active' }}"
+        data-bs-toggle="tab"
+    />
+{% endif %}
