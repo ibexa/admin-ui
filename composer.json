@@ -22,7 +22,7 @@
         }
     },
     "require": {
-        "php": " >=8.3",
+        "php": ">=8.5",
         "ext-json": "*",
         "babdev/pagerfanta-bundle": "^4.5",
         "ibexa/content-forms": "~6.0.x-dev",
