@@ -14,11 +14,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ImageAssetDefaultLocationId implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Core\FieldType\ImageAsset\AssetMapper */
+    /** @var AssetMapper */
     private $assetMapper;
 
     /**
-     * @param \Ibexa\Core\FieldType\ImageAsset\AssetMapper $assetMapper
+     * @param AssetMapper $assetMapper
      */
     public function __construct(AssetMapper $assetMapper)
     {
@@ -36,7 +36,7 @@ class ImageAssetDefaultLocationId implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
+     * @param ConfigResolveEvent $event
      */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {

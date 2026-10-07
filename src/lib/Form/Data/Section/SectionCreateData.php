@@ -40,8 +40,10 @@ class SectionCreateData implements TranslationContainerInterface
      * @param string|null $identifier
      * @param string|null $name
      */
-    public function __construct(?string $identifier = null, ?string $name = null)
-    {
+    public function __construct(
+        ?string $identifier = null,
+        ?string $name = null
+    ) {
         $this->identifier = $identifier;
         $this->name = $name;
     }

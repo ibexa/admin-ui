@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class SelectionCreateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\SectionCreateMapper */
+    /** @var SectionCreateMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -83,7 +83,7 @@ class SelectionCreateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct
+     * @return SectionCreateStruct
      */
     private function createStruct(array $properties): SectionCreateStruct
     {
@@ -93,7 +93,7 @@ class SelectionCreateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \Ibexa\AdminUi\Form\Data\Section\SectionCreateData
+     * @return SectionCreateData
      */
     private function createData(array $properties): SectionCreateData
     {

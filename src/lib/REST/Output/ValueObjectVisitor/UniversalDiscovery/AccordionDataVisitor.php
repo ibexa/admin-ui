@@ -8,9 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Output\ValueObjectVisitor\UniversalDiscovery;
 
+use Ibexa\AdminUi\REST\Value\UniversalDiscovery\AccordionData;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Rest\Output\Generator;
 use Ibexa\Contracts\Rest\Output\Visitor;
+use Ibexa\Rest\Server\Values\RestLocation;
 
 /**
  * @phpstan-import-type Columns from \Ibexa\AdminUi\REST\Value\UniversalDiscovery\AccordionData
@@ -20,10 +22,13 @@ use Ibexa\Contracts\Rest\Output\Visitor;
 final class AccordionDataVisitor extends AbstractLocationDataVisitor
 {
     /**
-     * @param \Ibexa\AdminUi\REST\Value\UniversalDiscovery\AccordionData $data
+     * @param AccordionData $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data): void
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        $data
+    ): void {
         $generator->startObjectElement('AccordionData');
 
         $this->buildBreadcrumbNode($data->getBreadcrumb(), $generator, $visitor);
@@ -33,7 +38,7 @@ final class AccordionDataVisitor extends AbstractLocationDataVisitor
     }
 
     /**
-     * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Location> $breadcrumb
+     * @param array<Location> $breadcrumb
      */
     private function buildBreadcrumbNode(
         array $breadcrumb,
@@ -118,7 +123,7 @@ final class AccordionDataVisitor extends AbstractLocationDataVisitor
     }
 
     /**
-     * @param array<\Ibexa\Rest\Server\Values\RestLocation> $locations
+     * @param array<RestLocation> $locations
      */
     private function buildLocationListNode(
         array $locations,

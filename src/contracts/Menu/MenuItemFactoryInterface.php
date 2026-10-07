@@ -17,7 +17,11 @@ interface MenuItemFactoryInterface extends FactoryInterface
      *
      * @param array<mixed> $options
      *
-     * @return \Knp\Menu\ItemInterface|null
+     * @return ItemInterface|null
      */
-    public function createLocationMenuItem(string $name, int $locationId, array $options = []): ?ItemInterface;
+    public function createLocationMenuItem(
+        string $name,
+        int $locationId,
+        array $options = []
+    ): ?ItemInterface;
 }

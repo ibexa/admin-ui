@@ -36,8 +36,10 @@ class ConfigWrapper implements \ArrayAccess, \JsonSerializable
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
-    {
+    public function offsetSet(
+        $offset,
+        $value
+    ) {
         throw new RuntimeException('Configuration is readonly');
     }
 

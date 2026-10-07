@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller\BulkOperation;
 
+use Ibexa\AdminUi\REST\Value\BulkOperation;
 use Ibexa\AdminUi\REST\Value\BulkOperationResponse;
 use Ibexa\AdminUi\REST\Value\Operation;
 use Ibexa\AdminUi\REST\Value\OperationResponse;
@@ -18,11 +19,11 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class BulkOperationController extends RestController
 {
-    /** @var \Symfony\Component\HttpKernel\HttpKernelInterface */
+    /** @var HttpKernelInterface */
     private $httpKernel;
 
     /**
-     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $httpKernel
+     * @param HttpKernelInterface $httpKernel
      */
     public function __construct(
         HttpKernelInterface $httpKernel
@@ -31,15 +32,15 @@ class BulkOperationController extends RestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Ibexa\AdminUi\REST\Value\BulkOperationResponse
+     * @return BulkOperationResponse
      *
      * @throws \Exception
      */
     public function bulkAction(Request $request): BulkOperationResponse
     {
-        /** @var \Ibexa\AdminUi\REST\Value\BulkOperation $operationList */
+        /** @var BulkOperation $operationList */
         $operationList = $this->inputDispatcher->parse(
             new Message(
                 ['Content-Type' => $request->headers->get('Content-Type')],
@@ -65,13 +66,15 @@ class BulkOperationController extends RestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\AdminUi\REST\Value\Operation $operation
+     * @param Request $request
+     * @param Operation $operation
      *
-     * @return \Symfony\Component\HttpFoundation\Request
+     * @return Request
      */
-    private function buildSubRequest(Request $request, Operation $operation): Request
-    {
+    private function buildSubRequest(
+        Request $request,
+        Operation $operation
+    ): Request {
         $subRequest = Request::create(
             $operation->uri,
             $operation->method,

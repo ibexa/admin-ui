@@ -29,7 +29,7 @@ class LanguageCreateRightSidebarBuilder extends AbstractBuilder implements Trans
     public const ITEM__CREATE_AND_EDIT = 'language_create__sidebar_right__create_and_edit';
     public const ITEM__CANCEL = 'language_create__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -53,7 +53,7 @@ class LanguageCreateRightSidebarBuilder extends AbstractBuilder implements Trans
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
      * @throws \InvalidArgumentException
      * @throws ApiExceptions\BadStateException
@@ -64,7 +64,7 @@ class LanguageCreateRightSidebarBuilder extends AbstractBuilder implements Trans
         $saveId = $options['save_id'];
         $saveAncCloseId = $options['save_and_close_id'];
 
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $saveAndCloseItem = $this->createMenuItem(
@@ -101,7 +101,7 @@ class LanguageCreateRightSidebarBuilder extends AbstractBuilder implements Trans
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

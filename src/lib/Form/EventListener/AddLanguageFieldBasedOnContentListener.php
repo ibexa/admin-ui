@@ -8,7 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\EventListener;
 
+use Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
@@ -17,31 +20,33 @@ use Symfony\Component\Form\FormEvent;
 
 class AddLanguageFieldBasedOnContentListener
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     private $languageService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
+     * @param ContentService $contentService
+     * @param LanguageService $languageService
      */
-    public function __construct(ContentService $contentService, LanguageService $languageService)
-    {
+    public function __construct(
+        ContentService $contentService,
+        LanguageService $languageService
+    ) {
         $this->contentService = $contentService;
         $this->languageService = $languageService;
     }
 
     /**
-     * @param \Symfony\Component\Form\FormEvent $event
+     * @param FormEvent $event
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function onPreSetData(FormEvent $event)
     {
-        /** @var \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData $data */
+        /** @var CustomUrlAddData $data */
         $data = $event->getData();
         $location = $data->getLocation();
         if (null === $location) {

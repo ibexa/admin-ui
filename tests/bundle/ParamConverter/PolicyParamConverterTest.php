@@ -13,6 +13,7 @@ use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Core\Repository\Values\User\Policy as UserPolicy;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -21,10 +22,10 @@ class PolicyParamConverterTest extends AbstractParamConverterTest
     public const SUPPORTED_CLASS = Policy::class;
     public const PARAMETER_NAME = 'policy';
 
-    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\PolicyParamConverter */
+    /** @var PolicyParamConverter */
     protected $converter;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $serviceMock;
 
     protected function setUp(): void
@@ -41,8 +42,11 @@ class PolicyParamConverterTest extends AbstractParamConverterTest
      * @param mixed $roleId The role identifier fetched from the request
      * @param int $roleIdToLoad The role identifier used to load the role
      */
-    public function testApply($policyId, $roleId, int $roleIdToLoad)
-    {
+    public function testApply(
+        $policyId,
+        $roleId,
+        int $roleIdToLoad
+    ) {
         $matchingPolicyId = 53;
         $valueObject = $this->createMock(Role::class);
         $valueObject->expects(self::once())
@@ -75,8 +79,10 @@ class PolicyParamConverterTest extends AbstractParamConverterTest
      * @param $roleId
      * @param $policyId
      */
-    public function testApplyWithWrongAttribute($roleId, $policyId)
-    {
+    public function testApplyWithWrongAttribute(
+        $roleId,
+        $policyId
+    ) {
         $requestAttributes = [
             PolicyParamConverter::PARAMETER_ROLE_ID => $roleId,
             PolicyParamConverter::PARAMETER_POLICY_ID => $policyId,

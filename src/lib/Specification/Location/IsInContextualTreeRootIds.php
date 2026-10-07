@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification\Location;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
@@ -21,7 +22,7 @@ final class IsInContextualTreeRootIds extends AbstractSpecification
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
+     * @param Location $item
      */
     public function isSatisfiedBy($item): bool
     {

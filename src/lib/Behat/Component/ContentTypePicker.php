@@ -19,8 +19,10 @@ class ContentTypePicker extends Component
 
     public const MINIMUM_ITEMS_COUNT_FOR_SEARCH_INPUT = 10;
 
-    public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
-    {
+    public function __construct(
+        Session $session,
+        IbexaDropdown $ibexaDropdown
+    ) {
         parent::__construct($session);
         $this->ibexaDropdown = $ibexaDropdown;
     }

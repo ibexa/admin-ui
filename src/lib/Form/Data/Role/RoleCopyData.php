@@ -12,14 +12,16 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
 class RoleCopyData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role */
+    /** @var Role */
     private $copiedRole;
 
     /** @var string */
     private $newIdentifier;
 
-    public function __construct(Role $role, ?string $identifier = null)
-    {
+    public function __construct(
+        Role $role,
+        ?string $identifier = null
+    ) {
         $this->copiedRole = $role;
         $this->newIdentifier = $identifier;
     }

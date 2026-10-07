@@ -20,8 +20,10 @@ class ContentTypeGroupDeleteType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add('content_type_group', ContentTypeGroupType::class)
             ->add('delete', SubmitType::class, [

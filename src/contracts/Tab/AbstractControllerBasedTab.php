@@ -18,7 +18,7 @@ use Twig\Environment;
  */
 abstract class AbstractControllerBasedTab extends AbstractTab
 {
-    /** @var \Symfony\Bridge\Twig\Extension\HttpKernelRuntime */
+    /** @var HttpKernelRuntime */
     protected $httpKernelRuntime;
 
     public function __construct(

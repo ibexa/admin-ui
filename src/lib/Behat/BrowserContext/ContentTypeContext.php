@@ -18,16 +18,16 @@ use PHPUnit\Framework\Assert;
 
 class ContentTypeContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentTypePage */
+    /** @var ContentTypePage */
     private $contentTypePage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentTypeUpdatePage */
+    /** @var ContentTypeUpdatePage */
     private $contentTypeUpdatePage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentTypeGroupPage */
+    /** @var ContentTypeGroupPage */
     private $contentTypeGroupPage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentTypeGroupsPage */
+    /** @var ContentTypeGroupsPage */
     private $contentTypeGroupsPage;
 
     public function __construct(
@@ -133,8 +133,11 @@ class ContentTypeContext implements Context
     /**
      * @When I set :field to :value for :fieldName field
      */
-    public function iSetFieldDefinitionData(string $label, string $value, string $fieldName): void
-    {
+    public function iSetFieldDefinitionData(
+        string $label,
+        string $value,
+        string $fieldName
+    ): void {
         $this->contentTypeUpdatePage->fillFieldDefinitionFieldWithValue($fieldName, $label, $value);
     }
 

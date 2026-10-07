@@ -14,11 +14,12 @@ use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class URLWildcardAdapterTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var URLWildcard|MockObject */
     private $urlWildcardService;
 
     protected function setUp(): void
@@ -81,7 +82,7 @@ final class URLWildcardAdapterTest extends TestCase
     }
 
     /**
-     * @return  \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard[]
+     * @return  URLWildcard[]
      */
     public function urlWildcards(): array
     {

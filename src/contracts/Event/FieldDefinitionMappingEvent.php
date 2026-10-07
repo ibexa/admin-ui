@@ -20,13 +20,13 @@ class FieldDefinitionMappingEvent extends Event
      */
     public const NAME = 'field_definition.mapping';
 
-    /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData */
+    /** @var FieldDefinitionData */
     private $fieldDefinitionData;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
+    /** @var Language|null */
     private $baseLanguage;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
+    /** @var Language|null */
     private $targetLanguage;
 
     public function __construct(

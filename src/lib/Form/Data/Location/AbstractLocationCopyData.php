@@ -12,14 +12,16 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 abstract class AbstractLocationCopyData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
+    /** @var Location|null */
     protected $location;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
+    /** @var Location|null */
     protected $newParentLocation;
 
-    public function __construct(?Location $location = null, ?Location $newParentLocation = null)
-    {
+    public function __construct(
+        ?Location $location = null,
+        ?Location $newParentLocation = null
+    ) {
         $this->location = $location;
         $this->newParentLocation = $newParentLocation;
     }

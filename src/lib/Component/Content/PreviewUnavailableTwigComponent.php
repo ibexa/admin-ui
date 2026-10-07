@@ -8,29 +8,31 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Component\Content;
 
+use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Twig\Environment;
 
 class PreviewUnavailableTwigComponent implements ComponentInterface
 {
-    /** @var \Twig\Environment */
+    /** @var Environment */
     private $twig;
 
-    /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
+    /** @var NonAdminSiteaccessResolver */
     private $siteaccessResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
     /**
-     * @param \Twig\Environment $twig
-     * @param \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver $siteaccessResolver
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
+     * @param Environment $twig
+     * @param NonAdminSiteaccessResolver $siteaccessResolver
+     * @param LocationService $locationService
      */
     public function __construct(
         Environment $twig,
@@ -49,11 +51,11 @@ class PreviewUnavailableTwigComponent implements ComponentInterface
      */
     public function render(array $parameters = []): string
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $parameters['location'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $parameters['content'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
+        /** @var Language $language */
         $language = $parameters['language'];
         $versionNo = $content->getVersionInfo()->versionNo;
 

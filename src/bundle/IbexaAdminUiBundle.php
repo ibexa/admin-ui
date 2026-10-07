@@ -14,7 +14,10 @@ use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\LimitationValueMapperPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\TabPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\UiConfigProviderPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface;
+use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Exception\LogicException;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class IbexaAdminUiBundle extends Bundle
@@ -24,11 +27,11 @@ class IbexaAdminUiBundle extends Bundle
     /**
      * {@inheritdoc}
      *
-     * @throws \Symfony\Component\DependencyInjection\Exception\LogicException
+     * @throws LogicException
      */
     public function build(ContainerBuilder $container)
     {
-        /** @var \Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension $core */
+        /** @var IbexaCoreExtension $core */
         $core = $container->getExtension('ibexa');
 
         $configParsers = $this->getConfigParsers();
@@ -40,7 +43,7 @@ class IbexaAdminUiBundle extends Bundle
     }
 
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param ContainerBuilder $container
      */
     private function addCompilerPasses(ContainerBuilder $container)
     {
@@ -53,7 +56,7 @@ class IbexaAdminUiBundle extends Bundle
     }
 
     /**
-     * @return \Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface[]
+     * @return ParserInterface[]
      */
     private function getConfigParsers(): array
     {

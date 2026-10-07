@@ -79,7 +79,7 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder implement
     }
 
     /**
-     * @return array<\JMS\TranslationBundle\Model\Message>
+     * @return array<Message>
      */
     public static function getTranslationMessages(): array
     {

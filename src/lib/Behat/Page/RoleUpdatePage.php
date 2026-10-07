@@ -21,22 +21,29 @@ use Ibexa\Behat\Browser\Routing\Router;
 
 class RoleUpdatePage extends AdminUpdateItemPage
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
+    /** @var UniversalDiscoveryWidget */
     private $universalDiscoveryWidget;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\IbexaDropdown */
+    /** @var IbexaDropdown */
     private $ibexaDropdown;
 
-    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu, UniversalDiscoveryWidget $universalDiscoveryWidget, IbexaDropdown $ibexaDropdown)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        ContentActionsMenu $contentActionsMenu,
+        UniversalDiscoveryWidget $universalDiscoveryWidget,
+        IbexaDropdown $ibexaDropdown
+    ) {
         parent::__construct($session, $router, $contentActionsMenu);
         $this->universalDiscoveryWidget = $universalDiscoveryWidget;
         $this->ibexaDropdown = $ibexaDropdown;
         $this->locators->replace(new VisibleCSSLocator('button', '.ibexa-edit-content__container button'));
     }
 
-    public function selectLimitationValues(string $selectName, array $values): void
-    {
+    public function selectLimitationValues(
+        string $selectName,
+        array $values
+    ): void {
         try {
             $currentlySelectedElementsCount = $this->getHTMLPage()
                 ->findAll($this->getLocator('limitationField'))
@@ -92,8 +99,10 @@ class RoleUpdatePage extends AdminUpdateItemPage
         );
     }
 
-    public function assign(array $itemPaths, string $itemType)
-    {
+    public function assign(
+        array $itemPaths,
+        string $itemType
+    ) {
         $itemTypeToLabelMapping = [
             'users' => 'Select Users',
             'groups' => 'Select User Groups',

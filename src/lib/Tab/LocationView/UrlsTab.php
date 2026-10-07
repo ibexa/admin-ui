@@ -33,34 +33,34 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
     public const URI_FRAGMENT = 'ibexa-tab-location-view-urls';
 
-    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
+    /** @var URLAliasService */
     protected $urlAliasService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     protected $formFactory;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
+    /** @var DatasetFactory */
     protected $datasetFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     protected $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \Ibexa\Core\Helper\TranslationHelper */
+    /** @var TranslationHelper */
     private $translationHelper;
 
     /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\Contracts\Core\Repository\URLAliasService $urlAliasService
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Ibexa\Core\Helper\TranslationHelper $translationHelper
+     * @param Environment $twig
+     * @param TranslatorInterface $translator
+     * @param URLAliasService $urlAliasService
+     * @param FormFactory $formFactory
+     * @param DatasetFactory $datasetFactory
+     * @param LocationService $locationService
+     * @param PermissionResolver $permissionResolver
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param TranslationHelper $translationHelper
      */
     public function __construct(
         Environment $twig,
@@ -121,7 +121,7 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $contextParameters['location'];
 
         $customUrlsPaginationParams = $contextParameters['custom_urls_pagination_params'];
@@ -183,9 +183,9 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
     private function createCustomUrlAddForm(Location $location): FormInterface
     {
@@ -195,13 +195,15 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      * @param array $customUrlAliases
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
-    private function createCustomUrlRemoveForm(Location $location, array $customUrlAliases): FormInterface
-    {
+    private function createCustomUrlRemoveForm(
+        Location $location,
+        array $customUrlAliases
+    ): FormInterface {
         $customUrlRemoveData = new CustomUrlRemoveData($location, $this->getChoices($customUrlAliases));
 
         return $this->formFactory->removeCustomUrl($customUrlRemoveData);

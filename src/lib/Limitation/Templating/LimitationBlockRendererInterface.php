@@ -14,12 +14,15 @@ interface LimitationBlockRendererInterface
     /**
      * Returns limitation value in human readable format.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
+     * @param Limitation $limitation
      * @param array $parameters
      *
      * @return string
      */
-    public function renderLimitationValue(Limitation $limitation, array $parameters = []);
+    public function renderLimitationValue(
+        Limitation $limitation,
+        array $parameters = []
+    );
 }
 
 class_alias(LimitationBlockRendererInterface::class, 'EzSystems\EzPlatformAdminUi\Limitation\Templating\LimitationBlockRendererInterface');

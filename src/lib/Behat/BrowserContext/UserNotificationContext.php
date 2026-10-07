@@ -17,16 +17,19 @@ use PHPUnit\Framework\Assert;
 
 class UserNotificationContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UpperMenu */
+    /** @var UpperMenu */
     private $upperMenu;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\UserNotificationPopup */
+    /** @var UserNotificationPopup */
     private $userNotificationPopup;
 
     private NotificationsViewAllPage $notificationsViewAllPage;
 
-    public function __construct(UpperMenu $upperMenu, UserNotificationPopup $userNotificationPopup, NotificationsViewAllPage $notificationsViewAllPage)
-    {
+    public function __construct(
+        UpperMenu $upperMenu,
+        UserNotificationPopup $userNotificationPopup,
+        NotificationsViewAllPage $notificationsViewAllPage
+    ) {
         $this->upperMenu = $upperMenu;
         $this->userNotificationPopup = $userNotificationPopup;
         $this->notificationsViewAllPage = $notificationsViewAllPage;
@@ -136,8 +139,10 @@ class UserNotificationContext implements Context
     /**
      * @Then the notification with title :notificationTitle has status :notificationStatus
      */
-    public function verifyNotificationStatus(string $notificationTitle, string $notificationStatus): void
-    {
+    public function verifyNotificationStatus(
+        string $notificationTitle,
+        string $notificationStatus
+    ): void {
         Assert::assertEquals($notificationStatus, $this->notificationsViewAllPage->getStatusForNotification($notificationTitle));
     }
 

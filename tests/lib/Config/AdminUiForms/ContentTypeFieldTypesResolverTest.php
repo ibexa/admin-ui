@@ -11,6 +11,7 @@ namespace Ibexa\Tests\AdminUi\Config\AdminUiForms;
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolver;
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,7 +23,7 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
 
     private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ConfigResolverInterface|MockObject */
     private ConfigResolverInterface $configResolver;
 
     protected function setUp(): void
@@ -39,8 +40,10 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
      *     'meta'?: bool,
      *  }> $expectedFieldTypes
      */
-    public function testGetFieldTypes(bool $hasParameter, array $expectedFieldTypes): void
-    {
+    public function testGetFieldTypes(
+        bool $hasParameter,
+        array $expectedFieldTypes
+    ): void {
         $this->mockConfigResolverHasParameter($hasParameter);
         $this->mockConfigResolverGetParameter($hasParameter, $expectedFieldTypes);
 
@@ -222,8 +225,10 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
             ->willReturn($hasParameter);
     }
 
-    private function mockConfigResolverGetParameter(bool $hasParameter, array $configuredFieldTypes): void
-    {
+    private function mockConfigResolverGetParameter(
+        bool $hasParameter,
+        array $configuredFieldTypes
+    ): void {
         if ($hasParameter) {
             $this->configResolver
                 ->expects(self::once())

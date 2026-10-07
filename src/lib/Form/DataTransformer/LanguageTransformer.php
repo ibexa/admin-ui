@@ -19,11 +19,11 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class LanguageTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     protected $languageService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
+     * @param LanguageService $languageService
      */
     public function __construct(LanguageService $languageService)
     {
@@ -33,11 +33,11 @@ class LanguageTransformer implements DataTransformerInterface
     /**
      * Transforms a domain specific Language object into a Language's ID.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $value
+     * @param Language|null $value
      *
      * @return string|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not a Language object
+     * @throws TransformationFailedException if the given value is not a Language object
      */
     public function transform($value)
     {
@@ -57,10 +57,10 @@ class LanguageTransformer implements DataTransformerInterface
      *
      * @param string|null $value
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
+     * @return Language|null
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the value can not be found
+     * @throws NotFoundException
+     * @throws TransformationFailedException if the value can not be found
      */
     public function reverseTransform($value)
     {

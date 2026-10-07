@@ -16,8 +16,10 @@ final class SuggestionSetting implements ProviderInterface
 
     private int $resultLimit;
 
-    public function __construct(int $minQueryLength, int $resultLimit)
-    {
+    public function __construct(
+        int $minQueryLength,
+        int $resultLimit
+    ) {
         $this->minQueryLength = $minQueryLength;
         $this->resultLimit = $resultLimit;
     }

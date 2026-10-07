@@ -24,8 +24,10 @@ class RoleAssignmentTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testTransform($value, $expected)
-    {
+    public function testTransform(
+        $value,
+        $expected
+    ) {
         $service = $this->createMock(RoleService::class);
         $transformer = new RoleAssignmentTransformer($service);
 
@@ -97,8 +99,7 @@ class RoleAssignmentTransformerTest extends TestCase
     {
         $service = $this->createMock(RoleService::class);
         $service->method('loadRoleAssignment')
-            ->will($this->throwException(new class('Location not found') extends NotFoundException {
-            }));
+            ->will($this->throwException(new class('Location not found') extends NotFoundException {}));
 
         $transformer = new RoleAssignmentTransformer($service);
 

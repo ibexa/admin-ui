@@ -12,14 +12,14 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
 class RoleUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role */
+    /** @var Role */
     private $role;
 
     /** @var string */
     private $identifier;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
+     * @param Role|null $role
      */
     public function __construct(?Role $role = null)
     {
@@ -32,7 +32,7 @@ class RoleUpdateData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
+     * @return Role
      */
     public function getRole(): ?Role
     {
@@ -40,7 +40,7 @@ class RoleUpdateData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param Role $role
      *
      * @return RoleUpdateData
      */

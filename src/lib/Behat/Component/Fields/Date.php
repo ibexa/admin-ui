@@ -18,11 +18,13 @@ class Date extends FieldTypeComponent
 {
     private const DATE_FORMAT = 'm/d/Y';
 
-    /** @var \Ibexa\AdminUi\Behat\Component\DateAndTimePopup */
+    /** @var DateAndTimePopup */
     private $dateAndTimePopup;
 
-    public function __construct(Session $session, DateAndTimePopup $dateAndTimePopup)
-    {
+    public function __construct(
+        Session $session,
+        DateAndTimePopup $dateAndTimePopup
+    ) {
         parent::__construct($session);
         $this->dateAndTimePopup = $dateAndTimePopup;
     }

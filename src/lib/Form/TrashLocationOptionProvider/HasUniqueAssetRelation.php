@@ -22,10 +22,10 @@ final class HasUniqueAssetRelation implements TrashLocationOptionProvider
     public const RADIO_SELECT_TRASH_WITH_ASSETS = 'trash_with_assets';
     public const RADIO_SELECT_DEFAULT_TRASH = 'trash_default';
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -43,8 +43,10 @@ final class HasUniqueAssetRelation implements TrashLocationOptionProvider
             ->isSatisfiedBy($location->getContent());
     }
 
-    public function addOptions(FormInterface $form, Location $location): void
-    {
+    public function addOptions(
+        FormInterface $form,
+        Location $location
+    ): void {
         $translatorParameters = [
             '%content%' => $location->getContent()->getName(),
         ];

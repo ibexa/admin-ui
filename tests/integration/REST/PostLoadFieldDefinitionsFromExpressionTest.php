@@ -8,6 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\AdminUi\REST;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Test\Rest\Input\PayloadLoader;
 use Ibexa\Contracts\Test\Rest\Request\Value\EndpointRequestDefinition;
 
@@ -19,9 +22,9 @@ final class PostLoadFieldDefinitionsFromExpressionTest extends BaseAdminUiRestWe
     private const INPUT_MEDIA_TYPE = 'FieldDefinitionExpression';
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     * @throws ForbiddenException
      */
     protected function setUp(): void
     {

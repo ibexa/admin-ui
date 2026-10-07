@@ -19,13 +19,13 @@ class RoleAssignmentParamConverter implements ParamConverterInterface
 {
     public const PRAMETER_ROLE_ASSIGNMENT_ID = 'assignmentId';
 
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
+    /** @var RoleService */
     private $roleService;
 
     /**
      * RoleParamConverter constructor.
      *
-     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
+     * @param RoleService $roleService
      */
     public function __construct(RoleService $roleService)
     {
@@ -35,8 +35,10 @@ class RoleAssignmentParamConverter implements ParamConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function apply(Request $request, ParamConverter $configuration)
-    {
+    public function apply(
+        Request $request,
+        ParamConverter $configuration
+    ) {
         if (!$request->get(self::PRAMETER_ROLE_ASSIGNMENT_ID)) {
             return false;
         }

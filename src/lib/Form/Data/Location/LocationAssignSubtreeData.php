@@ -15,27 +15,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 class LocationAssignSubtreeData
 {
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null
+     * @var Section|null
      *
      * @Assert\NotBlank()
      */
     protected $section;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @var Location|null
      *
      * @Assert\NotBlank()
      */
     protected $location;
 
-    public function __construct(?Section $section = null, ?Location $location = null)
-    {
+    public function __construct(
+        ?Section $section = null,
+        ?Location $location = null
+    ) {
         $this->section = $section;
         $this->location = $location;
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section|null
+     * @return Section|null
      */
     public function getSection(): ?Section
     {
@@ -43,7 +45,7 @@ class LocationAssignSubtreeData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
+     * @param Section|null $section
      */
     public function setSection(?Section $section): void
     {
@@ -51,7 +53,7 @@ class LocationAssignSubtreeData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @return Location|null
      */
     public function getLocation(): ?Location
     {
@@ -59,7 +61,7 @@ class LocationAssignSubtreeData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      */
     public function setLocation(?Location $location): void
     {

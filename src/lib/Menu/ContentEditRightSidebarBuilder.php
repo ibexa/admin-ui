@@ -8,11 +8,13 @@
 namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
@@ -41,16 +43,16 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
     public const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
     public const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
-    /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
+    /** @var NonAdminSiteaccessResolver */
     private $siteaccessResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -80,24 +82,24 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
      * @throws \InvalidArgumentException
-     * @throws ApiExceptions\BadStateException
+     * @throws BadStateException
      * @throws \InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $options['location'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $options['content'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
+        /** @var Language $language */
         $language = $options['language'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation */
+        /** @var Location $parentLocation */
         $parentLocation = $options['parent_location'];
 
         $target = (new Target\Builder\VersionBuilder())->translateToAnyLanguageOf([$language->languageCode])->build();
@@ -187,7 +189,7 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {
@@ -201,15 +203,15 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation
+     * @param Location|null $location
+     * @param Content $content
+     * @param Language $language
+     * @param Location $parentLocation
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws ApiExceptions\InvalidArgumentException
      */
     private function getContentPreviewItem(
         ?Location $location,

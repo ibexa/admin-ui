@@ -10,21 +10,25 @@ namespace Ibexa\AdminUi\Specification\Version;
 
 use Ibexa\AdminUi\Specification\AbstractSpecification;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 
 class VersionHasConflict extends AbstractSpecification
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
     /** @var string */
     private $languageCode;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param ContentService $contentService
      * @param string $languageCode
      */
-    public function __construct(ContentService $contentService, string $languageCode)
-    {
+    public function __construct(
+        ContentService $contentService,
+        string $languageCode
+    ) {
         $this->contentService = $contentService;
         $this->languageCode = $languageCode;
     }
@@ -32,11 +36,11 @@ class VersionHasConflict extends AbstractSpecification
     /**
      * Checks if $content has version conflict.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
+     * @param VersionInfo $versionInfo
      *
      * @return bool
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      */
     public function isSatisfiedBy($versionInfo): bool
     {

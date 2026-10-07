@@ -21,7 +21,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SortOrderChoiceType extends AbstractType
 {
     /**
-     * @var \Symfony\Contracts\Translation\TranslatorInterface
+     * @var TranslatorInterface
      */
     private $translator;
 

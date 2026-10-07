@@ -24,7 +24,7 @@ class SelectionMultilingualOptionsDataListener
     }
 
     /**
-     * @param \Symfony\Component\Form\FormEvent $event
+     * @param FormEvent $event
      */
     public function setLanguageOptions(FormEvent $event): void
     {

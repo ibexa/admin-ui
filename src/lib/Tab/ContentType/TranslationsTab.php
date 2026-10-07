@@ -14,6 +14,8 @@ use Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -23,18 +25,18 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
 {
     public const URI_FRAGMENT = 'ibexa-tab-content-type-view-translations';
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
+    /** @var DatasetFactory */
     protected $datasetFactory;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory */
+    /** @var ContentTypeFormFactory */
     protected $formFactory;
 
     /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory $formFactory
+     * @param Environment $twig
+     * @param TranslatorInterface $translator
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param DatasetFactory $datasetFactory
+     * @param ContentTypeFormFactory $formFactory
      */
     public function __construct(
         Environment $twig,
@@ -87,11 +89,11 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
      *
      * @return mixed[]
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+        /** @var ContentType $contentType */
         $contentType = $contextParameters['content_type'];
         $contentTypeGroup = $contextParameters['content_type_group'];
 

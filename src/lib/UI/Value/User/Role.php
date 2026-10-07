@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Value\User;
 
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation as APIRoleLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
@@ -17,21 +18,21 @@ class Role extends RoleAssignment
     /**
      * the limitation of this role assignment.
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null
+     * @var RoleLimitation|null
      */
     protected $limitation;
 
     /**
      * the role which is assigned to the user.
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\User\Role
+     * @var APIRole
      */
     protected $role;
 
     /**
      * Returns the limitation of the user role assignment.
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null
+     * @return RoleLimitation|null
      */
     public function getRoleLimitation(): ?APIRoleLimitation
     {
@@ -41,7 +42,7 @@ class Role extends RoleAssignment
     /**
      * Returns the role to which the user is assigned to.
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
+     * @return APIRole
      */
     public function getRole(): APIRole
     {
@@ -49,11 +50,13 @@ class Role extends RoleAssignment
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment $roleAssignment
+     * @param RoleAssignment $roleAssignment
      * @param array $properties
      */
-    public function __construct(RoleAssignment $roleAssignment, array $properties = [])
-    {
+    public function __construct(
+        RoleAssignment $roleAssignment,
+        array $properties = []
+    ) {
         parent::__construct(get_object_vars($roleAssignment) + $properties);
 
         $this->role = $roleAssignment->role;

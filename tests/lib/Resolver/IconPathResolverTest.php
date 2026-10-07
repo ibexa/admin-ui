@@ -10,15 +10,16 @@ namespace Ibexa\Tests\AdminUi\Resolver;
 
 use Ibexa\AdminUi\Resolver\IconPathResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Packages;
 
 final class IconPathResolverTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ConfigResolverInterface|MockObject */
     private $configResolver;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Asset\Packages */
+    /** @var MockObject|Packages */
     private $packages;
 
     public function setUp(): void
@@ -32,8 +33,11 @@ final class IconPathResolverTest extends TestCase
     /**
      * @dataProvider resolveDataProvider
      */
-    public function testResolve(string $icon, ?string $set, string $expectedPath): void
-    {
+    public function testResolve(
+        string $icon,
+        ?string $set,
+        string $expectedPath
+    ): void {
         $iconPathResolver = new IconPathResolver($this->configResolver, $this->packages);
 
         self::assertEquals($expectedPath, $iconPathResolver->resolve($icon, $set));

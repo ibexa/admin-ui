@@ -18,8 +18,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentTypeGroupsDeleteType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add('content_type_groups', CollectionType::class, [
                 'entry_type' => CheckboxType::class,

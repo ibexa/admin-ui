@@ -14,6 +14,7 @@ use Ibexa\Contracts\Core\Repository\FieldType;
 use Ibexa\Contracts\Core\Repository\FieldTypeService;
 use Ibexa\Core\FieldType\ValidationError;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
@@ -21,17 +22,17 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 class FieldSettingsValidatorTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var MockObject
      */
     private $executionContext;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var MockObject
      */
     private $fieldTypeService;
 
     /**
-     * @var \Ibexa\AdminUi\Validator\Constraints\FieldSettingsValidator
+     * @var FieldSettingsValidator
      */
     private $validator;
 

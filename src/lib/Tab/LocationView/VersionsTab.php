@@ -14,12 +14,16 @@ use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Specification\ContentIsUser;
 use Ibexa\AdminUi\Specification\UserMode\IsFocusModeEnabled;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\UI\Value\Content\VersionInfo;
 use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\User\UserSetting\UserSettingService;
 use JMS\TranslationBundle\Annotation\Desc;
@@ -37,32 +41,32 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     public const FORM_REMOVE_ARCHIVED = 'version_remove_archived';
     public const URI_FRAGMENT = 'ibexa-tab-location-view-versions';
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
+    /** @var DatasetFactory */
     protected $datasetFactory;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     protected $formFactory;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
+    /** @var UrlGeneratorInterface */
     protected $urlGenerator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     private $userService;
 
     private UserSettingService $userSettingService;
 
     /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
+     * @param Environment $twig
+     * @param TranslatorInterface $translator
+     * @param DatasetFactory $datasetFactory
+     * @param FormFactory $formFactory
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param PermissionResolver $permissionResolver
+     * @param UserService $userService
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         Environment $twig,
@@ -117,8 +121,8 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
      *
      * @return bool
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function evaluate(array $parameters): bool
     {
@@ -143,9 +147,9 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $contextParameters['content'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $contextParameters['location'];
 
         $draftPaginationParams = $contextParameters['draft_pagination_params'];
@@ -162,7 +166,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
         $draftPagerfanta->setMaxPerPage($draftPaginationParams['limit']);
         $draftPagerfanta->setCurrentPage(min($draftPaginationParams['page'], $draftPagerfanta->getNbPages()));
 
-        /** @var \Ibexa\AdminUi\UI\Value\Content\VersionInfo[] $policies */
+        /** @var VersionInfo[] $policies */
         $draftVersions = $draftPagerfanta->getCurrentPageResults();
 
         $archivedVersions = $versionsDataset->getArchivedVersions();
@@ -210,14 +214,17 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      * @param array $versions
      * @param bool $isDraftForm
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
-    private function createVersionRemoveForm(Location $location, array $versions, bool $isDraftForm): FormInterface
-    {
+    private function createVersionRemoveForm(
+        Location $location,
+        array $versions,
+        bool $isDraftForm
+    ): FormInterface {
         $contentInfo = $location->getContentInfo();
         $data = new VersionRemoveData($contentInfo, $this->getVersionNumbers($versions));
 

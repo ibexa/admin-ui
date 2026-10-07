@@ -40,8 +40,10 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
         return $limitation->limitationValues;
     }
 
-    public function mapLimitationForm(FormInterface $form, Limitation $data): void
-    {
+    public function mapLimitationForm(
+        FormInterface $form,
+        Limitation $data
+    ): void {
         $options = [
             'multiple' => true,
             'expanded' => false,

@@ -19,13 +19,15 @@ class ValidatorConfigurationValidator extends FieldTypeValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \Ibexa\AdminUi\Form\Data\FieldDefinitionData $value The value that should be validated
-     * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
+     * @param FieldDefinitionData $value The value that should be validated
+     * @param Constraint $constraint The constraint for the validation
      *
      * @api
      */
-    public function validate($value, Constraint $constraint)
-    {
+    public function validate(
+        $value,
+        Constraint $constraint
+    ) {
         if (!$value instanceof FieldDefinitionData) {
             return;
         }
@@ -34,8 +36,10 @@ class ValidatorConfigurationValidator extends FieldTypeValidator
         $this->processValidationErrors($fieldType->validateValidatorConfiguration($value->validatorConfiguration));
     }
 
-    protected function generatePropertyPath($errorIndex, $errorTarget)
-    {
+    protected function generatePropertyPath(
+        $errorIndex,
+        $errorTarget
+    ) {
         return 'defaultValue';
     }
 }

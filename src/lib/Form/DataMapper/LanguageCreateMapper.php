@@ -21,11 +21,11 @@ class LanguageCreateMapper implements DataMapperInterface
     /**
      * Maps given LanguageCreateStruct object to a LanguageCreateData object.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
+     * @param LanguageCreateStruct|ValueObject $value
      *
-     * @return \Ibexa\AdminUi\Form\Data\Language\LanguageCreateData
+     * @return LanguageCreateData
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function map(ValueObject $value): LanguageCreateData
     {
@@ -45,11 +45,11 @@ class LanguageCreateMapper implements DataMapperInterface
     /**
      * Maps given LanguageCreateData object to a LanguageCreateStruct object.
      *
-     * @param \Ibexa\AdminUi\Form\Data\Language\LanguageCreateData $data
+     * @param LanguageCreateData $data
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct
+     * @return LanguageCreateStruct
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function reverseMap($data): LanguageCreateStruct
     {

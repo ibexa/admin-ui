@@ -15,12 +15,15 @@ use Ibexa\Contracts\Rest\Output\Visitor;
 class SubitemsList extends ValueObjectVisitor
 {
     /**
-     * @param \Ibexa\Contracts\Rest\Output\Visitor $visitor
-     * @param \Ibexa\Contracts\Rest\Output\Generator $generator
+     * @param Visitor $visitor
+     * @param Generator $generator
      * @param \Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data)
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        $data
+    ) {
         $generator->startObjectElement('SubitemsList');
         $visitor->setHeader('Content-Type', $generator->getMediaType('SubitemsList'));
         //@todo Needs refactoring, disabling certain headers should not be done this way

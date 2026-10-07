@@ -18,22 +18,25 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 abstract class AbstractBinaryBaseTransformer
 {
-    /** @var \Ibexa\Contracts\Core\Repository\FieldType */
+    /** @var FieldType */
     protected $fieldType;
 
-    /** @var \Ibexa\Core\FieldType\Value */
+    /** @var Value */
     protected $initialValue;
 
     /** @var string */
     protected $valueClass;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\FieldType $fieldType
-     * @param \Ibexa\Core\FieldType\Value $initialValue
+     * @param FieldType $fieldType
+     * @param Value $initialValue
      * @param string $valueClass
      */
-    public function __construct(FieldType $fieldType, Value $initialValue, $valueClass)
-    {
+    public function __construct(
+        FieldType $fieldType,
+        Value $initialValue,
+        $valueClass
+    ) {
         $this->fieldType = $fieldType;
         $this->initialValue = $initialValue;
         $this->valueClass = $valueClass;
@@ -53,9 +56,9 @@ abstract class AbstractBinaryBaseTransformer
     /**
      * @param array $value
      *
-     * @return \Ibexa\Core\FieldType\Value
+     * @return Value
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function getReverseTransformedValue($value)
     {

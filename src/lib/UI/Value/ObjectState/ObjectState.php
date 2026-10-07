@@ -24,11 +24,13 @@ class ObjectState extends CoreObjectState
     protected $userCanAssign;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
+     * @param APIObjectState $objectState
      * @param array $properties
      */
-    public function __construct(APIObjectState $objectState, array $properties = [])
-    {
+    public function __construct(
+        APIObjectState $objectState,
+        array $properties = []
+    ) {
         parent::__construct(get_object_vars($objectState) + $properties);
     }
 }

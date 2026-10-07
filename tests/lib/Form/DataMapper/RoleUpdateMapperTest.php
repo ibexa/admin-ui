@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class RoleUpdateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\RoleUpdateMapper */
+    /** @var RoleUpdateMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -80,7 +80,7 @@ class RoleUpdateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct
+     * @return RoleUpdateStruct
      */
     private function createStruct(array $properties): RoleUpdateStruct
     {
@@ -90,7 +90,7 @@ class RoleUpdateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \Ibexa\AdminUi\Form\Data\Role\RoleUpdateData
+     * @return RoleUpdateData
      */
     private function createData(array $properties): RoleUpdateData
     {

@@ -8,18 +8,24 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Util;
 
+use Ibexa\AdminUi\Exception\FieldTypeExpressionParserException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+
 interface ContentTypeFieldsExtractorInterface
 {
     /**
      * @return list<int>
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\AdminUi\Exception\FieldTypeExpressionParserException
+     * @throws NotFoundException
+     * @throws FieldTypeExpressionParserException
      */
     public function extractFieldsFromExpression(string $expression): array;
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
-    public function isFieldWithinExpression(int $fieldDefinitionId, string $expression): bool;
+    public function isFieldWithinExpression(
+        int $fieldDefinitionId,
+        string $expression
+    ): bool;
 }

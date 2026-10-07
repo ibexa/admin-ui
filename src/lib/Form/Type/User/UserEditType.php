@@ -22,19 +22,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserEditType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     protected $languageService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
+     * @param LanguageService $languageService
      */
     public function __construct(LanguageService $languageService)
     {
         $this->languageService = $languageService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add(
                 'content_info',

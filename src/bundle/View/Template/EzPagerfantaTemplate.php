@@ -8,6 +8,7 @@
 namespace Ibexa\Bundle\AdminUi\View\Template;
 
 use Pagerfanta\View\Template\TwitterBootstrap4Template;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -16,9 +17,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class EzPagerfantaTemplate extends TwitterBootstrap4Template
 {
     /**
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
+     * @param TranslatorInterface $translator
      *
-     * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __construct(TranslatorInterface $translator)
     {

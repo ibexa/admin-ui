@@ -9,24 +9,27 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
 use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
 class ConfiguredLanguagesChoiceLoader implements ChoiceLoaderInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     private $languageService;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
+     * @param LanguageService $languageService
+     * @param ConfigResolverInterface $configResolver
      */
-    public function __construct(LanguageService $languageService, ConfigResolverInterface $configResolver)
-    {
+    public function __construct(
+        LanguageService $languageService,
+        ConfigResolverInterface $configResolver
+    ) {
         $this->languageService = $languageService;
         $this->configResolver = $configResolver;
     }
@@ -52,8 +55,10 @@ class ConfiguredLanguagesChoiceLoader implements ChoiceLoaderInterface
     /**
      * {@inheritdoc}
      */
-    public function loadChoicesForValues(array $values, $value = null)
-    {
+    public function loadChoicesForValues(
+        array $values,
+        $value = null
+    ) {
         // Optimize
         $values = array_filter($values);
         if (empty($values)) {
@@ -66,8 +71,10 @@ class ConfiguredLanguagesChoiceLoader implements ChoiceLoaderInterface
     /**
      * {@inheritdoc}
      */
-    public function loadValuesForChoices(array $choices, $value = null)
-    {
+    public function loadValuesForChoices(
+        array $choices,
+        $value = null
+    ) {
         // Optimize
         $choices = array_filter($choices);
         if (empty($choices)) {
@@ -80,7 +87,7 @@ class ConfiguredLanguagesChoiceLoader implements ChoiceLoaderInterface
     /**
      * Sort languages based on siteaccess languages order.
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     private function getPriorityOrderedLanguages(): array
     {

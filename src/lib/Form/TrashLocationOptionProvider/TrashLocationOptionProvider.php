@@ -15,7 +15,10 @@ interface TrashLocationOptionProvider
 {
     public function supports(Location $location): bool;
 
-    public function addOptions(FormInterface $form, Location $location): void;
+    public function addOptions(
+        FormInterface $form,
+        Location $location
+    ): void;
 }
 
 class_alias(TrashLocationOptionProvider::class, 'EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider\TrashLocationOptionProvider');

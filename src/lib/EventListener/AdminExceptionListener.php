@@ -13,6 +13,7 @@ use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LogLevel;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,16 +29,16 @@ class AdminExceptionListener implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface */
+    /** @var NotificationHandlerInterface */
     protected $notificationHandler;
 
-    /** @var \Twig\Environment */
+    /** @var Environment */
     protected $twig;
 
-    /** @var \Symfony\WebpackEncoreBundle\Asset\TagRenderer */
+    /** @var TagRenderer */
     protected $encoreTagRenderer;
 
-    /** @var \Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface */
+    /** @var EntrypointLookupCollectionInterface */
     private $entrypointLookupCollection;
 
     /** @var array */
@@ -49,18 +50,18 @@ class AdminExceptionListener implements LoggerAwareInterface
     /** @var string */
     protected $kernelEnvironment;
 
-    /** @var \Psr\Log\LogLevel::* */
+    /** @var LogLevel::* */
     private $logLevel;
 
     /**
-     * @param \Twig\Environment $twig
-     * @param \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface $notificationHandler
-     * @param \Symfony\WebpackEncoreBundle\Asset\TagRenderer $encoreTagRenderer
-     * @param \Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface $entrypointLookupCollection
+     * @param Environment $twig
+     * @param NotificationHandlerInterface $notificationHandler
+     * @param TagRenderer $encoreTagRenderer
+     * @param EntrypointLookupCollectionInterface $entrypointLookupCollection
      * @param array $siteAccessGroups
      * @param string $kernelRootDir
      * @param string $kernelEnvironment
-     * @param \Psr\Log\LogLevel::* $logLevel
+     * @param LogLevel::* $logLevel
      */
     public function __construct(
         Environment $twig,
@@ -83,7 +84,7 @@ class AdminExceptionListener implements LoggerAwareInterface
     }
 
     /**
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
+     * @param ExceptionEvent $event
      */
     public function onKernelException(ExceptionEvent $event)
     {
@@ -140,7 +141,7 @@ class AdminExceptionListener implements LoggerAwareInterface
     }
 
     /**
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
+     * @param ExceptionEvent $event
      *
      * @return bool
      */
@@ -148,14 +149,14 @@ class AdminExceptionListener implements LoggerAwareInterface
     {
         $request = $event->getRequest();
 
-        /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess */
+        /** @var SiteAccess $siteAccess */
         $siteAccess = $request->get('siteaccess', new SiteAccess('default'));
 
         return \in_array($siteAccess->name, $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME]);
     }
 
     /**
-     * @param \Throwable $exception
+     * @param Throwable $exception
      *
      * @return string
      */

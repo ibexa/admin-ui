@@ -22,8 +22,10 @@ class SectionsTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testTransform($value, $expected)
-    {
+    public function testTransform(
+        $value,
+        $expected
+    ) {
         $service = $this->createMock(SectionService::class);
         $transformer = new SectionsTransformer($service);
 

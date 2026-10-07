@@ -8,16 +8,18 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\ContentTypeGroup;
 
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+
 /**
  * @todo Add validation
  */
 class ContentTypeGroupsDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]|null */
+    /** @var ContentTypeGroup[]|null */
     protected $contentTypeGroups;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]|null $contentTypeGroups
+     * @param ContentTypeGroup[]|null $contentTypeGroups
      */
     public function __construct(array $contentTypeGroups = [])
     {

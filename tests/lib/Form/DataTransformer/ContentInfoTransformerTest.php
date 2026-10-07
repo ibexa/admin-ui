@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Form\DataTransformer\ContentInfoTransformer;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -19,12 +20,12 @@ final class ContentInfoTransformerTest extends TestCase
 {
     private const EXAMPLE_CONTENT_ID = 123456;
 
-    /** @var \Ibexa\AdminUi\Form\DataTransformer\ContentInfoTransformer */
+    /** @var ContentInfoTransformer */
     private $contentInfoTransformer;
 
     protected function setUp(): void
     {
-        /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $contentService */
+        /** @var ContentService|MockObject $contentService */
         $contentService = $this->createMock(ContentService::class);
         $contentService
             ->method('loadContentInfo')
@@ -55,8 +56,10 @@ final class ContentInfoTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      */
-    public function testTransform(?ContentInfo $value, ?int $expected): void
-    {
+    public function testTransform(
+        ?ContentInfo $value,
+        ?int $expected
+    ): void {
         $result = $this->contentInfoTransformer->transform($value);
 
         $this->assertEquals($expected, $result);
@@ -65,8 +68,10 @@ final class ContentInfoTransformerTest extends TestCase
     /**
      * @dataProvider reverseTransformDataProvider
      */
-    public function testReverseTransform($value, ?ContentInfo $expected): void
-    {
+    public function testReverseTransform(
+        $value,
+        ?ContentInfo $expected
+    ): void {
         $result = $this->contentInfoTransformer->reverseTransform($value);
 
         $this->assertEquals($expected, $result);
@@ -90,11 +95,10 @@ final class ContentInfoTransformerTest extends TestCase
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('ContentInfo not found');
 
-        /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $service */
+        /** @var ContentService|MockObject $service */
         $service = $this->createMock(ContentService::class);
         $service->method('loadContentInfo')
-            ->will($this->throwException(new class('ContentInfo not found') extends NotFoundException {
-            }));
+            ->will($this->throwException(new class('ContentInfo not found') extends NotFoundException {}));
 
         $transformer = new ContentInfoTransformer($service);
 

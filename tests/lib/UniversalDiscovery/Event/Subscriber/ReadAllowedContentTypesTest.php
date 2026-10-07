@@ -15,6 +15,7 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class ReadAllowedContentTypesTest extends TestCase
@@ -26,16 +27,16 @@ final class ReadAllowedContentTypesTest extends TestCase
     private const ALLOWED_CONTENT_TYPES_IDS = [2, 4];
     private const ALLOWED_CONTENT_TYPES = ['article', 'folder'];
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var PermissionResolver|MockObject */
     private $permissionResolver;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var PermissionCheckerInterface|MockObject */
     private $permissionChecker;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ContentTypeService|MockObject */
     private $contentTypeService;
 
-    /** @var \Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber\ReadAllowedContentTypes */
+    /** @var ReadAllowedContentTypes */
     private $subscriber;
 
     protected function setUp(): void

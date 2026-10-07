@@ -16,6 +16,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Repository\Values\ContentType\ContentType as APIContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft as APIContentTypeDraft;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -24,17 +25,17 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 final class UniqueContentTypeIdentifierValidatorTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var MockObject
      */
     private $contentTypeService;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var MockObject
      */
     private $executionContext;
 
     /**
-     * @var \Ibexa\AdminUi\Validator\Constraints\UniqueContentTypeIdentifierValidator
+     * @var UniqueContentTypeIdentifierValidator
      */
     private $validator;
 

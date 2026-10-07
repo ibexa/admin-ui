@@ -14,12 +14,13 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\Trash\SearchResult;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class TrashItemAdapterTest extends TestCase
 {
     /**
-     * @var \Ibexa\Contracts\Core\Repository\TrashService|\PHPUnit\Framework\MockObject\MockObject
+     * @var TrashService|MockObject
      */
     protected $trashService;
 
@@ -32,13 +33,15 @@ class TrashItemAdapterTest extends TestCase
     /**
      * Returns the adapter to test.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query $query
-     * @param \Ibexa\Contracts\Core\Repository\TrashService $trashService
+     * @param Query $query
+     * @param TrashService $trashService
      *
-     * @return \Ibexa\AdminUi\Pagination\Pagerfanta\TrashItemAdapter
+     * @return TrashItemAdapter
      */
-    protected function getAdapter(Query $query, TrashService $trashService): TrashItemAdapter
-    {
+    protected function getAdapter(
+        Query $query,
+        TrashService $trashService
+    ): TrashItemAdapter {
         return new TrashItemAdapter($query, $trashService);
     }
 

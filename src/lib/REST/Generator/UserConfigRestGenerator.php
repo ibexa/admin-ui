@@ -28,8 +28,11 @@ final class UserConfigRestGenerator implements ApplicationConfigRestGeneratorInt
         return self::PARAMETER === $parameterName;
     }
 
-    public function generate($parameter, Generator $generator, Visitor $visitor): void
-    {
+    public function generate(
+        $parameter,
+        Generator $generator,
+        Visitor $visitor
+    ): void {
         if ($parameter instanceof User) {
             $generator->startHashElement(self::PARAMETER);
             $visitor->visitValueObject($parameter);

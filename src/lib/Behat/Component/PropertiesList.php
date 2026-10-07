@@ -19,8 +19,10 @@ class PropertiesList extends Component
         $this->getHTMLPage()->find($this->getLocator('tabContent'))->assert()->isVisible();
     }
 
-    public function verifyValue(string $label, string $value): void
-    {
+    public function verifyValue(
+        string $label,
+        string $value
+    ): void {
         $this->getHTMLPage()
                 ->findAll($this->getLocator('globalPropertiesItem'))
                 ->getByCriterion(new ChildElementTextCriterion($this->getLocator('globalPropertiesLabel'), $label))

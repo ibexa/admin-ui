@@ -9,6 +9,7 @@ namespace Ibexa\AdminUi\UI\Config\Provider;
 
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 
 /**
  * Class responsible for generating PlatformUI configuration for Multi File Upload functionality.
@@ -128,7 +129,7 @@ class ContentTypeMappings implements ProviderInterface
     /**
      * @return numeric
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     private function getContentTypeConfiguredMaxFileSize(
         string $contentTypeIdentifier,

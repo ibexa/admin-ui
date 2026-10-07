@@ -34,7 +34,7 @@ class DateAndTimePopup extends Component
                 fi._flatpickr.config.onChange = onChangeNew;
             }';
 
-    /** @var \Ibexa\Behat\Browser\Locator\VisibleCSSLocator */
+    /** @var VisibleCSSLocator */
     private $parentLocator;
 
     public function __construct(Session $session)
@@ -43,8 +43,10 @@ class DateAndTimePopup extends Component
         $this->parentLocator = VisibleCSSLocator::empty();
     }
 
-    public function setDate(DateTimeInterface $date, string $dateFormat = self::DATETIME_FORMAT): void
-    {
+    public function setDate(
+        DateTimeInterface $date,
+        string $dateFormat = self::DATETIME_FORMAT
+    ): void {
         $this->getSession()->executeScript(
             sprintf(
                 self::ADD_CALLBACK_TO_DATEPICKER_SCRIPT_FORMAT,
@@ -68,8 +70,10 @@ class DateAndTimePopup extends Component
             ->isVisible();
     }
 
-    public function setTime(int $hour, int $minute): void
-    {
+    public function setTime(
+        int $hour,
+        int $minute
+    ): void {
         $calendarContainerClassesScript = sprintf(
             self::CALENDAR_CONTAINER_CLASSES_SCRIPT,
             $this->parentLocator->getSelector(),

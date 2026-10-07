@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Processor\ContentType;
 
+use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\Contracts\AdminUi\Event\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -19,11 +20,11 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class ContentTypeDiscardChangesFormProcessor implements EventSubscriberInterface
 {
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
+    /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
     /**
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
+     * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(
         UrlGeneratorInterface $urlGenerator
@@ -43,7 +44,7 @@ class ContentTypeDiscardChangesFormProcessor implements EventSubscriberInterface
 
     public function processDiscardChanges(FormActionEvent $event)
     {
-        /** @var \Ibexa\AdminUi\Form\Data\ContentTypeData $data */
+        /** @var ContentTypeData $data */
         $data = $event->getData();
         $contentTypeDraft = $data->contentTypeDraft;
 

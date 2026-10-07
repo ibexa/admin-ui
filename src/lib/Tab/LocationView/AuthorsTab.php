@@ -13,6 +13,7 @@ use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use JMS\TranslationBundle\Annotation\Desc;
@@ -66,7 +67,7 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $contextParameters['content'];
 
         $versionInfo = $content->getVersionInfo();
@@ -91,8 +92,10 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     /**
      * @param array<string, mixed|null> $parameters
      */
-    private function supplyLastContributor(array &$parameters, VersionInfo $versionInfo): void
-    {
+    private function supplyLastContributor(
+        array &$parameters,
+        VersionInfo $versionInfo
+    ): void {
         $parameters['last_contributor'] = null;
         if ((new UserExists($this->userService))->isSatisfiedBy($versionInfo->creatorId)) {
             $parameters['last_contributor'] = $this->userService->loadUser($versionInfo->creatorId);
@@ -102,8 +105,10 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     /**
      * @param array<string, mixed|null> $parameters
      */
-    private function supplyCreator(array &$parameters, ContentInfo $contentInfo): void
-    {
+    private function supplyCreator(
+        array &$parameters,
+        ContentInfo $contentInfo
+    ): void {
         $parameters['creator'] = null;
         if ((new UserExists($this->userService))->isSatisfiedBy($contentInfo->ownerId)) {
             $parameters['creator'] = $this->userService->loadUser($contentInfo->ownerId);

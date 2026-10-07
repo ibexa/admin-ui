@@ -24,10 +24,13 @@ interface FieldDefinitionFormMapperInterface
      * - field settings
      * - default value.
      *
-     * @param \Symfony\Component\Form\FormInterface $fieldDefinitionForm form for current FieldDefinition
-     * @param \Ibexa\AdminUi\Form\Data\FieldDefinitionData $data underlying data for current FieldDefinition form
+     * @param FormInterface $fieldDefinitionForm form for current FieldDefinition
+     * @param FieldDefinitionData $data underlying data for current FieldDefinition form
      */
-    public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void;
+    public function mapFieldDefinitionForm(
+        FormInterface $fieldDefinitionForm,
+        FieldDefinitionData $data
+    ): void;
 }
 
 class_alias(

@@ -10,10 +10,11 @@ namespace Ibexa\AdminUi\UI\Value\Content\Location;
 
 use Ibexa\AdminUi\UI\Value;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 final class Mapper
 {
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
+    /** @var ValueFactory */
     private $valueFactory;
 
     public function __construct(
@@ -23,7 +24,7 @@ final class Mapper
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
+     * @param Location[] $locations
      *
      * @return Value\Content\Location[]
      */
@@ -38,7 +39,7 @@ final class Mapper
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
+     * @param Location[] $locations
      *
      * @return Value\Content\Location[]
      */

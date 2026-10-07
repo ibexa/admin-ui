@@ -12,11 +12,11 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 class UserDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
+    /** @var ContentInfo|null */
     private $contentInfo;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param ContentInfo|null $contentInfo
      */
     public function __construct(?ContentInfo $contentInfo = null)
     {
@@ -24,7 +24,7 @@ class UserDeleteData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
+     * @return ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -32,7 +32,7 @@ class UserDeleteData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param ContentInfo|null $contentInfo
      */
     public function setContentInfo(?ContentInfo $contentInfo)
     {

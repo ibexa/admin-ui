@@ -14,19 +14,19 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeEditData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null */
+    /** @var ContentType|null */
     private $contentType;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null */
+    /** @var ContentTypeGroup|null */
     private $contentTypeGroup;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
+    /** @var Language|null */
     private $language;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null $contentTypeGroup
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
+     * @param ContentType|null $contentType
+     * @param ContentTypeGroup|null $contentTypeGroup
+     * @param Language|null $language
      */
     public function __construct(
         ?ContentType $contentType = null,
@@ -39,7 +39,7 @@ class ContentTypeEditData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
+     * @return ContentType|null
      */
     public function getContentType(): ?ContentType
     {
@@ -47,7 +47,7 @@ class ContentTypeEditData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
+     * @param ContentType|null $contentType
      */
     public function setContentType(?ContentType $contentType): void
     {
@@ -55,7 +55,7 @@ class ContentTypeEditData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null
+     * @return ContentTypeGroup|null
      */
     public function getContentTypeGroup(): ?ContentTypeGroup
     {
@@ -63,7 +63,7 @@ class ContentTypeEditData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null $contentTypeGroup
+     * @param ContentTypeGroup|null $contentTypeGroup
      */
     public function setContentTypeGroup(?ContentTypeGroup $contentTypeGroup): void
     {
@@ -71,7 +71,7 @@ class ContentTypeEditData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
+     * @return Language|null
      */
     public function getLanguage(): ?Language
     {
@@ -79,7 +79,7 @@ class ContentTypeEditData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
+     * @param Language|null $language
      */
     public function setLanguage(?Language $language): void
     {

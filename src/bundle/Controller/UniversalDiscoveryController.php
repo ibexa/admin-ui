@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UniversalDiscoveryController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider */
+    /** @var Provider */
     private $provider;
 
     public function __construct(
