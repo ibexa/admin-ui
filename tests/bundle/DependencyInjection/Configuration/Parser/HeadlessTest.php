@@ -24,6 +24,7 @@ final class HeadlessTest extends AbstractParserTestCase
     private const string CONTENT_PREVIEW_URL = 'https://frontend.example.com/preview';
     private const string CONFIGURATION_URL = 'https://admin.example.com/frontend';
     private const string DOCUMENTATION_URL = 'https://doc.example.com/headless';
+    private const string DEFAULT_DOCUMENTATION_URL = 'https://doc.ibexa.co/';
 
     protected function getContainerExtensions(): array
     {
@@ -208,5 +209,26 @@ final class HeadlessTest extends AbstractParserTestCase
             self::PAGE_BUILDER_PREVIEW_URL,
             self::SITE_ACCESS
         );
+    }
+
+    public function testNullDocumentationUrlOverridesNonNullDefault(): void
+    {
+        $this->setParameter(
+            'ibexa.site_access.config.default.headless.documentation_url',
+            self::DEFAULT_DOCUMENTATION_URL
+        );
+
+        $this->load([
+            'system' => [
+                self::SITE_ACCESS => [
+                    'headless' => [
+                        'documentation_url' => null,
+                    ],
+                ],
+            ],
+        ]);
+
+        $this->assertConfigResolverParameterValue('headless.documentation_url', self::DEFAULT_DOCUMENTATION_URL, 'fre');
+        $this->assertConfigResolverParameterValue('headless.documentation_url', null, self::SITE_ACCESS);
     }
 }
