@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Specification;
 use Ibexa\Contracts\Core\Specification\SpecificationInterface as BaseSpecificationInterface;
 
 /**
- * @deprecated 4.4.0 Use \Ibexa\Contracts\Core\Specification\SpecificationInterface
+ * @deprecated 4.4.0 Use BaseSpecificationInterface
  */
 interface SpecificationInterface extends BaseSpecificationInterface {}
 

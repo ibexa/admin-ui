@@ -19,7 +19,6 @@ use Ibexa\AdminUi\Form\Type\Search\TrashSearchType;
 use Ibexa\AdminUi\Pagination\Pagerfanta\TrashItemAdapter;
 use Ibexa\AdminUi\QueryType\TrashSearchQueryType;
 use Ibexa\AdminUi\Specification\UserExists;
-use Ibexa\AdminUi\UI\Service\PathService;
 use Ibexa\AdminUi\UI\Service\PathService as UiPathService;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
@@ -62,7 +61,7 @@ class TrashController extends Controller
     /** @var SubmitHandler */
     private $submitHandler;
 
-    /** @var PathService */
+    /** @var UiPathService */
     private $uiPathService;
 
     /** @var UserLanguagePreferenceProviderInterface */

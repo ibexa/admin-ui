@@ -28,7 +28,6 @@ use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterfac
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException as APIRepositoryUnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
@@ -396,7 +395,7 @@ class LocationController extends Controller
      * @return RedirectResponse
      *
      * @throws NotFoundException
-     * @throws UnauthorizedException
+     * @throws APIRepositoryUnauthorizedException
      */
     private function handleTrashLocation(LocationTrashData $data): RedirectResponse
     {

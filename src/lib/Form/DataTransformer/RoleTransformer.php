@@ -11,7 +11,6 @@ namespace Ibexa\AdminUi\Form\DataTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\RoleService;
-use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -59,7 +58,7 @@ class RoleTransformer implements DataTransformerInterface
      *
      * @param mixed $value
      *
-     * @return Role|null
+     * @return APIRole|null
      *
      * @throws UnauthorizedException
      * @throws TransformationFailedException

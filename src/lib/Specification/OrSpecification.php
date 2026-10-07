@@ -12,7 +12,7 @@ use Ibexa\Contracts\Core\Specification\OrSpecification as BaseOrSpecification;
 use Ibexa\Contracts\Core\Specification\SpecificationInterface;
 
 /**
- * @deprecated 4.4.0 Use \Ibexa\Contracts\Core\Specification\OrSpecification
+ * @deprecated 4.4.0 Use BaseOrSpecification
  */
 class OrSpecification extends AbstractSpecification
 {

@@ -8,7 +8,6 @@
 namespace Ibexa\AdminUi\Form\Data;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
 use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem as APITrashItem;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
@@ -18,7 +17,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
  */
 class TrashItemData
 {
-    /** @var TrashItem */
+    /** @var APITrashItem */
     protected $location;
 
     /** @var ContentType */

@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Value\User;
 
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation as APIRoleLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
@@ -18,7 +17,7 @@ class Role extends RoleAssignment
     /**
      * the limitation of this role assignment.
      *
-     * @var RoleLimitation|null
+     * @var APIRoleLimitation|null
      */
     protected $limitation;
 
@@ -32,7 +31,7 @@ class Role extends RoleAssignment
     /**
      * Returns the limitation of the user role assignment.
      *
-     * @return RoleLimitation|null
+     * @return APIRoleLimitation|null
      */
     public function getRoleLimitation(): ?APIRoleLimitation
     {

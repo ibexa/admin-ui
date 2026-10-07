@@ -25,7 +25,6 @@ use Ibexa\AdminUi\Form\Type\User\UserInvitationType;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\Specification\ContentIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
-use Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier;
 use Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier as SubitemsContentViewParameterSupplier;
 use Ibexa\AdminUi\UI\Service\PathService;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
@@ -65,7 +64,7 @@ class ContentViewController extends Controller
     /** @var FormFactory */
     private $formFactory;
 
-    /** @var ContentViewParameterSupplier */
+    /** @var SubitemsContentViewParameterSupplier */
     private $subitemsContentViewParameterSupplier;
 
     /** @var UserService */
@@ -104,7 +103,7 @@ class ContentViewController extends Controller
      * @param PathService $pathService
      * @param FormFactory $formFactory
      * @param FormFactoryInterface $sfFormFactory
-     * @param ContentViewParameterSupplier $subitemsContentViewParameterSupplier
+     * @param SubitemsContentViewParameterSupplier $subitemsContentViewParameterSupplier
      * @param UserService $userService
      * @param BookmarkService $bookmarkService
      * @param ContentService $contentService

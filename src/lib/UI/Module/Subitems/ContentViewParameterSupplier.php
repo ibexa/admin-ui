@@ -28,7 +28,6 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Rest\Output\Visitor;
 use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Ibexa\Core\Query\QueryFactoryInterface;
-use Ibexa\Rest\Output\Generator\Json;
 use Ibexa\Rest\Output\Generator\Json as JsonOutputGenerator;
 use Ibexa\Rest\Server\Output\ValueObjectVisitor\ContentTypeInfoList as ContentTypeInfoListValueObjectVisitor;
 use Ibexa\Rest\Server\Values\ContentTypeInfoList;
@@ -44,7 +43,7 @@ class ContentViewParameterSupplier
     /** @var Visitor */
     private $outputVisitor;
 
-    /** @var Json */
+    /** @var JsonOutputGenerator */
     private $outputGenerator;
 
     /** @var ContentTypeInfoListValueObjectVisitor */

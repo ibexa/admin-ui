@@ -13,7 +13,6 @@ use Ibexa\AdminUi\Form\Data\Asset\ImageAssetUploadData;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Ibexa\Core\FieldType\Image\Value as ImageValue;
-use Ibexa\Core\FieldType\ImageAsset\AssetMapper;
 use Ibexa\Core\FieldType\ImageAsset\AssetMapper as ImageAssetMapper;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,7 +37,7 @@ class AssetController extends Controller
     /** @var CsrfTokenManagerInterface */
     private $csrfTokenManager;
 
-    /** @var AssetMapper */
+    /** @var ImageAssetMapper */
     private $imageAssetMapper;
 
     /** @var TranslatorInterface */
@@ -47,7 +46,7 @@ class AssetController extends Controller
     /**
      * @param ValidatorInterface $validator
      * @param CsrfTokenManagerInterface $csrfTokenManager
-     * @param AssetMapper $imageAssetMapper
+     * @param ImageAssetMapper $imageAssetMapper
      * @param TranslatorInterface $translator
      */
     public function __construct(

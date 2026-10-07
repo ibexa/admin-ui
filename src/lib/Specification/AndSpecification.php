@@ -12,7 +12,7 @@ use Ibexa\Contracts\Core\Specification\AndSpecification as BaseAndSpecification;
 use Ibexa\Contracts\Core\Specification\SpecificationInterface;
 
 /**
- * @deprecated 4.4.0 Use \Ibexa\Contracts\Core\Specification\AndSpecification
+ * @deprecated 4.4.0 Use BaseAndSpecification
  */
 class AndSpecification extends AbstractSpecification
 {

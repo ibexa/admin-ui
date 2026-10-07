@@ -13,7 +13,7 @@ use Ibexa\ContentForms\Validator\ValidationErrorsProcessor as BaseValidationErro
 
 /**
  * @deprecated Since eZ Platform 3.0.2 class moved to EzPlatformContentForms Bundle. Use it instead.
- * @see \Ibexa\ContentForms\Validator\Constraints\FieldTypeValidator.
+ * @see BaseFieldTypeValidator.
  */
 abstract class FieldTypeValidator extends BaseFieldTypeValidator
 {

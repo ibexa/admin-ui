@@ -15,7 +15,7 @@ use Ibexa\Contracts\Core\FieldType\ValidationError;
  * @internal
  *
  * @deprecated Since eZ Platform 3.0.2 class moved to EzPlatformContentForms Bundle.
- * @see \Ibexa\ContentForms\Validator\ValidationErrorsProcessor.
+ * @see BaseValidationErrorProcessor.
  */
 final class ValidationErrorsProcessor
 {

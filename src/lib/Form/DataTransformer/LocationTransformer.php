@@ -11,7 +11,6 @@ namespace Ibexa\AdminUi\Form\DataTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -59,7 +58,7 @@ class LocationTransformer implements DataTransformerInterface
      *
      * @param mixed $value
      *
-     * @return Location|null
+     * @return APILocation|null
      *
      * @throws TransformationFailedException
      */
