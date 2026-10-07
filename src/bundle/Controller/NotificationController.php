@@ -125,7 +125,9 @@ final class NotificationController extends Controller
 
         $data = $session->get('notifications_filters');
         if ($data !== null) {
-            $searchForm->setData($data);
+            if (!$searchForm->isSubmitted()) {
+                $searchForm->setData($data);
+            }
 
             return $this->buildQuery($data);
         }
