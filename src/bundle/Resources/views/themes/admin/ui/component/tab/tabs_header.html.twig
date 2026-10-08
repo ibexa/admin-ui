@@ -28,9 +28,8 @@
 {% endset %}
 {% set btn_more_content %}
     {% block btn_more_content %}
-        <svg class="ibexa-icon ibexa-icon--small-medium">
-            <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
-        </svg>
+        {% set tab_more_label = 'ui.component.tab.tabs_more.label'|trans|desc('More') %}
+        <span class="ids-tabs__tab-label" data-label="{{ tab_more_label }}">{{ tab_more_label }}</span>
     {% endblock %}
 {% endset %}
 {% set popup_menu_more_content %}
@@ -88,11 +87,14 @@
                     class="ids-tabs__item ibexa-tabs__tab ibexa-tabs__tab--more ibexa-adaptive-items__item ibexa-adaptive-items__item--selector"
                     role="presentation"
                     data-item-template="{{ tab_more_item_template }}"
-                    tabindex="0"
                 >
-                    <a class="ids-tabs__tab ibexa-tabs__link" role="button">
+                    <button
+                        type="button"
+                        class="ids-tabs__tab ibexa-tabs__link"
+                        aria-haspopup="true"
+                    >
                         {{ btn_more_content }}
-                    </a>
+                    </button>
                 </li>
             {% endif %}
             <twig:block name="after_list">

@@ -641,6 +641,11 @@
         <target state="new">'%content%' is in use by %reverse_relations% Content item(s). You should remove all reverse Relations before deleting the Content item.</target>
         <note>key: trash_container.modal.message_relations</note>
       </trans-unit>
+      <trans-unit id="58630d9ef67acbc52365be5de3e8c6f415ce14e7" resname="ui.component.tab.tabs_more.label">
+        <source>More</source>
+        <target state="new">More</target>
+        <note>key: ui.component.tab.tabs_more.label</note>
+      </trans-unit>
       <trans-unit id="49fd0694e9c8815a1231505dc9bec3c6e1406616" resname="ui.component.tab.tabs_toggler.hide">
         <source>Hide</source>
         <target state="new">Hide</target>
