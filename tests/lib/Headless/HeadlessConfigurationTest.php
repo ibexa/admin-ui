@@ -56,12 +56,14 @@ final class HeadlessConfigurationTest extends TestCase
                 'headless.page_builder.preview_url' => $parameter,
                 'headless.content.preview_url' => $parameter,
                 'headless.configuration_url' => $parameter,
+                'headless.documentation_url' => $parameter,
             ])
         );
 
         self::assertSame($expected, $configuration->getPageBuilderPreviewUrl());
         self::assertSame($expected, $configuration->getContentPreviewUrl());
         self::assertSame($expected, $configuration->getConfigurationUrl());
+        self::assertSame($expected, $configuration->getDocumentationUrl());
     }
 
     /**
