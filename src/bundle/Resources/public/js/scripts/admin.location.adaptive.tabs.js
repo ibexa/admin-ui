@@ -61,6 +61,7 @@
             const adaptiveItems = new ibexa.core.AdaptiveItems({
                 itemHiddenClass: 'ibexa-tabs__tab--hidden',
                 container: tabsList,
+                selectorFocusableElement: tabMore.querySelector('.ids-tabs__tab'),
                 getActiveItem: () => {
                     const activeTabLink = tabsLinks.find((tabLink) => tabLink.classList.contains('active'));
                     const activeTab = activeTabLink ? activeTabLink.closest('.ibexa-tabs__tab') : null;
