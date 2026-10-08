@@ -88,13 +88,13 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
 
     public function addFieldDefinitionData(FieldDefinitionData $fieldDefinitionData): void
     {
-        $this->fieldDefinitionsData[$fieldDefinitionData->fieldGroup][$fieldDefinitionData->identifier] = $fieldDefinitionData;
+        $this->fieldDefinitionsData[$fieldDefinitionData->fieldGroup ?? ''][$fieldDefinitionData->identifier ?? ''] = $fieldDefinitionData;
     }
 
     public function addMetaFieldDefinitionData(FieldDefinitionData $fieldDefinitionData): void
     {
-        $fieldGroup = $fieldDefinitionData->fieldGroup;
-        $identifier = $fieldDefinitionData->identifier;
+        $fieldGroup = $fieldDefinitionData->fieldGroup ?? '';
+        $identifier = $fieldDefinitionData->identifier ?? '';
 
         $this->metaFieldDefinitionsData[$fieldGroup][$identifier] = $fieldDefinitionData;
     }
@@ -107,7 +107,7 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
             }
         }
 
-        $this->fieldDefinitionsData[$fieldDefinitionData->fieldGroup][$fieldDefinitionIdentifier] = $fieldDefinitionData;
+        $this->fieldDefinitionsData[$fieldDefinitionData->fieldGroup ?? ''][$fieldDefinitionIdentifier] = $fieldDefinitionData;
     }
 
     /**

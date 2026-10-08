@@ -11,6 +11,7 @@ jobs:
         name: "AdminUI-OSS"
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
         with:
+            php-image: 'ghcr.io/ibexa/docker/php:8.5-node22'
             project-edition: 'oss'
             test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaOSS'
             test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
@@ -22,6 +23,7 @@ jobs:
         name: "AdminUI-Headless"
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
         with:
+            php-image: 'ghcr.io/ibexa/docker/php:8.5-node22'
             project-edition: 'headless'
             test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaHeadless'
             test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
@@ -33,6 +35,7 @@ jobs:
         name: "AdminUI-Experience/Commerce"
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
         with:
+            php-image: 'ghcr.io/ibexa/docker/php:8.5-node22'
             project-edition: 'experience'
             test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaExperience,@IbexaCommerce'
             test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
@@ -44,6 +47,7 @@ jobs:
         name: "Basic Page Builder tests"
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
         with:
+            php-image: 'ghcr.io/ibexa/docker/php:8.5-node22'
             project-edition: 'experience'
             test-suite:  '--profile=browser --suite=personas'
             test-setup-phase-1: '--profile=setup --suite=personas --tags=@setup --mode=standard'

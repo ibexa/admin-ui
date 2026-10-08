@@ -83,7 +83,7 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
                     $choices = [];
                     /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup $userGroup */
                     foreach ($userGroups as $userGroup) {
-                        $choices[$userGroup->getName()] = $userGroup->getId();
+                        $choices[$userGroup->getName() ?? ''] = $userGroup->getId();
                     }
 
                     return $choices;
