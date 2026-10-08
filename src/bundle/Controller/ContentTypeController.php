@@ -764,7 +764,7 @@ class ContentTypeController extends Controller
     {
         $contentTypesNumbers = array_column($contentTypes, 'id');
 
-        return array_combine($contentTypesNumbers, array_fill_keys($contentTypesNumbers, false));
+        return array_fill_keys($contentTypesNumbers, false);
     }
 
     /**

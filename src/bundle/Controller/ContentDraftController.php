@@ -131,7 +131,7 @@ class ContentDraftController extends Controller
         }
 
         return new ContentRemoveData(
-            array_combine($versions, array_fill_keys($versions, false))
+            array_fill_keys($versions, false)
         );
     }
 }

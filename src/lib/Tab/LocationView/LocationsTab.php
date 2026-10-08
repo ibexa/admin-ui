@@ -262,7 +262,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     {
         $locationIds = array_column($locations, 'id');
 
-        return array_combine($locationIds, array_fill_keys($locationIds, false));
+        return array_fill_keys($locationIds, false);
     }
 
     /**

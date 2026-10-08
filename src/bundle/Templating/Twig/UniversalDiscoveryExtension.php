@@ -80,6 +80,9 @@ class UniversalDiscoveryExtension extends AbstractExtension
         return $normalized;
     }
 
+    /**
+     * @param non-empty-string $delimiter
+     */
     private function toCamelCase(
         string $input,
         string $delimiter = '_'

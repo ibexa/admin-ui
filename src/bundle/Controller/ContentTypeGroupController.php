@@ -315,7 +315,7 @@ class ContentTypeGroupController extends Controller
     {
         $contentTypeGroupsNumbers = array_column($contentTypeGroups, 'id');
 
-        return array_combine($contentTypeGroupsNumbers, array_fill_keys($contentTypeGroupsNumbers, false));
+        return array_fill_keys($contentTypeGroupsNumbers, false);
     }
 }
 

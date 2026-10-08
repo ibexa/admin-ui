@@ -176,7 +176,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     ): FormInterface {
         $data = new TranslationDeleteData(
             $location->getContentInfo(),
-            array_combine($languageCodes, array_fill_keys($languageCodes, false))
+            array_fill_keys($languageCodes, false)
         );
 
         return $this->formFactory->createNamed('delete-translations', TranslationDeleteType::class, $data);

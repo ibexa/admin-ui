@@ -392,7 +392,7 @@ class ObjectStateController extends Controller
     {
         $statesIds = array_column($states, 'id');
 
-        return array_combine($statesIds, array_fill_keys($statesIds, false));
+        return array_fill_keys($statesIds, false);
     }
 }
 

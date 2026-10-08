@@ -210,7 +210,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     {
         $versionNumbers = array_column($versions, 'versionNo');
 
-        return array_combine($versionNumbers, array_fill_keys($versionNumbers, false));
+        return array_fill_keys($versionNumbers, false);
     }
 
     /**

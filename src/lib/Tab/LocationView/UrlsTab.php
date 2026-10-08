@@ -218,7 +218,7 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
     {
         $urlAliasIdList = array_column($customUrlAliases, 'id');
 
-        return array_combine($urlAliasIdList, array_fill_keys($urlAliasIdList, false));
+        return array_fill_keys($urlAliasIdList, false);
     }
 }
 

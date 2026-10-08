@@ -302,7 +302,7 @@ class ObjectStateGroupController extends Controller
     {
         $groupsIds = array_column($groups, 'id');
 
-        return array_combine($groupsIds, array_fill_keys($groupsIds, false));
+        return array_fill_keys($groupsIds, false);
     }
 }
 

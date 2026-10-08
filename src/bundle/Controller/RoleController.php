@@ -100,7 +100,7 @@ class RoleController extends Controller
         $rolesNumbers = array_column($roles, 'id');
 
         $rolesDeleteData = new RolesDeleteData(
-            array_combine($rolesNumbers, array_fill_keys($rolesNumbers, false))
+            array_fill_keys($rolesNumbers, false)
         );
 
         $rolesDeleteForm = $this->formFactory->deleteRoles($rolesDeleteData);

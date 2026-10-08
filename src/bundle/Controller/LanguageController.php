@@ -305,7 +305,7 @@ class LanguageController extends Controller
     {
         $languagesNumbers = array_column($languages, 'id');
 
-        return array_combine($languagesNumbers, array_fill_keys($languagesNumbers, false));
+        return array_fill_keys($languagesNumbers, false);
     }
 }
 
