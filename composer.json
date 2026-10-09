@@ -68,6 +68,7 @@
         "ibexa/admin-ui-assets": "dev-6.0-next",
         "ibexa/behat": "~6.0.x-dev",
         "ibexa/code-style": "~2.0.0",
+        "ibexa/doctrine-migrations": "~6.0.x-dev",
         "ibexa/doctrine-schema": "~6.0.x-dev",
         "ibexa/http-cache": "~6.0.x-dev",
         "ibexa/notifications": "~6.0.x-dev",
