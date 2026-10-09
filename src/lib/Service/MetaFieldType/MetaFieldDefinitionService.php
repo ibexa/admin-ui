@@ -11,6 +11,8 @@ namespace Ibexa\AdminUi\Service\MetaFieldType;
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
@@ -18,6 +20,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Ibexa\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use JMS\TranslationBundle\Annotation\Ignore;
@@ -34,6 +37,8 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
 
     private ContentTypeService $contentTypeService;
 
+    private FieldTypeService $fieldTypeService;
+
     private FieldsGroupsList $fieldsGroupsList;
 
     private LanguageService $languageService;
@@ -46,6 +51,7 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
         ConfigResolverInterface $configResolver,
         ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
         ContentTypeService $contentTypeService,
+        FieldTypeService $fieldTypeService,
         FieldsGroupsList $fieldsGroupsList,
         LanguageService $languageService,
         LocaleConverterInterface $localeConverter,
@@ -54,12 +60,16 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
         $this->configResolver = $configResolver;
         $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
         $this->contentTypeService = $contentTypeService;
+        $this->fieldTypeService = $fieldTypeService;
         $this->fieldsGroupsList = $fieldsGroupsList;
         $this->languageService = $languageService;
         $this->localeConverter = $localeConverter;
         $this->translator = $translator;
     }
 
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentType
+     */
     public function addMetaFieldDefinitions(ValueObject $contentType, ?Language $language = null): void
     {
         $metaFieldTypes = $this->contentTypeFieldTypesResolver->getMetaFieldTypes();
@@ -70,8 +80,15 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
 
         foreach ($metaFieldTypes as $metaFieldTypeIdentifier => $metaFieldTypeSettings) {
             $fieldGroup = $this->getDefaultMetaDataFieldTypeGroup() ?? $this->fieldsGroupsList->getDefaultGroup();
+            try {
+                $isSingular = $this->fieldTypeService->getFieldType($metaFieldTypeIdentifier)->isSingular();
+            } catch (NotFoundException|FieldTypeNotFoundException $e) {
+                continue;
+            }
 
-            if ($this->metaFieldDefinitionExists($metaFieldTypeIdentifier, $fieldGroup, $contentType)) {
+            $fieldTypeGroup = $isSingular === true ? null : $fieldGroup;
+
+            if ($this->metaFieldDefinitionExists($metaFieldTypeIdentifier, $fieldTypeGroup, $contentType)) {
                 continue;
             }
 
@@ -120,15 +137,18 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
         return $fieldDefinitionCreateStruct;
     }
 
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentType
+     */
     public function metaFieldDefinitionExists(
         string $fieldTypeIdentifier,
-        string $fieldTypeGroup,
+        ?string $fieldTypeGroup,
         ValueObject $contentType
     ): bool {
         foreach ($contentType->fieldDefinitions as $fieldDefinition) {
             if (
                 $fieldDefinition->fieldTypeIdentifier === $fieldTypeIdentifier
-                && $fieldDefinition->fieldGroup === $fieldTypeGroup
+                && ($fieldTypeGroup === null || $fieldDefinition->fieldGroup === $fieldTypeGroup)
             ) {
                 return true;
             }

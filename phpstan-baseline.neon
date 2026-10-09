@@ -11688,12 +11688,6 @@ parameters:
 			path: src/lib/Service/ContentTypeService.php
 
 		-
-			message: '#^Access to an undefined property Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:\$fieldDefinitions\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/lib/Service/MetaFieldType/MetaFieldDefinitionService.php
-
-		-
 			message: '#^Access to an undefined property Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Policy\:\:\$originalId\.$#'
 			identifier: property.notFound
 			count: 2
