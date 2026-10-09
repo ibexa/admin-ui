@@ -18,19 +18,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class FieldDefinitionsCollectionType extends AbstractType
 {
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
+    /** @var FieldsGroupsList */
     private $fieldsGroupsList;
 
     /**
-     * @param \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList $fieldsGroupsListHelper
+     * @param FieldsGroupsList $fieldsGroupsListHelper
      */
     public function __construct(FieldsGroupsList $fieldsGroupsListHelper)
     {
         $this->fieldsGroupsList = $fieldsGroupsListHelper;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         foreach ($this->fieldsGroupsList->getGroups() as $identifier => $group) {
             if ($identifier === '') {
                 $identifier = $this->fieldsGroupsList->getDefaultGroup();

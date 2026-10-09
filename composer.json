@@ -74,14 +74,15 @@
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "ibexa/doctrine-schema": "~4.6.0@dev",
         "ibexa/http-cache": "~4.6.0@dev",
-        "ibexa/code-style": "^1.3.x-dev",
+        "ibexa/code-style": "~2.3.1",
         "ibexa/notifications": "~4.6.0@dev",
         "ibexa/phpstan": "~4.6.x-dev",
         "ibexa/test-rest": "~4.6.x-dev",
         "ibexa/test-core": "~4.6.x-dev",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
-        "phpstan/phpstan-symfony": "^2.0"
+        "phpstan/phpstan-symfony": "^2.0",
+        "ibexa/doctrine-migrations": "~4.6.x-dev"
     },
     "config": {
         "allow-plugins": {

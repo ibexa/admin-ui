@@ -47,7 +47,7 @@ class Node extends RestValue
 
     public bool $isBookmarked;
 
-    /** @var \Ibexa\AdminUi\REST\Value\ContentTree\Node[] */
+    /** @var Node[] */
     public $children;
 
     public string $pathString;
@@ -55,7 +55,7 @@ class Node extends RestValue
     public string $mainLanguageCode;
 
     /**
-     * @param array<\Ibexa\AdminUi\REST\Value\ContentTree\Node> $children
+     * @param array<Node> $children
      */
     public function __construct(
         int $depth,

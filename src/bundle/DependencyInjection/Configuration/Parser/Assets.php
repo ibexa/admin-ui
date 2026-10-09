@@ -52,8 +52,11 @@ class Assets extends AbstractParser
             ->end();
     }
 
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
+    public function mapConfig(
+        array &$scopeSettings,
+        $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (empty($scopeSettings[self::ASSETS_NODE])) {
             return;
         }

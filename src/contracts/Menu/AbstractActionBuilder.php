@@ -52,8 +52,10 @@ abstract class AbstractActionBuilder extends AbstractBuilder
     /**
      * @param array<string, mixed> $options
      */
-    protected function createActionItem(string $name, array $options = []): ItemInterface
-    {
+    protected function createActionItem(
+        string $name,
+        array $options = []
+    ): ItemInterface {
         if (empty($options['extras']['translation_domain'])) {
             $options['extras']['translation_domain'] = self::TRANSLATION_DOMAIN;
         }

@@ -15,8 +15,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractLocationCopyType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add(
                 'location',

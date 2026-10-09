@@ -17,7 +17,7 @@ class ContentTypeDraftParamConverter implements ParamConverterInterface
 {
     public const PARAMETER_CONTENT_TYPE_ID = 'contentTypeId';
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
     public function __construct(ContentTypeService $contentTypeGroupService)
@@ -28,8 +28,10 @@ class ContentTypeDraftParamConverter implements ParamConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function apply(Request $request, ParamConverter $configuration)
-    {
+    public function apply(
+        Request $request,
+        ParamConverter $configuration
+    ) {
         if (!$request->get(self::PARAMETER_CONTENT_TYPE_ID)) {
             return false;
         }

@@ -31,8 +31,11 @@ class RichTextTypeExtension extends AbstractTypeExtension
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
+    public function buildView(
+        FormView $view,
+        FormInterface $form,
+        array $options
+    ): void {
         $view->vars += [
             'udw_context' => $options['udw_context'],
         ];

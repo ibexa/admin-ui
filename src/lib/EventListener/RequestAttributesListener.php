@@ -8,6 +8,8 @@
 namespace Ibexa\AdminUi\EventListener;
 
 use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -24,7 +26,7 @@ class RequestAttributesListener implements EventSubscriberInterface
 {
     private const TRANSLATED_CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.translation.view';
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
+    /** @var Repository */
     private $repository;
 
     /** @var array */
@@ -32,10 +34,12 @@ class RequestAttributesListener implements EventSubscriberInterface
 
     /**
      * @param array $siteAccessGroups
-     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param Repository $repository
      */
-    public function __construct(array $siteAccessGroups, Repository $repository)
-    {
+    public function __construct(
+        array $siteAccessGroups,
+        Repository $repository
+    ) {
         $this->repository = $repository;
         $this->siteAccessGroups = $siteAccessGroups;
     }
@@ -48,10 +52,10 @@ class RequestAttributesListener implements EventSubscriberInterface
     /**
      * Adds all the request attributes to the parameters.
      *
-     * @param \Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent $event
+     * @param FilterViewBuilderParametersEvent $event
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function addRequestAttributes(FilterViewBuilderParametersEvent $event)
     {
@@ -69,7 +73,7 @@ class RequestAttributesListener implements EventSubscriberInterface
         }
 
         if ($this->hasContentLanguage($request, $parameterBag)) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+            /** @var Location $location */
             $location = $parameterBag->get('location');
 
             $languageCode = $parameterBag->get('languageCode');
@@ -80,13 +84,15 @@ class RequestAttributesListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $parameterBag
+     * @param Request $request
+     * @param ParameterBag $parameterBag
      *
      * @return bool
      */
-    private function hasContentLanguage(Request $request, ParameterBag $parameterBag): bool
-    {
+    private function hasContentLanguage(
+        Request $request,
+        ParameterBag $parameterBag
+    ): bool {
         return $parameterBag->has('languageCode')
             && $parameterBag->has('location')
             && $request->get('_route') === self::TRANSLATED_CONTENT_VIEW_ROUTE_NAME;
@@ -95,7 +101,7 @@ class RequestAttributesListener implements EventSubscriberInterface
     /**
      * @param int $locationId
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
+     * @return Location
      */
     private function loadLocation(int $locationId): Location
     {
@@ -112,13 +118,15 @@ class RequestAttributesListener implements EventSubscriberInterface
      * @param int $contentId
      * @param string $language
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
+     * @return Content
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
      */
-    private function loadContent(int $contentId, ?string $language): Content
-    {
+    private function loadContent(
+        int $contentId,
+        ?string $language
+    ): Content {
         return $this->repository->getContentService()->loadContent($contentId, $language ? [$language] : null);
     }
 

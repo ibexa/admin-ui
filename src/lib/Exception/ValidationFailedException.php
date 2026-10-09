@@ -31,8 +31,10 @@ final class ValidationFailedException extends InvalidArgumentException
         return $this->errors;
     }
 
-    private function createMessage(string $argumentName, ConstraintViolationListInterface $errors): string
-    {
+    private function createMessage(
+        string $argumentName,
+        ConstraintViolationListInterface $errors
+    ): string {
         if ($errors->count() > 1) {
             return sprintf(
                 "Argument '%s->%s' is invalid: %s",

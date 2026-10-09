@@ -13,14 +13,16 @@ use Ibexa\Contracts\Core\Repository\LocationService;
 
 abstract class AbstractRelationFormMapper implements FieldDefinitionFormMapperInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     protected $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     protected $locationService;
 
-    public function __construct(ContentTypeService $contentTypeService, LocationService $locationService)
-    {
+    public function __construct(
+        ContentTypeService $contentTypeService,
+        LocationService $locationService
+    ) {
         $this->contentTypeService = $contentTypeService;
         $this->locationService = $locationService;
     }

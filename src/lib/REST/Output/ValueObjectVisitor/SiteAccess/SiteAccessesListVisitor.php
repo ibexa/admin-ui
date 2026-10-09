@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Output\ValueObjectVisitor\SiteAccess;
 
+use Ibexa\AdminUi\REST\Value\SiteAccess\SiteAccessesList;
 use Ibexa\Contracts\Rest\Output\Generator;
 use Ibexa\Contracts\Rest\Output\ValueObjectVisitor;
 use Ibexa\Contracts\Rest\Output\Visitor;
@@ -15,10 +16,13 @@ use Ibexa\Contracts\Rest\Output\Visitor;
 final class SiteAccessesListVisitor extends ValueObjectVisitor
 {
     /**
-     * @param \Ibexa\AdminUi\REST\Value\SiteAccess\SiteAccessesList $data
+     * @param SiteAccessesList $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data): void
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        $data
+    ): void {
         $generator->startObjectElement('SiteAccessesList');
         $visitor->setHeader('Content-Type', $generator->getMediaType('SiteAccessesList'));
 

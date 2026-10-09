@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Specification\UserMode\IsFocusModeEnabled;
 use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\User\UserSetting\UserSettingService;
@@ -136,22 +137,22 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         ],
     ];
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
     private UserSettingService $userSettingService;
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface $factory
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
+     * @param MenuItemFactoryInterface $factory
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param ConfigResolverInterface $configResolver
+     * @param PermissionResolver $permissionResolver
      */
     public function __construct(
         MenuItemFactoryInterface $factory,
@@ -177,15 +178,15 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface
     {
         $token = $this->tokenStorage->getToken();
 
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->createMenuItem('root');
 
         $contentMenu = $menu->addChild(self::ITEM_CONTENT, [
@@ -274,9 +275,9 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     }
 
     /**
-     * @param \Knp\Menu\ItemInterface $menu
+     * @param ItemInterface $menu
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function addContentMenuItems(ItemInterface $menu): void
     {
@@ -345,9 +346,9 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     }
 
     /**
-     * @param \Knp\Menu\ItemInterface $menu
+     * @param ItemInterface $menu
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function addAdminMenuItems(ItemInterface $menu): void
     {

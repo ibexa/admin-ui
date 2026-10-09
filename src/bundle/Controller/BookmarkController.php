@@ -25,22 +25,22 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BookmarkController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
+    /** @var BookmarkService */
     private $bookmarkService;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
+    /** @var DatasetFactory */
     private $datasetFactory;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     private $formFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
+    /** @var SubmitHandler */
     private $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -60,9 +60,9 @@ class BookmarkController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function listAction(Request $request): Response
     {
@@ -94,9 +94,9 @@ class BookmarkController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function removeAction(Request $request): Response
     {
@@ -133,7 +133,7 @@ class BookmarkController extends Controller
     {
         $bookmarks = array_column($bookmarks, 'id');
 
-        return array_combine($bookmarks, array_fill_keys($bookmarks, false));
+        return array_fill_keys($bookmarks, false);
     }
 }
 

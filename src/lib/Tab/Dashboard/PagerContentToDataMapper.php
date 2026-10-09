@@ -11,8 +11,12 @@ namespace Ibexa\AdminUi\Tab\Dashboard;
 use Ibexa\AdminUi\Pagination\Mapper\AbstractPagerContentToDataMapper;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Helper\TranslationHelper;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\Repository\LocationResolver\LocationResolver;
@@ -20,30 +24,30 @@ use Pagerfanta\Pagerfanta;
 
 /**
  * @deprecated in favour of PagerLocationToDataMapper
- * @see \Ibexa\AdminUi\Tab\Dashboard\PagerLocationToDataMapper
+ * @see PagerLocationToDataMapper
  */
 class PagerContentToDataMapper extends AbstractPagerContentToDataMapper
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     protected $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     protected $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     protected $userService;
 
-    /** @var \Ibexa\Core\Repository\LocationResolver\LocationResolver */
+    /** @var LocationResolver */
     protected $locationResolver;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-     * @param \Ibexa\Core\Helper\TranslationHelper $translationHelper
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\Core\Repository\LocationResolver\LocationResolver $locationResolver
+     * @param ContentService $contentService
+     * @param ContentTypeService $contentTypeService
+     * @param UserService $userService
+     * @param UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
+     * @param TranslationHelper $translationHelper
+     * @param LanguageService $languageService
+     * @param LocationResolver $locationResolver
      */
     public function __construct(
         ContentService $contentService,
@@ -78,13 +82,13 @@ class PagerContentToDataMapper extends AbstractPagerContentToDataMapper
     }
 
     /**
-     * @param \Pagerfanta\Pagerfanta $pager
+     * @param Pagerfanta $pager
      *
      * @return array
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws NotFoundException
+     * @throws ForbiddenException
+     * @throws BadStateException
      */
     public function map(Pagerfanta $pager): array
     {
@@ -92,7 +96,7 @@ class PagerContentToDataMapper extends AbstractPagerContentToDataMapper
         $contentTypeIds = [];
 
         foreach ($pager as $content) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+            /** @var Content $content */
             $contentInfo = $content->contentInfo;
 
             $contentTypeIds[] = $contentInfo->contentTypeId;

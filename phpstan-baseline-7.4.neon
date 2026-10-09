@@ -1,22 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method Ibexa\\\\Bundle\\\\AdminUi\\\\Controller\\\\BookmarkController\\:\\:getChoices\\(\\) should return array but returns array\\<false\\>\\|false\\.$#"
-			count: 1
-			path: src/bundle/Controller/BookmarkController.php
-
-		-
 			message: "#^Parameter \\#1 \\$stack of function array_shift expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\> given\\.$#"
 			count: 1
 			path: src/bundle/Controller/Content/VersionDraftConflictController.php
 
 		-
 			message: "#^Parameter \\#1 \\$input of function array_keys expects array, array\\|null given\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentDraftController.php
-
-		-
-			message: "#^Parameter \\#1 \\$versions of class Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\Content\\\\Draft\\\\ContentRemoveData constructor expects array\\|null, array\\<false\\>\\|false given\\.$#"
 			count: 1
 			path: src/bundle/Controller/ContentDraftController.php
 
@@ -49,16 +39,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
 			count: 1
 			path: src/bundle/Controller/ContentViewController.php
-
-		-
-			message: "#^Method Ibexa\\\\Bundle\\\\AdminUi\\\\Controller\\\\ObjectStateController\\:\\:getObjectStatesIds\\(\\) should return array but returns array\\<false\\>\\|false\\.$#"
-			count: 1
-			path: src/bundle/Controller/ObjectStateController.php
-
-		-
-			message: "#^Parameter \\#1 \\$roles of class Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\Role\\\\RolesDeleteData constructor expects array, array\\<false\\>\\|false given\\.$#"
-			count: 1
-			path: src/bundle/Controller/RoleController.php
 
 		-
 			message: "#^Parameter \\#1 \\$obj of function date_format expects DateTimeInterface, DateTime\\|false given\\.$#"
@@ -176,26 +156,6 @@ parameters:
 			path: src/lib/Tab/LocationView/ContentTab.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\LocationView\\\\LocationsTab\\:\\:getLocationChoices\\(\\) should return array but returns array\\<int, false\\>\\|false\\.$#"
-			count: 1
-			path: src/lib/Tab/LocationView/LocationsTab.php
-
-		-
-			message: "#^Parameter \\#2 \\$languageCodes of class Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\Content\\\\Translation\\\\TranslationDeleteData constructor expects array, array\\<false\\>\\|false given\\.$#"
-			count: 1
-			path: src/lib/Tab/LocationView/TranslationsTab.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\LocationView\\\\UrlsTab\\:\\:getChoices\\(\\) should return array but returns array\\<false\\>\\|false\\.$#"
-			count: 1
-			path: src/lib/Tab/LocationView/UrlsTab.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\LocationView\\\\VersionsTab\\:\\:getVersionNumbers\\(\\) should return array but returns array\\<int, false\\>\\|false\\.$#"
-			count: 1
-			path: src/lib/Tab/LocationView/VersionsTab.php
-
-		-
 			message: "#^Parameter \\#1 \\$str of function strtolower expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/lib/Translation/Extractor/PolicyTranslationExtractor.php
@@ -235,45 +195,3 @@ parameters:
 			count: 1
 			path: tests/lib/Form/Data/ContentTypeDataTest.php
 
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController\:\:getContentTypesNumbers\(\) should return array but returns array\<false\>\|false\.$#'
-			identifier: return.type
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeGroupController\:\:getContentTypeGroupsNumbers\(\) should return array but returns array\<false\>\|false\.$#'
-			identifier: return.type
-			count: 1
-			path: src/bundle/Controller/ContentTypeGroupController.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\LanguageController\:\:getLanguagesNumbers\(\) should return array but returns array\<false\>\|false\.$#'
-			identifier: return.type
-			count: 1
-			path: src/bundle/Controller/LanguageController.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ObjectStateGroupController\:\:getObjectStateGroupsIds\(\) should return array but returns array\<false\>\|false\.$#'
-			identifier: return.type
-			count: 1
-			path: src/bundle/Controller/ObjectStateGroupController.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\PolicyController\:\:getPoliciesNumbers\(\) should return array but returns array\<false\>\|false\.$#'
-			identifier: return.type
-			count: 1
-			path: src/bundle/Controller/PolicyController.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\SectionController\:\:getSectionsNumbers\(\) should return array but returns array\<false\>\|false\.$#'
-			identifier: return.type
-			count: 1
-			path: src/bundle/Controller/SectionController.php
-
-
-		-
-			message: '#^Parameter \#2 \$pieces of function implode expects array, list\<string\>\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Templating/Twig/UniversalDiscoveryExtension.php

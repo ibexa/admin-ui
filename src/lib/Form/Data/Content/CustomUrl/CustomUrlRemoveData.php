@@ -12,14 +12,14 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class CustomUrlRemoveData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
+    /** @var Location|null */
     private $location;
 
     /** @var array */
     private $urlAliases;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      * @param array $urlAliases
      */
     public function __construct(
@@ -31,7 +31,7 @@ class CustomUrlRemoveData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @return Location|null
      */
     public function getLocation(): ?Location
     {
@@ -39,9 +39,9 @@ class CustomUrlRemoveData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      *
-     * @return \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData
+     * @return CustomUrlRemoveData
      */
     public function setLocation(?Location $location): self
     {
@@ -61,7 +61,7 @@ class CustomUrlRemoveData
     /**
      * @param array $urlAliases
      *
-     * @return \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData
+     * @return CustomUrlRemoveData
      */
     public function setUrlAliases(array $urlAliases): self
     {

@@ -21,20 +21,24 @@ class UiActionEvent extends Event implements UiActionEventInterface
     /** @var string */
     protected $type;
 
-    /** @var \Symfony\Component\Form\FormInterface */
+    /** @var FormInterface */
     protected $form;
 
-    /** @var \Symfony\Component\HttpFoundation\Response|null */
+    /** @var Response|null */
     protected $response;
 
     /**
      * @param string $name
      * @param string $type
-     * @param \Symfony\Component\Form\FormInterface $form
-     * @param \Symfony\Component\HttpFoundation\Response|null $response
+     * @param FormInterface $form
+     * @param Response|null $response
      */
-    public function __construct(string $name, string $type, FormInterface $form, ?Response $response)
-    {
+    public function __construct(
+        string $name,
+        string $type,
+        FormInterface $form,
+        ?Response $response
+    ) {
         $this->name = $name;
         $this->type = $type;
         $this->form = $form;

@@ -13,6 +13,7 @@ use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation;
 use Ibexa\Core\Repository\Values\ObjectState\ObjectState;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -22,13 +23,13 @@ class ObjectStateLimitationMapperTest extends TestCase
     private const EXAMPLE_OBJECT_STATE_ID_B = 2;
     private const EXAMPLE_OBJECT_STATE_ID_C = 3;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ObjectStateService|MockObject */
     private $objectStateService;
 
-    /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var LoggerInterface|MockObject */
     private $logger;
 
-    /** @var \Ibexa\AdminUi\Limitation\Mapper\ObjectStateLimitationMapper */
+    /** @var ObjectStateLimitationMapper */
     private $mapper;
 
     protected function setUp(): void

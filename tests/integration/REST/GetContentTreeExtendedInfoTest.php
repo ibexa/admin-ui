@@ -8,6 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\AdminUi\REST;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
 use Ibexa\Contracts\Test\Rest\Request\Value\EndpointRequestDefinition;
@@ -18,9 +21,9 @@ use Ibexa\Contracts\Test\Rest\Request\Value\EndpointRequestDefinition;
 final class GetContentTreeExtendedInfoTest extends BaseAdminUiRestWebTestCase
 {
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     * @throws ForbiddenException
      */
     protected function setUp(): void
     {

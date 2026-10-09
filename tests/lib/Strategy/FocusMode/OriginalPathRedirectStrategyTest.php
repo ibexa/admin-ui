@@ -25,8 +25,10 @@ final class OriginalPathRedirectStrategyTest extends TestCase
      *
      * @param array<string, string> $pathData
      */
-    public function testSupports(array $pathData, bool $doesSupport): void
-    {
+    public function testSupports(
+        array $pathData,
+        bool $doesSupport
+    ): void {
         self::assertSame($doesSupport, $this->strategy->supports($pathData));
     }
 
@@ -45,8 +47,10 @@ final class OriginalPathRedirectStrategyTest extends TestCase
     /**
      * @dataProvider dataProviderForTestGenerateRedirectPath
      */
-    public function testGenerateRedirectPath(string $path, string $expectedPath): void
-    {
+    public function testGenerateRedirectPath(
+        string $path,
+        string $expectedPath
+    ): void {
         self::assertSame(
             $expectedPath,
             $this->strategy->generateRedirectPath($path)

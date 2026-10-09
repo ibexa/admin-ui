@@ -14,11 +14,11 @@ use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 
 class TabService
 {
-    /** @var \Ibexa\AdminUi\Tab\TabRegistry */
+    /** @var TabRegistry */
     protected $tabRegistry;
 
     /**
-     * @param \Ibexa\AdminUi\Tab\TabRegistry $tabRegistry
+     * @param TabRegistry $tabRegistry
      */
     public function __construct(TabRegistry $tabRegistry)
     {
@@ -28,7 +28,7 @@ class TabService
     /**
      * @param string $groupIdentifier
      *
-     * @return \Ibexa\AdminUi\Tab\TabGroup
+     * @return TabGroup
      */
     public function getTabGroup(string $groupIdentifier): TabGroup
     {
@@ -51,10 +51,12 @@ class TabService
      * @param string $tabIdentifier
      * @param string $groupIdentifier
      *
-     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface
+     * @return TabInterface
      */
-    public function getTabFromGroup(string $tabIdentifier, string $groupIdentifier): TabInterface
-    {
+    public function getTabFromGroup(
+        string $tabIdentifier,
+        string $groupIdentifier
+    ): TabInterface {
         $tabs = $this->getTabsFromGroup($groupIdentifier);
 
         if (!isset($tabs[$tabIdentifier])) {

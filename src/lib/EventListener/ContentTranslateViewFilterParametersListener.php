@@ -9,6 +9,7 @@ namespace Ibexa\AdminUi\EventListener;
 
 use Ibexa\AdminUi\View\ContentTranslateView;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
 use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -18,11 +19,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class ContentTranslateViewFilterParametersListener implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     protected $contentTypeService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
+     * @param ContentTypeService $contentTypeService
      */
     public function __construct(
         ContentTypeService $contentTypeService
@@ -41,9 +42,9 @@ class ContentTranslateViewFilterParametersListener implements EventSubscriberInt
     }
 
     /**
-     * @param \Ibexa\Core\MVC\Symfony\View\Event\FilterViewParametersEvent $event
+     * @param FilterViewParametersEvent $event
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     public function onFilterViewParameters(FilterViewParametersEvent $event)
     {

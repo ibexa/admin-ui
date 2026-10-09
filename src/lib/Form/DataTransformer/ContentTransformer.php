@@ -10,17 +10,18 @@ namespace Ibexa\AdminUi\Form\DataTransformer;
 
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class ContentTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     protected $contentService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param ContentService $contentService
      */
     public function __construct(ContentService $contentService)
     {
@@ -30,7 +31,7 @@ class ContentTransformer implements DataTransformerInterface
     /**
      * Transforms a domain specific Content object into a Content's ID.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|null $value
+     * @param Content|null $value
      *
      * @return int|null
      */
@@ -52,9 +53,9 @@ class ContentTransformer implements DataTransformerInterface
      *
      * @param string|null $value
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content|null
+     * @return Content|null
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      */
     public function reverseTransform($value): ?Content
     {

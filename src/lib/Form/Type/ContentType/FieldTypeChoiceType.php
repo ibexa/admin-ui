@@ -20,17 +20,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class FieldTypeChoiceType extends AbstractType
 {
     /**
-     * @var \Ibexa\Core\FieldType\FieldTypeRegistry
+     * @var FieldTypeRegistry
      */
     private $fieldTypeRegistry;
 
     /**
-     * @var \Symfony\Contracts\Translation\TranslatorInterface
+     * @var TranslatorInterface
      */
     private $translator;
 
-    public function __construct(FieldTypeRegistry $fieldTypeRegistry, TranslatorInterface $translator)
-    {
+    public function __construct(
+        FieldTypeRegistry $fieldTypeRegistry,
+        TranslatorInterface $translator
+    ) {
         $this->fieldTypeRegistry = $fieldTypeRegistry;
         $this->translator = $translator;
     }

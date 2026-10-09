@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Validator\Constraints\UniqueURLValidator;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -20,13 +21,13 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class UniqueURLValidatorTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var URLService|MockObject */
     private $urlService;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Validator\Context\ExecutionContextInterface */
+    /** @var MockObject|ExecutionContextInterface */
     private $executionContext;
 
-    /** @var \Ibexa\AdminUi\Validator\Constraints\UniqueURLValidator */
+    /** @var UniqueURLValidator */
     private $validator;
 
     protected function setUp(): void

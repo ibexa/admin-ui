@@ -19,8 +19,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PoliciesDeleteType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add('role', RoleType::class)
             ->add('policies', CollectionType::class, [

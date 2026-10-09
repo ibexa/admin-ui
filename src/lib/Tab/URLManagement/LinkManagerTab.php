@@ -16,6 +16,7 @@ use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterfac
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
@@ -34,23 +35,23 @@ class LinkManagerTab extends AbstractTab implements OrderedTabInterface, Conditi
     public const URI_FRAGMENT = 'ibexa-tab-link-manager-link-manager';
     private const DEFAULT_MAX_PER_PAGE = 10;
 
-    /** @var \Ibexa\Contracts\Core\Repository\URLService */
+    /** @var URLService */
     private $urlService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     private $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
+    /** @var SubmitHandler */
     private $submitHandler;
 
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
+    /** @var RequestStack */
     private $requestStack;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\PermissionResolver
+     * @var PermissionResolver
      */
     private $permissionResolver;
 
@@ -95,7 +96,7 @@ class LinkManagerTab extends AbstractTab implements OrderedTabInterface, Conditi
      *
      * @return bool
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function evaluate(array $parameters): bool
     {
@@ -135,9 +136,9 @@ class LinkManagerTab extends AbstractTab implements OrderedTabInterface, Conditi
     /**
      * Builds URL criteria from list data.
      *
-     * @param \Ibexa\AdminUi\Form\Data\URL\URLListData $data
+     * @param URLListData $data
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\URL\URLQuery
+     * @return URLQuery
      */
     private function buildListQuery(URLListData $data): URLQuery
     {

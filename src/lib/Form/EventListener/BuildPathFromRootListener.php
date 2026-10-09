@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\EventListener;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
@@ -15,13 +17,13 @@ use Symfony\Component\Form\FormEvent;
 
 class BuildPathFromRootListener
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
+    /** @var URLAliasService */
     private $urlAliasService;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -35,10 +37,10 @@ class BuildPathFromRootListener
     }
 
     /**
-     * @param \Symfony\Component\Form\FormEvent $event
+     * @param FormEvent $event
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function onPreSubmitData(FormEvent $event): void
     {
@@ -64,8 +66,10 @@ class BuildPathFromRootListener
         }
     }
 
-    private function createPathBasedOnParentLocation(int $locationId, string $path): string
-    {
+    private function createPathBasedOnParentLocation(
+        int $locationId,
+        string $path
+    ): string {
         $parentLocation = $this->locationService->loadLocation($locationId);
         $urlAlias = $this->urlAliasService->reverseLookup($parentLocation);
 

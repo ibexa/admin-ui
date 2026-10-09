@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Tab\LocationView;
 
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use JMS\TranslationBundle\Annotation\Desc;
 
 class SubItemsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
@@ -39,7 +40,7 @@ class SubItemsTab extends AbstractEventDispatchingTab implements OrderedTabInter
 
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $contextParameters['content'];
 
         $versionInfo = $content->getVersionInfo();

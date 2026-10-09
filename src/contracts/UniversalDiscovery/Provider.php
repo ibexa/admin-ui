@@ -68,7 +68,10 @@ interface Provider
      */
     public function getRestFormat($valueObject): array;
 
-    public function getSortClause(string $sortClauseName, string $sortOrder): Query\SortClause;
+    public function getSortClause(
+        string $sortClauseName,
+        string $sortOrder
+    ): Query\SortClause;
 }
 
 class_alias(Provider::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Provider');

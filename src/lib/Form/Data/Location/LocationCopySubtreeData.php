@@ -8,12 +8,13 @@
 namespace Ibexa\AdminUi\Form\Data\Location;
 
 use Ibexa\AdminUi\Validator\Constraints as AdminUiAssert;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class LocationCopySubtreeData extends AbstractLocationCopyData
 {
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @var Location|null
      *
      * @AdminUiAssert\LocationIsWithinCopySubtreeLimit()
      *
@@ -24,7 +25,7 @@ class LocationCopySubtreeData extends AbstractLocationCopyData
     protected $location;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @var Location|null
      *
      * @AdminUiAssert\LocationIsContainer()
      *

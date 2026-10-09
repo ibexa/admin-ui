@@ -15,6 +15,7 @@ use Ibexa\AdminUi\Tab\LocationView\TranslationsTab;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Core\Helper\TranslationHelper;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,26 +24,26 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TranslationController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     private $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
+    /** @var SubmitHandler */
     private $submitHandler;
 
-    /** @var \Ibexa\Core\Helper\TranslationHelper */
+    /** @var TranslationHelper */
     private $translationHelper;
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Ibexa\AdminUi\Form\SubmitHandler $submitHandler
+     * @param TranslatableNotificationHandlerInterface $notificationHandler
+     * @param ContentService $contentService
+     * @param FormFactory $formFactory
+     * @param SubmitHandler $submitHandler
      */
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
@@ -59,9 +60,9 @@ class TranslationController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function addAction(Request $request): Response
     {
@@ -69,7 +70,7 @@ class TranslationController extends Controller
         $form = $this->formFactory->addTranslation(null, $formName);
         $form->handleRequest($request);
 
-        /** @var \Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData $data */
+        /** @var TranslationAddData $data */
         $data = $form->getData();
         $location = $data->getLocation();
 
@@ -104,16 +105,16 @@ class TranslationController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function removeAction(Request $request): Response
     {
         $form = $this->formFactory->deleteTranslation();
         $form->handleRequest($request);
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo */
+        /** @var ContentInfo $contentInfo */
         $contentInfo = $form->getData()->getContentInfo();
 
         if ($form->isSubmitted()) {

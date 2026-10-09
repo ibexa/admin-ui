@@ -19,13 +19,13 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ContentEditController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
-    /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
+    /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
     public function __construct(
@@ -44,7 +44,7 @@ class ContentEditController extends Controller
         string $toLanguageCode,
         ?int $locationId = null
     ): Response {
-        /** @var \Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent $event */
+        /** @var ContentProxyTranslateEvent $event */
         $event = $this->eventDispatcher->dispatch(
             new ContentProxyTranslateEvent(
                 $contentId,
@@ -68,9 +68,9 @@ class ContentEditController extends Controller
     }
 
     /**
-     * @param \Ibexa\AdminUi\View\ContentTranslateView $view
+     * @param ContentTranslateView $view
      *
-     * @return \Ibexa\AdminUi\View\ContentTranslateView
+     * @return ContentTranslateView
      */
     public function translateAction(ContentTranslateView $view): ContentTranslateView
     {
@@ -78,9 +78,9 @@ class ContentEditController extends Controller
     }
 
     /**
-     * @param \Ibexa\AdminUi\View\ContentTranslateSuccessView $view
+     * @param ContentTranslateSuccessView $view
      *
-     * @return \Ibexa\AdminUi\View\ContentTranslateSuccessView
+     * @return ContentTranslateSuccessView
      */
     public function translationSuccessAction(ContentTranslateSuccessView $view): ContentTranslateSuccessView
     {

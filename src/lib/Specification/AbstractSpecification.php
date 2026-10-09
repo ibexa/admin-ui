@@ -11,10 +11,8 @@ namespace Ibexa\AdminUi\Specification;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification as BaseAbstractSpecification;
 
 /**
- * @deprecated 4.4.0 Use \Ibexa\Contracts\Core\Specification\AbstractSpecification
+ * @deprecated 4.4.0 Use BaseAbstractSpecification
  */
-abstract class AbstractSpecification extends BaseAbstractSpecification
-{
-}
+abstract class AbstractSpecification extends BaseAbstractSpecification {}
 
 class_alias(AbstractSpecification::class, 'EzSystems\EzPlatformAdminUi\Specification\AbstractSpecification');

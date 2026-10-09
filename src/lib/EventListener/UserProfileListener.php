@@ -119,8 +119,10 @@ final class UserProfileListener implements EventSubscriberInterface
             $this->canEditUserProfile($data->user);
     }
 
-    private function createUpdateStruct(UserUpdateData $data, string $languageCode): UserUpdateStruct
-    {
+    private function createUpdateStruct(
+        UserUpdateData $data,
+        string $languageCode
+    ): UserUpdateStruct {
         $updateStruct = $this->userService->newUserUpdateStruct();
         $updateStruct->contentUpdateStruct = $this->contentService->newContentUpdateStruct();
 

@@ -15,14 +15,14 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
  */
 class LocationUpdateVisibilityData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
+    /** @var Location|null */
     private $location;
 
     /** @var bool|null */
     private $hidden;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      */
     public function __construct(?Location $location = null)
     {
@@ -35,7 +35,7 @@ class LocationUpdateVisibilityData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @return Location|null
      */
     public function getLocation(): ?Location
     {
@@ -43,7 +43,7 @@ class LocationUpdateVisibilityData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      */
     public function setLocation(?Location $location)
     {

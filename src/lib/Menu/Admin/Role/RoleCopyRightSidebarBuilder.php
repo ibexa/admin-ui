@@ -28,7 +28,7 @@ class RoleCopyRightSidebarBuilder extends AbstractBuilder implements Translation
     public const ITEM__SAVE = 'role_copy__sidebar_right__save';
     public const ITEM__CANCEL = 'role_copy__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -51,7 +51,7 @@ class RoleCopyRightSidebarBuilder extends AbstractBuilder implements Translation
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $menu->setChildren([
@@ -94,7 +94,7 @@ class RoleCopyRightSidebarBuilder extends AbstractBuilder implements Translation
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

@@ -19,14 +19,17 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class TableRow extends Component
 {
-    /** @var \Ibexa\Behat\Browser\Element\ElementInterface */
+    /** @var ElementInterface */
     private $element;
 
-    /** @var \Ibexa\Behat\Browser\Locator\LocatorCollection */
+    /** @var LocatorCollection */
     private $locatorCollection;
 
-    public function __construct(Session $session, ElementInterface $element, LocatorCollection $locatorCollection)
-    {
+    public function __construct(
+        Session $session,
+        ElementInterface $element,
+        LocatorCollection $locatorCollection
+    ) {
         parent::__construct($session);
         $this->element = $element;
         $this->locatorCollection = $locatorCollection;
@@ -81,9 +84,7 @@ class TableRow extends Component
         return $this->element->find($this->locatorCollection->get($headerName));
     }
 
-    public function verifyIsLoaded(): void
-    {
-    }
+    public function verifyIsLoaded(): void {}
 
     public function click(LocatorInterface $locator)
     {

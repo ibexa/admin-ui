@@ -56,16 +56,25 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
         return $registryMock;
     }
 
-    public function getLimitation($identifier, array $values): LimitationMock
-    {
+    public function getLimitation(
+        $identifier,
+        array $values
+    ): LimitationMock {
         return new LimitationMock($identifier, $values);
     }
 
     /**
-     * @see \Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase::doIntegrationTest
+     * @see FileSystemTwigIntegrationTestCase::doIntegrationTest
      */
-    protected function doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation = ''): void
-    {
+    protected function doIntegrationTest(
+        $file,
+        $message,
+        $condition,
+        $templates,
+        $exception,
+        $outputs,
+        $deprecation = ''
+    ): void {
         if (!$outputs) {
             $this->markTestSkipped('no legacy tests to run');
         }

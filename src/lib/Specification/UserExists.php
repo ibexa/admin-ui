@@ -13,11 +13,11 @@ use Ibexa\Contracts\Core\Repository\UserService;
 
 class UserExists implements UserSpecification
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     private $userService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
+     * @param UserService $userService
      */
     public function __construct(UserService $userService)
     {

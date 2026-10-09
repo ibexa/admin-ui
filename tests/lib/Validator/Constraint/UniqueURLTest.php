@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class UniqueURLTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Validator\Constraints\UniqueURL */
+    /** @var UniqueURL */
     private $constraint;
 
     protected function setUp(): void

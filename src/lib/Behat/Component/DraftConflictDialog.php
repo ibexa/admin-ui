@@ -9,17 +9,20 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component;
 
 use Behat\Mink\Session;
+use Ibexa\AdminUi\Behat\Component\Table\Table;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class DraftConflictDialog extends Component
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
+    /** @var Table */
     private $table;
 
-    public function __construct(Session $session, TableBuilder $tableBuilder)
-    {
+    public function __construct(
+        Session $session,
+        TableBuilder $tableBuilder
+    ) {
         parent::__construct($session);
         $this->table = $tableBuilder->newTable()->withParentLocator($this->getLocator('table'))->build();
     }

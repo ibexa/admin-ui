@@ -18,11 +18,11 @@ class UDWBasedValueViewTransformer implements DataTransformerInterface
 {
     public const DELIMITER = ',';
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
+     * @param LocationService $locationService
      */
     public function __construct(LocationService $locationService)
     {

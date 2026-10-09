@@ -9,8 +9,10 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Controller;
 
 use Ibexa\AdminUi\Exception\FieldTypeExpressionParserException;
+use Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionExpression;
 use Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionInfoList;
 use Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Rest\Message;
 use Ibexa\Rest\Server\Controller as RestController;
 use Ibexa\Rest\Server\Exceptions\BadRequestException;
@@ -26,11 +28,11 @@ final class ContentTypeFieldsByExpressionController extends RestController
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     public function loadFieldDefinitionsFromExpression(Request $request): FieldDefinitionInfoList
     {
-        /** @var \Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionExpression $input */
+        /** @var FieldDefinitionExpression $input */
         $input = $this->inputDispatcher->parse(
             new Message(
                 ['Content-Type' => $request->headers->get('Content-Type')],

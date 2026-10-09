@@ -18,16 +18,16 @@ use Psr\Log\LoggerInterface;
 
 class CustomUrlsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
+    /** @var URLAliasService */
     private $urlAliasService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
+    /** @var ValueFactory */
     private $valueFactory;
 
-    /** @var \Ibexa\AdminUi\UI\Value\Content\UrlAlias[] */
+    /** @var UIValue\Content\UrlAlias[] */
     private $data;
 
-    /** @var \Psr\Log\LoggerInterface */
+    /** @var LoggerInterface */
     private $logger;
 
     public function __construct(
@@ -41,9 +41,9 @@ class CustomUrlsDataset
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      *
-     * @return \Ibexa\AdminUi\UI\Dataset\CustomUrlsDataset
+     * @return CustomUrlsDataset
      */
     public function load(Location $location): self
     {
@@ -76,7 +76,7 @@ class CustomUrlsDataset
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Value\Content\UrlAlias[]
+     * @return UIValue\Content\UrlAlias[]
      */
     public function getCustomUrlAliases(): array
     {

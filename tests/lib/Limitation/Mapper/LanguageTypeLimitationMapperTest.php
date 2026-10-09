@@ -12,18 +12,19 @@ use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
 class LanguageTypeLimitationMapperTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var LanguageService|MockObject */
     private $languageService;
 
-    /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var LoggerInterface|MockObject */
     private $logger;
 
-    /** @var \Ibexa\AdminUi\Limitation\Mapper\LanguageLimitationMapper */
+    /** @var LanguageLimitationMapper */
     private $mapper;
 
     protected function setUp(): void

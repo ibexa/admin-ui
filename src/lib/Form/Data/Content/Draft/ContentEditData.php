@@ -18,23 +18,23 @@ use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
  */
 class ContentEditData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
+    /** @var Location|null */
     protected $location;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
+    /** @var ContentInfo|null */
     protected $contentInfo;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null */
+    /** @var VersionInfo|null */
     protected $versionInfo;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
+    /** @var Language|null */
     protected $language;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $versionInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param ContentInfo|null $contentInfo
+     * @param VersionInfo|null $versionInfo
+     * @param Language|null $language
+     * @param Location|null $location
      */
     public function __construct(
         ?ContentInfo $contentInfo = null,
@@ -49,7 +49,7 @@ class ContentEditData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @return Location|null
      */
     public function getLocation(): ?Location
     {
@@ -57,7 +57,7 @@ class ContentEditData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      *
      * @return self
      */
@@ -69,7 +69,7 @@ class ContentEditData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
+     * @return ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -77,7 +77,7 @@ class ContentEditData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param ContentInfo|null $contentInfo
      *
      * @return self
      */
@@ -89,7 +89,7 @@ class ContentEditData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null
+     * @return VersionInfo|null
      */
     public function getVersionInfo(): ?VersionInfo
     {
@@ -97,7 +97,7 @@ class ContentEditData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $versionInfo
+     * @param VersionInfo|null $versionInfo
      *
      * @return self
      */
@@ -109,7 +109,7 @@ class ContentEditData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
+     * @return Language|null
      */
     public function getLanguage(): ?Language
     {
@@ -117,7 +117,7 @@ class ContentEditData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
+     * @param Language|null $language
      *
      * @return self
      */

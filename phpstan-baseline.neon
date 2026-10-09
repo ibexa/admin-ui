@@ -12696,7 +12696,7 @@ parameters:
 			path: src/lib/UI/Config/Provider/Languages.php
 
 		-
-			message: '#^PHPDoc tag @param has invalid value \(string\[\]\)\: Unexpected token "\\n     ", expected variable at offset 193 on line 4$#'
+			message: '#^PHPDoc tag @param has invalid value \(string\[\]\)\: Unexpected token "\\n     ", expected variable at offset 127 on line 4$#'
 			identifier: phpDoc.parseError
 			count: 1
 			path: src/lib/UI/Config/Provider/Languages.php
@@ -16745,13 +16745,13 @@ parameters:
 			path: tests/lib/Tab/TabRegistryTest.php
 
 		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Tab\\AbstractTab@anonymous/tests/lib/Tab/TabRegistryTest\.php\:158\:\:renderView\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
+			message: '#^Method Ibexa\\Contracts\\AdminUi\\Tab\\AbstractTab@anonymous/tests/lib/Tab/TabRegistryTest\.php\:164\:\:renderView\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: tests/lib/Tab/TabRegistryTest.php
 
 		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Tab\\AbstractTab@anonymous/tests/lib/Tab/TabRegistryTest\.php\:158\:\:renderView\(\) should return string but returns null\.$#'
+			message: '#^Method Ibexa\\Contracts\\AdminUi\\Tab\\AbstractTab@anonymous/tests/lib/Tab/TabRegistryTest\.php\:164\:\:renderView\(\) should return string but returns null\.$#'
 			identifier: return.type
 			count: 1
 			path: tests/lib/Tab/TabRegistryTest.php

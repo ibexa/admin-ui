@@ -11,6 +11,7 @@ namespace Ibexa\Bundle\AdminUi\Controller;
 use Exception;
 use Ibexa\AdminUi\Form\Data\Asset\ImageAssetUploadData;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Ibexa\Core\FieldType\Image\Value as ImageValue;
 use Ibexa\Core\FieldType\ImageAsset\AssetMapper as ImageAssetMapper;
 use JMS\TranslationBundle\Annotation\Desc;
@@ -30,23 +31,23 @@ class AssetController extends Controller
     public const LANGUAGE_CODE_KEY = 'languageCode';
     public const FILE_KEY = 'file';
 
-    /** @var \Symfony\Component\Validator\Validator\ValidatorInterface */
+    /** @var ValidatorInterface */
     private $validator;
 
-    /** @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface */
+    /** @var CsrfTokenManagerInterface */
     private $csrfTokenManager;
 
-    /** @var \Ibexa\Core\FieldType\ImageAsset\AssetMapper */
+    /** @var ImageAssetMapper */
     private $imageAssetMapper;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     /**
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
-     * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $csrfTokenManager
-     * @param \Ibexa\Core\FieldType\ImageAsset\AssetMapper $imageAssetMapper
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
+     * @param ValidatorInterface $validator
+     * @param CsrfTokenManagerInterface $csrfTokenManager
+     * @param ImageAssetMapper $imageAssetMapper
+     * @param TranslatorInterface $translator
      */
     public function __construct(
         ValidatorInterface $validator,
@@ -61,11 +62,11 @@ class AssetController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
-     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
+     * @throws InvalidArgumentType
      */
     public function uploadImageAction(Request $request): Response
     {
@@ -111,7 +112,7 @@ class AssetController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      */
     private function createInvalidCsrfResponse(): JsonResponse
     {
@@ -126,9 +127,9 @@ class AssetController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\Validator\ConstraintViolationListInterface $errors
+     * @param ConstraintViolationListInterface $errors
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      */
     private function createInvalidInputResponse(ConstraintViolationListInterface $errors): JsonResponse
     {
@@ -143,7 +144,7 @@ class AssetController extends Controller
     /**
      * @param string $errorMessage
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      */
     private function createGenericErrorResponse(string $errorMessage): JsonResponse
     {
@@ -158,7 +159,7 @@ class AssetController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
      * @return bool
      */

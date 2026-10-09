@@ -9,6 +9,7 @@ namespace Ibexa\Contracts\AdminUi\Form\ActionDispatcher;
 
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Form action dispatchers can be used to abstract actions when a complex form is submitted.
@@ -22,18 +23,23 @@ interface ActionDispatcherInterface
     /**
      * Dispatches the action of a given form.
      *
-     * @param \Symfony\Component\Form\FormInterface $form the form that has been submitted
-     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $data Underlying data for the form. Most likely a create or update struct.
+     * @param FormInterface $form the form that has been submitted
+     * @param ValueObject $data Underlying data for the form. Most likely a create or update struct.
      * @param string|null $actionName The form action itself. Typically the form clicked button name,
      *                                or null if the default action is used (e.g. when pressing enter).
      * @param array $options arbitrary hash of options
      */
-    public function dispatchFormAction(FormInterface $form, ValueObject $data, $actionName = null, array $options = []);
+    public function dispatchFormAction(
+        FormInterface $form,
+        ValueObject $data,
+        $actionName = null,
+        array $options = []
+    );
 
     /**
      * Returns the generated response, if any. Typically a RedirectResponse.
      *
-     * @return \Symfony\Component\HttpFoundation\Response|null
+     * @return Response|null
      */
     public function getResponse();
 }

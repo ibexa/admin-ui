@@ -13,7 +13,10 @@ use Ibexa\AdminUi\Form\Type\Content\LocationType;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
@@ -23,6 +26,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
+use Symfony\Component\Form\Exception\AlreadySubmittedException;
+use Symfony\Component\Form\Exception\LogicException;
+use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,27 +39,27 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TranslationAddType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     protected $languageService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     protected $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     protected $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
+    /** @var LookupLimitationsTransformer */
     private $lookupLimitationsTransformer;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $langaugeService
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\AdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
+     * @param LanguageService $langaugeService
+     * @param ContentService $contentService
+     * @param LocationService $locationService
+     * @param PermissionResolver $permissionResolver
+     * @param LookupLimitationsTransformer $lookupLimitationsTransformer
      */
     public function __construct(
         LanguageService $langaugeService,
@@ -69,8 +75,10 @@ class TranslationAddType extends AbstractType
         $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add(
                 'location',
@@ -99,13 +107,13 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields and populates options list based on default form data.
      *
-     * @param \Symfony\Component\Form\FormEvent $event
+     * @param FormEvent $event
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
-     * @throws \Symfony\Component\Form\Exception\LogicException
-     * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws AlreadySubmittedException
+     * @throws LogicException
+     * @throws UnexpectedTypeException
      */
     public function onPreSetData(FormEvent $event)
     {
@@ -127,13 +135,13 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields and populates options list based on submitted form data.
      *
-     * @param \Symfony\Component\Form\FormEvent $event
+     * @param FormEvent $event
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
-     * @throws \Symfony\Component\Form\Exception\LogicException
-     * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws AlreadySubmittedException
+     * @throws LogicException
+     * @throws UnexpectedTypeException
      */
     public function onPreSubmit(FormEvent $event)
     {
@@ -178,13 +186,13 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields to the $form. Language options are composed based on content language.
      *
-     * @param \Symfony\Component\Form\FormInterface $form
+     * @param FormInterface $form
      * @param string[] $contentLanguages
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param ContentInfo|null $contentInfo
+     * @param Location|null $location
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function addLanguageFields(
         FormInterface $form,

@@ -21,8 +21,10 @@ use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
@@ -100,9 +102,9 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $contextParameters['content'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $contextParameters['location'];
 
         $versionInfo = $content->getVersionInfo();
@@ -137,8 +139,10 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         ];
     }
 
-    private function supplyObjectStateParameters(ArrayObject $parameters, ContentInfo $contentInfo): void
-    {
+    private function supplyObjectStateParameters(
+        ArrayObject $parameters,
+        ContentInfo $contentInfo
+    ): void {
         $objectStatesDataset = $this->datasetFactory->objectStates();
         $objectStatesDataset->load($contentInfo);
 
@@ -170,15 +174,18 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
      *
      * @return bool
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function canUserAssignObjectState(): bool
     {
         return $this->permissionResolver->hasAccess('state', 'assign') !== false;
     }
 
-    private function supplySectionParameters(ArrayObject $parameters, ContentInfo $contentInfo, Location $location): void
-    {
+    private function supplySectionParameters(
+        ArrayObject $parameters,
+        ContentInfo $contentInfo,
+        Location $location
+    ): void {
         $canSeeSection = $this->permissionResolver->canUser('section', 'view', $contentInfo);
 
         $parameters['section'] = null;
@@ -204,16 +211,20 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         }
     }
 
-    private function supplyFormLocationUpdate(ArrayObject $parameters, Location $location): void
-    {
+    private function supplyFormLocationUpdate(
+        ArrayObject $parameters,
+        Location $location
+    ): void {
         $parameters['form_location_update'] = $this->formFactory->create(
             LocationUpdateType::class,
             new LocationUpdateData($location)
         )->createView();
     }
 
-    private function supplyTranslations(ArrayObject $parameters, VersionInfo $versionInfo): void
-    {
+    private function supplyTranslations(
+        ArrayObject $parameters,
+        VersionInfo $versionInfo
+    ): void {
         $translationsDataset = $this->datasetFactory->translations();
         $translationsDataset->load($versionInfo);
 

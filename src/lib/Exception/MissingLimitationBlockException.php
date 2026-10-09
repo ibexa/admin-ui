@@ -9,8 +9,6 @@ namespace Ibexa\AdminUi\Exception;
 
 use RuntimeException;
 
-class MissingLimitationBlockException extends RuntimeException
-{
-}
+class MissingLimitationBlockException extends RuntimeException {}
 
 class_alias(MissingLimitationBlockException::class, 'EzSystems\EzPlatformAdminUi\Exception\MissingLimitationBlockException');

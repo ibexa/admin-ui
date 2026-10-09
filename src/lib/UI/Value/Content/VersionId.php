@@ -20,8 +20,10 @@ class VersionId
      * @param int $contentId
      * @param int $versionNo
      */
-    public function __construct(int $contentId, int $versionNo)
-    {
+    public function __construct(
+        int $contentId,
+        int $versionNo
+    ) {
         $this->contentId = $contentId;
         $this->versionNo = $versionNo;
     }
@@ -56,7 +58,7 @@ class VersionId
     /**
      * @param string $id
      *
-     * @return \Ibexa\AdminUi\UI\Value\Content\VersionId
+     * @return VersionId
      */
     public static function fromString(string $id): self
     {

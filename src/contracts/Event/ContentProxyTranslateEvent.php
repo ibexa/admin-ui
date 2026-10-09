@@ -17,7 +17,7 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class ContentProxyTranslateEvent extends Event
 {
-    /** @var \Symfony\Component\HttpFoundation\Response|null */
+    /** @var Response|null */
     private $response;
 
     /** @var int */
@@ -29,7 +29,7 @@ class ContentProxyTranslateEvent extends Event
     /** @var string */
     private $toLanguageCode;
 
-    /** @var \Ibexa\AdminUi\Event\Options */
+    /** @var Options */
     private $options;
 
     /** @var int|null */

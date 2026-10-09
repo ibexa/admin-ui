@@ -12,7 +12,7 @@ use Ibexa\Contracts\Core\Specification\NotSpecification as BaseNotSpecification;
 use Ibexa\Contracts\Core\Specification\SpecificationInterface;
 
 /**
- * @deprecated 4.4.0 Use \Ibexa\Contracts\Core\Specification\NotSpecification
+ * @deprecated 4.4.0 Use BaseNotSpecification
  */
 class NotSpecification extends AbstractSpecification
 {

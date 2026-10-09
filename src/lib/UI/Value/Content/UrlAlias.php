@@ -13,11 +13,13 @@ use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias as CoreURLAlias;
 class UrlAlias extends CoreURLAlias
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLAlias $urlAlias
+     * @param CoreURLAlias $urlAlias
      * @param array $properties
      */
-    public function __construct(CoreURLAlias $urlAlias, array $properties = [])
-    {
+    public function __construct(
+        CoreURLAlias $urlAlias,
+        array $properties = []
+    ) {
         parent::__construct(get_object_vars($urlAlias) + $properties);
     }
 }

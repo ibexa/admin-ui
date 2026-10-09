@@ -27,18 +27,17 @@ class NullLimitationMapper implements LimitationFormMapperInterface, LimitationV
         $this->template = $template;
     }
 
-    public function mapLimitationForm(FormInterface $form, Limitation $data)
-    {
-    }
+    public function mapLimitationForm(
+        FormInterface $form,
+        Limitation $data
+    ) {}
 
     public function getFormTemplate()
     {
         return $this->template;
     }
 
-    public function filterLimitationValues(Limitation $limitation)
-    {
-    }
+    public function filterLimitationValues(Limitation $limitation) {}
 
     public function mapLimitationValue(Limitation $limitation)
     {

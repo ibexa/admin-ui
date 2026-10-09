@@ -12,7 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
 class ObjectStateGroupUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup|null */
+    /** @var ObjectStateGroup|null */
     private $objectStateGroup;
 
     /** @var string */
@@ -22,7 +22,7 @@ class ObjectStateGroupUpdateData
     private $name;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup|null $objectStateGroup
+     * @param ObjectStateGroup|null $objectStateGroup
      */
     public function __construct(?ObjectStateGroup $objectStateGroup = null)
     {
@@ -66,7 +66,7 @@ class ObjectStateGroupUpdateData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup
+     * @return ObjectStateGroup
      */
     public function getObjectStateGroup(): ObjectStateGroup
     {
@@ -74,7 +74,7 @@ class ObjectStateGroupUpdateData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
+     * @param ObjectStateGroup $objectStateGroup
      */
     public function setObjectStateGroup(ObjectStateGroup $objectStateGroup)
     {

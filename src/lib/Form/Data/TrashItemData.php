@@ -7,6 +7,7 @@
 
 namespace Ibexa\AdminUi\Form\Data;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem as APITrashItem;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
@@ -16,20 +17,20 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
  */
 class TrashItemData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem */
+    /** @var APITrashItem */
     protected $location;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
+    /** @var ContentType */
     protected $contentType;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
+    /** @var Location[] */
     protected $ancestors;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
+    /** @var User */
     private $creator;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $ancestors
+     * @param Location[] $ancestors
      */
     public function __construct(
         APITrashItem $location,
@@ -64,7 +65,7 @@ class TrashItemData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function getAncestors(): array
     {
@@ -72,7 +73,7 @@ class TrashItemData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $ancestors
+     * @param Location[] $ancestors
      */
     public function setAncestors(array $ancestors)
     {

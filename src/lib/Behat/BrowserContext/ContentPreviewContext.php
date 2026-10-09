@@ -13,7 +13,7 @@ use Ibexa\AdminUi\Behat\Page\ContentPreviewPage;
 
 class ContentPreviewContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentPreviewPage */
+    /** @var ContentPreviewPage */
     private $contentPreviewPage;
 
     public function __construct(ContentPreviewPage $contentPreviewPage)

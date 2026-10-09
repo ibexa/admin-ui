@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component;
 
 use Behat\Mink\Session;
+use Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponentInterface;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
@@ -17,17 +18,22 @@ use RuntimeException;
 
 class ContentItemAdminPreview extends Component
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponentInterface[] */
+    /** @var FieldTypeComponentInterface[] */
     protected $fieldTypeComponents;
 
-    public function __construct(Session $session, iterable $fieldTypeComponents)
-    {
+    public function __construct(
+        Session $session,
+        iterable $fieldTypeComponents
+    ) {
         parent::__construct($session);
         $this->fieldTypeComponents = $fieldTypeComponents;
     }
 
-    public function verifyFieldHasValues(string $fieldLabel, array $expectedValues, ?string $fieldTypeIdentifier)
-    {
+    public function verifyFieldHasValues(
+        string $fieldLabel,
+        array $expectedValues,
+        ?string $fieldTypeIdentifier
+    ) {
         $fieldPosition = $this->getFieldPosition($fieldLabel);
         $nthFieldLocator = new VisibleCSSLocator('', sprintf($this->getLocator('nthFieldContainer')->getSelector(), $fieldPosition));
 
@@ -44,9 +50,7 @@ class ContentItemAdminPreview extends Component
         }
     }
 
-    public function verifyIsLoaded(): void
-    {
-    }
+    public function verifyIsLoaded(): void {}
 
     protected function specifyLocators(): array
     {

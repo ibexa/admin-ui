@@ -49,13 +49,15 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
      * Loads a specific configuration.
      *
      * @param array $configs An array of configuration values
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container A ContainerBuilder instance
+     * @param ContainerBuilder $container A ContainerBuilder instance
      *
      * @throws \InvalidArgumentException When provided tag is not defined in this extension
      * @throws \Exception
      */
-    public function load(array $configs, ContainerBuilder $container)
-    {
+    public function load(
+        array $configs,
+        ContainerBuilder $container
+    ) {
         $loader = new YamlFileLoader(
             $container,
             new FileLocator(__DIR__ . '/../Resources/config')

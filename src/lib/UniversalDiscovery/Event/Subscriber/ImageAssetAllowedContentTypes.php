@@ -14,7 +14,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ImageAssetAllowedContentTypes implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Core\FieldType\ImageAsset\AssetMapper */
+    /** @var AssetMapper */
     private $assetMapper;
 
     public function __construct(AssetMapper $assetMapper)

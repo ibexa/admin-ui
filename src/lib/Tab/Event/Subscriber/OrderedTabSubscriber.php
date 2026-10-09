@@ -11,13 +11,14 @@ namespace Ibexa\AdminUi\Tab\Event\Subscriber;
 use Ibexa\AdminUi\Tab\Event\TabEvents;
 use Ibexa\AdminUi\Tab\Event\TabGroupEvent;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Reorders tabs according to their Order value (Tabs implementing OrderedTabInterface).
  * Tabs without order specified are pushed to the end of the group.
  *
- * @see \Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface
+ * @see OrderedTabInterface
  */
 class OrderedTabSubscriber implements EventSubscriberInterface
 {
@@ -32,7 +33,7 @@ class OrderedTabSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\AdminUi\Tab\Event\TabGroupEvent $tabGroupEvent
+     * @param TabGroupEvent $tabGroupEvent
      */
     public function onTabGroupPreRender(TabGroupEvent $tabGroupEvent)
     {
@@ -46,7 +47,7 @@ class OrderedTabSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface[] $tabs
+     * @param TabInterface[] $tabs
      *
      * @return array
      */
@@ -66,13 +67,15 @@ class OrderedTabSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface $tab1
-     * @param \Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface $tab2
+     * @param OrderedTabInterface $tab1
+     * @param OrderedTabInterface $tab2
      *
      * @return int
      */
-    private function sortTabs(OrderedTabInterface $tab1, OrderedTabInterface $tab2): int
-    {
+    private function sortTabs(
+        OrderedTabInterface $tab1,
+        OrderedTabInterface $tab2
+    ): int {
         return $tab1->getOrder() <=> $tab2->getOrder();
     }
 }

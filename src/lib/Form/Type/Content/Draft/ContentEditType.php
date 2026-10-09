@@ -23,15 +23,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentEditType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     protected $languageService;
 
-    /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader */
+    /** @var LanguageChoiceLoader */
     private $languageChoiceLoader;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader $languageChoiceLoader
+     * @param LanguageService $languageService
+     * @param LanguageChoiceLoader $languageChoiceLoader
      */
     public function __construct(
         LanguageService $languageService,
@@ -41,8 +41,10 @@ class ContentEditType extends AbstractType
         $this->languageChoiceLoader = $languageChoiceLoader;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add(
                 'location',

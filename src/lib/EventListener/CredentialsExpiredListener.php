@@ -19,18 +19,20 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 final class CredentialsExpiredListener implements EventSubscriberInterface
 {
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
+    /** @var RequestStack */
     private $requestStack;
 
     /** @var string[][] */
     private $siteAccessGroups;
 
     /**
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param RequestStack $requestStack
      * @param string[] $siteAccessGroups
      */
-    public function __construct(RequestStack $requestStack, array $siteAccessGroups)
-    {
+    public function __construct(
+        RequestStack $requestStack,
+        array $siteAccessGroups
+    ) {
         $this->requestStack = $requestStack;
         $this->siteAccessGroups = $siteAccessGroups;
     }

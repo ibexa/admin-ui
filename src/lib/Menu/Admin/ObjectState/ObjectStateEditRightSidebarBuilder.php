@@ -38,7 +38,7 @@ class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements Tran
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
      * @throws \InvalidArgumentException
      * @throws ApiExceptions\BadStateException
@@ -50,7 +50,7 @@ class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements Tran
         $saveId = $options['save_id'];
         $saveAncCloseId = $options['save_and_close_id'];
 
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $saveAndCloseItem = $this->createMenuItem(
@@ -90,7 +90,7 @@ class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements Tran
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

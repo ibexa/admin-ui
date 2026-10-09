@@ -32,7 +32,7 @@ class ContentRemoveData
     /**
      * @param array|null $versions
      *
-     * @return \Ibexa\AdminUi\Form\Data\Content\Draft\ContentRemoveData
+     * @return ContentRemoveData
      */
     public function setVersions(?array $versions): self
     {

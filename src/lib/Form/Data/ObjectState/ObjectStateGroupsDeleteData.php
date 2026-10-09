@@ -8,13 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\ObjectState;
 
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+
 class ObjectStateGroupsDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[]|null */
+    /** @var ObjectStateGroup[]|null */
     protected $objectStateGroups;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[]|null $objectStateGroups
+     * @param ObjectStateGroup[]|null $objectStateGroups
      */
     public function __construct(array $objectStateGroups = [])
     {
@@ -22,7 +24,7 @@ class ObjectStateGroupsDeleteData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[]|null
+     * @return ObjectStateGroup[]|null
      */
     public function getObjectStateGroups(): ?array
     {
@@ -30,7 +32,7 @@ class ObjectStateGroupsDeleteData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[]|null $objectStateGroups
+     * @param ObjectStateGroup[]|null $objectStateGroups
      */
     public function setObjectStateGroups(?array $objectStateGroups)
     {

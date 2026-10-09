@@ -16,19 +16,21 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class RoleAssignmentType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
+    /** @var RoleService */
     protected $roleService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
+     * @param RoleService $roleService
      */
     public function __construct(RoleService $roleService)
     {
         $this->roleService = $roleService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder->addViewTransformer(new RoleAssignmentTransformer($this->roleService));
     }
 

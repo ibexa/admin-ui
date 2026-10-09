@@ -22,8 +22,12 @@ class SearchPage extends Page
 
     private UpperMenu $upperMenu;
 
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, UpperMenu $upperMenu)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        TableBuilder $tableBuilder,
+        UpperMenu $upperMenu
+    ) {
         parent::__construct($session, $router);
         $this->table = $tableBuilder
             ->newTable()

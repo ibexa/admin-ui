@@ -8,15 +8,16 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Value\ContentType;
 
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Rest\Value as RestValue;
 
 final class FieldDefinitionInfoList extends RestValue
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] */
+    /** @var FieldDefinition[] */
     public array $fieldDefinitions;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
+     * @param FieldDefinition[] $fieldDefinitions
      */
     public function __construct(array $fieldDefinitions)
     {

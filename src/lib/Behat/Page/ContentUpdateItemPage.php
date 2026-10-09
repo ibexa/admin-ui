@@ -25,15 +25,15 @@ use RuntimeException;
 
 class ContentUpdateItemPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu */
+    /** @var ContentActionsMenu */
     private $contentActionsMenu;
 
     private $pageTitle;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent[] */
+    /** @var FieldTypeComponent[] */
     protected $fieldTypeComponents;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Notification */
+    /** @var Notification */
     private $notification;
 
     private string $languageCode;
@@ -92,13 +92,18 @@ class ContentUpdateItemPage extends Page
         return 'Content Update';
     }
 
-    public function fillFieldWithValue(string $label, array $value, ?int $fieldPosition = null): void
-    {
+    public function fillFieldWithValue(
+        string $label,
+        array $value,
+        ?int $fieldPosition = null
+    ): void {
         $this->getField($label, $fieldPosition)->setValue($value);
     }
 
-    public function verifyValidationMessage(string $fieldName, string $expectedMessage): void
-    {
+    public function verifyValidationMessage(
+        string $fieldName,
+        string $expectedMessage
+    ): void {
         $this->getField($fieldName)->verifyValidationMessage($expectedMessage);
     }
 
@@ -132,15 +137,20 @@ class ContentUpdateItemPage extends Page
         );
     }
 
-    public function setExpectedContentDraftData(string $contentTypeIdentifier, string $languageCode, string $locationPath): void
-    {
+    public function setExpectedContentDraftData(
+        string $contentTypeIdentifier,
+        string $languageCode,
+        string $locationPath
+    ): void {
         $this->contentTypeIdentifier = $contentTypeIdentifier;
         $this->languageCode = $languageCode;
         $this->locationPath = $locationPath;
     }
 
-    public function getField(string $fieldName, ?int $fieldPosition = null): FieldTypeComponent
-    {
+    public function getField(
+        string $fieldName,
+        ?int $fieldPosition = null
+    ): FieldTypeComponent {
         if ($fieldPosition === null) {
             $fieldPosition = $this->getFieldPosition($fieldName);
         }
@@ -204,13 +214,17 @@ class ContentUpdateItemPage extends Page
         Assert::fail(sprintf('Field %s not found. Found: %s', $fieldName, implode(',', $foundFields)));
     }
 
-    public function verifyFieldHasValue(string $label, array $fieldData): void
-    {
+    public function verifyFieldHasValue(
+        string $label,
+        array $fieldData
+    ): void {
         $this->getField($label)->verifyValueInEditView($fieldData);
     }
 
-    private function getFieldtypeIdentifier(VisibleCSSLocator $fieldLocator, string $fieldName): string
-    {
+    private function getFieldtypeIdentifier(
+        VisibleCSSLocator $fieldLocator,
+        string $fieldName
+    ): string {
         $isEditable = !$this->getHTMLPage()
             ->find($fieldLocator)
             ->hasClass($this->getLocator('noneditableFieldClass')->getSelector());

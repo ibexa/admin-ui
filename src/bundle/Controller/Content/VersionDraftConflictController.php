@@ -13,6 +13,8 @@ use Ibexa\AdminUi\Specification\ContentIsUser;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\UserService;
@@ -22,27 +24,27 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class VersionDraftConflictController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
+    /** @var DatasetFactory */
     private $datasetFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     private $userService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
+     * @param LocationService $locationService
+     * @param ContentService $contentService
+     * @param DatasetFactory $datasetFactory
+     * @param UserService $userService
+     * @param TranslatorInterface $translator
      */
     public function __construct(
         LocationService $locationService,
@@ -63,11 +65,11 @@ class VersionDraftConflictController extends Controller
      * @param string $languageCode
      * @param int|null $locationId
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws BadStateException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function draftHasNoConflictAction(
         int $contentId,

@@ -34,7 +34,7 @@ class Location extends CoreLocation
     /**
      * Path locations.
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @var APILocation[]
      */
     protected $pathLocations;
 
@@ -60,11 +60,13 @@ class Location extends CoreLocation
     protected $userCanEdit;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param APILocation $location
      * @param array $properties
      */
-    public function __construct(APILocation $location, array $properties = [])
-    {
+    public function __construct(
+        APILocation $location,
+        array $properties = []
+    ) {
         parent::__construct(get_object_vars($location) + $properties);
     }
 

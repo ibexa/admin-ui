@@ -78,14 +78,18 @@ class UniversalDiscoveryWidget extends Component
         return $this->getHTMLPage()->setTimeout(0)->findAll($this->getLocator('multiselect'))->any();
     }
 
-    protected function addItemToMultiSelection(string $itemName, int $level): void
-    {
+    protected function addItemToMultiSelection(
+        string $itemName,
+        int $level
+    ): void {
         $treeElementsLocator = new CSSLocator('', sprintf($this->getLocator('treeLevelElementsFormat')->getSelector(), $level));
         $this->getHTMLPage()->findAll($treeElementsLocator)->getByCriterion(new ElementTextCriterion($itemName))->find($this->getLocator('input'))->click();
     }
 
-    protected function selectTreeBranch(string $itemName, int $level): void
-    {
+    protected function selectTreeBranch(
+        string $itemName,
+        int $level
+    ): void {
         $treeLevelLocator = new VisibleCSSLocator('treeLevelLocator', sprintf($this->getLocator('treeLevelElementsFormat')->getSelector(), $level));
         $this->getHTMLPage()->setTimeout(self::LONG_TIMEOUT)->find($treeLevelLocator)->assert()->isVisible();
 

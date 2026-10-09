@@ -41,11 +41,6 @@ parameters:
 			path: src/bundle/Controller/ContentViewController.php
 
 		-
-			message: "#^Parameter \\#1 \\$separator of function explode expects non\\-empty\\-string, string given\\.$#"
-			count: 1
-			path: src/bundle/Templating/Twig/UniversalDiscoveryExtension.php
-
-		-
 			message: "#^Parameter \\#1 \\$object of function date_format expects DateTimeInterface, DateTime\\|false given\\.$#"
 			count: 4
 			path: src/lib/Behat/Component/Fields/DateAndTime.php

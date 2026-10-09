@@ -15,24 +15,26 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
  */
 class PoliciesDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role|null */
+    /** @var Role|null */
     protected $role;
 
     /** @var array|null */
     protected $policies;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
+     * @param Role|null $role
      * @param array|null $policies
      */
-    public function __construct(?Role $role = null, array $policies = [])
-    {
+    public function __construct(
+        ?Role $role = null,
+        array $policies = []
+    ) {
         $this->role = $role;
         $this->policies = $policies;
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role|null
+     * @return Role|null
      */
     public function getRole(): ?Role
     {
@@ -40,7 +42,7 @@ class PoliciesDeleteData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
+     * @param Role|null $role
      */
     public function setRole(?Role $role)
     {

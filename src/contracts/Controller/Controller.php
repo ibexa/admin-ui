@@ -19,13 +19,15 @@ abstract class Controller extends AbstractController
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      * @param string $uriFragment
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
-    public function redirectToLocation(Location $location, string $uriFragment = ''): RedirectResponse
-    {
+    public function redirectToLocation(
+        Location $location,
+        string $uriFragment = ''
+    ): RedirectResponse {
         return $this->redirectToRoute('ibexa.content.view', [
             'contentId' => $location->contentId,
             'locationId' => $location->id,

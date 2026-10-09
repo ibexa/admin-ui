@@ -12,14 +12,16 @@ use Ibexa\Contracts\Core\Specification\OrSpecification as BaseOrSpecification;
 use Ibexa\Contracts\Core\Specification\SpecificationInterface;
 
 /**
- * @deprecated 4.4.0 Use \Ibexa\Contracts\Core\Specification\OrSpecification
+ * @deprecated 4.4.0 Use BaseOrSpecification
  */
 class OrSpecification extends AbstractSpecification
 {
     private SpecificationInterface $baseSpecification;
 
-    public function __construct(SpecificationInterface $one, SpecificationInterface $two)
-    {
+    public function __construct(
+        SpecificationInterface $one,
+        SpecificationInterface $two
+    ) {
         $this->baseSpecification = new BaseOrSpecification($one, $two);
     }
 

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\DataTransformer;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -19,11 +20,11 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class RoleTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
+    /** @var RoleService */
     protected $roleService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
+     * @param RoleService $roleService
      */
     public function __construct(RoleService $roleService)
     {
@@ -37,7 +38,7 @@ class RoleTransformer implements DataTransformerInterface
      *
      * @return mixed|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function transform($value)
     {
@@ -57,10 +58,10 @@ class RoleTransformer implements DataTransformerInterface
      *
      * @param mixed $value
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role|null
+     * @return APIRole|null
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws UnauthorizedException
+     * @throws TransformationFailedException
      */
     public function reverseTransform($value): ?APIRole
     {

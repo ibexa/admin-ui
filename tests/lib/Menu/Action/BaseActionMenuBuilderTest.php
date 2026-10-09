@@ -22,6 +22,7 @@ use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\Values\User\User;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\MenuFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -47,19 +48,19 @@ abstract class BaseActionMenuBuilderTest extends TestCase
 
     protected MenuItemFactoryInterface $menuItemFactory;
 
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var EventDispatcherInterface&MockObject */
     protected EventDispatcherInterface $eventDispatcher;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ContentService&MockObject */
     protected ContentService $contentService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var TranslatorInterface&MockObject */
     protected TranslatorInterface $translator;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var UrlGeneratorInterface&MockObject */
     protected UrlGeneratorInterface $urlGenerator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var UserService&MockObject */
     protected UserService $userService;
 
     protected function setUp(): void
@@ -119,7 +120,10 @@ abstract class BaseActionMenuBuilderTest extends TestCase
         $this->urlGenerator
             ->method('generate')
             ->willReturnCallback(
-                function (string $routeName, array $parameters): ?string {
+                function (
+                    string $routeName,
+                    array $parameters
+                ): ?string {
                     if ($routeName === self::ROUTE_VERSION_HAS_NO_CONFLICT) {
                         return $this->getUrl('/version/has-no-conflict/%d/%d/%s', $parameters);
                     }

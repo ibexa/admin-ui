@@ -16,18 +16,18 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 class NotificationTwigStrategy
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
+    /** @var Repository */
     private $repository;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
     /** @var string */
     private $defaultTemplate;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param Repository $repository
+     * @param ContentService $contentService
      */
     public function __construct(
         Repository $repository,
@@ -50,7 +50,7 @@ class NotificationTwigStrategy
      *
      * @return string
      *
-     * @throws \Ibexa\AdminUi\Exception\NoValidResultException
+     * @throws NoValidResultException
      */
     public function decide($contentId): string
     {

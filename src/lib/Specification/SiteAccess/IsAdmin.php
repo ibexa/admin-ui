@@ -31,7 +31,7 @@ class IsAdmin extends AbstractSpecification
      *
      * @return bool
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function isSatisfiedBy($item): bool
     {

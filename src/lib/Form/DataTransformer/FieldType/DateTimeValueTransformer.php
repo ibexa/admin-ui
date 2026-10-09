@@ -21,7 +21,7 @@ class DateTimeValueTransformer implements DataTransformerInterface
      *
      * @return int|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function transform($value)
     {
@@ -45,9 +45,9 @@ class DateTimeValueTransformer implements DataTransformerInterface
     /**
      * @param mixed $value
      *
-     * @return \Ibexa\Core\FieldType\DateAndTime\Value|null
+     * @return Value|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function reverseTransform($value)
     {

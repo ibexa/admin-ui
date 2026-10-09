@@ -8,20 +8,28 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\AdminUi\ContentType;
 
+use Ibexa\AdminUi\Exception\FieldTypeExpressionParserException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 
 interface ContentTypeFieldsByExpressionServiceInterface
 {
     /**
-     * @return list<\Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition>
+     * @return list<FieldDefinition>
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\AdminUi\Exception\FieldTypeExpressionParserException
+     * @throws NotFoundException
+     * @throws FieldTypeExpressionParserException
      */
-    public function getFieldsFromExpression(string $expression, ?string $configuration = null): array;
+    public function getFieldsFromExpression(
+        string $expression,
+        ?string $configuration = null
+    ): array;
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
-    public function isFieldIncludedInExpression(FieldDefinition $fieldDefinition, string $expression): bool;
+    public function isFieldIncludedInExpression(
+        FieldDefinition $fieldDefinition,
+        string $expression
+    ): bool;
 }
