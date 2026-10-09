@@ -33,11 +33,18 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
     }
 
     /**
-     * @return int[]
+     * @return string[]
      */
     public function mapLimitationValue(Limitation $limitation): array
     {
-        return $limitation->limitationValues;
+        return array_values(
+            array_map(
+                fn ($value): string => (int)$value === ChangeOwnerLimitation::LIMITATION_VALUE_SELF
+                    ? $this->getForbidLabel()
+                    : (string)$value,
+                $limitation->limitationValues
+            )
+        );
     }
 
     public function mapLimitationForm(FormInterface $form, Limitation $data): void
@@ -72,12 +79,17 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
     private function getSelectionChoices(): array
     {
         return [
-            ChangeOwnerLimitation::LIMITATION_VALUE_SELF => $this->translator->trans(/** @Desc("Forbid") */
-                'policy.limitation.change_owner.forbid',
-                [],
-                'ibexa_content_forms_role'
-            ),
+            ChangeOwnerLimitation::LIMITATION_VALUE_SELF => $this->getForbidLabel(),
         ];
+    }
+
+    private function getForbidLabel(): string
+    {
+        return $this->translator->trans(/** @Desc("Forbid") */
+            'policy.limitation.change_owner.forbid',
+            [],
+            'ibexa_content_forms_role'
+        );
     }
 
     public function setFormTemplate(string $formTemplate): void
