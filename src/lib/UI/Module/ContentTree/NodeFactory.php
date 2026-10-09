@@ -169,9 +169,9 @@ final class NodeFactory
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation
+     * @param int|int[] $parentLocationId
      */
-    private function getSearchQuery(int $parentLocationId, ?Criterion $requestFilter = null): LocationQuery
+    private function getSearchQuery($parentLocationId, ?Criterion $requestFilter = null): LocationQuery
     {
         $searchQuery = new LocationQuery();
         $searchQuery->filter = new Criterion\ParentLocationId($parentLocationId);
@@ -249,15 +249,10 @@ final class NodeFactory
 
         $parentLocationIds = array_column($containerLocations, 'id');
 
-        $searchQuery = new LocationQuery();
-        $searchQuery->filter = new Criterion\ParentLocationId($parentLocationIds);
+        $searchQuery = $this->getSearchQuery($parentLocationIds, $requestFilter);
         $locationChildrenTermAggregation = new Query\Aggregation\Location\LocationChildrenTermAggregation('childrens');
         $locationChildrenTermAggregation->setLimit(\count($parentLocationIds));
         $searchQuery->aggregations[] = $locationChildrenTermAggregation;
-
-        if (null !== $requestFilter) {
-            $searchQuery->filter = new Criterion\LogicalAnd([$searchQuery->filter, $requestFilter]);
-        }
 
         $result = $this->searchService->findLocations($searchQuery);
 
