@@ -63,6 +63,14 @@ class AdminUpdateItemPage extends Page
         }, sprintf('Failed to set correct value in input field. Expected: %s. Actual: %s', $value, $field->getValue()));
     }
 
+    public function pressEnterInField(string $fieldName): void
+    {
+        $field = $this->getField($fieldName);
+
+        // WebDriver sends "\n" as the Enter key
+        $field->setValue($field->getValue() . "\n");
+    }
+
     public function clickButton(string $label): void
     {
         $button = $this->getHTMLPage()
