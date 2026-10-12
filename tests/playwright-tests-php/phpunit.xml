@@ -3,6 +3,10 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/12.5/phpunit.xsd"
          bootstrap="bootstrap.php"
          colors="true">
+    <php>
+        <!-- Symfony skeleton always generates src/Kernel.php as App\Kernel, for every edition. -->
+        <env name="KERNEL_CLASS" value="App\Kernel"/>
+    </php>
     <testsuites>
         <testsuite name="admin-ui-playwright-php">
             <directory>Tests</directory>
