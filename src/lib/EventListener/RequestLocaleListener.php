@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
-use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
@@ -46,7 +45,7 @@ final readonly class RequestLocaleListener implements EventSubscriberInterface
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function onKernelRequest(RequestEvent $event): void
     {
@@ -95,7 +94,7 @@ final readonly class RequestLocaleListener implements EventSubscriberInterface
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     private function isAdminSiteAccess(Request $request): bool
     {
