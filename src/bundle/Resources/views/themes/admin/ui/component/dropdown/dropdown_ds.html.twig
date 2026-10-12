@@ -35,8 +35,6 @@
 {% set has_min_search_items = min_search_items is defined and min_search_items is not null %}
 {% set has_min_select_all_toggler_items = min_select_all_toggler_items is defined and min_select_all_toggler_items is not null %}
 {% set has_min_item_width = min_item_width is defined and min_item_width is not null %}
-{% set has_grouped_preferred_choices = preferred_choices|filter(choice => choice.choices is defined)|length > 0 %}
-{% set has_grouped_choices = choices|filter(choice => choice.choices is defined)|length > 0 %}
 
 {% set can_use_ds = not (
     custom_init
@@ -51,36 +49,11 @@
     or is_ghost|default(false)
     or has_min_search_items
     or has_min_item_width
-    or has_grouped_preferred_choices
-    or has_grouped_choices
 ) %}
 
 {% if can_use_ds %}
     {% set max_visible_items = 5 %}
-    {% set normalized_preferred_choices = preferred_choices|map(choice => {
-        value: choice.value ~ '',
-        label: translation_domain is same as(false) ? choice.label : choice.label|trans({}, translation_domain),
-    }) %}
-    {% set normalized_choices = choices|map(choice => {
-        value: choice.value ~ '',
-        label: translation_domain is same as(false) ? choice.label : choice.label|trans({}, translation_domain),
-    }) %}
-    {% set normalized_items = normalized_preferred_choices
-        | merge(normalized_choices)
-        | reduce((carry, choice) => choice.value in carry.values
-            ? carry
-            : {
-                items: carry.items|merge([choice]),
-                values: carry.values|merge([choice.value]),
-            }, {
-                items: [],
-                values: [],
-            })
-    %}
-    {% set normalized_ds_items = normalized_items.items|map(choice => {
-        id: choice.value,
-        label: choice.label,
-    }) %}
+    {% set normalized_ds_items = ibexa_dropdown_items(choices, preferred_choices, translation_domain) %}
     {% set ds_items = not multiple and translated_placeholder is not same as(null)
         ? [{ id: '', label: empty_placeholder_label }]|merge(normalized_ds_items)
         : normalized_ds_items
