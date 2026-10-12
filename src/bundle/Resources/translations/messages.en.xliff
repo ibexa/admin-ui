@@ -281,6 +281,21 @@
         <target state="new">Sorry, this page isn't available</target>
         <note>key: error.page.404.title</note>
       </trans-unit>
+      <trans-unit id="09bb755e1c17c18536fc7b0dc258ca692e4a17ab" resname="error.page.405.actions">
+        <source><![CDATA[Go back to the <a href="%dashboard%">dashboard</a> or <a href="%search%">search</a> for another item.]]></source>
+        <target state="new"><![CDATA[Go back to the <a href="%dashboard%">dashboard</a> or <a href="%search%">search</a> for another item.]]></target>
+        <note>key: error.page.405.actions</note>
+      </trans-unit>
+      <trans-unit id="d4ab8cd5c5505500d4b650eb4b757b0a1761c32e" resname="error.page.405.sub_title">
+        <source>The requested method is not allowed for this page.</source>
+        <target state="new">The requested method is not allowed for this page.</target>
+        <note>key: error.page.405.sub_title</note>
+      </trans-unit>
+      <trans-unit id="95ee0da0a43116ba2d3252675d6afcd38a77d084" resname="error.page.405.title">
+        <source>This action isn't available</source>
+        <target state="new">This action isn't available</target>
+        <note>key: error.page.405.title</note>
+      </trans-unit>
       <trans-unit id="a599d59a63814826906caa9842f0b3c33db24d09" resname="error.page.default.actions">
         <source><![CDATA[Contact you Administrator to report the problem.<br/>Go back to the <a href="%dashboard%">dashboard</a> or reload the application.]]></source>
         <target state="new"><![CDATA[Contact you Administrator to report the problem.<br/>Go back to the <a href="%dashboard%">dashboard</a> or reload the application.]]></target>
