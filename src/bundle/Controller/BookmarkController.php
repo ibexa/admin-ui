@@ -107,6 +107,6 @@ final class BookmarkController extends Controller
     {
         $bookmarks = array_column($bookmarks, 'id');
 
-        return array_combine($bookmarks, array_fill_keys($bookmarks, false));
+        return array_fill_keys($bookmarks, false);
     }
 }

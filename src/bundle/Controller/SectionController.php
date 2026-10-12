@@ -403,7 +403,7 @@ final class SectionController extends Controller
     {
         $sectionsNumbers = array_column($sections, 'id');
 
-        return array_combine($sectionsNumbers, array_fill_keys($sectionsNumbers, false));
+        return array_fill_keys($sectionsNumbers, false);
     }
 
     /**

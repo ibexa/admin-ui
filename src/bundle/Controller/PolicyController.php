@@ -396,6 +396,6 @@ final class PolicyController extends Controller
     {
         $policiesNumbers = array_column($policies, 'id');
 
-        return array_combine($policiesNumbers, array_fill_keys($policiesNumbers, false));
+        return array_fill_keys($policiesNumbers, false);
     }
 }
