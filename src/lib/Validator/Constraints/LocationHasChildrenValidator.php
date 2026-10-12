@@ -10,16 +10,17 @@ namespace Ibexa\AdminUi\Validator\Constraints;
 
 use Ibexa\AdminUi\Specification\Location\HasChildren;
 use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class LocationHasChildrenValidator extends ConstraintValidator
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
+     * @param LocationService $locationService
      */
     public function __construct(LocationService $locationService)
     {
@@ -29,11 +30,13 @@ class LocationHasChildrenValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location The value that should be validated
-     * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
+     * @param Location $location The value that should be validated
+     * @param Constraint $constraint The constraint for the validation
      */
-    public function validate($location, Constraint $constraint)
-    {
+    public function validate(
+        $location,
+        Constraint $constraint
+    ) {
         if (null === $location) {
             $this->context->addViolation($constraint->message);
 

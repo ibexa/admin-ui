@@ -13,14 +13,14 @@ use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Event\RenderSingleEvent} class is deprecated, will be removed in 6.0.
+ * @deprecated 4.6.19 The {@see RenderSingleEvent} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\Contracts\TwigComponents\Event\RenderSingleEvent} instead
  */
 class RenderSingleEvent extends Event
 {
     public const NAME = 'ezplatform_admin_ui.component.render_single';
 
-    /** @var \Ibexa\AdminUi\Component\Registry */
+    /** @var Registry */
     private $registry;
 
     /** @var string */
@@ -33,12 +33,16 @@ class RenderSingleEvent extends Event
     private $parameters;
 
     /**
-     * @param \Ibexa\AdminUi\Component\Registry $registry
+     * @param Registry $registry
      * @param string $groupName
      * @param array $parameters
      */
-    public function __construct(Registry $registry, string $groupName, string $serviceId, array $parameters = [])
-    {
+    public function __construct(
+        Registry $registry,
+        string $groupName,
+        string $serviceId,
+        array $parameters = []
+    ) {
         $this->registry = $registry;
         $this->groupName = $groupName;
         $this->serviceId = $serviceId;
@@ -62,7 +66,7 @@ class RenderSingleEvent extends Event
     }
 
     /**
-     * @return \Ibexa\Contracts\TwigComponents\ComponentInterface
+     * @return ComponentInterface
      */
     public function getComponent(): ComponentInterface
     {
@@ -72,7 +76,7 @@ class RenderSingleEvent extends Event
     }
 
     /**
-     * @param \Ibexa\Contracts\TwigComponents\ComponentInterface $component
+     * @param ComponentInterface $component
      */
     public function setComponent(ComponentInterface $component)
     {

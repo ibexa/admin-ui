@@ -8,12 +8,16 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
 use Ibexa\AdminUi\UI\Value as UIValue;
+use Ibexa\AdminUi\UI\Value\Content\UrlAlias;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -21,19 +25,19 @@ use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 
 class PoliciesDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
+    /** @var RoleService */
     private $roleService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     private $userService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
+    /** @var ValueFactory */
     protected $valueFactory;
 
     /** @var array */
@@ -42,15 +46,15 @@ class PoliciesDataset
     /** @var array */
     private $userGroupContentTypeIdentifier;
 
-    /** @var \Ibexa\AdminUi\UI\Value\Content\UrlAlias[] */
+    /** @var UrlAlias[] */
     private $data;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
+     * @param RoleService $roleService
+     * @param ContentService $contentService
+     * @param ContentTypeService $contentTypeService
+     * @param UserService $userService
+     * @param ValueFactory $valueFactory
      * @param array $userContentTypeIdentifier
      * @param array $userGroupContentTypeIdentifier
      */
@@ -73,14 +77,14 @@ class PoliciesDataset
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      *
-     * @return \Ibexa\AdminUi\UI\Dataset\PoliciesDataset
+     * @return PoliciesDataset
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
      */
     public function load(Location $location): self
     {
@@ -116,7 +120,7 @@ class PoliciesDataset
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Value\User\Policy[]
+     * @return UIValue\User\Policy[]
      */
     public function getPolicies(): array
     {

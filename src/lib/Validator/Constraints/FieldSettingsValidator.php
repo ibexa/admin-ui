@@ -16,8 +16,10 @@ use Symfony\Component\Validator\Constraint;
  */
 class FieldSettingsValidator extends FieldTypeValidator
 {
-    public function validate($value, Constraint $constraint)
-    {
+    public function validate(
+        $value,
+        Constraint $constraint
+    ) {
         if (!$value instanceof FieldDefinitionData) {
             return;
         }
@@ -26,8 +28,10 @@ class FieldSettingsValidator extends FieldTypeValidator
         $this->processValidationErrors($fieldType->validateFieldSettings($value->fieldSettings));
     }
 
-    protected function generatePropertyPath($errorIndex, $errorTarget)
-    {
+    protected function generatePropertyPath(
+        $errorIndex,
+        $errorTarget
+    ) {
         return 'fieldSettings' . $errorTarget;
     }
 }

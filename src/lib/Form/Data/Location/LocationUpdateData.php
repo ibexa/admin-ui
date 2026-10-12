@@ -15,7 +15,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
  */
 class LocationUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
+    /** @var Location|null */
     protected $location;
 
     /** @var string|null */
@@ -25,7 +25,7 @@ class LocationUpdateData
     protected $sortOrder;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      */
     public function __construct(?Location $location = null)
     {
@@ -35,7 +35,7 @@ class LocationUpdateData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @return Location|null
      */
     public function getLocation(): ?Location
     {
@@ -43,7 +43,7 @@ class LocationUpdateData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      */
     public function setLocation(?Location $location)
     {

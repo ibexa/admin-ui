@@ -16,6 +16,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeId
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\ContentName;
 use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
 use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
 use Ibexa\Core\Limitation\MemberOfLimitationType;
 use JMS\TranslationBundle\Annotation\Desc;
@@ -73,7 +74,7 @@ final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implem
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[]
+     * @return UserGroup[]
      */
     private function loadUserGroups(): array
     {

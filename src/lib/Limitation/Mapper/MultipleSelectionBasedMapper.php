@@ -25,8 +25,10 @@ abstract class MultipleSelectionBasedMapper implements LimitationFormMapperInter
      */
     private $template;
 
-    public function mapLimitationForm(FormInterface $form, Limitation $data)
-    {
+    public function mapLimitationForm(
+        FormInterface $form,
+        Limitation $data
+    ) {
         $options = $this->getChoiceFieldOptions() + [
             'multiple' => true,
             'label' => LimitationIdentifierToLabelConverter::convert($data->getIdentifier()),
@@ -65,9 +67,7 @@ abstract class MultipleSelectionBasedMapper implements LimitationFormMapperInter
         return $this->template;
     }
 
-    public function filterLimitationValues(Limitation $limitation)
-    {
-    }
+    public function filterLimitationValues(Limitation $limitation) {}
 }
 
 class_alias(MultipleSelectionBasedMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\MultipleSelectionBasedMapper');

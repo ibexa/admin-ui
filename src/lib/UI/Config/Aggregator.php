@@ -16,13 +16,13 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
  */
 class Aggregator
 {
-    /** @var \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface[] ApplicationConfigProviders, indexed by namespace string */
+    /** @var ProviderInterface[] ApplicationConfigProviders, indexed by namespace string */
     protected $providers;
 
     /**
      * Aggregator constructor.
      *
-     * @param \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface[] $providers
+     * @param ProviderInterface[] $providers
      */
     public function __construct(array $providers = [])
     {
@@ -33,19 +33,21 @@ class Aggregator
      * Adds an Provider to the aggregator.
      *
      * @param string $key
-     * @param \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface $provider
+     * @param ProviderInterface $provider
      */
-    public function addProvider(string $key, ProviderInterface $provider)
-    {
+    public function addProvider(
+        string $key,
+        ProviderInterface $provider
+    ) {
         $this->providers[$key] = $provider;
     }
 
     /**
      * @param string $key
      *
-     * @return \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface
+     * @return ProviderInterface
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function removeProvider(string $key): ProviderInterface
     {
@@ -57,7 +59,7 @@ class Aggregator
     }
 
     /**
-     * @return \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface[]
+     * @return ProviderInterface[]
      */
     public function getProviders(): array
     {
@@ -65,7 +67,7 @@ class Aggregator
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface[] $providers
+     * @param ProviderInterface[] $providers
      */
     public function setProviders(array $providers)
     {

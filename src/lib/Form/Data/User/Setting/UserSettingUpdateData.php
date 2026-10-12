@@ -28,8 +28,10 @@ class UserSettingUpdateData
      * @param string $identifier
      * @param string $value
      */
-    public function __construct(?string $identifier = null, ?string $value = null)
-    {
+    public function __construct(
+        ?string $identifier = null,
+        ?string $value = null
+    ) {
         $this->identifier = $identifier;
         $this->value = $value;
     }

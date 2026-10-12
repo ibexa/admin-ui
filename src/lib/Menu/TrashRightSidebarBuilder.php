@@ -30,13 +30,13 @@ class TrashRightSidebarBuilder extends AbstractBuilder implements TranslationCon
     /* Menu items */
     public const ITEM__EMPTY = 'trash__sidebar_right__empty_trash';
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\TrashService */
+    /** @var TrashService */
     private $trashService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -64,7 +64,7 @@ class TrashRightSidebarBuilder extends AbstractBuilder implements TranslationCon
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
      * @throws \InvalidArgumentException
      * @throws ApiExceptions\BadStateException
@@ -76,7 +76,7 @@ class TrashRightSidebarBuilder extends AbstractBuilder implements TranslationCon
         $canDelete = $this->permissionResolver->hasAccess('content', 'cleantrash');
         /** @var int $trashItemsCount */
         $trashItemsCount = $this->trashService->findTrashItems(new Query())->count;
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $trashEmptyAttributes = [

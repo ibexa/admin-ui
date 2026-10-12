@@ -12,8 +12,11 @@ use InvalidArgumentException;
 
 class ValueMapperNotFoundException extends InvalidArgumentException
 {
-    public function __construct($limitationType, $code = 0, ?Exception $previous = null)
-    {
+    public function __construct(
+        $limitationType,
+        $code = 0,
+        ?Exception $previous = null
+    ) {
         parent::__construct("No LimitationValueMapper found for '$limitationType'", $code, $previous);
     }
 }

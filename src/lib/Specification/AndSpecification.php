@@ -12,14 +12,16 @@ use Ibexa\Contracts\Core\Specification\AndSpecification as BaseAndSpecification;
 use Ibexa\Contracts\Core\Specification\SpecificationInterface;
 
 /**
- * @deprecated 4.4.0 Use \Ibexa\Contracts\Core\Specification\AndSpecification
+ * @deprecated 4.4.0 Use BaseAndSpecification
  */
 class AndSpecification extends AbstractSpecification
 {
     private SpecificationInterface $baseSpecification;
 
-    public function __construct(SpecificationInterface $one, SpecificationInterface $two)
-    {
+    public function __construct(
+        SpecificationInterface $one,
+        SpecificationInterface $two
+    ) {
         $this->baseSpecification = new BaseAndSpecification($one, $two);
     }
 

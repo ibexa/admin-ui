@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\Dialog;
+use Ibexa\AdminUi\Behat\Component\Table\Table;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\TrashSearch;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
@@ -21,19 +22,19 @@ use PHPUnit\Framework\Assert;
 
 class TrashPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
+    /** @var Dialog */
     public $dialog;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
+    /** @var UniversalDiscoveryWidget */
     private $universalDiscoveryWidget;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu */
+    /** @var ContentActionsMenu */
     private $contentActionsMenu;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
+    /** @var Table */
     private $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\TrashSearch */
+    /** @var TrashSearch */
     private TrashSearch $trashSearch;
 
     public function __construct(
@@ -53,8 +54,10 @@ class TrashPage extends Page
         $this->trashSearch = $trashSearch;
     }
 
-    public function hasElement(string $itemType, string $itemName): bool
-    {
+    public function hasElement(
+        string $itemType,
+        string $itemName
+    ): bool {
         return $this->table->hasElement(['Name' => $itemName, 'Content type' => $itemType]);
     }
 

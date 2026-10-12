@@ -22,7 +22,7 @@ class SectionLimitationMapper extends MultipleSelectionBasedMapper implements Li
     use LoggerAwareTrait;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\SectionService
+     * @var SectionService
      */
     private $sectionService;
 

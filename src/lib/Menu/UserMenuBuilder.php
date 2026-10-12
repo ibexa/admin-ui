@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Specification\UserProfile\IsProfileAvailable;
 use Ibexa\AdminUi\UserProfile\UserProfileConfigurationInterface;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
+use Ibexa\Core\MVC\Symfony\Security\User;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -32,7 +33,7 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     public const ITEM_BOOKMARK = 'user__bookmark';
     public const ITEM_NOTIFICATION = 'menu.notification';
 
-    /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
     private UserProfileConfigurationInterface $userProfileConfiguration;
@@ -60,7 +61,7 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -70,7 +71,7 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
 
         $token = $this->tokenStorage->getToken();
         if (null !== $token && is_object($token->getUser())) {
-            /** @var \Ibexa\Core\MVC\Symfony\Security\User $user */
+            /** @var User $user */
             $user = $token->getUser();
 
             if ((new IsProfileAvailable($this->userProfileConfiguration))->isSatisfiedBy($user->getAPIUser())) {

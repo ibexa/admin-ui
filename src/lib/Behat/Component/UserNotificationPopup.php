@@ -24,14 +24,18 @@ class UserNotificationPopup extends Component
 {
     private Dialog $dialog;
 
-    public function __construct(Session $session, Dialog $dialog)
-    {
+    public function __construct(
+        Session $session,
+        Dialog $dialog
+    ) {
         parent::__construct($session);
         $this->dialog = $dialog;
     }
 
-    public function clickNotification(string $expectedType, string $expectedDescription)
-    {
+    public function clickNotification(
+        string $expectedType,
+        string $expectedDescription
+    ) {
         $notifications = $this->getHTMLPage()->findAll($this->getLocator('notificationItem'));
 
         foreach ($notifications as $notification) {
@@ -57,8 +61,13 @@ class UserNotificationPopup extends Component
         throw new Exception(sprintf('Notification of type: %s with description: %d not found', $expectedType, $expectedDescription));
     }
 
-    public function verifyNotification(string $expectedType, string $expectedAuthor, string $expectedDescription, ?string $expectedDate = null, bool $shouldExist = true): void
-    {
+    public function verifyNotification(
+        string $expectedType,
+        string $expectedAuthor,
+        string $expectedDescription,
+        ?string $expectedDate = null,
+        bool $shouldExist = true
+    ): void {
         $notifications = $this->getHTMLPage()->setTimeout(5)->findAll($this->getLocator('notificationItem'));
 
         foreach ($notifications as $notification) {
@@ -81,7 +90,7 @@ class UserNotificationPopup extends Component
             if ($shouldExist) {
                 return;
             } else {
-                throw new \Exception(sprintf(
+                throw new Exception(sprintf(
                     'Notification of type "%s" with author "%s" and description "%s" should not exist, but was found.',
                     $expectedType,
                     $expectedAuthor,
@@ -91,7 +100,7 @@ class UserNotificationPopup extends Component
         }
 
         if ($shouldExist) {
-            throw new \Exception(sprintf(
+            throw new Exception(sprintf(
                 'Notification of type "%s" with author "%s" and description "%s" was not found.',
                 $expectedType,
                 $expectedAuthor,

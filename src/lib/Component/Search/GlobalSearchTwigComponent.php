@@ -17,13 +17,13 @@ use Twig\Environment;
 
 final class GlobalSearchTwigComponent implements ComponentInterface
 {
-    /** @var \Twig\Environment */
+    /** @var Environment */
     private $twig;
 
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
+    /** @var FormFactoryInterface */
     private $formFactory;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
+    /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
     public function __construct(

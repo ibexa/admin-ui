@@ -11,6 +11,7 @@ use Ibexa\Bundle\AdminUi\ParamConverter\RoleParamConverter;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -19,10 +20,10 @@ class RoleParamConverterTest extends AbstractParamConverterTest
     public const SUPPORTED_CLASS = Role::class;
     public const PARAMETER_NAME = 'role';
 
-    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\RoleParamConverter */
+    /** @var RoleParamConverter */
     protected $converter;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $serviceMock;
 
     protected function setUp(): void
@@ -38,8 +39,10 @@ class RoleParamConverterTest extends AbstractParamConverterTest
      * @param mixed $roleId The role identifier fetched from the request
      * @param int $roleIdToLoad The role identifier used to load the role
      */
-    public function testApply($roleId, int $roleIdToLoad)
-    {
+    public function testApply(
+        $roleId,
+        int $roleIdToLoad
+    ) {
         $valueObject = $this->createMock(Role::class);
 
         $this->serviceMock

@@ -46,7 +46,7 @@ final class ContentDownloadRouteReferenceListener implements EventSubscriberInte
             return;
         }
 
-        /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteaccess */
+        /** @var SiteAccess $siteaccess */
         $siteaccess = $event->getRequest()->attributes->get('siteaccess');
         if ($this->isAdminSiteAccess($siteaccess)) {
             $routeReference->set('siteaccess', $siteaccess->name);

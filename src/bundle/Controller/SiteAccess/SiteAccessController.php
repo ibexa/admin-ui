@@ -9,9 +9,11 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Controller\SiteAccess;
 
 use Ibexa\AdminUi\REST\Value\SiteAccess\SiteAccessesList;
+use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Rest\Server\Controller as RestController;
 use Ibexa\Rest\Server\Exceptions\BadRequestException;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,15 +29,17 @@ final class SiteAccessController extends RestController
     }
 
     /**
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
-    public function loadForLocation(Request $request, Location $location): SiteAccessesList
-    {
+    public function loadForLocation(
+        Request $request,
+        Location $location
+    ): SiteAccessesList {
         $resolverType = $request->query->get('resolver_type', 'non_admin');
 
         try {
-            /** @var \Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface $siteAccessResolver */
+            /** @var SiteaccessResolverInterface $siteAccessResolver */
             $siteAccessResolver = $this->siteAccessResolvers->get($resolverType);
         } catch (NotFoundExceptionInterface $e) {
             throw new BadRequestException($e->getMessage(), $e->getCode(), $e);

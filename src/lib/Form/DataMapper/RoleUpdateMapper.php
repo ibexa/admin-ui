@@ -21,11 +21,11 @@ class RoleUpdateMapper implements DataMapperInterface
     /**
      * Maps given RoleUpdateStruct object to a RoleUpdateData object.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
+     * @param RoleUpdateStruct|ValueObject $value
      *
-     * @return \Ibexa\AdminUi\Form\Data\Role\RoleUpdateData
+     * @return RoleUpdateData
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function map(ValueObject $value): RoleUpdateData
     {
@@ -43,11 +43,11 @@ class RoleUpdateMapper implements DataMapperInterface
     /**
      * Maps given RoleUpdateData object to a RoleUpdateStruct object.
      *
-     * @param \Ibexa\AdminUi\Form\Data\Role\RoleUpdateData $data
+     * @param RoleUpdateData $data
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct
+     * @return RoleUpdateStruct
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function reverseMap($data): RoleUpdateStruct
     {

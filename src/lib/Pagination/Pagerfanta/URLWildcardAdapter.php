@@ -7,23 +7,27 @@
 
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\URLWildcardService;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery;
 use Pagerfanta\Adapter\AdapterInterface;
 
 final class URLWildcardAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
+    /** @var URLWildcardService */
     private $urlWildcardService;
 
     /** @var int */
     private $nbResults;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery */
+    /** @var URLWildcardQuery */
     private $query;
 
-    public function __construct(URLWildcardQuery $query, URLWildcardService $urlWildcardService)
-    {
+    public function __construct(
+        URLWildcardQuery $query,
+        URLWildcardService $urlWildcardService
+    ) {
         $this->query = $query;
         $this->urlWildcardService = $urlWildcardService;
     }
@@ -31,7 +35,7 @@ final class URLWildcardAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      */
     public function getNbResults(): int
     {
@@ -45,12 +49,14 @@ final class URLWildcardAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard[]
+     * @return URLWildcard[]
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      */
-    public function getSlice($offset, $length): array
-    {
+    public function getSlice(
+        $offset,
+        $length
+    ): array {
         $query = clone $this->query;
         $query->offset = $offset;
         $query->limit = $length;

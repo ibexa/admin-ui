@@ -29,7 +29,7 @@ class ContentTypeCreateRightSidebarBuilder extends AbstractContentTypeRightSideb
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

@@ -20,13 +20,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserChoiceType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
+    /** @var Repository */
     private $repository;
 
     /**
      * UserGroupChoiceType constructor.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param Repository $repository
      */
     public function __construct(Repository $repository)
     {
@@ -58,7 +58,7 @@ class UserChoiceType extends AbstractType
     /**
      * Get users list.
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\User[]
+     * @return User[]
      */
     protected function getUsers(): array
     {

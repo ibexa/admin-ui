@@ -77,10 +77,12 @@ class ContentTypeIsUserTest extends TestCase
      * @param string $identifier
      * @param array $fieldsType
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
+     * @return APIContentType
      */
-    private function createContentType(string $identifier, array $fieldsType = []): APIContentType
-    {
+    private function createContentType(
+        string $identifier,
+        array $fieldsType = []
+    ): APIContentType {
         $contentType = $this->createMock(ContentType::class);
         $contentType
             ->method('__get')

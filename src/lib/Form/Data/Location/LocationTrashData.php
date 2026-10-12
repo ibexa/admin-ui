@@ -12,14 +12,14 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class LocationTrashData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
+    /** @var Location|null */
     private $location;
 
     /** @var array|null */
     private $trashOptions;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      * @param array|null $trashOptions
      */
     public function __construct(
@@ -31,7 +31,7 @@ class LocationTrashData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @return Location|null
      */
     public function getLocation(): ?Location
     {
@@ -39,7 +39,7 @@ class LocationTrashData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      */
     public function setLocation(?Location $location): void
     {

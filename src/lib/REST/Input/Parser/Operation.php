@@ -19,12 +19,14 @@ class Operation extends BaseParser
      * Parse input structure.
      *
      * @param array $data
-     * @param \Ibexa\Contracts\Rest\Input\ParsingDispatcher $parsingDispatcher
+     * @param ParsingDispatcher $parsingDispatcher
      *
-     * @return \Ibexa\AdminUi\REST\Value\Operation
+     * @return OperationValue
      */
-    public function parse(array $data, ParsingDispatcher $parsingDispatcher)
-    {
+    public function parse(
+        array $data,
+        ParsingDispatcher $parsingDispatcher
+    ) {
         if (!array_key_exists('uri', $data) || !is_string($data['uri'])) {
             throw new Exceptions\Parser("Missing or invalid 'uri' element for BulkOperation.");
         }

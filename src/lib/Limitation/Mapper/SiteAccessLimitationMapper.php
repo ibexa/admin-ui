@@ -17,10 +17,10 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
-    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
+    /** @var SiteAccessServiceInterface */
     private $siteAccessService;
 
-    /** @var \Ibexa\AdminUi\Siteaccess\SiteAccessKeyGeneratorInterface */
+    /** @var SiteAccessKeyGeneratorInterface */
     private $siteAccessKeyGenerator;
 
     public function __construct(

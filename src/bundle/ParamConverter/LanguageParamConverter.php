@@ -21,11 +21,11 @@ class LanguageParamConverter implements ParamConverterInterface
     public const PARAMETER_LANGUAGE_ID = 'languageId';
     public const PARAMETER_LANGUAGE_CODE = 'languageCode';
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     private $languageService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
+     * @param LanguageService $languageService
      */
     public function __construct(LanguageService $languageService)
     {
@@ -35,8 +35,10 @@ class LanguageParamConverter implements ParamConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function apply(Request $request, ParamConverter $configuration)
-    {
+    public function apply(
+        Request $request,
+        ParamConverter $configuration
+    ) {
         if (!$request->get(self::PARAMETER_LANGUAGE_ID) && !$request->get(self::PARAMETER_LANGUAGE_CODE)) {
             return false;
         }

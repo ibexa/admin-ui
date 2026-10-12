@@ -15,11 +15,11 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
  */
 class UniversalDiscoveryWidget implements ProviderInterface
 {
-    /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */
+    /** @var ConfigResolver */
     private $configResolver;
 
     /**
-     * @param \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver $configResolver
+     * @param ConfigResolver $configResolver
      */
     public function __construct(
         ConfigResolver $configResolver

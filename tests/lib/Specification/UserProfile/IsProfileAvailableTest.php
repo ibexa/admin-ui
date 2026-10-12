@@ -31,7 +31,7 @@ final class IsProfileAvailableTest extends TestCase
     }
 
     /**
-     * @return iterable<array{UserProfileConfigurationInterface, \Ibexa\Contracts\Core\Repository\Values\User\User, bool}>
+     * @return iterable<array{UserProfileConfigurationInterface, User, bool}>
      */
     public function dataProviderForIsSatisfiedBy(): iterable
     {
@@ -57,8 +57,10 @@ final class IsProfileAvailableTest extends TestCase
     /**
      * @param string[] $contentTypes
      */
-    private function createConfiguration(bool $enabled, array $contentTypes): UserProfileConfigurationInterface
-    {
+    private function createConfiguration(
+        bool $enabled,
+        array $contentTypes
+    ): UserProfileConfigurationInterface {
         $configuration = $this->createMock(UserProfileConfigurationInterface::class);
         $configuration->method('isEnabled')->willReturn($enabled);
         $configuration->method('getContentTypes')->willReturn($contentTypes);

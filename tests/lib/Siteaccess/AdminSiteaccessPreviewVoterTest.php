@@ -21,13 +21,13 @@ class AdminSiteaccessPreviewVoterTest extends TestCase
 {
     private const LANGUAGE_CODE = 'eng-GB';
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
+    /** @var RepositoryConfigurationProvider */
     private $repositoryConfigurationProvider;
 
-    /** @var \Ibexa\AdminUi\Siteaccess\AdminSiteaccessPreviewVoter */
+    /** @var AdminSiteaccessPreviewVoter */
     private $adminSiteaccessPreviewVoter;
 
     public function setUp(): void

@@ -11,18 +11,20 @@ namespace Ibexa\Bundle\AdminUi\Controller\Version;
 use Ibexa\AdminUi\Specification\Version\VersionHasConflict;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Core\Base\Exceptions\BadStateException;
 use Symfony\Component\HttpFoundation\Response;
 
 class VersionConflictController extends Controller
 {
     /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentService
+     * @var ContentService
      */
     private $contentService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param ContentService $contentService
      */
     public function __construct(ContentService $contentService)
     {
@@ -38,14 +40,17 @@ class VersionConflictController extends Controller
      * @param int $versionNo
      * @param string $languageCode
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Core\Base\Exceptions\BadStateException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     * @throws BadStateException
      */
-    public function versionHasNoConflictAction(int $contentId, int $versionNo, string $languageCode): Response
-    {
+    public function versionHasNoConflictAction(
+        int $contentId,
+        int $versionNo,
+        string $languageCode
+    ): Response {
         $versionInfo = $this->contentService->loadVersionInfoById($contentId, $versionNo);
 
         if (!$versionInfo->isDraft()) {

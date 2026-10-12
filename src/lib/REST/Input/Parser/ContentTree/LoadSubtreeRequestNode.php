@@ -18,8 +18,10 @@ class LoadSubtreeRequestNode extends BaseParser
     /**
      * {@inheritdoc}
      */
-    public function parse(array $data, ParsingDispatcher $parsingDispatcher): LoadSubtreeRequestNodeValue
-    {
+    public function parse(
+        array $data,
+        ParsingDispatcher $parsingDispatcher
+    ): LoadSubtreeRequestNodeValue {
         if (!array_key_exists('locationId', $data) || !is_numeric($data['locationId'])) {
             throw new Exceptions\Parser(sprintf("Missing or invalid 'locationId' property for %s.", self::class));
         }

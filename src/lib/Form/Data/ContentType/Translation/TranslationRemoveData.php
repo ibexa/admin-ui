@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\ContentType\Translation;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,21 +18,21 @@ class TranslationRemoveData
     /**
      * @Assert\NotBlank()
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
+     * @var ContentType|null
      */
     private $contentType;
 
     /**
      * @Assert\NotBlank()
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null
+     * @var ContentTypeGroup|null
      */
     private $contentTypeGroup;
 
     /**
      * @Assert\NotBlank()
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @var Language[]
      */
     private $languageCodes;
 
@@ -73,7 +74,7 @@ class TranslationRemoveData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     public function getLanguageCodes(): array
     {
@@ -81,7 +82,7 @@ class TranslationRemoveData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languageCodes
+     * @param Language[] $languageCodes
      */
     public function setLanguageCodes(array $languageCodes): void
     {

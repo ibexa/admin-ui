@@ -22,8 +22,10 @@ class LocationsTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testTransform($value, $expected)
-    {
+    public function testTransform(
+        $value,
+        $expected
+    ) {
         $service = $this->createMock(LocationService::class);
         $transformer = new LocationsTransformer($service);
 

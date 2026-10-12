@@ -18,10 +18,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class HasAssetRelation implements TrashLocationOptionProvider
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -39,8 +39,10 @@ final class HasAssetRelation implements TrashLocationOptionProvider
             ->isSatisfiedBy($location->getContent());
     }
 
-    public function addOptions(FormInterface $form, Location $location): void
-    {
+    public function addOptions(
+        FormInterface $form,
+        Location $location
+    ): void {
         $form->add('trash_assets_non_unique', ChoiceType::class, [
             'label' =>
                 /** @Desc("Asset Fields(s)") */

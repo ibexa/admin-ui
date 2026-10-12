@@ -16,7 +16,7 @@ class ContentLocationRemoveData
     /**
      * @Assert\NotBlank()
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
+     * @var ContentInfo|null
      */
     public $contentInfo;
 
@@ -30,7 +30,7 @@ class ContentLocationRemoveData
     public $locations;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param ContentInfo|null $contentInfo
      * @param array $selectedLocations
      */
     public function __construct(
@@ -42,7 +42,7 @@ class ContentLocationRemoveData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
+     * @return ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -50,7 +50,7 @@ class ContentLocationRemoveData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param ContentInfo|null $contentInfo
      */
     public function setContentInfo(?ContentInfo $contentInfo)
     {

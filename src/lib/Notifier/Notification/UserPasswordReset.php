@@ -56,8 +56,10 @@ final class UserPasswordReset extends Notification implements EmailNotificationI
         parent::__construct();
     }
 
-    public function asEmailMessage(EmailRecipientInterface $recipient, ?string $transport = null): EmailMessage
-    {
+    public function asEmailMessage(
+        EmailRecipientInterface $recipient,
+        ?string $transport = null
+    ): EmailMessage {
         $templatePath = $this->configResolver->getParameter('user_forgot_password.templates.mail');
         $template = $this->twig->load($templatePath);
 

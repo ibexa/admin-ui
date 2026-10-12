@@ -24,13 +24,13 @@ final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implement
     public const ITEM__SAVE_AND_CLOSE = 'url_wildcard_edit__sidebar_right__save_and_close';
     public const ITEM__CANCEL = 'url_wildcard_edit__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface $menuItemFactory
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
+     * @param MenuItemFactoryInterface $menuItemFactory
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param TranslatorInterface $translator
      */
     public function __construct(
         MenuItemFactoryInterface $menuItemFactory,
@@ -58,7 +58,7 @@ final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implement
 
     protected function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface $menu */
+        /** @var ItemInterface $menu */
         $menu = $this->factory->createItem('root');
 
         $saveAndCloseItem = $this->createMenuItem(

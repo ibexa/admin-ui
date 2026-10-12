@@ -28,8 +28,11 @@ final class ProfilePictureFieldConfigRestGenerator implements ApplicationConfigR
         return self::PARAMETER === $parameterName;
     }
 
-    public function generate($parameter, Generator $generator, Visitor $visitor): void
-    {
+    public function generate(
+        $parameter,
+        Generator $generator,
+        Visitor $visitor
+    ): void {
         if ($parameter instanceof Field) {
             $generator->startHashElement(self::PARAMETER);
             $visitor->visitValueObject($parameter);

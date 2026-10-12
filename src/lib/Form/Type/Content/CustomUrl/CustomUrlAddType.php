@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Form\EventListener\BuildPathFromRootListener;
 use Ibexa\AdminUi\Form\EventListener\DisableSiteRootCheckboxIfRootLocationListener;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\SiteAccessChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
+use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
 use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\Core\Repository\LanguageService;
@@ -29,19 +30,19 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CustomUrlAddType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     private $languageService;
 
-    /** @var \Ibexa\AdminUi\Form\EventListener\AddLanguageFieldBasedOnContentListener */
+    /** @var AddLanguageFieldBasedOnContentListener */
     private $addLanguageFieldBasedOnContentListener;
 
-    /** @var \Ibexa\AdminUi\Form\EventListener\BuildPathFromRootListener */
+    /** @var BuildPathFromRootListener */
     private $buildPathFromRootListener;
 
-    /** @var \Ibexa\AdminUi\Form\EventListener\DisableSiteRootCheckboxIfRootLocationListener */
+    /** @var DisableSiteRootCheckboxIfRootLocationListener */
     private $checkboxIfRootLocationListener;
 
-    /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
+    /** @var NonAdminSiteaccessResolver */
     private $nonAdminSiteaccessResolver;
 
     private SiteAccessNameGeneratorInterface $siteAccessNameGenerator;
@@ -63,11 +64,13 @@ class CustomUrlAddType extends AbstractType
     }
 
     /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $location = $options['data']->getLocation();
 
         $builder

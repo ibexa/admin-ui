@@ -19,15 +19,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ContentTypeChoiceType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     protected $contentTypeService;
 
-    /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader */
+    /** @var ContentTypeChoiceLoader */
     private $contentTypeChoiceLoader;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader $contentTypeChoiceLoader
+     * @param ContentTypeService $contentTypeService
+     * @param ContentTypeChoiceLoader $contentTypeChoiceLoader
      */
     public function __construct(
         ContentTypeService $contentTypeService,

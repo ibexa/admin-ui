@@ -13,13 +13,33 @@ namespace Ibexa\Contracts\AdminUi\Notification;
  */
 interface TranslatableNotificationHandlerInterface
 {
-    public function info(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void;
+    public function info(
+        string $message,
+        array $parameters = [],
+        ?string $domain = null,
+        ?string $locale = null
+    ): void;
 
-    public function success(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void;
+    public function success(
+        string $message,
+        array $parameters = [],
+        ?string $domain = null,
+        ?string $locale = null
+    ): void;
 
-    public function warning(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void;
+    public function warning(
+        string $message,
+        array $parameters = [],
+        ?string $domain = null,
+        ?string $locale = null
+    ): void;
 
-    public function error(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void;
+    public function error(
+        string $message,
+        array $parameters = [],
+        ?string $domain = null,
+        ?string $locale = null
+    ): void;
 }
 
 class_alias(TranslatableNotificationHandlerInterface::class, 'EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface');

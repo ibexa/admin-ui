@@ -19,10 +19,10 @@ use PHPUnit\Framework\Assert;
 
 class ImageAsset extends Image
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
+    /** @var UniversalDiscoveryWidget */
     private $universalDiscoveryWidget;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Notification */
+    /** @var Notification */
     private $notification;
 
     public function __construct(

@@ -15,24 +15,26 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
  */
 class RoleAssignmentsDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role|null */
+    /** @var Role|null */
     protected $role;
 
     /** @var array|null */
     protected $roleAssignments;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
+     * @param Role|null $role
      * @param array|null $roleAssignments
      */
-    public function __construct(?Role $role = null, array $roleAssignments = [])
-    {
+    public function __construct(
+        ?Role $role = null,
+        array $roleAssignments = []
+    ) {
         $this->role = $role;
         $this->roleAssignments = $roleAssignments;
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role|null
+     * @return Role|null
      */
     public function getRole(): ?Role
     {
@@ -40,7 +42,7 @@ class RoleAssignmentsDeleteData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
+     * @param Role|null $role
      */
     public function setRole(?Role $role)
     {

@@ -16,14 +16,16 @@ use PHPUnit\Framework\Assert;
 
 class SectionsContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\SectionPage */
+    /** @var SectionPage */
     private $sectionPage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\SectionsPage */
+    /** @var SectionsPage */
     private $sectionsPage;
 
-    public function __construct(SectionPage $sectionPage, SectionsPage $sectionsPage)
-    {
+    public function __construct(
+        SectionPage $sectionPage,
+        SectionsPage $sectionsPage
+    ) {
         $this->sectionPage = $sectionPage;
         $this->sectionsPage = $sectionsPage;
     }
@@ -47,8 +49,10 @@ class SectionsContext implements Context
     /**
      * @Then content items list in section :sectionName contains items
      */
-    public function sectionContainsProperContentItems(string $sectionName, TableNode $contentItems): void
-    {
+    public function sectionContainsProperContentItems(
+        string $sectionName,
+        TableNode $contentItems
+    ): void {
         $this->sectionPage->setExpectedSectionName($sectionName);
 
         foreach ($contentItems->getHash() as $contentItem) {

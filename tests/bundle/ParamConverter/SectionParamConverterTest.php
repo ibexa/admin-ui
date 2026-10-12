@@ -11,6 +11,7 @@ use Ibexa\Bundle\AdminUi\ParamConverter\SectionParamConverter;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -19,10 +20,10 @@ class SectionParamConverterTest extends AbstractParamConverterTest
     public const SUPPORTED_CLASS = Section::class;
     public const PARAMETER_NAME = 'section';
 
-    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\SectionParamConverter */
+    /** @var SectionParamConverter */
     protected $converter;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $serviceMock;
 
     protected function setUp(): void
@@ -38,8 +39,10 @@ class SectionParamConverterTest extends AbstractParamConverterTest
      * @param mixed $sectionId The section identifier fetched from the request
      * @param int $sectionIdToLoad The section identifier used to load the section
      */
-    public function testApply($sectionId, int $sectionIdToLoad)
-    {
+    public function testApply(
+        $sectionId,
+        int $sectionIdToLoad
+    ) {
         $valueObject = $this->createMock(Section::class);
 
         $this->serviceMock

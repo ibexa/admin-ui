@@ -18,7 +18,7 @@ class TabRegistry
     /**
      * @param string $group
      *
-     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface[]
+     * @return TabInterface[]
      */
     public function getTabsByGroupName(string $group): array
     {
@@ -43,10 +43,12 @@ class TabRegistry
      * @param string $name
      * @param string $group
      *
-     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface
+     * @return TabInterface
      */
-    public function getTabFromGroup(string $name, string $group): TabInterface
-    {
+    public function getTabFromGroup(
+        string $name,
+        string $group
+    ): TabInterface {
         if (!isset($this->tabGroups[$group])) {
             throw new \InvalidArgumentException(sprintf('Could not find the requested group named "%s". Did you tag the service?', $group));
         }
@@ -69,11 +71,13 @@ class TabRegistry
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface $tab
+     * @param TabInterface $tab
      * @param string $group
      */
-    public function addTab(TabInterface $tab, string $group)
-    {
+    public function addTab(
+        TabInterface $tab,
+        string $group
+    ) {
         if (!isset($this->tabGroups[$group])) {
             $this->tabGroups[$group] = new TabGroup($group, []);
         }

@@ -20,11 +20,11 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class LocationTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     protected $locationService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
+     * @param LocationService $locationService
      */
     public function __construct(LocationService $locationService)
     {
@@ -38,7 +38,7 @@ class LocationTransformer implements DataTransformerInterface
      *
      * @return int|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function transform($value): ?int
     {
@@ -58,9 +58,9 @@ class LocationTransformer implements DataTransformerInterface
      *
      * @param mixed $value
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @return APILocation|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function reverseTransform($value): ?APILocation
     {

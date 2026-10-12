@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Behat\Mink\Session;
+use Ibexa\AdminUi\Behat\Component\Table\Table;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
@@ -17,17 +18,20 @@ use PHPUnit\Framework\Assert;
 
 class ContentRelationMultiple extends FieldTypeComponent
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
+    /** @var UniversalDiscoveryWidget */
     private $universalDiscoveryWidget;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
+    /** @var Table */
     private $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableBuilder */
+    /** @var TableBuilder */
     private $tableBuilder;
 
-    public function __construct(Session $session, UniversalDiscoveryWidget $universalDiscoveryWidget, TableBuilder $tableBuilder)
-    {
+    public function __construct(
+        Session $session,
+        UniversalDiscoveryWidget $universalDiscoveryWidget,
+        TableBuilder $tableBuilder
+    ) {
         parent::__construct($session);
         $this->universalDiscoveryWidget = $universalDiscoveryWidget;
         $this->tableBuilder = $tableBuilder;
@@ -160,8 +164,10 @@ class ContentRelationMultiple extends FieldTypeComponent
         }
     }
 
-    private function selectRelationsAndConfirm($items, $paths)
-    {
+    private function selectRelationsAndConfirm(
+        $items,
+        $paths
+    ) {
         $this->universalDiscoveryWidget->verifyIsLoaded();
 
         $itemsToSet = array_keys($items);

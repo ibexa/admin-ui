@@ -16,27 +16,29 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
 class ObjectStatesDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
+    /** @var ObjectStateService */
     protected $objectStateService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
+    /** @var ValueFactory */
     protected $valueFactory;
 
     /** @var UIValue\ObjectState\ObjectState[] */
     protected $data;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
+     * @param ObjectStateService $objectStateService
+     * @param ValueFactory $valueFactory
      */
-    public function __construct(ObjectStateService $objectStateService, ValueFactory $valueFactory)
-    {
+    public function __construct(
+        ObjectStateService $objectStateService,
+        ValueFactory $valueFactory
+    ) {
         $this->objectStateService = $objectStateService;
         $this->valueFactory = $valueFactory;
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
+     * @param ContentInfo $contentInfo
      *
      * @return ObjectStatesDataset
      */

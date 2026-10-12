@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Section;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 
 /**
@@ -15,24 +16,26 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Section;
  */
 class SectionContentAssignData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
+    /** @var Section|null */
     protected $section;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
+    /** @var Location[] */
     protected $locations;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
+     * @param Section|null $section
+     * @param Location[] $locations
      */
-    public function __construct(?Section $section = null, array $locations = [])
-    {
+    public function __construct(
+        ?Section $section = null,
+        array $locations = []
+    ) {
         $this->section = $section;
         $this->locations = $locations;
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section|null
+     * @return Section|null
      */
     public function getSection(): ?Section
     {
@@ -40,7 +43,7 @@ class SectionContentAssignData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
+     * @param Section|null $section
      */
     public function setSection(?Section $section)
     {
@@ -48,7 +51,7 @@ class SectionContentAssignData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function getLocations(): array
     {
@@ -56,7 +59,7 @@ class SectionContentAssignData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
+     * @param Location[] $locations
      */
     public function setLocations(array $locations)
     {

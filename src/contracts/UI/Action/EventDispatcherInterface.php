@@ -13,7 +13,7 @@ interface EventDispatcherInterface
     public const EVENT_NAME_PREFIX = 'ezplatform.admin_ui.action';
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\UI\Action\UiActionEventInterface $event
+     * @param UiActionEventInterface $event
      */
     public function dispatch(UiActionEventInterface $event): void;
 }

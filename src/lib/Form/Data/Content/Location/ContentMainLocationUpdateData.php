@@ -20,7 +20,7 @@ class ContentMainLocationUpdateData
     /**
      * @Assert\NotBlank()
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
+     * @var ContentInfo|null
      */
     public $contentInfo;
 
@@ -29,7 +29,7 @@ class ContentMainLocationUpdateData
      *
      * @Assert\NotBlank()
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location
+     * @var Location
      */
     public $location;
 

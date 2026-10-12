@@ -17,11 +17,13 @@ class UDWContext implements Context
 {
     private $argumentParser;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
+    /** @var UniversalDiscoveryWidget */
     private $universalDiscoveryWidget;
 
-    public function __construct(ArgumentParser $argumentParser, UniversalDiscoveryWidget $universalDiscoveryWidget)
-    {
+    public function __construct(
+        ArgumentParser $argumentParser,
+        UniversalDiscoveryWidget $universalDiscoveryWidget
+    ) {
         $this->argumentParser = $argumentParser;
         $this->universalDiscoveryWidget = $universalDiscoveryWidget;
     }

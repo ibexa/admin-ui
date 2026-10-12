@@ -20,5 +20,9 @@ interface ApplicationConfigRestGeneratorInterface
     /**
      * @param mixed $parameter
      */
-    public function generate($parameter, Generator $generator, Visitor $visitor): void;
+    public function generate(
+        $parameter,
+        Generator $generator,
+        Visitor $visitor
+    ): void;
 }

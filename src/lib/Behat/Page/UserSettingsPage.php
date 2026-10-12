@@ -26,8 +26,13 @@ class UserSettingsPage extends Page
 
     private IbexaDropdown $ibexaDropdown;
 
-    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu, TableNavigationTab $tableNavigationTab, IbexaDropdown $ibexaDropdown)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        ContentActionsMenu $contentActionsMenu,
+        TableNavigationTab $tableNavigationTab,
+        IbexaDropdown $ibexaDropdown
+    ) {
         parent::__construct($session, $router);
         $this->contentActionsMenu = $contentActionsMenu;
         $this->tableNavigationTab = $tableNavigationTab;

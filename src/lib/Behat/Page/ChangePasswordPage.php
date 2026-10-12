@@ -17,8 +17,11 @@ class ChangePasswordPage extends Page
 {
     private ContentActionsMenu $contentActionsMenu;
 
-    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        ContentActionsMenu $contentActionsMenu
+    ) {
         parent::__construct($session, $router);
         $this->contentActionsMenu = $contentActionsMenu;
     }

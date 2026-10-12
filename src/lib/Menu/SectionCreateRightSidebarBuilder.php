@@ -29,7 +29,7 @@ class SectionCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     public const ITEM__CREATE_AND_EDIT = 'section_create__sidebar_right__create_and_edit';
     public const ITEM__CANCEL = 'section_create__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -53,7 +53,7 @@ class SectionCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
      * @throws \InvalidArgumentException
      * @throws ApiExceptions\BadStateException
@@ -61,7 +61,7 @@ class SectionCreateRightSidebarBuilder extends AbstractBuilder implements Transl
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $createItem = $this->createMenuItem(
@@ -98,7 +98,7 @@ class SectionCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

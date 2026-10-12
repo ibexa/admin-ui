@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\AdminUi\Behat\Component\TableNavigationTab;
 use Ibexa\Behat\Browser\Locator\LocatorInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -20,14 +21,18 @@ use PHPUnit\Framework\Assert;
 
 class SystemInfoPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\TableNavigationTab */
+    /** @var TableNavigationTab */
     protected $tableNavigationTab;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableInterface */
+    /** @var TableInterface */
     private $table;
 
-    public function __construct(Session $session, Router $router, TableNavigationTab $tableNavigationTab, TableBuilder $tableBuilder)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        TableNavigationTab $tableNavigationTab,
+        TableBuilder $tableBuilder
+    ) {
         parent::__construct($session, $router);
 
         $this->tableNavigationTab = $tableNavigationTab;

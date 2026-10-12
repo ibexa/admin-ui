@@ -11,6 +11,7 @@ namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 use Ibexa\Bundle\AdminUi\ParamConverter\ContentParamConverter;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -21,10 +22,10 @@ class ContentParamConverterTest extends AbstractParamConverterTest
     public const SUPPORTED_CLASS = Content::class;
     public const PARAMETER_NAME = 'content';
 
-    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\ContentParamConverter */
+    /** @var ContentParamConverter */
     protected $converter;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $contentServiceMock;
 
     protected function setUp(): void
@@ -66,8 +67,10 @@ class ContentParamConverterTest extends AbstractParamConverterTest
      * @param $contentId
      * @param $languageCode
      */
-    public function testApplyWithWrongAttribute($contentId, $languageCode)
-    {
+    public function testApplyWithWrongAttribute(
+        $contentId,
+        $languageCode
+    ) {
         $versionNo = 53;
 
         $requestAttributes = [

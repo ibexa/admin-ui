@@ -22,7 +22,7 @@ class URLWildcardData
     private $forward = false;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null $urlWildcard
+     * @param URLWildcard|null $urlWildcard
      */
     public function __construct(?URLWildcard $urlWildcard = null)
     {

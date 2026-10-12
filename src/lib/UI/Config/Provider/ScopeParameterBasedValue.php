@@ -13,7 +13,7 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 class ScopeParameterBasedValue implements ProviderInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     protected $configResolver;
 
     /** @var string */

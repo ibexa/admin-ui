@@ -11,6 +11,7 @@ use Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeGroupParamConverter;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -19,10 +20,10 @@ class ContentTypeGroupParamConverterTest extends AbstractParamConverterTest
     public const SUPPORTED_CLASS = ContentTypeGroup::class;
     public const PARAMETER_NAME = 'contentTypeGroup';
 
-    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeGroupParamConverter */
+    /** @var ContentTypeGroupParamConverter */
     protected $converter;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $serviceMock;
 
     protected function setUp(): void
@@ -38,8 +39,10 @@ class ContentTypeGroupParamConverterTest extends AbstractParamConverterTest
      * @param mixed $contentTypeGroupId The identifier fetched from the request
      * @param int $contentTypeGroupIdToLoad The identifier used to load the content type Group
      */
-    public function testApply($contentTypeGroupId, int $contentTypeGroupIdToLoad)
-    {
+    public function testApply(
+        $contentTypeGroupId,
+        int $contentTypeGroupIdToLoad
+    ) {
         $valueObject = $this->createMock(ContentTypeGroup::class);
 
         $this->serviceMock

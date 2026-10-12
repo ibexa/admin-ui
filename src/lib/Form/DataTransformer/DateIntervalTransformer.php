@@ -23,7 +23,7 @@ class DateIntervalTransformer implements DataTransformerInterface
      *
      * @return array|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function transform($value)
     {

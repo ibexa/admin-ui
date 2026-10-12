@@ -13,7 +13,7 @@ use Ibexa\Behat\Browser\Locator\LocatorCollection;
 
 class TableRowFactory
 {
-    /** @var \Behat\Mink\Session */
+    /** @var Session */
     private $session;
 
     public function __construct(Session $session)
@@ -21,8 +21,10 @@ class TableRowFactory
         $this->session = $session;
     }
 
-    public function createRow(ElementInterface $element, LocatorCollection $locatorCollection): TableRow
-    {
+    public function createRow(
+        ElementInterface $element,
+        LocatorCollection $locatorCollection
+    ): TableRow {
         return new TableRow(
             $this->session,
             $element,

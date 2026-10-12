@@ -9,6 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Controller;
 
 use Exception;
+use Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionCreate;
+use Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionDelete;
+use Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionReorder;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
@@ -25,14 +28,16 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class FieldDefinitionController extends RestController
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
+    /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    public function __construct(ContentTypeService $contentTypeService, UrlGeneratorInterface $urlGenerator)
-    {
+    public function __construct(
+        ContentTypeService $contentTypeService,
+        UrlGeneratorInterface $urlGenerator
+    ) {
         $this->contentTypeService = $contentTypeService;
         $this->urlGenerator = $urlGenerator;
     }
@@ -44,7 +49,7 @@ final class FieldDefinitionController extends RestController
         Language $language,
         ?Language $baseLanguage = null
     ): RedirectResponse {
-        /** @var \Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionCreate $input */
+        /** @var FieldDefinitionCreate $input */
         $input = $this->inputDispatcher->parse(
             new Message(
                 ['Content-Type' => $request->headers->get('Content-Type')],
@@ -88,7 +93,7 @@ final class FieldDefinitionController extends RestController
         ContentTypeGroup $group,
         ContentTypeDraft $contentTypeDraft
     ): Values\OK {
-        /** @var \Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionDelete $input */
+        /** @var FieldDefinitionDelete $input */
         $input = $this->inputDispatcher->parse(
             new Message(
                 ['Content-Type' => $request->headers->get('Content-Type')],
@@ -128,7 +133,7 @@ final class FieldDefinitionController extends RestController
         ContentTypeGroup $group,
         ContentTypeDraft $contentTypeDraft
     ): Values\OK {
-        /** @var \Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionReorder $input */
+        /** @var FieldDefinitionReorder $input */
         $input = $this->inputDispatcher->parse(
             new Message(
                 ['Content-Type' => $request->headers->get('Content-Type')],

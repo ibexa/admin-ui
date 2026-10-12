@@ -12,24 +12,26 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 class TranslationDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
+    /** @var ContentInfo|null */
     protected $contentInfo;
 
     /** @var array|null */
     protected $languageCodes;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param ContentInfo|null $contentInfo
      * @param array|null $languageCodes
      */
-    public function __construct(?ContentInfo $contentInfo = null, array $languageCodes = [])
-    {
+    public function __construct(
+        ?ContentInfo $contentInfo = null,
+        array $languageCodes = []
+    ) {
         $this->contentInfo = $contentInfo;
         $this->languageCodes = $languageCodes;
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
+     * @return ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -37,7 +39,7 @@ class TranslationDeleteData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param ContentInfo|null $contentInfo
      */
     public function setContentInfo(?ContentInfo $contentInfo)
     {

@@ -17,19 +17,19 @@ class TranslationAddData
     /**
      * @Assert\NotBlank()
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @var Location|null
      */
     protected $location;
 
     /**
      * @Assert\NotBlank()
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
+     * @var Language|null
      */
     protected $language;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
+     * @var Language|null
      */
     protected $baseLanguage;
 

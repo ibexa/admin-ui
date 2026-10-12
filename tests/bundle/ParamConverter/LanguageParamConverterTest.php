@@ -11,6 +11,7 @@ use Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -20,10 +21,10 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
     public const SUPPORTED_CLASS = Language::class;
     public const PARAMETER_NAME = 'language';
 
-    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter */
+    /** @var LanguageParamConverter */
     protected $converter;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var LanguageService|MockObject */
     protected $serviceMock;
 
     protected function setUp(): void
@@ -40,8 +41,10 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
      * @param mixed $languageId The language identifier fetched from the request
      * @param int $languageIdToLoad The language identifier used to load the language
      */
-    public function testApplyForLanguageId($languageId, int $languageIdToLoad)
-    {
+    public function testApplyForLanguageId(
+        $languageId,
+        int $languageIdToLoad
+    ) {
         $valueObject = $this->createMock(Language::class);
 
         $this->serviceMock
@@ -157,8 +160,10 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
      *
      * @dataProvider dataProviderForSupport
      */
-    public function testSupport(string $class, bool $expected)
-    {
+    public function testSupport(
+        string $class,
+        bool $expected
+    ) {
         $this->assertEquals($expected, $this->converter->supports($this->createConfiguration($class)));
     }
 

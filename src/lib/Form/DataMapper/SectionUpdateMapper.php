@@ -22,11 +22,11 @@ class SectionUpdateMapper implements DataMapperInterface
     /**
      * Maps given SectionUpdateStruct object to a SectionUpdateData object.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
+     * @param SectionUpdateStruct|ValueObject $value
      *
-     * @return \Ibexa\AdminUi\Form\Data\Section\SectionUpdateData
+     * @return SectionUpdateData
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function map(ValueObject $value): SectionUpdateData
     {
@@ -40,11 +40,11 @@ class SectionUpdateMapper implements DataMapperInterface
     /**
      * Maps given SectionUpdateData object to a SectionUpdateStruct object.
      *
-     * @param \Ibexa\AdminUi\Form\Data\Section\SectionUpdateData $data
+     * @param SectionUpdateData $data
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct
+     * @return SectionUpdateStruct
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function reverseMap($data): SectionUpdateStruct
     {

@@ -19,8 +19,11 @@ final class FieldTypeToolbarItem
     /** @var bool */
     private $isSingular;
 
-    public function __construct(string $identifier, string $name, bool $isSingular = false)
-    {
+    public function __construct(
+        string $identifier,
+        string $name,
+        bool $isSingular = false
+    ) {
         $this->identifier = $identifier;
         $this->name = $name;
         $this->isSingular = $isSingular;

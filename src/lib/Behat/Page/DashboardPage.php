@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
+use Ibexa\AdminUi\Behat\Component\Table\Table;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
@@ -18,17 +19,22 @@ use Ibexa\Behat\Browser\Routing\Router;
 
 class DashboardPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
+    /** @var Table */
     protected $table;
 
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        TableBuilder $tableBuilder
+    ) {
         parent::__construct($session, $router);
         $this->table = $tableBuilder->newTable()->withParentLocator($this->getLocator('table'))->build();
     }
 
-    public function switchTab(string $tableName, string $tabName)
-    {
+    public function switchTab(
+        string $tableName,
+        string $tabName
+    ) {
         if ($this->getActiveTabName($tableName) == $tabName) {
             return;
         } else {

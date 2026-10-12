@@ -26,10 +26,10 @@ class LocationTrashType extends AbstractType
 {
     public const CONFIRM_SEND_TO_TRASH = 'confirm_send_to_trash';
 
-    /** @var \Ibexa\AdminUi\Form\TrashLocationOptionProvider\OptionsFactory */
+    /** @var OptionsFactory */
     private $trashTypeStrategy;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -40,8 +40,10 @@ class LocationTrashType extends AbstractType
         $this->translator = $translator;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add(
                 'location',

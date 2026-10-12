@@ -32,25 +32,25 @@ use Twig\Node\Node as TwigNode;
  */
 class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisitorInterface, NodeVisitor
 {
-    /** @var \JMS\TranslationBundle\Translation\FileSourceFactory */
+    /** @var FileSourceFactory */
     private $fileSourceFactory;
 
-    /** @var \PhpParser\NodeTraverser */
+    /** @var NodeTraverser */
     private $traverser;
 
-    /** @var \JMS\TranslationBundle\Model\MessageCatalogue */
+    /** @var MessageCatalogue */
     private $catalogue;
 
-    /** @var \SplFileInfo */
+    /** @var SplFileInfo */
     private $file;
 
-    /** @var \Doctrine\Common\Annotations\DocParser */
+    /** @var DocParser */
     private $docParser;
 
-    /** @var \Psr\Log\LoggerInterface */
+    /** @var LoggerInterface */
     private $logger;
 
-    /** @var \PhpParser\Node */
+    /** @var Node */
     private $previousNode;
 
     /**
@@ -65,8 +65,10 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         'error' => 2,
     ];
 
-    public function __construct(DocParser $docParser, FileSourceFactory $fileSourceFactory)
-    {
+    public function __construct(
+        DocParser $docParser,
+        FileSourceFactory $fileSourceFactory
+    ) {
         $this->docParser = $docParser;
         $this->fileSourceFactory = $fileSourceFactory;
         $this->traverser = new NodeTraverser();
@@ -172,8 +174,11 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         return null;
     }
 
-    public function visitPhpFile(SplFileInfo $file, MessageCatalogue $catalogue, array $ast): void
-    {
+    public function visitPhpFile(
+        SplFileInfo $file,
+        MessageCatalogue $catalogue,
+        array $ast
+    ): void {
         $this->file = $file;
         $this->catalogue = $catalogue;
         $this->traverser->traverse($ast);
@@ -194,13 +199,16 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         return null;
     }
 
-    public function visitFile(SplFileInfo $file, MessageCatalogue $catalogue): void
-    {
-    }
+    public function visitFile(
+        SplFileInfo $file,
+        MessageCatalogue $catalogue
+    ): void {}
 
-    public function visitTwigFile(SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast): void
-    {
-    }
+    public function visitTwigFile(
+        SplFileInfo $file,
+        MessageCatalogue $catalogue,
+        TwigNode $ast
+    ): void {}
 
     private function getDocCommentForNode(Node $node): ?string
     {

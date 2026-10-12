@@ -12,6 +12,8 @@ use Ibexa\AdminUi\EventListener\AdminExceptionListener;
 use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
 use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,16 +35,16 @@ final class AdminExceptionListenerTest extends TestCase
     private const ADMIN_SITEACCESS = 'admin_siteaccess';
     private const NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
-    /** @var \Twig\Environment&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var Environment&MockObject */
     private Environment $twig;
 
-    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface&\PHPUnit\Framework\MockObject\Stub */
+    /** @var NotificationHandlerInterface&Stub */
     private NotificationHandlerInterface $notificationHandler;
 
-    /** @var \Symfony\WebpackEncoreBundle\Asset\TagRenderer&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var TagRenderer&MockObject */
     private TagRenderer $encoreTagRenderer;
 
-    /** @var \Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var EntrypointLookupCollectionInterface&MockObject */
     private EntrypointLookupCollectionInterface $entrypointLookupCollection;
 
     private AdminExceptionListener $listener;
@@ -68,6 +70,8 @@ final class AdminExceptionListenerTest extends TestCase
         string $siteaccessName
     ): void {
         $this->twig->expects(self::never())->method('render');
+        $this->encoreTagRenderer->expects(self::never())->method('reset');
+        $this->entrypointLookupCollection->expects(self::never())->method('getEntrypointLookup');
 
         $event = $this->createExceptionEvent(new NotFoundHttpException(), $requestType, $siteaccessName);
         $this->createListener($environment)->onKernelException($event);
@@ -102,6 +106,9 @@ final class AdminExceptionListenerTest extends TestCase
             ->with($expectedTemplate)
             ->willReturn('rendered_error_page_content');
 
+        $this->encoreTagRenderer->expects(self::never())->method('reset');
+        $this->entrypointLookupCollection->expects(self::never())->method('getEntrypointLookup');
+
         $event = $this->createExceptionEvent($exception, HttpKernelInterface::MAIN_REQUEST, self::ADMIN_SITEACCESS);
         $this->listener->onKernelException($event);
 
@@ -116,7 +123,7 @@ final class AdminExceptionListenerTest extends TestCase
     }
 
     /**
-     * @return iterable<string, array{0: \Throwable, 1: int, 2: string, 3: array<string, string>}>
+     * @return iterable<string, array{0: Throwable, 1: int, 2: string, 3: array<string, string>}>
      */
     public static function provideHttpExceptionsWithDedicatedErrorPages(): iterable
     {
@@ -190,8 +197,11 @@ final class AdminExceptionListenerTest extends TestCase
         return $listener;
     }
 
-    private function createExceptionEvent(Throwable $exception, int $requestType, string $siteaccessName): ExceptionEvent
-    {
+    private function createExceptionEvent(
+        Throwable $exception,
+        int $requestType,
+        string $siteaccessName
+    ): ExceptionEvent {
         $request = new Request();
         $request->attributes->set('siteaccess', new SiteAccess($siteaccessName));
 

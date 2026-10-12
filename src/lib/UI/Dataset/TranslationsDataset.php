@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\UI\Dataset;
 
 use Ibexa\AdminUi\UI\Value as UIValue;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
@@ -17,27 +18,29 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 class TranslationsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     protected $languageService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
+    /** @var ValueFactory */
     protected $valueFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[] */
+    /** @var Language[] */
     protected $data;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
+     * @param LanguageService $languageService
+     * @param ValueFactory $valueFactory
      */
-    public function __construct(LanguageService $languageService, ValueFactory $valueFactory)
-    {
+    public function __construct(
+        LanguageService $languageService,
+        ValueFactory $valueFactory
+    ) {
         $this->languageService = $languageService;
         $this->valueFactory = $valueFactory;
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
+     * @param VersionInfo $versionInfo
      *
      * @return TranslationsDataset
      */
@@ -59,11 +62,11 @@ class TranslationsDataset
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param ContentType $contentType
      *
-     * @return \Ibexa\AdminUi\UI\Dataset\TranslationsDataset
+     * @return TranslationsDataset
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     public function loadFromContentType(ContentType $contentType): self
     {
@@ -83,7 +86,7 @@ class TranslationsDataset
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     public function getTranslations(): array
     {
@@ -91,7 +94,7 @@ class TranslationsDataset
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     public function getLanguageCodes(): array
     {

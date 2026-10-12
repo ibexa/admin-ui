@@ -33,17 +33,21 @@ final class UniversalDiscoveryRequestQueryArgumentResolver implements ArgumentVa
         $this->validator = $validator;
     }
 
-    public function supports(Request $request, ArgumentMetadata $argument): bool
-    {
+    public function supports(
+        Request $request,
+        ArgumentMetadata $argument
+    ): bool {
         return RequestQuery::class === $argument->getType()
             && 'requestQuery' === $argument->getName();
     }
 
     /**
-     * @return iterable<\Ibexa\AdminUi\REST\Value\UniversalDiscovery\RequestQuery>
+     * @return iterable<RequestQuery>
      */
-    public function resolve(Request $request, ArgumentMetadata $argument): iterable
-    {
+    public function resolve(
+        Request $request,
+        ArgumentMetadata $argument
+    ): iterable {
         $this->validate($request);
 
         $query = $request->query;

@@ -15,6 +15,7 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\NameSchema\SchemaIdentifierExtractorInterface;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -81,13 +82,13 @@ final class DamWidgetTest extends TestCase
 
     private ProviderInterface $provider;
 
-    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var RepositoryConfigurationProvider&MockObject */
     private RepositoryConfigurationProvider $repositoryConfigurationProvider;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ContentTypeService&MockObject */
     private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\NameSchema\SchemaIdentifierExtractorInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var SchemaIdentifierExtractorInterface&MockObject */
     private SchemaIdentifierExtractorInterface $schemaIdentifierExtractor;
 
     protected function setUp(): void
@@ -210,7 +211,7 @@ final class DamWidgetTest extends TestCase
     }
 
     /**
-     * @phpstan-return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType & \PHPUnit\Framework\MockObject\MockObject
+     * @phpstan-return ContentType & MockObject
      */
     private function createContentTypeMock(string $nameSchema): ContentType
     {

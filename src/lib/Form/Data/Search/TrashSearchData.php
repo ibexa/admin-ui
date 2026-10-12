@@ -20,10 +20,10 @@ class TrashSearchData
     /** @var int|null */
     private $page;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
+    /** @var Section|null */
     private $section;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null */
+    /** @var ContentType|null */
     private $contentType;
 
     /** @var array|null */
@@ -32,7 +32,7 @@ class TrashSearchData
     /** @var string|null */
     private $trashed;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User|null */
+    /** @var User|null */
     private $creator;
 
     /** @var array|null */

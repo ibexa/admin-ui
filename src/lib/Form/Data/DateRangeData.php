@@ -16,8 +16,10 @@ final class DateRangeData
 
     private ?DateTimeInterface $max;
 
-    public function __construct(?DateTimeInterface $min = null, ?DateTimeInterface $max = null)
-    {
+    public function __construct(
+        ?DateTimeInterface $min = null,
+        ?DateTimeInterface $max = null
+    ) {
         $this->min = $min;
         $this->max = $max;
     }

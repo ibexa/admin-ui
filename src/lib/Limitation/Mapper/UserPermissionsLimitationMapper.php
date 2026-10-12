@@ -15,6 +15,7 @@ use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
 use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
 use Ibexa\User\Form\ChoiceList\Loader\UserGroupsChoiceLoader;
 use JMS\TranslationBundle\Model\Message;
@@ -48,8 +49,10 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
         $this->searchService = $searchService;
     }
 
-    public function mapLimitationForm(FormInterface $form, Limitation $data)
-    {
+    public function mapLimitationForm(
+        FormInterface $form,
+        Limitation $data
+    ) {
         $sub = $form
             ->getConfig()
             ->getFormFactory()
@@ -90,7 +93,7 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
                     ))->loadChoiceList()->getChoices();
 
                     $choices = [];
-                    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup $userGroup */
+                    /** @var UserGroup $userGroup */
                     foreach ($userGroups as $userGroup) {
                         $choices[$userGroup->getName()] = $userGroup->id;
                     }
@@ -114,9 +117,7 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
         return $this->template;
     }
 
-    public function filterLimitationValues(Limitation $limitation)
-    {
-    }
+    public function filterLimitationValues(Limitation $limitation) {}
 
     public function mapLimitationValue(Limitation $limitation)
     {

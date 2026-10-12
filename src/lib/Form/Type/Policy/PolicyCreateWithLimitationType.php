@@ -10,7 +10,9 @@ namespace Ibexa\AdminUi\Form\Type\Policy;
 
 use Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData;
 use Ibexa\AdminUi\Form\Type\Role\LimitationType;
+use Ibexa\Contracts\Core\Limitation\Type;
 use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -22,11 +24,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PolicyCreateWithLimitationType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
+    /** @var RoleService */
     private $roleService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
+     * @param RoleService $roleService
      */
     public function __construct(RoleService $roleService)
     {
@@ -36,8 +38,10 @@ class PolicyCreateWithLimitationType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add(
                 'policy',
@@ -92,13 +96,15 @@ class PolicyCreateWithLimitationType extends AbstractType
      * Generates the limitation list from existing limitations (already configured for current policy) and
      * available limitation types available for current policy (i.e. current module/function combination).
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $existingLimitations
-     * @param \Ibexa\Contracts\Core\Limitation\Type[] $availableLimitationTypes
+     * @param Limitation[] $existingLimitations
+     * @param Type[] $availableLimitationTypes
      *
-     * @return array|\Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
+     * @return array|Limitation[]
      */
-    private function generateLimitationList(array $existingLimitations, array $availableLimitationTypes): array
-    {
+    private function generateLimitationList(
+        array $existingLimitations,
+        array $availableLimitationTypes
+    ): array {
         $limitations = [];
         foreach ($existingLimitations as $limitation) {
             $limitations[$limitation->getIdentifier()] = $limitation;

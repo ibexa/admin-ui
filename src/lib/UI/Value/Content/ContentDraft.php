@@ -13,19 +13,19 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 class ContentDraft implements ContentDraftInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo */
+    /** @var VersionInfo */
     private $versionInfo;
 
-    /** @var \Ibexa\AdminUi\UI\Value\Content\VersionId */
+    /** @var VersionId */
     private $versionId;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
+    /** @var ContentType */
     private $contentType;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
-     * @param \Ibexa\AdminUi\UI\Value\Content\VersionId $versionId
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param VersionInfo $versionInfo
+     * @param VersionId $versionId
+     * @param ContentType $contentType
      */
     public function __construct(
         VersionInfo $versionInfo,
@@ -38,7 +38,7 @@ class ContentDraft implements ContentDraftInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
+     * @return VersionInfo
      */
     public function getVersionInfo(): VersionInfo
     {
@@ -46,7 +46,7 @@ class ContentDraft implements ContentDraftInterface
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Value\Content\VersionId
+     * @return VersionId
      */
     public function getVersionId(): VersionId
     {
@@ -54,7 +54,7 @@ class ContentDraft implements ContentDraftInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
+     * @return ContentType
      */
     public function getContentType(): ContentType
     {

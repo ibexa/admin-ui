@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Menu;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
+use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -23,7 +24,7 @@ class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationC
     public const ITEM__SAVE_AND_CLOSE = 'url_edit__sidebar_right__save_and_close';
     public const ITEM__CANCEL = 'url_edit__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -43,10 +44,10 @@ class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationC
 
     protected function createStructure(array $options): ItemInterface
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\URL\URL $url */
+        /** @var URL $url */
         $url = $options['url'];
 
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $saveAndCloseItem = $this->createMenuItem(

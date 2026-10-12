@@ -16,9 +16,9 @@ use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 class MainTranslationUpdateMapper implements DataMapperInterface
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
+     * @param ContentMetadataUpdateStruct|ValueObject $value
      *
-     * @return \Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData
+     * @return MainTranslationUpdateData
      */
     public function map(ValueObject $value)
     {
@@ -33,9 +33,9 @@ class MainTranslationUpdateMapper implements DataMapperInterface
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData $data
+     * @param MainTranslationUpdateData $data
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct
+     * @return ContentMetadataUpdateStruct
      */
     public function reverseMap($data)
     {

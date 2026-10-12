@@ -19,7 +19,7 @@ use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 
 class SearchContentTypeChoiceLoader extends ContentTypeChoiceLoader
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(

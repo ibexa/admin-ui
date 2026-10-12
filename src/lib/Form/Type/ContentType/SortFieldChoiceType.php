@@ -13,6 +13,7 @@ use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -20,7 +21,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class SortFieldChoiceType extends AbstractType
 {
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(TranslatorInterface $translator)
@@ -46,7 +47,7 @@ class SortFieldChoiceType extends AbstractType
      *
      * @return array
      *
-     * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function getSortFieldChoices(): array
     {

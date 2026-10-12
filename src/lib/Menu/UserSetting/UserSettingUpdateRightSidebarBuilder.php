@@ -29,7 +29,7 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     public const ITEM__SAVE_AND_EDIT = 'user_setting_update__sidebar_right__save_end_edit';
     public const ITEM__CANCEL = 'user_setting_update__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -53,13 +53,13 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
      * @throws \InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $saveItem = $this->createMenuItem(
@@ -99,7 +99,7 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

@@ -13,11 +13,12 @@ use Ibexa\AdminUi\UserSetting\Autosave;
 use Ibexa\AdminUi\UserSetting\AutosaveInterval;
 use Ibexa\User\UserSetting\UserSetting;
 use Ibexa\User\UserSetting\UserSettingService;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class AutosaveServiceTest extends TestCase
 {
-    /** @var \Ibexa\User\UserSetting\UserSettingService&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var UserSettingService&MockObject */
     private UserSettingService $userSettingService;
 
     private AutosaveService $autosaveService;

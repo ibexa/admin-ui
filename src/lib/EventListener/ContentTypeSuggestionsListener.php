@@ -14,6 +14,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\ContentTypeTermAggregation;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ParentLocationId;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\TermAggregationResult;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -29,8 +30,11 @@ final class ContentTypeSuggestionsListener implements EventSubscriberInterface
 
     private int $limit;
 
-    public function __construct(SearchService $searchService, TranslatorInterface $translator, int $limit = 4)
-    {
+    public function __construct(
+        SearchService $searchService,
+        TranslatorInterface $translator,
+        int $limit = 4
+    ) {
         $this->searchService = $searchService;
         $this->translator = $translator;
         $this->limit = $limit;
@@ -70,10 +74,12 @@ final class ContentTypeSuggestionsListener implements EventSubscriberInterface
     }
 
     /**
-     * @param array<string, \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]> $contentTypes
+     * @param array<string, ContentType[]> $contentTypes
      */
-    private function isContentTypeAvailable(array $contentTypes, ContentType $needle): bool
-    {
+    private function isContentTypeAvailable(
+        array $contentTypes,
+        ContentType $needle
+    ): bool {
         foreach ($contentTypes as $group) {
             foreach ($group as $contentType) {
                 if ($contentType->identifier === $needle->identifier) {
@@ -96,7 +102,7 @@ final class ContentTypeSuggestionsListener implements EventSubscriberInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]
+     * @return ContentType[]
      */
     private function getSuggestions(Location $location): array
     {
@@ -112,7 +118,7 @@ final class ContentTypeSuggestionsListener implements EventSubscriberInterface
         $results = $this->searchService->findLocations($query);
 
         if ($results->aggregations->has(self::SUGGESTIONS_AGGREGATION_KEY)) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\TermAggregationResult $aggregationResult */
+            /** @var TermAggregationResult $aggregationResult */
             $aggregationResult = $results->aggregations->get(self::SUGGESTIONS_AGGREGATION_KEY);
 
             $suggestions = [];

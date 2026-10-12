@@ -19,10 +19,10 @@ use Twig\Environment;
 
 class TabsComponent implements ComponentInterface
 {
-    /** @var \Twig\Environment */
+    /** @var Environment */
     protected $twig;
 
-    /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
+    /** @var EventDispatcherInterface */
     protected $eventDispatcher;
 
     /** @var string */
@@ -73,8 +73,10 @@ class TabsComponent implements ComponentInterface
         );
     }
 
-    private function dispatchTabPreRenderEvent(TabInterface $tab, array $parameters): TabEvent
-    {
+    private function dispatchTabPreRenderEvent(
+        TabInterface $tab,
+        array $parameters
+    ): TabEvent {
         $tabEvent = new TabEvent();
         $tabEvent->setData($tab);
         $tabEvent->setParameters($parameters);
@@ -84,8 +86,10 @@ class TabsComponent implements ComponentInterface
         return $tabEvent;
     }
 
-    private function composeTabParameters(TabInterface $tab, array $parameters): array
-    {
+    private function composeTabParameters(
+        TabInterface $tab,
+        array $parameters
+    ): array {
         return [
             'name' => $tab->getName(),
             'view' => $tab->renderView($parameters),

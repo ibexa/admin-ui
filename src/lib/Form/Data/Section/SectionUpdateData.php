@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SectionUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
+    /** @var Section|null */
     protected $section;
 
     /**
@@ -39,7 +39,7 @@ class SectionUpdateData
     protected $name;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
+     * @param Section|null $section
      */
     public function __construct(?Section $section = null)
     {

@@ -26,8 +26,11 @@ class OperationResponse extends RestValue
      * @param array $headers
      * @param string|null $content
      */
-    public function __construct(int $statusCode, array $headers, ?string $content)
-    {
+    public function __construct(
+        int $statusCode,
+        array $headers,
+        ?string $content
+    ) {
         $this->statusCode = $statusCode;
         $this->headers = $headers;
         $this->content = $content;

@@ -262,8 +262,10 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         ]);
     }
 
-    private function getFieldDefinition(string $identifier = 'identifier', bool $isTranslatable = false): FieldDefinition
-    {
+    private function getFieldDefinition(
+        string $identifier = 'identifier',
+        bool $isTranslatable = false
+    ): FieldDefinition {
         return new FieldDefinition([
             'identifier' => $identifier,
             'defaultValue' => $this->createMock(Value::class),

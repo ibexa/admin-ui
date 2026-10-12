@@ -22,7 +22,7 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
     use LoggerAwareTrait;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
+     * @var ContentTypeService
      */
     private $contentTypeService;
 

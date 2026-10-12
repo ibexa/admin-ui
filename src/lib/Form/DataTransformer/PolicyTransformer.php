@@ -23,7 +23,7 @@ class PolicyTransformer implements DataTransformerInterface
      *
      * @return string|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function transform($value): ?string
     {
@@ -45,7 +45,7 @@ class PolicyTransformer implements DataTransformerInterface
      *
      * @return array|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function reverseTransform($value): ?array
     {

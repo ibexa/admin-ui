@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class ContentTranslationDataTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\Data\ContentTranslationData */
+    /** @var ContentTranslationData */
     private $contentTranslationData;
 
     protected function setUp(): void
@@ -48,7 +48,7 @@ class ContentTranslationDataTest extends TestCase
     /**
      * @param string $identifier
      *
-     * @return \Ibexa\Core\Repository\Values\ContentType\FieldDefinition
+     * @return FieldDefinition
      */
     private function getFieldDefinition(string $identifier = 'identifier'): FieldDefinition
     {

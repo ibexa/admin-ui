@@ -16,7 +16,7 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
  */
 final class IconPaths implements ProviderInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(ConfigResolverInterface $configResolver)

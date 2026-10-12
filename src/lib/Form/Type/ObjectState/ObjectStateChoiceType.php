@@ -16,11 +16,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ObjectStateChoiceType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
+    /** @var ObjectStateService */
     protected $objectStateService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
+     * @param ObjectStateService $objectStateService
      */
     public function __construct(ObjectStateService $objectStateService)
     {

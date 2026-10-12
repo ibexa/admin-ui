@@ -13,7 +13,9 @@ use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\Exception\AccessException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -21,14 +23,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class SearchType extends AbstractType
 {
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
-    /** @var \Symfony\Component\Form\AbstractType */
+    /** @var AbstractType */
     private $baseType;
 
-    public function __construct(AbstractType $baseType, TranslatorInterface $translator)
-    {
+    public function __construct(
+        AbstractType $baseType,
+        TranslatorInterface $translator
+    ) {
         $this->translator = $translator;
         $this->baseType = $baseType;
     }
@@ -36,8 +40,10 @@ final class SearchType extends AbstractType
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $this->baseType->buildForm($builder, $options);
 
         $builder
@@ -65,7 +71,7 @@ final class SearchType extends AbstractType
     /**
      * {@inheritdoc}
      *
-     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
+     * @throws AccessException
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -83,7 +89,7 @@ final class SearchType extends AbstractType
     /**
      * Generate time periods options available to choose.
      *
-     * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function getTimePeriodChoices(): array
     {
@@ -98,7 +104,7 @@ final class SearchType extends AbstractType
     /**
      * Returns available time periods values.
      *
-     * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function getTimePeriodField(): array
     {

@@ -24,6 +24,7 @@ use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\EventDispatcher\Event;
@@ -37,16 +38,16 @@ final class ContentTypeDraftMapperTest extends TestCase
 
     private FormDataMapperInterface $contentTypeDraftMapper;
 
-    /** @var \Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ContentTypeFieldTypesResolverInterface|MockObject */
     private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ContentTypeService|MockObject */
     private ContentTypeService $contentTypeService;
 
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var EventDispatcherInterface|MockObject */
     private EventDispatcherInterface $eventDispatcher;
 
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var FieldsGroupsList|MockObject */
     private FieldsGroupsList $fieldsGroupsList;
 
     protected function setUp(): void
@@ -161,7 +162,7 @@ final class ContentTypeDraftMapperTest extends TestCase
     /**
      * @param array<string, array{
      *     'identifier': string,
-     *     'defaultValue': ?\Ibexa\Contracts\Core\Repository\Values\ValueObject,
+     *     'defaultValue': ?ValueObject,
      *     'name': string,
      *     'position': int,
      * }> $fieldDefinitionsConfig
@@ -277,8 +278,10 @@ final class ContentTypeDraftMapperTest extends TestCase
             );
     }
 
-    private function mockContentTypeServiceLoadContentType(int $contentTypeId, ContentType $contentType): void
-    {
+    private function mockContentTypeServiceLoadContentType(
+        int $contentTypeId,
+        ContentType $contentType
+    ): void {
         $this->contentTypeService
             ->expects(self::once())
             ->method('loadContentType')
@@ -292,7 +295,10 @@ final class ContentTypeDraftMapperTest extends TestCase
             ->method('dispatch')
             ->with($this->isInstanceOf(FieldDefinitionMappingEvent::class), FieldDefinitionMappingEvent::NAME)
             ->willReturnCallback(
-                static function (FieldDefinitionMappingEvent $event, string $eventName): Event {
+                static function (
+                    FieldDefinitionMappingEvent $event,
+                    string $eventName
+                ): Event {
                     $fieldDefinitionData = $event->getFieldDefinitionData();
                     $fieldDefinition = $event->getFieldDefinition();
 

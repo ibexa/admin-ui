@@ -15,8 +15,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class PolicyType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder->addViewTransformer(new PolicyTransformer());
     }
 

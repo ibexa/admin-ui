@@ -24,7 +24,7 @@ class ObjectRelationAllowedContentTypes implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
+     * @param ConfigResolveEvent $event
      */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {

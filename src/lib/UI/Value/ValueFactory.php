@@ -12,9 +12,18 @@ use Ibexa\AdminUi\Specification\UserExists;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\AdminUi\UI\Service\PathService;
 use Ibexa\AdminUi\UI\Value as UIValue;
+use Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface;
+use Ibexa\AdminUi\UI\Value\Content\RelationInterface;
+use Ibexa\AdminUi\UI\Value\Location\Bookmark;
+use Ibexa\AdminUi\UI\Value\User\Role;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\ObjectStateService;
@@ -41,51 +50,51 @@ use Ibexa\Core\Repository\LocationResolver\LocationResolver;
 
 class ValueFactory
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     protected $userService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     protected $languageService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     protected $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     protected $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
+    /** @var SearchService */
     protected $searchService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
+    /** @var ObjectStateService */
     protected $objectStateService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
+    /** @var DatasetFactory */
     protected $datasetFactory;
 
-    /** @var \Ibexa\AdminUi\UI\Service\PathService */
+    /** @var PathService */
     protected $pathService;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
+    /** @var UserLanguagePreferenceProviderInterface */
     private $userLanguagePreferenceProvider;
 
-    /** @var \Ibexa\Core\Repository\LocationResolver\LocationResolver */
+    /** @var LocationResolver */
     protected $locationResolver;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
-     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\AdminUi\UI\Service\PathService $pathService
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-     * @param \Ibexa\Core\Repository\LocationResolver\LocationResolver $locationResolver
+     * @param UserService $userService
+     * @param LanguageService $languageService
+     * @param LocationService $locationService
+     * @param ContentTypeService $contentTypeService
+     * @param SearchService $searchService
+     * @param ObjectStateService $objectStateService
+     * @param PermissionResolver $permissionResolver
+     * @param PathService $pathService
+     * @param DatasetFactory $datasetFactory
+     * @param UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
+     * @param LocationResolver $locationResolver
      */
     public function __construct(
         UserService $userService,
@@ -114,13 +123,13 @@ class ValueFactory
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
+     * @param VersionInfo $versionInfo
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
+     * @return VersionInfo
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
      */
     public function createVersionInfo(VersionInfo $versionInfo): UIValue\Content\VersionInfo
     {
@@ -142,16 +151,18 @@ class ValueFactory
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
+     * @param Language $language
+     * @param VersionInfo $versionInfo
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
+     * @return Language
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
-    public function createLanguage(Language $language, VersionInfo $versionInfo): UIValue\Content\Language
-    {
+    public function createLanguage(
+        Language $language,
+        VersionInfo $versionInfo
+    ): UIValue\Content\Language {
         $target = (new VersionBuilder())->translateToAnyLanguageOf([$language->languageCode])->build();
 
         return new UIValue\Content\Language($language, [
@@ -164,18 +175,20 @@ class ValueFactory
     /**
      * @deprecated since version 2.5, to be removed in 3.0. Please use ValueFactory::createRelationItem instead.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Relation $relation
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param Relation $relation
+     * @param Content $content
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Relation
+     * @return Relation
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     * @throws ForbiddenException
+     * @throws BadStateException
      */
-    public function createRelation(Relation $relation, Content $content): UIValue\Content\Relation
-    {
+    public function createRelation(
+        Relation $relation,
+        Content $content
+    ): UIValue\Content\Relation {
         $contentType = $content->getContentType();
 
         return new UIValue\Content\Relation($relation, [
@@ -189,18 +202,20 @@ class ValueFactory
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem $relationListItem
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param RelationListItem $relationListItem
+     * @param Content $content
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Relation
+     * @return Relation
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     * @throws ForbiddenException
+     * @throws BadStateException
      */
-    public function createRelationItem(RelationListItem $relationListItem, Content $content): UIValue\Content\Relation
-    {
+    public function createRelationItem(
+        RelationListItem $relationListItem,
+        Content $content
+    ): UIValue\Content\Relation {
         $contentType = $content->getContentType();
         $relation = $relationListItem->getRelation();
 
@@ -215,23 +230,23 @@ class ValueFactory
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem $relationListItem
+     * @param UnauthorizedRelationListItem $relationListItem
      *
-     * @return \Ibexa\AdminUi\UI\Value\Content\RelationInterface
+     * @return RelationInterface
      */
     public function createUnauthorizedRelationItem(
         UnauthorizedRelationListItem $relationListItem
-    ): UIValue\Content\RelationInterface {
+    ): RelationInterface {
         return new UIValue\Content\UnauthorizedRelation($relationListItem);
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
+     * @return Location
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function createLocation(Location $location): UIValue\Content\Location
     {
@@ -263,29 +278,29 @@ class ValueFactory
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
+     * @param ContentInfo $contentInfo
+     * @param ObjectStateGroup $objectStateGroup
      *
-     * @return UIValue\ObjectState\ObjectState
+     * @return ObjectState\ObjectState
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function createObjectState(
         ContentInfo $contentInfo,
         ObjectStateGroup $objectStateGroup
-    ): UIValue\ObjectState\ObjectState {
+    ): ObjectState\ObjectState {
         $objectState = $this->objectStateService->getContentState($contentInfo, $objectStateGroup);
 
-        return new UIValue\ObjectState\ObjectState($objectState, [
+        return new ObjectState\ObjectState($objectState, [
             'userCanAssign' => $this->permissionResolver->canUser('state', 'assign', $contentInfo, [$objectState]),
         ]);
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLAlias $urlAlias
+     * @param URLAlias $urlAlias
      *
-     * @return \Ibexa\AdminUi\UI\Value\Content\UrlAlias
+     * @return UIValue\Content\UrlAlias
      */
     public function createUrlAlias(URLAlias $urlAlias): UIValue\Content\UrlAlias
     {
@@ -293,39 +308,41 @@ class ValueFactory
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment $roleAssignment
+     * @param RoleAssignment $roleAssignment
      *
-     * @return \Ibexa\AdminUi\UI\Value\User\Role
+     * @return Role
      */
-    public function createRole(RoleAssignment $roleAssignment): UIValue\User\Role
+    public function createRole(RoleAssignment $roleAssignment): Role
     {
-        return new UIValue\User\Role($roleAssignment);
+        return new Role($roleAssignment);
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Policy $policy
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment $roleAssignment
+     * @param Policy $policy
+     * @param RoleAssignment $roleAssignment
      *
-     * @return \Ibexa\AdminUi\UI\Value\User\Policy
+     * @return User\Policy
      */
-    public function createPolicy(Policy $policy, RoleAssignment $roleAssignment): UIValue\User\Policy
-    {
-        return new UIValue\User\Policy($policy, ['role_assignment' => $roleAssignment]);
+    public function createPolicy(
+        Policy $policy,
+        RoleAssignment $roleAssignment
+    ): User\Policy {
+        return new User\Policy($policy, ['role_assignment' => $roleAssignment]);
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      *
-     * @return \Ibexa\AdminUi\UI\Value\Location\Bookmark
+     * @return Bookmark
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
-    public function createBookmark(Location $location): UIValue\Location\Bookmark
+    public function createBookmark(Location $location): Bookmark
     {
-        return new UIValue\Location\Bookmark(
+        return new Bookmark(
             $location,
             [
                 'contentType' => $this->contentTypeService->loadContentType(
@@ -339,13 +356,13 @@ class ValueFactory
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param Language $language
+     * @param ContentType $contentType
      *
-     * @return \Ibexa\AdminUi\UI\Value\Content\Language
+     * @return UIValue\Content\Language
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function createLanguageFromContentType(
         Language $language,
@@ -358,15 +375,15 @@ class ValueFactory
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\ContentDraftListItem $contentDraftListItem
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param ContentDraftListItem $contentDraftListItem
+     * @param ContentType $contentType
      *
-     * @return \Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface
+     * @return ContentDraftInterface
      */
     public function createContentDraft(
         ContentDraftListItem $contentDraftListItem,
         ContentType $contentType
-    ): UIValue\Content\ContentDraftInterface {
+    ): ContentDraftInterface {
         $versionInfo = $contentDraftListItem->getVersionInfo();
         $contentInfo = $versionInfo->contentInfo;
         $versionId = new UIValue\Content\VersionId(
@@ -382,18 +399,20 @@ class ValueFactory
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem $contentDraftListItem
+     * @param UnauthorizedContentDraftListItem $contentDraftListItem
      *
-     * @return \Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface
+     * @return ContentDraftInterface
      */
     public function createUnauthorizedContentDraft(
         UnauthorizedContentDraftListItem $contentDraftListItem
-    ): UIValue\Content\ContentDraftInterface {
+    ): ContentDraftInterface {
         return new UIValue\Content\UnauthorizedContentDraft($contentDraftListItem);
     }
 
-    private function getRelationFieldDefinitionName(?Relation $relation, ContentType $contentType): string
-    {
+    private function getRelationFieldDefinitionName(
+        ?Relation $relation,
+        ContentType $contentType
+    ): string {
         if ($relation !== null && $relation->sourceFieldDefinitionIdentifier !== null) {
             $fieldDefinition = $contentType->getFieldDefinition(
                 $relation->sourceFieldDefinitionIdentifier

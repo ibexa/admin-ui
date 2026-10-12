@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class PolicyUpdateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper */
+    /** @var PolicyUpdateMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -74,7 +74,7 @@ class PolicyUpdateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \Ibexa\Core\Repository\Values\User\PolicyUpdateStruct
+     * @return PolicyUpdateStruct
      */
     private function createStruct(array $properties): PolicyUpdateStruct
     {
@@ -87,7 +87,7 @@ class PolicyUpdateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData
+     * @return PolicyUpdateData
      */
     private function createData(array $properties): PolicyUpdateData
     {

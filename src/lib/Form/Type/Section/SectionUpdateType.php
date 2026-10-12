@@ -28,8 +28,10 @@ class SectionUpdateType extends AbstractType
         $this->sectionType = $sectionType;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $this->sectionType->buildForm($builder, $options);
 
         $builder

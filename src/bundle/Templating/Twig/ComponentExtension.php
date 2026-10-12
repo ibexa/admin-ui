@@ -69,13 +69,18 @@ class ComponentExtension extends AbstractExtension
         ];
     }
 
-    public function renderComponentGroup(string $group, array $parameters = [])
-    {
+    public function renderComponentGroup(
+        string $group,
+        array $parameters = []
+    ) {
         return implode('', $this->renderer->renderGroup($group, $parameters));
     }
 
-    public function renderComponent(string $group, string $id, array $parameters = [])
-    {
+    public function renderComponent(
+        string $group,
+        string $id,
+        array $parameters = []
+    ) {
         return $this->renderer->renderSingle($group, $id, $parameters);
     }
 }

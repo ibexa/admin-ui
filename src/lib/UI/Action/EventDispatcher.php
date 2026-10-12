@@ -14,11 +14,11 @@ use Symfony\Component\EventDispatcher as SymfonyEventDispatcher;
 
 class EventDispatcher implements EventDispatcherInterface
 {
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+    /** @var SymfonyEventDispatcher\EventDispatcherInterface */
     protected $eventDispatcher;
 
     /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
+     * @param SymfonyEventDispatcher\EventDispatcherInterface $eventDispatcher
      */
     public function __construct(SymfonyEventDispatcher\EventDispatcherInterface $eventDispatcher)
     {
@@ -26,7 +26,7 @@ class EventDispatcher implements EventDispatcherInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\UI\Action\UiActionEventInterface $event
+     * @param UiActionEventInterface $event
      */
     public function dispatch(UiActionEventInterface $event): void
     {

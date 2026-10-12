@@ -19,6 +19,7 @@ use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormInterface;
@@ -33,22 +34,22 @@ final class ContentTypeFormProcessorTest extends TestCase
     private const EXAMPLE_CONTENT_TYPE_ID = 1;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject
+     * @var ContentTypeService|MockObject
      */
     private $contentTypeService;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Routing\RouterInterface
+     * @var MockObject|RouterInterface
      */
     private $router;
 
     /**
-     * @var \Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor
+     * @var ContentTypeFormProcessor
      */
     private $formProcessor;
 
     /**
-     * @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList|\PHPUnit\Framework\MockObject\MockObject
+     * @var FieldsGroupsList|MockObject
      */
     private $groupsList;
 

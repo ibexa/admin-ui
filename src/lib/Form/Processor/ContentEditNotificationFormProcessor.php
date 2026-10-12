@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Processor;
 
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Ibexa\ContentForms\Event\ContentFormEvents;
 use Ibexa\ContentForms\Event\FormActionEvent;
@@ -19,18 +20,18 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class ContentEditNotificationFormProcessor implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
+    /** @var RequestStack */
     private $requestStack;
 
     /** @var array */
     private $siteAccessGroups;
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param TranslatableNotificationHandlerInterface $notificationHandler
+     * @param RequestStack $requestStack
      * @param array $siteAccessGroups
      */
     public function __construct(
@@ -55,9 +56,9 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
+     * @param FormActionEvent $event
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function addPublishMessage(FormActionEvent $event)
     {
@@ -73,9 +74,9 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
+     * @param FormActionEvent $event
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function addSaveDraftMessage(FormActionEvent $event)
     {
@@ -91,11 +92,11 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
      * @return bool
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     protected function isAdminSiteAccess(Request $request): bool
     {

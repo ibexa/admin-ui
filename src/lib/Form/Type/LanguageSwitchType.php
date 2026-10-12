@@ -26,8 +26,10 @@ final class LanguageSwitchType extends AbstractType
         $this->languageService = $languageService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $languages = $options['languages'];
 
         $builder->add(

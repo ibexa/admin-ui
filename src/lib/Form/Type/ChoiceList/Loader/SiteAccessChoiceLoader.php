@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
+use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
 use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -16,10 +17,10 @@ use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
 class SiteAccessChoiceLoader implements ChoiceLoaderInterface
 {
-    /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
+    /** @var NonAdminSiteaccessResolver */
     private SiteaccessResolverInterface $nonAdminSiteaccessResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
+    /** @var Location|null */
     private $location;
 
     private SiteAccessNameGeneratorInterface $siteAccessNameGenerator;
@@ -67,8 +68,10 @@ class SiteAccessChoiceLoader implements ChoiceLoaderInterface
         return new ArrayChoiceList($choices, $value);
     }
 
-    public function loadChoicesForValues(array $values, $value = null)
-    {
+    public function loadChoicesForValues(
+        array $values,
+        $value = null
+    ) {
         // Optimize
         $values = array_filter($values);
         if (empty($values)) {
@@ -78,8 +81,10 @@ class SiteAccessChoiceLoader implements ChoiceLoaderInterface
         return $this->loadChoiceList($value)->getChoicesForValues($values);
     }
 
-    public function loadValuesForChoices(array $choices, $value = null)
-    {
+    public function loadValuesForChoices(
+        array $choices,
+        $value = null
+    ) {
         // Optimize
         $choices = array_filter($choices);
         if (empty($choices)) {

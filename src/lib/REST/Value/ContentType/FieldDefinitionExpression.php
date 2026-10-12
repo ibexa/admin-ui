@@ -16,8 +16,10 @@ final class FieldDefinitionExpression extends RestValue
 
     public ?string $configuration = null;
 
-    public function __construct(string $expression, ?string $configuration = null)
-    {
+    public function __construct(
+        string $expression,
+        ?string $configuration = null
+    ) {
         $this->expression = $expression;
         $this->configuration = $configuration;
     }

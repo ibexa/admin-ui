@@ -14,11 +14,11 @@ use Twig\TwigFilter;
 
 final class FieldGroupRenderingExtension extends AbstractExtension
 {
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
+    /** @var FieldsGroupsList */
     private $fieldsGroupsList;
 
     /**
-     * @param \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList $fieldsGroupsListHelper
+     * @param FieldsGroupsList $fieldsGroupsListHelper
      */
     public function __construct(FieldsGroupsList $fieldsGroupsListHelper)
     {
@@ -26,7 +26,7 @@ final class FieldGroupRenderingExtension extends AbstractExtension
     }
 
     /**
-     * @return \Twig\TwigFilter[]
+     * @return TwigFilter[]
      */
     public function getFilters(): array
     {

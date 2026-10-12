@@ -17,10 +17,10 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class LocationIsNotSubLocationValidatorTest extends TestCase
 {
-    /** @var \Symfony\Component\Validator\Context\ExecutionContextInterface */
+    /** @var ExecutionContextInterface */
     private $executionContext;
 
-    /** @var \Ibexa\AdminUi\Validator\Constraints\LocationIsNotSubLocationValidator */
+    /** @var LocationIsNotSubLocationValidator */
     private $validator;
 
     protected function setUp(): void

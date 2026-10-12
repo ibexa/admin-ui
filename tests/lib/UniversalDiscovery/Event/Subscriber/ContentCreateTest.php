@@ -24,13 +24,13 @@ class ContentCreateTest extends TestCase
     private const ALLOWED_LANGUAGE_CODE = 'eng-GB';
     private const ALLOWED_CONTENT_TYPE_ID = 1;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface|PHPUnit\Framework\MockObject\MockObject */
+    /** @var PermissionCheckerInterface|PHPUnit\Framework\MockObject\MockObject */
     private $permissionChecker;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|PHPUnit\Framework\MockObject\MockObject */
+    /** @var ContentTypeService|PHPUnit\Framework\MockObject\MockObject */
     private $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|PHPUnit\Framework\MockObject\MockObject */
+    /** @var PermissionResolver|PHPUnit\Framework\MockObject\MockObject */
     private $permissionResolver;
 
     public function setUp(): void
