@@ -98,3 +98,5 @@ parameters:
     ibexa.site_access.config.default.headless.page_builder.preview_url: ~
     ibexa.site_access.config.default.headless.content.preview_url: ~
     ibexa.site_access.config.default.headless.configuration_url: ~
+    # @todo replace with the headless documentation URL once the page is published
+    ibexa.site_access.config.default.headless.documentation_url: 'https://doc.ibexa.co/'
