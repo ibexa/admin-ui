@@ -20,8 +20,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class LocationTransformerTest extends TestCase
 {
     #[DataProvider('transformDataProvider')]
-    public function testTransform(?Location $value, ?int $expected): void
-    {
+    public function testTransform(
+        ?Location $value,
+        ?int $expected
+    ): void {
         $service = self::createStub(LocationService::class);
         $transformer = new LocationTransformer($service);
 
@@ -45,7 +47,7 @@ class LocationTransformerTest extends TestCase
     public function testReverseTransformWithId(): void
     {
         $service = $this->createMock(LocationService::class);
-        $service->expects(self::once())
+        $service->expects($this->once())
             ->method('loadLocation')
             ->with(123456)
             ->willReturn(new Location(['id' => 123456]));
@@ -60,7 +62,7 @@ class LocationTransformerTest extends TestCase
     public function testReverseTransformWithNull(): void
     {
         $service = $this->createMock(LocationService::class);
-        $service->expects(self::never())
+        $service->expects($this->never())
             ->method('loadLocation');
 
         $transformer = new LocationTransformer($service);
@@ -77,8 +79,7 @@ class LocationTransformerTest extends TestCase
 
         $service = $this->createMock(LocationService::class);
         $service->method('loadLocation')
-            ->will(self::throwException(new class('Location not found') extends NotFoundException {
-            }));
+            ->will($this->throwException(new class('Location not found') extends NotFoundException {}));
 
         $transformer = new LocationTransformer($service);
 

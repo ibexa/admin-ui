@@ -13,9 +13,7 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
 final readonly class UserProfile implements ProviderInterface
 {
-    public function __construct(private UserProfileConfigurationInterface $configuration)
-    {
-    }
+    public function __construct(private UserProfileConfigurationInterface $configuration) {}
 
     /**
      * @return array<string, mixed>

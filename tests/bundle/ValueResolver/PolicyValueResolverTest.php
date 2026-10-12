@@ -25,7 +25,7 @@ final class PolicyValueResolverTest extends TestCase
 {
     private PolicyValueResolver $resolver;
 
-    private MockObject&RoleService $roleService;
+    private MockObject & RoleService $roleService;
 
     protected function setUp(): void
     {
@@ -51,7 +51,7 @@ final class PolicyValueResolverTest extends TestCase
             'policyId' => '123',
         ];
 
-        $this->roleService->expects(self::once())
+        $this->roleService->expects($this->once())
             ->method('loadRole')
             ->with(456)
             ->willReturn($role);
@@ -78,7 +78,7 @@ final class PolicyValueResolverTest extends TestCase
             'policyId' => '999',
         ];
 
-        $this->roleService->expects(self::once())
+        $this->roleService->expects($this->once())
             ->method('loadRole')
             ->with(456)
             ->willReturn($roleDraft);
@@ -99,8 +99,10 @@ final class PolicyValueResolverTest extends TestCase
      * @param array<string, mixed> $attributes
      */
     #[DataProvider('invalidAttributesProvider')]
-    public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
-    {
+    public function testResolveInvalidAttributes(
+        array $attributes,
+        string $expectedMessage
+    ): void {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);
         $argumentMetadata->method('getType')->willReturn(PolicyDraft::class);
         $argumentMetadata->method('getName')->willReturn('policy');

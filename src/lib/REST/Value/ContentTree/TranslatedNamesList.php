@@ -8,20 +8,20 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Value\ContentTree;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Rest\Value as RestValue;
 
 final class TranslatedNamesList extends RestValue
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] $versionInfoList
+     * @param VersionInfo[] $versionInfoList
      */
     public function __construct(
         private readonly array $versionInfoList,
-    ) {
-    }
+    ) {}
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
+     * @return VersionInfo[]
      */
     public function getVersionInfoList(): array
     {

@@ -14,13 +14,17 @@ use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\Core\Specification\OrSpecification;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -45,7 +49,7 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
     }
 
     /**
-     * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function getName(): string
     {
@@ -59,7 +63,7 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function evaluate(array $parameters): bool
@@ -68,7 +72,7 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
             return false;
         }
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+        /** @var ContentType $contentType */
         $contentType = $parameters['contentType'];
 
         $isUser = new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier'));
@@ -84,7 +88,7 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
 
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $contextParameters['location'];
 
         $rolesPaginationParams = $contextParameters['roles_pagination_params'];

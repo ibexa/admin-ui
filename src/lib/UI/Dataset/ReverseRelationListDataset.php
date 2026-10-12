@@ -12,11 +12,13 @@ use Ibexa\AdminUi\UI\Value\Content\RelationInterface;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem;
 use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\RelationListItemInterface;
 
 final class ReverseRelationListDataset
 {
-    /** @var \Ibexa\AdminUi\UI\Value\Content\RelationInterface[] */
+    /** @var RelationInterface[] */
     private array $reverseRelations;
 
     public function __construct(
@@ -42,14 +44,14 @@ final class ReverseRelationListDataset
         $this->reverseRelations = array_map(
             function (RelationListItemInterface $relationListItem) use ($content): RelationInterface {
                 if ($relationListItem->hasRelation()) {
-                    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem $relationListItem */
+                    /** @var RelationListItem $relationListItem */
                     return $this->valueFactory->createRelationItem(
                         $relationListItem,
                         $content
                     );
                 }
 
-                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem $relationListItem */
+                /** @var UnauthorizedRelationListItem $relationListItem */
                 return $this->valueFactory->createUnauthorizedRelationItem(
                     $relationListItem
                 );
@@ -61,7 +63,7 @@ final class ReverseRelationListDataset
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Value\Content\RelationInterface[]
+     * @return RelationInterface[]
      */
     public function getReverseRelations(): array
     {

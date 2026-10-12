@@ -19,11 +19,10 @@ final class FieldEditRenderingExtension extends AbstractExtension
 {
     public function __construct(
         private readonly FieldBlockRendererInterface $fieldBlockRenderer
-    ) {
-    }
+    ) {}
 
     /**
-     * @return \Twig\TwigFunction[]
+     * @return TwigFunction[]
      */
     public function getFunctions(): array
     {
@@ -52,8 +51,10 @@ final class FieldEditRenderingExtension extends AbstractExtension
     /**
      * @param array<string, mixed> $params
      */
-    public function renderFieldDefinitionEdit(FieldDefinitionData $fieldDefinitionData, array $params = []): string
-    {
+    public function renderFieldDefinitionEdit(
+        FieldDefinitionData $fieldDefinitionData,
+        array $params = []
+    ): string {
         $params += ['data' => $fieldDefinitionData];
         try {
             return $this->fieldBlockRenderer->renderFieldDefinitionEdit(

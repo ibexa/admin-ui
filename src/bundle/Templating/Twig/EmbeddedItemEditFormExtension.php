@@ -20,8 +20,7 @@ final class EmbeddedItemEditFormExtension extends AbstractExtension
     public function __construct(
         private readonly FormFactory $formFactory,
         private readonly RouterInterface $router
-    ) {
-    }
+    ) {}
 
     public function getFunctions(): array
     {

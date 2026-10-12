@@ -35,11 +35,11 @@ final class ContentTypeFormProcessorTest extends TestCase
 {
     private const int EXAMPLE_CONTENT_TYPE_ID = 1;
 
-    private ContentTypeService&MockObject $contentTypeService;
+    private ContentTypeService & MockObject $contentTypeService;
 
-    private RouterInterface&MockObject $router;
+    private RouterInterface & MockObject $router;
 
-    private FieldsGroupsList&MockObject $groupsList;
+    private FieldsGroupsList & MockObject $groupsList;
 
     private ContentTypeFormProcessor $formProcessor;
 
@@ -365,10 +365,12 @@ final class ContentTypeFormProcessorTest extends TestCase
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<mixed>&\PHPUnit\Framework\MockObject\MockObject
+     * @return FormInterface<mixed>&MockObject
      */
-    private function mockFieldDefinitionForm(FieldDefinition $fieldDefinition, bool $isSelected): FormInterface & MockObject
-    {
+    private function mockFieldDefinitionForm(
+        FieldDefinition $fieldDefinition,
+        bool $isSelected
+    ): FormInterface & MockObject {
         $fieldDefinitionForm = $this->createMock(FormInterface::class);
         $fieldDefinitionForm->method('getName')->willReturn(uniqid('child', true));
         $fieldDefinitionSelectedForm = $this->createMock(FormInterface::class);

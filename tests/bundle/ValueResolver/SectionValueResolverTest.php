@@ -21,7 +21,7 @@ final class SectionValueResolverTest extends TestCase
 {
     private SectionValueResolver $resolver;
 
-    private MockObject&SectionService $sectionService;
+    private MockObject & SectionService $sectionService;
 
     protected function setUp(): void
     {
@@ -34,7 +34,7 @@ final class SectionValueResolverTest extends TestCase
         $section = self::createStub(Section::class);
         $attributes = ['sectionId' => '123'];
 
-        $this->sectionService->expects(self::once())
+        $this->sectionService->expects($this->once())
             ->method('loadSection')
             ->with(123)
             ->willReturn($section);
@@ -57,8 +57,10 @@ final class SectionValueResolverTest extends TestCase
      * @param array<string, mixed> $attributes
      */
     #[DataProvider('invalidAttributesProvider')]
-    public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
-    {
+    public function testResolveInvalidAttributes(
+        array $attributes,
+        string $expectedMessage
+    ): void {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);
         $argumentMetadata->method('getType')
             ->willReturn(Section::class);

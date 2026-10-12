@@ -21,8 +21,10 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 final class CustomUrlRemoveType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add(
                 'location',

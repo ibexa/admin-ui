@@ -22,8 +22,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final readonly class TimeFormMapper implements FieldDefinitionFormMapperInterface
 {
-    public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
-    {
+    public function mapFieldDefinitionForm(
+        FormInterface $fieldDefinitionForm,
+        FieldDefinitionData $data
+    ): void {
         $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
         $fieldDefinitionForm
             ->add(

@@ -13,9 +13,7 @@ use Ibexa\Contracts\Core\Repository\UserService;
 
 final readonly class UserExists implements UserSpecification
 {
-    public function __construct(private UserService $userService)
-    {
-    }
+    public function __construct(private UserService $userService) {}
 
     public function isSatisfiedBy(mixed $userId): bool
     {

@@ -16,8 +16,10 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 final class ContentActionsMenu extends Component
 {
-    public function clickButton(string $buttonName, ?string $groupName = null): void
-    {
+    public function clickButton(
+        string $buttonName,
+        ?string $groupName = null
+    ): void {
         if ($groupName === null) {
             $this->clickStandaloneButton($buttonName);
 
@@ -55,8 +57,10 @@ final class ContentActionsMenu extends Component
             ->filterBy(new ElementTextCriterion($buttonName));
     }
 
-    private function clickButtonInGroup(string $groupName, string $buttonName): void
-    {
+    private function clickButtonInGroup(
+        string $groupName,
+        string $buttonName
+    ): void {
         $group = $this->getHTMLPage()
             ->findAll($this->getLocator('splitButton'))
             ->filterBy(new ElementTextCriterion($groupName));

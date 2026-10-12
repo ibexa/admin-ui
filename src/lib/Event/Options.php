@@ -16,9 +16,7 @@ final class Options implements MutableOptionsBag
     /**
      * @param array<string, mixed> $options
      */
-    public function __construct(private array $options = [])
-    {
-    }
+    public function __construct(private array $options = []) {}
 
     /**
      * @return array<string, mixed>
@@ -28,8 +26,10 @@ final class Options implements MutableOptionsBag
         return $this->options;
     }
 
-    public function get(string $key, mixed $default = null): mixed
-    {
+    public function get(
+        string $key,
+        mixed $default = null
+    ): mixed {
         return $this->options[$key] ?? $default;
     }
 
@@ -38,8 +38,10 @@ final class Options implements MutableOptionsBag
         return isset($this->options[$key]);
     }
 
-    public function set(string $key, mixed $value): void
-    {
+    public function set(
+        string $key,
+        mixed $value
+    ): void {
         $this->options[$key] = $value;
     }
 

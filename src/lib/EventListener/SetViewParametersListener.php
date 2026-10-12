@@ -14,12 +14,14 @@ use Ibexa\ContentForms\Content\View\ContentEditView;
 use Ibexa\ContentForms\User\View\UserUpdateView;
 use Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
@@ -40,8 +42,7 @@ readonly class SetViewParametersListener implements EventSubscriberInterface
         private Repository $repository,
         private ConfigResolverInterface $configResolver,
         private GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider
-    ) {
-    }
+    ) {}
 
     /**
      * Returns an array of event names this subscriber wants to listen to.
@@ -60,9 +61,9 @@ readonly class SetViewParametersListener implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws InvalidArgumentException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function setContentEditViewTemplateParameters(PreContentViewEvent $event): void
@@ -73,7 +74,7 @@ readonly class SetViewParametersListener implements EventSubscriberInterface
             return;
         }
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $contentView->getParameter('content');
         $location = $contentView->hasParameter('location')
             ? $contentView->getParameter('location')
@@ -100,8 +101,8 @@ readonly class SetViewParametersListener implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function setContentTranslateViewTemplateParameters(PreContentViewEvent $event): void
@@ -112,7 +113,7 @@ readonly class SetViewParametersListener implements EventSubscriberInterface
             return;
         }
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $contentView->getContent();
         $contentInfo = $content->getContentInfo();
         $location = $contentView->getLocation();
@@ -145,7 +146,7 @@ readonly class SetViewParametersListener implements EventSubscriberInterface
             return;
         }
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\User\User $user */
+        /** @var User $user */
         $user = $contentView->getParameter('user');
         $contentInfo = $user->getContentInfo();
 
@@ -180,8 +181,10 @@ readonly class SetViewParametersListener implements EventSubscriberInterface
         $view->setParameters($parameters);
     }
 
-    private function processCreator(ContentInfo $contentInfo, View $contentView): void
-    {
+    private function processCreator(
+        ContentInfo $contentInfo,
+        View $contentView
+    ): void {
         try {
             $creator = $this->userService->loadUser($contentInfo->ownerId);
         } catch (NotFoundException) {
@@ -194,12 +197,15 @@ readonly class SetViewParametersListener implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    private function resolveParentLocation(Content $content, ?Location $location, bool $isPublished): Location
-    {
+    private function resolveParentLocation(
+        Content $content,
+        ?Location $location,
+        bool $isPublished
+    ): Location {
         if (!$isPublished) {
             $parentLocations = $this->repository->sudo(
                 static function (Repository $repository) use ($content): iterable {
@@ -224,7 +230,7 @@ readonly class SetViewParametersListener implements EventSubscriberInterface
     }
 
     /**
-     * @param array<\Symfony\Component\Form\FormInterface> $fieldsData
+     * @param array<FormInterface> $fieldsData
      *
      * @return array<string>
      */

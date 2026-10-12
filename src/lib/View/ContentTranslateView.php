@@ -29,7 +29,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
 
     private ?Language $baseLanguage;
 
-    /** @var \Symfony\Component\Form\FormInterface<mixed> */
+    /** @var FormInterface<mixed> */
     private FormInterface $form;
 
     private FormView $formView;
@@ -75,7 +75,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<mixed>
+     * @return FormInterface<mixed>
      */
     public function getForm(): FormInterface
     {
@@ -83,7 +83,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      */
     public function setForm(FormInterface $form): void
     {

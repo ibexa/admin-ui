@@ -21,8 +21,7 @@ final readonly class MultilingualSelectionTransformer implements DataTransformer
     public function __construct(
         private string $languageCode,
         private FieldDefinitionData $data
-    ) {
-    }
+    ) {}
 
     public function transform(mixed $value): mixed
     {

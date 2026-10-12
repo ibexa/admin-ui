@@ -13,11 +13,10 @@ use Ibexa\Rest\Value as RestValue;
 final class SubitemsList extends RestValue
 {
     /**
-     * @param \Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsRow[] $subitemRows
+     * @param SubitemsRow[] $subitemRows
      */
     public function __construct(
         public readonly array $subitemRows,
         public readonly int $childrenCount
-    ) {
-    }
+    ) {}
 }

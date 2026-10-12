@@ -17,13 +17,14 @@ use Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegra
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use Twig\Environment;
+use Twig\Extension\ExtensionInterface;
 
 final class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
 {
     private const int EXAMPLE_FIELD_DEFINITION_ID = 1;
 
     /**
-     * @return \Twig\Extension\ExtensionInterface[]
+     * @return ExtensionInterface[]
      */
     public function getExtensions(): array
     {

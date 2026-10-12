@@ -22,9 +22,9 @@ class ContentTypeLimitationMapperTest extends TestCase
     private const EXAMPLE_CONTENT_TYPE_ID_B = 2;
     private const EXAMPLE_CONTENT_TYPE_ID_C = 3;
 
-    private ContentTypeService&MockObject $contentTypeService;
+    private ContentTypeService & MockObject $contentTypeService;
 
-    private LoggerInterface&MockObject $logger;
+    private LoggerInterface & MockObject $logger;
 
     private ContentTypeLimitationMapper $mapper;
 

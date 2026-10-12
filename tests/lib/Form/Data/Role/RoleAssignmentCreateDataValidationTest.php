@@ -23,6 +23,7 @@ use Ibexa\Tests\AdminUi\Form\Data\AbstractFormDataValidationTestCase;
 use Ibexa\Tests\AdminUi\Form\Data\FormErrorDataTestWrapper;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormTypeInterface;
 
 #[CoversClass(RoleAssignmentCreateData::class)]
 #[CoversClass(RoleAssignmentCreateType::class)]
@@ -104,7 +105,7 @@ final class RoleAssignmentCreateDataValidationTest extends AbstractFormDataValid
     }
 
     /**
-     * @return array<string, \Symfony\Component\Form\FormTypeInterface<mixed>>
+     * @return array<string, FormTypeInterface<mixed>>
      */
     protected function getTypes(): array
     {
@@ -127,7 +128,7 @@ final class RoleAssignmentCreateDataValidationTest extends AbstractFormDataValid
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData>
+     * @return FormInterface<RoleAssignmentCreateData>
      */
     protected function getForm(): FormInterface
     {

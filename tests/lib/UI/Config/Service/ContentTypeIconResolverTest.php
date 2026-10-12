@@ -17,9 +17,9 @@ use Symfony\Component\Asset\Packages;
 
 final class ContentTypeIconResolverTest extends TestCase
 {
-    private ConfigResolverInterface&MockObject $configResolver;
+    private ConfigResolverInterface & MockObject $configResolver;
 
-    private Packages&MockObject $packages;
+    private Packages & MockObject $packages;
 
     private ContentTypeIconResolver $contentTypeIconResolver;
 
@@ -38,10 +38,13 @@ final class ContentTypeIconResolverTest extends TestCase
      * @param array<string, array{thumbnail: ?string}> $config
      */
     #[DataProvider('dataProviderForGetContentTypeIcon')]
-    public function testGetContentTypeIcon(array $config, string $identifier, string $expected): void
-    {
+    public function testGetContentTypeIcon(
+        array $config,
+        string $identifier,
+        string $expected
+    ): void {
         $this->configResolver
-            ->expects(self::any())
+            ->expects($this->any())
             ->method('hasParameter')
             ->willReturnCallback(static function (string $key) use ($config): bool {
                 $key = explode('.', $key);
@@ -50,7 +53,7 @@ final class ContentTypeIconResolverTest extends TestCase
             });
 
         $this->configResolver
-            ->expects(self::any())
+            ->expects($this->any())
             ->method('getParameter')
             ->willReturnCallback(static function (string $key) use ($config): array {
                 $key = explode('.', $key);
@@ -59,7 +62,7 @@ final class ContentTypeIconResolverTest extends TestCase
             });
 
         $this->packages
-            ->expects(self::any())
+            ->expects($this->any())
             ->method('getUrl')
             ->willReturnCallback(static function (string $uri): string {
                 return "https://cdn.example.com/$uri";

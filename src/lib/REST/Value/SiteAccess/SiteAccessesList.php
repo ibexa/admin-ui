@@ -8,20 +8,20 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Value\SiteAccess;
 
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Rest\Value as RestValue;
 
 final class SiteAccessesList extends RestValue
 {
     /**
-     * @param \Ibexa\Core\MVC\Symfony\SiteAccess[] $siteAccesses
+     * @param SiteAccess[] $siteAccesses
      */
     public function __construct(
         private readonly array $siteAccesses = []
-    ) {
-    }
+    ) {}
 
     /**
-     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
+     * @return SiteAccess[]
      */
     public function getSiteAccesses(): array
     {

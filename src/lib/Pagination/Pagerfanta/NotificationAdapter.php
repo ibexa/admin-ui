@@ -24,8 +24,7 @@ final class NotificationAdapter implements AdapterInterface
     public function __construct(
         private readonly NotificationService $notificationService,
         private readonly NotificationQuery $query
-    ) {
-    }
+    ) {}
 
     public function getNbResults(): int
     {
@@ -40,8 +39,10 @@ final class NotificationAdapter implements AdapterInterface
         return $this->nbResults = $this->notificationService->getNotificationCount($query);
     }
 
-    public function getSlice(int $offset, int $length): NotificationList
-    {
+    public function getSlice(
+        int $offset,
+        int $length
+    ): NotificationList {
         $query = clone $this->query;
         $query->setOffset($offset);
         $query->setLimit($length);

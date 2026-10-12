@@ -26,12 +26,13 @@ use Ibexa\Contracts\Core\Repository\Values\User\LookupPolicyLimitations;
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(LimitationResolver::class)]
 final class LimitationResolverTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var PermissionResolver&MockObject */
     private PermissionResolver $permissionResolver;
 
     private LimitationResolverInterface $limitationResolver;
@@ -56,7 +57,7 @@ final class LimitationResolverTest extends TestCase
      *     name: string,
      *     hasAccess: bool,
      * }> $expected
-     * @param iterable<\Ibexa\Contracts\Core\Repository\Values\Content\Language> $languages
+     * @param iterable<Language> $languages
      */
     #[DataProvider('provideDataForTestGetLanguageLimitations')]
     public function testGetLanguageLimitations(
@@ -89,10 +90,10 @@ final class LimitationResolverTest extends TestCase
      *          name: string,
      *          hasAccess: bool,
      *     }>,
-     *     \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo,
-     *     \Ibexa\Contracts\Core\Repository\Values\Content\Location,
-     *     \Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult,
-     *     iterable<\Ibexa\Contracts\Core\Repository\Values\Content\Language>
+     *     ContentInfo,
+     *     Location,
+     *     LookupLimitationResult,
+     *     iterable<Language>
      * }>
      */
     public static function provideDataForTestGetLanguageLimitations(): iterable

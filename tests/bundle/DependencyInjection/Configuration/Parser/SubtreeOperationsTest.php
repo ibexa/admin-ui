@@ -12,6 +12,7 @@ use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\SubtreeOperati
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(SubtreeOperations::class)]
@@ -19,7 +20,7 @@ final class SubtreeOperationsTest extends TestCase
 {
     private SubtreeOperations $parser;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject&\Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface */
+    /** @var MockObject&ContextualizerInterface */
     private ContextualizerInterface $contextualizer;
 
     /**
@@ -61,7 +62,7 @@ final class SubtreeOperationsTest extends TestCase
         $currentScope = 'admin_group';
 
         $this->contextualizer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('setContextualParameter')
             ->with(
                 'subtree_operations.copy_subtree.limit',
@@ -80,7 +81,7 @@ final class SubtreeOperationsTest extends TestCase
         $currentScope = 'admin_group';
 
         $this->contextualizer
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('setContextualParameter');
 
         $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
@@ -99,7 +100,7 @@ final class SubtreeOperationsTest extends TestCase
         $currentScope = 'admin_group';
 
         $this->contextualizer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('setContextualParameter')
             ->with(
                 'subtree_operations.query_subtree.limit',
@@ -120,7 +121,7 @@ final class SubtreeOperationsTest extends TestCase
         $currentScope = 'admin_group';
 
         $this->contextualizer
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('setContextualParameter');
 
         $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
@@ -139,22 +140,22 @@ final class SubtreeOperationsTest extends TestCase
             ],
         ];
         $currentScope = 'admin_group';
-        $matcher = self::exactly(2);
+        $matcher = $this->exactly(2);
 
         $this->contextualizer
             ->expects($matcher)
             ->method('setContextualParameter')->willReturnCallback(static function (...$parameters) use ($matcher, $currentScope): void {
-            if ($matcher->numberOfInvocations() === 1) {
-                self::assertSame('subtree_operations.copy_subtree.limit', $parameters[0]);
-                self::assertSame($currentScope, $parameters[1]);
-                self::assertSame(200, $parameters[2]);
-            }
-            if ($matcher->numberOfInvocations() === 2) {
-                self::assertSame('subtree_operations.query_subtree.limit', $parameters[0]);
-                self::assertSame($currentScope, $parameters[1]);
-                self::assertSame(500, $parameters[2]);
-            }
-        });
+                if ($matcher->numberOfInvocations() === 1) {
+                    self::assertSame('subtree_operations.copy_subtree.limit', $parameters[0]);
+                    self::assertSame($currentScope, $parameters[1]);
+                    self::assertSame(200, $parameters[2]);
+                }
+                if ($matcher->numberOfInvocations() === 2) {
+                    self::assertSame('subtree_operations.query_subtree.limit', $parameters[0]);
+                    self::assertSame($currentScope, $parameters[1]);
+                    self::assertSame(500, $parameters[2]);
+                }
+            });
 
         $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
     }

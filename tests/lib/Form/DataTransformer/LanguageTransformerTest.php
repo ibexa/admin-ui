@@ -19,7 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 final class LanguageTransformerTest extends TestCase
 {
-    private LanguageService&MockObject $languageService;
+    private LanguageService & MockObject $languageService;
 
     protected function setUp(): void
     {
@@ -27,8 +27,10 @@ final class LanguageTransformerTest extends TestCase
     }
 
     #[DataProvider('transformDataProvider')]
-    public function testTransform(?Language $value, ?string $expected): void
-    {
+    public function testTransform(
+        ?Language $value,
+        ?string $expected
+    ): void {
         $transformer = new LanguageTransformer($this->languageService);
 
         $result = $transformer->transform($value);
@@ -50,7 +52,7 @@ final class LanguageTransformerTest extends TestCase
     public function testReverseTransformWithLanguageCode(): void
     {
         $this->languageService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLanguage')
             ->with('eng-GB')
             ->willReturn(new Language(['languageCode' => 'eng-GB']));
@@ -65,7 +67,7 @@ final class LanguageTransformerTest extends TestCase
     public function testReverseTransformWithNull(): void
     {
         $this->languageService
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadLanguageById');
 
         $transformer = new LanguageTransformer($this->languageService);
@@ -79,8 +81,7 @@ final class LanguageTransformerTest extends TestCase
     {
         $this->languageService
             ->method('loadLanguage')
-            ->will(self::throwException(new class('Language not found') extends NotFoundException {
-            }));
+            ->will($this->throwException(new class('Language not found') extends NotFoundException {}));
 
         $transformer = new LanguageTransformer($this->languageService);
 
@@ -92,7 +93,7 @@ final class LanguageTransformerTest extends TestCase
 
     /**
      * @return array<string, array{
-     *     \Ibexa\Contracts\Core\Repository\Values\Content\Language|null,
+     *     Language|null,
      *     string|null,
      * }>
      */

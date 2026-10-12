@@ -17,8 +17,7 @@ final readonly class DateFormat implements ProviderInterface
     public function __construct(
         private UserSettingService $userSettingService,
         private DateTimeFormatSerializer $dateTimeFormatSerializer
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, string|null>

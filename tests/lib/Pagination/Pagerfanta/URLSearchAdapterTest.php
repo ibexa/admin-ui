@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 class URLSearchAdapterTest extends TestCase
 {
-    private URLService&MockObject $urlService;
+    private URLService & MockObject $urlService;
 
     protected function setUp(): void
     {

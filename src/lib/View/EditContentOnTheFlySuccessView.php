@@ -10,6 +10,4 @@ namespace Ibexa\AdminUi\View;
 
 use Ibexa\Core\MVC\Symfony\View\ContentView;
 
-class EditContentOnTheFlySuccessView extends ContentView
-{
-}
+class EditContentOnTheFlySuccessView extends ContentView {}

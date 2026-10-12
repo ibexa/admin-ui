@@ -18,8 +18,7 @@ readonly class ContentTranslateViewFilterParametersListener implements EventSubs
 {
     public function __construct(
         protected ContentTypeService $contentTypeService
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

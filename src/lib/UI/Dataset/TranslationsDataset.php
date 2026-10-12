@@ -17,14 +17,13 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 class TranslationsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[] */
+    /** @var Language[] */
     protected array $data;
 
     public function __construct(
         protected readonly LanguageService $languageService,
         protected readonly ValueFactory $valueFactory
-    ) {
-    }
+    ) {}
 
     public function load(VersionInfo $versionInfo): self
     {
@@ -61,7 +60,7 @@ class TranslationsDataset
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     public function getTranslations(): array
     {

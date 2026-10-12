@@ -22,7 +22,7 @@ final class PolicyDraftValueResolverTest extends TestCase
 {
     private PolicyDraftValueResolver $resolver;
 
-    private MockObject&RoleService $roleService;
+    private MockObject & RoleService $roleService;
 
     protected function setUp(): void
     {

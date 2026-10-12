@@ -16,6 +16,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Repository\Values\Content as Core;
 use Ibexa\Core\Repository\Values\User\User as CoreUser;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -27,7 +28,7 @@ class UserTransformerTest extends TestCase
     {
         $userService = $this->createMock(UserService::class);
         $userService
-            ->expects(self::any())
+            ->expects($this->any())
             ->method('loadUser')
             ->with(123456)
             ->willReturn(self::generateUser(123456));
@@ -36,16 +37,20 @@ class UserTransformerTest extends TestCase
     }
 
     #[DataProvider('transformDataProvider')]
-    public function testTransform(?User $value, ?int $expected): void
-    {
+    public function testTransform(
+        ?User $value,
+        ?int $expected
+    ): void {
         $result = $this->userTransformer->transform($value);
 
         self::assertEquals($expected, $result);
     }
 
     #[DataProvider('reverseTransformDataProvider')]
-    public function testReverseTransform(?int $value, ?User $expected): void
-    {
+    public function testReverseTransform(
+        ?int $value,
+        ?User $expected
+    ): void {
         $result = $this->userTransformer->reverseTransform($value);
 
         self::assertEquals($expected, $result);
@@ -56,19 +61,18 @@ class UserTransformerTest extends TestCase
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('User not found');
 
-        /** @var \Ibexa\Contracts\Core\Repository\UserService&\PHPUnit\Framework\MockObject\MockObject $service */
+        /** @var UserService&MockObject $service */
         $service = $this->createMock(UserService::class);
         $service
             ->method('loadUser')
-            ->will(self::throwException(new class('User not found') extends NotFoundException {
-            }));
+            ->will($this->throwException(new class('User not found') extends NotFoundException {}));
 
         $transformer = new UserTransformer($service);
         $transformer->reverseTransform(654321);
     }
 
     /**
-     * @return array<string, array{\Ibexa\Contracts\Core\Repository\Values\User\User|null, int|null}>
+     * @return array<string, array{User|null, int|null}>
      */
     public static function transformDataProvider(): array
     {
@@ -81,7 +85,7 @@ class UserTransformerTest extends TestCase
     }
 
     /**
-     * @return array<string, array{int|null, \Ibexa\Contracts\Core\Repository\Values\User\User|null}>
+     * @return array<string, array{int|null, User|null}>
      */
     public static function reverseTransformDataProvider(): array
     {

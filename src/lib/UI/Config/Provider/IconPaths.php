@@ -16,9 +16,7 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
  */
 final readonly class IconPaths implements ProviderInterface
 {
-    public function __construct(private ConfigResolverInterface $configResolver)
-    {
-    }
+    public function __construct(private ConfigResolverInterface $configResolver) {}
 
     /**
      * @return array<string, mixed>

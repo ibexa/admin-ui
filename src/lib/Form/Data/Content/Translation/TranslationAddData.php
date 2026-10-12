@@ -20,8 +20,7 @@ class TranslationAddData
         #[Assert\NotBlank]
         protected ?Language $language = null,
         protected ?Language $baseLanguage = null
-    ) {
-    }
+    ) {}
 
     public function getLocation(): ?Location
     {

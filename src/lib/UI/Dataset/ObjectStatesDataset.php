@@ -16,19 +16,18 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
 final class ObjectStatesDataset
 {
-    /** @var \Ibexa\AdminUi\UI\Value\ObjectState\ObjectState[] */
+    /** @var ObjectState[] */
     private array $data;
 
     public function __construct(
         private readonly ObjectStateService $objectStateService,
         private readonly ValueFactory $valueFactory
-    ) {
-    }
+    ) {}
 
     public function load(ContentInfo $contentInfo): self
     {
         $data = array_map(
-            function (ObjectStateGroup $objectStateGroup) use ($contentInfo): ObjectState|array {
+            function (ObjectStateGroup $objectStateGroup) use ($contentInfo): ObjectState | array {
                 $hasObjectStates = !empty($this->objectStateService->loadObjectStates($objectStateGroup));
                 if (!$hasObjectStates) {
                     return [];
@@ -46,7 +45,7 @@ final class ObjectStatesDataset
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Value\ObjectState\ObjectState[]
+     * @return ObjectState[]
      */
     public function getObjectStates(): array
     {

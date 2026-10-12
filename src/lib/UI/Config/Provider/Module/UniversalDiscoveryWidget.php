@@ -18,8 +18,7 @@ final readonly class UniversalDiscoveryWidget implements ProviderInterface
 {
     public function __construct(
         private ConfigResolver $configResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, mixed>

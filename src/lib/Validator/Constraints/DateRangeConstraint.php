@@ -32,7 +32,7 @@ final class DateRangeConstraint extends Constraint implements TranslationContain
     }
 
     /**
-     * @return array<\JMS\TranslationBundle\Model\Message>
+     * @return array<Message>
      */
     public static function getTranslationMessages(): array
     {

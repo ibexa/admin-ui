@@ -11,6 +11,4 @@ namespace Ibexa\Contracts\AdminUi\Exception;
 use Ibexa\Contracts\Core\Repository\Exceptions\Exception as RepositoryException;
 use RuntimeException;
 
-final class UnresolvedPreviewUrlException extends RuntimeException implements RepositoryException
-{
-}
+final class UnresolvedPreviewUrlException extends RuntimeException implements RepositoryException {}

@@ -12,7 +12,6 @@ use Ibexa\AdminUi\Form\DataTransformer\SectionTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
-use Ibexa\Contracts\Core\Repository\Values\Content\Section as APISection;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -20,8 +19,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class SectionTransformerTest extends TestCase
 {
     #[DataProvider('transformDataProvider')]
-    public function testTransform(?Section $value, ?int $expected): void
-    {
+    public function testTransform(
+        ?Section $value,
+        ?int $expected
+    ): void {
         $service = self::createStub(SectionService::class);
         $transformer = new SectionTransformer($service);
 
@@ -37,7 +38,7 @@ class SectionTransformerTest extends TestCase
         $transformer = new SectionTransformer($languageService);
 
         $this->expectException(TransformationFailedException::class);
-        $this->expectExceptionMessage('Expected a ' . APISection::class . ' object.');
+        $this->expectExceptionMessage('Expected a ' . Section::class . ' object.');
 
         $transformer->transform($value);
     }
@@ -45,22 +46,22 @@ class SectionTransformerTest extends TestCase
     public function testReverseTransformWithId(): void
     {
         $service = $this->createMock(SectionService::class);
-        $service->expects(self::once())
+        $service->expects($this->once())
             ->method('loadSection')
             ->with(123456)
-            ->willReturn(new APISection(['id' => 123456]));
+            ->willReturn(new Section(['id' => 123456]));
 
         $transformer = new SectionTransformer($service);
 
         $result = $transformer->reverseTransform(123456);
 
-        self::assertEquals(new APISection(['id' => 123456]), $result);
+        self::assertEquals(new Section(['id' => 123456]), $result);
     }
 
     public function testReverseTransformWithNull(): void
     {
         $service = $this->createMock(SectionService::class);
-        $service->expects(self::never())
+        $service->expects($this->never())
             ->method('loadSection');
 
         $transformer = new SectionTransformer($service);
@@ -77,8 +78,7 @@ class SectionTransformerTest extends TestCase
 
         $service = $this->createMock(SectionService::class);
         $service->method('loadSection')
-            ->will(self::throwException(new class('Section not found') extends NotFoundException {
-            }));
+            ->will($this->throwException(new class('Section not found') extends NotFoundException {}));
 
         $transformer = new SectionTransformer($service);
 
@@ -91,7 +91,7 @@ class SectionTransformerTest extends TestCase
         $this->expectExceptionMessage('Expected a numeric string.');
 
         $service = $this->createMock(SectionService::class);
-        $service->expects(self::never())->method('loadSection');
+        $service->expects($this->never())->method('loadSection');
 
         $transformer = new SectionTransformer($service);
         $transformer->reverseTransform('XYZ');
@@ -102,7 +102,7 @@ class SectionTransformerTest extends TestCase
      */
     public static function transformDataProvider(): array
     {
-        $transform = new APISection(['id' => 123456]);
+        $transform = new Section(['id' => 123456]);
 
         return [
             'with_id' => [$transform, 123456],

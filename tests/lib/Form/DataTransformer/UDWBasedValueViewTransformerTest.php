@@ -20,7 +20,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 final class UDWBasedValueViewTransformerTest extends TestCase
 {
-    private LocationService&MockObject $locationService;
+    private LocationService & MockObject $locationService;
 
     private UDWBasedValueViewTransformer $transformer;
 
@@ -36,8 +36,10 @@ final class UDWBasedValueViewTransformerTest extends TestCase
      * @param mixed[] $given
      */
     #[DataProvider('dataProviderForTransform')]
-    public function testTransform(?array $given, ?string $expected): void
-    {
+    public function testTransform(
+        ?array $given,
+        ?string $expected
+    ): void {
         self::assertEquals($expected, $this->transformer->transform($given));
     }
 
@@ -63,8 +65,10 @@ final class UDWBasedValueViewTransformerTest extends TestCase
      * @param mixed[] $expected
      */
     #[DataProvider('dataProviderForReverseTransform')]
-    public function testReverseTransform(?string $given, ?array $expected): void
-    {
+    public function testReverseTransform(
+        ?string $given,
+        ?array $expected
+    ): void {
         $this->locationService
             ->method('loadLocation')
             ->willReturnCallback(static function ($id): Location {
@@ -75,7 +79,7 @@ final class UDWBasedValueViewTransformerTest extends TestCase
     }
 
     /**
-     * @return array<array{0: ?string, 1: ?array<\Ibexa\Contracts\Core\Repository\Values\Content\Location>}>
+     * @return array<array{0: ?string, 1: ?array<Location>}>
      */
     public static function dataProviderForReverseTransform(): array
     {

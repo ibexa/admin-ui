@@ -101,7 +101,7 @@ final class InContextTranslationListenerTest extends TestCase
     public function testLocaleIsSet(): void
     {
         $this->translator
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('setLocale')
             ->with(self::ACHOLI_LOCALE);
 
@@ -133,7 +133,7 @@ final class InContextTranslationListenerTest extends TestCase
     public function testLocaleIsNotSet(): void
     {
         $this->translator
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('setLocale');
 
         $event = new RequestEvent(

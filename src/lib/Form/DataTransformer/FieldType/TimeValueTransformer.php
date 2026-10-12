@@ -18,9 +18,9 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 final readonly class TimeValueTransformer implements DataTransformerInterface
 {
     /**
-     * @param mixed|\Ibexa\Core\FieldType\Time\Value $value
+     * @param mixed|Value $value
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function transform(mixed $value): ?int
     {
@@ -40,7 +40,7 @@ final readonly class TimeValueTransformer implements DataTransformerInterface
     /**
      * @param int|mixed $value
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function reverseTransform(mixed $value): ?Value
     {

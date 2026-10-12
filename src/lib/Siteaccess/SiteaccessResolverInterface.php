@@ -10,11 +10,12 @@ namespace Ibexa\AdminUi\Siteaccess;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 
 interface SiteaccessResolverInterface
 {
     /**
-     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
+     * @return SiteAccess[]
      */
     public function getSiteAccessesListForLocation(
         Location $location,
@@ -23,12 +24,12 @@ interface SiteaccessResolverInterface
     ): array;
 
     /**
-     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
+     * @return SiteAccess[]
      */
     public function getSiteAccessesListForContent(Content $content): array;
 
     /**
-     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
+     * @return SiteAccess[]
      */
     public function getSiteAccessesList(): array;
 }

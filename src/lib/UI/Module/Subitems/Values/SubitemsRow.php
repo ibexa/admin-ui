@@ -17,6 +17,5 @@ final class SubitemsRow extends RestValue
     public function __construct(
         public readonly RestLocation $restLocation,
         public readonly RestContent $restContent
-    ) {
-    }
+    ) {}
 }

@@ -12,5 +12,8 @@ use DateTimeInterface;
 
 interface DateTimeFormatterInterface
 {
-    public function formatDiff(DateTimeInterface $from, DateTimeInterface $to): string;
+    public function formatDiff(
+        DateTimeInterface $from,
+        DateTimeInterface $to
+    ): string;
 }

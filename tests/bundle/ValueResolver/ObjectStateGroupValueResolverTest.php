@@ -21,7 +21,7 @@ final class ObjectStateGroupValueResolverTest extends TestCase
 {
     private ObjectStateGroupValueResolver $resolver;
 
-    private MockObject&ObjectStateService $objectStateServiceMock;
+    private MockObject & ObjectStateService $objectStateServiceMock;
 
     protected function setUp(): void
     {
@@ -32,7 +32,7 @@ final class ObjectStateGroupValueResolverTest extends TestCase
     public function testResolve(): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
-        $mockArgumentMetadata->expects(self::once())
+        $mockArgumentMetadata->expects($this->once())
             ->method('getType')
             ->willReturn(ObjectStateGroup::class);
 
@@ -43,7 +43,7 @@ final class ObjectStateGroupValueResolverTest extends TestCase
         $mockObjectStateGroup = self::createStub(ObjectStateGroup::class);
 
         $this->objectStateServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadObjectStateGroup')
             ->with(123)
             ->willReturn($mockObjectStateGroup);
@@ -58,10 +58,12 @@ final class ObjectStateGroupValueResolverTest extends TestCase
      * @param string $expectedMessage
      */
     #[DataProvider('invalidAttributesProvider')]
-    public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
-    {
+    public function testResolveInvalidAttributes(
+        array $attributes,
+        string $expectedMessage
+    ): void {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
-        $mockArgumentMetadata->expects(self::once())
+        $mockArgumentMetadata->expects($this->once())
             ->method('getType')
             ->willReturn(ObjectStateGroup::class);
 

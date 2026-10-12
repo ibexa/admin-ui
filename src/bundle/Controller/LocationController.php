@@ -27,13 +27,16 @@ use Ibexa\AdminUi\Tab\LocationView\LocationsTab;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException as APIRepositoryUnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Contracts\Core\Repository\TrashService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Helper\TranslationHelper;
 use JMS\TranslationBundle\Annotation\Desc;
@@ -56,8 +59,7 @@ final class LocationController extends Controller
         private readonly SubmitHandler $submitHandler,
         private readonly Repository $repository,
         private readonly TranslationHelper $translationHelper
-    ) {
-    }
+    ) {}
 
     public function moveAction(Request $request): Response
     {
@@ -336,7 +338,7 @@ final class LocationController extends Controller
             1
         );
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem $relation */
+        /** @var RelationListItem $relation */
         $relation = $relations->items[0];
         if (!$relation->hasRelation()) {
             return;
@@ -350,8 +352,8 @@ final class LocationController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     private function handleTrashLocation(LocationTrashData $data): RedirectResponse
     {
@@ -394,7 +396,7 @@ final class LocationController extends Controller
         );
         $form->handleRequest($request);
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo */
+        /** @var ContentInfo $contentInfo */
         $contentInfo = $form->getData()->getContentInfo();
 
         if ($form->isSubmitted()) {
@@ -497,7 +499,7 @@ final class LocationController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+            /** @var Location $location */
             $location = $data->getLocation();
             $hidden = $data->getHidden();
 
@@ -523,7 +525,7 @@ final class LocationController extends Controller
                         'ibexa_location'
                     );
                 }
-            } catch (APIRepositoryUnauthorizedException $e) {
+            } catch (UnauthorizedException $e) {
                 return new JsonResponse(['errors' => [$e->getMessage()]], Response::HTTP_UNAUTHORIZED);
             }
         } else {
@@ -592,7 +594,7 @@ final class LocationController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (LocationAssignSubtreeData $data): RedirectResponse {
                 $section = $data->getSection();
-                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+                /** @var Location $location */
                 $location = $data->getLocation();
 
                 $this->sectionService->assignSectionToSubtree($location, $section);

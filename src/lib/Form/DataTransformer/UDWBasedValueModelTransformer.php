@@ -25,13 +25,12 @@ final readonly class UDWBasedValueModelTransformer implements DataTransformerInt
     public function __construct(
         private LocationService $locationService,
         private Repository $repository
-    ) {
-    }
+    ) {}
 
     /**
      * {@inheritdoc}
      *
-     * @return array<\Ibexa\Contracts\Core\Repository\Values\Content\Location|null>
+     * @return array<Location|null>
      */
     public function transform(mixed $value): ?array
     {

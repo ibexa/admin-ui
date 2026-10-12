@@ -17,12 +17,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class DateTimeFormatter implements DateTimeFormatterInterface, TranslationContainerInterface
 {
-    public function __construct(private TranslatorInterface $translator)
-    {
-    }
+    public function __construct(private TranslatorInterface $translator) {}
 
-    public function formatDiff(DateTimeInterface $from, DateTimeInterface $to): string
-    {
+    public function formatDiff(
+        DateTimeInterface $from,
+        DateTimeInterface $to
+    ): string {
         static $units = [
             'y' => 'year',
             'm' => 'month',
@@ -44,8 +44,11 @@ final readonly class DateTimeFormatter implements DateTimeFormatterInterface, Tr
         return $this->getEmptyDiffMessage();
     }
 
-    private function getDiffMessage(int $count, bool $invert, string $unit): string
-    {
+    private function getDiffMessage(
+        int $count,
+        bool $invert,
+        string $unit
+    ): string {
         $id = sprintf('diff.%s.%s', $invert ? 'ago' : 'in', $unit);
 
         /** @Ignore */
@@ -63,7 +66,7 @@ final readonly class DateTimeFormatter implements DateTimeFormatterInterface, Tr
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

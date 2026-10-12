@@ -22,10 +22,12 @@ abstract class MultipleSelectionBasedMapper implements LimitationFormMapperInter
     private string $template;
 
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      */
-    public function mapLimitationForm(FormInterface $form, Limitation $data): void
-    {
+    public function mapLimitationForm(
+        FormInterface $form,
+        Limitation $data
+    ): void {
         $options = $this->getChoiceFieldOptions() + [
             'multiple' => true,
             'label' => LimitationIdentifierToLabelConverter::convert($data->getIdentifier()),
@@ -64,7 +66,5 @@ abstract class MultipleSelectionBasedMapper implements LimitationFormMapperInter
         return $this->template;
     }
 
-    public function filterLimitationValues(Limitation $limitation): void
-    {
-    }
+    public function filterLimitationValues(Limitation $limitation): void {}
 }

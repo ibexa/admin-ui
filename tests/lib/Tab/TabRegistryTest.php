@@ -150,15 +150,20 @@ final class TabRegistryTest extends TestCase
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface[] $tabs
+     * @param TabInterface[] $tabs
      */
-    private function createTabGroup(string $name = 'lorem', array $tabs = []): TabGroup
-    {
+    private function createTabGroup(
+        string $name = 'lorem',
+        array $tabs = []
+    ): TabGroup {
         return new TabGroup($name, $tabs);
     }
 
-    private function createTab(string $name, Environment $twig, TranslatorInterface $translator): TabInterface
-    {
+    private function createTab(
+        string $name,
+        Environment $twig,
+        TranslatorInterface $translator
+    ): TabInterface {
         return new class($name, $twig, $translator) extends AbstractTab {
             public function __construct(
                 protected readonly string $name,

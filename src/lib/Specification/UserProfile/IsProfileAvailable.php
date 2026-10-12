@@ -9,17 +9,17 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Specification\UserProfile;
 
 use Ibexa\AdminUi\UserProfile\UserProfileConfigurationInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 final class IsProfileAvailable extends AbstractSpecification
 {
     public function __construct(
         private readonly UserProfileConfigurationInterface $userProfileConfiguration
-    ) {
-    }
+    ) {}
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $item
+     * @param User $item
      */
     public function isSatisfiedBy(mixed $item): bool
     {

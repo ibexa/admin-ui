@@ -35,7 +35,7 @@ final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implement
 
     protected function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface $menu */
+        /** @var ItemInterface $menu */
         $menu = $this->factory->createItem('root');
 
         $saveAndCloseItem = $this->createMenuItem(

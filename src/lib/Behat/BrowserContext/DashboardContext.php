@@ -22,8 +22,7 @@ final readonly class DashboardContext implements Context
         private UpperMenu $upperMenu,
         private DashboardPage $dashboardPage,
         private ContentUpdateItemPage $contentUpdateItemPage
-    ) {
-    }
+    ) {}
 
     #[Given('I go to dashboard')]
     public function iGoToDashboard(): void

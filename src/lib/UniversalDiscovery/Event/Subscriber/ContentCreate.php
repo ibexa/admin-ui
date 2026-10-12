@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber;
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
@@ -26,7 +27,7 @@ final readonly class ContentCreate implements EventSubscriberInterface
     private array $restrictedLanguagesCodes;
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __construct(
         PermissionResolver $permissionResolver,
@@ -69,7 +70,7 @@ final readonly class ContentCreate implements EventSubscriberInterface
      *
      * @return array<mixed>
      */
-    private function getRestrictedContentTypesIdentifiers(array|bool $hasAccess): array
+    private function getRestrictedContentTypesIdentifiers(array | bool $hasAccess): array
     {
         if (!\is_array($hasAccess)) {
             return [];
@@ -103,7 +104,7 @@ final readonly class ContentCreate implements EventSubscriberInterface
      *
      * @return string[]
      */
-    private function getRestrictedLanguagesCodes(array|bool $hasAccess): array
+    private function getRestrictedLanguagesCodes(array | bool $hasAccess): array
     {
         if (!is_array($hasAccess)) {
             return [];

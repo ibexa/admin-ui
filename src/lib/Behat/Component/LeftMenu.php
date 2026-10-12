@@ -26,8 +26,10 @@ final class LeftMenu extends Component
             ->click();
     }
 
-    public function goToSubTab(string $tabName, string $subTabName): void
-    {
+    public function goToSubTab(
+        string $tabName,
+        string $subTabName
+    ): void {
         $this->ensureMenuIsExpanded();
 
         $isTabAccordionExpanded = $this->getHTMLPage()

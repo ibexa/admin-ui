@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller\BulkOperation;
 
+use Ibexa\AdminUi\REST\Value\BulkOperation;
 use Ibexa\AdminUi\REST\Value\BulkOperationResponse;
 use Ibexa\AdminUi\REST\Value\Operation;
 use Ibexa\AdminUi\REST\Value\OperationResponse;
@@ -20,15 +21,14 @@ final class BulkOperationController extends RestController
 {
     public function __construct(
         private readonly HttpKernelInterface $httpKernel
-    ) {
-    }
+    ) {}
 
     /**
      * @throws \Exception
      */
     public function bulkAction(Request $request): BulkOperationResponse
     {
-        /** @var \Ibexa\AdminUi\REST\Value\BulkOperation $operationList */
+        /** @var BulkOperation $operationList */
         $operationList = $this->inputDispatcher->parse(
             new Message(
                 ['Content-Type' => $request->headers->get('Content-Type')],
@@ -53,8 +53,10 @@ final class BulkOperationController extends RestController
         return new BulkOperationResponse($responses);
     }
 
-    private function buildSubRequest(Request $request, Operation $operation): Request
-    {
+    private function buildSubRequest(
+        Request $request,
+        Operation $operation
+    ): Request {
         $subRequest = Request::create(
             $operation->uri,
             $operation->method,

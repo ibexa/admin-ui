@@ -22,8 +22,7 @@ final class TargetLanguageValueResolver extends AbstractValueResolver
 
     public function __construct(
         private readonly LanguageService $languageService
-    ) {
-    }
+    ) {}
 
     protected function supports(ArgumentMetadata $argument): bool
     {

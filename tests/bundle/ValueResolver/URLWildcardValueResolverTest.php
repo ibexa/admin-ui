@@ -21,7 +21,7 @@ final class URLWildcardValueResolverTest extends TestCase
 {
     private URLWildcardValueResolver $resolver;
 
-    private MockObject&URLWildcardService $urlWildcardServiceMock;
+    private MockObject & URLWildcardService $urlWildcardServiceMock;
 
     protected function setUp(): void
     {
@@ -32,7 +32,7 @@ final class URLWildcardValueResolverTest extends TestCase
     public function testResolve(): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
-        $mockArgumentMetadata->expects(self::once())
+        $mockArgumentMetadata->expects($this->once())
             ->method('getType')
             ->willReturn(URLWildcard::class);
 
@@ -43,7 +43,7 @@ final class URLWildcardValueResolverTest extends TestCase
         $mockURLWildcard = self::createStub(URLWildcard::class);
 
         $this->urlWildcardServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('load')
             ->with(123)
             ->willReturn($mockURLWildcard);
@@ -57,10 +57,12 @@ final class URLWildcardValueResolverTest extends TestCase
      * @param array<string, mixed> $attributes
      */
     #[DataProvider('invalidAttributesProvider')]
-    public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
-    {
+    public function testResolveInvalidAttributes(
+        array $attributes,
+        string $expectedMessage
+    ): void {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
-        $mockArgumentMetadata->expects(self::once())
+        $mockArgumentMetadata->expects($this->once())
             ->method('getType')
             ->willReturn(URLWildcard::class);
 

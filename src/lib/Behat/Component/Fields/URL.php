@@ -20,8 +20,10 @@ final class URL extends FieldTypeComponent
         $this->setSpecificFieldValue('text', $parameters['text']);
     }
 
-    public function setSpecificFieldValue(string $fieldName, string $value): void
-    {
+    public function setSpecificFieldValue(
+        string $fieldName,
+        string $value
+    ): void {
         $fieldSelector = CSSLocatorBuilder::base($this->parentLocator)
             ->withDescendant($this->getLocator($fieldName))
             ->build();

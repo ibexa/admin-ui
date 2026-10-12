@@ -40,8 +40,10 @@ final class SubItemsList extends Component
             ->build();
     }
 
-    public function sortBy(string $columnName, bool $ascending): void
-    {
+    public function sortBy(
+        string $columnName,
+        bool $ascending
+    ): void {
         if ($this->isGridViewEnabled) {
             return;
         }
@@ -90,8 +92,10 @@ final class SubItemsList extends Component
             ->assert()->textContains('Viewing');
     }
 
-    public function clickListElement(string $contentName, string $contentType): void
-    {
+    public function clickListElement(
+        string $contentName,
+        string $contentType
+    ): void {
         $this->getTable()->getTableRow(['Name' => $contentName, 'Content type' => $contentType])->goToItem();
     }
 

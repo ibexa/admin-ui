@@ -21,7 +21,7 @@ final class ContentInfoValueResolverTest extends TestCase
 {
     private ContentInfoValueResolver $resolver;
 
-    private MockObject&ContentService $contentServiceMock;
+    private MockObject & ContentService $contentServiceMock;
 
     protected function setUp(): void
     {
@@ -32,7 +32,7 @@ final class ContentInfoValueResolverTest extends TestCase
     public function testResolve(): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
-        $mockArgumentMetadata->expects(self::once())
+        $mockArgumentMetadata->expects($this->once())
             ->method('getType')
             ->willReturn(ContentInfo::class);
 
@@ -43,7 +43,7 @@ final class ContentInfoValueResolverTest extends TestCase
         $mockContentInfo = self::createStub(ContentInfo::class);
 
         $this->contentServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadContentInfo')
             ->with(1)
             ->willReturn($mockContentInfo);
@@ -57,10 +57,12 @@ final class ContentInfoValueResolverTest extends TestCase
      * @param array<string, mixed> $attributes
      */
     #[DataProvider('invalidAttributesProvider')]
-    public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
-    {
+    public function testResolveInvalidAttributes(
+        array $attributes,
+        string $expectedMessage
+    ): void {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
-        $mockArgumentMetadata->expects(self::once())
+        $mockArgumentMetadata->expects($this->once())
             ->method('getType')
             ->willReturn(ContentInfo::class);
 

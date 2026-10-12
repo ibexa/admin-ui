@@ -130,22 +130,23 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language as APILanguage;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
-use function is_string;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Util\StringUtil;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+
+use function is_string;
 
 class FormFactory
 {
     public function __construct(
         private readonly FormFactoryInterface $formFactory
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<string, mixed> $options
      *
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function contentEdit(
         ?ContentEditData $data = null,
@@ -176,7 +177,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function createContent(
         ?ContentCreateData $data = null,
@@ -196,7 +197,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function deleteContentTypes(
         ?ContentTypesDeleteData $data = null,
@@ -235,7 +236,7 @@ class FormFactory
     }
 
     /**
-     * @phpstan-return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData>
+     * @phpstan-return FormInterface<ContentTypeGroupUpdateData>
      */
     public function updateContentTypeGroup(
         ContentTypeGroup $group,
@@ -252,7 +253,7 @@ class FormFactory
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData>
+     * @return FormInterface<ContentTypeGroupDeleteData>
      */
     public function deleteContentTypeGroup(
         ContentTypeGroup $group,
@@ -269,7 +270,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function deleteContentTypeGroups(
         ?ContentTypeGroupsDeleteData $data = null,
@@ -292,7 +293,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function addTranslation(
         ?TranslationAddData $data = null,
@@ -308,7 +309,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function deleteTranslation(
         ?TranslationDeleteData $data = null,
@@ -320,7 +321,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function removeVersion(
         ?VersionRemoveData $data = null,
@@ -387,7 +388,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function updateContentMainLocation(
         ?ContentMainLocationUpdateData $data = null,
@@ -462,7 +463,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function updateVisibilityLocation(
         ?LocationUpdateVisibilityData $data = null,
@@ -481,7 +482,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function updateVisibilityContent(
         ?ContentVisibilityUpdateData $data = null,
@@ -549,7 +550,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function deleteSections(
         ?SectionsDeleteData $data = null,
@@ -643,7 +644,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function deleteLanguages(
         ?LanguagesDeleteData $data = null,
@@ -696,7 +697,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function deleteRoles(
         ?RolesDeleteData $data = null,
@@ -817,7 +818,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function deletePolicies(
         ?PoliciesDeleteData $data = null,
@@ -987,7 +988,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function deleteObjectStateGroups(
         ?ObjectStateGroupsDeleteData $data = null,
@@ -1006,7 +1007,7 @@ class FormFactory
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupUpdateData>
+     * @return FormInterface<ObjectStateGroupUpdateData>
      */
     public function updateObjectStateGroup(
         ObjectStateGroup $group,
@@ -1092,7 +1093,7 @@ class FormFactory
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData>
+     * @return FormInterface<NotificationSelectionData>
      */
     public function deleteNotification(
         ?NotificationSelectionData $data = null,
@@ -1115,7 +1116,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function createURLWildcard(
         ?URLWildcardData $data = null,
@@ -1138,7 +1139,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function createURLWildcardUpdate(
         ?URLWildcardUpdateData $data = null,
@@ -1161,7 +1162,7 @@ class FormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function deleteURLWildcard(
         ?URLWildcardDeleteData $data = null,

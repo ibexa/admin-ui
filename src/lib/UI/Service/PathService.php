@@ -22,12 +22,10 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
  */
 final readonly class PathService
 {
-    public function __construct(private SearchService $searchService)
-    {
-    }
+    public function __construct(private SearchService $searchService) {}
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function loadPathLocations(Location $location): array
     {
@@ -39,7 +37,7 @@ final readonly class PathService
         $searchResult = $this->searchService->findLocations($locationQuery);
 
         return array_map(static function (SearchHit $searchHit): Location {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+            /** @var Location $location */
             $location = $searchHit->valueObject;
 
             return $location;

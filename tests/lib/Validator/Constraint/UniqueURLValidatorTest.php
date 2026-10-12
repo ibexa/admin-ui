@@ -21,9 +21,9 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class UniqueURLValidatorTest extends TestCase
 {
-    private URLService&MockObject $urlService;
+    private URLService & MockObject $urlService;
 
-    private ExecutionContextInterface&MockObject $executionContext;
+    private ExecutionContextInterface & MockObject $executionContext;
 
     private UniqueURLValidator $validator;
 

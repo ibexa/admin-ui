@@ -18,8 +18,7 @@ final class UserProfileExtension extends AbstractExtension
 {
     public function __construct(
         private readonly UserProfileConfigurationInterface $configuration
-    ) {
-    }
+    ) {}
 
     public function getFunctions(): array
     {

@@ -21,7 +21,7 @@ final class RoleAssignmentValueResolverTest extends TestCase
 {
     private RoleAssignmentValueResolver $resolver;
 
-    private MockObject&RoleService $roleService;
+    private MockObject & RoleService $roleService;
 
     protected function setUp(): void
     {
@@ -34,7 +34,7 @@ final class RoleAssignmentValueResolverTest extends TestCase
         $roleAssignment = self::createStub(RoleAssignment::class);
         $attributes = ['roleAssignmentId' => '789'];
 
-        $this->roleService->expects(self::once())
+        $this->roleService->expects($this->once())
             ->method('loadRoleAssignment')
             ->with(789)
             ->willReturn($roleAssignment);
@@ -57,8 +57,10 @@ final class RoleAssignmentValueResolverTest extends TestCase
      * @param array<string, mixed> $attributes
      */
     #[DataProvider('invalidAttributesProvider')]
-    public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
-    {
+    public function testResolveInvalidAttributes(
+        array $attributes,
+        string $expectedMessage
+    ): void {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);
         $argumentMetadata->method('getType')
             ->willReturn(RoleAssignment::class);

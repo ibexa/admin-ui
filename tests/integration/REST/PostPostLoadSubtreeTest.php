@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Integration\AdminUi\REST;
 
 use Ibexa\Contracts\Core\Repository\BookmarkService;
+use Ibexa\Contracts\Core\Repository\Exceptions\Exception;
 use Ibexa\Contracts\Test\Rest\Input\PayloadLoader;
 use Ibexa\Contracts\Test\Rest\Request\Value\EndpointRequestDefinition;
 
@@ -20,7 +21,7 @@ final class PostPostLoadSubtreeTest extends BaseAdminUiRestWebTestCase
     private const INPUT_MEDIA_TYPE = 'ContentTreeLoadSubtreeRequest';
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\Exception
+     * @throws Exception
      */
     protected function setUp(): void
     {

@@ -12,6 +12,7 @@ use InvalidArgumentException;
 use RuntimeException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\DebugFormatterHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -65,8 +66,10 @@ final class CompileAssetsCommand extends Command
         ;
     }
 
-    protected function initialize(InputInterface $input, OutputInterface $output): void
-    {
+    protected function initialize(
+        InputInterface $input,
+        OutputInterface $output
+    ): void {
         $watch = $input->getOption('watch');
         $timeout = $input->getOption('timeout');
 
@@ -85,8 +88,10 @@ final class CompileAssetsCommand extends Command
         return "./node_modules/@ibexa/frontend-config/ibexa.webpack.{$configName}.configs.js";
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
+    protected function execute(
+        InputInterface $input,
+        OutputInterface $output
+    ): int {
         $watch = $input->getOption('watch');
         $timeout = $watch ? null : (float)($input->getOption('timeout') ?? $this->timeout);
         $env = $input->getOption('env');
@@ -116,7 +121,7 @@ final class CompileAssetsCommand extends Command
             ));
         }
 
-        /** @var \Symfony\Component\Console\Helper\DebugFormatterHelper $debugFormatter */
+        /** @var DebugFormatterHelper $debugFormatter */
         $debugFormatter = $this->getHelper('debug_formatter');
 
         $process = Process::fromShellCommandline(
@@ -132,7 +137,10 @@ final class CompileAssetsCommand extends Command
             sprintf('Evaluating command <comment>%s</comment>', $yarnEncoreCommand)
         ));
 
-        $process->run(static function ($type, $buffer) use ($output, $debugFormatter, $process): void {
+        $process->run(static function (
+            $type,
+            $buffer
+        ) use ($output, $debugFormatter, $process): void {
             $output->write(
                 $debugFormatter->progress(
                     spl_object_hash($process),

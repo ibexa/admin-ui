@@ -18,12 +18,12 @@ use Symfony\Component\Validator\Constraints\Range;
 
 final readonly class BinaryFileFormMapper implements FieldDefinitionFormMapperInterface
 {
-    public function __construct(private MaxUploadSize $maxUploadSize)
-    {
-    }
+    public function __construct(private MaxUploadSize $maxUploadSize) {}
 
-    public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
-    {
+    public function mapFieldDefinitionForm(
+        FormInterface $fieldDefinitionForm,
+        FieldDefinitionData $data
+    ): void {
         $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
         $fieldDefinitionForm
             ->add('maxSize', IntegerType::class, [

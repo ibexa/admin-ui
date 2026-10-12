@@ -16,12 +16,12 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class UniqueURLValidator extends ConstraintValidator
 {
-    public function __construct(private readonly URLService $urlService)
-    {
-    }
+    public function __construct(private readonly URLService $urlService) {}
 
-    public function validate(mixed $value, Constraint $constraint): void
-    {
+    public function validate(
+        mixed $value,
+        Constraint $constraint
+    ): void {
         if (!$value instanceof URLUpdateData || $value->url === null) {
             return;
         }

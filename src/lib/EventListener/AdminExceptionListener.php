@@ -14,6 +14,7 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
 use JMS\TranslationBundle\Annotation\Ignore;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LogLevel;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +32,7 @@ class AdminExceptionListener implements LoggerAwareInterface
 
     /**
      * @param array<string, string[]> $siteAccessGroups
-     * @param \Psr\Log\LogLevel::* $logLevel
+     * @param LogLevel::* $logLevel
      */
     public function __construct(
         protected Environment $twig,
@@ -42,12 +43,15 @@ class AdminExceptionListener implements LoggerAwareInterface
         protected string $rootDir,
         protected string $kernelEnvironment,
         private readonly string $logLevel
-    ) {
-    }
+    ) {}
 
     public function onKernelException(ExceptionEvent $event): void
     {
         if ($this->kernelEnvironment !== 'prod') {
+            return;
+        }
+
+        if (!$event->isMainRequest()) {
             return;
         }
 
@@ -90,6 +94,9 @@ class AdminExceptionListener implements LoggerAwareInterface
             case 403:
                 $content = $this->twig->render('@ibexadesign/ui/error_page/403.html.twig');
                 break;
+            case 405:
+                $content = $this->twig->render('@ibexadesign/ui/error_page/405.html.twig');
+                break;
             default:
                 $content = $this->twig->render('@ibexadesign/ui/error_page/unknown.html.twig');
                 break;
@@ -103,7 +110,7 @@ class AdminExceptionListener implements LoggerAwareInterface
     {
         $request = $event->getRequest();
 
-        /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess */
+        /** @var SiteAccess $siteAccess */
         $siteAccess = $request->attributes->get('siteaccess', new SiteAccess('default'));
 
         return in_array(

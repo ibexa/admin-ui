@@ -21,8 +21,7 @@ class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements
     public function __construct(
         private readonly SiteAccessServiceInterface $siteAccessService,
         private readonly SiteAccessKeyGeneratorInterface $siteAccessKeyGenerator
-    ) {
-    }
+    ) {}
 
     /**
      * @return mixed[]

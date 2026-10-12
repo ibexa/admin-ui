@@ -18,9 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 abstract class AbstractLanguageChoiceType extends AbstractType
 {
-    public function __construct(private readonly ChoiceLoaderInterface $languageChoiceLoader)
-    {
-    }
+    public function __construct(private readonly ChoiceLoaderInterface $languageChoiceLoader) {}
 
     public function getParent(): string
     {

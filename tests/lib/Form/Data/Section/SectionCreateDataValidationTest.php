@@ -13,13 +13,14 @@ use Ibexa\AdminUi\Form\Type\Section\SectionCreateType;
 use Ibexa\AdminUi\Form\Type\Section\SectionType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormTypeInterface;
 
 #[CoversClass(SectionCreateType::class)]
 #[CoversClass(SectionCreateData::class)]
 final class SectionCreateDataValidationTest extends AbstractSectionMutationDataValidationTestCase
 {
     /**
-     * @return array<string, \Symfony\Component\Form\FormTypeInterface<mixed>>
+     * @return array<string, FormTypeInterface<mixed>>
      */
     protected function getTypes(): array
     {

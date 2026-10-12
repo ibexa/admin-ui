@@ -15,9 +15,7 @@ final class ApplicationConfig extends Value
     /**
      * @param array<string, mixed> $config
      */
-    public function __construct(private readonly array $config)
-    {
-    }
+    public function __construct(private readonly array $config) {}
 
     /**
      * @return array<string, mixed>

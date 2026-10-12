@@ -18,6 +18,7 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Twig\Environment;
+use Twig\Error\Error;
 use Twig\Loader\ArrayLoader;
 use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
@@ -37,7 +38,7 @@ final class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrat
         ];
     }
 
-    private function createLimitationValueMapperRegistryMock(): MockObject&LimitationValueMapperRegistryInterface
+    private function createLimitationValueMapperRegistryMock(): MockObject & LimitationValueMapperRegistryInterface
     {
         $mapperMock = $this->createMock(LimitationValueMapperInterface::class);
         $mapperMock
@@ -59,18 +60,27 @@ final class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrat
     /**
      * @param array<string, mixed> $values
      */
-    public function getLimitation(string $identifier, array $values): LimitationMock
-    {
+    public function getLimitation(
+        string $identifier,
+        array $values
+    ): LimitationMock {
         return new LimitationMock($identifier, $values);
     }
 
     /**
-     * @see \Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase::doIntegrationTest
+     * @see FileSystemTwigIntegrationTestCase::doIntegrationTest
      *
-     * @throws \Twig\Error\Error
+     * @throws Error
      */
-    protected function doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation = ''): void
-    {
+    protected function doIntegrationTest(
+        $file,
+        $message,
+        $condition,
+        $templates,
+        $exception,
+        $outputs,
+        $deprecation = ''
+    ): void {
         if (!$outputs) {
             self::markTestSkipped('no legacy tests to run');
         }

@@ -20,8 +20,7 @@ final class ContentTypeFromIdValueResolver extends AbstractValueResolver
 
     public function __construct(
         private readonly ContentTypeService $contentTypeService
-    ) {
-    }
+    ) {}
 
     protected function getRequestAttributes(): array
     {
