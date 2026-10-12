@@ -12,7 +12,6 @@ use Ibexa\AdminUi\Form\DataTransformer\SectionTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
-use Ibexa\Contracts\Core\Repository\Values\Content\Section as APISection;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -42,7 +41,7 @@ class SectionTransformerTest extends TestCase
         $transformer = new SectionTransformer($languageService);
 
         $this->expectException(TransformationFailedException::class);
-        $this->expectExceptionMessage('Expected a ' . APISection::class . ' object.');
+        $this->expectExceptionMessage('Expected a ' . Section::class . ' object.');
 
         $transformer->transform($value);
     }
@@ -53,13 +52,13 @@ class SectionTransformerTest extends TestCase
         $service->expects(self::once())
             ->method('loadSection')
             ->with(123456)
-            ->willReturn(new APISection(['id' => 123456]));
+            ->willReturn(new Section(['id' => 123456]));
 
         $transformer = new SectionTransformer($service);
 
         $result = $transformer->reverseTransform(123456);
 
-        self::assertEquals(new APISection(['id' => 123456]), $result);
+        self::assertEquals(new Section(['id' => 123456]), $result);
     }
 
     public function testReverseTransformWithNull(): void
@@ -106,7 +105,7 @@ class SectionTransformerTest extends TestCase
      */
     public function transformDataProvider(): array
     {
-        $transform = new APISection(['id' => 123456]);
+        $transform = new Section(['id' => 123456]);
 
         return [
             'with_id' => [$transform, 123456],
