@@ -10,6 +10,11 @@ parameters:
         - src
         - tests
 
+    # Its own separate composer project (own vendor/autoload.php, own
+    # dependencies) — unresolvable from this root autoloader by design.
+    excludePaths:
+        - tests/playwright-tests-php/*
+
     ignoreErrors:
         -
             message: "#^Cannot call method (log|debug|info|notice|warning|error|critical|alert|emergency)\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
