@@ -67,22 +67,22 @@
     "require-dev": {
         "ext-zip": "*",
         "dama/doctrine-test-bundle": "^v6.7",
-        "ibexa/ci-scripts": "^0.2@dev",
-        "ibexa/behat": "~4.6.0@dev",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "phpunit/phpunit": "^9.5",
-        "matthiasnoback/symfony-dependency-injection-test": "^4.0",
+        "ibexa/behat": "~4.6.0@dev",
+        "ibexa/ci-scripts": "^0.2@dev",
+        "ibexa/code-style": "~2.3.1",
+        "ibexa/doctrine-migrations": "~4.6.x-dev",
         "ibexa/doctrine-schema": "~4.6.0@dev",
         "ibexa/http-cache": "~4.6.0@dev",
-        "ibexa/code-style": "~2.3.1",
         "ibexa/notifications": "~4.6.0@dev",
         "ibexa/phpstan": "~4.6.x-dev",
-        "ibexa/test-rest": "~4.6.x-dev",
         "ibexa/test-core": "~4.6.x-dev",
+        "ibexa/test-rest": "~4.6.x-dev",
+        "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-symfony": "^2.0",
-        "ibexa/doctrine-migrations": "~4.6.x-dev"
+        "phpunit/phpunit": "^9.5"
     },
     "config": {
         "allow-plugins": {
