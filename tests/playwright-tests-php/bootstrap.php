@@ -6,6 +6,8 @@
  */
 declare(strict_types=1);
 
+use Symfony\Component\Dotenv\Dotenv;
+
 // Two autoloaders: this directory's own (PHPUnit + the shared library), and
 // the assembled project's (App\Kernel + the full app) four levels up — the
 // path ci-scripts' prepare_project_edition.sh produces. No App\Kernel means
@@ -13,7 +15,14 @@ declare(strict_types=1);
 
 require __DIR__ . '/vendor/autoload.php';
 
-$assembledProjectAutoload = __DIR__ . '/../../../../autoload.php';
+$assembledProjectRoot = __DIR__ . '/../../../../..';
+$assembledProjectAutoload = $assembledProjectRoot . '/vendor/autoload.php';
 if (is_file($assembledProjectAutoload)) {
     require $assembledProjectAutoload;
+
+    // Needed for env(...) references in the assembled project's own config
+    // (e.g. SEARCH_ENGINE) — requiring its autoloader alone doesn't load .env.
+    if (class_exists(Dotenv::class) && method_exists(Dotenv::class, 'bootEnv')) {
+        (new Dotenv())->bootEnv($assembledProjectRoot . '/.env');
+    }
 }
