@@ -159,7 +159,7 @@ final readonly class DamWidget implements ProviderInterface
     }
 
     /**
-     * @throws \Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngine
+     * @throws InvalidSearchEngine
      */
     private function showImageFilters(): bool
     {

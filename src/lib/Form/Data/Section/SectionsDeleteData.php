@@ -8,13 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Section;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+
 /**
  * @todo Add validation
  */
 final class SectionsDeleteData
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null $sections
+     * @param Section[]|null $sections
      */
     public function __construct(private ?array $sections = [])
     {

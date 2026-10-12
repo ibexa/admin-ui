@@ -14,6 +14,7 @@ use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Repository\Values\Content\Location;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -35,8 +36,10 @@ final class ContentStructureRedirectStrategyTest extends TestCase
      *
      * @param array<string, string> $pathData
      */
-    public function testSupports(array $pathData, bool $doesSupport): void
-    {
+    public function testSupports(
+        array $pathData,
+        bool $doesSupport
+    ): void {
         self::assertSame($doesSupport, $this->strategy->supports($pathData));
     }
 
@@ -61,8 +64,10 @@ final class ContentStructureRedirectStrategyTest extends TestCase
     /**
      * @dataProvider dataProviderForTestGenerateRedirectPath
      */
-    public function testGenerateRedirectPath(string $path, string $expectedPath): void
-    {
+    public function testGenerateRedirectPath(
+        string $path,
+        string $expectedPath
+    ): void {
         self::assertSame(
             $expectedPath,
             $this->strategy->generateRedirectPath($path)
@@ -80,7 +85,7 @@ final class ContentStructureRedirectStrategyTest extends TestCase
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @return ConfigResolverInterface&MockObject
      */
     private function createConfigResolverMock(): ConfigResolverInterface
     {
@@ -94,7 +99,7 @@ final class ContentStructureRedirectStrategyTest extends TestCase
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\LocationService&\PHPUnit\Framework\MockObject\MockObject
+     * @return LocationService&MockObject
      */
     private function createLocationServiceMock(): LocationService
     {
@@ -107,7 +112,7 @@ final class ContentStructureRedirectStrategyTest extends TestCase
     }
 
     /**
-     * @return \Symfony\Component\Routing\RouterInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @return RouterInterface&MockObject
      */
     private function createRouterMock(): RouterInterface
     {

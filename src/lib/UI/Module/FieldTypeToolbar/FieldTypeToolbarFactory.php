@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\UI\Module\FieldTypeToolbar;
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbar;
 use Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbarItem;
+use Ibexa\Contracts\Core\Repository\FieldType;
 use Ibexa\Core\FieldType\FieldTypeRegistry;
 use JMS\TranslationBundle\Annotation\Ignore;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -38,7 +39,10 @@ final readonly class FieldTypeToolbarFactory
             );
         }
 
-        usort($items, static function (FieldTypeToolbarItem $a, FieldTypeToolbarItem $b): int {
+        usort($items, static function (
+            FieldTypeToolbarItem $a,
+            FieldTypeToolbarItem $b
+        ): int {
             return strcmp($a->getName(), $b->getName());
         });
 
@@ -46,7 +50,7 @@ final readonly class FieldTypeToolbarFactory
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\FieldType[]
+     * @return FieldType[]
      */
     private function getAvailableFieldTypes(): iterable
     {

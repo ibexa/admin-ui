@@ -103,5 +103,8 @@ interface Provider
      */
     public function getLocations(array $locationIds): array;
 
-    public function getSortClause(string $sortClauseName, string $sortOrder): Query\SortClause;
+    public function getSortClause(
+        string $sortClauseName,
+        string $sortOrder
+    ): Query\SortClause;
 }

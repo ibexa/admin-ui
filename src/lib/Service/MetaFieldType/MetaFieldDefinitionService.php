@@ -39,8 +39,10 @@ final readonly class MetaFieldDefinitionService implements MetaFieldDefinitionSe
     ) {
     }
 
-    public function addMetaFieldDefinitions(ValueObject $contentType, ?Language $language = null): void
-    {
+    public function addMetaFieldDefinitions(
+        ValueObject $contentType,
+        ?Language $language = null
+    ): void {
         $metaFieldTypes = $this->contentTypeFieldTypesResolver->getMetaFieldTypes();
 
         if (null === $language) {
