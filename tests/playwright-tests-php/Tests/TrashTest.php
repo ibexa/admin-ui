@@ -12,7 +12,6 @@ use Ibexa\CohesivoPlaywright\Fixture\ContentFixtureFactory;
 use Ibexa\CohesivoPlaywright\Fixture\IbexaPlaywrightTestCase;
 use Ibexa\CohesivoPlaywright\Page\AdminUi\ContentManagementPage;
 use Ibexa\CohesivoPlaywright\Page\AdminUi\TrashPage;
-use Ibexa\Contracts\Core\Repository\Repository;
 use PHPUnit\Framework\Attributes\Group;
 
 /**
@@ -37,7 +36,7 @@ final class TrashTest extends IbexaPlaywrightTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->fixtures = new ContentFixtureFactory(static::getContainer()->get(Repository::class));
+        $this->fixtures = new ContentFixtureFactory($this->repository());
         $this->runId = substr((string) (int) (microtime(true) * 1000), -6);
 
         [$this->trashTestContentId, $this->trashTestLocationId] = $this->fixtures->createFolder(
