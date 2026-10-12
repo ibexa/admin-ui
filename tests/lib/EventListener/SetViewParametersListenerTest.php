@@ -40,13 +40,13 @@ final class SetViewParametersListenerTest extends TestCase
 
     private SetViewParametersListener $viewParametersListener;
 
-    private LocationService&MockObject $locationService;
+    private LocationService & MockObject $locationService;
 
-    private UserService&MockObject $userService;
+    private UserService & MockObject $userService;
 
-    private Repository&MockObject $repository;
+    private Repository & MockObject $repository;
 
-    private GroupedContentFormFieldsProviderInterface&MockObject $groupedContentFormFieldsProvider;
+    private GroupedContentFormFieldsProviderInterface & MockObject $groupedContentFormFieldsProvider;
 
     public function setUp(): void
     {
@@ -302,8 +302,10 @@ final class SetViewParametersListenerTest extends TestCase
         }
     }
 
-    private function generateContentInfo(?int $mainLocationId = null, bool $published = false): API\ContentInfo
-    {
+    private function generateContentInfo(
+        ?int $mainLocationId = null,
+        bool $published = false
+    ): API\ContentInfo {
         return new API\ContentInfo([
             'mainLocationId' => $mainLocationId,
             'ownerId' => self::EXAMPLE_OWNER_ID,
@@ -319,7 +321,7 @@ final class SetViewParametersListenerTest extends TestCase
         return new VersionInfo(['contentInfo' => $contentInfo]);
     }
 
-    private function generateContent(API\VersionInfo|VersionInfo $versionInfo): API\Content
+    private function generateContent(API\VersionInfo | VersionInfo $versionInfo): API\Content
     {
         return new Core\Content(['versionInfo' => $versionInfo]);
     }
@@ -338,8 +340,11 @@ final class SetViewParametersListenerTest extends TestCase
         return new CoreUser(['content' => $content]);
     }
 
-    private function createFieldMock(string $identifier, string $type, string $fieldGroup = 'content'): MockObject|Field
-    {
+    private function createFieldMock(
+        string $identifier,
+        string $type,
+        string $fieldGroup = 'content'
+    ): MockObject | Field {
         $data = new FieldData([
             'field' => new Field([
                 'fieldDefIdentifier' => $identifier,

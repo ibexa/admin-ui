@@ -16,9 +16,9 @@ use Symfony\Component\Asset\Packages;
 
 final class ContentTypeIconResolverTest extends TestCase
 {
-    private ConfigResolverInterface&MockObject $configResolver;
+    private ConfigResolverInterface & MockObject $configResolver;
 
-    private Packages&MockObject $packages;
+    private Packages & MockObject $packages;
 
     private ContentTypeIconResolver $contentTypeIconResolver;
 
@@ -38,8 +38,11 @@ final class ContentTypeIconResolverTest extends TestCase
      *
      * @dataProvider dataProviderForGetContentTypeIcon
      */
-    public function testGetContentTypeIcon(array $config, string $identifier, string $expected): void
-    {
+    public function testGetContentTypeIcon(
+        array $config,
+        string $identifier,
+        string $expected
+    ): void {
         $this->configResolver
             ->expects(self::any())
             ->method('hasParameter')

@@ -15,6 +15,5 @@ final class URLListData extends ValueObject
     public function __construct(
         public ?string $searchQuery = null,
         public ?bool $status = null,
-    ) {
-    }
+    ) {}
 }

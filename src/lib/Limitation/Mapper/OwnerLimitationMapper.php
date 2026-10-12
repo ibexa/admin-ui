@@ -18,9 +18,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OwnerLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
-    public function __construct(private readonly TranslatorInterface $translator)
-    {
-    }
+    public function __construct(private readonly TranslatorInterface $translator) {}
 
     /**
      * @return array<int, string>

@@ -12,9 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 final class ContentTypeGroupDeleteData
 {
-    public function __construct(private ?ContentTypeGroup $contentTypeGroup = null)
-    {
-    }
+    public function __construct(private ?ContentTypeGroup $contentTypeGroup = null) {}
 
     public function getContentTypeGroup(): ?ContentTypeGroup
     {

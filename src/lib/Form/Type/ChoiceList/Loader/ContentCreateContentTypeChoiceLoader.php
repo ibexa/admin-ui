@@ -26,8 +26,7 @@ final class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterfac
     public function __construct(
         private readonly ContentTypeChoiceLoader $contentTypeChoiceLoader,
         private readonly EventDispatcherInterface $eventDispatcher
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<int> $restrictedContentTypeIds
@@ -76,10 +75,12 @@ final class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterfac
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[][]
+     * @return ContentType[][]
      */
-    public function loadChoicesForValues(array $values, ?callable $value = null): array
-    {
+    public function loadChoicesForValues(
+        array $values,
+        ?callable $value = null
+    ): array {
         // Optimize
         $values = array_filter($values);
         if (empty($values)) {
@@ -92,8 +93,10 @@ final class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterfac
     /**
      * @return array<string>
      */
-    public function loadValuesForChoices(array $choices, ?callable $value = null): array
-    {
+    public function loadValuesForChoices(
+        array $choices,
+        ?callable $value = null
+    ): array {
         // Optimize
         $choices = array_filter($choices);
         if (empty($choices)) {

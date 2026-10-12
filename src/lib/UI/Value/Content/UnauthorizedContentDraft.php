@@ -12,9 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedCo
 
 final readonly class UnauthorizedContentDraft implements ContentDraftInterface
 {
-    public function __construct(private UnauthorizedContentDraftListItem $unauthorizedContentDraft)
-    {
-    }
+    public function __construct(private UnauthorizedContentDraftListItem $unauthorizedContentDraft) {}
 
     public function getUnauthorizedContentDraft(): UnauthorizedContentDraftListItem
     {

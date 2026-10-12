@@ -21,8 +21,7 @@ final readonly class AutosaveProcessor implements EventSubscriberInterface
     public function __construct(
         private AutosaveServiceInterface $autosaveService,
         private ContentFormProcessor $innerContentFormProcessor
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

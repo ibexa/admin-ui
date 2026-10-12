@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Validator\Constraints;
 
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\ContentForms\Validator\Constraints\FieldTypeValidator;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Symfony\Component\Validator\Constraint;
 
 /**
@@ -20,12 +21,14 @@ final class ValidatorConfigurationValidator extends FieldTypeValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      *
      * @api
      */
-    public function validate(mixed $value, Constraint $constraint): void
-    {
+    public function validate(
+        mixed $value,
+        Constraint $constraint
+    ): void {
         if (!$value instanceof FieldDefinitionData) {
             return;
         }
@@ -38,8 +41,10 @@ final class ValidatorConfigurationValidator extends FieldTypeValidator
         );
     }
 
-    protected function generatePropertyPath(int $errorIndex, ?string $errorTarget): string
-    {
+    protected function generatePropertyPath(
+        int $errorIndex,
+        ?string $errorTarget
+    ): string {
         return 'defaultValue';
     }
 }

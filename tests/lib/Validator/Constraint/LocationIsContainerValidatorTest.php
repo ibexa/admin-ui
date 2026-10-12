@@ -19,13 +19,13 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class LocationIsContainerValidatorTest extends TestCase
 {
-    private ExecutionContextInterface&MockObject $executionContext;
+    private ExecutionContextInterface & MockObject $executionContext;
 
     private LocationIsContainerValidator $validator;
 
-    private Location&MockObject $location;
+    private Location & MockObject $location;
 
-    private ContentType&MockObject $contentType;
+    private ContentType & MockObject $contentType;
 
     protected function setUp(): void
     {

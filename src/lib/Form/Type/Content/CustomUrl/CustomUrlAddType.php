@@ -39,11 +39,12 @@ final class CustomUrlAddType extends AbstractType
         private readonly DisableSiteRootCheckboxIfRootLocationListener $checkboxIfRootLocationListener,
         private readonly SiteaccessResolverInterface $nonAdminSiteaccessResolver,
         private readonly SiteAccessNameGeneratorInterface $siteAccessNameGenerator
-    ) {
-    }
+    ) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $location = $options['data']->getLocation();
 
         $builder

@@ -25,11 +25,11 @@ class ContentCreateTest extends TestCase
     private const ALLOWED_LANGUAGE_CODE = 'eng-GB';
     private const ALLOWED_CONTENT_TYPE_ID = 1;
 
-    private PermissionCheckerInterface&MockObject $permissionChecker;
+    private PermissionCheckerInterface & MockObject $permissionChecker;
 
-    private ContentTypeService&MockObject $contentTypeService;
+    private ContentTypeService & MockObject $contentTypeService;
 
-    private PermissionResolver&MockObject $permissionResolver;
+    private PermissionResolver & MockObject $permissionResolver;
 
     public function setUp(): void
     {

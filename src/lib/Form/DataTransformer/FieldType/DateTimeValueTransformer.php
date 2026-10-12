@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
 use Ibexa\Core\FieldType\DateAndTime\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -18,7 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 final readonly class DateTimeValueTransformer implements DataTransformerInterface
 {
     /**
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function transform(mixed $value): ?int
     {
@@ -40,8 +41,8 @@ final readonly class DateTimeValueTransformer implements DataTransformerInterfac
     }
 
     /**
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
-     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue
+     * @throws TransformationFailedException
+     * @throws InvalidArgumentValue
      */
     public function reverseTransform(mixed $value): ?Value
     {

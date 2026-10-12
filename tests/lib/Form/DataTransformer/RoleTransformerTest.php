@@ -20,8 +20,10 @@ class RoleTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      */
-    public function testTransform(?Role $value, ?int $expected): void
-    {
+    public function testTransform(
+        ?Role $value,
+        ?int $expected
+    ): void {
         $service = $this->createMock(RoleService::class);
         $transformer = new RoleTransformer($service);
 
@@ -79,8 +81,7 @@ class RoleTransformerTest extends TestCase
 
         $service = $this->createMock(RoleService::class);
         $service->method('loadRole')
-            ->will(self::throwException(new class('Location not found') extends NotFoundException {
-            }));
+            ->will(self::throwException(new class('Location not found') extends NotFoundException {}));
 
         $transformer = new RoleTransformer($service);
 
@@ -88,7 +89,7 @@ class RoleTransformerTest extends TestCase
     }
 
     /**
-     * @return array<string, array{\Ibexa\Core\Repository\Values\User\Role|null, int|null}>
+     * @return array<string, array{Role|null, int|null}>
      */
     public function transformDataProvider(): array
     {

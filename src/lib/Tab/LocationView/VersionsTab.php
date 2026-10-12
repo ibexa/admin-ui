@@ -14,12 +14,16 @@ use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Specification\ContentIsUser;
 use Ibexa\AdminUi\Specification\UserMode\IsFocusModeEnabled;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\UI\Value\Content\VersionInfo;
 use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\User\UserSetting\UserSettingService;
 use JMS\TranslationBundle\Annotation\Desc;
@@ -66,13 +70,12 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function evaluate(array $parameters): bool
     {
-        $isFocusModeOff = IsFocusModeEnabled
-            ::fromUserSettings($this->userSettingService)
+        $isFocusModeOff = IsFocusModeEnabled::fromUserSettings($this->userSettingService)
             ->isSatisfiedBy(FocusMode::FOCUS_MODE_OFF);
 
         if ($isFocusModeOff) {
@@ -93,9 +96,9 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
 
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $contextParameters['content'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $contextParameters['location'];
 
         $draftPaginationParams = $contextParameters['draft_pagination_params'];
@@ -114,7 +117,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
             min($draftPaginationParams['page'], $draftPagerfanta->getNbPages())
         );
 
-        /** @var \Ibexa\AdminUi\UI\Value\Content\VersionInfo[] $draftVersions */
+        /** @var VersionInfo[] $draftVersions */
         $draftVersions = iterator_to_array($draftPagerfanta->getCurrentPageResults());
 
         $archivedVersions = $versionsDataset->getArchivedVersions();

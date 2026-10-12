@@ -17,8 +17,11 @@ final class Thumbnail extends ValueObjectVisitor
     /**
      * @param \Ibexa\AdminUi\REST\Value\SubItems\Thumbnail $data
      */
-    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        mixed $data
+    ): void {
         $generator->startObjectElement('Thumbnail');
 
         $generator->valueElement('uri', $data->uri);

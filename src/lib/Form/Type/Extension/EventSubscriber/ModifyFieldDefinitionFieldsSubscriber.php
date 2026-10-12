@@ -31,8 +31,7 @@ final readonly class ModifyFieldDefinitionFieldsSubscriber implements EventSubsc
         private array $fieldIdentifiers = [],
         private ?string $fieldTypeIdentifier = null,
         private ?SpecificationInterface $contentTypeSpecification = null
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

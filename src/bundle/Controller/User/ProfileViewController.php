@@ -28,8 +28,7 @@ final class ProfileViewController extends Controller
         private readonly RoleService $roleService,
         private readonly PermissionResolver $permissionResolver,
         private readonly UserProfileConfigurationInterface $configuration
-    ) {
-    }
+    ) {}
 
     public function viewAction(int $userId): Response
     {

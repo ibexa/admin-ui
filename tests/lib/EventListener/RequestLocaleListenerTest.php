@@ -29,15 +29,15 @@ final class RequestLocaleListenerTest extends TestCase
 
     private const string NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
-    private Request&MockObject $request;
+    private Request & MockObject $request;
 
-    private HttpKernelInterface&MockObject $httpKernel;
+    private HttpKernelInterface & MockObject $httpKernel;
 
-    private TranslatorInterface&MockObject $translator;
+    private TranslatorInterface & MockObject $translator;
 
-    private UserLanguagePreferenceProviderInterface&MockObject $userLanguagePreferenceProvider;
+    private UserLanguagePreferenceProviderInterface & MockObject $userLanguagePreferenceProvider;
 
-    private ConfigResolverInterface&MockObject $configResolver;
+    private ConfigResolverInterface & MockObject $configResolver;
 
     protected function setUp(): void
     {
@@ -254,7 +254,7 @@ final class RequestLocaleListenerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Symfony\Contracts\Translation\TranslatorInterface
+     * @return MockObject|TranslatorInterface
      *
      * @throws \ReflectionException
      */
@@ -269,7 +269,7 @@ final class RequestLocaleListenerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
+     * @return MockObject|Request
      */
     private function requestWithSetLocaleExpectsNever(): MockObject
     {

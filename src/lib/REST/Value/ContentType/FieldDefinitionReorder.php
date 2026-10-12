@@ -15,7 +15,5 @@ final class FieldDefinitionReorder extends RestValue
     /**
      * @param string[] $fieldDefinitionIdentifiers
      */
-    public function __construct(public readonly array $fieldDefinitionIdentifiers = [])
-    {
-    }
+    public function __construct(public readonly array $fieldDefinitionIdentifiers = []) {}
 }

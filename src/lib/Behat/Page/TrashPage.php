@@ -24,7 +24,7 @@ final class TrashPage extends Page
 {
     private TableInterface $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\TrashSearch */
+    /** @var TrashSearch */
     private TrashSearch $trashSearch;
 
     public function __construct(
@@ -42,8 +42,10 @@ final class TrashPage extends Page
         $this->trashSearch = $trashSearch;
     }
 
-    public function hasElement(string $itemType, string $itemName): bool
-    {
+    public function hasElement(
+        string $itemType,
+        string $itemName
+    ): bool {
         return $this->table->hasElement(['Name' => $itemName, 'Content type' => $itemType]);
     }
 

@@ -10,6 +10,7 @@ namespace Ibexa\Tests\AdminUi\Form\Data;
 
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\ConstraintViolation;
@@ -18,12 +19,12 @@ use Symfony\Component\Validator\Validation;
 abstract class AbstractFormDataValidationTestCase extends TypeTestCase
 {
     /**
-     * @phpstan-return iterable<string, array{array<string, mixed>, \Ibexa\Tests\AdminUi\Form\Data\FormErrorDataTestWrapper[]}>
+     * @phpstan-return iterable<string, array{array<string, mixed>, FormErrorDataTestWrapper[]}>
      */
     abstract public static function getDataForTestFormSubmitValidation(): iterable;
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<mixed>
+     * @return FormInterface<mixed>
      */
     abstract protected function getForm(): FormInterface;
 
@@ -32,10 +33,12 @@ abstract class AbstractFormDataValidationTestCase extends TypeTestCase
      *
      * @param array<mixed> $formData
      *
-     * @phpstan-param \Ibexa\Tests\AdminUi\Form\Data\FormErrorDataTestWrapper[] $expectedFormErrors
+     * @phpstan-param FormErrorDataTestWrapper[] $expectedFormErrors
      */
-    final public function testFormSubmitValidation(array $formData, array $expectedFormErrors): void
-    {
+    final public function testFormSubmitValidation(
+        array $formData,
+        array $expectedFormErrors
+    ): void {
         $form = $this->getForm();
 
         $form->submit($formData);
@@ -52,9 +55,9 @@ abstract class AbstractFormDataValidationTestCase extends TypeTestCase
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      *
-     * @return \Ibexa\Tests\AdminUi\Form\Data\FormErrorDataTestWrapper[]
+     * @return FormErrorDataTestWrapper[]
      */
     private function mapFormErrors(FormInterface $form): array
     {
@@ -80,7 +83,7 @@ abstract class AbstractFormDataValidationTestCase extends TypeTestCase
     }
 
     /**
-     * @return list<\Symfony\Component\Form\FormExtensionInterface>
+     * @return list<FormExtensionInterface>
      */
     protected function getExtensions(): array
     {

@@ -16,9 +16,7 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 class ParentDepthLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
-    public function __construct(private readonly int $maxDepth)
-    {
-    }
+    public function __construct(private readonly int $maxDepth) {}
 
     /**
      * @return mixed[]

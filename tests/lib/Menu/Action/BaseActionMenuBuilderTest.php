@@ -49,15 +49,15 @@ abstract class BaseActionMenuBuilderTest extends TestCase
 
     protected MenuItemFactoryInterface $menuItemFactory;
 
-    protected MockObject&EventDispatcherInterface $eventDispatcher;
+    protected MockObject & EventDispatcherInterface $eventDispatcher;
 
-    protected MockObject&ContentService $contentService;
+    protected MockObject & ContentService $contentService;
 
-    protected MockObject&TranslatorInterface $translator;
+    protected MockObject & TranslatorInterface $translator;
 
-    protected MockObject&UrlGeneratorInterface $urlGenerator;
+    protected MockObject & UrlGeneratorInterface $urlGenerator;
 
-    protected MockObject&UserService $userService;
+    protected MockObject & UserService $userService;
 
     protected function setUp(): void
     {
@@ -116,7 +116,10 @@ abstract class BaseActionMenuBuilderTest extends TestCase
         $this->urlGenerator
             ->method('generate')
             ->willReturnCallback(
-                function (string $routeName, array $parameters): ?string {
+                function (
+                    string $routeName,
+                    array $parameters
+                ): ?string {
                     if ($routeName === self::ROUTE_VERSION_HAS_NO_CONFLICT) {
                         return $this->getUrl('/version/has-no-conflict/%d/%d/%s', $parameters);
                     }

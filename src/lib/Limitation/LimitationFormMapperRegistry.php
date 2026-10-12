@@ -13,7 +13,7 @@ use InvalidArgumentException;
 
 final class LimitationFormMapperRegistry implements LimitationFormMapperRegistryInterface
 {
-    /** @var \Ibexa\AdminUi\Limitation\LimitationFormMapperInterface[] */
+    /** @var LimitationFormMapperInterface[] */
     private array $limitationFormMappers = [];
 
     public function getMappers(): array
@@ -21,15 +21,17 @@ final class LimitationFormMapperRegistry implements LimitationFormMapperRegistry
         return $this->limitationFormMappers;
     }
 
-    public function addMapper(LimitationFormMapperInterface $mapper, string $limitationIdentifier): void
-    {
+    public function addMapper(
+        LimitationFormMapperInterface $mapper,
+        string $limitationIdentifier
+    ): void {
         $this->limitationFormMappers[$limitationIdentifier] = $mapper;
     }
 
     /**
      * Returns mapper corresponding to given Limitation identifier.
      *
-     * @throws \InvalidArgumentException if no mapper exists for $fieldTypeIdentifier
+     * @throws InvalidArgumentException if no mapper exists for $fieldTypeIdentifier
      */
     public function getMapper(string $limitationIdentifier): LimitationFormMapperInterface
     {

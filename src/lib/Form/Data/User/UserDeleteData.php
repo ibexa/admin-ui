@@ -12,9 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 final class UserDeleteData
 {
-    public function __construct(private ?ContentInfo $contentInfo = null)
-    {
-    }
+    public function __construct(private ?ContentInfo $contentInfo = null) {}
 
     public function getContentInfo(): ?ContentInfo
     {

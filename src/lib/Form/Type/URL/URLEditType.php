@@ -20,8 +20,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class URLEditType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->add('url', TextType::class)
             ->add('save_and_close', SubmitType::class);
     }

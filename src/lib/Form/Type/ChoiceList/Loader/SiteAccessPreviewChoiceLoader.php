@@ -21,8 +21,7 @@ final class SiteAccessPreviewChoiceLoader extends BaseChoiceLoader
         private readonly int $contentId,
         private readonly string $languageCode,
         private readonly int $versionNo
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, string>

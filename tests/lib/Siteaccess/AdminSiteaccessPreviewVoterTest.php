@@ -23,9 +23,9 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
 {
     private const string LANGUAGE_CODE = 'eng-GB';
 
-    private ConfigResolverInterface&MockObject $configResolver;
+    private ConfigResolverInterface & MockObject $configResolver;
 
-    private RepositoryConfigurationProviderInterface&MockObject $repositoryConfigurationProvider;
+    private RepositoryConfigurationProviderInterface & MockObject $repositoryConfigurationProvider;
 
     private AdminSiteaccessPreviewVoter $adminSiteaccessPreviewVoter;
 
@@ -150,7 +150,7 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
     }
 
     /**
-     * @return array<int, array{0: \Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterContext}>
+     * @return array<int, array{0: SiteaccessPreviewVoterContext}>
      */
     public function dataProviderForSiteaccessPreviewVoterContext(): array
     {

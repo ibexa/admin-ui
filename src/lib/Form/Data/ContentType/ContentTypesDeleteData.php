@@ -16,9 +16,7 @@ class ContentTypesDeleteData
     /**
      * @param array<int, false> $contentTypes
      */
-    public function __construct(protected array $contentTypes = [])
-    {
-    }
+    public function __construct(protected array $contentTypes = []) {}
 
     /**
      * @return array<int, false>

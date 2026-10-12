@@ -16,9 +16,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class CanHaveDrafts implements TrashLocationOptionProvider
 {
-    public function __construct(private TranslatorInterface $translator)
-    {
-    }
+    public function __construct(private TranslatorInterface $translator) {}
 
     public function supports(Location $location): bool
     {

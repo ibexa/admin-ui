@@ -29,8 +29,7 @@ final readonly class ContentTypeMappings implements ProviderInterface
         private array $defaultMappings,
         private array $fallbackContentType,
         private mixed $maxFileSize
-    ) {
-    }
+    ) {}
 
     /**
      * Returns configuration structure compatible with AdminUI.

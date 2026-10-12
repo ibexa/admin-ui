@@ -28,8 +28,7 @@ final class FormatIntervalExtension extends AbstractExtension implements Transla
 
     public function __construct(
         private readonly TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     public function getFilters(): array
     {

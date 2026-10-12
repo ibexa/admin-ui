@@ -24,15 +24,15 @@ final readonly class SortFieldMappings implements ProviderInterface
     public function getConfig(): array
     {
         return [
-           'PATH' => 'LocationPath',
-           'PUBLISHED' => 'DatePublished',
-           'MODIFIED' => 'DateModified',
-           'SECTION' => 'SectionIdentifier',
-           'DEPTH' => 'LocationDepth',
-           'PRIORITY' => 'LocationPriority',
-           'NAME' => 'ContentName',
-           'NODE_ID' => 'LocationId',
-           'CONTENTOBJECT_ID' => 'ContentId',
+            'PATH' => 'LocationPath',
+            'PUBLISHED' => 'DatePublished',
+            'MODIFIED' => 'DateModified',
+            'SECTION' => 'SectionIdentifier',
+            'DEPTH' => 'LocationDepth',
+            'PRIORITY' => 'LocationPriority',
+            'NAME' => 'ContentName',
+            'NODE_ID' => 'LocationId',
+            'CONTENTOBJECT_ID' => 'ContentId',
         ];
     }
 }

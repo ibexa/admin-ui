@@ -16,8 +16,7 @@ abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterI
     public function __construct(
         protected readonly ConfigResolverInterface $configResolver,
         protected readonly RepositoryConfigurationProviderInterface $repositoryConfigurationProvider
-    ) {
-    }
+    ) {}
 
     public function vote(SiteaccessPreviewVoterContext $context): bool
     {

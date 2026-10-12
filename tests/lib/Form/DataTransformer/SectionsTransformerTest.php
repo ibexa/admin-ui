@@ -10,6 +10,7 @@ namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
 use Ibexa\AdminUi\Form\DataTransformer\SectionsTransformer;
 use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section as APISection;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -19,8 +20,10 @@ class SectionsTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      */
-    public function testTransform(mixed $value, ?string $expected): void
-    {
+    public function testTransform(
+        mixed $value,
+        ?string $expected
+    ): void {
         $service = $this->createMock(SectionService::class);
         $transformer = new SectionsTransformer($service);
 
@@ -75,7 +78,7 @@ class SectionsTransformerTest extends TestCase
     }
 
     /**
-     * @return array<string, array{\Ibexa\Contracts\Core\Repository\Values\Content\Section[]|string|null, string|null}>
+     * @return array<string, array{Section[]|string|null, string|null}>
      */
     public function transformDataProvider(): array
     {

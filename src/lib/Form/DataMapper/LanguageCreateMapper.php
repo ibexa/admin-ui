@@ -22,9 +22,9 @@ final readonly class LanguageCreateMapper implements DataMapperInterface
     /**
      * Maps given LanguageCreateStruct object to a LanguageCreateData object.
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function map(ValueObject|LanguageCreateStruct $value): LanguageCreateData
+    public function map(ValueObject | LanguageCreateStruct $value): LanguageCreateData
     {
         if (!$value instanceof LanguageCreateStruct) {
             throw new InvalidArgumentException(
@@ -44,7 +44,7 @@ final readonly class LanguageCreateMapper implements DataMapperInterface
     /**
      * Maps given LanguageCreateData object to a LanguageCreateStruct object.
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function reverseMap(mixed $data): LanguageCreateStruct
     {

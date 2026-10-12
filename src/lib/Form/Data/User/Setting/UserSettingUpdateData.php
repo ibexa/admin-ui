@@ -16,8 +16,7 @@ final class UserSettingUpdateData
         #[Assert\NotBlank]
         private ?string $identifier = null,
         private ?string $value = null
-    ) {
-    }
+    ) {}
 
     public function getIdentifier(): ?string
     {

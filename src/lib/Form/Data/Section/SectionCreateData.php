@@ -23,8 +23,7 @@ final class SectionCreateData implements TranslationContainerInterface
         private ?string $identifier = null,
         #[Assert\NotBlank]
         private ?string $name = null
-    ) {
-    }
+    ) {}
 
     public function getIdentifier(): ?string
     {

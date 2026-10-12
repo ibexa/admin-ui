@@ -21,8 +21,7 @@ class VersionRemoveData
     public function __construct(
         protected ?ContentInfo $contentInfo = null,
         protected ?array $versions = []
-    ) {
-    }
+    ) {}
 
     public function getContentInfo(): ?ContentInfo
     {

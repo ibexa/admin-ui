@@ -36,7 +36,7 @@ final class UserEditRightSidebarBuilder extends AbstractBuilder implements Trans
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $menu->setChildren([
@@ -64,7 +64,7 @@ final class UserEditRightSidebarBuilder extends AbstractBuilder implements Trans
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

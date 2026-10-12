@@ -28,8 +28,10 @@ abstract class BaseChoiceLoader implements ChoiceLoaderInterface
         return new ArrayChoiceList($this->getChoiceList(), $value);
     }
 
-    public function loadChoicesForValues(array $values, ?callable $value = null): array
-    {
+    public function loadChoicesForValues(
+        array $values,
+        ?callable $value = null
+    ): array {
         // Optimize
         $values = array_filter($values);
         if (empty($values)) {
@@ -39,8 +41,10 @@ abstract class BaseChoiceLoader implements ChoiceLoaderInterface
         return $this->loadChoiceList($value)->getChoicesForValues($values);
     }
 
-    public function loadValuesForChoices(array $choices, ?callable $value = null): array
-    {
+    public function loadValuesForChoices(
+        array $choices,
+        ?callable $value = null
+    ): array {
         // Optimize
         $choices = array_filter($choices);
         if (empty($choices)) {

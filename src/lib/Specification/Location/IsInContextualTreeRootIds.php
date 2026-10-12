@@ -14,9 +14,7 @@ use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 final class IsInContextualTreeRootIds extends AbstractSpecification
 {
-    public function __construct(private readonly ConfigResolverInterface $configResolver)
-    {
-    }
+    public function __construct(private readonly ConfigResolverInterface $configResolver) {}
 
     /**
      * @param Location $item

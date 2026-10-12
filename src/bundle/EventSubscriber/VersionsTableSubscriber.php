@@ -46,8 +46,7 @@ final readonly class VersionsTableSubscriber implements EventSubscriberInterface
 
     public function __construct(
         private Environment $twig
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<class-string, string>
@@ -122,8 +121,12 @@ final readonly class VersionsTableSubscriber implements EventSubscriberInterface
         );
     }
 
-    private function addTextColumn(Table $component, TemplateWrapper $template, string $name, int $priority): void
-    {
+    private function addTextColumn(
+        Table $component,
+        TemplateWrapper $template,
+        string $name,
+        int $priority
+    ): void {
         $component->addColumn(
             $name,
             static fn (): string => $template->renderBlock($name . '_header'),

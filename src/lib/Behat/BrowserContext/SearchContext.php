@@ -18,8 +18,7 @@ final readonly class SearchContext implements Context
     public function __construct(
         private SearchPage $searchPage,
         private UpperMenu $upperMenu
-    ) {
-    }
+    ) {}
 
     /**
      * @When I search for a Content named :contentItemName

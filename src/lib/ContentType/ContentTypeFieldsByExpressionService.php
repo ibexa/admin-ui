@@ -23,8 +23,7 @@ final readonly class ContentTypeFieldsByExpressionService implements ContentType
         private ContentTypeHandler $contentTypeHandler,
         private ContentTypeDomainMapper $contentTypeDomainMapper,
         private ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     public function getFieldsFromExpression(
         string $expression,

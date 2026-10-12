@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
 use Ibexa\Contracts\Core\Repository\FieldType;
 use Ibexa\Core\FieldType\Value;
+use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
  * Base transformer for binary file based field types.
@@ -22,8 +23,7 @@ abstract class AbstractBinaryBaseTransformer
         protected FieldType $fieldType,
         protected Value $initialValue,
         protected string $valueClass
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, false|null>
@@ -39,7 +39,7 @@ abstract class AbstractBinaryBaseTransformer
     /**
      * @param array<string, mixed> $value
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function getReverseTransformedValue(array $value): mixed
     {

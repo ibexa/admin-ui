@@ -21,8 +21,7 @@ final readonly class GlobalSearchTwigComponent implements ComponentInterface
         private Environment $twig,
         private FormFactoryInterface $formFactory,
         private UrlGeneratorInterface $urlGenerator
-    ) {
-    }
+    ) {}
 
     public function render(array $parameters = []): string
     {

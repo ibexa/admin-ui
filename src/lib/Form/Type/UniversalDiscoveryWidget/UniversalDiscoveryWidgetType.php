@@ -23,8 +23,10 @@ class UniversalDiscoveryWidgetType extends AbstractType
     public const string TAB_BROWSE = 'browse';
     public const string TAB_SEARCH = 'search';
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add('location', LocationType::class, [
                 'attr' => ['hidden' => true],
@@ -38,8 +40,11 @@ class UniversalDiscoveryWidgetType extends AbstractType
             ->addModelTransformer($this->getDataTransformer());
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options): void
-    {
+    public function finishView(
+        FormView $view,
+        FormInterface $form,
+        array $options
+    ): void {
         $selectContentButtonView = $view->offsetGet('select_content');
 
         if (!empty($options['title'])) {

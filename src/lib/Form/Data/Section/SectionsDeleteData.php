@@ -24,7 +24,7 @@ final class SectionsDeleteData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null
+     * @return Section[]|null
      */
     public function getSections(): ?array
     {
@@ -32,7 +32,7 @@ final class SectionsDeleteData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null $sections
+     * @param Section[]|null $sections
      */
     public function setSections(?array $sections): void
     {

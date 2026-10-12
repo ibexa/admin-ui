@@ -32,8 +32,7 @@ final readonly class LimitationResolver implements LimitationResolverInterface
         private LocationService $locationService,
         private LookupLimitationsTransformer $lookupLimitationsTransformer,
         private PermissionResolver $permissionResolver
-    ) {
-    }
+    ) {}
 
     public function getContentCreateLimitations(Location $parentLocation): LookupLimitationResult
     {

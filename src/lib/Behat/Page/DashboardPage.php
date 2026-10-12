@@ -34,8 +34,10 @@ class DashboardPage extends Page
             ->build();
     }
 
-    public function switchTab(string $tableName, string $tabName): void
-    {
+    public function switchTab(
+        string $tableName,
+        string $tabName
+    ): void {
         if ($this->getActiveTabName($tableName) == $tabName) {
             return;
         }

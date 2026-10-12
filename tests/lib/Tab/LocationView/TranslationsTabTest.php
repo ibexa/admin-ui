@@ -194,7 +194,7 @@ final class TranslationsTabTest extends TestCase
     }
 
     /**
-     * @return FormInterface<mixed>&\PHPUnit\Framework\MockObject\MockObject
+     * @return FormInterface<mixed>&MockObject
      */
     private function createFormMock(): FormInterface
     {

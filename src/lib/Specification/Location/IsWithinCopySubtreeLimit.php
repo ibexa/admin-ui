@@ -20,11 +20,10 @@ final class IsWithinCopySubtreeLimit extends AbstractSpecification
     public function __construct(
         private readonly int $copyLimit,
         private readonly LocationService $locationService
-    ) {
-    }
+    ) {}
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
+     * @param Location $item
      */
     public function isSatisfiedBy(mixed $item): bool
     {

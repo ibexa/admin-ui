@@ -33,7 +33,7 @@ final class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder impleme
     {
         $groupId = $options['group_id'];
 
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $createItem = $this->createMenuItem(
@@ -63,7 +63,7 @@ final class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder impleme
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

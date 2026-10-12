@@ -19,9 +19,7 @@ final readonly class FlashBagNotificationHandler implements NotificationHandlerI
     private const string TYPE_WARNING = 'warning';
     private const string TYPE_ERROR = 'error';
 
-    public function __construct(private RequestStack $requestStack)
-    {
-    }
+    public function __construct(private RequestStack $requestStack) {}
 
     public function info(string $message): void
     {

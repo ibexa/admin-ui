@@ -33,8 +33,7 @@ final readonly class CredentialsExpirationWarningListener implements EventSubscr
         private UrlGeneratorInterface $urlGenerator,
         private UserService $userService,
         private array $siteAccessGroups
-    ) {
-    }
+    ) {}
 
     public function onAuthenticationSuccess(InteractiveLoginEvent $event): void
     {

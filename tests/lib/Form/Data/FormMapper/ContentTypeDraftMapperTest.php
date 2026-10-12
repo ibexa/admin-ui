@@ -39,13 +39,13 @@ final class ContentTypeDraftMapperTest extends TestCase
 
     private FormDataMapperInterface $contentTypeDraftMapper;
 
-    private ContentTypeFieldTypesResolverInterface&MockObject $contentTypeFieldTypesResolver;
+    private ContentTypeFieldTypesResolverInterface & MockObject $contentTypeFieldTypesResolver;
 
-    private ContentTypeService&MockObject $contentTypeService;
+    private ContentTypeService & MockObject $contentTypeService;
 
-    private EventDispatcherInterface&MockObject $eventDispatcher;
+    private EventDispatcherInterface & MockObject $eventDispatcher;
 
-    private FieldsGroupsList&MockObject $fieldsGroupsList;
+    private FieldsGroupsList & MockObject $fieldsGroupsList;
 
     protected function setUp(): void
     {
@@ -159,7 +159,7 @@ final class ContentTypeDraftMapperTest extends TestCase
     /**
      * @param array<string, array{
      *     'identifier': string,
-     *     'defaultValue': ?\Ibexa\Contracts\Core\Repository\Values\ValueObject,
+     *     'defaultValue': ?ValueObject,
      *     'name': string,
      *     'position': int,
      * }> $fieldDefinitionsConfig
@@ -205,7 +205,7 @@ final class ContentTypeDraftMapperTest extends TestCase
     }
 
     /**
-     * @return \Ibexa\AdminUi\Form\Data\FieldDefinitionData[]
+     * @return FieldDefinitionData[]
      */
     private function createFieldDefinitionsData(
         FieldDefinitionCollectionInterface $fieldDefinitionCollection,
@@ -278,8 +278,10 @@ final class ContentTypeDraftMapperTest extends TestCase
             );
     }
 
-    private function mockContentTypeServiceLoadContentType(int $contentTypeId, ContentType $contentType): void
-    {
+    private function mockContentTypeServiceLoadContentType(
+        int $contentTypeId,
+        ContentType $contentType
+    ): void {
         $this->contentTypeService
             ->expects(self::once())
             ->method('loadContentType')
@@ -293,7 +295,10 @@ final class ContentTypeDraftMapperTest extends TestCase
             ->method('dispatch')
             ->with(self::isInstanceOf(FieldDefinitionMappingEvent::class), FieldDefinitionMappingEvent::NAME)
             ->willReturnCallback(
-                static function (FieldDefinitionMappingEvent $event, string $eventName): Event {
+                static function (
+                    FieldDefinitionMappingEvent $event,
+                    string $eventName
+                ): Event {
                     $fieldDefinitionData = $event->getFieldDefinitionData();
                     $fieldDefinition = $event->getFieldDefinition();
 

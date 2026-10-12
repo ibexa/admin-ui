@@ -19,7 +19,7 @@ final class VersionHasConflictTest extends TestCase
 {
     public function testVersionWithStatusDraft(): void
     {
-        /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $contentServiceMock */
+        /** @var ContentService|MockObject $contentServiceMock */
         $contentServiceMock = $this->createMock(ContentService::class);
         $contentServiceMock
             ->method('loadVersions')
@@ -73,8 +73,11 @@ final class VersionHasConflictTest extends TestCase
         );
     }
 
-    private function createVersionInfo(bool $isPublished = false, int $versionNo = 1, string $languageCode = 'eng-GB'): MockObject&VersionInfo
-    {
+    private function createVersionInfo(
+        bool $isPublished = false,
+        int $versionNo = 1,
+        string $languageCode = 'eng-GB'
+    ): MockObject & VersionInfo {
         $contentInfo = $this->createMock(ContentInfo::class);
 
         $versionInfo = $this->getMockForAbstractClass(

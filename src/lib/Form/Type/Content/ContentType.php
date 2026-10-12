@@ -19,12 +19,12 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class ContentType extends AbstractType
 {
-    public function __construct(protected readonly ContentService $contentService)
-    {
-    }
+    public function __construct(protected readonly ContentService $contentService) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->addViewTransformer(new ContentTransformer($this->contentService));
     }
 

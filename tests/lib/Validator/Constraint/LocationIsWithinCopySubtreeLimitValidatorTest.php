@@ -24,13 +24,13 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
 {
     private const COPY_LIMIT = 10;
 
-    private LocationService&MockObject $locationService;
+    private LocationService & MockObject $locationService;
 
-    private ExecutionContextInterface&MockObject $executionContext;
+    private ExecutionContextInterface & MockObject $executionContext;
 
     private LocationIsWithinCopySubtreeLimitValidator $validator;
 
-    private Location&MockObject $location;
+    private Location & MockObject $location;
 
     protected function setUp(): void
     {

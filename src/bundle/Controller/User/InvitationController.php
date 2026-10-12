@@ -35,8 +35,7 @@ final readonly class InvitationController
         private TranslatableNotificationHandlerInterface $notificationHandler,
         private SiteAccessServiceInterface $siteAccessService,
         private UrlGeneratorInterface $urlGenerator
-    ) {
-    }
+    ) {}
 
     public function sendInvitationsAction(
         int $userGroupId,

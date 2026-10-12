@@ -19,9 +19,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class RequestListenerTest extends TestCase
 {
-    private Request&MockObject $request;
+    private Request & MockObject $request;
 
-    private HttpKernelInterface&MockObject $httpKernel;
+    private HttpKernelInterface & MockObject $httpKernel;
 
     private RequestListener $requestListener;
 

@@ -14,9 +14,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ImageAssetAllowedContentTypes implements EventSubscriberInterface
 {
-    public function __construct(private AssetMapper $assetMapper)
-    {
-    }
+    public function __construct(private AssetMapper $assetMapper) {}
 
     public static function getSubscribedEvents(): array
     {

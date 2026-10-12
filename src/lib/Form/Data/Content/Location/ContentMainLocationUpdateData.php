@@ -22,8 +22,7 @@ class ContentMainLocationUpdateData
         public ?ContentInfo $contentInfo = null,
         #[Assert\NotBlank]
         public ?Location $location = null
-    ) {
-    }
+    ) {}
 
     public function getContentInfo(): ?ContentInfo
     {

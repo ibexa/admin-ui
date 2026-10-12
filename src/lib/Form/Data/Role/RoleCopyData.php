@@ -15,8 +15,7 @@ final class RoleCopyData
     public function __construct(
         private Role $copiedRole,
         private ?string $newIdentifier = null
-    ) {
-    }
+    ) {}
 
     public function getCopiedRole(): Role
     {

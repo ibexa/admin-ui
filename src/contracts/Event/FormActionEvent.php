@@ -20,7 +20,7 @@ final class FormActionEvent extends FormEvent
     private ?Response $response = null;
 
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      * @param array<string, mixed> $options
      * @param array<mixed> $payloads additional payloads populated for event listeners next in priority
      */
@@ -51,8 +51,10 @@ final class FormActionEvent extends FormEvent
      * @param string $optionName The option name
      * @param mixed $defaultValue default value to return if option is not set
      */
-    public function getOption(string $optionName, mixed $defaultValue = null): mixed
-    {
+    public function getOption(
+        string $optionName,
+        mixed $defaultValue = null
+    ): mixed {
         return $this->options[$optionName] ?? $defaultValue;
     }
 
@@ -102,8 +104,10 @@ final class FormActionEvent extends FormEvent
         return $this->payloads[$name];
     }
 
-    public function setPayload(string $name, mixed $payload): void
-    {
+    public function setPayload(
+        string $name,
+        mixed $payload
+    ): void {
         $this->payloads[$name] = $payload;
     }
 }
