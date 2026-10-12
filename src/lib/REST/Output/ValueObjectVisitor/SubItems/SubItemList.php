@@ -18,8 +18,11 @@ final class SubItemList extends ValueObjectVisitor
     /**
      * @param \Ibexa\AdminUi\REST\Value\SubItems\SubItemList $data
      */
-    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        mixed $data
+    ): void {
         $generator->startObjectElement('SubItems');
         $visitor->setHeader('Content-Type', $generator->getMediaType('SubItemList'));
         $visitor->setStatus(Response::HTTP_OK);

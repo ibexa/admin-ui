@@ -20,8 +20,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class TrashItemDeleteType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->add('trash_items', CollectionType::class, [
             'entry_type' => TrashItemCheckboxType::class,
             'entry_options' => [

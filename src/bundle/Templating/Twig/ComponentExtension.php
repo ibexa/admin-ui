@@ -19,8 +19,7 @@ final class ComponentExtension extends AbstractExtension
     public function __construct(
         private readonly ComponentRegistry $registry,
         private readonly RendererInterface $renderer
-    ) {
-    }
+    ) {}
 
     public function getFunctions(): array
     {
@@ -47,22 +46,27 @@ final class ComponentExtension extends AbstractExtension
     /**
      * @param array<string, mixed> $parameters
      */
-    public function renderComponentGroup(string $group, array $parameters = []): string
-    {
+    public function renderComponentGroup(
+        string $group,
+        array $parameters = []
+    ): string {
         return implode('', $this->renderer->renderGroup($group, $parameters));
     }
 
     /**
      * @param array<string, mixed> $parameters
      */
-    public function renderComponent(string $group, string $id, array $parameters = []): string
-    {
+    public function renderComponent(
+        string $group,
+        string $id,
+        array $parameters = []
+    ): string {
         return $this->renderer->renderSingle($group, $id, $parameters);
     }
 
     /**
      * @return array{
-     *     deprecation_info: \Twig\DeprecatedCallableInfo
+     *     deprecation_info: DeprecatedCallableInfo
      * }
      */
     private function getDeprecationOptions(string $newFunction): array

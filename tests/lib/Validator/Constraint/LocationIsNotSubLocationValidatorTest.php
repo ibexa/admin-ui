@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class LocationIsNotSubLocationValidatorTest extends TestCase
 {
-    private ExecutionContextInterface&MockObject $executionContext;
+    private ExecutionContextInterface & MockObject $executionContext;
 
     private LocationIsNotSubLocationValidator $validator;
 

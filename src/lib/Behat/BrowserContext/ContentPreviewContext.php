@@ -13,9 +13,7 @@ use Ibexa\AdminUi\Behat\Page\ContentPreviewPage;
 
 final readonly class ContentPreviewContext implements Context
 {
-    public function __construct(private ContentPreviewPage $contentPreviewPage)
-    {
-    }
+    public function __construct(private ContentPreviewPage $contentPreviewPage) {}
 
     /**
      * @When I go to :viewName preview

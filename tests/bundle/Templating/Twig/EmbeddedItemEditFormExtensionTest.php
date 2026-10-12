@@ -65,7 +65,7 @@ final class EmbeddedItemEditFormExtensionTest extends IntegrationTestCase
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<mixed>
+     * @return FormInterface<mixed>
      */
     private function createEditForm(): FormInterface
     {

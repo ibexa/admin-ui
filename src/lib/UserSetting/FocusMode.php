@@ -28,8 +28,7 @@ final readonly class FocusMode implements ValueDefinitionInterface, FormMapperIn
     public function __construct(
         private ConfigResolverInterface $configResolver,
         private TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     public function getName(): string
     {

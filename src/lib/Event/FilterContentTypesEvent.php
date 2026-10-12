@@ -20,8 +20,7 @@ final class FilterContentTypesEvent extends Event
      */
     public function __construct(
         private array $contentTypeGroups
-    ) {
-    }
+    ) {}
 
     /**
      * @phpstan-return array<string, array<TContentTypeData>>

@@ -20,9 +20,7 @@ final readonly class RequestListener implements EventSubscriberInterface
     /**
      * @param array<mixed> $groupsBySiteAccess
      */
-    public function __construct(private array $groupsBySiteAccess)
-    {
-    }
+    public function __construct(private array $groupsBySiteAccess) {}
 
     /**
      * Returns an array of event names this subscriber wants to listen to.

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\View\Template;
 
 use Pagerfanta\View\Template\TwitterBootstrap4Template;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
 
 /**
  * Template to customize Pagerfanta pagination.
@@ -16,7 +17,7 @@ use Pagerfanta\View\Template\TwitterBootstrap4Template;
 final class IbexaPagerfantaTemplate extends TwitterBootstrap4Template
 {
     /**
-     * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __construct()
     {

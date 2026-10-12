@@ -14,9 +14,7 @@ use Ibexa\Behat\Browser\Locator\LocatorCollection;
 
 final readonly class TableRowFactory
 {
-    public function __construct(private Session $session)
-    {
-    }
+    public function __construct(private Session $session) {}
 
     public function createRow(
         ElementInterface $element,

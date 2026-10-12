@@ -10,6 +10,4 @@ namespace Ibexa\AdminUi\Exception;
 
 use RuntimeException;
 
-final class FieldTypeExpressionParserException extends RuntimeException
-{
-}
+final class FieldTypeExpressionParserException extends RuntimeException {}

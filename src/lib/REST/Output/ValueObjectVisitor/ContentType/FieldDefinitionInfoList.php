@@ -17,8 +17,11 @@ final class FieldDefinitionInfoList extends RestContentTypeBase
     /**
      * @param \Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionInfoList $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data): void
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        $data
+    ): void {
         $fieldDefinitionList = $data;
 
         $generator->startObjectElement('FieldDefinitions', 'FieldDefinitionInfoList');

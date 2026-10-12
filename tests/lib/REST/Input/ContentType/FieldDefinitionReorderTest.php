@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 final class FieldDefinitionReorderTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionReorder */
+    /** @var FieldDefinitionReorder */
     private FieldDefinitionReorder $parser;
 
     protected function setUp(): void

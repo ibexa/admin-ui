@@ -21,8 +21,7 @@ class UserPreferencesGlobalExtension extends AbstractExtension implements Global
 {
     public function __construct(
         private readonly UserSettingArrayAccessor $userSettingArrayAccessor
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, \ArrayAccess<string, mixed>>

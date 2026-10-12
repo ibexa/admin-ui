@@ -23,16 +23,17 @@ final readonly class HasChildren implements TrashLocationOptionProvider
         private LocationService $locationService,
         private TranslatorInterface $translator,
         private ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     public function supports(Location $location): bool
     {
         return (new HasChildrenSpec($this->locationService))->isSatisfiedBy($location);
     }
 
-    public function addOptions(FormInterface $form, Location $location): void
-    {
+    public function addOptions(
+        FormInterface $form,
+        Location $location
+    ): void {
         $limit = (int) $this->configResolver->getParameter('subtree_operations.query_subtree.limit');
 
         $useLimit = $limit > 0;

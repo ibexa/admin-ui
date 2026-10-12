@@ -8,20 +8,20 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Language;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+
 /**
  * @todo Add validation
  */
 class LanguagesDeleteData
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languages
+     * @param Language[] $languages
      */
-    public function __construct(protected array $languages = [])
-    {
-    }
+    public function __construct(protected array $languages = []) {}
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     public function getLanguages(): array
     {
@@ -29,7 +29,7 @@ class LanguagesDeleteData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languages
+     * @param Language[] $languages
      */
     public function setLanguages(array $languages): void
     {

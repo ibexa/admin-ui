@@ -23,8 +23,7 @@ class ContentEditData
         protected ?VersionInfo $versionInfo = null,
         protected ?Language $language = null,
         protected ?Location $location = null
-    ) {
-    }
+    ) {}
 
     public function getLocation(): ?Location
     {

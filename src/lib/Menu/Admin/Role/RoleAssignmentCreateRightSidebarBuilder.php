@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Menu\Admin\Role;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -31,10 +32,10 @@ final class RoleAssignmentCreateRightSidebarBuilder extends AbstractBuilder impl
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role $role */
+        /** @var Role $role */
         $role = $options['role'];
 
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $menu->setChildren([
@@ -63,7 +64,7 @@ final class RoleAssignmentCreateRightSidebarBuilder extends AbstractBuilder impl
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

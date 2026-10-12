@@ -16,6 +16,7 @@ use Ibexa\AdminUi\Tab\LocationView\TranslationsTab;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Core\Helper\TranslationHelper;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -30,8 +31,7 @@ final class TranslationController extends Controller
         private readonly FormFactory $formFactory,
         private readonly SubmitHandler $submitHandler,
         private readonly TranslationHelper $translationHelper
-    ) {
-    }
+    ) {}
 
     public function addAction(Request $request): Response
     {
@@ -39,7 +39,7 @@ final class TranslationController extends Controller
         $form = $this->formFactory->addTranslation(null, $formName);
         $form->handleRequest($request);
 
-        /** @var \Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData $data */
+        /** @var TranslationAddData $data */
         $data = $form->getData();
         $location = $data->getLocation();
 
@@ -78,7 +78,7 @@ final class TranslationController extends Controller
         $form = $this->formFactory->deleteTranslation();
         $form->handleRequest($request);
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo */
+        /** @var ContentInfo $contentInfo */
         $contentInfo = $form->getData()->getContentInfo();
 
         if ($form->isSubmitted()) {

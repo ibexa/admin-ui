@@ -22,9 +22,9 @@ final readonly class RoleUpdateMapper implements DataMapperInterface
     /**
      * Maps given RoleUpdateStruct object to a RoleUpdateData object.
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function map(ValueObject|RoleUpdateStruct $value): RoleUpdateData
+    public function map(ValueObject | RoleUpdateStruct $value): RoleUpdateData
     {
         if (!$value instanceof RoleUpdateStruct) {
             throw new InvalidArgumentException(

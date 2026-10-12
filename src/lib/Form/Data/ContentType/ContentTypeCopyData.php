@@ -16,8 +16,7 @@ final class ContentTypeCopyData
     public function __construct(
         private ?ContentType $contentType,
         private ?ContentTypeGroup $contentTypeGroup
-    ) {
-    }
+    ) {}
 
     public function getContentType(): ?ContentType
     {

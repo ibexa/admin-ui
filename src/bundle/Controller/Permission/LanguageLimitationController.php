@@ -24,8 +24,7 @@ final class LanguageLimitationController extends Controller
         private readonly ContentService $contentService,
         private readonly LimitationResolverInterface $limitationResolver,
         private readonly LocationService $locationService
-    ) {
-    }
+    ) {}
 
     public function loadLanguageLimitationsForContentCreateAction(Location $location): Response
     {

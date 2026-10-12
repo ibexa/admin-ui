@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Processor\ContentType;
 
+use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\Contracts\AdminUi\Event\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -21,8 +22,7 @@ final readonly class ContentTypeDiscardChangesFormProcessor implements EventSubs
 {
     public function __construct(
         private UrlGeneratorInterface $urlGenerator
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -33,7 +33,7 @@ final readonly class ContentTypeDiscardChangesFormProcessor implements EventSubs
 
     public function processDiscardChanges(FormActionEvent $event): void
     {
-        /** @var \Ibexa\AdminUi\Form\Data\ContentTypeData $data */
+        /** @var ContentTypeData $data */
         $data = $event->getData();
         $contentTypeDraft = $data->contentTypeDraft;
 

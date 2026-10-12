@@ -19,9 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final readonly class LanguageTransformer implements DataTransformerInterface
 {
-    public function __construct(private LanguageService $languageService)
-    {
-    }
+    public function __construct(private LanguageService $languageService) {}
 
     public function transform(mixed $value): ?string
     {
@@ -37,7 +35,7 @@ final readonly class LanguageTransformer implements DataTransformerInterface
     }
 
     /**
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the value can not be found
+     * @throws TransformationFailedException if the value can not be found
      */
     public function reverseTransform(mixed $value): ?Language
     {

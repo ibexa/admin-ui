@@ -23,8 +23,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class TranslationDeleteType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add(
                 'content_info',

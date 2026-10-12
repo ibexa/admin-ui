@@ -15,7 +15,10 @@ use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\LimitationValueMapperPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\TabPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\UiConfigProviderPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface;
+use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Exception\LogicException;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class IbexaAdminUiBundle extends Bundle
@@ -23,11 +26,11 @@ final class IbexaAdminUiBundle extends Bundle
     public const string ADMIN_GROUP_NAME = 'admin_group';
 
     /**
-     * @throws \Symfony\Component\DependencyInjection\Exception\LogicException
+     * @throws LogicException
      */
     public function build(ContainerBuilder $container): void
     {
-        /** @var \Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension $core */
+        /** @var IbexaCoreExtension $core */
         $core = $container->getExtension('ibexa');
 
         $configParsers = $this->getConfigParsers();
@@ -49,7 +52,7 @@ final class IbexaAdminUiBundle extends Bundle
     }
 
     /**
-     * @return \Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface[]
+     * @return ParserInterface[]
      */
     private function getConfigParsers(): array
     {

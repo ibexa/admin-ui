@@ -36,8 +36,10 @@ final class RoleUpdatePage extends AdminUpdateItemPage
     /**
      * @param string[] $values
      */
-    public function selectLimitationValues(string $selectName, array $values): void
-    {
+    public function selectLimitationValues(
+        string $selectName,
+        array $values
+    ): void {
         try {
             $currentlySelectedElementsCount = $this->getHTMLPage()
                 ->findAll($this->getLocator('limitationField'))
@@ -96,8 +98,10 @@ final class RoleUpdatePage extends AdminUpdateItemPage
     /**
      * @param array<string> $itemPaths
      */
-    public function assign(array $itemPaths, string $itemType): void
-    {
+    public function assign(
+        array $itemPaths,
+        string $itemType
+    ): void {
         $itemTypeToLabelMapping = [
             'users' => 'Select Users',
             'groups' => 'Select User Groups',

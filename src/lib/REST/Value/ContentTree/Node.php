@@ -13,7 +13,7 @@ use Ibexa\Rest\Value as RestValue;
 final class Node extends RestValue
 {
     /**
-     * @param array<\Ibexa\AdminUi\REST\Value\ContentTree\Node> $children
+     * @param array<Node> $children
      */
     public function __construct(
         public int $locationId,
@@ -31,6 +31,5 @@ final class Node extends RestValue
         public string $mainLanguageCode,
         public array $children = [],
         public string $pathString = ''
-    ) {
-    }
+    ) {}
 }

@@ -15,8 +15,10 @@ use Ibexa\Rest\Input\BaseParser;
 
 final class FieldDefinitionCreate extends BaseParser
 {
-    public function parse(array $data, ParsingDispatcher $parsingDispatcher): FieldDefinitionCreateValue
-    {
+    public function parse(
+        array $data,
+        ParsingDispatcher $parsingDispatcher
+    ): FieldDefinitionCreateValue {
         if (!array_key_exists('fieldTypeIdentifier', $data)) {
             throw new Exceptions\Parser(
                 sprintf("Missing or invalid 'fieldTypeIdentifier' property for %s.", FieldDefinitionCreateValue::class)

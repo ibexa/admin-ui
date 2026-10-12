@@ -33,8 +33,7 @@ final class SiteAccessChoiceType extends AbstractType
         private readonly SiteaccessResolverInterface $siteAccessResolver,
         private readonly SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
         private readonly UrlGeneratorInterface $urlGenerator
-    ) {
-    }
+    ) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

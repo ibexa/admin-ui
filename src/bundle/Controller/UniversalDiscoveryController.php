@@ -20,8 +20,7 @@ final class UniversalDiscoveryController extends Controller
 {
     public function __construct(
         private readonly Provider $provider
-    ) {
-    }
+    ) {}
 
     public function locationsAction(Request $request): LocationListData
     {

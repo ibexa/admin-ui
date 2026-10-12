@@ -48,8 +48,11 @@ final class ContentTypeFieldsByExpression extends AbstractParser
     /**
      * @param array<string,mixed> $scopeSettings
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
+    public function mapConfig(
+        array &$scopeSettings,
+        $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (!isset($scopeSettings['content_type_field_type_groups'])) {
             return;
         }

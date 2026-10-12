@@ -20,7 +20,7 @@ final class RoleValueResolverTest extends TestCase
 {
     private RoleValueResolver $resolver;
 
-    private MockObject&RoleService $roleService;
+    private MockObject & RoleService $roleService;
 
     protected function setUp(): void
     {
@@ -57,8 +57,10 @@ final class RoleValueResolverTest extends TestCase
      *
      * @param array<string, mixed> $attributes
      */
-    public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
-    {
+    public function testResolveInvalidAttributes(
+        array $attributes,
+        string $expectedMessage
+    ): void {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);
         $argumentMetadata->method('getType')
             ->willReturn(Role::class);

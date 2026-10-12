@@ -8,12 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification\Location;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 final class IsRoot extends AbstractSpecification
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
+     * @param Location $item
      */
     public function isSatisfiedBy(mixed $item): bool
     {

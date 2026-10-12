@@ -12,9 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
 final class RoleData
 {
-    public function __construct(private ?string $identifier = null)
-    {
-    }
+    public function __construct(private ?string $identifier = null) {}
 
     public function getIdentifier(): ?string
     {

@@ -21,19 +21,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class TrashItemCheckboxType extends AbstractType
 {
-    public function __construct(private readonly TrashService $trashService)
-    {
-    }
+    public function __construct(private readonly TrashService $trashService) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->addModelTransformer(
             new TrashItemTransformer($this->trashService)
         );
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
+    public function buildView(
+        FormView $view,
+        FormInterface $form,
+        array $options
+    ): void {
         $view->vars = array_replace($view->vars, [
             'value' => $form->getViewData(),
             'checked' => false,

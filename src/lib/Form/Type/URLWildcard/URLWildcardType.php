@@ -22,8 +22,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class URLWildcardType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add('destination_url', TextType::class, [
                 'label' => /** @Desc("Destination URL") */ 'url_wildcard.create.identifier',

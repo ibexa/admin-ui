@@ -11,17 +11,25 @@ namespace Ibexa\AdminUi\Form\Processor\Content;
 use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\ContentForms\Form\Processor\ContentFormProcessor;
 use Ibexa\Contracts\AdminUi\Event\ContentOnTheFlyEvents;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 final readonly class ContentOnTheFlyProcessor implements EventSubscriberInterface
 {
     public function __construct(
         private Environment $twig,
         private ContentFormProcessor $innerContentFormProcessor
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -32,21 +40,21 @@ final readonly class ContentOnTheFlyProcessor implements EventSubscriberInterfac
     }
 
     /**
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     * @throws BadStateException
+     * @throws ContentFieldValidationException
+     * @throws ContentValidationException
+     * @throws InvalidArgumentException
+     * @throws UnauthorizedException
      */
     public function processCreatePublish(FormActionEvent $event): void
     {
         // Rely on Content Form Processor from ContentForms to avoid unncessary code duplication
         $this->innerContentFormProcessor->processPublish($event);
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $event->getPayload('content');
         $referrerLocation = $event->getOption('referrerLocation');
         $locationId = $referrerLocation
@@ -68,7 +76,7 @@ final readonly class ContentOnTheFlyProcessor implements EventSubscriberInterfac
         // Rely on Content Form Processor from ContentForms to avoid unncessary code duplication
         $this->innerContentFormProcessor->processPublish($event);
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $event->getPayload('content');
         $referrerLocation = $event->getOption('referrerLocation');
         $locationId = $referrerLocation

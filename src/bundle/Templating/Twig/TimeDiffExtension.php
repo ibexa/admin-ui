@@ -18,8 +18,7 @@ final class TimeDiffExtension extends AbstractExtension
 {
     public function __construct(
         private readonly DateTimeFormatter $dateTimeFormatter
-    ) {
-    }
+    ) {}
 
     public function getFilters(): array
     {
@@ -32,8 +31,10 @@ final class TimeDiffExtension extends AbstractExtension
         ];
     }
 
-    public function diff(DateTimeInterface $from, ?DateTimeInterface $to = null): string
-    {
+    public function diff(
+        DateTimeInterface $from,
+        ?DateTimeInterface $to = null
+    ): string {
         return $this->dateTimeFormatter->formatDiff($from, $to ?? new DateTime());
     }
 }

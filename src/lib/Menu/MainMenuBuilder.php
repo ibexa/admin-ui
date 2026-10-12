@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Specification\UserMode\IsFocusModeEnabled;
 use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\User\UserSetting\UserSettingService;
@@ -155,13 +156,13 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     /**
      * @param array<string, mixed> $options
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface
     {
         $token = $this->tokenStorage->getToken();
 
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->createMenuItem('root');
 
         $contentMenu = $menu->addChild(self::ITEM_CONTENT, [
@@ -250,7 +251,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function addContentMenuItems(ItemInterface $menu): void
     {
@@ -319,7 +320,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function addAdminMenuItems(ItemInterface $menu): void
     {

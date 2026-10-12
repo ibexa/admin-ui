@@ -19,9 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final readonly class ObjectStateTransformer implements DataTransformerInterface
 {
-    public function __construct(private ObjectStateService $objectStateService)
-    {
-    }
+    public function __construct(private ObjectStateService $objectStateService) {}
 
     public function transform(mixed $value): ?int
     {

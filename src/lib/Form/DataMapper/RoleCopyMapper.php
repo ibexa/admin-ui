@@ -22,9 +22,9 @@ final readonly class RoleCopyMapper implements DataMapperInterface
     /**
      * Maps given RoleCopyStruct object to a RoleCopyData object.
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function map(ValueObject|RoleCopyStruct $value): RoleCopyData
+    public function map(ValueObject | RoleCopyStruct $value): RoleCopyData
     {
         if (!$value instanceof RoleCopyStruct) {
             throw new InvalidArgumentException('value', 'must be an instance of ' . RoleCopyStruct::class);
@@ -36,7 +36,7 @@ final readonly class RoleCopyMapper implements DataMapperInterface
     /**
      * Maps given RoleCopyData object to a RoleCopyStruct object.
      *
-     * @param \Ibexa\AdminUi\Form\Data\Role\RoleCopyData $data
+     * @param RoleCopyData $data
      */
     public function reverseMap(mixed $data): RoleCopyStruct
     {

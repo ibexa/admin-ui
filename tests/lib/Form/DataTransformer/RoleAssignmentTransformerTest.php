@@ -12,7 +12,6 @@ use Ibexa\AdminUi\Form\DataTransformer\RoleAssignmentTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Core\Repository\Values\User\UserRoleAssignment;
-use Ibexa\Core\Repository\Values\User\UserRoleAssignment as RoleAssignment;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -21,8 +20,10 @@ class RoleAssignmentTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      */
-    public function testTransform(?UserRoleAssignment $value, ?int $expected): void
-    {
+    public function testTransform(
+        ?UserRoleAssignment $value,
+        ?int $expected
+    ): void {
         $service = $this->createMock(RoleService::class);
         $transformer = new RoleAssignmentTransformer($service);
 
@@ -37,13 +38,13 @@ class RoleAssignmentTransformerTest extends TestCase
         $service->expects(self::once())
             ->method('loadRoleAssignment')
             ->with(123456)
-            ->willReturn(new RoleAssignment(['id' => 123456]));
+            ->willReturn(new UserRoleAssignment(['id' => 123456]));
 
         $transformer = new RoleAssignmentTransformer($service);
 
         $result = $transformer->reverseTransform(123456);
 
-        self::assertEquals(new RoleAssignment(['id' => 123456]), $result);
+        self::assertEquals(new UserRoleAssignment(['id' => 123456]), $result);
     }
 
     public function testReverseTransformWithNull(): void
@@ -78,8 +79,7 @@ class RoleAssignmentTransformerTest extends TestCase
     {
         $service = $this->createMock(RoleService::class);
         $service->method('loadRoleAssignment')
-            ->will(self::throwException(new class('Location not found') extends NotFoundException {
-            }));
+            ->will(self::throwException(new class('Location not found') extends NotFoundException {}));
 
         $transformer = new RoleAssignmentTransformer($service);
 
@@ -94,7 +94,7 @@ class RoleAssignmentTransformerTest extends TestCase
      */
     public function transformDataProvider(): array
     {
-        $transform = new RoleAssignment(['id' => 123456]);
+        $transform = new UserRoleAssignment(['id' => 123456]);
 
         return [
             'with_id' => [$transform, 123456],

@@ -26,10 +26,13 @@ interface LimitationFormMapperInterface
      * - Add a "limitationValues" form field
      * - OR add field(s) that map to "limitationValues" property from $data.
      *
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form form for current Limitation
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $data underlying data for current Limitation form
+     * @param FormInterface<mixed> $form form for current Limitation
+     * @param Limitation $data underlying data for current Limitation form
      */
-    public function mapLimitationForm(FormInterface $form, Limitation $data): void;
+    public function mapLimitationForm(
+        FormInterface $form,
+        Limitation $data
+    ): void;
 
     /**
      * Returns the Twig template to use to render the limitation form.

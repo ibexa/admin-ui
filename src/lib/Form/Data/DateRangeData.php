@@ -15,8 +15,7 @@ final class DateRangeData
     public function __construct(
         private ?DateTimeInterface $min = null,
         private ?DateTimeInterface $max = null
-    ) {
-    }
+    ) {}
 
     public function isEmpty(): bool
     {

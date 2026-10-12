@@ -81,7 +81,7 @@ final class NotificationsViewAllPage extends Page
         $actualCount = $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('notificationsTotalCount'))->getAttribute('data-notifications-total');
 
         if ($actualCount !== (string)$expectedCount) {
-            throw new \Exception(sprintf(
+            throw new Exception(sprintf(
                 'Expected notification count %d, but got %s.',
                 $expectedCount,
                 $actualCount

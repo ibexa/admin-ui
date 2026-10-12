@@ -10,7 +10,7 @@ namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
 use Ibexa\AdminUi\Form\DataTransformer\SectionsTransformer;
 use Ibexa\Contracts\Core\Repository\SectionService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Section as APISection;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -19,8 +19,10 @@ class SectionsTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      */
-    public function testTransform(mixed $value, ?string $expected): void
-    {
+    public function testTransform(
+        mixed $value,
+        ?string $expected
+    ): void {
         $service = $this->createMock(SectionService::class);
         $transformer = new SectionsTransformer($service);
 
@@ -35,14 +37,14 @@ class SectionsTransformerTest extends TestCase
         $service->expects(self::exactly(2))
             ->method('loadSection')
             ->willReturnMap([
-                [123456, new APISection(['id' => 123456])],
-                [456789, new APISection(['id' => 456789])],
+                [123456, new Section(['id' => 123456])],
+                [456789, new Section(['id' => 456789])],
             ]);
 
         $transformer = new SectionsTransformer($service);
         $result = $transformer->reverseTransform('123456,456789');
 
-        self::assertEquals([new APISection(['id' => 123456]), new APISection(['id' => 456789])], $result);
+        self::assertEquals([new Section(['id' => 123456]), new Section(['id' => 456789])], $result);
     }
 
     /**
@@ -75,12 +77,12 @@ class SectionsTransformerTest extends TestCase
     }
 
     /**
-     * @return array<string, array{\Ibexa\Contracts\Core\Repository\Values\Content\Section[]|string|null, string|null}>
+     * @return array<string, array{Section[]|string|null, string|null}>
      */
     public function transformDataProvider(): array
     {
-        $sectionA = new APISection(['id' => 123456]);
-        $sectionB = new APISection(['id' => 456789]);
+        $sectionA = new Section(['id' => 123456]);
+        $sectionB = new Section(['id' => 456789]);
 
         return [
             'with_array_of_ids' => [[$sectionA, $sectionB], '123456,456789'],

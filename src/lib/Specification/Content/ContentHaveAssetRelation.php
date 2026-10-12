@@ -10,19 +10,18 @@ namespace Ibexa\AdminUi\Specification\Content;
 
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\RelationType;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 final class ContentHaveAssetRelation extends AbstractSpecification
 {
-    public function __construct(private readonly ContentService $contentService)
-    {
-    }
+    public function __construct(private readonly ContentService $contentService) {}
 
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws BadStateException
      */
     public function isSatisfiedBy(mixed $item): bool
     {

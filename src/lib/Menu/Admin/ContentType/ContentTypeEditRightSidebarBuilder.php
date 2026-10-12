@@ -29,7 +29,7 @@ final class ContentTypeEditRightSidebarBuilder extends AbstractContentTypeRightS
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Form\Data\Section\SectionCreateData;
 use Ibexa\AdminUi\Form\Type\Section\SectionCreateType;
 use Ibexa\AdminUi\Form\Type\Section\SectionType;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormTypeInterface;
 
 /**
  * @covers \Ibexa\AdminUi\Form\Type\Section\SectionCreateType
@@ -20,7 +21,7 @@ use Symfony\Component\Form\FormInterface;
 final class SectionCreateDataValidationTest extends AbstractSectionMutationDataValidationTestCase
 {
     /**
-     * @return array<string, \Symfony\Component\Form\FormTypeInterface<mixed>>
+     * @return array<string, FormTypeInterface<mixed>>
      */
     protected function getTypes(): array
     {

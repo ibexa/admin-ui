@@ -17,5 +17,9 @@ interface ApplicationConfigRestGeneratorInterface
 
     public function supportsParameter(string $parameterName): bool;
 
-    public function generate(mixed $parameter, Generator $generator, Visitor $visitor): void;
+    public function generate(
+        mixed $parameter,
+        Generator $generator,
+        Visitor $visitor
+    ): void;
 }

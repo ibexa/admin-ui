@@ -22,8 +22,7 @@ final readonly class RedirectToDashboardListener implements EventSubscriberInter
      */
     public function __construct(
         private array $siteAccessGroups
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

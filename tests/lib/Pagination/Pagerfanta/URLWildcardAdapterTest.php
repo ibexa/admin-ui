@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 final class URLWildcardAdapterTest extends TestCase
 {
-    private URLWildcardService&MockObject $urlWildcardService;
+    private URLWildcardService & MockObject $urlWildcardService;
 
     protected function setUp(): void
     {
@@ -81,7 +81,7 @@ final class URLWildcardAdapterTest extends TestCase
     }
 
     /**
-     * @return  \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard[]
+     * @return  URLWildcard[]
      */
     public function urlWildcards(): array
     {

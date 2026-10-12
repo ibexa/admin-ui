@@ -91,7 +91,7 @@ class DisableSiteRootCheckboxIfRootLocationListenerTest extends TestCase
             ->willReturn(2);
 
         $data = new CustomUrlAddData($location);
-              $form = $this->createMock(FormInterface::class);
+        $form = $this->createMock(FormInterface::class);
 
         $form
             ->expects(self::never())

@@ -22,8 +22,7 @@ final class ContentValueResolver extends AbstractValueResolver
 
     public function __construct(
         private readonly ContentService $contentService
-    ) {
-    }
+    ) {}
 
     protected function getRequestAttributes(): array
     {

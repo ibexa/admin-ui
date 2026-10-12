@@ -20,7 +20,7 @@ final class SourceLanguageValueResolverTest extends TestCase
 {
     private SourceLanguageValueResolver $resolver;
 
-    private MockObject&LanguageService $languageService;
+    private MockObject & LanguageService $languageService;
 
     protected function setUp(): void
     {
@@ -57,8 +57,10 @@ final class SourceLanguageValueResolverTest extends TestCase
      *
      * @param array<string, mixed> $attributes
      */
-    public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
-    {
+    public function testResolveInvalidAttributes(
+        array $attributes,
+        string $expectedMessage
+    ): void {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);
         $argumentMetadata->method('getType')
             ->willReturn(Language::class);

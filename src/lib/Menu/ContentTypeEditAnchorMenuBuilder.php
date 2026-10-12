@@ -44,7 +44,7 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         /** @var \Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft */
@@ -82,7 +82,7 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
     }
 
     /**
-     * @return array<\Knp\Menu\ItemInterface>
+     * @return array<ItemInterface>
      */
     private function getMetaFieldItems(ContentTypeDraft $contentType): array
     {
@@ -122,7 +122,7 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
     }
 
     /**
-     * @return array<\JMS\TranslationBundle\Model\Message>
+     * @return array<Message>
      */
     public static function getTranslationMessages(): array
     {

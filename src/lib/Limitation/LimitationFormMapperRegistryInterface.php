@@ -14,7 +14,7 @@ namespace Ibexa\AdminUi\Limitation;
 interface LimitationFormMapperRegistryInterface
 {
     /**
-     * @return \Ibexa\AdminUi\Limitation\LimitationFormMapperInterface[]
+     * @return LimitationFormMapperInterface[]
      */
     public function getMappers(): array;
 
@@ -27,5 +27,8 @@ interface LimitationFormMapperRegistryInterface
 
     public function hasMapper(string $limitationIdentifier): bool;
 
-    public function addMapper(LimitationFormMapperInterface $mapper, string $limitationIdentifier): void;
+    public function addMapper(
+        LimitationFormMapperInterface $mapper,
+        string $limitationIdentifier
+    ): void;
 }

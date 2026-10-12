@@ -16,6 +16,7 @@ use Ibexa\AdminUi\Form\Type\URLWildcard\URLWildcardType;
 use Ibexa\AdminUi\Pagination\Pagerfanta\URLWildcardAdapter;
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\URLWildcardService;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
@@ -30,6 +31,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
 {
@@ -66,10 +70,10 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
     }
 
     /**
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     * @throws InvalidArgumentException
      */
     public function renderView(array $parameters): string
     {

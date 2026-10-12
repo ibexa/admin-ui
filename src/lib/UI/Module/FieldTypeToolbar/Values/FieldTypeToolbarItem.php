@@ -14,8 +14,7 @@ final readonly class FieldTypeToolbarItem
         private string $identifier,
         private string $name,
         private bool $isSingular = false
-    ) {
-    }
+    ) {}
 
     public function getIdentifier(): string
     {

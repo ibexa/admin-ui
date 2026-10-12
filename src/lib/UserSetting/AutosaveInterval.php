@@ -23,8 +23,7 @@ final readonly class AutosaveInterval implements ValueDefinitionInterface, FormM
     public function __construct(
         private TranslatorInterface $translator,
         private ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     public function getName(): string
     {

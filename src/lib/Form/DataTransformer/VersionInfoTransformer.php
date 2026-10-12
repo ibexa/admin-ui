@@ -21,12 +21,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final readonly class VersionInfoTransformer implements DataTransformerInterface
 {
-    public function __construct(private ContentService $contentService)
-    {
-    }
+    public function __construct(private ContentService $contentService) {}
 
     /**
-     * @phpstan-return array{content_info: \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo, version_no: int}|null
+     * @phpstan-return array{content_info: ContentInfo, version_no: int}|null
      */
     public function transform(mixed $value): ?array
     {

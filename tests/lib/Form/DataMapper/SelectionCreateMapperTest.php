@@ -86,7 +86,7 @@ final class SelectionCreateMapperTest extends TestCase
     /**
      * @param array<string, mixed> $properties
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct
+     * @return SectionCreateStruct
      */
     private function createStruct(array $properties): SectionCreateStruct
     {
@@ -96,7 +96,7 @@ final class SelectionCreateMapperTest extends TestCase
     /**
      * @param array<string, mixed> $properties
      *
-     * @return \Ibexa\AdminUi\Form\Data\Section\SectionCreateData
+     * @return SectionCreateData
      */
     private function createData(array $properties): SectionCreateData
     {

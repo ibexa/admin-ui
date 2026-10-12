@@ -18,12 +18,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final readonly class UserGroupCollectionTransformer implements DataTransformerInterface
 {
-    public function __construct(private UserService $userService)
-    {
-    }
+    public function __construct(private UserService $userService) {}
 
     /**
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function transform(mixed $value): ?string
     {
@@ -37,7 +35,7 @@ final readonly class UserGroupCollectionTransformer implements DataTransformerIn
     /**
      * @return array<mixed>
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not an integer
+     * @throws TransformationFailedException if the given value is not an integer
      *                                                                         or if the value can not be transformed
      */
     public function reverseTransform(mixed $value): array

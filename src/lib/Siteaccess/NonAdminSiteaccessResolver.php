@@ -24,11 +24,10 @@ readonly class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
     public function __construct(
         private SiteaccessResolver $siteaccessResolver,
         private array $siteAccessGroups
-    ) {
-    }
+    ) {}
 
     /**
-     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
+     * @return SiteAccess[]
      */
     public function getSiteAccessesListForLocation(
         Location $location,

@@ -11,9 +11,11 @@ namespace Ibexa\AdminUi\UI\Dataset;
 use Ibexa\AdminUi\UI\Value as UIValue;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Iterator\BatchIterator;
 use Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter\RelationListIteratorAdapter;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
 use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem;
 
 final class RelationsDataset
@@ -33,7 +35,7 @@ final class RelationsDataset
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      */
     public function load(Content $content): self
     {
@@ -48,7 +50,7 @@ final class RelationsDataset
 
         foreach ($relationListIterator as $relationItem) {
             if ($relationItem->hasRelation()) {
-                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Relation $relation */
+                /** @var Relation $relation */
                 $relation = $relationItem->getRelation();
                 $this->relations[] = $this->valueFactory->createRelationItem(
                     new RelationListItem($relation),

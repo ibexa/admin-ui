@@ -23,9 +23,9 @@ final readonly class SectionUpdateMapper implements DataMapperInterface
     /**
      * Maps given SectionUpdateStruct object to a SectionUpdateData object.
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function map(ValueObject|SectionUpdateStruct $value): SectionUpdateData
+    public function map(ValueObject | SectionUpdateStruct $value): SectionUpdateData
     {
         if (!$value instanceof SectionUpdateStruct) {
             throw new InvalidArgumentException('value', 'must be an instance of ' . SectionUpdateStruct::class);
@@ -42,7 +42,7 @@ final readonly class SectionUpdateMapper implements DataMapperInterface
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function reverseMap(mixed $data): SectionUpdateStruct
     {

@@ -21,8 +21,7 @@ final class NotificationTwigStrategy
     public function __construct(
         private readonly Repository $repository,
         private readonly ContentService $contentService
-    ) {
-    }
+    ) {}
 
     public function setDefault(string $defaultTemplate): void
     {
@@ -30,7 +29,7 @@ final class NotificationTwigStrategy
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\NoValidResultException
+     * @throws NoValidResultException
      */
     public function decide(mixed $contentId): string
     {

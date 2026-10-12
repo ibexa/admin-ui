@@ -20,8 +20,7 @@ final class URLWildcardValueResolver extends AbstractValueResolver
 
     public function __construct(
         private readonly URLWildcardService $urlWildcardService
-    ) {
-    }
+    ) {}
 
     protected function getRequestAttributes(): array
     {

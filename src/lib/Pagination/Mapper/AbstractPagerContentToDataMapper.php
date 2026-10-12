@@ -16,6 +16,7 @@ use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Helper\TranslationHelper;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
@@ -28,11 +29,10 @@ abstract readonly class AbstractPagerContentToDataMapper
         private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
         protected TranslationHelper $translationHelper,
         private LanguageService $languageService
-    ) {
-    }
+    ) {}
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     protected function getAvailableTranslations(
         Content $content,
@@ -72,8 +72,10 @@ abstract readonly class AbstractPagerContentToDataMapper
      * @param array<int, mixed> $data
      * @param int[] $contentTypeIds
      */
-    protected function setTranslatedContentTypesNames(array &$data, array $contentTypeIds): void
-    {
+    protected function setTranslatedContentTypesNames(
+        array &$data,
+        array $contentTypeIds
+    ): void {
         // load list of content types with proper translated names
         $contentTypes = $this->contentTypeService->loadContentTypeList(
             array_unique($contentTypeIds),
@@ -83,7 +85,7 @@ abstract readonly class AbstractPagerContentToDataMapper
         foreach ($data as $idx => $item) {
             // get content type from bulk-loaded list or fallback to lazy loaded one if not present
             $contentTypeId = $item['contentTypeId'];
-            /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+            /** @var ContentType $contentType */
             $contentType = $contentTypes[$contentTypeId] ?? $item['content']->getContentType();
 
             $data[$idx]['type'] = $contentType->getName();

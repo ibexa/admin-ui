@@ -19,8 +19,10 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 final class BookmarkRemoveType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add(
                 'bookmarks',

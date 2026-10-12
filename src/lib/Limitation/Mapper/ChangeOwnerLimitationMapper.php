@@ -26,8 +26,7 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
 
     public function __construct(
         private readonly TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     /**
      * @return int[]
@@ -38,10 +37,12 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      */
-    public function mapLimitationForm(FormInterface $form, Limitation $data): void
-    {
+    public function mapLimitationForm(
+        FormInterface $form,
+        Limitation $data
+    ): void {
         $options = [
             'multiple' => true,
             'expanded' => false,
@@ -58,9 +59,7 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
         return $this->formTemplate;
     }
 
-    public function filterLimitationValues(Limitation $limitation): void
-    {
-    }
+    public function filterLimitationValues(Limitation $limitation): void {}
 
     /**
      * @return array<int, string>

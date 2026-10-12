@@ -10,10 +10,13 @@ namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\DataMapper\ContentMainLocationUpdateMapper;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,7 +24,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class ContentMainLocationUpdateMapperTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var LocationService&MockObject */
     private LocationService $locationService;
 
     private ContentMainLocationUpdateMapper $mapper;
@@ -34,8 +37,8 @@ final class ContentMainLocationUpdateMapperTest extends TestCase
 
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function testMapWithMainLocationId(): void
     {
@@ -56,9 +59,9 @@ final class ContentMainLocationUpdateMapperTest extends TestCase
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      */
     public function testMapWithNullMainLocationId(): void
     {
@@ -75,8 +78,8 @@ final class ContentMainLocationUpdateMapperTest extends TestCase
 
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function testMapThrowsOnInvalidValueObject(): void
     {
