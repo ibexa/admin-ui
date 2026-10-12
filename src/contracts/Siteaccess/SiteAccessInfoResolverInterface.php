@@ -14,7 +14,7 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
  * Resolves how a SiteAccess is presented to back office users.
  *
  * Packages that provide SiteAccesses (e.g. Site Factory) contribute richer information through
- * tagged {@see \Ibexa\Contracts\AdminUi\Siteaccess\SiteAccessInfoProviderInterface} services.
+ * tagged {@see SiteAccessInfoProviderInterface} services.
  */
 interface SiteAccessInfoResolverInterface
 {

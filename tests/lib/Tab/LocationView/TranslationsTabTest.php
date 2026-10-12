@@ -128,7 +128,7 @@ final class TranslationsTabTest extends TestCase
         $versionInfo = $this->content->getVersionInfo();
 
         $this->translationsDataset
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('load')
             ->with($versionInfo)
             ->willReturnSelf();
@@ -140,7 +140,7 @@ final class TranslationsTabTest extends TestCase
             ->willReturn([]);
 
         $this->datasetFactory
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('translations')
             ->willReturn($this->translationsDataset);
     }
@@ -148,14 +148,14 @@ final class TranslationsTabTest extends TestCase
     private function configureForms(): void
     {
         $this->formFactory
-            ->expects(self::exactly(2))
+            ->expects($this->exactly(2))
             ->method('createNamed')
             ->willReturnOnConsecutiveCalls(
                 $this->createFormMock(),
                 $this->createFormMock()
             );
         $this->formFactory
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('create')
             ->willReturn($this->createFormMock());
     }
@@ -163,12 +163,12 @@ final class TranslationsTabTest extends TestCase
     private function configurePermissions(): void
     {
         $this->permissionResolver
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('canUser')
             ->willReturn(true);
 
         $this->languageService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLanguages')
             ->willReturn([]);
     }

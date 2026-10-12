@@ -49,7 +49,7 @@ class SectionLimitationMapperTest extends TestCase
         }
 
         $this->sectionServiceMock
-            ->expects(self::exactly(count($values)))
+            ->expects($this->exactly(count($values)))
             ->method('loadSection')
             ->willReturnCallback(static function (int $sectionId) use ($sectionsById): Section {
                 self::assertArrayHasKey($sectionId, $sectionsById);
@@ -69,13 +69,13 @@ class SectionLimitationMapperTest extends TestCase
         $values = [self::EXAMPLE_SECTION_ID];
 
         $this->sectionServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadSection')
             ->with($values[0])
             ->willThrowException(self::createStub(NotFoundException::class));
 
         $this->logger
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('error')
             ->with('Could not map the Limitation value: could not find a Section with ID ' . $values[0]);
 

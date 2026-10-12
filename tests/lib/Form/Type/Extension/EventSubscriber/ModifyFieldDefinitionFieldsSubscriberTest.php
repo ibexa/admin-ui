@@ -111,13 +111,13 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
     private function mockFormGet(string $identifier): void
     {
         $this->form
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('has')
             ->with($identifier)
             ->willReturn(true);
 
         $this->form
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('get')
             ->with($identifier)
             ->willReturn($this->form);
@@ -126,7 +126,7 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
     private function mockFormGetName(string $identifier): void
     {
         $this->form
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getName')
             ->willReturn($identifier);
     }
@@ -134,7 +134,7 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
     private function mockFormGetConfig(): void
     {
         $this->form
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getConfig')
             ->willReturn($this->formBuilder);
     }
@@ -145,7 +145,7 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
     private function mockFormBuilderGetOptions(array $options): void
     {
         $this->formBuilder
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getOptions')
             ->willReturn($options);
     }
@@ -153,7 +153,7 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
     private function mockFormRemove(string $identifier): void
     {
         $this->form
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('remove')
             ->with($identifier)
             ->willReturn($this->form);
@@ -167,7 +167,7 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
         array $options
     ): void {
         $this->form
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('add')
             ->with(
                 $identifier,

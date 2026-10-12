@@ -49,7 +49,7 @@ class LanguageTypeLimitationMapperTest extends TestCase
         }
 
         $this->languageService
-            ->expects(self::exactly(count($values)))
+            ->expects($this->exactly(count($values)))
             ->method('loadLanguage')
             ->willReturnCallback(static function (string $languageCode) use ($languagesByCode): Language {
                 self::assertArrayHasKey($languageCode, $languagesByCode);
@@ -69,13 +69,13 @@ class LanguageTypeLimitationMapperTest extends TestCase
         $values = ['foo'];
 
         $this->languageService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLanguage')
             ->with($values[0])
             ->willThrowException(self::createStub(NotFoundException::class));
 
         $this->logger
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('error')
             ->with('Could not map the Limitation value: could not find a language with code foo');
 

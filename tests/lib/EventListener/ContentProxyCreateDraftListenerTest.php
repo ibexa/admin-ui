@@ -215,17 +215,17 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
 
         $contentService = $this->createMock(ContentService::class);
         $contentService
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('createContent');
 
         $createEvent = $this->createMock(ContentProxyCreateEvent::class);
         $createEvent
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('setResponse');
 
         $createOnTheFlyEvent = $this->createMock(ContentProxyCreateEvent::class);
         $createOnTheFlyEvent
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('setResponse');
 
         $createOnTheFlyEvent
@@ -236,7 +236,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
 
         $translateEvent = $this->createMock(ContentProxyTranslateEvent::class);
         $translateEvent
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('setResponse');
 
         $eventDispatcher = new EventDispatcher();

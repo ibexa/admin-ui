@@ -62,26 +62,26 @@ final class SetViewParametersListenerTest extends TestCase
         $this->repository = $this->createMock(Repository::class);
 
         $configResolver = $this->createMock(ConfigResolverInterface::class);
-        $matcher = self::any();
+        $matcher = $this->any();
         $configResolver->expects($matcher)
             ->method('getParameter')->willReturnCallback(static function (...$parameters) use ($matcher): array {
-            if ($matcher->numberOfInvocations() === 1) {
-                self::assertSame('admin_ui_forms.content_edit.fieldtypes', $parameters[0]);
+                if ($matcher->numberOfInvocations() === 1) {
+                    self::assertSame('admin_ui_forms.content_edit.fieldtypes', $parameters[0]);
 
-                return [
-                    'ibexa_taxonomy_entry_assignment' => [
-                        'meta' => true,
-                    ],
-                ];
-            }
-            if ($matcher->numberOfInvocations() === 2) {
-                self::assertSame('admin_ui_forms.content_edit.meta_field_groups_list', $parameters[0]);
+                    return [
+                        'ibexa_taxonomy_entry_assignment' => [
+                            'meta' => true,
+                        ],
+                    ];
+                }
+                if ($matcher->numberOfInvocations() === 2) {
+                    self::assertSame('admin_ui_forms.content_edit.meta_field_groups_list', $parameters[0]);
 
-                return ['metadata'];
-            }
+                    return ['metadata'];
+                }
 
-            return [];
-        });
+                return [];
+            });
 
         $this->groupedContentFormFieldsProvider = $this->createMock(GroupedContentFormFieldsProviderInterface::class);
 
@@ -177,7 +177,7 @@ final class SetViewParametersListenerTest extends TestCase
     {
         $contentView = self::createStub(View::class);
 
-        $this->locationService->expects(self::never())
+        $this->locationService->expects($this->never())
             ->method('loadParentLocationsForDraftContent');
 
         $this->viewParametersListener->setContentEditViewTemplateParameters(
@@ -189,7 +189,7 @@ final class SetViewParametersListenerTest extends TestCase
     {
         $view = self::createStub(View::class);
 
-        $this->locationService->expects(self::never())
+        $this->locationService->expects($this->never())
             ->method('loadParentLocationsForDraftContent');
 
         $this->viewParametersListener->setUserUpdateViewTemplateParameters(
@@ -286,7 +286,7 @@ final class SetViewParametersListenerTest extends TestCase
     public function testSubscribedEvents(): void
     {
         $this->locationService
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadParentLocationsForDraftContent');
 
         $expectedSubscribedEvents = [

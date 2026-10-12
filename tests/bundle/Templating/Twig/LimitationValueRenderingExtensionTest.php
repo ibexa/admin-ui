@@ -42,7 +42,7 @@ final class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrat
     {
         $mapperMock = $this->createMock(LimitationValueMapperInterface::class);
         $mapperMock
-            ->expects(self::atLeastOnce())
+            ->expects($this->atLeastOnce())
             ->method('mapLimitationValue')
             ->willReturnCallback(static function (Limitation $limitation): array {
                 return $limitation->limitationValues;
@@ -50,7 +50,7 @@ final class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrat
 
         $registryMock = $this->createMock(LimitationValueMapperRegistryInterface::class);
         $registryMock
-            ->expects(self::atLeastOnce())
+            ->expects($this->atLeastOnce())
             ->method('getMapper')
             ->willReturn($mapperMock);
 

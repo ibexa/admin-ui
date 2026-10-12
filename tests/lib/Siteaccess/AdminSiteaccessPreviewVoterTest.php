@@ -63,12 +63,12 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
         $this->mockConfigMethods($context, 5, null, ['ger-DE']);
 
         $this->repositoryConfigurationProvider
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getDefaultRepositoryAlias')
             ->willReturn('default');
 
         $this->repositoryConfigurationProvider
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getCurrentRepositoryAlias')
             ->willReturn('default');
 
@@ -81,12 +81,12 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
         $this->mockConfigMethods($context, 4);
 
         $this->repositoryConfigurationProvider
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getDefaultRepositoryAlias')
             ->willReturn('default');
 
         $this->repositoryConfigurationProvider
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getCurrentRepositoryAlias')
             ->willReturn('main');
 
@@ -99,12 +99,12 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
         $this->mockConfigMethods($context, 5, null, ['eng-GB', 'fre-FR']);
 
         $this->repositoryConfigurationProvider
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getDefaultRepositoryAlias')
             ->willReturn('default');
 
         $this->repositoryConfigurationProvider
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getCurrentRepositoryAlias')
             ->willReturn('default');
 
@@ -121,7 +121,7 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
         array $languages = []
     ): void {
         $this->configResolver
-            ->expects(self::exactly($expectedCalls))
+            ->expects($this->exactly($expectedCalls))
             ->method('getParameter')
             ->willReturnCallback(static function (
                 string $parameterName,

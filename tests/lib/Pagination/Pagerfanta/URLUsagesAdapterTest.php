@@ -34,7 +34,7 @@ class URLUsagesAdapterTest extends TestCase
         ]);
 
         $this->urlService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('findUsages')
             ->with($url, 0, 0)
             ->willReturn($searchResults);
@@ -63,7 +63,7 @@ class URLUsagesAdapterTest extends TestCase
         ]);
 
         $this->urlService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('findUsages')
             ->with($url, $offset, $limit)
             ->willReturn($searchResults);

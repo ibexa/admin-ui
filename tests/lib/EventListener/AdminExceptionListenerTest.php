@@ -69,9 +69,9 @@ final class AdminExceptionListenerTest extends TestCase
         int $requestType,
         string $siteaccessName
     ): void {
-        $this->twig->expects(self::never())->method('render');
-        $this->encoreTagRenderer->expects(self::never())->method('reset');
-        $this->entrypointLookupCollection->expects(self::never())->method('getEntrypointLookup');
+        $this->twig->expects($this->never())->method('render');
+        $this->encoreTagRenderer->expects($this->never())->method('reset');
+        $this->entrypointLookupCollection->expects($this->never())->method('getEntrypointLookup');
 
         $event = $this->createExceptionEvent(new NotFoundHttpException(), $requestType, $siteaccessName);
         $this->createListener($environment)->onKernelException($event);
@@ -101,13 +101,13 @@ final class AdminExceptionListenerTest extends TestCase
         array $expectedHeaders
     ): void {
         $this->twig
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('render')
             ->with($expectedTemplate)
             ->willReturn('rendered_error_page_content');
 
-        $this->encoreTagRenderer->expects(self::never())->method('reset');
-        $this->entrypointLookupCollection->expects(self::never())->method('getEntrypointLookup');
+        $this->encoreTagRenderer->expects($this->never())->method('reset');
+        $this->entrypointLookupCollection->expects($this->never())->method('getEntrypointLookup');
 
         $event = $this->createExceptionEvent($exception, HttpKernelInterface::MAIN_REQUEST, self::ADMIN_SITEACCESS);
         $this->listener->onKernelException($event);
@@ -152,18 +152,18 @@ final class AdminExceptionListenerTest extends TestCase
     public function testOnKernelExceptionResetsEncoreAssetsForRuntimeError(): void
     {
         $entrypointLookup = $this->createMock(EntrypointLookupInterface::class);
-        $entrypointLookup->expects(self::once())->method('reset');
+        $entrypointLookup->expects($this->once())->method('reset');
 
         $this->entrypointLookupCollection
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getEntrypointLookup')
             ->with('ibexa')
             ->willReturn($entrypointLookup);
 
-        $this->encoreTagRenderer->expects(self::once())->method('reset');
+        $this->encoreTagRenderer->expects($this->once())->method('reset');
 
         $this->twig
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('render')
             ->with('@ibexadesign/ui/error_page/unknown.html.twig')
             ->willReturn('unknown_page_content');

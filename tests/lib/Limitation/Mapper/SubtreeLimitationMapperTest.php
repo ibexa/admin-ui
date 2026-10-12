@@ -59,7 +59,7 @@ final class SubtreeLimitationMapperTest extends TestCase
         }
 
         $locationServiceMock
-            ->expects(self::exactly(count($values)))
+            ->expects($this->exactly(count($values)))
             ->method('loadLocation')
             ->willReturnCallback(static function (int $locationId) use ($locationsById): Location {
                 self::assertArrayHasKey($locationId, $locationsById);
@@ -68,7 +68,7 @@ final class SubtreeLimitationMapperTest extends TestCase
             });
 
         $searchServiceMock
-            ->expects(self::exactly(count($values)))
+            ->expects($this->exactly(count($values)))
             ->method('findLocations')
             ->willReturnCallback(static function (LocationQuery $query) use ($searchResultsByPath): SearchResult {
                 self::assertInstanceOf(Ancestor::class, $query->filter);
@@ -106,7 +106,7 @@ final class SubtreeLimitationMapperTest extends TestCase
         foreach ($expected as $contentInfo) {
             $locationMock = $this->createMock(Location::class);
             $locationMock
-                ->expects(self::atLeastOnce())
+                ->expects($this->atLeastOnce())
                 ->method('getContentInfo')
                 ->willReturn($contentInfo);
 

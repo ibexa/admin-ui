@@ -56,7 +56,7 @@ class FieldTypeFormMapperDispatcherTest extends TestCase
             ->willReturnArgument(0);
 
         $this->fieldDefinitionMapperMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('mapFieldDefinitionForm')
             ->with($formMock, $data);
 

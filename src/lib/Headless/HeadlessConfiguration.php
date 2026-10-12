@@ -12,9 +12,7 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 final readonly class HeadlessConfiguration implements HeadlessConfigurationInterface
 {
-    public function __construct(private ConfigResolverInterface $configResolver)
-    {
-    }
+    public function __construct(private ConfigResolverInterface $configResolver) {}
 
     public function isEnabled(?string $scope = null): bool
     {
@@ -36,8 +34,10 @@ final readonly class HeadlessConfiguration implements HeadlessConfigurationInter
         return $this->getUrl('headless.configuration_url', $scope);
     }
 
-    private function getUrl(string $parameterName, ?string $scope): ?string
-    {
+    private function getUrl(
+        string $parameterName,
+        ?string $scope
+    ): ?string {
         $value = $this->configResolver->getParameter($parameterName, null, $scope);
 
         return is_string($value) && $value !== '' ? $value : null;

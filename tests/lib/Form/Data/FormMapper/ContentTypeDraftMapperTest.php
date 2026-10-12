@@ -268,7 +268,7 @@ final class ContentTypeDraftMapperTest extends TestCase
     private function mockContentTypeFieldTypesResolverGetMetaFieldTypeIdentifiers(): void
     {
         $this->contentTypeFieldTypesResolver
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getMetaFieldTypeIdentifiers')
             ->willReturn(
                 [
@@ -282,7 +282,7 @@ final class ContentTypeDraftMapperTest extends TestCase
         ContentType $contentType
     ): void {
         $this->contentTypeService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadContentType')
             ->with($contentTypeId)
             ->willReturn($contentType);

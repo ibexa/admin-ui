@@ -107,8 +107,10 @@ final class Headless extends AbstractParser
      * @param array<string, mixed> $settings
      * @param string[] $path
      */
-    private function hasPath(array $settings, array $path): bool
-    {
+    private function hasPath(
+        array $settings,
+        array $path
+    ): bool {
         foreach ($path as $key) {
             if (!is_array($settings) || !array_key_exists($key, $settings)) {
                 return false;
@@ -124,8 +126,10 @@ final class Headless extends AbstractParser
      * @param array<string, mixed> $settings
      * @param string[] $path
      */
-    private function getPath(array $settings, array $path): mixed
-    {
+    private function getPath(
+        array $settings,
+        array $path
+    ): mixed {
         $value = $settings;
         foreach ($path as $key) {
             $value = $value[$key];

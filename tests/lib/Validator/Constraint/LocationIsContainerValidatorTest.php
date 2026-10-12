@@ -54,7 +54,7 @@ class LocationIsContainerValidatorTest extends TestCase
             ->willReturn(true);
 
         $this->executionContext
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('addViolation');
 
         $this->validator->validate($this->location, new LocationIsContainer());
@@ -67,7 +67,7 @@ class LocationIsContainerValidatorTest extends TestCase
             ->willReturn(false);
 
         $this->executionContext
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('addViolation');
 
         $this->validator->validate($this->location, new LocationIsContainer());

@@ -51,22 +51,22 @@ class AdminUiFormsTest extends TestCase
             'my_template-01.html.twig',
             'my_template-02.html.twig',
         ];
-        $matcher = self::atLeast(2);
+        $matcher = $this->atLeast(2);
 
         $this->contextualizer
             ->expects($matcher)
             ->method('setContextualParameter')->willReturnCallback(static function (...$parameters) use ($matcher, $currentScope, $expectedTemplatesList): void {
-            if ($matcher->numberOfInvocations() === 1) {
-                self::assertSame(AdminUiForms::FORM_TEMPLATES_PARAM, $parameters[0]);
-                self::assertSame($currentScope, $parameters[1]);
-                self::assertSame($expectedTemplatesList, $parameters[2]);
-            }
-            if ($matcher->numberOfInvocations() === 2) {
-                self::assertSame(AdminUiForms::FIELD_TYPES_PARAM, $parameters[0]);
-                self::assertSame($currentScope, $parameters[1]);
-                self::assertSame([], $parameters[2]);
-            }
-        });
+                if ($matcher->numberOfInvocations() === 1) {
+                    self::assertSame(AdminUiForms::FORM_TEMPLATES_PARAM, $parameters[0]);
+                    self::assertSame($currentScope, $parameters[1]);
+                    self::assertSame($expectedTemplatesList, $parameters[2]);
+                }
+                if ($matcher->numberOfInvocations() === 2) {
+                    self::assertSame(AdminUiForms::FIELD_TYPES_PARAM, $parameters[0]);
+                    self::assertSame($currentScope, $parameters[1]);
+                    self::assertSame([], $parameters[2]);
+                }
+            });
 
         $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
     }
@@ -92,22 +92,22 @@ class AdminUiFormsTest extends TestCase
             'my_fieldtype' => ['meta' => true],
             'my_fieldtype_2' => ['meta' => false],
         ];
-        $matcher = self::atLeast(2);
+        $matcher = $this->atLeast(2);
 
         $this->contextualizer
             ->expects($matcher)
             ->method('setContextualParameter')->willReturnCallback(static function (...$parameters) use ($matcher, $currentScope, $expectedFieldTypeSettings): void {
-            if ($matcher->numberOfInvocations() === 1) {
-                self::assertSame(AdminUiForms::FORM_TEMPLATES_PARAM, $parameters[0]);
-                self::assertSame($currentScope, $parameters[1]);
-                self::assertSame([], $parameters[2]);
-            }
-            if ($matcher->numberOfInvocations() === 2) {
-                self::assertSame(AdminUiForms::FIELD_TYPES_PARAM, $parameters[0]);
-                self::assertSame($currentScope, $parameters[1]);
-                self::assertSame($expectedFieldTypeSettings, $parameters[2]);
-            }
-        });
+                if ($matcher->numberOfInvocations() === 1) {
+                    self::assertSame(AdminUiForms::FORM_TEMPLATES_PARAM, $parameters[0]);
+                    self::assertSame($currentScope, $parameters[1]);
+                    self::assertSame([], $parameters[2]);
+                }
+                if ($matcher->numberOfInvocations() === 2) {
+                    self::assertSame(AdminUiForms::FIELD_TYPES_PARAM, $parameters[0]);
+                    self::assertSame($currentScope, $parameters[1]);
+                    self::assertSame($expectedFieldTypeSettings, $parameters[2]);
+                }
+            });
 
         $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
     }
@@ -128,27 +128,27 @@ class AdminUiFormsTest extends TestCase
             ],
         ];
         $currentScope = 'admin_group';
-        $matcher = self::atLeast(2);
+        $matcher = $this->atLeast(2);
 
         $this->contextualizer
             ->expects($matcher)
             ->method('setContextualParameter')->willReturnCallback(static function (...$parameters) use ($matcher, $currentScope): void {
-            if ($matcher->numberOfInvocations() === 1) {
-                self::assertSame(AdminUiForms::FORM_TEMPLATES_PARAM, $parameters[0]);
-                self::assertSame($currentScope, $parameters[1]);
-                self::assertSame([], $parameters[2]);
-            }
-            if ($matcher->numberOfInvocations() === 2) {
-                self::assertSame(AdminUiForms::FIELD_TYPES_PARAM, $parameters[0]);
-                self::assertSame($currentScope, $parameters[1]);
-                self::assertSame([], $parameters[2]);
-            }
-            if ($matcher->numberOfInvocations() === 3) {
-                self::assertSame(AdminUiForms::META_FIELD_GROUPS_LIST_PARAM, $parameters[0]);
-                self::assertSame($currentScope, $parameters[1]);
-                self::assertSame(['metadata', 'seo'], $parameters[2]);
-            }
-        });
+                if ($matcher->numberOfInvocations() === 1) {
+                    self::assertSame(AdminUiForms::FORM_TEMPLATES_PARAM, $parameters[0]);
+                    self::assertSame($currentScope, $parameters[1]);
+                    self::assertSame([], $parameters[2]);
+                }
+                if ($matcher->numberOfInvocations() === 2) {
+                    self::assertSame(AdminUiForms::FIELD_TYPES_PARAM, $parameters[0]);
+                    self::assertSame($currentScope, $parameters[1]);
+                    self::assertSame([], $parameters[2]);
+                }
+                if ($matcher->numberOfInvocations() === 3) {
+                    self::assertSame(AdminUiForms::META_FIELD_GROUPS_LIST_PARAM, $parameters[0]);
+                    self::assertSame($currentScope, $parameters[1]);
+                    self::assertSame(['metadata', 'seo'], $parameters[2]);
+                }
+            });
 
         $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
     }

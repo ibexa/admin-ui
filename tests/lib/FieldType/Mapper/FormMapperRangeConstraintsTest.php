@@ -32,7 +32,7 @@ final class FormMapperRangeConstraintsTest extends TestCase
 {
     /**
      * @return iterable<string, array{
-     *     \Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface,
+     *     FieldDefinitionFormMapperInterface,
      *     array<string, array{int|null, int|null}>
      * }>
      */
@@ -78,7 +78,11 @@ final class FormMapperRangeConstraintsTest extends TestCase
         $form = $this->createMock(FormInterface::class);
         $form
             ->method('add')
-            ->willReturnCallback(static function (string $child, ?string $type = null, array $options = []) use (&$ranges, $form): FormInterface {
+            ->willReturnCallback(static function (
+                string $child,
+                ?string $type = null,
+                array $options = []
+            ) use (&$ranges, $form): FormInterface {
                 foreach ($options['constraints'] ?? [] as $constraint) {
                     if ($constraint instanceof Range) {
                         $ranges[$child] = [$constraint->min, $constraint->max];

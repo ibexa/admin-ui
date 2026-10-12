@@ -178,6 +178,6 @@ final class ContentTypeSuggestionsListenerTest extends TestCase
 
     private function expectSuggestionsAreNotComputed(): void
     {
-        $this->searchService->expects(self::never())->method('findLocations');
+        $this->searchService->expects($this->never())->method('findLocations');
     }
 }

@@ -35,7 +35,7 @@ class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
     public function testNotFieldDefinitionData(): void
     {
         $this->executionContext
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('buildViolation');
 
         $this->validator->validate('foo', new UniqueFieldDefinitionIdentifier());
@@ -44,7 +44,7 @@ class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
     public function testValid(): void
     {
         $this->executionContext
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('buildViolation');
 
         $contentTypeData = new ContentTypeData([
@@ -71,22 +71,22 @@ class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
         $constraint = new UniqueFieldDefinitionIdentifier();
         $constraintViolationBuilder = $this->createMock(ConstraintViolationBuilderInterface::class);
         $this->executionContext
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('buildViolation')
             ->with($constraint->message)
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('atPath')
             ->with('identifier')
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('setParameter')
             ->with('%identifier%', $identifier)
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('addViolation');
 
         $contentTypeData = new ContentTypeData([

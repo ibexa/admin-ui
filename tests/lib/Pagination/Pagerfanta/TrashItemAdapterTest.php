@@ -53,7 +53,7 @@ class TrashItemAdapterTest extends TestCase
 
         $searchResult = new SearchResult(['totalCount' => $nbResults]);
         $this->trashService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('findTrashItems')
             ->with(self::equalTo($countQuery))
             ->willReturn($searchResult);
@@ -89,7 +89,7 @@ class TrashItemAdapterTest extends TestCase
         $searchResult = new SearchResult(['items' => $items, 'totalCount' => $nbResults]);
 
         $this->trashService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('findTrashItems')
             ->with(self::equalTo($searchQuery))
             ->willReturn($searchResult);

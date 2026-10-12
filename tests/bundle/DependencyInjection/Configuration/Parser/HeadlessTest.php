@@ -37,8 +37,11 @@ final class HeadlessTest extends AbstractParserTestCase
      * @param string[] $expectedMissingParameters
      */
     #[DataProvider('dataProviderForTestSettings')]
-    public function testSettings(array $headless, array $expectedParameters, array $expectedMissingParameters): void
-    {
+    public function testSettings(
+        array $headless,
+        array $expectedParameters,
+        array $expectedMissingParameters
+    ): void {
         $this->load([
             'system' => [
                 self::SITE_ACCESS => [
