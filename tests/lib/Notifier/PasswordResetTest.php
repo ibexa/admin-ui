@@ -66,6 +66,7 @@ final class PasswordResetTest extends TestCase
     ): PasswordReset {
         $configResolver = $this->createMock(ConfigResolverInterface::class);
         $configResolver
+            ->expects(self::once())
             ->method('getParameter')
             ->with('notifications.subscriptions')
             ->willReturn($subscriptions);
