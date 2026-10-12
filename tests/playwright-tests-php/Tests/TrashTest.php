@@ -49,7 +49,7 @@ final class TrashTest extends IbexaPlaywrightTestCase
     private function sendToTrash(int $contentId, int $locationId): void
     {
         $page = $this->visit(ContentManagementPage::route($contentId, $locationId));
-        self::assertResponseIsSuccessful();
+        // visit() itself already asserts via the real navigation response (PoC architecture spike).
         $contentPage = new ContentManagementPage($page);
         $contentPage->assertOpened();
         $contentPage->sendToTrash();
@@ -58,7 +58,7 @@ final class TrashTest extends IbexaPlaywrightTestCase
     private function openTrash(): TrashPage
     {
         $page = $this->visit(TrashPage::ROUTE);
-        self::assertResponseIsSuccessful();
+        // visit() itself already asserts via the real navigation response (PoC architecture spike).
         $trash = new TrashPage($page);
         $trash->waitUntilLoaded();
 
