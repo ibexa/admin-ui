@@ -33,7 +33,7 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
     }
 
     /**
-     * @return string[]
+     * @return list<string>
      */
     public function mapLimitationValue(Limitation $limitation): array
     {
