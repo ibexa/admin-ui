@@ -82,7 +82,8 @@
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-symfony": "^2.0",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "doctrine/doctrine-migrations-bundle": "^3.2"
     },
     "config": {
         "allow-plugins": {
