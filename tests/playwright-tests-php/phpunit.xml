@@ -4,8 +4,10 @@
          bootstrap="bootstrap.php"
          colors="true">
     <php>
-        <!-- Symfony skeleton always generates src/Kernel.php as App\Kernel, for every edition. -->
-        <env name="KERNEL_CLASS" value="App\Kernel"/>
+        <!-- HostOnlyKernel (real-HTTP architecture spike): isolates the host-side
+             test kernel's cache/log dirs from the containerized app's — see its
+             own docblock in ibexa/cohesivo-playwright for why. -->
+        <env name="KERNEL_CLASS" value="Ibexa\CohesivoPlaywright\Fixture\HostOnlyKernel"/>
     </php>
     <testsuites>
         <testsuite name="admin-ui-playwright-php">
