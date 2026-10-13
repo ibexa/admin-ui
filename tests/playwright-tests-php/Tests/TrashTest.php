@@ -36,7 +36,7 @@ final class TrashTest extends IbexaPlaywrightTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->fixtures = new ContentFixtureFactory($this->repository());
+        $this->fixtures = new ContentFixtureFactory($this->repository(), $this->persistenceCachePool());
         $this->runId = substr((string) (int) (microtime(true) * 1000), -6);
 
         [$this->trashTestContentId, $this->trashTestLocationId] = $this->fixtures->createFolder(
