@@ -46,8 +46,10 @@ final class TrashTest extends IbexaPlaywrightTestCase
         $this->cleanup(fn () => $this->fixtures->deleteContent($this->trashTestContentId));
     }
 
-    private function sendToTrash(int $contentId, int $locationId): void
-    {
+    private function sendToTrash(
+        int $contentId,
+        int $locationId
+    ): void {
         $page = $this->visit(ContentManagementPage::route($contentId, $locationId));
         // visit() itself already asserts via the real navigation response (PoC architecture spike).
         $contentPage = new ContentManagementPage($page);
