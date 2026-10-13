@@ -6,6 +6,10 @@
             this.containerSelectors = containerSelectors;
         }
 
+        getValidatorName() {
+            return 'MultiInputFieldValidator';
+        }
+
         toggleInvalidState(isError, config, input) {
             super.toggleInvalidState(isError, config, input);
 
