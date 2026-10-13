@@ -28,4 +28,12 @@ final readonly class AdminUpdateContext implements Context
             $this->adminUpdateItemPage->fillFieldWithValue($row['label'], $row['value']);
         }
     }
+
+    /**
+     * @When I press Enter in the :fieldName field
+     */
+    public function iPressEnterInField(string $fieldName): void
+    {
+        $this->adminUpdateItemPage->pressEnterInField($fieldName);
+    }
 }
