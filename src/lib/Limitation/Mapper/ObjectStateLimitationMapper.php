@@ -69,9 +69,9 @@ final class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper imp
     {
         $groupName = $state
             ->getObjectStateGroup()
-            ->getName($state->defaultLanguageCode);
+            ->getName($state->mainLanguageCode);
 
-        $stateName = $state->getName($state->defaultLanguageCode);
+        $stateName = $state->getName($state->mainLanguageCode);
 
         return $groupName . ':' . $stateName;
     }
