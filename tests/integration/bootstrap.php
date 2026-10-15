@@ -6,9 +6,8 @@
  */
 declare(strict_types=1);
 
-use Ibexa\Bundle\RepositoryInstaller\Bootstrapper\DoctrineMigrationsSchemaHook;
 use Ibexa\Contracts\Test\Core\Bootstrapper\Bootstrapper;
-use Ibexa\Contracts\Test\Core\Bootstrapper\DatabaseSchemaHook;
+use Ibexa\Contracts\Test\Core\Bootstrapper\SchemaInstallPath;
 
 $packageRoot = dirname(__DIR__, 2);
 require_once $packageRoot . '/vendor/autoload.php';
@@ -21,9 +20,7 @@ chdir($packageRoot);
 // ImportDataMigration inserts, so the tests see the same data either way.
 $schemaBuilderEventEnabled = getenv('IBEXA_TEST_SCHEMA_BUILDER_EVENT_ENABLED') !== '0';
 
-(new Bootstrapper())->bootstrap(null, [
-    DatabaseSchemaHook::class => [DatabaseSchemaHook::OPTION_LOAD_SCHEMA => $schemaBuilderEventEnabled],
-    DoctrineMigrationsSchemaHook::class => [DoctrineMigrationsSchemaHook::OPTION_INSTALL_SCHEMA => !$schemaBuilderEventEnabled],
+(new Bootstrapper())->bootstrap(null, SchemaInstallPath::getBootstrapperOptions($schemaBuilderEventEnabled) + [
     Bootstrapper::class => [
         // this package's tests never ran doctrine:schema:update, and Bootstrapper enables it by
         // default; keep it off so the bootstrap stays equivalent
