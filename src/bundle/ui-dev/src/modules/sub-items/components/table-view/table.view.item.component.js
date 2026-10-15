@@ -112,8 +112,10 @@ export default class TableViewItemComponent extends PureComponent {
     handlePriorityInputKeyDown(event) {
         if (event.key === 'Enter') {
             this.handleSubmit(event);
+            this._refPriorityInput.blur();
         } else if (event.key === 'Escape') {
             this.handleCancel(event);
+            this._refPriorityInput.blur();
         }
     }
 
