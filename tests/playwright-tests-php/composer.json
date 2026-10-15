@@ -1,0 +1,23 @@
+{
+    "name": "ibexa/admin-ui-playwright-tests-php",
+    "description": "PHP Playwright browser tests for ibexa/admin-ui (Trash) — PHPUnit + playwright-php/playwright-symfony, in-process kernel routing",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.3",
+        "ibexa/cohesivo-playwright": "*"
+    },
+    "repositories": {
+        "cohesivo-playwright": {
+            "type": "path",
+            "url": "../../../cohesivo-playwright"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ibexa\\AdminUi\\Tests\\Playwright\\": "Tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
