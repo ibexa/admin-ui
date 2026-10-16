@@ -17,29 +17,6 @@
         padding-top: 0;
         text-align: center;
     }
-
-    .nav-tabs {
-        background-color: $ibexa-color-white;
-        border: none;
-
-        .nav-link {
-            margin: 0;
-            padding: calculateRem(17px) calculateRem(24px);
-            color: $ibexa-color-black;
-            font-size: calculateRem(14px);
-            transition: all 0.3s $ibexa-admin-transition;
-
-            .ibexa-icon {
-                margin-right: calculateRem(8px);
-            }
-
-            &:hover,
-            &.active {
-                border-bottom-color: transparent;
-                color: $ibexa-color-primary;
-            }
-        }
-    }
 }
 
 .ibexa-main-sub-nav {
