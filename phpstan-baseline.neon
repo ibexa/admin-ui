@@ -727,30 +727,6 @@ parameters:
 			path: src/bundle/Templating/Twig/UiConfigExtension.php
 
 		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Component\\Renderer\\RendererInterface\:\:renderGroup\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Component/Renderer/RendererInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Component\\Renderer\\RendererInterface\:\:renderGroup\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Component/Renderer/RendererInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Component\\Renderer\\RendererInterface\:\:renderSingle\(\) has parameter \$groupName with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/contracts/Component/Renderer/RendererInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Component\\Renderer\\RendererInterface\:\:renderSingle\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Component/Renderer/RendererInterface.php
-
-		-
 			message: '#^Method Ibexa\\Contracts\\AdminUi\\UI\\Action\\UiActionEventInterface\:\:getForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -1151,18 +1127,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Behat/Page/TrashPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Renderer\\DefaultRenderer\:\:renderGroup\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Renderer/DefaultRenderer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Renderer\\DefaultRenderer\:\:renderSingle\(\) has parameter \$groupName with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Component/Renderer/DefaultRenderer.php
 
 		-
 			message: '#^Offset ''meta'' might not exist on array\{position\: int, meta\?\: bool\}\.$#'
