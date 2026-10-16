@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block form %}
-    {{ form_start(form_section_create) }}
+    {{ form_start(form_section_create, { attr: { class: 'ibexa-section-edit__form' } }) }}
         <div class="card ibexa-card ibexa-card--light">
             <div class="card-body ibexa-card__body ibexa-form-block">
                 {{ form_row(form_section_create.name, {
