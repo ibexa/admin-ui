@@ -15,10 +15,6 @@ services:
         arguments:
             $template: '@@ibexadesign/ui/tab/default.html.twig'
 
-    Ibexa\Bundle\AdminUi\Templating\Twig\ComponentExtension:
-        tags:
-            - { name: twig.extension }
-
     ibexa.adminui.layout.content.after:
         parent: Ibexa\TwigComponents\Component\TemplateComponent
         arguments:
