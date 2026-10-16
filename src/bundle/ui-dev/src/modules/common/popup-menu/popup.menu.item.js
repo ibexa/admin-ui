@@ -18,7 +18,7 @@ const PopupMenuItem = ({ item, filterText = '', onItemClick }) => {
                     className="c-popup-menu__item-content"
                     href={item.href}
                     target={item.target}
-                    rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
+                    rel={item.target === '_blank' && !item.rel ? 'noopener noreferrer' : item.rel}
                     onClick={() => onItemClick(item)}
                 >
                     {label}
@@ -37,6 +37,7 @@ PopupMenuItem.propTypes = {
         disabled: PropTypes.bool,
         href: PropTypes.string,
         label: PropTypes.string.isRequired,
+        rel: PropTypes.string,
         target: PropTypes.string,
     }).isRequired,
     onItemClick: PropTypes.func.isRequired,
