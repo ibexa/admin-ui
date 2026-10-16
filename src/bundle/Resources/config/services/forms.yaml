@@ -412,11 +412,6 @@ services:
         arguments:
             $innerGroupedContentFormFieldsProvider: '@Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface'
 
-    Ibexa\AdminUi\Form\Type\Preview\SiteAccessChoiceType:
-        arguments:
-            $siteAccessResolver: '@Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver'
-            $siteAccessNameGenerator: '@Ibexa\AdminUi\Siteaccess\SiteAccessNameGenerator'
-
     Ibexa\AdminUi\Form\Type\Preview\VersionPreviewUrlChoiceType:
         arguments:
             $siteAccessResolver: '@Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver'
