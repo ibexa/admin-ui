@@ -333,8 +333,6 @@ class ContentViewPage extends Page
         /** @var CSSLocator $locator */
         $locator = $this->getLocator('customUrlAliasesTable');
 
-        // Creating an alias reloads the page, so the table is rebuilt on every attempt
-        // instead of being read once from the page that is about to be replaced.
         try {
             $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($locator, $path, $type): bool {
                 return $this->tableBuilder->newTable()->withParentLocator($locator)->build()
