@@ -28,7 +28,7 @@
 {% endset %}
 {% set btn_more_content %}
     {% block btn_more_content %}
-        {% set tab_more_label = 'ui.component.tab.tabs_more.label'|trans|desc('More') %}
+        {% set tab_more_label = 'ui.component.tab.tabs_more.label'|trans({}, 'ibexa_admin_ui')|desc('More') %}
         <span class="ids-tabs__tab-label" data-label="{{ tab_more_label }}">{{ tab_more_label }}</span>
     {% endblock %}
 {% endset %}

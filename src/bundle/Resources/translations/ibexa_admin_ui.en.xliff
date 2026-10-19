@@ -86,6 +86,11 @@
         <target state="new">Removed '%languageCode%' translation from '%name%'.</target>
         <note>key: translation.remove.success</note>
       </trans-unit>
+      <trans-unit id="58630d9ef67acbc52365be5de3e8c6f415ce14e7" resname="ui.component.tab.tabs_more.label">
+        <source>More</source>
+        <target state="new">More</target>
+        <note>key: ui.component.tab.tabs_more.label</note>
+      </trans-unit>
       <trans-unit id="73736cfd7959543f99b6edba300bc4d7c9c5683a" resname="user.focus_mode.off">
         <source>Focus mode</source>
         <target state="new">Focus mode</target>
