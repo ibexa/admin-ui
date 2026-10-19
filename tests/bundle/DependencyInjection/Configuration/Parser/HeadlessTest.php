@@ -24,7 +24,7 @@ final class HeadlessTest extends AbstractParserTestCase
     private const string CONTENT_PREVIEW_URL = 'https://frontend.example.com/preview';
     private const string CONFIGURATION_URL = 'https://admin.example.com/frontend';
     private const string DOCUMENTATION_URL = 'https://doc.example.com/headless';
-    private const string DEFAULT_DOCUMENTATION_URL = 'https://doc.ibexa.co/';
+    private const string DEFAULT_DOCUMENTATION_URL = 'https://doc.ibexa.co/en/saas/content_management/pages/headless_page_builder/';
 
     protected function getContainerExtensions(): array
     {
