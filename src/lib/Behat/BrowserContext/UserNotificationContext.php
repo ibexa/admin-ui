@@ -20,16 +20,19 @@ use Webmozart\Assert\Assert;
 
 final readonly class UserNotificationContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UpperMenu */
+    /** @var UpperMenu */
     private UpperMenu $upperMenu;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\UserNotificationPopup */
+    /** @var UserNotificationPopup */
     private UserNotificationPopup $userNotificationPopup;
 
     private NotificationsViewAllPage $notificationsViewAllPage;
 
-    public function __construct(UpperMenu $upperMenu, UserNotificationPopup $userNotificationPopup, NotificationsViewAllPage $notificationsViewAllPage)
-    {
+    public function __construct(
+        UpperMenu $upperMenu,
+        UserNotificationPopup $userNotificationPopup,
+        NotificationsViewAllPage $notificationsViewAllPage
+    ) {
         $this->upperMenu = $upperMenu;
         $this->userNotificationPopup = $userNotificationPopup;
         $this->notificationsViewAllPage = $notificationsViewAllPage;
@@ -115,8 +118,10 @@ final readonly class UserNotificationContext implements Context
     }
 
     #[Then('the notification with title :notificationTitle has status :notificationStatus')]
-    public function verifyNotificationStatus(string $notificationTitle, string $notificationStatus): void
-    {
+    public function verifyNotificationStatus(
+        string $notificationTitle,
+        string $notificationStatus
+    ): void {
         Assert::eq($this->notificationsViewAllPage->getStatusForNotification($notificationTitle), $notificationStatus);
     }
 

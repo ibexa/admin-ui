@@ -15,8 +15,10 @@ use Ibexa\Rest\Input\BaseParser;
 
 final class FieldDefinitionExpression extends BaseParser
 {
-    public function parse(array $data, ParsingDispatcher $parsingDispatcher): FieldDefinitionExpressionValue
-    {
+    public function parse(
+        array $data,
+        ParsingDispatcher $parsingDispatcher
+    ): FieldDefinitionExpressionValue {
         if (!array_key_exists('expression', $data) || !is_string($data['expression'])) {
             throw new Exceptions\Parser(
                 sprintf("Missing or invalid 'expression' property for %s.", FieldDefinitionExpressionValue::class)

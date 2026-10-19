@@ -22,9 +22,9 @@ final readonly class SectionCreateMapper implements DataMapperInterface
     /**
      * Maps given SectionCreateStruct object to a SectionCreateData object.
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function map(ValueObject|SectionCreateStruct $value): SectionCreateData
+    public function map(ValueObject | SectionCreateStruct $value): SectionCreateData
     {
         if (!$value instanceof SectionCreateStruct) {
             throw new InvalidArgumentException(
@@ -37,7 +37,7 @@ final readonly class SectionCreateMapper implements DataMapperInterface
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function reverseMap(mixed $data): SectionCreateStruct
     {

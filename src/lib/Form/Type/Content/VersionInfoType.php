@@ -19,12 +19,12 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class VersionInfoType extends AbstractType
 {
-    public function __construct(protected readonly ContentService $contentService)
-    {
-    }
+    public function __construct(protected readonly ContentService $contentService) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add(
                 'content_info',

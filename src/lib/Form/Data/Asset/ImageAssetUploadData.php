@@ -19,8 +19,7 @@ final class ImageAssetUploadData
         private ?UploadedFile $file = null,
         #[Assert\NotBlank]
         private ?string $languageCode = null
-    ) {
-    }
+    ) {}
 
     public function getFile(): ?UploadedFile
     {

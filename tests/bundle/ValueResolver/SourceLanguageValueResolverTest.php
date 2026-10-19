@@ -21,7 +21,7 @@ final class SourceLanguageValueResolverTest extends TestCase
 {
     private SourceLanguageValueResolver $resolver;
 
-    private MockObject&LanguageService $languageService;
+    private MockObject & LanguageService $languageService;
 
     protected function setUp(): void
     {
@@ -34,7 +34,7 @@ final class SourceLanguageValueResolverTest extends TestCase
         $language = self::createStub(Language::class);
         $attributes = ['fromLanguageCode' => 'fra-FR'];
 
-        $this->languageService->expects(self::once())
+        $this->languageService->expects($this->once())
             ->method('loadLanguage')
             ->with('fra-FR')
             ->willReturn($language);
@@ -57,8 +57,10 @@ final class SourceLanguageValueResolverTest extends TestCase
      * @param array<string, mixed> $attributes
      */
     #[DataProvider('invalidAttributesProvider')]
-    public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
-    {
+    public function testResolveInvalidAttributes(
+        array $attributes,
+        string $expectedMessage
+    ): void {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);
         $argumentMetadata->method('getType')
             ->willReturn(Language::class);

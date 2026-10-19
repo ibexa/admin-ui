@@ -10,6 +10,4 @@ namespace Ibexa\AdminUi\Exception;
 
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException as BaseInvalidArgumentException;
 
-final class InvalidArgumentException extends BaseInvalidArgumentException
-{
-}
+final class InvalidArgumentException extends BaseInvalidArgumentException {}

@@ -13,6 +13,7 @@ const ContentTypeSelector = () => {
     const { contentTypes: contentTypesMap } = adminUiConfig;
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
+    const getContentTypeGroupTitle = (contentTypeGroup) => `${contentTypeGroup.charAt(0).toUpperCase()}${contentTypeGroup.slice(1)}`;
     const handleContentTypeSelect = (contentTypeIdentifier) => {
         const action = { contentTypeIdentifier };
 
@@ -33,7 +34,7 @@ const ContentTypeSelector = () => {
                 }
 
                 return (
-                    <Collapsible key={contentTypeGroup} title={contentTypeGroup}>
+                    <Collapsible key={contentTypeGroup} title={getContentTypeGroupTitle(contentTypeGroup)}>
                         <ul className="c-content-type-selector-list">
                             {contentTypes.map((contentType) => {
                                 const isHidden = allowedContentTypes && !allowedContentTypes.includes(contentType.identifier);

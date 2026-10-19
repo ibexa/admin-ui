@@ -24,9 +24,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class ContentTypeCreateType extends AbstractType
 {
-    public function __construct(private readonly ContentTypeService $contentTypeService)
-    {
-    }
+    public function __construct(private readonly ContentTypeService $contentTypeService) {}
 
     public function getName(): string
     {
@@ -46,12 +44,17 @@ class ContentTypeCreateType extends AbstractType
             ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add('contentTypeGroupId', HiddenType::class, [
                 'constraints' => new Callback(
-                    function ($contentTypeGroupId, ExecutionContextInterface $context): void {
+                    function (
+                        $contentTypeGroupId,
+                        ExecutionContextInterface $context
+                    ): void {
                         try {
                             $this->contentTypeService->loadContentTypeGroup($contentTypeGroupId);
                         } catch (NotFoundException) {

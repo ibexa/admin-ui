@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 class TrashItemAdapterTest extends TestCase
 {
-    protected TrashService&MockObject $trashService;
+    protected TrashService & MockObject $trashService;
 
     protected function setUp(): void
     {
@@ -30,13 +30,15 @@ class TrashItemAdapterTest extends TestCase
     /**
      * Returns the adapter to test.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query $query
-     * @param \Ibexa\Contracts\Core\Repository\TrashService $trashService
+     * @param Query $query
+     * @param TrashService $trashService
      *
-     * @return \Ibexa\AdminUi\Pagination\Pagerfanta\TrashItemAdapter
+     * @return TrashItemAdapter
      */
-    protected function getAdapter(Query $query, TrashService $trashService): TrashItemAdapter
-    {
+    protected function getAdapter(
+        Query $query,
+        TrashService $trashService
+    ): TrashItemAdapter {
         return new TrashItemAdapter($query, $trashService);
     }
 
@@ -51,7 +53,7 @@ class TrashItemAdapterTest extends TestCase
 
         $searchResult = new SearchResult(['totalCount' => $nbResults]);
         $this->trashService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('findTrashItems')
             ->with(self::equalTo($countQuery))
             ->willReturn($searchResult);
@@ -87,7 +89,7 @@ class TrashItemAdapterTest extends TestCase
         $searchResult = new SearchResult(['items' => $items, 'totalCount' => $nbResults]);
 
         $this->trashService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('findTrashItems')
             ->with(self::equalTo($searchQuery))
             ->willReturn($searchResult);

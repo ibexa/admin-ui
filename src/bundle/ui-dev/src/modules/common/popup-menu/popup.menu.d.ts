@@ -1,10 +1,12 @@
-import { ReactElement, ReactNode } from 'react';
+import { HTMLAttributeAnchorTarget, ReactElement, ReactNode } from 'react';
 
 export interface PopupMenuItemData {
     label: string;
     value: string | number;
     id?: string | number;
     disabled?: boolean;
+    href?: string;
+    target?: HTMLAttributeAnchorTarget;
 }
 
 export interface PopupMenuGroupData<T extends PopupMenuItemData = PopupMenuItemData> {

@@ -8,10 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Util;
 
+use Ibexa\AdminUi\Exception\FieldTypeExpressionParserException;
+
 interface ContentTypeFieldsExpressionParserInterface
 {
     /**
-     * @throws \Ibexa\AdminUi\Exception\FieldTypeExpressionParserException
+     * @throws FieldTypeExpressionParserException
      */
     public function parseExpression(string $expression): ContentTypeFieldsParsedStructure;
 }

@@ -24,9 +24,9 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
 {
     private const string LANGUAGE_CODE = 'eng-GB';
 
-    private ConfigResolverInterface&MockObject $configResolver;
+    private ConfigResolverInterface & MockObject $configResolver;
 
-    private RepositoryConfigurationProviderInterface&MockObject $repositoryConfigurationProvider;
+    private RepositoryConfigurationProviderInterface & MockObject $repositoryConfigurationProvider;
 
     private AdminSiteaccessPreviewVoter $adminSiteaccessPreviewVoter;
 
@@ -63,12 +63,12 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
         $this->mockConfigMethods($context, 5, null, ['ger-DE']);
 
         $this->repositoryConfigurationProvider
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getDefaultRepositoryAlias')
             ->willReturn('default');
 
         $this->repositoryConfigurationProvider
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getCurrentRepositoryAlias')
             ->willReturn('default');
 
@@ -81,12 +81,12 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
         $this->mockConfigMethods($context, 4);
 
         $this->repositoryConfigurationProvider
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getDefaultRepositoryAlias')
             ->willReturn('default');
 
         $this->repositoryConfigurationProvider
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getCurrentRepositoryAlias')
             ->willReturn('main');
 
@@ -99,12 +99,12 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
         $this->mockConfigMethods($context, 5, null, ['eng-GB', 'fre-FR']);
 
         $this->repositoryConfigurationProvider
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getDefaultRepositoryAlias')
             ->willReturn('default');
 
         $this->repositoryConfigurationProvider
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getCurrentRepositoryAlias')
             ->willReturn('default');
 
@@ -121,7 +121,7 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
         array $languages = []
     ): void {
         $this->configResolver
-            ->expects(self::exactly($expectedCalls))
+            ->expects($this->exactly($expectedCalls))
             ->method('getParameter')
             ->willReturnCallback(static function (
                 string $parameterName,
@@ -145,7 +145,7 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
     }
 
     /**
-     * @return array<int, array{0: \Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterContext}>
+     * @return array<int, array{0: SiteaccessPreviewVoterContext}>
      */
     public static function dataProviderForSiteaccessPreviewVoterContext(): array
     {

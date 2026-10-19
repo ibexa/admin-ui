@@ -15,8 +15,10 @@ final class LimitationMock extends Limitation
     /**
      * @param array<mixed> $limitationValues
      */
-    public function __construct(private readonly string $identifier, array $limitationValues)
-    {
+    public function __construct(
+        private readonly string $identifier,
+        array $limitationValues
+    ) {
         parent::__construct([
             'limitationValues' => $limitationValues,
         ]);

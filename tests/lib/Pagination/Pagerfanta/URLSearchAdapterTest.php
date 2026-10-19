@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 class URLSearchAdapterTest extends TestCase
 {
-    private URLService&MockObject $urlService;
+    private URLService & MockObject $urlService;
 
     protected function setUp(): void
     {
@@ -36,7 +36,7 @@ class URLSearchAdapterTest extends TestCase
         ]);
 
         $this->urlService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('findUrls')
             ->willReturnCallback(static function (URLQuery $q) use ($query, $searchResults): SearchResult {
                 self::assertEquals($query->filter, $q->filter);
@@ -68,7 +68,7 @@ class URLSearchAdapterTest extends TestCase
         ]);
 
         $this->urlService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('findUrls')
             ->willReturnCallback(static function (URLQuery $q) use ($query, $limit, $offset, $searchResults): SearchResult {
                 self::assertEquals($query->filter, $q->filter);

@@ -45,15 +45,19 @@ class PasswordReset implements NotifierInterface, LoggerAwareInterface
         $this->kernel = $kernel;
     }
 
-    public function sendMessage(User $user, string $hashKey): void
-    {
+    public function sendMessage(
+        User $user,
+        string $hashKey
+    ): void {
         if ($this->isNotifierConfigured()) {
             $this->sendNotification($user, $hashKey);
         }
     }
 
-    private function sendNotification(User $user, string $token): void
-    {
+    private function sendNotification(
+        User $user,
+        string $token
+    ): void {
         $this->notificationService->send(
             new SymfonyNotificationAdapter(
                 new UserPasswordReset(

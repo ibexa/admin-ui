@@ -63,11 +63,11 @@
                             {{ form_errors(form.groups) }}
 
                             {% set items = form.groups.vars.data|map((group) => {
-                                id: group.content.versionInfo.contentInfo.id,
-                                name: ibexa_content_name(group.content)
+                                id: group.versionInfo.contentInfo.id,
+                                name: ibexa_content_name(group)
                             }) %}
                             {% set items_map = form.groups.vars.data|reduce((output, group) => output + {
-                                (group.id): group.content.versionInfo.contentInfo.mainLocationId,
+                                (group.id): group.contentInfo.mainLocationId,
                             }, {}) %}
                             {% set groups_udw_title = "role_assignment.view.add.panel.users_and_groups.groups.udw_title"
                                 |trans({}, 'ibexa_role')

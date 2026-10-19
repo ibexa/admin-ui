@@ -8,14 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Module\Subitems\Values;
 
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Rest\Value as RestValue;
 
 final class ContentTypeRemoteIdList extends RestValue
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[] $contentTypes
+     * @param ContentType[] $contentTypes
      */
-    public function __construct(public readonly array $contentTypes)
-    {
-    }
+    public function __construct(public readonly array $contentTypes) {}
 }

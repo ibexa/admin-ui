@@ -82,7 +82,7 @@ final class PolicyCreateMapperTest extends TestCase
     /**
      * @param array<string, mixed> $properties
      *
-     * @return \Ibexa\Core\Repository\Values\User\PolicyCreateStruct
+     * @return PolicyCreateStruct
      */
     private function createStruct(array $properties): PolicyCreateStruct
     {
@@ -92,7 +92,7 @@ final class PolicyCreateMapperTest extends TestCase
     /**
      * @param array<string, mixed> $properties
      *
-     * @return \Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData
+     * @return PolicyCreateData
      */
     private function createData(array $properties): PolicyCreateData
     {

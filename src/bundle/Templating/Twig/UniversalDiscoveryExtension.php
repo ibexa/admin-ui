@@ -16,11 +16,10 @@ final class UniversalDiscoveryExtension extends AbstractExtension
 {
     public function __construct(
         private readonly ConfigResolver $udwConfigResolver
-    ) {
-    }
+    ) {}
 
     /**
-     * @return \Twig\TwigFunction[]
+     * @return TwigFunction[]
      */
     public function getFunctions(): array
     {
@@ -36,8 +35,10 @@ final class UniversalDiscoveryExtension extends AbstractExtension
     /**
      * @param array<string, mixed> $context
      */
-    public function renderUniversalDiscoveryWidgetConfig(string $configName, array $context = []): string
-    {
+    public function renderUniversalDiscoveryWidgetConfig(
+        string $configName,
+        array $context = []
+    ): string {
         $config = $this->udwConfigResolver->getConfig($configName, $context);
 
         $normalized = $this->recursiveConfigurationArrayNormalize($config);

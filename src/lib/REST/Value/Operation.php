@@ -21,6 +21,5 @@ final class Operation extends RestValue
         public readonly array $parameters,
         public readonly array $headers,
         public readonly string $content
-    ) {
-    }
+    ) {}
 }

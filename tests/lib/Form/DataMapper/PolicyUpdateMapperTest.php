@@ -64,7 +64,7 @@ final class PolicyUpdateMapperTest extends TestCase
     }
 
     /**
-     * @return array<string, array<int, array<string, \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation>>>
+     * @return array<string, array<int, array<string, ContentTypeLimitation>>>
      */
     public static function dataProvider(): array
     {
@@ -76,7 +76,7 @@ final class PolicyUpdateMapperTest extends TestCase
     /**
      * @param array<string, mixed> $properties
      *
-     * @return \Ibexa\Core\Repository\Values\User\PolicyUpdateStruct
+     * @return PolicyUpdateStruct
      */
     private function createStruct(array $properties): PolicyUpdateStruct
     {
@@ -89,7 +89,7 @@ final class PolicyUpdateMapperTest extends TestCase
     /**
      * @param array<string, mixed> $properties
      *
-     * @return \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData
+     * @return PolicyUpdateData
      */
     private function createData(array $properties): PolicyUpdateData
     {

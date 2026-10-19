@@ -18,8 +18,7 @@ final class ContentTypeEditData
         private ?ContentType $contentType = null,
         private ?ContentTypeGroup $contentTypeGroup = null,
         private ?Language $language = null
-    ) {
-    }
+    ) {}
 
     public function getContentType(): ?ContentType
     {

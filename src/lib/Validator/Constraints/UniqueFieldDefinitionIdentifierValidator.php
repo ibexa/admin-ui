@@ -18,10 +18,12 @@ use Symfony\Component\Validator\ConstraintValidator;
 final class UniqueFieldDefinitionIdentifierValidator extends ConstraintValidator
 {
     /**
-     * @param \Symfony\Component\Validator\Constraint|UniqueFieldDefinitionIdentifier $constraint
+     * @param Constraint|UniqueFieldDefinitionIdentifier $constraint
      */
-    public function validate(mixed $value, Constraint $constraint): void
-    {
+    public function validate(
+        mixed $value,
+        Constraint $constraint
+    ): void {
         if (!$value instanceof FieldDefinitionData) {
             return;
         }

@@ -39,8 +39,11 @@ final class TranslatablePropertyTransformerTest extends TestCase
      * @param array<string, string> $inputValue
      */
     #[DataProvider('transformValueProvider')]
-    public function testTransform(array $inputValue, string $languageCode, string $expected): void
-    {
+    public function testTransform(
+        array $inputValue,
+        string $languageCode,
+        string $expected
+    ): void {
         $transformer = new TranslatablePropertyTransformer($languageCode);
         self::assertSame($expected, $transformer->transform($inputValue));
     }
@@ -73,8 +76,11 @@ final class TranslatablePropertyTransformerTest extends TestCase
      * @param array<string, string|null> $expected
      */
     #[DataProvider('reverseTransformProvider')]
-    public function testReverseTransform(mixed $inputValue, string $languageCode, array $expected): void
-    {
+    public function testReverseTransform(
+        mixed $inputValue,
+        string $languageCode,
+        array $expected
+    ): void {
         $transformer = new TranslatablePropertyTransformer($languageCode);
 
         self::assertSame($expected, $transformer->reverseTransform($inputValue));

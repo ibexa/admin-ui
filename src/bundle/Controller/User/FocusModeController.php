@@ -13,6 +13,9 @@ use Ibexa\AdminUi\Form\Type\User\FocusModeChangeType;
 use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Event\FocusModeChangedEvent;
+use Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\User\UserSetting\UserSettingService;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -25,22 +28,23 @@ final class FocusModeController extends Controller
     private const string RETURN_PATH_PARAM = 'returnPath';
 
     /**
-     * @param iterable<\Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface> $redirectStrategies
+     * @param iterable<RedirectStrategyInterface> $redirectStrategies
      */
     public function __construct(
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly UserSettingService $userSettingService,
         private readonly UrlMatcherInterface $urlMatcher,
         private readonly iterable $redirectStrategies
-    ) {
-    }
+    ) {}
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws InvalidArgumentException
+     * @throws UnauthorizedException
      */
-    public function changeAction(Request $request, ?string $returnPath): Response
-    {
+    public function changeAction(
+        Request $request,
+        ?string $returnPath
+    ): Response {
         $data = new FocusModeChangeData();
         $data->setEnabled(
             $this->userSettingService->getUserSetting(FocusMode::IDENTIFIER)->value === FocusMode::FOCUS_MODE_ON
@@ -95,8 +99,10 @@ final class FocusModeController extends Controller
         return new RedirectResponse($path);
     }
 
-    private function isSafeUrl(string $referer, string $baseUrl): bool
-    {
+    private function isSafeUrl(
+        string $referer,
+        string $baseUrl
+    ): bool {
         return str_starts_with($referer, $baseUrl);
     }
 

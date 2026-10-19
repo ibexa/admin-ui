@@ -27,6 +27,7 @@ use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -72,9 +73,9 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
 
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $contextParameters['location'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $contextParameters['content'];
         $versionInfo = $content->getVersionInfo();
         $translationsDataset = $this->datasetFactory->translations();
@@ -122,9 +123,9 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData>
+     * @return FormInterface<TranslationAddData>
      *
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     private function createTranslationAddForm(Location $location): FormInterface
     {
@@ -140,27 +141,31 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     /**
      * @param mixed[] $languageCodes
      *
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Content\Translation\TranslationDeleteData>
+     * @return FormInterface<TranslationDeleteData>
      *
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
-    private function createTranslationDeleteForm(Location $location, array $languageCodes): FormInterface
-    {
+    private function createTranslationDeleteForm(
+        Location $location,
+        array $languageCodes
+    ): FormInterface {
         $data = new TranslationDeleteData(
             $location->getContentInfo(),
-            array_combine($languageCodes, array_fill_keys($languageCodes, false))
+            array_fill_keys($languageCodes, false)
         );
 
         return $this->formFactory->createNamed('delete-translations', TranslationDeleteType::class, $data);
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<
-     *   \Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData
+     * @return FormInterface<
+     *   MainTranslationUpdateData
      * >
      */
-    private function createMainLanguageUpdateForm(Content $content, string $languageCode): FormInterface
-    {
+    private function createMainLanguageUpdateForm(
+        Content $content,
+        string $languageCode
+    ): FormInterface {
         $data = new MainTranslationUpdateData($content, $languageCode);
 
         return $this->formFactory->create(MainTranslationUpdateType::class, $data);

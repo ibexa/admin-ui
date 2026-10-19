@@ -32,11 +32,12 @@ class ContentEditType extends AbstractType
     public function __construct(
         protected readonly LanguageService $languageService,
         private readonly LanguageChoiceLoader $languageChoiceLoader
-    ) {
-    }
+    ) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add(
                 'location',
@@ -69,8 +70,11 @@ class ContentEditType extends AbstractType
             );
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
+    public function buildView(
+        FormView $view,
+        FormInterface $form,
+        array $options
+    ): void {
         /** @var mixed $data */
         $data = $form->getData();
 

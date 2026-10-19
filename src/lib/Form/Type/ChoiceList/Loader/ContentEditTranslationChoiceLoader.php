@@ -10,6 +10,10 @@ namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
@@ -31,14 +35,13 @@ final class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
         private readonly LocationService $locationService,
         private readonly ?ContentInfo $contentInfo = null,
         private readonly ?Location $location = null
-    ) {
-    }
+    ) {}
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws InvalidArgumentException
+     * @throws BadStateException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function getChoiceList(): array
     {

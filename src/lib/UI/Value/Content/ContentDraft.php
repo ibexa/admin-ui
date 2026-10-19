@@ -17,8 +17,7 @@ readonly class ContentDraft implements ContentDraftInterface
         private VersionInfo $versionInfo,
         private VersionId $versionId,
         private ContentType $contentType
-    ) {
-    }
+    ) {}
 
     public function getVersionInfo(): VersionInfo
     {

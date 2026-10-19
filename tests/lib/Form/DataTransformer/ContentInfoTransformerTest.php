@@ -13,6 +13,7 @@ use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -24,7 +25,7 @@ final class ContentInfoTransformerTest extends TestCase
 
     protected function setUp(): void
     {
-        /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $contentService */
+        /** @var ContentService|MockObject $contentService */
         $contentService = $this->createMock(ContentService::class);
         $contentService
             ->method('loadContentInfo')
@@ -50,16 +51,20 @@ final class ContentInfoTransformerTest extends TestCase
     }
 
     #[DataProvider('transformDataProvider')]
-    public function testTransform(?ContentInfo $value, ?int $expected): void
-    {
+    public function testTransform(
+        ?ContentInfo $value,
+        ?int $expected
+    ): void {
         $result = $this->contentInfoTransformer->transform($value);
 
         self::assertEquals($expected, $result);
     }
 
     #[DataProvider('reverseTransformDataProvider')]
-    public function testReverseTransform(mixed $value, ?ContentInfo $expected): void
-    {
+    public function testReverseTransform(
+        mixed $value,
+        ?ContentInfo $expected
+    ): void {
         $result = $this->contentInfoTransformer->reverseTransform($value);
 
         self::assertEquals($expected, $result);
@@ -79,11 +84,10 @@ final class ContentInfoTransformerTest extends TestCase
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('ContentInfo not found');
 
-        /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $service */
+        /** @var ContentService|MockObject $service */
         $service = $this->createMock(ContentService::class);
         $service->method('loadContentInfo')
-            ->will(self::throwException(new class('ContentInfo not found') extends NotFoundException {
-            }));
+            ->will($this->throwException(new class('ContentInfo not found') extends NotFoundException {}));
 
         $transformer = new ContentInfoTransformer($service);
 
@@ -91,7 +95,7 @@ final class ContentInfoTransformerTest extends TestCase
     }
 
     /**
-     * @return array<string, array{\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null, int|null}>
+     * @return array<string, array{ContentInfo|null, int|null}>
      */
     public static function transformDataProvider(): array
     {
@@ -106,7 +110,7 @@ final class ContentInfoTransformerTest extends TestCase
     }
 
     /**
-     * @return array<string, array{mixed, \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null}>
+     * @return array<string, array{mixed, ContentInfo|null}>
      */
     public static function reverseTransformDataProvider(): array
     {

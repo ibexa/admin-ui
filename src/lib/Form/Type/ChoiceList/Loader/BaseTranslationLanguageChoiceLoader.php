@@ -19,8 +19,7 @@ class BaseTranslationLanguageChoiceLoader extends BaseChoiceLoader
     public function __construct(
         protected LanguageService $languageService,
         protected array $languageCodes
-    ) {
-    }
+    ) {}
 
     /**
      * \Ibexa\Contracts\Core\Repository\Values\Content\Language[].

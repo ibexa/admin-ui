@@ -13,13 +13,14 @@ use Ibexa\AdminUi\Form\Type\Section\SectionType;
 use Ibexa\AdminUi\Form\Type\Section\SectionUpdateType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormTypeInterface;
 
 #[CoversClass(SectionUpdateType::class)]
 #[CoversClass(SectionUpdateData::class)]
 final class SectionUpdateDataValidationTest extends AbstractSectionMutationDataValidationTestCase
 {
     /**
-     * @return array<string, \Symfony\Component\Form\FormTypeInterface<mixed>>
+     * @return array<string, FormTypeInterface<mixed>>
      */
     protected function getTypes(): array
     {

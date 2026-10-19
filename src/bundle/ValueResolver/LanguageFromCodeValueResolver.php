@@ -20,8 +20,7 @@ final class LanguageFromCodeValueResolver extends AbstractValueResolver
 
     public function __construct(
         private readonly LanguageService $languageService
-    ) {
-    }
+    ) {}
 
     protected function getRequestAttributes(): array
     {

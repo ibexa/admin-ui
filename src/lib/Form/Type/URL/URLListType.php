@@ -22,12 +22,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class URLListType extends AbstractType
 {
-    public function __construct(private readonly TranslatorInterface $translator)
-    {
-    }
+    public function __construct(private readonly TranslatorInterface $translator) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->add('status', ChoiceType::class, [
             'choices' => [
                 $this->translator->trans(

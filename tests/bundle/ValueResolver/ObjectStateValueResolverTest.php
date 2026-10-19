@@ -21,7 +21,7 @@ final class ObjectStateValueResolverTest extends TestCase
 {
     private ObjectStateValueResolver $resolver;
 
-    private MockObject&ObjectStateService $objectStateService;
+    private MockObject & ObjectStateService $objectStateService;
 
     protected function setUp(): void
     {

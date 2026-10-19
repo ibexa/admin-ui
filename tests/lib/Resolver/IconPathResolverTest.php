@@ -17,9 +17,9 @@ use Symfony\Component\Asset\Packages;
 
 final class IconPathResolverTest extends TestCase
 {
-    private ConfigResolverInterface&MockObject $configResolver;
+    private ConfigResolverInterface & MockObject $configResolver;
 
-    private Packages&MockObject $packages;
+    private Packages & MockObject $packages;
 
     public function setUp(): void
     {
@@ -30,8 +30,11 @@ final class IconPathResolverTest extends TestCase
     }
 
     #[DataProvider('resolveDataProvider')]
-    public function testResolve(string $icon, ?string $set, string $expectedPath): void
-    {
+    public function testResolve(
+        string $icon,
+        ?string $set,
+        string $expectedPath
+    ): void {
         $iconPathResolver = new IconPathResolver($this->configResolver, $this->packages);
 
         self::assertEquals($expectedPath, $iconPathResolver->resolve($icon, $set));
@@ -78,7 +81,7 @@ final class IconPathResolverTest extends TestCase
     /**
      * @param array<string, mixed> $config
      */
-    private function getConfigResolverMock(array $config): ConfigResolverInterface&MockObject
+    private function getConfigResolverMock(array $config): ConfigResolverInterface & MockObject
     {
         $configResolver = $this->createMock(ConfigResolverInterface::class);
         $configResolver->method('getParameter')->willReturnMap([
@@ -92,7 +95,7 @@ final class IconPathResolverTest extends TestCase
     /**
      * @param array<string, mixed> $config
      */
-    private function getPackagesMock(array $config): Packages&MockObject
+    private function getPackagesMock(array $config): Packages & MockObject
     {
         $packages = $this->createMock(Packages::class);
         $packages->method('getUrl')->willReturnMap([

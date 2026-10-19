@@ -17,8 +17,7 @@ final class ContentVisibilityUpdateData
         private ?ContentInfo $contentInfo = null,
         private ?Location $location = null,
         private ?bool $visible = null
-    ) {
-    }
+    ) {}
 
     public function getContentInfo(): ?ContentInfo
     {

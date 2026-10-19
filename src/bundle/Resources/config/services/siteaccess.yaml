@@ -29,5 +29,5 @@ services:
 
     Ibexa\AdminUi\Siteaccess\AdminSiteaccessPreviewVoter:
         arguments:
-            $repositoryConfigurationProvider: '@Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider'
+            $repositoryConfigurationProvider: '@Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface'
         tags: [ ibexa.admin_ui.site_access.preview.voter ]

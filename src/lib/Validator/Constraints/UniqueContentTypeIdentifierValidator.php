@@ -19,20 +19,20 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 final class UniqueContentTypeIdentifierValidator extends ConstraintValidator
 {
-    public function __construct(private readonly ContentTypeService $contentTypeService)
-    {
-    }
+    public function __construct(private readonly ContentTypeService $contentTypeService) {}
 
     /**
      * Checks if the passed value is valid.
      *
-     * @param \Ibexa\AdminUi\Form\Data\ContentTypeData $value The value that should be validated
-     * @param \Symfony\Component\Validator\Constraint|UniqueFieldDefinitionIdentifier $constraint The constraint for the validation
+     * @param ContentTypeData $value The value that should be validated
+     * @param Constraint|UniqueFieldDefinitionIdentifier $constraint The constraint for the validation
      *
      * @api
      */
-    public function validate(mixed $value, Constraint $constraint): void
-    {
+    public function validate(
+        mixed $value,
+        Constraint $constraint
+    ): void {
         if (!$value instanceof ContentTypeData || $value->identifier === null) {
             return;
         }

@@ -17,8 +17,7 @@ final readonly class AdminUpdateContext implements Context
 {
     public function __construct(
         private AdminUpdateItemPage $adminUpdateItemPage
-    ) {
-    }
+    ) {}
 
     #[When('I set fields')]
     public function iSetFields(TableNode $table): void
@@ -27,5 +26,11 @@ final readonly class AdminUpdateContext implements Context
         foreach ($table->getHash() as $row) {
             $this->adminUpdateItemPage->fillFieldWithValue($row['label'], $row['value']);
         }
+    }
+
+    #[When('I press Enter in the :fieldName field')]
+    public function iPressEnterInField(string $fieldName): void
+    {
+        $this->adminUpdateItemPage->pressEnterInField($fieldName);
     }
 }

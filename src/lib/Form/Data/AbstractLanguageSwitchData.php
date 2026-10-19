@@ -12,9 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 
 abstract class AbstractLanguageSwitchData
 {
-    public function __construct(private ?Language $language = null)
-    {
-    }
+    public function __construct(private ?Language $language = null) {}
 
     public function getLanguage(): ?Language
     {

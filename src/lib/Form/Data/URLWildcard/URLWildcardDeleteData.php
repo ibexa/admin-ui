@@ -13,9 +13,7 @@ final class URLWildcardDeleteData
     /**
      * @param bool[]|null $urlWildcardsChoices
      */
-    public function __construct(private ?array $urlWildcardsChoices = [])
-    {
-    }
+    public function __construct(private ?array $urlWildcardsChoices = []) {}
 
     /**
      * @return bool[]|null

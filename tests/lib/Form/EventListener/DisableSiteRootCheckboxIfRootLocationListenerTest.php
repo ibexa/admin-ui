@@ -28,7 +28,7 @@ class DisableSiteRootCheckboxIfRootLocationListenerTest extends TestCase
         $form = $this->createMock(FormInterface::class);
 
         $form
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('add')
             ->with(
                 'site_root',
@@ -61,7 +61,7 @@ class DisableSiteRootCheckboxIfRootLocationListenerTest extends TestCase
         $form = $this->createMock(FormInterface::class);
 
         $form
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('add');
 
         $event = $this->createMock(FormEvent::class);
@@ -91,10 +91,10 @@ class DisableSiteRootCheckboxIfRootLocationListenerTest extends TestCase
             ->willReturn(2);
 
         $data = new CustomUrlAddData($location);
-              $form = $this->createMock(FormInterface::class);
+        $form = $this->createMock(FormInterface::class);
 
         $form
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('add');
 
         $event = $this->createMock(FormEvent::class);

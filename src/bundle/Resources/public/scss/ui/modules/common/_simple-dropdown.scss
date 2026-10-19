@@ -23,8 +23,9 @@
 
     &__expand-icon {
         position: absolute;
-        top: calculateRem(7px);
+        top: 50%;
         right: calculateRem(8px);
+        margin-top: calculateRem(-8px);
     }
 
     &__items {

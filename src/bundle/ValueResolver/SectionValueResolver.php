@@ -20,8 +20,7 @@ final class SectionValueResolver extends AbstractValueResolver
 
     public function __construct(
         private readonly SectionService $sectionService
-    ) {
-    }
+    ) {}
 
     protected function getRequestAttributes(): array
     {

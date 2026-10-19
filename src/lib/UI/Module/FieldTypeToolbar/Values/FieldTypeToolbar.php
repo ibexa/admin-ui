@@ -17,14 +17,12 @@ use IteratorAggregate;
 final readonly class FieldTypeToolbar implements IteratorAggregate
 {
     /**
-     * @param \Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbarItem[] $items
+     * @param FieldTypeToolbarItem[] $items
      */
-    public function __construct(private array $items)
-    {
-    }
+    public function __construct(private array $items) {}
 
     /**
-     * @return \Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbarItem[]
+     * @return FieldTypeToolbarItem[]
      */
     public function getItems(): iterable
     {
@@ -32,7 +30,7 @@ final readonly class FieldTypeToolbar implements IteratorAggregate
     }
 
     /**
-     * @return \Iterator<\Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbarItem>
+     * @return Iterator<FieldTypeToolbarItem>
      */
     public function getIterator(): Iterator
     {

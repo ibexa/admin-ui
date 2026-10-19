@@ -17,10 +17,16 @@ interface PermissionCheckerInterface
      *
      * @return array<mixed>
      */
-    public function getRestrictions(array $hasAccess, string $class): array;
+    public function getRestrictions(
+        array $hasAccess,
+        string $class
+    ): array;
 
     /**
      * @param array<mixed>|bool $hasAccess
      */
-    public function canCreateInLocation(Location $location, array|bool $hasAccess): bool;
+    public function canCreateInLocation(
+        Location $location,
+        array | bool $hasAccess
+    ): bool;
 }

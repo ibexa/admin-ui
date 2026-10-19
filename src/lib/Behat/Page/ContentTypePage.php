@@ -41,8 +41,10 @@ final class ContentTypePage extends Page
             ->build();
     }
 
-    public function hasProperty(string $label, string $value): bool
-    {
+    public function hasProperty(
+        string $label,
+        string $value
+    ): bool {
         return $this->getHTMLPage()
             ->findAll($this->getLocator('globalPropertiesItem'))
             ->getByCriterion(new ChildElementTextCriterion($this->getLocator('globalPropertiesLabel'), $label))

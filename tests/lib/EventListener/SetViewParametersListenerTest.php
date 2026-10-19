@@ -40,13 +40,13 @@ final class SetViewParametersListenerTest extends TestCase
 
     private SetViewParametersListener $viewParametersListener;
 
-    private LocationService&MockObject $locationService;
+    private LocationService & MockObject $locationService;
 
-    private UserService&MockObject $userService;
+    private UserService & MockObject $userService;
 
-    private Repository&MockObject $repository;
+    private Repository & MockObject $repository;
 
-    private GroupedContentFormFieldsProviderInterface&MockObject $groupedContentFormFieldsProvider;
+    private GroupedContentFormFieldsProviderInterface & MockObject $groupedContentFormFieldsProvider;
 
     public function setUp(): void
     {
@@ -62,26 +62,26 @@ final class SetViewParametersListenerTest extends TestCase
         $this->repository = $this->createMock(Repository::class);
 
         $configResolver = $this->createMock(ConfigResolverInterface::class);
-        $matcher = self::any();
+        $matcher = $this->any();
         $configResolver->expects($matcher)
             ->method('getParameter')->willReturnCallback(static function (...$parameters) use ($matcher): array {
-            if ($matcher->numberOfInvocations() === 1) {
-                self::assertSame('admin_ui_forms.content_edit.fieldtypes', $parameters[0]);
+                if ($matcher->numberOfInvocations() === 1) {
+                    self::assertSame('admin_ui_forms.content_edit.fieldtypes', $parameters[0]);
 
-                return [
-                    'ibexa_taxonomy_entry_assignment' => [
-                        'meta' => true,
-                    ],
-                ];
-            }
-            if ($matcher->numberOfInvocations() === 2) {
-                self::assertSame('admin_ui_forms.content_edit.meta_field_groups_list', $parameters[0]);
+                    return [
+                        'ibexa_taxonomy_entry_assignment' => [
+                            'meta' => true,
+                        ],
+                    ];
+                }
+                if ($matcher->numberOfInvocations() === 2) {
+                    self::assertSame('admin_ui_forms.content_edit.meta_field_groups_list', $parameters[0]);
 
-                return ['metadata'];
-            }
+                    return ['metadata'];
+                }
 
-            return [];
-        });
+                return [];
+            });
 
         $this->groupedContentFormFieldsProvider = $this->createMock(GroupedContentFormFieldsProviderInterface::class);
 
@@ -177,7 +177,7 @@ final class SetViewParametersListenerTest extends TestCase
     {
         $contentView = self::createStub(View::class);
 
-        $this->locationService->expects(self::never())
+        $this->locationService->expects($this->never())
             ->method('loadParentLocationsForDraftContent');
 
         $this->viewParametersListener->setContentEditViewTemplateParameters(
@@ -189,7 +189,7 @@ final class SetViewParametersListenerTest extends TestCase
     {
         $view = self::createStub(View::class);
 
-        $this->locationService->expects(self::never())
+        $this->locationService->expects($this->never())
             ->method('loadParentLocationsForDraftContent');
 
         $this->viewParametersListener->setUserUpdateViewTemplateParameters(
@@ -286,7 +286,7 @@ final class SetViewParametersListenerTest extends TestCase
     public function testSubscribedEvents(): void
     {
         $this->locationService
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadParentLocationsForDraftContent');
 
         $expectedSubscribedEvents = [
@@ -308,8 +308,10 @@ final class SetViewParametersListenerTest extends TestCase
         }
     }
 
-    private function generateContentInfo(?int $mainLocationId = null, bool $published = false): API\ContentInfo
-    {
+    private function generateContentInfo(
+        ?int $mainLocationId = null,
+        bool $published = false
+    ): API\ContentInfo {
         return new API\ContentInfo([
             'mainLocationId' => $mainLocationId,
             'ownerId' => self::EXAMPLE_OWNER_ID,
@@ -325,7 +327,7 @@ final class SetViewParametersListenerTest extends TestCase
         return new VersionInfo(['contentInfo' => $contentInfo]);
     }
 
-    private function generateContent(API\VersionInfo|VersionInfo $versionInfo): API\Content
+    private function generateContent(API\VersionInfo | VersionInfo $versionInfo): API\Content
     {
         return new Core\Content(['versionInfo' => $versionInfo]);
     }
@@ -344,8 +346,11 @@ final class SetViewParametersListenerTest extends TestCase
         return new CoreUser(['content' => $content]);
     }
 
-    private function createFieldMock(string $identifier, string $type, string $fieldGroup = 'content'): MockObject|Field
-    {
+    private function createFieldMock(
+        string $identifier,
+        string $type,
+        string $fieldGroup = 'content'
+    ): MockObject | Field {
         $data = new FieldData([
             'field' => new Field([
                 'fieldDefIdentifier' => $identifier,

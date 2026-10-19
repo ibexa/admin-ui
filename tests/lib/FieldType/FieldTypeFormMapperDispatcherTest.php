@@ -23,9 +23,9 @@ class FieldTypeFormMapperDispatcherTest extends TestCase
 {
     private FieldTypeDefinitionFormMapperDispatcher $dispatcher;
 
-    private FieldDefinitionFormMapperInterface&MockObject $fieldDefinitionMapperMock;
+    private FieldDefinitionFormMapperInterface & MockObject $fieldDefinitionMapperMock;
 
-    private FieldTypeAliasResolverInterface&MockObject $fieldTypeAliasResolver;
+    private FieldTypeAliasResolverInterface & MockObject $fieldTypeAliasResolver;
 
     protected function setUp(): void
     {
@@ -56,7 +56,7 @@ class FieldTypeFormMapperDispatcherTest extends TestCase
             ->willReturnArgument(0);
 
         $this->fieldDefinitionMapperMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('mapFieldDefinitionForm')
             ->with($formMock, $data);
 

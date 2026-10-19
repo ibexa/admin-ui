@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class URLUsagesAdapterTest extends TestCase
 {
-    private URLService&MockObject $urlService;
+    private URLService & MockObject $urlService;
 
     protected function setUp(): void
     {
@@ -34,7 +34,7 @@ class URLUsagesAdapterTest extends TestCase
         ]);
 
         $this->urlService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('findUsages')
             ->with($url, 0, 0)
             ->willReturn($searchResults);
@@ -63,7 +63,7 @@ class URLUsagesAdapterTest extends TestCase
         ]);
 
         $this->urlService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('findUsages')
             ->with($url, $offset, $limit)
             ->willReturn($searchResults);

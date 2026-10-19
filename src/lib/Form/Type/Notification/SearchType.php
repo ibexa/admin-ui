@@ -20,9 +20,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class SearchType extends AbstractType
 {
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
-        /** @var \Ibexa\Bundle\AdminUi\Form\Data\SearchQueryData|null $data */
+    public function buildView(
+        FormView $view,
+        FormInterface $form,
+        array $options
+    ): void {
+        /** @var SearchQueryData|null $data */
         $data = $form->getData();
         $view->vars['is_any_filter_set'] = false;
 
@@ -38,8 +41,10 @@ final class SearchType extends AbstractType
         }
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add('type', NotificationTypeChoiceType::class, [
                 'required' => false,

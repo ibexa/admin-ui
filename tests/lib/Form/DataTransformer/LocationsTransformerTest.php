@@ -18,8 +18,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class LocationsTransformerTest extends TestCase
 {
     #[DataProvider('transformDataProvider')]
-    public function testTransform(mixed $value, ?string $expected): void
-    {
+    public function testTransform(
+        mixed $value,
+        ?string $expected
+    ): void {
         $service = self::createStub(LocationService::class);
         $transformer = new LocationsTransformer($service);
 
@@ -31,7 +33,7 @@ class LocationsTransformerTest extends TestCase
     public function testReverseTransformWithIds(): void
     {
         $service = $this->createMock(LocationService::class);
-        $service->expects(self::exactly(2))
+        $service->expects($this->exactly(2))
             ->method('loadLocation')
             ->willReturnMap([
                 [123456, null, null, new Location(['id' => 123456])],
@@ -48,7 +50,7 @@ class LocationsTransformerTest extends TestCase
     public function testReverseTransformWithEmpty(mixed $value): void
     {
         $service = $this->createMock(LocationService::class);
-        $service->expects(self::never())
+        $service->expects($this->never())
             ->method('loadLocation');
 
         $transformer = new LocationsTransformer($service);
@@ -70,7 +72,7 @@ class LocationsTransformerTest extends TestCase
     }
 
     /**
-     * @return array<string, array{\Ibexa\Core\Repository\Values\Content\Location[]|string|null, string|null}>
+     * @return array<string, array{Location[]|string|null, string|null}>
      */
     public static function transformDataProvider(): array
     {

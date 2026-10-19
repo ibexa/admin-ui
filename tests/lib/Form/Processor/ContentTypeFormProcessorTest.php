@@ -35,11 +35,11 @@ final class ContentTypeFormProcessorTest extends TestCase
 {
     private const int EXAMPLE_CONTENT_TYPE_ID = 1;
 
-    private ContentTypeService&MockObject $contentTypeService;
+    private ContentTypeService & MockObject $contentTypeService;
 
-    private RouterInterface&MockObject $router;
+    private RouterInterface & MockObject $router;
 
-    private FieldsGroupsList&MockObject $groupsList;
+    private FieldsGroupsList & MockObject $groupsList;
 
     private ContentTypeFormProcessor $formProcessor;
 
@@ -90,24 +90,24 @@ final class ContentTypeFormProcessorTest extends TestCase
         $contentTypeData = new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]);
         $contentTypeData->addFieldDefinitionData($fieldDefData1);
         $contentTypeData->addFieldDefinitionData($fieldDefData2);
-        $matcher = self::exactly(2);
+        $matcher = $this->exactly(2);
 
         $this->contentTypeService
             ->expects($matcher)
             ->method('updateFieldDefinition')->willReturnCallback(static function (...$parameters) use ($matcher, $contentTypeDraft, $fieldDef1, $fieldDefData1, $fieldDef2, $fieldDefData2): void {
-            if ($matcher->numberOfInvocations() === 1) {
-                self::assertSame($contentTypeDraft, $parameters[0]);
-                self::assertSame($fieldDef1, $parameters[1]);
-                self::assertSame($fieldDefData1, $parameters[2]);
-            }
-            if ($matcher->numberOfInvocations() === 2) {
-                self::assertSame($contentTypeDraft, $parameters[0]);
-                self::assertSame($fieldDef2, $parameters[1]);
-                self::assertSame($fieldDefData2, $parameters[2]);
-            }
-        });
+                if ($matcher->numberOfInvocations() === 1) {
+                    self::assertSame($contentTypeDraft, $parameters[0]);
+                    self::assertSame($fieldDef1, $parameters[1]);
+                    self::assertSame($fieldDefData1, $parameters[2]);
+                }
+                if ($matcher->numberOfInvocations() === 2) {
+                    self::assertSame($contentTypeDraft, $parameters[0]);
+                    self::assertSame($fieldDef2, $parameters[1]);
+                    self::assertSame($fieldDefData2, $parameters[2]);
+                }
+            });
         $this->contentTypeService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('updateContentTypeDraft')
             ->with($contentTypeDraft, $contentTypeData);
 
@@ -147,12 +147,12 @@ final class ContentTypeFormProcessorTest extends TestCase
 
         $fieldTypeSelectionForm = $this->createMock(FormInterface::class);
         $fieldTypeSelectionForm
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getData')
             ->willReturn($fieldTypeIdentifier);
         $mainForm = $this->createMock(FormInterface::class);
         $mainForm
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('get')
             ->with('fieldTypeSelection')
             ->willReturn($fieldTypeSelectionForm);
@@ -164,7 +164,7 @@ final class ContentTypeFormProcessorTest extends TestCase
             ->willReturn($languageCode);
 
         $mainForm
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getConfig')
             ->willReturn($formConfig);
 
@@ -176,16 +176,16 @@ final class ContentTypeFormProcessorTest extends TestCase
             'fieldGroup' => 'content',
         ]);
         $this->contentTypeService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadContentTypeDraft')
             ->with($contentTypeDraft->id)
             ->willReturn($contentTypeDraft);
         $this->contentTypeService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('addFieldDefinition')
             ->with($contentTypeDraft, self::equalTo($expectedFieldDefCreateStruct));
         $this->groupsList
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getDefaultGroup')
             ->willReturn('content');
 
@@ -209,7 +209,7 @@ final class ContentTypeFormProcessorTest extends TestCase
             ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('publishContentTypeDraft')
             ->with($contentTypeDraft);
 
@@ -228,12 +228,12 @@ final class ContentTypeFormProcessorTest extends TestCase
             ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('publishContentTypeDraft')
             ->with($contentTypeDraft);
 
         $this->router
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('generate')
             ->with($redirectRoute)
             ->willReturn($redirectUrl);
@@ -271,13 +271,13 @@ final class ContentTypeFormProcessorTest extends TestCase
 
         $mainForm = $this->createMock(FormInterface::class);
         $mainForm
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('get')
             ->with('fieldDefinitionsData')
             ->willReturn($fieldDefinitionsDataForm);
 
         // only 2 fields are selected for removal: field 2 and 3
-        $matcher = self::exactly(2);
+        $matcher = $this->exactly(2);
         $this->contentTypeService->expects($matcher)
                                  ->method('removeFieldDefinition')
             // replacement for deprecated withConsecutive method
@@ -316,7 +316,7 @@ final class ContentTypeFormProcessorTest extends TestCase
             ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('deleteContentType')
             ->with($contentTypeDraft);
 
@@ -335,12 +335,12 @@ final class ContentTypeFormProcessorTest extends TestCase
             ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('deleteContentType')
             ->with($contentTypeDraft);
 
         $this->router
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('generate')
             ->with($redirectRoute)
             ->willReturn($redirectUrl);
@@ -365,26 +365,28 @@ final class ContentTypeFormProcessorTest extends TestCase
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<mixed>&\PHPUnit\Framework\MockObject\MockObject
+     * @return FormInterface<mixed>&MockObject
      */
-    private function mockFieldDefinitionForm(FieldDefinition $fieldDefinition, bool $isSelected): FormInterface & MockObject
-    {
+    private function mockFieldDefinitionForm(
+        FieldDefinition $fieldDefinition,
+        bool $isSelected
+    ): FormInterface & MockObject {
         $fieldDefinitionForm = $this->createMock(FormInterface::class);
         $fieldDefinitionForm->method('getName')->willReturn(uniqid('child', true));
         $fieldDefinitionSelectedForm = $this->createMock(FormInterface::class);
         $fieldDefinitionForm
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('get')
             ->with('selected')
             ->willReturn($fieldDefinitionSelectedForm)
         ;
         $fieldDefinitionSelectedForm
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getData')
             ->willReturn($isSelected)
         ;
         $fieldDefinitionForm
-            ->expects($isSelected ? self::once() : self::never())
+            ->expects($isSelected ? $this->once() : $this->never())
             ->method('getData')
             ->willReturn(new FieldDefinitionData(['fieldDefinition' => $fieldDefinition]))
         ;

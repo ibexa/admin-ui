@@ -14,9 +14,7 @@ use Ibexa\User\UserSetting\UserSettingService;
 
 final class IsFocusModeEnabled extends AbstractSpecification
 {
-    public function __construct(private readonly string $enabled)
-    {
-    }
+    public function __construct(private readonly string $enabled) {}
 
     /**
      * @param string $item

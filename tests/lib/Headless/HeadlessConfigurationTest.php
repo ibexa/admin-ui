@@ -28,8 +28,10 @@ final class HeadlessConfigurationTest extends TestCase
     }
 
     #[DataProvider('dataProviderForTestIsEnabled')]
-    public function testIsEnabled(mixed $parameter, bool $expected): void
-    {
+    public function testIsEnabled(
+        mixed $parameter,
+        bool $expected
+    ): void {
         $configuration = new HeadlessConfiguration(
             $this->createConfigResolver(['headless.enabled' => $parameter], 'site')
         );
@@ -49,8 +51,10 @@ final class HeadlessConfigurationTest extends TestCase
     }
 
     #[DataProvider('dataProviderForTestUrlGetters')]
-    public function testUrlGetters(mixed $parameter, ?string $expected): void
-    {
+    public function testUrlGetters(
+        mixed $parameter,
+        ?string $expected
+    ): void {
         $configuration = new HeadlessConfiguration(
             $this->createConfigResolver([
                 'headless.page_builder.preview_url' => $parameter,
@@ -69,13 +73,19 @@ final class HeadlessConfigurationTest extends TestCase
     /**
      * @param array<string, mixed> $parameters
      */
-    private function createConfigResolver(array $parameters, ?string $expectedScope = null): ConfigResolverInterface
-    {
+    private function createConfigResolver(
+        array $parameters,
+        ?string $expectedScope = null
+    ): ConfigResolverInterface {
         $configResolver = $this->createMock(ConfigResolverInterface::class);
         $configResolver
             ->method('getParameter')
             ->willReturnCallback(
-                static function (string $name, ?string $namespace, ?string $scope) use ($parameters, $expectedScope): mixed {
+                static function (
+                    string $name,
+                    ?string $namespace,
+                    ?string $scope
+                ) use ($parameters, $expectedScope): mixed {
                     self::assertNull($namespace);
                     self::assertSame($expectedScope, $scope);
                     self::assertArrayHasKey($name, $parameters);

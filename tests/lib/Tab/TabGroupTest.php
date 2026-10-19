@@ -19,7 +19,7 @@ final class TabGroupTest extends TestCase
         $tabIdentifier = 'tab_identifier';
 
         $tab = $this->createMock(TabInterface::class);
-        $tab->expects(self::once())
+        $tab->expects($this->once())
             ->method('getIdentifier')
             ->willReturn($tabIdentifier);
 
@@ -37,12 +37,12 @@ final class TabGroupTest extends TestCase
         $tabIdentifier = 'tab_identifier';
 
         $tab = $this->createMock(TabInterface::class);
-        $tab->expects(self::once())
+        $tab->expects($this->once())
             ->method('getIdentifier')
             ->willReturn($tabIdentifier);
 
         $tabWithSameIdentifier = $this->createMock(TabInterface::class);
-        $tabWithSameIdentifier->expects(self::once())
+        $tabWithSameIdentifier->expects($this->once())
             ->method('getIdentifier')
             ->willReturn($tabIdentifier);
 
@@ -59,7 +59,7 @@ final class TabGroupTest extends TestCase
         $tabIdentifier = 'tab_identifier';
 
         $tab = $this->createMock(TabInterface::class);
-        $tab->expects(self::once())
+        $tab->expects($this->once())
             ->method('getIdentifier')
             ->willReturn($tabIdentifier);
 
@@ -79,7 +79,7 @@ final class TabGroupTest extends TestCase
         $this->expectExceptionMessage(sprintf('Could not find a tab identified as "%s".', $tabIdentifier));
 
         $tab = $this->createMock(TabInterface::class);
-        $tab->expects(self::never())->method(self::anything());
+        $tab->expects($this->never())->method(self::anything());
 
         $tabGroup = new TabGroup('group_name');
 

@@ -23,11 +23,12 @@ final readonly class ContentTypeFieldsByExpressionService implements ContentType
         private ContentTypeHandler $contentTypeHandler,
         private ContentTypeDomainMapper $contentTypeDomainMapper,
         private ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
-    public function getFieldsFromExpression(string $expression, ?string $configuration = null): array
-    {
+    public function getFieldsFromExpression(
+        string $expression,
+        ?string $configuration = null
+    ): array {
         $contentTypeFieldIds = $this->fieldsExtractor->extractFieldsFromExpression($expression);
 
         $configuration = $configuration !== null
@@ -59,8 +60,10 @@ final readonly class ContentTypeFieldsByExpressionService implements ContentType
         return $contentTypeFieldDefinitions;
     }
 
-    public function isFieldIncludedInExpression(FieldDefinition $fieldDefinition, string $expression): bool
-    {
+    public function isFieldIncludedInExpression(
+        FieldDefinition $fieldDefinition,
+        string $expression
+    ): bool {
         return $this->fieldsExtractor->isFieldWithinExpression($fieldDefinition->getId(), $expression);
     }
 }

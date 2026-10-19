@@ -15,6 +15,5 @@ final class Thumbnail extends Value
     public function __construct(
         public readonly ?string $uri,
         public readonly ?string $mimeType
-    ) {
-    }
+    ) {}
 }

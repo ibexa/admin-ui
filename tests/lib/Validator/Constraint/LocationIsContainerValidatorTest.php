@@ -19,13 +19,13 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class LocationIsContainerValidatorTest extends TestCase
 {
-    private ExecutionContextInterface&MockObject $executionContext;
+    private ExecutionContextInterface & MockObject $executionContext;
 
     private LocationIsContainerValidator $validator;
 
-    private Location&MockObject $location;
+    private Location & MockObject $location;
 
-    private ContentType&MockObject $contentType;
+    private ContentType & MockObject $contentType;
 
     protected function setUp(): void
     {
@@ -54,7 +54,7 @@ class LocationIsContainerValidatorTest extends TestCase
             ->willReturn(true);
 
         $this->executionContext
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('addViolation');
 
         $this->validator->validate($this->location, new LocationIsContainer());
@@ -67,7 +67,7 @@ class LocationIsContainerValidatorTest extends TestCase
             ->willReturn(false);
 
         $this->executionContext
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('addViolation');
 
         $this->validator->validate($this->location, new LocationIsContainer());

@@ -11,6 +11,7 @@ namespace Ibexa\Tests\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\ContentTypeFieldsByExpression;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ContentTypeFieldsByExpression::class)]
@@ -18,7 +19,7 @@ final class ContentTypeFieldsByExpressionTest extends TestCase
 {
     private ContentTypeFieldsByExpression $parser;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject&\Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface */
+    /** @var MockObject&ContextualizerInterface */
     private ContextualizerInterface $contextualizer;
 
     protected function setUp(): void
@@ -39,7 +40,7 @@ final class ContentTypeFieldsByExpressionTest extends TestCase
         $currentScope = 'admin_group';
 
         $this->contextualizer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('setContextualParameter')
             ->with(
                 'content_type_field_type_groups.configurations.vectorizable_fields',
@@ -60,7 +61,7 @@ final class ContentTypeFieldsByExpressionTest extends TestCase
         $currentScope = 'admin_group';
 
         $this->contextualizer
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('setContextualParameter');
 
         $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);

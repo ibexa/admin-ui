@@ -115,7 +115,7 @@ final class RequestLocaleListenerTest extends TestCase
     public function testLocaleIsSet(): void
     {
         $this->translator
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('setLocale')
             ->with('en_US');
 
@@ -146,7 +146,7 @@ final class RequestLocaleListenerTest extends TestCase
     public function testLocaleIsSetWithoutAvailableTranslation(): void
     {
         $this->translator
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('setLocale')
             ->with('en_US');
 
@@ -177,7 +177,7 @@ final class RequestLocaleListenerTest extends TestCase
     public function testInvalidPreferredLocaleFallsBackToAvailableTranslation(): void
     {
         $this->translator
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('setLocale')
             ->with('en_GB');
 
@@ -190,7 +190,7 @@ final class RequestLocaleListenerTest extends TestCase
         // `Accept-Language: *` (RFC 7231 wildcard) surfaces here as the `*` locale, which
         // is not a valid locale; it must not reach the translator.
         $this->userLanguagePreferenceProvider
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getPreferredLocales')
             ->willReturn(['*']);
 
@@ -248,7 +248,7 @@ final class RequestLocaleListenerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Symfony\Contracts\Translation\TranslatorInterface
+     * @return MockObject|TranslatorInterface
      *
      * @throws \ReflectionException
      */
@@ -256,7 +256,7 @@ final class RequestLocaleListenerTest extends TestCase
     {
         $translator = $this->createMock(Translator::class);
         $translator
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('setLocale');
 
         return $translator;

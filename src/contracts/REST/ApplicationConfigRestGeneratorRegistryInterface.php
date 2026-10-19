@@ -10,14 +10,20 @@ namespace Ibexa\Contracts\AdminUi\REST;
 
 interface ApplicationConfigRestGeneratorRegistryInterface
 {
-    public function hasGenerator(string $namespace, string $parameter): bool;
+    public function hasGenerator(
+        string $namespace,
+        string $parameter
+    ): bool;
 
     public function hasGenerators(string $namespace): bool;
 
-    public function getGenerator(string $namespace, string $parameter): ApplicationConfigRestGeneratorInterface;
+    public function getGenerator(
+        string $namespace,
+        string $parameter
+    ): ApplicationConfigRestGeneratorInterface;
 
     /**
-     * @return iterable<\Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestGeneratorInterface>
+     * @return iterable<ApplicationConfigRestGeneratorInterface>
      */
     public function getGenerators(string $namespace): iterable;
 }

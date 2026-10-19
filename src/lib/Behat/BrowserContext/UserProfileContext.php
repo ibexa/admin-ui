@@ -16,9 +16,7 @@ use Ibexa\AdminUi\Behat\Page\UserProfilePage;
 
 final readonly class UserProfileContext implements Context
 {
-    public function __construct(private UserProfilePage $userProfilePage)
-    {
-    }
+    public function __construct(private UserProfilePage $userProfilePage) {}
 
     #[Given('I edit user profile summary')]
     public function editUserProfileSummary(): void

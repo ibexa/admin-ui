@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
+use Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent;
 use Ibexa\AdminUi\Behat\Component\Notification;
 use Ibexa\Behat\API\Facade\ContentFacade;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -18,7 +19,7 @@ use Ibexa\Behat\Browser\Routing\Router;
 final class UserUpdatePage extends ContentUpdateItemPage
 {
     /**
-     * @param \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent[] $fieldTypeComponents
+     * @param FieldTypeComponent[] $fieldTypeComponents
      */
     public function __construct(
         Session $session,

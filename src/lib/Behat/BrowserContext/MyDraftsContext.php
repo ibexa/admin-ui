@@ -17,8 +17,7 @@ final readonly class MyDraftsContext implements Context
 {
     public function __construct(
         private MyDraftsPage $myDraftsPage
-    ) {
-    }
+    ) {}
 
     #[Given('I delete the draft :draftName from my draft lists')]
     public function iDeleteADraftFromTheList(string $draftName): void

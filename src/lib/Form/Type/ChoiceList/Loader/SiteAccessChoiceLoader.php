@@ -22,8 +22,7 @@ final readonly class SiteAccessChoiceLoader implements ChoiceLoaderInterface
         private SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
         private ?Location $location = null,
         private ?string $languageCode = null
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, string>
@@ -57,8 +56,10 @@ final readonly class SiteAccessChoiceLoader implements ChoiceLoaderInterface
     /**
      * @return string[]
      */
-    public function loadChoicesForValues(array $values, ?callable $value = null): array
-    {
+    public function loadChoicesForValues(
+        array $values,
+        ?callable $value = null
+    ): array {
         // Optimize
         $values = array_filter($values);
         if (empty($values)) {
@@ -71,8 +72,10 @@ final readonly class SiteAccessChoiceLoader implements ChoiceLoaderInterface
     /**
      * @return string[]
      */
-    public function loadValuesForChoices(array $choices, ?callable $value = null): array
-    {
+    public function loadValuesForChoices(
+        array $choices,
+        ?callable $value = null
+    ): array {
         // Optimize
         $choices = array_filter($choices);
         if (empty($choices)) {

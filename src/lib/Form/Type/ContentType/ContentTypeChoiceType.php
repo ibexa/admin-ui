@@ -24,8 +24,7 @@ class ContentTypeChoiceType extends AbstractType
     public function __construct(
         protected readonly ContentTypeService $contentTypeService,
         private readonly ContentTypeChoiceLoader $contentTypeChoiceLoader
-    ) {
-    }
+    ) {}
 
     public function getParent(): string
     {

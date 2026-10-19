@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class LocationIsNotSubLocationValidatorTest extends TestCase
 {
-    private ExecutionContextInterface&MockObject $executionContext;
+    private ExecutionContextInterface & MockObject $executionContext;
 
     private LocationIsNotSubLocationValidator $validator;
 
@@ -36,7 +36,7 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
         $comparedLocation = $this->createLocationWithPathString('/3/5/');
 
         $this->executionContext
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('addViolation');
 
         $constraint = new LocationIsNotSubLocation($comparedLocation);
@@ -69,7 +69,7 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
             ->willReturn($constraintViolationBuilder);
 
         $this->executionContext
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('buildViolation');
 
         $this->validator->validate($location, $constraint);
@@ -79,7 +79,7 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
      * Location::__get() must stay real so that reading $location->pathString works, which is what
      * the removed MockBuilder::setMethodsExcept() used to express.
      */
-    private function createLocationWithPathString(string $pathString): Location&MockObject
+    private function createLocationWithPathString(string $pathString): Location & MockObject
     {
         return $this
             ->getMockBuilder(Location::class)

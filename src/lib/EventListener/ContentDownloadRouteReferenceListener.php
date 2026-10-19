@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\EventListener;
 
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
@@ -26,9 +27,7 @@ final readonly class ContentDownloadRouteReferenceListener implements EventSubsc
     /**
      * @param array<string, string[]> $siteAccessGroups
      */
-    public function __construct(private array $siteAccessGroups)
-    {
-    }
+    public function __construct(private array $siteAccessGroups) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -45,7 +44,7 @@ final readonly class ContentDownloadRouteReferenceListener implements EventSubsc
             return;
         }
 
-        /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteaccess */
+        /** @var SiteAccess $siteaccess */
         $siteaccess = $event->getRequest()->attributes->get('siteaccess');
         if ($this->isAdminSiteAccess($siteaccess)) {
             $routeReference->set('siteaccess', $siteaccess->name);
@@ -53,7 +52,7 @@ final readonly class ContentDownloadRouteReferenceListener implements EventSubsc
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function isAdminSiteAccess(SiteAccess $siteAccess): bool
     {

@@ -21,9 +21,9 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class FieldSettingsValidatorTest extends TestCase
 {
-    private ExecutionContextInterface&MockObject $executionContext;
+    private ExecutionContextInterface & MockObject $executionContext;
 
-    private FieldTypeService&MockObject $fieldTypeService;
+    private FieldTypeService & MockObject $fieldTypeService;
 
     private FieldSettingsValidator $validator;
 
@@ -39,7 +39,7 @@ class FieldSettingsValidatorTest extends TestCase
     public function testNotFieldDefinitionData(): void
     {
         $this->executionContext
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('buildViolation');
 
         $this->validator->validate('foo', new FieldSettings());
@@ -48,7 +48,7 @@ class FieldSettingsValidatorTest extends TestCase
     public function testValid(): void
     {
         $this->executionContext
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('buildViolation');
 
         $fieldTypeIdentifier = 'ibexa_string';
@@ -57,12 +57,12 @@ class FieldSettingsValidatorTest extends TestCase
         $fieldDefData = new FieldDefinitionData(['identifier' => 'foo', 'fieldDefinition' => $fieldDefinition, 'fieldSettings' => $fieldSettings]);
         $fieldType = $this->createMock(FieldType::class);
         $this->fieldTypeService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getFieldType')
             ->with($fieldTypeIdentifier)
             ->willReturn($fieldType);
         $fieldType
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('validateFieldSettings')
             ->with($fieldSettings)
             ->willReturn([]);
@@ -78,7 +78,7 @@ class FieldSettingsValidatorTest extends TestCase
         $fieldDefData = new FieldDefinitionData(['identifier' => 'foo', 'fieldDefinition' => $fieldDefinition, 'fieldSettings' => $fieldSettings]);
         $fieldType = $this->createMock(FieldType::class);
         $this->fieldTypeService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getFieldType')
             ->with($fieldTypeIdentifier)
             ->willReturn($fieldType);
@@ -86,28 +86,28 @@ class FieldSettingsValidatorTest extends TestCase
         $errorParameter = 'bar';
         $errorMessage = 'error';
         $fieldType
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('validateFieldSettings')
             ->with($fieldSettings)
             ->willReturn([new ValidationError($errorMessage, null, ['%foo%' => $errorParameter])]);
 
         $constraintViolationBuilder = $this->createMock(ConstraintViolationBuilderInterface::class);
         $this->executionContext
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('buildViolation')
             ->willReturn($constraintViolationBuilder);
         $this->executionContext
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('buildViolation')
             ->with($errorMessage)
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('setParameters')
             ->with(['%foo%' => $errorParameter])
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('addViolation');
 
         $this->validator->validate($fieldDefData, new FieldSettings());

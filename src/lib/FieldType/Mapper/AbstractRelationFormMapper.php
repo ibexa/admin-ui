@@ -17,8 +17,7 @@ abstract class AbstractRelationFormMapper implements FieldDefinitionFormMapperIn
     public function __construct(
         protected ContentTypeService $contentTypeService,
         protected LocationService $locationService
-    ) {
-    }
+    ) {}
 
     /**
      * Fill a hash with all content types and their ids.
@@ -30,7 +29,7 @@ abstract class AbstractRelationFormMapper implements FieldDefinitionFormMapperIn
         $contentTypeHash = [];
         foreach ($this->contentTypeService->loadContentTypeGroups() as $contentTypeGroup) {
             foreach ($this->contentTypeService->loadContentTypes($contentTypeGroup) as $contentType) {
-                $contentTypeHash[$contentType->getName()] = $contentType->getIdentifier();
+                $contentTypeHash[$contentType->getName() ?? ''] = $contentType->getIdentifier();
             }
         }
         ksort($contentTypeHash);

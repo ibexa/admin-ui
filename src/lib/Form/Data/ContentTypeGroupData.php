@@ -12,9 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeGroupData
 {
-    public function __construct(private ?string $identifier = null)
-    {
-    }
+    public function __construct(private ?string $identifier = null) {}
 
     public function getIdentifier(): ?string
     {

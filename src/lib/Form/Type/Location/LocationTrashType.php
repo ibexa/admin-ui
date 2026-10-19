@@ -34,11 +34,12 @@ final class LocationTrashType extends AbstractType
     public function __construct(
         private readonly OptionsFactory $trashTypeStrategy,
         private readonly TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add(
                 'location',

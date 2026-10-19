@@ -8,20 +8,20 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\ContentTypeGroup;
 
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+
 /**
  * @todo Add validation
  */
 class ContentTypeGroupsDeleteData
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]|null $contentTypeGroups
+     * @param ContentTypeGroup[]|null $contentTypeGroups
      */
-    public function __construct(protected ?array $contentTypeGroups = [])
-    {
-    }
+    public function __construct(protected ?array $contentTypeGroups = []) {}
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]|null
+     * @return ContentTypeGroup[]|null
      */
     public function getContentTypeGroups(): ?array
     {
@@ -29,7 +29,7 @@ class ContentTypeGroupsDeleteData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]|null $contentTypeGroups
+     * @param ContentTypeGroup[]|null $contentTypeGroups
      */
     public function setContentTypeGroups(?array $contentTypeGroups): void
     {

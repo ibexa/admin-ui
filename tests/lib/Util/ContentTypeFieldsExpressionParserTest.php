@@ -26,8 +26,10 @@ final class ContentTypeFieldsExpressionParserTest extends TestCase
     }
 
     #[DataProvider('dataProviderForTestParse')]
-    public function testParse(string $expression, ContentTypeFieldsParsedStructure $expectedResult): void
-    {
+    public function testParse(
+        string $expression,
+        ContentTypeFieldsParsedStructure $expectedResult
+    ): void {
         $result = $this->contentTypeFieldsExpressionExtractor->parseExpression($expression);
 
         self::assertSame($expectedResult->getGroups(), $result->getGroups());
@@ -44,7 +46,7 @@ final class ContentTypeFieldsExpressionParserTest extends TestCase
     }
 
     /**
-     * @return iterable<string, array{string, \Ibexa\AdminUi\Util\ContentTypeFieldsParsedStructure}>
+     * @return iterable<string, array{string, ContentTypeFieldsParsedStructure}>
      */
     public static function dataProviderForTestParse(): iterable
     {

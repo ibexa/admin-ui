@@ -26,8 +26,7 @@ final readonly class ContentTypeContext implements Context
         private ContentTypeUpdatePage $contentTypeUpdatePage,
         private ContentTypeGroupPage $contentTypeGroupPage,
         private ContentTypeGroupsPage $contentTypeGroupsPage
-    ) {
-    }
+    ) {}
 
     #[Then('content type has proper Global properties')]
     public function contentTypeHasProperGlobalProperties(TableNode $table): void
@@ -98,8 +97,11 @@ final readonly class ContentTypeContext implements Context
     }
 
     #[When('I set :field to :value for :fieldName field')]
-    public function iSetFieldDefinitionData(string $label, string $value, string $fieldName): void
-    {
+    public function iSetFieldDefinitionData(
+        string $label,
+        string $value,
+        string $fieldName
+    ): void {
         $this->contentTypeUpdatePage->fillFieldDefinitionFieldWithValue($fieldName, $label, $value);
     }
 

@@ -19,8 +19,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class RoleTransformerTest extends TestCase
 {
     #[DataProvider('transformDataProvider')]
-    public function testTransform(?Role $value, ?int $expected): void
-    {
+    public function testTransform(
+        ?Role $value,
+        ?int $expected
+    ): void {
         $service = self::createStub(RoleService::class);
         $transformer = new RoleTransformer($service);
 
@@ -32,7 +34,7 @@ class RoleTransformerTest extends TestCase
     public function testReverseTransformWithId(): void
     {
         $service = $this->createMock(RoleService::class);
-        $service->expects(self::once())
+        $service->expects($this->once())
             ->method('loadRole')
             ->with(123456)
             ->willReturn(new Role(['id' => 123456]));
@@ -47,7 +49,7 @@ class RoleTransformerTest extends TestCase
     public function testReverseTransformWithNull(): void
     {
         $service = $this->createMock(RoleService::class);
-        $service->expects(self::never())
+        $service->expects($this->never())
             ->method('loadRole');
 
         $transformer = new RoleTransformer($service);
@@ -76,8 +78,7 @@ class RoleTransformerTest extends TestCase
 
         $service = $this->createMock(RoleService::class);
         $service->method('loadRole')
-            ->will(self::throwException(new class('Location not found') extends NotFoundException {
-            }));
+            ->will($this->throwException(new class('Location not found') extends NotFoundException {}));
 
         $transformer = new RoleTransformer($service);
 
@@ -85,7 +86,7 @@ class RoleTransformerTest extends TestCase
     }
 
     /**
-     * @return array<string, array{\Ibexa\Core\Repository\Values\User\Role|null, int|null}>
+     * @return array<string, array{Role|null, int|null}>
      */
     public static function transformDataProvider(): array
     {

@@ -17,8 +17,7 @@ final class FocusModeExtension extends AbstractExtension
 {
     public function __construct(
         private readonly UserSettingService $userService
-    ) {
-    }
+    ) {}
 
     public function getFunctions(): array
     {

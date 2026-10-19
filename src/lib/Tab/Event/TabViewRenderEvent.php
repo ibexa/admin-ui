@@ -19,8 +19,7 @@ final class TabViewRenderEvent extends Event
         private readonly string $tabIdentifier,
         private string $template,
         private array $parameters = []
-    ) {
-    }
+    ) {}
 
     public function getTabIdentifier(): string
     {

@@ -22,8 +22,7 @@ final readonly class User implements ProviderInterface
 {
     public function __construct(
         private TokenStorageInterface $tokenStorage
-    ) {
-    }
+    ) {}
 
     /**
      * Returns configuration structure compatible with PlatformUI.

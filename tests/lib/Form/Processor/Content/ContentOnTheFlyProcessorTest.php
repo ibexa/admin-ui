@@ -37,9 +37,9 @@ final class ContentOnTheFlyProcessorTest extends TestCase
     private const string LANGUAGE_CODE = 'eng-GB';
     private const string RENDERED_RESPONSE = 'rendered-response';
 
-    private ContentService&MockObject $contentService;
+    private ContentService & MockObject $contentService;
 
-    private Environment&MockObject $twig;
+    private Environment & MockObject $twig;
 
     private ContentOnTheFlyProcessor $processor;
 
@@ -59,7 +59,7 @@ final class ContentOnTheFlyProcessorTest extends TestCase
         ]);
 
         $this->contentService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('createContent')
             ->with(self::identicalTo($data), [])
             ->willReturn($draft);
@@ -80,7 +80,7 @@ final class ContentOnTheFlyProcessorTest extends TestCase
         $data = $this->createUpdateData($draft);
 
         $this->contentService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('updateContent')
             ->with(self::identicalTo($draft->getVersionInfo()), self::identicalTo($data))
             ->willReturn($draft);
@@ -103,7 +103,7 @@ final class ContentOnTheFlyProcessorTest extends TestCase
         $data = $this->createUpdateData($draft);
 
         $this->contentService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('updateContent')
             ->with(self::identicalTo($draft->getVersionInfo()), self::identicalTo($data))
             ->willReturn($draft);
@@ -121,16 +121,18 @@ final class ContentOnTheFlyProcessorTest extends TestCase
     private function expectPublishVersion(Content $draft): void
     {
         $this->contentService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('publishVersion')
             ->with(self::identicalTo($draft->getVersionInfo()), [self::LANGUAGE_CODE])
             ->willReturn($this->createPublishedContent());
     }
 
-    private function expectRender(string $template, int $locationId): void
-    {
+    private function expectRender(
+        string $template,
+        int $locationId
+    ): void {
         $this->twig
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('render')
             ->with($template, ['locationId' => $locationId])
             ->willReturn(self::RENDERED_RESPONSE);
@@ -180,7 +182,7 @@ final class ContentOnTheFlyProcessorTest extends TestCase
      * @param array<string, mixed> $options
      */
     private function createEvent(
-        ContentCreateData|ContentUpdateData $data,
+        ContentCreateData | ContentUpdateData $data,
         array $options = []
     ): FormActionEvent {
         $formConfig = self::createStub(FormConfigInterface::class);

@@ -22,9 +22,9 @@ class ContentTypeLimitationMapperTest extends TestCase
     private const EXAMPLE_CONTENT_TYPE_ID_B = 2;
     private const EXAMPLE_CONTENT_TYPE_ID_C = 3;
 
-    private ContentTypeService&MockObject $contentTypeService;
+    private ContentTypeService & MockObject $contentTypeService;
 
-    private LoggerInterface&MockObject $logger;
+    private LoggerInterface & MockObject $logger;
 
     private ContentTypeLimitationMapper $mapper;
 
@@ -57,7 +57,7 @@ class ContentTypeLimitationMapperTest extends TestCase
         }
 
         $this->contentTypeService
-            ->expects(self::exactly(count($values)))
+            ->expects($this->exactly(count($values)))
             ->method('loadContentType')
             ->willReturnCallback(static function (int $contentTypeId) use ($contentTypesById): ContentType {
                 self::assertArrayHasKey($contentTypeId, $contentTypesById);
@@ -76,13 +76,13 @@ class ContentTypeLimitationMapperTest extends TestCase
     public function testMapLimitationValueWithNotExistingContentType(): void
     {
         $this->contentTypeService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadContentType')
             ->with(self::EXAMPLE_CONTENT_TYPE_ID_A)
             ->willThrowException(self::createStub(NotFoundException::class));
 
         $this->logger
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('error')
             ->with('Could not map the Limitation value: could not find a content type with ID ' . self::EXAMPLE_CONTENT_TYPE_ID_A);
 

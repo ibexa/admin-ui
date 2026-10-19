@@ -19,6 +19,7 @@ use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -62,11 +63,11 @@ final class DamWidgetTest extends TestCase
     private const IMAGE_MAPPINGS = [
         self::IMAGE_FOO_CONTENT_TYPE_IDENTIFIER => [
             'imageFieldIdentifier' => 'field_foo',
-            'nameSchemaIdentifiers' => self:: IMAGE_FOO_NAME_SCHEMA_IDENTIFIERS,
+            'nameSchemaIdentifiers' => self::IMAGE_FOO_NAME_SCHEMA_IDENTIFIERS,
         ],
         self::IMAGE_BAR_CONTENT_TYPE_IDENTIFIER => [
             'imageFieldIdentifier' => 'field_bar',
-            'nameSchemaIdentifiers' => self:: IMAGE_BAR_NAME_SCHEMA_IDENTIFIERS,
+            'nameSchemaIdentifiers' => self::IMAGE_BAR_NAME_SCHEMA_IDENTIFIERS,
         ],
     ];
     private const IMAGE_FIELD_DEFINITION_IDENTIFIERS = ['field_foo', 'field_bar'];
@@ -84,13 +85,13 @@ final class DamWidgetTest extends TestCase
 
     private ProviderInterface $provider;
 
-    /** @var \Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var RepositoryConfigurationProviderInterface&MockObject */
     private RepositoryConfigurationProviderInterface $repositoryConfigurationProvider;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ContentTypeService&MockObject */
     private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\NameSchema\SchemaIdentifierExtractorInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var SchemaIdentifierExtractorInterface&MockObject */
     private SchemaIdentifierExtractorInterface $schemaIdentifierExtractor;
 
     protected function setUp(): void
@@ -200,8 +201,10 @@ final class DamWidgetTest extends TestCase
     /**
      * @param array<string> $fieldDefinitionIdentifiers
      */
-    private static function createContentType(string $nameSchema, array $fieldDefinitionIdentifiers = []): ContentType
-    {
+    private static function createContentType(
+        string $nameSchema,
+        array $fieldDefinitionIdentifiers = []
+    ): ContentType {
         return new CoreContentType([
             'nameSchema' => $nameSchema,
             'fieldDefinitions' => new FieldDefinitionCollection(

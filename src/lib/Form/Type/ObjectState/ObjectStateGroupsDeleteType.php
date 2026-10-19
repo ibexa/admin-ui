@@ -22,8 +22,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class ObjectStateGroupsDeleteType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add('objectStateGroups', CollectionType::class, [
                 'entry_type' => CheckboxType::class,

@@ -21,7 +21,7 @@ final class LanguageFromCodeValueResolverTest extends TestCase
 {
     private LanguageFromCodeValueResolver $resolver;
 
-    private MockObject&LanguageService $languageServiceMock;
+    private MockObject & LanguageService $languageServiceMock;
 
     protected function setUp(): void
     {
@@ -32,7 +32,7 @@ final class LanguageFromCodeValueResolverTest extends TestCase
     public function testResolve(): void
     {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
-        $mockArgumentMetadata->expects(self::once())
+        $mockArgumentMetadata->expects($this->once())
             ->method('getType')
             ->willReturn(Language::class);
 
@@ -43,7 +43,7 @@ final class LanguageFromCodeValueResolverTest extends TestCase
         $mockLanguage = self::createStub(Language::class);
 
         $this->languageServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLanguage')
             ->with('pol-pl')
             ->willReturn($mockLanguage);
@@ -57,10 +57,12 @@ final class LanguageFromCodeValueResolverTest extends TestCase
      * @param array<string, mixed> $attributes
      */
     #[DataProvider('invalidAttributesProvider')]
-    public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
-    {
+    public function testResolveInvalidAttributes(
+        array $attributes,
+        string $expectedMessage
+    ): void {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
-        $mockArgumentMetadata->expects(self::once())
+        $mockArgumentMetadata->expects($this->once())
             ->method('getType')
             ->willReturn(Language::class);
 

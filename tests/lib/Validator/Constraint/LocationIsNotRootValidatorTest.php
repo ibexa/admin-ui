@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class LocationIsNotRootValidatorTest extends TestCase
 {
-    private ExecutionContextInterface&MockObject $executionContext;
+    private ExecutionContextInterface & MockObject $executionContext;
 
     private LocationIsNotRootValidator $validator;
 
@@ -34,7 +34,7 @@ class LocationIsNotRootValidatorTest extends TestCase
         $location->method('getDepth')->willReturn(5);
 
         $this->executionContext
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('addViolation');
 
         $this->validator->validate($location, new LocationIsNotRoot());
@@ -46,7 +46,7 @@ class LocationIsNotRootValidatorTest extends TestCase
         $location->method('getDepth')->willReturn(1);
 
         $this->executionContext
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('addViolation');
 
         $this->validator->validate($location, new LocationIsNotRoot());

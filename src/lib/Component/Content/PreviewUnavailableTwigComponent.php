@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Twig\Environment;
@@ -22,19 +23,18 @@ final readonly class PreviewUnavailableTwigComponent implements ComponentInterfa
         private Environment $twig,
         private SiteaccessResolverInterface $siteaccessResolver,
         private LocationService $locationService
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<mixed> $parameters
      */
     public function render(array $parameters = []): string
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $parameters['location'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $parameters['content'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
+        /** @var Language $language */
         $language = $parameters['language'];
         $versionNo = $content->getVersionInfo()->versionNo;
 

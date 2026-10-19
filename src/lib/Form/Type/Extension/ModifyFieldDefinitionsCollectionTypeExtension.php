@@ -30,11 +30,12 @@ final class ModifyFieldDefinitionsCollectionTypeExtension extends AbstractTypeEx
         private readonly array $fieldIdentifiers = [],
         private readonly ?string $fieldTypeIdentifier = null,
         private readonly ?SpecificationInterface $contentTypeSpecification = null
-    ) {
-    }
+    ) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $subscriber = new ModifyFieldDefinitionFieldsSubscriber(
             $this->modifiedOptions,
             $this->fieldIdentifiers,

@@ -13,11 +13,10 @@ use Ibexa\Rest\Value;
 final class SubItemList extends Value
 {
     /**
-     * @param \Ibexa\AdminUi\REST\Value\SubItems\SubItem[] $elements
+     * @param SubItem[] $elements
      */
     public function __construct(
         public readonly int $totalCount,
         public readonly array $elements = []
-    ) {
-    }
+    ) {}
 }

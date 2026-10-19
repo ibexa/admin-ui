@@ -10,15 +10,14 @@ namespace Ibexa\AdminUi\Form\DataTransformer;
 
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 final readonly class ContentTransformer implements DataTransformerInterface
 {
-    public function __construct(private ContentService $contentService)
-    {
-    }
+    public function __construct(private ContentService $contentService) {}
 
     public function transform(mixed $value): ?int
     {
@@ -38,7 +37,7 @@ final readonly class ContentTransformer implements DataTransformerInterface
      *
      * @param string|null $value
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      */
     public function reverseTransform(mixed $value): ?Content
     {

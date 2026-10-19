@@ -17,9 +17,7 @@ use Webmozart\Assert\Assert;
 
 final readonly class TrashContext implements Context
 {
-    public function __construct(private TrashPage $trashPage)
-    {
-    }
+    public function __construct(private TrashPage $trashPage) {}
 
     #[Then('trash is empty')]
     public function trashIsEmpty(): void
@@ -66,8 +64,10 @@ final readonly class TrashContext implements Context
     }
 
     #[When('I restore item from trash under new location :pathToContent')]
-    public function iRestoreItemFromTrashUnderNewLocation(TableNode $itemsTable, string $pathToContent): void
-    {
+    public function iRestoreItemFromTrashUnderNewLocation(
+        TableNode $itemsTable,
+        string $pathToContent
+    ): void {
         foreach ($itemsTable->getHash() as $itemTable) {
             $this->trashPage->select(['Name' => $itemTable['item']]);
         }
@@ -76,14 +76,18 @@ final readonly class TrashContext implements Context
     }
 
     #[Then('there is a :itemType :itemName on Trash list')]
-    public function thereIsItemOnTrashList(string $itemType, string $itemName): void
-    {
+    public function thereIsItemOnTrashList(
+        string $itemType,
+        string $itemName
+    ): void {
         Assert::true($this->trashPage->hasElement($itemType, $itemName));
     }
 
     #[Then('there is no :itemType :itemName on Trash list')]
-    public function thereIsNoItemOnTrashList(string $itemType, string $itemName): void
-    {
+    public function thereIsNoItemOnTrashList(
+        string $itemType,
+        string $itemName
+    ): void {
         Assert::false($this->trashPage->hasElement($itemType, $itemName));
     }
 

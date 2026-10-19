@@ -22,7 +22,7 @@ final class FieldValueTransformerTest extends TestCase
 
         $fieldType = $this->createMock(FieldType::class);
         $fieldType
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('toHash');
 
         $result = (new FieldValueTransformer($fieldType))->transform($value);
@@ -37,7 +37,7 @@ final class FieldValueTransformerTest extends TestCase
 
         $fieldType = $this->createMock(FieldType::class);
         $fieldType
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('toHash')
             ->with($value)
             ->willReturn($valueHash);
@@ -53,11 +53,11 @@ final class FieldValueTransformerTest extends TestCase
 
         $fieldType = $this->createMock(FieldType::class);
         $fieldType
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getEmptyValue')
             ->willReturn($emptyValue);
         $fieldType
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('fromHash');
 
         $result = (new FieldValueTransformer($fieldType))->reverseTransform(null);
@@ -72,10 +72,10 @@ final class FieldValueTransformerTest extends TestCase
 
         $fieldType = $this->createMock(FieldType::class);
         $fieldType
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('getEmptyValue');
         $fieldType
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('fromHash')
             ->willReturn($expected);
 

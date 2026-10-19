@@ -11,6 +11,8 @@ namespace Ibexa\Tests\Bundle\AdminUi\ControllerArgumentResolver;
 use ArrayIterator;
 use Generator;
 use Ibexa\Bundle\AdminUi\ValueResolver\ContentTreeChildrenQueryValueResolver;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
@@ -18,6 +20,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
 use Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\CriterionProcessorInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
@@ -34,7 +37,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 {
     private ValueResolverInterface $resolver;
 
-    /** @phpstan-var TCriterionProcessor&\PHPUnit\Framework\MockObject\MockObject */
+    /** @phpstan-var TCriterionProcessor&MockObject */
     private CriterionProcessorInterface $criterionProcessor;
 
     protected function setUp(): void
@@ -58,7 +61,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 
     /**
      * @return iterable<string, array{
-     *     \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata
+     *     ArgumentMetadata
      * }>
      */
     public static function provideDataForUnsupported(): iterable
@@ -84,9 +87,9 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 
     /**
      * @param array<string, string|array<mixed>> $criteriaToProcess
-     * @param Traversable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface> $expectedCriteria
+     * @param Traversable<CriterionInterface> $expectedCriteria
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     #[DataProvider('provideDataForTestResolve')]
     public function testResolve(
@@ -120,13 +123,13 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 
     /**
      * @return iterable<array{
-     *     \Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface,
-     *     \Symfony\Component\HttpFoundation\Request,
-     *     \Traversable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface>,
+     *     CriterionInterface,
+     *     Request,
+     *     Traversable<CriterionInterface>,
      *     3?: array<string, string>,
      * }>
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
+     * @throws InvalidCriterionArgumentException
      */
     public static function provideDataForTestResolve(): iterable
     {
@@ -159,7 +162,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 
     /**
      * @param array<string, string|array<mixed>> $criteriaToProcess
-     * @param Traversable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface> $expectedCriteria
+     * @param Traversable<CriterionInterface> $expectedCriteria
      */
     private function mockCriterionProcessorProcessCriteria(
         ?array $criteriaToProcess,

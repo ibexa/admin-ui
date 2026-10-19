@@ -15,8 +15,10 @@ use Ibexa\Rest\Input\BaseParser;
 
 final class FieldDefinitionDelete extends BaseParser
 {
-    public function parse(array $data, ParsingDispatcher $parsingDispatcher): FieldDefinitionDeleteValue
-    {
+    public function parse(
+        array $data,
+        ParsingDispatcher $parsingDispatcher
+    ): FieldDefinitionDeleteValue {
         if (!array_key_exists('fieldDefinitionIdentifiers', $data)) {
             throw new Exceptions\Parser(
                 sprintf("Missing or invalid 'fieldDefinitionIdentifiers' property for %s.", FieldDefinitionDeleteValue::class)

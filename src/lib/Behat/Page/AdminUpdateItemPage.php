@@ -51,8 +51,10 @@ class AdminUpdateItemPage extends Page
         return 'Admin item update';
     }
 
-    public function fillFieldWithValue(string $fieldName, mixed $value): void
-    {
+    public function fillFieldWithValue(
+        string $fieldName,
+        mixed $value
+    ): void {
         $field = $this->getField($fieldName);
         $fieldType = $field->getAttribute('type');
 
@@ -61,6 +63,14 @@ class AdminUpdateItemPage extends Page
 
             return $fieldType !== 'text' || $value === $field->getValue();
         }, sprintf('Failed to set correct value in input field. Expected: %s. Actual: %s', $value, $field->getValue()));
+    }
+
+    public function pressEnterInField(string $fieldName): void
+    {
+        $field = $this->getField($fieldName);
+
+        // WebDriver sends "\n" as the Enter key
+        $field->setValue($field->getValue() . "\n");
     }
 
     public function clickButton(string $label): void

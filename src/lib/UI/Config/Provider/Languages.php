@@ -26,8 +26,7 @@ final readonly class Languages implements ProviderInterface
         private ConfigResolverInterface $configResolver,
         private SiteAccessServiceInterface $siteAccessService,
         private array $siteAccesses
-    ) {
-    }
+    ) {}
 
     public function getConfig(): array
     {

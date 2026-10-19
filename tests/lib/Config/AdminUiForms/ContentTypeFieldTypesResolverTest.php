@@ -23,7 +23,7 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
 
     private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
-    private ConfigResolverInterface&MockObject $configResolver;
+    private ConfigResolverInterface & MockObject $configResolver;
 
     protected function setUp(): void
     {
@@ -38,8 +38,10 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
      *  }> $expectedFieldTypes
      */
     #[DataProvider('provideDataForTestGetFieldTypes')]
-    public function testGetFieldTypes(bool $hasParameter, array $expectedFieldTypes): void
-    {
+    public function testGetFieldTypes(
+        bool $hasParameter,
+        array $expectedFieldTypes
+    ): void {
         $this->mockConfigResolverHasParameter($hasParameter);
         $this->mockConfigResolverGetParameter($hasParameter, $expectedFieldTypes);
 
@@ -213,7 +215,7 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
     private function mockConfigResolverHasParameter(bool $hasParameter): void
     {
         $this->configResolver
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('hasParameter')
             ->with(self::PARAM_NAME)
             ->willReturn($hasParameter);
@@ -225,11 +227,13 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
      *     'position'?: int,
      *  }> $configuredFieldTypes
      */
-    private function mockConfigResolverGetParameter(bool $hasParameter, array $configuredFieldTypes): void
-    {
+    private function mockConfigResolverGetParameter(
+        bool $hasParameter,
+        array $configuredFieldTypes
+    ): void {
         if ($hasParameter) {
             $this->configResolver
-                ->expects(self::once())
+                ->expects($this->once())
                 ->method('getParameter')
                 ->with(self::PARAM_NAME)
                 ->willReturn($configuredFieldTypes);

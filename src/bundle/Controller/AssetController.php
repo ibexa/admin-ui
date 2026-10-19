@@ -35,8 +35,7 @@ final class AssetController extends Controller
         private readonly CsrfTokenManagerInterface $csrfTokenManager,
         private readonly ImageAssetMapper $imageAssetMapper,
         private readonly TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     public function uploadImageAction(Request $request): Response
     {

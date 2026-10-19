@@ -87,7 +87,7 @@ final class LanguageCreateMapperTest extends TestCase
     /**
      * @param array<string, mixed> $properties
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct
+     * @return LanguageCreateStruct
      */
     private function createStruct(array $properties): LanguageCreateStruct
     {
@@ -97,7 +97,7 @@ final class LanguageCreateMapperTest extends TestCase
     /**
      * @param array<string, mixed> $properties
      *
-     * @return \Ibexa\AdminUi\Form\Data\Language\LanguageCreateData
+     * @return LanguageCreateData
      */
     private function createData(array $properties): LanguageCreateData
     {

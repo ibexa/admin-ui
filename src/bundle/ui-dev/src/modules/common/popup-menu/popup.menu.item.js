@@ -8,16 +8,26 @@ const PopupMenuItem = ({ item, filterText = '', onItemClick }) => {
         return null;
     }
 
+    const label = <span className="c-popup-menu__item-label">{item.label}</span>;
+    const isDisabled = item.disabled ?? false;
+
     return (
         <div className="c-popup-menu__item">
-            <button
-                type="button"
-                className="c-popup-menu__item-content"
-                disabled={item.disabled ?? false}
-                onClick={() => onItemClick(item)}
-            >
-                <span className="c-popup-menu__item-label">{item.label}</span>
-            </button>
+            {item.href && !isDisabled ? (
+                <a
+                    className="c-popup-menu__item-content"
+                    href={item.href}
+                    target={item.target}
+                    rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
+                    onClick={() => onItemClick(item)}
+                >
+                    {label}
+                </a>
+            ) : (
+                <button type="button" className="c-popup-menu__item-content" disabled={isDisabled} onClick={() => onItemClick(item)}>
+                    {label}
+                </button>
+            )}
         </div>
     );
 };
@@ -25,7 +35,9 @@ const PopupMenuItem = ({ item, filterText = '', onItemClick }) => {
 PopupMenuItem.propTypes = {
     item: PropTypes.shape({
         disabled: PropTypes.bool,
+        href: PropTypes.string,
         label: PropTypes.string.isRequired,
+        target: PropTypes.string,
     }).isRequired,
     onItemClick: PropTypes.func.isRequired,
     filterText: PropTypes.string,

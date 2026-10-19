@@ -10,14 +10,20 @@ namespace Ibexa\Contracts\AdminUi\REST;
 
 interface ApplicationConfigRestResolverRegistryInterface
 {
-    public function hasResolver(string $namespace, string $parameter): bool;
+    public function hasResolver(
+        string $namespace,
+        string $parameter
+    ): bool;
 
     public function hasResolvers(string $namespace): bool;
 
-    public function getResolver(string $namespace, string $parameter): ?ApplicationConfigRestResolverInterface;
+    public function getResolver(
+        string $namespace,
+        string $parameter
+    ): ?ApplicationConfigRestResolverInterface;
 
     /**
-     * @return iterable<\Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverInterface>
+     * @return iterable<ApplicationConfigRestResolverInterface>
      */
     public function getResolvers(string $namespace): iterable;
 }

@@ -10,6 +10,7 @@ namespace Ibexa\Tests\Bundle\AdminUi\Templating\Twig;
 
 use Ibexa\Bundle\AdminUi\Templating\Twig\LocationExtension;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use PHPUnit\Framework\MockObject\MockObject;
 use Twig\Test\IntegrationTestCase;
 
 final class LocationExtensionTest extends IntegrationTestCase
@@ -27,7 +28,7 @@ final class LocationExtensionTest extends IntegrationTestCase
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function getLocationWithAllPossibleSortFields(): array
     {
@@ -38,7 +39,7 @@ final class LocationExtensionTest extends IntegrationTestCase
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location&\PHPUnit\Framework\MockObject\MockObject
+     * @return Location&MockObject
      */
     public function createLocationWithSortField(int $field): Location
     {
@@ -49,7 +50,7 @@ final class LocationExtensionTest extends IntegrationTestCase
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location&\PHPUnit\Framework\MockObject\MockObject
+     * @return Location&MockObject
      */
     public function createLocationWithSortOrder(int $order): Location
     {

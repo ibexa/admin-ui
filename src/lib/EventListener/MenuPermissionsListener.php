@@ -10,14 +10,13 @@ namespace Ibexa\AdminUi\EventListener;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Menu\MainMenuBuilder;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class MenuPermissionsListener implements EventSubscriberInterface
 {
-    public function __construct(private PermissionResolver $permissionResolver)
-    {
-    }
+    public function __construct(private PermissionResolver $permissionResolver) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -25,7 +24,7 @@ final readonly class MenuPermissionsListener implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function checkPermissions(ConfigureMenuEvent $event): void
     {

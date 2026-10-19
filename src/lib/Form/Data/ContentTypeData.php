@@ -16,7 +16,7 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 /**
  * Base data class for ContentType update form, with FieldDefinitions data and ContentTypeDraft.
  *
- * @property \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
+ * @property ContentTypeDraft $contentTypeDraft
  */
 class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckable, TranslationContainerInterface
 {
@@ -27,10 +27,10 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
         NewnessChecker::isNew as private isIdentifierNew;
     }
 
-    /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData[][] */
+    /** @var FieldDefinitionData[][] */
     public array $fieldDefinitionsData = [];
 
-    /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData[][] */
+    /** @var FieldDefinitionData[][] */
     public array $metaFieldDefinitionsData = [];
 
     /**
@@ -63,7 +63,7 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
     }
 
     /**
-     * @return iterable<string, \Ibexa\AdminUi\Form\Data\FieldDefinitionData>
+     * @return iterable<string, FieldDefinitionData>
      */
     public function getFlatFieldDefinitionsData(): iterable
     {
@@ -75,7 +75,7 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
     }
 
     /**
-     * @return iterable<string, \Ibexa\AdminUi\Form\Data\FieldDefinitionData>
+     * @return iterable<string, FieldDefinitionData>
      */
     public function getFlatMetaFieldDefinitionsData(): iterable
     {
@@ -88,26 +88,28 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
 
     public function addFieldDefinitionData(FieldDefinitionData $fieldDefinitionData): void
     {
-        $this->fieldDefinitionsData[$fieldDefinitionData->fieldGroup][$fieldDefinitionData->identifier] = $fieldDefinitionData;
+        $this->fieldDefinitionsData[$fieldDefinitionData->fieldGroup ?? ''][$fieldDefinitionData->identifier ?? ''] = $fieldDefinitionData;
     }
 
     public function addMetaFieldDefinitionData(FieldDefinitionData $fieldDefinitionData): void
     {
-        $fieldGroup = $fieldDefinitionData->fieldGroup;
-        $identifier = $fieldDefinitionData->identifier;
+        $fieldGroup = $fieldDefinitionData->fieldGroup ?? '';
+        $identifier = $fieldDefinitionData->identifier ?? '';
 
         $this->metaFieldDefinitionsData[$fieldGroup][$identifier] = $fieldDefinitionData;
     }
 
-    public function replaceFieldDefinitionData(string $fieldDefinitionIdentifier, FieldDefinitionData $fieldDefinitionData): void
-    {
+    public function replaceFieldDefinitionData(
+        string $fieldDefinitionIdentifier,
+        FieldDefinitionData $fieldDefinitionData
+    ): void {
         foreach ($this->fieldDefinitionsData as $key => $fieldDefinitionsByGroup) {
             if (isset($this->fieldDefinitionsData[$key][$fieldDefinitionIdentifier])) {
                 unset($this->fieldDefinitionsData[$key][$fieldDefinitionIdentifier]);
             }
         }
 
-        $this->fieldDefinitionsData[$fieldDefinitionData->fieldGroup][$fieldDefinitionIdentifier] = $fieldDefinitionData;
+        $this->fieldDefinitionsData[$fieldDefinitionData->fieldGroup ?? ''][$fieldDefinitionIdentifier] = $fieldDefinitionData;
     }
 
     /**
@@ -118,7 +120,10 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
         foreach ($this->fieldDefinitionsData as $key => $fieldDefinitionByGroup) {
             uasort(
                 $fieldDefinitionByGroup,
-                static function ($a, $b): int {
+                static function (
+                    $a,
+                    $b
+                ): int {
                     if ($a->fieldDefinition->position === $b->fieldDefinition->position) {
                         return $a->fieldDefinition->identifier <=> $b->fieldDefinition->identifier;
                     }

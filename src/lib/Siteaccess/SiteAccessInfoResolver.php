@@ -9,18 +9,18 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Siteaccess;
 
 use Ibexa\Contracts\AdminUi\Siteaccess\SiteAccessInfo;
+use Ibexa\Contracts\AdminUi\Siteaccess\SiteAccessInfoProviderInterface;
 use Ibexa\Contracts\AdminUi\Siteaccess\SiteAccessInfoResolverInterface;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 
 final class SiteAccessInfoResolver implements SiteAccessInfoResolverInterface
 {
     /**
-     * @param iterable<\Ibexa\Contracts\AdminUi\Siteaccess\SiteAccessInfoProviderInterface> $siteAccessInfoProviders
+     * @param iterable<SiteAccessInfoProviderInterface> $siteAccessInfoProviders
      */
     public function __construct(
         private readonly iterable $siteAccessInfoProviders
-    ) {
-    }
+    ) {}
 
     public function resolve(SiteAccess $siteAccess): SiteAccessInfo
     {
