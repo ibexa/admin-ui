@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Service\MetaFieldType;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
@@ -18,7 +20,7 @@ use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 interface MetaFieldDefinitionServiceInterface
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentType
+     * @param ContentTypeCreateStruct|ContentTypeDraft $contentType
      */
     public function addMetaFieldDefinitions(
         ValueObject $contentType,
@@ -33,7 +35,7 @@ interface MetaFieldDefinitionServiceInterface
     ): FieldDefinitionCreateStruct;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentType
+     * @param ContentTypeCreateStruct|ContentTypeDraft $contentType
      */
     public function metaFieldDefinitionExists(
         string $fieldTypeIdentifier,
