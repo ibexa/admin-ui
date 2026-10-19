@@ -26,6 +26,7 @@ use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
+use Ibexa\Behat\Browser\Exception\TimeoutException;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
@@ -331,9 +332,19 @@ class ContentViewPage extends Page
     ): bool {
         /** @var CSSLocator $locator */
         $locator = $this->getLocator('customUrlAliasesTable');
-        $customUrlAliasesTable = $this->tableBuilder->newTable()->withParentLocator($locator)->build();
 
-        return $customUrlAliasesTable->hasElement(['URL' => $path, 'Type' => $type]);
+        // Creating an alias reloads the page, so the table is rebuilt on every attempt
+        // instead of being read once from the page that is about to be replaced.
+        try {
+            $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($locator, $path, $type): bool {
+                return $this->tableBuilder->newTable()->withParentLocator($locator)->build()
+                    ->hasElement(['URL' => $path, 'Type' => $type]);
+            }, sprintf('Url alias "%s" with type "%s" not found in 10 seconds', $path, $type));
+        } catch (TimeoutException $e) {
+            return false;
+        }
+
+        return true;
     }
 
     protected function specifyLocators(): array
