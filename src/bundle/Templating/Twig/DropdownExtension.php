@@ -24,11 +24,10 @@ final class DropdownExtension extends AbstractExtension
 {
     public function __construct(
         private readonly TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     /**
-     * @return \Twig\TwigFunction[]
+     * @return TwigFunction[]
      */
     public function getFunctions(): array
     {
@@ -46,8 +45,11 @@ final class DropdownExtension extends AbstractExtension
      *
      * @return array<int, TDropdownItem|TDropdownGroup>
      */
-    public function getItems(iterable $choices, iterable $preferredChoices, string|false $translationDomain): array
-    {
+    public function getItems(
+        iterable $choices,
+        iterable $preferredChoices,
+        string|false $translationDomain
+    ): array {
         $seenIds = [];
 
         return [
@@ -62,8 +64,11 @@ final class DropdownExtension extends AbstractExtension
      *
      * @return array<int, TDropdownItem|TDropdownGroup>
      */
-    private function mapChoiceViews(iterable $choiceViews, string|false $translationDomain, array &$seenIds): array
-    {
+    private function mapChoiceViews(
+        iterable $choiceViews,
+        string|false $translationDomain,
+        array &$seenIds
+    ): array {
         $entries = [];
 
         foreach ($choiceViews as $choiceView) {
@@ -107,8 +112,11 @@ final class DropdownExtension extends AbstractExtension
      *
      * @return array<int, TDropdownItem|TDropdownGroup>
      */
-    private function mapGroupView(object $groupView, string|false $translationDomain, array &$seenIds): array
-    {
+    private function mapGroupView(
+        object $groupView,
+        string|false $translationDomain,
+        array &$seenIds
+    ): array {
         $items = $this->mapChoiceViews($groupView->choices, $translationDomain, $seenIds);
         $label = $groupView->label === null ? '' : $this->translateLabel($groupView->label, [], $translationDomain);
 
@@ -127,8 +135,11 @@ final class DropdownExtension extends AbstractExtension
      *
      * @return TDropdownItem|null
      */
-    private function mapChoiceView(ChoiceView $choiceView, string|false $translationDomain, array &$seenIds): ?array
-    {
+    private function mapChoiceView(
+        ChoiceView $choiceView,
+        string|false $translationDomain,
+        array &$seenIds
+    ): ?array {
         if (isset($seenIds[$choiceView->value])) {
             return null;
         }

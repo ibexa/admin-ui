@@ -126,8 +126,7 @@ final class DropdownExtensionTest extends TestCase
             public function __construct(
                 public ?string $label,
                 public array $choices
-            ) {
-            }
+            ) {}
         };
 
         $items = $this->extension->getItems(
