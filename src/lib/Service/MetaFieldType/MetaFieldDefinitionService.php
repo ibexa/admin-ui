@@ -68,10 +68,12 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentType
+     * @param ContentTypeCreateStruct|ContentTypeDraft $contentType
      */
-    public function addMetaFieldDefinitions(ValueObject $contentType, ?Language $language = null): void
-    {
+    public function addMetaFieldDefinitions(
+        ValueObject $contentType,
+        ?Language $language = null
+    ): void {
         $metaFieldTypes = $this->contentTypeFieldTypesResolver->getMetaFieldTypes();
 
         if (null === $language) {
@@ -138,7 +140,7 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentType
+     * @param ContentTypeCreateStruct|ContentTypeDraft $contentType
      */
     public function metaFieldDefinitionExists(
         string $fieldTypeIdentifier,

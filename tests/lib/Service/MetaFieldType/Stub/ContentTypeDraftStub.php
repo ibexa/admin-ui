@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Tests\AdminUi\Service\MetaFieldType\Stub;
 
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection;
 
 /**
@@ -41,7 +42,7 @@ final class ContentTypeDraftStub extends ContentTypeDraft
     }
 
     /**
-     * @return array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup>
+     * @return array<ContentTypeGroup>
      */
     public function getContentTypeGroups(): array
     {

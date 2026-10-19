@@ -17,12 +17,15 @@ use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Ibexa\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
 use Ibexa\Tests\AdminUi\Service\MetaFieldType\Stub\ContentTypeDraftStub;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -38,22 +41,22 @@ final class MetaFieldDefinitionServiceTest extends TestCase
 
     private const OTHER_FIELD_GROUP = 'other-group';
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ContentTypeService&MockObject */
     private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\FieldTypeService&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var FieldTypeService&MockObject */
     private FieldTypeService $fieldTypeService;
 
-    /** @var \Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface&\PHPUnit\Framework\MockObject\Stub */
+    /** @var ContentTypeFieldTypesResolverInterface&Stub */
     private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList&\PHPUnit\Framework\MockObject\Stub */
+    /** @var FieldsGroupsList&Stub */
     private FieldsGroupsList $fieldsGroupsList;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService&\PHPUnit\Framework\MockObject\Stub */
+    /** @var LanguageService&Stub */
     private LanguageService $languageService;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface&\PHPUnit\Framework\MockObject\Stub */
+    /** @var ConfigResolverInterface&Stub */
     private ConfigResolverInterface $configResolver;
 
     private MetaFieldDefinitionService $metaFieldDefinitionService;
@@ -184,8 +187,12 @@ final class MetaFieldDefinitionServiceTest extends TestCase
         $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentType);
     }
 
-    public function testAddMetaFieldDefinitionsSkipsMetaFieldTypeWhenFieldTypeIsNotFound(): void
-    {
+    /**
+     * @dataProvider provideFieldTypeNotFoundExceptions
+     */
+    public function testAddMetaFieldDefinitionsSkipsMetaFieldTypeWhenFieldTypeIsNotFound(
+        \Throwable $notFoundException
+    ): void {
         $contentType = $this->createContentTypeDraft([]);
 
         $this->contentTypeFieldTypesResolver
@@ -200,9 +207,9 @@ final class MetaFieldDefinitionServiceTest extends TestCase
             ->method('getFieldType')
             ->with(self::logicalOr(self::MISSING_FIELD_TYPE_IDENTIFIER, self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER))
             ->willReturnCallback(
-                function (string $fieldTypeIdentifier): FieldType {
+                function (string $fieldTypeIdentifier) use ($notFoundException): FieldType {
                     if ($fieldTypeIdentifier === self::MISSING_FIELD_TYPE_IDENTIFIER) {
-                        throw new NotFoundException('FieldType', $fieldTypeIdentifier);
+                        throw $notFoundException;
                     }
 
                     return $this->createFieldType(false);
@@ -220,6 +227,20 @@ final class MetaFieldDefinitionServiceTest extends TestCase
             );
 
         $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentType);
+    }
+
+    /**
+     * @return iterable<string, array{\Throwable}>
+     */
+    public static function provideFieldTypeNotFoundExceptions(): iterable
+    {
+        yield 'repository NotFoundException' => [
+            new NotFoundException('FieldType', self::MISSING_FIELD_TYPE_IDENTIFIER),
+        ];
+
+        yield 'FieldTypeNotFoundException' => [
+            new FieldTypeNotFoundException(self::MISSING_FIELD_TYPE_IDENTIFIER),
+        ];
     }
 
     /**
@@ -288,8 +309,10 @@ final class MetaFieldDefinitionServiceTest extends TestCase
         return new ContentTypeDraftStub(new FieldDefinitionCollection($fieldDefinitions));
     }
 
-    private function createFieldDefinition(string $fieldTypeIdentifier, string $fieldGroup): FieldDefinition
-    {
+    private function createFieldDefinition(
+        string $fieldTypeIdentifier,
+        string $fieldGroup
+    ): FieldDefinition {
         return new FieldDefinition([
             'identifier' => $fieldTypeIdentifier,
             'fieldTypeIdentifier' => $fieldTypeIdentifier,
@@ -298,7 +321,7 @@ final class MetaFieldDefinitionServiceTest extends TestCase
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\FieldType&\PHPUnit\Framework\MockObject\Stub
+     * @return FieldType&Stub
      */
     private function createFieldType(bool $isSingular): FieldType
     {
