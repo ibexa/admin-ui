@@ -18,6 +18,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\InternalContracts\AdminUi\Form\Publisher\ContentFormDataPublisher;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -27,6 +28,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
 #[CoversClass(ContentOnTheFlyProcessor::class)]
+#[CoversClass(ContentFormDataPublisher::class)]
 final class ContentOnTheFlyProcessorTest extends TestCase
 {
     private const string CREATE_RESPONSE_TEMPLATE = '@ibexadesign/ui/on_the_fly/content_create_response.html.twig';
@@ -47,7 +49,10 @@ final class ContentOnTheFlyProcessorTest extends TestCase
     {
         $this->contentService = $this->createMock(ContentService::class);
         $this->twig = $this->createMock(Environment::class);
-        $this->processor = new ContentOnTheFlyProcessor($this->contentService, $this->twig);
+        $this->processor = new ContentOnTheFlyProcessor(
+            new ContentFormDataPublisher($this->contentService),
+            $this->twig
+        );
     }
 
     public function testProcessCreatePublishPublishesNewContentSynchronously(): void
