@@ -140,7 +140,10 @@
          * @param {Event} event
          */
         handleInputChange(event) {
-            if (this.maxFileSize > 0 && event.currentTarget.files[0].size > this.maxFileSize) {
+            const [file] = event.currentTarget.files;
+            const isFileSizeExceeded = this.maxFileSize > 0 && file.size > this.maxFileSize;
+
+            if (isFileSizeExceeded || !this.checkCanDrop(file)) {
                 return this.resetInputField();
             }
 
