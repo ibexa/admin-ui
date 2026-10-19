@@ -65,11 +65,11 @@
 } %}
 
 {% macro relation_type(relation) %}
-    {% if relation.type == constant('Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Relation::COMMON') %}
+    {% if relation.type == constant('Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\RelationType::COMMON').value %}
         {{ 'tab.relations.table.relation_type.content_level_relation'|trans()|desc('Content level relation') }}
-    {% elseif relation.type == constant('Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Relation::EMBED') %}
+    {% elseif relation.type == constant('Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\RelationType::EMBED').value %}
         {{ 'tab.relations.table.relation_type.embed'|trans()|desc('Embed') }}
-    {% elseif relation.type == constant('Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Relation::LINK') %}
+    {% elseif relation.type == constant('Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\RelationType::LINK').value %}
         {{ 'tab.relations.table.relation_type.link'|trans()|desc('Link') }}
     {% else %}
         {{ 'tab.relations.table.relation_type.field'|trans()|desc('Field') }}
