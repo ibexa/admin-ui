@@ -13,3 +13,9 @@
         {% block form %}{% endblock %}
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ encore_entry_script_tags('ibexa-admin-ui-section-edit-js', null, 'ibexa') }}
+{% endblock %}

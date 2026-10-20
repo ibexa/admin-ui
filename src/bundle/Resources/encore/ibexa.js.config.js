@@ -142,6 +142,7 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
         ])
         .addEntry('ibexa-admin-ui-section-view-js', [path.resolve(__dirname, '../public/js/scripts/admin.section.view.js')])
+        .addEntry('ibexa-admin-ui-section-edit-js', [path.resolve(__dirname, '../public/js/scripts/admin.section.edit.js')])
         .addEntry('ibexa-admin-ui-trash-list-js', [path.resolve(__dirname, '../public/js/scripts/admin.trash.list.js')])
         .addEntry('ibexa-admin-ui-content-preview-js', [path.resolve(__dirname, '../public/js/scripts/admin.preview.js')])
         .addEntry('ibexa-admin-ui-location-view-js', [
