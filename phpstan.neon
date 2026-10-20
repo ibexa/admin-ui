@@ -10,8 +10,10 @@ parameters:
         - src
         - tests
 
-    # Its own separate composer project (own vendor/autoload.php, own
-    # dependencies) — unresolvable from this root autoloader by design.
+    # ibexa/cohesivo-playwright (IbexaPlaywrightTestCase etc.) is only added
+    # as a dependency of the assembled project these tests actually run
+    # against (gh-workflows' CI step), never of this repo's own standalone
+    # composer install — unresolvable from this root autoloader by design.
     excludePaths:
         - tests/playwright-tests-php/*
 
