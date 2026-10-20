@@ -16,7 +16,6 @@
             const isRequired = input.required || this.fieldContainer.classList.contains('ibexa-field-edit--required');
             const dataMaxSize = +input.dataset.maxFileSize;
             const maxFileSize = parseInt(dataMaxSize, 10);
-            const { allowedFileTypes = [] } = input.dataset;
             const isEmpty = input.files && !input.files.length && dataContainer && !dataContainer.hasAttribute('hidden');
             let result = { isError: false };
 
@@ -33,11 +32,28 @@
                 result = this.validateFileSize();
             }
 
-            if (!isEmpty && allowedFileTypes.length > 0 && file && !allowedFileTypes.includes(file.type)) {
+            if (!isEmpty && file && !this.isFileTypeAllowed(file, input)) {
                 result = this.showFileTypeError();
             }
 
             return result;
+        }
+
+        isFileTypeAllowed(file, input) {
+            const { allowedFileTypes = '' } = input.dataset;
+            const { accept } = input;
+
+            if (!allowedFileTypes.length && !accept.length) {
+                return true;
+            }
+
+            if (accept.length && accept.includes('/*')) {
+                const pattern = accept.substr(0, accept.indexOf('*'));
+
+                return file.type.includes(pattern);
+            }
+
+            return allowedFileTypes.includes(file.type);
         }
 
         validateFileSize() {
