@@ -18,7 +18,7 @@ use Twig\TwigFunction;
 /**
  * @phpstan-type TDropdownItem array{id: string, label: string}
  * @phpstan-type TDropdownGroup array{label: string, items: array<int, array<string, mixed>>}
- * @phpstan-type TGroupView object{label: string|null, choices: iterable<object>}
+ * @phpstan-type TChoice array<string, mixed>|object
  */
 final class DropdownExtension extends AbstractExtension
 {
@@ -40,8 +40,8 @@ final class DropdownExtension extends AbstractExtension
     }
 
     /**
-     * @param iterable<object> $choices
-     * @param iterable<object> $preferredChoices
+     * @param iterable<mixed> $choices
+     * @param iterable<mixed> $preferredChoices
      *
      * @return array<int, TDropdownItem|TDropdownGroup>
      */
@@ -53,72 +53,63 @@ final class DropdownExtension extends AbstractExtension
         $seenIds = [];
 
         return [
-            ...$this->mapChoiceViews($preferredChoices, $translationDomain, $seenIds),
-            ...$this->mapChoiceViews($choices, $translationDomain, $seenIds),
+            ...$this->mapChoices($preferredChoices, $translationDomain, $seenIds),
+            ...$this->mapChoices($choices, $translationDomain, $seenIds),
         ];
     }
 
     /**
-     * @param iterable<object> $choiceViews
+     * @param iterable<mixed> $choices
      * @param array<string, true> $seenIds
      *
      * @return array<int, TDropdownItem|TDropdownGroup>
      */
-    private function mapChoiceViews(
-        iterable $choiceViews,
+    private function mapChoices(
+        iterable $choices,
         string | false $translationDomain,
         array &$seenIds
     ): array {
         $entries = [];
 
-        foreach ($choiceViews as $choiceView) {
-            if ($choiceView instanceof ChoiceView) {
-                $item = $this->mapChoiceView($choiceView, $translationDomain, $seenIds);
-
-                if ($item !== null) {
-                    $entries[] = $item;
-                }
+        foreach ($choices as $choice) {
+            if (self::has($choice, 'choices')) {
+                array_push($entries, ...$this->mapGroup($choice, $translationDomain, $seenIds));
 
                 continue;
             }
 
-            if (!self::isGroupView($choiceView)) {
+            if (!self::has($choice, 'value') || !self::has($choice, 'label')) {
                 throw new InvalidArgumentException(sprintf(
-                    'Dropdown choices must be %s instances or group views with "label" and "choices", "%s" given.',
-                    ChoiceView::class,
-                    get_debug_type($choiceView)
+                    'Dropdown choices must have "value" and "label", or "choices" for a group, "%s" given.',
+                    get_debug_type($choice)
                 ));
             }
 
-            array_push($entries, ...$this->mapGroupView($choiceView, $translationDomain, $seenIds));
+            $item = $this->mapChoice($choice, $translationDomain, $seenIds);
+
+            if ($item !== null) {
+                $entries[] = $item;
+            }
         }
 
         return $entries;
     }
 
     /**
-     * @phpstan-assert-if-true TGroupView $choiceView
-     */
-    private static function isGroupView(object $choiceView): bool
-    {
-        return property_exists($choiceView, 'label') && property_exists($choiceView, 'choices');
-    }
-
-    /**
-     * A group without a label has no header to show, so its items join the surrounding level.
-     *
-     * @param TGroupView $groupView
+     * @param TChoice $group
      * @param array<string, true> $seenIds
      *
      * @return array<int, TDropdownItem|TDropdownGroup>
      */
-    private function mapGroupView(
-        object $groupView,
+    private function mapGroup(
+        array | object $group,
         string | false $translationDomain,
         array &$seenIds
     ): array {
-        $items = $this->mapChoiceViews($groupView->choices, $translationDomain, $seenIds);
-        $label = $groupView->label === null ? '' : $this->translateLabel($groupView->label, [], $translationDomain);
+        $choices = self::read($group, 'choices');
+        $label = self::has($group, 'label') ? self::read($group, 'label') : null;
+        $items = $this->mapChoices(is_iterable($choices) ? $choices : [], $translationDomain, $seenIds);
+        $label = $label === null ? '' : $this->translateLabel($label, [], $translationDomain);
 
         if ($items === [] || $label === '') {
             return $items;
@@ -131,24 +122,28 @@ final class DropdownExtension extends AbstractExtension
     }
 
     /**
+     * @param TChoice $choice
      * @param array<string, true> $seenIds
      *
      * @return TDropdownItem|null
      */
-    private function mapChoiceView(
-        ChoiceView $choiceView,
+    private function mapChoice(
+        array | object $choice,
         string | false $translationDomain,
         array &$seenIds
     ): ?array {
-        if (isset($seenIds[$choiceView->value])) {
+        $id = (string) self::read($choice, 'value');
+
+        if (isset($seenIds[$id])) {
             return null;
         }
 
-        $seenIds[$choiceView->value] = true;
+        $seenIds[$id] = true;
+        $parameters = $choice instanceof ChoiceView ? $choice->labelTranslationParameters : [];
 
         return [
-            'id' => $choiceView->value,
-            'label' => $this->translateLabel($choiceView->label, $choiceView->labelTranslationParameters, $translationDomain),
+            'id' => $id,
+            'label' => $this->translateLabel(self::read($choice, 'label'), $parameters, $translationDomain),
         ];
     }
 
@@ -156,7 +151,7 @@ final class DropdownExtension extends AbstractExtension
      * @param array<string, mixed> $parameters
      */
     private function translateLabel(
-        string | TranslatableInterface | false $label,
+        mixed $label,
         array $parameters,
         string | false $translationDomain
     ): string {
@@ -164,10 +159,44 @@ final class DropdownExtension extends AbstractExtension
             return $label->trans($this->translator);
         }
 
-        if ($label === false || $translationDomain === false) {
-            return (string) $label;
+        if ($label === false || $label === null) {
+            return '';
+        }
+
+        if (!is_scalar($label)) {
+            throw new InvalidArgumentException(sprintf(
+                'Dropdown choice labels must be strings or translatable, "%s" given.',
+                get_debug_type($label)
+            ));
+        }
+
+        $label = (string) $label;
+
+        if ($translationDomain === false) {
+            return $label;
         }
 
         return $this->translator->trans($label, $parameters, $translationDomain);
+    }
+
+    private static function has(
+        mixed $choice,
+        string $key
+    ): bool {
+        if (is_array($choice)) {
+            return array_key_exists($key, $choice);
+        }
+
+        return is_object($choice) && property_exists($choice, $key);
+    }
+
+    /**
+     * @param TChoice $choice
+     */
+    private static function read(
+        array | object $choice,
+        string $key
+    ): mixed {
+        return is_array($choice) ? $choice[$key] : $choice->{$key};
     }
 }

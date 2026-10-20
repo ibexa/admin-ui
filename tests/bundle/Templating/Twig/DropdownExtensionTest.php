@@ -10,6 +10,7 @@ namespace Ibexa\Tests\Bundle\AdminUi\Templating\Twig;
 
 use Ibexa\Bundle\AdminUi\Templating\Twig\DropdownExtension;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\ChoiceList\View\ChoiceGroupView;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
@@ -158,11 +159,53 @@ final class DropdownExtensionTest extends TestCase
         );
     }
 
-    public function testUnknownChoiceObjectsAreRejected(): void
+    public function testArrayChoicesAndGroupsAreAccepted(): void
+    {
+        $items = $this->extension->getItems(
+            [
+                ['value' => 1, 'label' => 'One'],
+                [
+                    'label' => 'Units',
+                    'choices' => [
+                        ['value' => 'kg', 'label' => 'Kilogram'],
+                        new ChoiceView(null, 'g', 'Gram'),
+                    ],
+                ],
+            ],
+            [['value' => 'g', 'label' => 'Gram']],
+            false
+        );
+
+        self::assertSame(
+            [
+                ['id' => 'g', 'label' => 'Gram'],
+                ['id' => '1', 'label' => 'One'],
+                [
+                    'label' => 'Units',
+                    'items' => [['id' => 'kg', 'label' => 'Kilogram']],
+                ],
+            ],
+            $items,
+            'Templates pass plain arrays with "value" and "label" (and "choices" for a group), which must map like the view objects.'
+        );
+    }
+
+    /**
+     * @return iterable<string, array{mixed}>
+     */
+    public static function provideInvalidChoices(): iterable
+    {
+        yield 'object without value and label' => [new \stdClass()];
+        yield 'array without label' => [['value' => 'x']];
+        yield 'scalar' => ['x'];
+    }
+
+    #[DataProvider('provideInvalidChoices')]
+    public function testInvalidChoicesAreRejected(mixed $choice): void
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $this->extension->getItems([new \stdClass()], [], false);
+        $this->extension->getItems([$choice], [], false);
     }
 
     public function testLabelsAreTranslatedOnlyWithADomain(): void
