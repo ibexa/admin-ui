@@ -1,6 +1,7 @@
 name: Browser tests
 
 on:
+    workflow_dispatch:
     push:
         branches:
             - '[0-9]+.[0-9]+'
@@ -9,7 +10,7 @@ on:
 jobs:
     admin-ui-oss:
         name: "AdminUI-OSS"
-        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@ci-optimizations
         with:
             php-image: 'ghcr.io/ibexa/docker/php:8.5-node22'
             project-edition: 'oss'
@@ -21,7 +22,7 @@ jobs:
         secrets: inherit
     admin-ui-headless:
         name: "AdminUI-Headless"
-        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@ci-optimizations
         with:
             php-image: 'ghcr.io/ibexa/docker/php:8.5-node22'
             project-edition: 'headless'
@@ -33,7 +34,7 @@ jobs:
         secrets: inherit
     admin-ui-experience-commerce:
         name: "AdminUI-Experience/Commerce"
-        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@ci-optimizations
         with:
             php-image: 'ghcr.io/ibexa/docker/php:8.5-node22'
             project-edition: 'experience'
@@ -45,7 +46,7 @@ jobs:
         secrets: inherit
     page-builder:
         name: "Basic Page Builder tests"
-        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@ci-optimizations
         with:
             php-image: 'ghcr.io/ibexa/docker/php:8.5-node22'
             project-edition: 'experience'
