@@ -211,7 +211,7 @@ final class DropdownExtensionTest extends TestCase
         $this->extension->getItems([$choice], [], false);
     }
 
-    public function testLabelsAreTranslatedOnlyWithADomain(): void
+    public function testLabelsAreTranslatedUnlessTheDomainIsFalse(): void
     {
         $translatableLabel = self::createStub(TranslatableInterface::class);
         $translatableLabel->method('trans')->willReturn('Translatable');
@@ -235,7 +235,7 @@ final class DropdownExtensionTest extends TestCase
                 ],
             ],
             $this->extension->getItems($choices, [], false),
-            'Without a domain, string labels should stay untranslated.'
+            'With a false domain, string labels should stay untranslated.'
         );
         self::assertSame(
             [
@@ -250,6 +250,20 @@ final class DropdownExtensionTest extends TestCase
             ],
             $this->extension->getItems($choices, [], 'messages'),
             'With a domain, string labels should be translated with their parameters.'
+        );
+        self::assertSame(
+            [
+                [
+                    'label' => 'group.label@',
+                    'items' => [
+                        ['id' => 'plain', 'label' => 'plain.label@X'],
+                        ['id' => 'translatable', 'label' => 'Translatable'],
+                        ['id' => 'unlabelled', 'label' => ''],
+                    ],
+                ],
+            ],
+            $this->extension->getItems($choices, [], null),
+            'With a null domain, string labels should be translated with the translator\'s default domain.'
         );
     }
 }

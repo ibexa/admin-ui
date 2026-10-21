@@ -1,5 +1,5 @@
 {% set preferred_choices = preferred_choices|default([]) %}
-{% set translation_domain = translation_domain|default(false) %}
+{% set translation_domain = translation_domain is defined ? translation_domain : false %}
 {% set value = value is defined ? value : null %}
 {% set multiple = multiple|default(false) %}
 {% set custom_init = custom_init|default(false) %}
