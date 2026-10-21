@@ -11,47 +11,27 @@ namespace Ibexa\Tests\AdminUi\Notifier;
 use Ibexa\AdminUi\Notifier\Notification\UserPasswordReset;
 use Ibexa\AdminUi\Notifier\PasswordReset;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
-use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
-use Ibexa\Contracts\Notifications\Service\NotificationServiceInterface;
-use PHPUnit\Framework\TestCase;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
 
-final class PasswordResetTest extends TestCase
+final class PasswordResetTest extends AbstractNotifierTestCase
 {
     public function testSendsMessageWhenNotificationIsSubscribed(): void
     {
-        $notificationService = $this->createMock(NotificationServiceInterface::class);
-        $notificationService->expects(self::once())->method('send');
+        $this->notificationService->expects(self::once())->method('send');
+        $this->logger->expects(self::never())->method('warning');
 
-        $logger = $this->createMock(LoggerInterface::class);
-        $logger->expects(self::never())->method('warning');
-
-        $notifier = $this->createNotifier(
-            [UserPasswordReset::class => ['channels' => ['email']]],
-            $notificationService,
-            $logger
-        );
+        $notifier = $this->createNotifier([UserPasswordReset::class => ['channels' => ['email']]]);
 
         $notifier->sendMessage($this->createMock(User::class), 'hash-key');
     }
 
     public function testLogsWarningWhenNotificationIsNotSubscribed(): void
     {
-        $notificationService = $this->createMock(NotificationServiceInterface::class);
-        $notificationService->expects(self::never())->method('send');
+        $this->notificationService->expects(self::never())->method('send');
+        $this->mockLoggerWarning(UserPasswordReset::class);
 
-        $logger = $this->createMock(LoggerInterface::class);
-        $logger
-            ->expects(self::once())
-            ->method('warning')
-            ->with(
-                self::stringContains('notifier.subscriptions'),
-                ['notification' => UserPasswordReset::class]
-            );
-
-        $notifier = $this->createNotifier([], $notificationService, $logger);
+        $notifier = $this->createNotifier([]);
 
         $notifier->sendMessage($this->createMock(User::class), 'hash-key');
     }
@@ -59,25 +39,17 @@ final class PasswordResetTest extends TestCase
     /**
      * @param array<string, array{channels: array<string>}> $subscriptions
      */
-    private function createNotifier(
-        array $subscriptions,
-        NotificationServiceInterface $notificationService,
-        LoggerInterface $logger
-    ): PasswordReset {
-        $configResolver = $this->createMock(ConfigResolverInterface::class);
-        $configResolver
-            ->expects(self::once())
-            ->method('getParameter')
-            ->with('notifications.subscriptions')
-            ->willReturn($subscriptions);
+    private function createNotifier(array $subscriptions): PasswordReset
+    {
+        $this->mockConfigResolverGetParameter($subscriptions);
 
         $notifier = new PasswordReset(
-            $configResolver,
+            $this->configResolver,
             $this->createMock(Environment::class),
-            $notificationService,
+            $this->notificationService,
             $this->createMock(KernelInterface::class)
         );
-        $notifier->setLogger($logger);
+        $notifier->setLogger($this->logger);
 
         return $notifier;
     }
