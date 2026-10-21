@@ -38,9 +38,9 @@ final class DropdownExtensionTest extends TestCase
     public function testFlatChoicesBecomeItems(): void
     {
         $items = $this->extension->getItems(
+            ['translation_domain' => false],
             [new ChoiceView(null, '1', 'One'), new ChoiceView(null, '2', 'Two')],
-            [],
-            false
+            []
         );
 
         self::assertSame(
@@ -55,6 +55,7 @@ final class DropdownExtensionTest extends TestCase
     public function testNestedGroupsKeepTheirDepth(): void
     {
         $items = $this->extension->getItems(
+            ['translation_domain' => false],
             [
                 new ChoiceView(null, 'loose', 'Loose'),
                 new ChoiceGroupView('Fruits', [
@@ -65,8 +66,7 @@ final class DropdownExtensionTest extends TestCase
                     ]),
                 ]),
             ],
-            [],
-            false
+            []
         );
 
         self::assertSame(
@@ -96,6 +96,7 @@ final class DropdownExtensionTest extends TestCase
     public function testPreferredChoicesComeFirstAndLaterDuplicatesAreDropped(): void
     {
         $items = $this->extension->getItems(
+            ['translation_domain' => false],
             [
                 new ChoiceGroupView('Only duplicates', [new ChoiceView(null, 'apple', 'Apple')]),
                 new ChoiceGroupView('Mixed', [
@@ -103,8 +104,7 @@ final class DropdownExtensionTest extends TestCase
                     new ChoiceView(null, 'pear', 'Pear'),
                 ]),
             ],
-            [new ChoiceView(null, 'apple', 'Apple')],
-            false
+            [new ChoiceView(null, 'apple', 'Apple')]
         );
 
         self::assertSame(
@@ -133,6 +133,7 @@ final class DropdownExtensionTest extends TestCase
         };
 
         $items = $this->extension->getItems(
+            ['translation_domain' => false],
             [
                 $groupLike('Brand', [new ChoiceView(null, 'site-1', 'Site 1')]),
                 $groupLike(null, [
@@ -140,8 +141,7 @@ final class DropdownExtensionTest extends TestCase
                     $groupLike('Nested', [new ChoiceView(null, 'site-3', 'Site 3')]),
                 ]),
             ],
-            [],
-            false
+            []
         );
 
         self::assertSame(
@@ -164,6 +164,7 @@ final class DropdownExtensionTest extends TestCase
     public function testArrayChoicesAndGroupsAreAccepted(): void
     {
         $items = $this->extension->getItems(
+            ['translation_domain' => false],
             [
                 ['value' => 1, 'label' => 'One'],
                 [
@@ -174,8 +175,7 @@ final class DropdownExtensionTest extends TestCase
                     ],
                 ],
             ],
-            [['value' => 'g', 'label' => 'Gram']],
-            false
+            [['value' => 'g', 'label' => 'Gram']]
         );
 
         self::assertSame(
@@ -195,6 +195,24 @@ final class DropdownExtensionTest extends TestCase
     /**
      * @return iterable<string, array{mixed}>
      */
+    public static function provideInvalidTranslationDomains(): iterable
+    {
+        yield 'integer' => [123];
+        yield 'true' => [true];
+        yield 'array' => [['messages']];
+    }
+
+    #[DataProvider('provideInvalidTranslationDomains')]
+    public function testInvalidTranslationDomainInTheContextIsRejected(mixed $translationDomain): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->extension->getItems(['translation_domain' => $translationDomain], [new ChoiceView(null, '1', 'One')], []);
+    }
+
+    /**
+     * @return iterable<string, array{mixed}>
+     */
     public static function provideInvalidChoices(): iterable
     {
         yield 'object without value and label' => [new stdClass()];
@@ -208,7 +226,7 @@ final class DropdownExtensionTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $this->extension->getItems([$choice], [], false);
+        $this->extension->getItems(['translation_domain' => false], [$choice], []);
     }
 
     public function testLabelsAreTranslatedUnlessTheDomainIsFalse(): void
@@ -234,7 +252,7 @@ final class DropdownExtensionTest extends TestCase
                     ],
                 ],
             ],
-            $this->extension->getItems($choices, [], false),
+            $this->extension->getItems(['translation_domain' => false], $choices, []),
             'With a false domain, string labels should stay untranslated.'
         );
         self::assertSame(
@@ -248,7 +266,7 @@ final class DropdownExtensionTest extends TestCase
                     ],
                 ],
             ],
-            $this->extension->getItems($choices, [], 'messages'),
+            $this->extension->getItems(['translation_domain' => 'messages'], $choices, []),
             'With a domain, string labels should be translated with their parameters.'
         );
         self::assertSame(
@@ -262,7 +280,7 @@ final class DropdownExtensionTest extends TestCase
                     ],
                 ],
             ],
-            $this->extension->getItems($choices, [], null),
+            $this->extension->getItems(['translation_domain' => null], $choices, []),
             'With a null domain, string labels should be translated with the translator\'s default domain.'
         );
     }

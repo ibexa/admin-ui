@@ -36,22 +36,33 @@ final class DropdownExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'ibexa_dropdown_items',
-                $this->getItems(...)
+                $this->getItems(...),
+                ['needs_context' => true]
             ),
         ];
     }
 
     /**
+     * @param array<string, mixed> $context
      * @param iterable<mixed> $choices
      * @param iterable<mixed> $preferredChoices
      *
      * @return array<int, TDropdownItem|TDropdownGroup>
      */
     public function getItems(
+        array $context,
         iterable $choices,
-        iterable $preferredChoices,
-        string | false | null $translationDomain
+        iterable $preferredChoices
     ): array {
+        $translationDomain = $context['translation_domain'] ?? null;
+
+        if (!is_string($translationDomain) && $translationDomain !== false && $translationDomain !== null) {
+            throw new InvalidArgumentException(sprintf(
+                'The dropdown translation domain must be a string, false or null, "%s" given.',
+                get_debug_type($translationDomain)
+            ));
+        }
+
         $seenIds = [];
 
         return [
