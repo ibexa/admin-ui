@@ -170,6 +170,7 @@ class UniversalDiscoveryProvider implements Provider
         $searchResult = $this->searchService->findLocations(
             new LocationQuery([
                 'filter' => new Query\Criterion\LocationId($locationIds),
+                'limit' => count($locationIds),
             ])
         );
 
