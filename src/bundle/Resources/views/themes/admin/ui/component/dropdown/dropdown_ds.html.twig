@@ -53,7 +53,7 @@
 
 {% if can_use_ds %}
     {% set max_visible_items = 5 %}
-    {% set normalized_ds_items = ibexa_dropdown_items(choices, preferred_choices, translation_domain) %}
+    {% set normalized_ds_items = ibexa_dropdown_items(choices, preferred_choices) %}
     {% set ds_items = not multiple and translated_placeholder is not same as(null)
         ? [{ id: '', label: empty_placeholder_label }]|merge(normalized_ds_items)
         : normalized_ds_items
