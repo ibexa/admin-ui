@@ -11,28 +11,19 @@ namespace Ibexa\Tests\AdminUi\Notifier;
 use DateTimeImmutable;
 use Ibexa\AdminUi\Notifier\Notification;
 use Ibexa\AdminUi\Notifier\UserInvitation;
-use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
-use Ibexa\Contracts\Notifications\Service\NotificationServiceInterface;
 use Ibexa\Contracts\User\Invitation\Invitation;
-use PHPUnit\Framework\TestCase;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
 
-final class UserInvitationTest extends TestCase
+final class UserInvitationTest extends AbstractNotifierTestCase
 {
     public function testSendsInvitationWhenNotificationIsSubscribed(): void
     {
-        $notificationService = $this->createMock(NotificationServiceInterface::class);
-        $notificationService->expects(self::once())->method('send');
-
-        $logger = $this->createMock(LoggerInterface::class);
-        $logger->expects(self::never())->method('warning');
+        $this->notificationService->expects(self::once())->method('send');
+        $this->logger->expects(self::never())->method('warning');
 
         $sender = $this->createSender(
-            [Notification\UserInvitation::class => ['channels' => ['email']]],
-            $notificationService,
-            $logger
+            [Notification\UserInvitation::class => ['channels' => ['email']]]
         );
 
         $sender->sendInvitation($this->createInvitation());
@@ -40,19 +31,10 @@ final class UserInvitationTest extends TestCase
 
     public function testLogsWarningWhenNotificationIsNotSubscribed(): void
     {
-        $notificationService = $this->createMock(NotificationServiceInterface::class);
-        $notificationService->expects(self::never())->method('send');
+        $this->notificationService->expects(self::never())->method('send');
+        $this->mockLoggerWarning(Notification\UserInvitation::class);
 
-        $logger = $this->createMock(LoggerInterface::class);
-        $logger
-            ->expects(self::once())
-            ->method('warning')
-            ->with(
-                self::stringContains('notifier.subscriptions'),
-                ['notification' => Notification\UserInvitation::class]
-            );
-
-        $sender = $this->createSender([], $notificationService, $logger);
+        $sender = $this->createSender([]);
 
         $sender->sendInvitation($this->createInvitation());
     }
@@ -60,25 +42,17 @@ final class UserInvitationTest extends TestCase
     /**
      * @param array<string, array{channels: array<string>}> $subscriptions
      */
-    private function createSender(
-        array $subscriptions,
-        NotificationServiceInterface $notificationService,
-        LoggerInterface $logger
-    ): UserInvitation {
-        $configResolver = $this->createMock(ConfigResolverInterface::class);
-        $configResolver
-            ->expects(self::once())
-            ->method('getParameter')
-            ->with('notifications.subscriptions')
-            ->willReturn($subscriptions);
+    private function createSender(array $subscriptions): UserInvitation
+    {
+        $this->mockConfigResolverGetParameter($subscriptions);
 
         $sender = new UserInvitation(
             $this->createMock(Environment::class),
-            $configResolver,
-            $notificationService,
+            $this->configResolver,
+            $this->notificationService,
             $this->createMock(KernelInterface::class)
         );
-        $sender->setLogger($logger);
+        $sender->setLogger($this->logger);
 
         return $sender;
     }
