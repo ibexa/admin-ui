@@ -50,7 +50,7 @@ final class DropdownExtension extends AbstractExtension
     public function getItems(
         iterable $choices,
         iterable $preferredChoices,
-        string | false $translationDomain
+        string | false | null $translationDomain
     ): array {
         $seenIds = [];
 
@@ -68,7 +68,7 @@ final class DropdownExtension extends AbstractExtension
      */
     private function mapChoices(
         iterable $choices,
-        string | false $translationDomain,
+        string | false | null $translationDomain,
         array &$seenIds
     ): array {
         $entries = [];
@@ -105,7 +105,7 @@ final class DropdownExtension extends AbstractExtension
      */
     private function mapGroup(
         array | object $group,
-        string | false $translationDomain,
+        string | false | null $translationDomain,
         array &$seenIds
     ): array {
         $choices = $this->read($group, 'choices');
@@ -140,7 +140,7 @@ final class DropdownExtension extends AbstractExtension
      */
     private function mapChoice(
         array | object $choice,
-        string | false $translationDomain,
+        string | false | null $translationDomain,
         array &$seenIds
     ): ?array {
         $id = (string) $this->read($choice, 'value');
@@ -164,7 +164,7 @@ final class DropdownExtension extends AbstractExtension
     private function translateLabel(
         mixed $label,
         array $parameters,
-        string | false $translationDomain
+        string | false | null $translationDomain
     ): string {
         if ($label instanceof TranslatableInterface) {
             return $label->trans($this->translator);
