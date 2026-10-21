@@ -10,6 +10,7 @@ namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
 use InvalidArgumentException;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
@@ -23,7 +24,8 @@ use Twig\TwigFunction;
 final class DropdownExtension extends AbstractExtension
 {
     public function __construct(
-        private readonly TranslatorInterface $translator
+        private readonly TranslatorInterface $translator,
+        private readonly PropertyAccessorInterface $propertyAccessor
     ) {}
 
     /**
@@ -72,13 +74,13 @@ final class DropdownExtension extends AbstractExtension
         $entries = [];
 
         foreach ($choices as $choice) {
-            if (self::has($choice, 'choices')) {
+            if ($this->has($choice, 'choices')) {
                 array_push($entries, ...$this->mapGroup($choice, $translationDomain, $seenIds));
 
                 continue;
             }
 
-            if (!self::has($choice, 'value') || !self::has($choice, 'label')) {
+            if (!$this->has($choice, 'value') || !$this->has($choice, 'label')) {
                 throw new InvalidArgumentException(sprintf(
                     'Dropdown choices must have "value" and "label", or "choices" for a group, "%s" given.',
                     get_debug_type($choice)
@@ -106,10 +108,19 @@ final class DropdownExtension extends AbstractExtension
         string | false $translationDomain,
         array &$seenIds
     ): array {
-        $choices = self::read($group, 'choices');
-        $label = self::has($group, 'label') ? self::read($group, 'label') : null;
-        $items = $this->mapChoices(is_iterable($choices) ? $choices : [], $translationDomain, $seenIds);
-        $label = $label === null ? '' : $this->translateLabel($label, [], $translationDomain);
+        $choices = $this->read($group, 'choices');
+
+        if (!is_iterable($choices)) {
+            throw new InvalidArgumentException(sprintf(
+                'Dropdown group choices must be iterable, "%s" given.',
+                get_debug_type($choices)
+            ));
+        }
+
+        $items = $this->mapChoices($choices, $translationDomain, $seenIds);
+        $label = $this->has($group, 'label')
+            ? $this->translateLabel($this->read($group, 'label'), [], $translationDomain)
+            : '';
 
         if ($items === [] || $label === '') {
             return $items;
@@ -132,7 +143,7 @@ final class DropdownExtension extends AbstractExtension
         string | false $translationDomain,
         array &$seenIds
     ): ?array {
-        $id = (string) self::read($choice, 'value');
+        $id = (string) $this->read($choice, 'value');
 
         if (isset($seenIds[$id])) {
             return null;
@@ -143,7 +154,7 @@ final class DropdownExtension extends AbstractExtension
 
         return [
             'id' => $id,
-            'label' => $this->translateLabel(self::read($choice, 'label'), $parameters, $translationDomain),
+            'label' => $this->translateLabel($this->read($choice, 'label'), $parameters, $translationDomain),
         ];
     }
 
@@ -179,7 +190,7 @@ final class DropdownExtension extends AbstractExtension
         return $this->translator->trans($label, $parameters, $translationDomain);
     }
 
-    private static function has(
+    private function has(
         mixed $choice,
         string $key
     ): bool {
@@ -187,16 +198,16 @@ final class DropdownExtension extends AbstractExtension
             return array_key_exists($key, $choice);
         }
 
-        return is_object($choice) && property_exists($choice, $key);
+        return is_object($choice) && $this->propertyAccessor->isReadable($choice, $key);
     }
 
     /**
      * @param TChoice $choice
      */
-    private static function read(
+    private function read(
         array | object $choice,
         string $key
     ): mixed {
-        return is_array($choice) ? $choice[$key] : $choice->{$key};
+        return is_array($choice) ? $choice[$key] : $this->propertyAccessor->getValue($choice, $key);
     }
 }

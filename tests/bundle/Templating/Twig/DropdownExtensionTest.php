@@ -12,8 +12,10 @@ use Ibexa\Bundle\AdminUi\Templating\Twig\DropdownExtension;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symfony\Component\Form\ChoiceList\View\ChoiceGroupView;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -23,14 +25,14 @@ final class DropdownExtensionTest extends TestCase
 
     protected function setUp(): void
     {
-        $translator = $this->createMock(TranslatorInterface::class);
+        $translator = self::createStub(TranslatorInterface::class);
         $translator
             ->method('trans')
             ->willReturnCallback(
                 static fn (string $id, array $parameters, ?string $domain): string => sprintf('%s@%s%s', $id, $domain, implode('', $parameters))
             );
 
-        $this->extension = new DropdownExtension($translator);
+        $this->extension = new DropdownExtension($translator, PropertyAccess::createPropertyAccessor());
     }
 
     public function testFlatChoicesBecomeItems(): void
@@ -195,9 +197,10 @@ final class DropdownExtensionTest extends TestCase
      */
     public static function provideInvalidChoices(): iterable
     {
-        yield 'object without value and label' => [new \stdClass()];
+        yield 'object without value and label' => [new stdClass()];
         yield 'array without label' => [['value' => 'x']];
         yield 'scalar' => ['x'];
+        yield 'group with non-iterable choices' => [['label' => 'Broken', 'choices' => 'x']];
     }
 
     #[DataProvider('provideInvalidChoices')]
@@ -210,7 +213,7 @@ final class DropdownExtensionTest extends TestCase
 
     public function testLabelsAreTranslatedOnlyWithADomain(): void
     {
-        $translatableLabel = $this->createMock(TranslatableInterface::class);
+        $translatableLabel = self::createStub(TranslatableInterface::class);
         $translatableLabel->method('trans')->willReturn('Translatable');
         $choices = [
             new ChoiceGroupView('group.label', [
