@@ -10,6 +10,7 @@ namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\Mapper\ChangeOwnerLimitationMapper;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ChangeOwnerLimitation;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -28,11 +29,10 @@ final class ChangeOwnerLimitationMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider provideLimitationValues
-     *
      * @param array<int|string> $limitationValues
      * @param string[] $expected
      */
+    #[DataProvider('provideLimitationValues')]
     public function testMapLimitationValue(
         array $limitationValues,
         array $expected
