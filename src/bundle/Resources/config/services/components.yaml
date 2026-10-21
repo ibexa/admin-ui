@@ -9,37 +9,11 @@ services:
         autoconfigure: true
         public: true
 
-    Ibexa\AdminUi\Component\Registry:
-        public: false
-
-    Ibexa\AdminUi\Component\TwigComponent:
-        abstract: true
-        lazy: true
-        arguments:
-            $parameters: []
-
     Ibexa\AdminUi\Component\TabsComponent:
         abstract: true
         lazy: true
         arguments:
             $template: '@@ibexadesign/ui/tab/default.html.twig'
-
-    Ibexa\AdminUi\Component\ScriptComponent:
-        abstract: true
-        lazy: true
-
-    Ibexa\AdminUi\Component\LinkComponent:
-        abstract: true
-        lazy: true
-
-    Ibexa\Bundle\AdminUi\Templating\Twig\ComponentExtension:
-        tags:
-            - { name: twig.extension }
-
-    Ibexa\AdminUi\Component\Renderer\DefaultRenderer:
-        public: false
-
-    Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface: '@Ibexa\AdminUi\Component\Renderer\DefaultRenderer'
 
     ibexa.adminui.layout.content.after:
         parent: Ibexa\TwigComponents\Component\TemplateComponent
@@ -47,7 +21,4 @@ services:
             $template: '@@ibexadesign/ui/layout_content_after.html.twig'
         tags:
             - { name: ibexa.twig.component, group: 'admin-ui-layout-content-after' }
-            
-    Ibexa\AdminUi\Component\EventSubscriber\RenderEventSubscriber:
-        tags:
-            - { name: kernel.event_subscriber }
+
