@@ -15,6 +15,8 @@ use Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
@@ -120,8 +122,8 @@ class UniversalDiscoveryProvider implements Provider
         $columns = [];
         foreach ($columnLocations as $columnLocationId) {
             $columnLocationId = (int)$columnLocationId;
-            $columnLocation = ($columnLocationId !== self::ROOT_LOCATION_ID)
-                ? $this->locationService->loadLocation($columnLocationId)
+            $columnLocation = $columnLocationId !== self::ROOT_LOCATION_ID
+                ? $this->loadAncestorLocation($columnLocationId)
                 : null;
 
             $subItems = $this->getSubitemLocations($columnLocationId, 0, $limit, $sortClause);
@@ -403,6 +405,20 @@ class UniversalDiscoveryProvider implements Provider
         }
 
         return $locations;
+    }
+
+    /**
+     * An ancestor the user cannot read still gets its column: its subitems come from a permission-aware search.
+     *
+     * @throws NotFoundException
+     */
+    private function loadAncestorLocation(int $locationId): ?Location
+    {
+        try {
+            return $this->locationService->loadLocation($locationId);
+        } catch (UnauthorizedException $e) {
+            return null;
+        }
     }
 }
 
