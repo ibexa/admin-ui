@@ -4,6 +4,7 @@
 
 {%- block content -%}
     <div class="ibexa-login__actions-headline">{{ 'authentication.forgot_password'|trans|desc('Forgot password') }}</div>
+    <p>{{ 'authentication.forgot_password.instructions'|trans|desc('Enter your email. We’ll email instructions on how to reset your password.') }}</p>
     {% if reason == userForgotPasswordReasonMigration %}
         <p>{{ 'ezplatform.forgot_password.reset_your_password.reason.migration'|trans|desc('Your password has expired, change it.') }}</p>
     {% endif %}
