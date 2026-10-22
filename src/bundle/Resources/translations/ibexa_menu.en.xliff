@@ -252,8 +252,8 @@
         <note>key: main__admin__languages</note>
       </trans-unit>
       <trans-unit id="1d350945e7732f519fd5d2f6a69c926a193d6146" resname="main__admin__object_states">
-        <source>Object States</source>
-        <target state="new">Object States</target>
+        <source>Object states</source>
+        <target state="new">Object states</target>
         <note>key: main__admin__object_states</note>
       </trans-unit>
       <trans-unit id="8a5845bd0e93b67b2ac54a06f2eae85f2cb3b13d" resname="main__admin__roles">
@@ -292,8 +292,8 @@
         <note>key: main__content__content_structure</note>
       </trans-unit>
       <trans-unit id="17346107dfddb344b04c455b071d001dadf80d6f" resname="main__content__group_settings">
-        <source>Settings</source>
-        <target state="new">Settings</target>
+        <source>Configuration</source>
+        <target state="new">Configuration</target>
         <note>key: main__content__group_settings</note>
       </trans-unit>
       <trans-unit id="e8c5aefc86b31ee2bed9359787ddf0a2b1cad4a6" resname="main__content__media">
