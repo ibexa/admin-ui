@@ -72,6 +72,13 @@
         }
     }
 
+    &__entry-delete-btn {
+        &:focus-visible {
+            position: relative;
+            z-index: 1;
+        }
+    }
+
     &__search-no-entries {
         display: flex;
         justify-content: center;
