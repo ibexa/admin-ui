@@ -15,7 +15,7 @@
         "fix": "yarn prettier-test --write && yarn ts-test && yarn eslint-test --fix",
         "ts-test": "tsc --noEmit",
         "eslint-test": "eslint .",
-        "prettier-test": "yarn prettier \"./src/bundle/**/*.{js,ts,tsx,scss}\" --check",
+        "prettier-test": "yarn prettier \"./src/bundle/**/*.{js,ts,tsx,scss}\" --check --no-error-on-unmatched-pattern",
         "postinstall": "yarn ibexa-generate-tsconfig"
     }
 }
