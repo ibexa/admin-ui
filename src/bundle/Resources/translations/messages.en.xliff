@@ -97,8 +97,8 @@
         <note>key: base.support</note>
       </trans-unit>
       <trans-unit id="d21d07085caa55b0fee2fc054a6878bbdb24ae78" resname="breadcrumb.admin">
-        <source>Settings</source>
-        <target state="new">Settings</target>
+        <source>Admin</source>
+        <target state="new">Admin</target>
         <note>key: breadcrumb.admin</note>
       </trans-unit>
       <trans-unit id="d23f0200b4769a69d2414de6d96117fed4601326" resname="character_counter.characters">
