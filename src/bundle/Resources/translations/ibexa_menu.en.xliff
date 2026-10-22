@@ -237,8 +237,8 @@
         <note>key: language_edit__sidebar_right__save_and_close</note>
       </trans-unit>
       <trans-unit id="d24d01151cf9ba69e38be735778da00850cea694" resname="main__admin">
-        <source>Administration</source>
-        <target state="new">Administration</target>
+        <source>Settings</source>
+        <target state="new">Settings</target>
         <note>key: main__admin</note>
       </trans-unit>
       <trans-unit id="f85206498106b1536c36c3231d870daa0d2805e2" resname="main__admin__content_types">
