@@ -85,6 +85,14 @@
 
             return result;
         }
+
+        toggleInvalidState(isError, config, input) {
+            super.toggleInvalidState(isError, config, input);
+
+            const hasInvalidNode = !!this.fieldContainer.querySelector(`.${this.classInvalid}`);
+
+            this.fieldContainer.classList.toggle(this.classInvalid, hasInvalidNode);
+        }
     }
 
     ibexa.addConfig('BaseFileFieldValidator', BaseFileFieldValidator);
