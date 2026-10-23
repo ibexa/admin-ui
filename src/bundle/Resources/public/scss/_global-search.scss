@@ -75,14 +75,8 @@
             fill: $ibexa-color-dark-300;
         }
 
-        &:hover .ids-icon,
         &:focus .ids-icon {
             fill: $ibexa-color-white;
-        }
-
-        &:hover {
-            background: $color-primary-50;
-            box-shadow: 0 calculateRem(22px) calculateRem(24px) 0 color.change($color-primary-50, $alpha: 0.2);
         }
 
         &:focus {
