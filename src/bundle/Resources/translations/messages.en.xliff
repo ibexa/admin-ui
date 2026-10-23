@@ -36,6 +36,11 @@
         <target state="new">Forgot password</target>
         <note>key: authentication.forgot_password</note>
       </trans-unit>
+      <trans-unit id="0184b30db1ab5b6cede6e1122d470e7a49e2d826" resname="authentication.forgot_password.instructions">
+        <source>Enter your email. We’ll email instructions on how to reset your password.</source>
+        <target state="new">Enter your email. We’ll email instructions on how to reset your password.</target>
+        <note>key: authentication.forgot_password.instructions</note>
+      </trans-unit>
       <trans-unit id="4d1ff50d394507d604a81017415b26d8d290e116" resname="authentication.forgot_your_password">
         <source>Forgot your password?</source>
         <target state="new">Forgot your password?</target>
