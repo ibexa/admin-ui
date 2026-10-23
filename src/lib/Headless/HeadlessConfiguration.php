@@ -34,6 +34,11 @@ final readonly class HeadlessConfiguration implements HeadlessConfigurationInter
         return $this->getUrl('headless.configuration_url', $scope);
     }
 
+    public function getDocumentationUrl(?string $scope = null): ?string
+    {
+        return $this->getUrl('headless.documentation_url', $scope);
+    }
+
     private function getUrl(
         string $parameterName,
         ?string $scope

@@ -37,4 +37,6 @@ interface HeadlessConfigurationInterface
      * URL of the page where the front-end application can be configured, if the installation provides one.
      */
     public function getConfigurationUrl(?string $scope = null): ?string;
+
+    public function getDocumentationUrl(?string $scope = null): ?string;
 }

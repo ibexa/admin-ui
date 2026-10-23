@@ -98,3 +98,4 @@ parameters:
     ibexa.site_access.config.default.headless.page_builder.preview_url: ~
     ibexa.site_access.config.default.headless.content.preview_url: ~
     ibexa.site_access.config.default.headless.configuration_url: ~
+    ibexa.site_access.config.default.headless.documentation_url: 'https://doc.ibexa.co/en/saas/content_management/pages/headless_page_builder/'
