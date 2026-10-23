@@ -47,7 +47,7 @@ final class UserInvitation implements InvitationSender, LoggerAwareInterface
     public function sendInvitation(Invitation $invitation): void
     {
         if (!$this->isNotifierConfigured()) {
-            $this->logger?->warning(
+            $this->logger?->error(
                 'No invitation e-mail was sent: subscribe {notification} under "ibexa.system.<scope>.notifier.subscriptions" to enable it.',
                 ['notification' => Notification\UserInvitation::class]
             );

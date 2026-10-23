@@ -19,7 +19,7 @@ final class PasswordResetTest extends AbstractNotifierTestCase
     public function testSendsMessageWhenNotificationIsSubscribed(): void
     {
         $this->notificationService->expects(self::once())->method('send');
-        $this->logger->expects(self::never())->method('warning');
+        $this->logger->expects(self::never())->method('error');
 
         $notifier = $this->createNotifier([UserPasswordReset::class => ['channels' => ['email']]]);
 
@@ -29,7 +29,7 @@ final class PasswordResetTest extends AbstractNotifierTestCase
     public function testLogsWarningWhenNotificationIsNotSubscribed(): void
     {
         $this->notificationService->expects(self::never())->method('send');
-        $this->mockLoggerWarning(UserPasswordReset::class);
+        $this->mockLoggerError(UserPasswordReset::class);
 
         $notifier = $this->createNotifier([]);
 
