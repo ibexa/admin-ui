@@ -20,7 +20,7 @@ final class UserInvitationTest extends AbstractNotifierTestCase
     public function testSendsInvitationWhenNotificationIsSubscribed(): void
     {
         $this->notificationService->expects(self::once())->method('send');
-        $this->logger->expects(self::never())->method('warning');
+        $this->logger->expects(self::never())->method('error');
 
         $sender = $this->createSender(
             [Notification\UserInvitation::class => ['channels' => ['email']]]
@@ -32,7 +32,7 @@ final class UserInvitationTest extends AbstractNotifierTestCase
     public function testLogsWarningWhenNotificationIsNotSubscribed(): void
     {
         $this->notificationService->expects(self::never())->method('send');
-        $this->mockLoggerWarning(Notification\UserInvitation::class);
+        $this->mockLoggerError(Notification\UserInvitation::class);
 
         $sender = $this->createSender([]);
 

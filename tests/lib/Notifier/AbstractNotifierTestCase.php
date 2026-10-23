@@ -46,11 +46,11 @@ abstract class AbstractNotifierTestCase extends TestCase
     /**
      * @param class-string $notification
      */
-    protected function mockLoggerWarning(string $notification): void
+    protected function mockLoggerError(string $notification): void
     {
         $this->logger
             ->expects(self::once())
-            ->method('warning')
+            ->method('error')
             ->with(
                 self::stringContains('notifier.subscriptions'),
                 ['notification' => $notification]
