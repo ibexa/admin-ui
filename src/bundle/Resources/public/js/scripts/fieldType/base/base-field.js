@@ -89,11 +89,13 @@
             const container = this.getFieldTypeContainer(input.closest(this.fieldSelector));
             const methodName = isError ? 'add' : 'remove';
             const nodes = this.findValidationStateNodes(container, input, config.invalidStateSelectors);
+            const dsInputs = [input, ...nodes].filter((el) => el.classList.contains('ids-input'));
 
             container.classList[methodName](this.classInvalid);
             input.classList[methodName](this.classInvalid);
 
             nodes.forEach((el) => el.classList[methodName](this.classInvalid));
+            dsInputs.forEach((el) => el.classList[methodName]('ids-input--error'));
 
             doc.body.dispatchEvent(
                 new CustomEvent('ibexa-inputs-validation:change-state', {
