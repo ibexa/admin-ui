@@ -97,7 +97,7 @@
             this.selectorItem.classList.toggle(this.itemHiddenClass, !hiddenItemsWithoutSelector.size);
             this.selectorFocusableElement.setAttribute('tabindex', !hiddenItemsWithoutSelector.size ? '-1' : '0');
 
-            const selectorAnchor = this.selectorItem.querySelector(':scope > .nav-link');
+            const selectorAnchor = this.selectorItem.querySelector(':scope > .ibexa-tabs__link');
 
             if (selectorAnchor) {
                 if (!hiddenItemsWithoutSelector.size) {
