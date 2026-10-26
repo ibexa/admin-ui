@@ -1,0 +1,40 @@
+name: Playwright tests
+
+on:
+    push:
+        branches:
+            - '[0-9]+.[0-9]+'
+    pull_request: ~
+
+jobs:
+    playwright-oss:
+        name: "Playwright/OSS"
+        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@ibx-11740-playwright
+        with:
+            project-edition: 'oss'
+            test-package: 'admin-ui'
+        secrets: inherit
+
+    playwright-headless:
+        name: "Playwright/Headless"
+        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@ibx-11740-playwright
+        with:
+            project-edition: 'headless'
+            test-package: 'admin-ui'
+        secrets: inherit
+
+    playwright-experience:
+        name: "Playwright/Experience"
+        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@ibx-11740-playwright
+        with:
+            project-edition: 'experience'
+            test-package: 'admin-ui'
+        secrets: inherit
+
+    playwright-commerce:
+        name: "Playwright/Commerce"
+        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@ibx-11740-playwright
+        with:
+            project-edition: 'commerce'
+            test-package: 'admin-ui'
+        secrets: inherit
