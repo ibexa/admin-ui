@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
+use Ibexa\AdminUi\ContentType\MainLanguageResolver;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypeCopyData;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypeEditData;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypesDeleteData;
@@ -98,6 +99,8 @@ class ContentTypeController extends Controller
 
     private MetaFieldDefinitionServiceInterface $metaFieldDefinitionService;
 
+    private MainLanguageResolver $mainLanguageResolver;
+
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
         TranslatorInterface $translator,
@@ -111,7 +114,8 @@ class ContentTypeController extends Controller
         ContentTypeDraftMapper $contentTypeDraftMapper,
         ConfigResolverInterface $configResolver,
         FieldTypeToolbarFactory $fieldTypeToolbarFactory,
-        MetaFieldDefinitionServiceInterface $metaFieldDefinitionService
+        MetaFieldDefinitionServiceInterface $metaFieldDefinitionService,
+        MainLanguageResolver $mainLanguageResolver
     ) {
         $this->notificationHandler = $notificationHandler;
         $this->translator = $translator;
@@ -126,6 +130,7 @@ class ContentTypeController extends Controller
         $this->configResolver = $configResolver;
         $this->fieldTypeToolbarFactory = $fieldTypeToolbarFactory;
         $this->metaFieldDefinitionService = $metaFieldDefinitionService;
+        $this->mainLanguageResolver = $mainLanguageResolver;
     }
 
     /**
@@ -196,24 +201,23 @@ class ContentTypeController extends Controller
     public function addAction(ContentTypeGroup $group)
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
-        $mainLanguageCode = $this->languageService->getDefaultLanguageCode();
-
-        $createStruct = $this->contentTypeService->newContentTypeCreateStruct('__new__' . md5((string)microtime(true)));
-        $createStruct->mainLanguageCode = $mainLanguageCode;
-        $createStruct->names = [$mainLanguageCode => 'New content type'];
-
-        $this->metaFieldDefinitionService->addMetaFieldDefinitions(
-            $createStruct,
-            $this->languageService->loadLanguage($mainLanguageCode)
-        );
 
         try {
+            $language = $this->mainLanguageResolver->resolve();
+            $mainLanguageCode = $language->languageCode;
+
+            $createStruct = $this->contentTypeService->newContentTypeCreateStruct('__new__' . md5((string)microtime(true)));
+            $createStruct->mainLanguageCode = $mainLanguageCode;
+            $createStruct->names = [$mainLanguageCode => 'New content type'];
+
+            $this->metaFieldDefinitionService->addMetaFieldDefinitions($createStruct, $language);
+
             $contentTypeDraft = $this->contentTypeService->createContentType($createStruct, [$group]);
         } catch (NotFoundException $e) {
             $this->notificationHandler->error(
                 /** @Desc("Cannot create content type. Could not find language with identifier '%languageCode%'") */
                 'content_type.add.missing_language',
-                ['%languageCode%' => $mainLanguageCode],
+                ['%languageCode%' => implode(', ', $this->mainLanguageResolver->getLanguageCodes())],
                 'ibexa_content_type'
             );
 
@@ -221,7 +225,7 @@ class ContentTypeController extends Controller
                 'contentTypeGroupId' => $group->id,
             ]);
         }
-        $language = $this->languageService->loadLanguage($mainLanguageCode);
+
         $form = $this->createUpdateForm($group, $contentTypeDraft, $language);
 
         $view = new ContentTypeCreateView('@ibexadesign/content_type/create.html.twig', $group, $contentTypeDraft, $form);
