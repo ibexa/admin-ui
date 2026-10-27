@@ -247,7 +247,21 @@
                                             style="padding: 24px 24px 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 18px; color: #3e4145;"
                                         >
                                             {%- block mail_page_footer_content -%}
-                                                {{ 'mail.footer.copyright'|trans({ '%year%': 'now'|date('Y') })|desc('© %year% Cohesivo. All rights reserved.') }}
+                                                {%- block mail_page_footer_support -%}
+                                                    <div style="padding-bottom: 6px;">
+                                                        {{ 'mail.footer.support'|trans|desc('Need help? We’re here for you.') }}
+                                                        <a
+                                                            class="ibexa-email-footer"
+                                                            href="mailto:support@ibexa.co"
+                                                            style="font-weight: bold; color: #3e4145; text-decoration: underline;"
+                                                        >
+                                                            {{- 'mail.footer.contact_support'|trans|desc('Contact support') -}}
+                                                        </a>
+                                                    </div>
+                                                {%- endblock mail_page_footer_support -%}
+                                                <div>
+                                                    {{ 'mail.footer.copyright'|trans({ '%year%': 'now'|date('Y') })|desc('© %year% Cohesivo. All rights reserved.') }}
+                                                </div>
                                             {%- endblock mail_page_footer_content -%}
                                         </td>
                                     </tr>

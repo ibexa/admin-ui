@@ -6,10 +6,20 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
+      <trans-unit id="5fead14692ef68d090994661c1cecfb24833e663" resname="mail.footer.contact_support">
+        <source>Contact support</source>
+        <target state="new">Contact support</target>
+        <note>key: mail.footer.contact_support</note>
+      </trans-unit>
       <trans-unit id="c5f7884839ab1ad3e9119dadbdc8b1df155a7b4b" resname="mail.footer.copyright">
         <source>© %year% Cohesivo. All rights reserved.</source>
         <target state="new">© %year% Cohesivo. All rights reserved.</target>
         <note>key: mail.footer.copyright</note>
+      </trans-unit>
+      <trans-unit id="28f3134fd115edf481697883a28137a71ae240fb" resname="mail.footer.support">
+        <source>Need help? We’re here for you.</source>
+        <target state="new">Need help? We’re here for you.</target>
+        <note>key: mail.footer.support</note>
       </trans-unit>
       <trans-unit id="13d59358b132092c72f9e197fdbf768cdf05cc11" resname="mail.link_expiration.days">
         <source>{1}1 day|]1,Inf[%count% days</source>
