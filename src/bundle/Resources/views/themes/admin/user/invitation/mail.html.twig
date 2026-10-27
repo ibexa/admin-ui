@@ -24,4 +24,11 @@
     } %}
 {%- endblock mail_actions_content -%}
 
-{%- block mail_footer -%}{%- endblock mail_footer -%}
+{%- block mail_action_fallback_content -%}
+    {% include '@ibexadesign/ui/mail/components/link_fallback.html.twig' with {
+        url: url('ibexa.user.from_invite.register', {
+            'inviteHash': invite_hash,
+            'siteaccess': siteaccess
+        }),
+    } only %}
+{%- endblock mail_action_fallback_content -%}

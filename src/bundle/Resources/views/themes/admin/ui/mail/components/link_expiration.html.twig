@@ -1,0 +1,47 @@
+{% trans_default_domain 'ibexa_mail' %}
+
+{% block mail_link_expiration %}
+    {% set seconds = date('@0', 'UTC').add(interval).getTimestamp() %}
+    {% if seconds >= 86400 and seconds is divisible by(86400) %}
+        {% set duration = 'mail.link_expiration.days'|trans({ '%count%': seconds // 86400 })|desc('{1}1 day|]1,Inf[%count% days') %}
+    {% elseif seconds >= 3600 and seconds is divisible by(3600) %}
+        {% set duration = 'mail.link_expiration.hours'|trans({ '%count%': seconds // 3600 })|desc('{1}1 hour|]1,Inf[%count% hours') %}
+    {% else %}
+        {% set duration = 'mail.link_expiration.minutes'|trans({ '%count%': max(1, (seconds / 60)|round(0, 'ceil')) })|desc('{1}1 minute|]1,Inf[%count% minutes') %}
+    {% endif %}
+
+    <table border="0" cellpadding="0" cellspacing="0" role="presentation">
+        <tr>
+            {% if icon_path is not null %}
+                <td width="28" style="width: 28px; padding: 0; vertical-align: middle; font-size: 0; line-height: 0;">
+                    <img
+                        class="ibexa-email-icon--light"
+                        width="20"
+                        height="20"
+                        style="display: inline-block; width: 20px; height: 20px; border: 0;"
+                        src="{{ icon_path }}"
+                        alt=""
+                    />
+                    {% if icon_dark_path is not null %}
+                        <!--[if !mso]><!-->
+                        <img
+                            class="ibexa-email-icon--dark"
+                            width="20"
+                            height="20"
+                            style="display: none; width: 20px; height: 20px; border: 0;"
+                            src="{{ icon_dark_path }}"
+                            alt=""
+                        />
+                        <!--<![endif]-->
+                    {% endif %}
+                </td>
+            {% endif %}
+            <td
+                class="ibexa-email-text"
+                style="padding: 0; vertical-align: middle; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; line-height: 20px; color: #0e1216;"
+            >
+                {{ 'mail.link_expiration.message'|trans({ '%duration%': duration })|desc('This link expires in %duration%') }}
+            </td>
+        </tr>
+    </table>
+{% endblock mail_link_expiration %}
