@@ -20,14 +20,14 @@
 
 {%- block mail_actions_content -%}
     {% include '@ibexadesign/ui/mail/components/action_btn.html.twig' with {
-        url: url('ibexa.user.reset_password', { 'hashKey': hash_key }),
-        label: 'forgot_user_password.mail.reset_password'|trans()|desc('Reset password')
+        url: url('ibexa.user.reset_password', { hashKey: hash_key }),
+        label: 'forgot_user_password.mail.reset_password'|trans()|desc('Reset password'),
     } only %}
 {%- endblock mail_actions_content -%}
 
 {%- block mail_action_fallback_content -%}
     {% include '@ibexadesign/ui/mail/components/link_fallback.html.twig' with {
-        url: url('ibexa.user.reset_password', { 'hashKey': hash_key }),
+        url: url('ibexa.user.reset_password', { hashKey: hash_key }),
     } only %}
 {%- endblock mail_action_fallback_content -%}
 
