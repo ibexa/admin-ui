@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Service\MetaFieldType;
 
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
+use Ibexa\AdminUi\ContentType\MainLanguageResolver;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
-use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
@@ -36,7 +36,7 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
 
     private FieldsGroupsList $fieldsGroupsList;
 
-    private LanguageService $languageService;
+    private MainLanguageResolver $mainLanguageResolver;
 
     private LocaleConverterInterface $localeConverter;
 
@@ -47,7 +47,7 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
         ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
         ContentTypeService $contentTypeService,
         FieldsGroupsList $fieldsGroupsList,
-        LanguageService $languageService,
+        MainLanguageResolver $mainLanguageResolver,
         LocaleConverterInterface $localeConverter,
         TranslatorInterface $translator
     ) {
@@ -55,7 +55,7 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
         $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
         $this->contentTypeService = $contentTypeService;
         $this->fieldsGroupsList = $fieldsGroupsList;
-        $this->languageService = $languageService;
+        $this->mainLanguageResolver = $mainLanguageResolver;
         $this->localeConverter = $localeConverter;
         $this->translator = $translator;
     }
@@ -67,7 +67,7 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
         $metaFieldTypes = $this->contentTypeFieldTypesResolver->getMetaFieldTypes();
 
         if (null === $language) {
-            $language = $this->languageService->loadLanguage($this->languageService->getDefaultLanguageCode());
+            $language = $this->mainLanguageResolver->resolve();
         }
 
         foreach ($metaFieldTypes as $metaFieldTypeIdentifier => $metaFieldTypeSettings) {

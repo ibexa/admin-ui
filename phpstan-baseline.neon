@@ -289,12 +289,6 @@ parameters:
 			path: src/bundle/Controller/ContentTypeController.php
 
 		-
-			message: '#^Dead catch \- Ibexa\\Contracts\\Core\\Repository\\Exceptions\\NotFoundException is never thrown in the try block\.$#'
-			identifier: catch.neverThrown
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
 			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController\:\:createDeleteForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
