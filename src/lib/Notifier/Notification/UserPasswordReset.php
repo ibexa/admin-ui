@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Notifier\Notification;
 
+use DateInterval;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\User\Notification\UserAwareNotificationInterface;
-use InvalidArgumentException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
@@ -26,6 +26,7 @@ use Twig\Environment;
 
 final class UserPasswordReset extends Notification implements EmailNotificationInterface, UserAwareNotificationInterface, LoggerAwareInterface
 {
+    use EmbedsMailImagesTrait;
     use LoggerAwareTrait;
 
     private User $user;
@@ -72,20 +73,12 @@ final class UserPasswordReset extends Notification implements EmailNotificationI
         ;
         $context = [
             'hash_key' => $this->token,
+            'user' => $this->user,
+            'link_expiration' => new DateInterval($this->configResolver->getParameter('security.token_interval_spec')),
             'header_img_path' => '#',
         ];
 
-        try {
-            $headerImagePath = $this->kernel->locateResource('@IbexaAdminUiBundle/Resources/public/img/mail/header.png');
-            $cid = 'header_img_' . uniqid() . '@ibexa';
-            $email->embedFromPath($headerImagePath, $cid);
-            $context['header_img_path'] = 'cid:' . $cid;
-        } catch (InvalidArgumentException $e) {
-            $this->logger->warning('Failed to load email header image: ' . $e->getMessage(), [
-                'exception' => $e,
-                'image_path' => '@IbexaAdminUiBundle/Resources/public/img/mail/header.png',
-            ]);
-        }
+        $context = $this->embedMailImages($email) + $context;
         $email->htmlTemplate($templatePath);
         $email->context($context);
 

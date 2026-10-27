@@ -7,7 +7,11 @@
 {%- endblock subject -%}
 
 {%- block mail_message_title_content -%}
-    {{ 'forgot_user_password.mail.message_title'|trans()|desc('Hello,') }}
+    {% if user is defined %}
+        {{ 'forgot_user_password.mail.message_title_with_name'|trans({ '%name%': ibexa_content_name(user) })|desc('Hello %name%,') }}
+    {% else %}
+        {{ 'forgot_user_password.mail.message_title'|trans|desc('Hello,') }}
+    {% endif %}
 {%- endblock mail_message_title_content -%}
 
 {%- block mail_message_content %}
@@ -20,6 +24,12 @@
         label: 'forgot_user_password.mail.reset_password'|trans()|desc('Reset password')
     } only %}
 {%- endblock mail_actions_content -%}
+
+{%- block mail_action_fallback_content -%}
+    {% include '@ibexadesign/ui/mail/components/link_fallback.html.twig' with {
+        url: url('ibexa.user.reset_password', { 'hashKey': hash_key }),
+    } only %}
+{%- endblock mail_action_fallback_content -%}
 
 {%- block mail_footer_content -%}
     {{ 'forgot_user_password.mail.message_footer'|trans()|desc('If you did not request a password reset, please ignore this email, and your password will remain the same.') }}

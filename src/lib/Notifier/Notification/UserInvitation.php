@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Notifier\Notification;
 
+use DateInterval;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\User\Invitation\Invitation;
-use InvalidArgumentException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
@@ -25,6 +25,7 @@ use Twig\Environment;
 
 final class UserInvitation extends Notification implements EmailNotificationInterface, LoggerAwareInterface
 {
+    use EmbedsMailImagesTrait;
     use LoggerAwareTrait;
 
     private Invitation $invitation;
@@ -68,6 +69,11 @@ final class UserInvitation extends Notification implements EmailNotificationInte
             'invite_hash' => $this->invitation->getHash(),
             'siteaccess' => $this->invitation->getSiteAccessIdentifier(),
             'invitation' => $this->invitation,
+            'link_expiration' => new DateInterval($this->configResolver->getParameter(
+                'user_invitation.hash_expiration_time',
+                null,
+                $this->invitation->getSiteAccessIdentifier()
+            )),
             'header_img_path' => '#',
         ];
 
@@ -77,17 +83,7 @@ final class UserInvitation extends Notification implements EmailNotificationInte
             ->subject($subject)
         ;
 
-        try {
-            $headerImagePath = $this->kernel->locateResource('@IbexaAdminUiBundle/Resources/public/img/mail/header.png');
-            $cid = 'header_img_' . uniqid() . '@ibexa';
-            $email->embedFromPath($headerImagePath, $cid);
-            $context['header_img_path'] = 'cid:' . $cid;
-        } catch (InvalidArgumentException $e) {
-            $this->logger->warning('Failed to load email header image: ' . $e->getMessage(), [
-                'exception' => $e,
-                'image_path' => '@IbexaAdminUiBundle/Resources/public/img/mail/header.png',
-            ]);
-        }
+        $context = $this->embedMailImages($email) + $context;
         $email->context($context);
 
         if ($from !== null) {
