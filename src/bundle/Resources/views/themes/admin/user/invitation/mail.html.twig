@@ -17,18 +17,18 @@
 {%- block mail_actions_content -%}
     {% include '@ibexadesign/ui/mail/components/action_btn.html.twig' with {
         url: url('ibexa.user.from_invite.register', {
-            'inviteHash': invite_hash,
-            'siteaccess': siteaccess
+            inviteHash: invite_hash,
+            siteaccess,
         }),
-        label: 'ibexa.user.invitation.mail.join'|trans()|desc('Join')
+        label: 'ibexa.user.invitation.mail.join'|trans()|desc('Join'),
     } %}
 {%- endblock mail_actions_content -%}
 
 {%- block mail_action_fallback_content -%}
     {% include '@ibexadesign/ui/mail/components/link_fallback.html.twig' with {
         url: url('ibexa.user.from_invite.register', {
-            'inviteHash': invite_hash,
-            'siteaccess': siteaccess
+            inviteHash: invite_hash,
+            siteaccess,
         }),
     } only %}
 {%- endblock mail_action_fallback_content -%}
