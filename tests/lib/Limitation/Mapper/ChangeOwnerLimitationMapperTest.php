@@ -21,7 +21,7 @@ final class ChangeOwnerLimitationMapperTest extends TestCase
 
     protected function setUp(): void
     {
-        $translator = self::createStub(TranslatorInterface::class);
+        $translator = $this->createStub(TranslatorInterface::class);
         $translator->method('trans')->willReturnArgument(0);
 
         $this->mapper = new ChangeOwnerLimitationMapper($translator);

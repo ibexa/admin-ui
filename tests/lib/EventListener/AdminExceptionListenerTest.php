@@ -54,7 +54,7 @@ final class AdminExceptionListenerTest extends TestCase
         parent::setUp();
 
         $this->twig = $this->createMock(Environment::class);
-        $this->notificationHandler = self::createStub(NotificationHandlerInterface::class);
+        $this->notificationHandler = $this->createStub(NotificationHandlerInterface::class);
         $this->encoreTagRenderer = $this->createMock(TagRenderer::class);
         $this->entrypointLookupCollection = $this->createMock(EntrypointLookupCollectionInterface::class);
 
@@ -192,7 +192,7 @@ final class AdminExceptionListenerTest extends TestCase
             $environment,
             'error'
         );
-        $listener->setLogger(self::createStub(LoggerInterface::class));
+        $listener->setLogger($this->createStub(LoggerInterface::class));
 
         return $listener;
     }
@@ -206,7 +206,7 @@ final class AdminExceptionListenerTest extends TestCase
         $request->attributes->set('siteaccess', new SiteAccess($siteaccessName));
 
         return new ExceptionEvent(
-            self::createStub(HttpKernelInterface::class),
+            $this->createStub(HttpKernelInterface::class),
             $request,
             $requestType,
             $exception

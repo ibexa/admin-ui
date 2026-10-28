@@ -59,7 +59,7 @@ final readonly class MetaFieldDefinitionService implements MetaFieldDefinitionSe
             $fieldGroup = $this->getDefaultMetaDataFieldTypeGroup() ?? $this->fieldsGroupsList->getDefaultGroup();
             try {
                 $isSingular = $this->fieldTypeService->getFieldType($metaFieldTypeIdentifier)->isSingular();
-            } catch (NotFoundException|FieldTypeNotFoundException $e) {
+            } catch (NotFoundException | FieldTypeNotFoundException $e) {
                 continue;
             }
 
