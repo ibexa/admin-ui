@@ -1292,7 +1292,7 @@ export default class SubItemsModule extends Component {
                 onClick={this.onMoveBtnClick}
                 icon="folder-open-move"
                 type={ButtonType.TertiaryAlt}
-                size={ButtonSize.Medium}
+                size={ButtonSize.Small}
             >
                 {label}
             </Button>,
@@ -1305,7 +1305,13 @@ export default class SubItemsModule extends Component {
         const label = Translator.trans(/* @Desc("Add Locations") */ 'add_locations_btn.label', {}, 'ibexa_sub_items');
 
         return this.renderActionBtnWrapper(
-            <ActionButton disabled={disabled} onClick={this.onAddLocationsBtnClick} label={label} type="create-location" />,
+            <ActionButton
+                disabled={disabled}
+                onClick={this.onAddLocationsBtnClick}
+                label={label}
+                size={ButtonSize.Small}
+                type="create-location"
+            />,
             '',
             { key: 'bulk-add-locations-btn' },
         );
@@ -1315,7 +1321,7 @@ export default class SubItemsModule extends Component {
         const label = Translator.trans(/*@Desc("Hide Location")*/ 'hide_locations_btn.label', {}, 'ibexa_sub_items');
 
         return this.renderActionBtnWrapper(
-            <ActionButton disabled={disabled} onClick={this.onHideBtnClick} label={label} type="hide" />,
+            <ActionButton disabled={disabled} onClick={this.onHideBtnClick} label={label} size={ButtonSize.Small} type="hide" />,
             '',
             { key: 'bulk-hide-btn' },
         );
@@ -1325,7 +1331,7 @@ export default class SubItemsModule extends Component {
         const label = Translator.trans(/*@Desc("Reveal Location")*/ 'unhide_locations_btn.label', {}, 'ibexa_sub_items');
 
         return this.renderActionBtnWrapper(
-            <ActionButton disabled={disabled} onClick={this.onUnhideBtnClick} label={label} type="reveal" />,
+            <ActionButton disabled={disabled} onClick={this.onUnhideBtnClick} label={label} size={ButtonSize.Small} type="reveal" />,
             '',
             { key: 'bulk-unhide-btn' },
         );
@@ -1335,7 +1341,7 @@ export default class SubItemsModule extends Component {
         const label = Translator.trans(/* @Desc("Delete") */ 'trash_btn.label', {}, 'ibexa_sub_items');
 
         return this.renderActionBtnWrapper(
-            <ActionButton disabled={disabled} onClick={this.onDeleteBtnClick} label={label} type="trash" />,
+            <ActionButton disabled={disabled} onClick={this.onDeleteBtnClick} label={label} size={ButtonSize.Small} type="trash" />,
             '',
             { key: 'bulk-delete-btn' },
         );
@@ -1503,7 +1509,7 @@ export default class SubItemsModule extends Component {
 
         return [
             this.renderActionBtnWrapper(
-                <ActionButton disabled={false} onClick={this.showMorePanel} type="options" />,
+                <ActionButton disabled={false} onClick={this.showMorePanel} size={ButtonSize.Small} type="options" />,
                 'ibexa-adaptive-items__item--selector',
                 { ref: this._refAdaptiveItemMoreBtn, key: 'more-btn' },
             ),

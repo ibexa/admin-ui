@@ -27,10 +27,15 @@
                 flex-grow: 1;
                 justify-content: flex-end;
                 margin-block: calculateRem(-4px);
+                margin-inline-end: calculateRem(4px);
                 padding-block: calculateRem(4px);
 
-                .ibexa-adaptive-items__item--hidden {
-                    display: none;
+                .ibexa-adaptive-items__item {
+                    padding-inline: calculateRem(4px);
+
+                    &--hidden {
+                        display: none;
+                    }
                 }
             }
         }
