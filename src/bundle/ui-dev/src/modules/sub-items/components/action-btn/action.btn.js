@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, ButtonType } from '@ids-components/components/Button';
+import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
-const ActionButton = ({ disabled, onClick, label = null, title = null, type }) => {
+const ActionButton = ({ disabled, onClick, label = null, title = null, size = ButtonSize.Medium, type }) => {
     const className = createCssClassNames({
         'c-action-btn': true,
         [`c-action-btn--${type}`]: Boolean(type),
@@ -17,7 +17,15 @@ const ActionButton = ({ disabled, onClick, label = null, title = null, type }) =
     };
 
     return (
-        <Button type={ButtonType.TertiaryAlt} icon={type} onClick={handleClick} disabled={disabled} title={title} className={className}>
+        <Button
+            type={ButtonType.TertiaryAlt}
+            size={size}
+            icon={type}
+            onClick={handleClick}
+            disabled={disabled}
+            title={title}
+            className={className}
+        >
             {label || null}
         </Button>
     );
@@ -26,6 +34,7 @@ const ActionButton = ({ disabled, onClick, label = null, title = null, type }) =
 ActionButton.propTypes = {
     label: PropTypes.string,
     title: PropTypes.string,
+    size: PropTypes.oneOf(Object.values(ButtonSize)),
     disabled: PropTypes.bool.isRequired,
     type: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
