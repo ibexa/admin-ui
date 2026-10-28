@@ -11,6 +11,8 @@ namespace Ibexa\AdminUi\Service\MetaFieldType;
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
@@ -18,6 +20,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Ibexa\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use JMS\TranslationBundle\Annotation\Ignore;
@@ -32,12 +35,16 @@ final readonly class MetaFieldDefinitionService implements MetaFieldDefinitionSe
         private ConfigResolverInterface $configResolver,
         private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
         private ContentTypeService $contentTypeService,
+        private FieldTypeService $fieldTypeService,
         private FieldsGroupsList $fieldsGroupsList,
         private LanguageService $languageService,
         private LocaleConverterInterface $localeConverter,
         private TranslatorInterface $translator
     ) {}
 
+    /**
+     * @param ContentTypeCreateStruct|ContentTypeDraft $contentType
+     */
     public function addMetaFieldDefinitions(
         ValueObject $contentType,
         ?Language $language = null
@@ -50,8 +57,15 @@ final readonly class MetaFieldDefinitionService implements MetaFieldDefinitionSe
 
         foreach ($metaFieldTypes as $metaFieldTypeIdentifier => $metaFieldTypeSettings) {
             $fieldGroup = $this->getDefaultMetaDataFieldTypeGroup() ?? $this->fieldsGroupsList->getDefaultGroup();
+            try {
+                $isSingular = $this->fieldTypeService->getFieldType($metaFieldTypeIdentifier)->isSingular();
+            } catch (NotFoundException|FieldTypeNotFoundException $e) {
+                continue;
+            }
 
-            if ($this->metaFieldDefinitionExists($metaFieldTypeIdentifier, $fieldGroup, $contentType)) {
+            $fieldTypeGroup = $isSingular === true ? null : $fieldGroup;
+
+            if ($this->metaFieldDefinitionExists($metaFieldTypeIdentifier, $fieldTypeGroup, $contentType)) {
                 continue;
             }
 
@@ -100,15 +114,26 @@ final readonly class MetaFieldDefinitionService implements MetaFieldDefinitionSe
         return $fieldDefinitionCreateStruct;
     }
 
+    /**
+     * @param ContentTypeCreateStruct|ContentTypeDraft $contentType
+     */
     public function metaFieldDefinitionExists(
         string $fieldTypeIdentifier,
-        string $fieldTypeGroup,
+        ?string $fieldTypeGroup,
         ValueObject $contentType
     ): bool {
         foreach ($contentType->fieldDefinitions as $fieldDefinition) {
+            if ($fieldDefinition instanceof FieldDefinitionCreateStruct) {
+                $existingTypeIdentifier = $fieldDefinition->fieldTypeIdentifier;
+                $existingGroup = $fieldDefinition->fieldGroup;
+            } else {
+                $existingTypeIdentifier = $fieldDefinition->getFieldTypeIdentifier();
+                $existingGroup = $fieldDefinition->getFieldGroup();
+            }
+
             if (
-                $fieldDefinition->getFieldTypeIdentifier() === $fieldTypeIdentifier
-                && $fieldDefinition->getFieldGroup() === $fieldTypeGroup
+                $existingTypeIdentifier === $fieldTypeIdentifier
+                && ($fieldTypeGroup === null || $existingGroup === $fieldTypeGroup)
             ) {
                 return true;
             }
