@@ -4,7 +4,7 @@ import { Button, ButtonType, ButtonSize } from '@ids-components/components/Butto
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
-const ActionButton = ({ disabled, onClick, label = null, title = null, size = ButtonSize.Medium, type }) => {
+const ActionButton = ({ disabled, onClick, label = null, title = null, type }) => {
     const className = createCssClassNames({
         'c-action-btn': true,
         [`c-action-btn--${type}`]: Boolean(type),
@@ -19,7 +19,7 @@ const ActionButton = ({ disabled, onClick, label = null, title = null, size = Bu
     return (
         <Button
             type={ButtonType.TertiaryAlt}
-            size={size}
+            size={ButtonSize.Small}
             icon={type}
             onClick={handleClick}
             disabled={disabled}
@@ -34,7 +34,6 @@ const ActionButton = ({ disabled, onClick, label = null, title = null, size = Bu
 ActionButton.propTypes = {
     label: PropTypes.string,
     title: PropTypes.string,
-    size: PropTypes.oneOf(Object.values(ButtonSize)),
     disabled: PropTypes.bool.isRequired,
     type: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
