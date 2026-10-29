@@ -24,7 +24,6 @@ final class SubitemsList extends ValueObjectVisitor
     ): void {
         $generator->startObjectElement('SubitemsList');
         $visitor->setHeader('Content-Type', $generator->getMediaType('SubitemsList'));
-        //@todo Needs refactoring, disabling certain headers should not be done this way
         $visitor->suppressHeader('Accept-Patch');
 
         $generator->startList('SubitemsRow');
