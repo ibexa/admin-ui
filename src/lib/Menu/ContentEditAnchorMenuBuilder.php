@@ -19,6 +19,7 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 final class ContentEditAnchorMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
@@ -102,12 +103,14 @@ final class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Tran
         $items = [];
         $order = 0;
         $groupNames = $this->fieldsGroupsList->getGroups();
+        $slugger = new AsciiSlugger();
         foreach ($groupedFields as $group => $fields) {
             $order += self::ITEM_ORDER_SPAN;
             $items[$group] = $this->createMenuItem($group, [
                 'label' => $groupNames[$group] ?? $group,
                 'attributes' => [
-                    'data-target-id' => sprintf('ibexa-edit-content-sections-content-fields-%s', str_replace(' ', '-', mb_strtolower($group))),
+                    // same id as the section, which the template builds with the Twig "lower" and "slug" filters
+                    'data-target-id' => (string)$slugger->slug(mb_strtolower('ibexa-edit-content-sections-content-fields-' . $group)),
                 ],
                 'extras' => [
                     'orderNumber' => $order,
