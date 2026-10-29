@@ -11,6 +11,7 @@ use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\ContentForms\Validator\Constraints\FieldTypeValidator;
 use Ibexa\Contracts\Core\FieldType\Value;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition as CoreFieldDefinition;
 use Symfony\Component\Validator\Constraint;
 
 /**
@@ -48,10 +49,32 @@ class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
     /**
      * Returns the field definition $value refers to.
      * FieldDefinition object is needed to validate field value against field settings.
+     *
+     * Field settings and validator configuration are taken from the submitted data, not from the stored
+     * field definition, as they are persisted together with the default value.
      */
     protected function getFieldDefinition(FieldDefinitionData $value): FieldDefinition
     {
-        return $value->fieldDefinition;
+        $fieldDefinition = $value->fieldDefinition;
+
+        return new CoreFieldDefinition([
+            'id' => $fieldDefinition->getId(),
+            'identifier' => $fieldDefinition->getIdentifier(),
+            'fieldGroup' => $fieldDefinition->getFieldGroup(),
+            'position' => $fieldDefinition->getPosition(),
+            'fieldTypeIdentifier' => $fieldDefinition->getFieldTypeIdentifier(),
+            'isTranslatable' => $fieldDefinition->isTranslatable(),
+            'isThumbnail' => $fieldDefinition->isThumbnail(),
+            'isRequired' => $fieldDefinition->isRequired(),
+            'isInfoCollector' => $fieldDefinition->isInfoCollector(),
+            'isSearchable' => $fieldDefinition->isSearchable(),
+            'defaultValue' => $fieldDefinition->getDefaultValue(),
+            'mainLanguageCode' => $fieldDefinition->getMainLanguageCode(),
+            'names' => $fieldDefinition->getNames(),
+            'descriptions' => $fieldDefinition->getDescriptions(),
+            'fieldSettings' => $value->fieldSettings ?? $fieldDefinition->getFieldSettings(),
+            'validatorConfiguration' => $value->validatorConfiguration ?? $fieldDefinition->getValidatorConfiguration(),
+        ]);
     }
 
     /**
