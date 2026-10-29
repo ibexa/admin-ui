@@ -13,6 +13,7 @@ use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
@@ -29,7 +30,8 @@ final class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Tran
     public function __construct(
         MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
-        private readonly ConfigResolverInterface $configResolver
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly FieldsGroupsList $fieldsGroupsList
     ) {
         parent::__construct($factory, $eventDispatcher);
     }
@@ -99,9 +101,11 @@ final class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Tran
     {
         $items = [];
         $order = 0;
+        $groupNames = $this->fieldsGroupsList->getGroups();
         foreach ($groupedFields as $group => $fields) {
             $order += self::ITEM_ORDER_SPAN;
             $items[$group] = $this->createMenuItem($group, [
+                'label' => $groupNames[$group] ?? $group,
                 'attributes' => [
                     'data-target-id' => sprintf('ibexa-edit-content-sections-content-fields-%s', str_replace(' ', '-', mb_strtolower($group))),
                 ],
