@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
 use Ibexa\Contracts\AdminUi\Resolver\IconPathResolverInterface;
-use Twig\DeprecatedCallableInfo;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -22,14 +21,6 @@ final class IconPathExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction(
-                'ez_icon_path',
-                $this->getIconPath(...),
-                [
-                    'is_safe' => ['html'],
-                    'deprecation_info' => new DeprecatedCallableInfo('ibexa/admin-ui', '4.6', 'ibexa_icon_path'),
-                ],
-            ),
             new TwigFunction(
                 'ibexa_icon_path',
                 $this->getIconPath(...),
