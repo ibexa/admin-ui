@@ -30,6 +30,7 @@ use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
@@ -163,7 +164,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             $content,
             [$target]
         );
-        $hasCreatePermission = $this->hasCreatePermission();
+        $hasCreatePermission = $this->hasCreatePermission($contentType);
         $canCopy = $this->canCopy($hasCreatePermission);
         $canCopySubtree = $this->canCopySubtree($location, $hasCreatePermission);
         $createAttributes = [
@@ -437,14 +438,28 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         );
     }
 
-    private function hasCreatePermission(): bool
+    /**
+     * Moving and copying create content of the same content type in the target location,
+     * so the user needs a content/create policy which allows this content type.
+     */
+    private function hasCreatePermission(ContentType $contentType): bool
     {
         $createPolicies = $this->permissionResolver->hasAccess(
             'content',
             'create'
         );
 
-        return !is_bool($createPolicies) || $createPolicies;
+        if (is_bool($createPolicies)) {
+            return $createPolicies;
+        }
+
+        $restrictedContentTypeIds = $this->permissionChecker->getRestrictions(
+            $createPolicies,
+            ContentTypeLimitation::class
+        );
+
+        return empty($restrictedContentTypeIds)
+            || in_array($contentType->id, array_map('intval', $restrictedContentTypeIds), true);
     }
 
     private function canCopy(bool $hasCreatePermission): bool

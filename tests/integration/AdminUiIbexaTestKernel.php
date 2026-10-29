@@ -10,6 +10,7 @@ namespace Ibexa\Tests\Integration\AdminUi;
 
 use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Hautelook\TemplatedUriBundle\HautelookTemplatedUriBundle;
+use Ibexa\AdminUi\Menu\ContentRightSidebarBuilder;
 use Ibexa\AdminUi\Util\ContentTypeFieldsExtractorInterface;
 use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
 use Ibexa\Bundle\ContentForms\IbexaContentFormsBundle;
@@ -32,6 +33,7 @@ use Swift_Mailer;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
 
@@ -76,6 +78,10 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
         yield ContentTypeHandler::class;
 
         yield ContentTypeFieldsByExpressionServiceInterface::class;
+
+        yield ContentRightSidebarBuilder::class;
+
+        yield EventDispatcherInterface::class;
     }
 
     protected static function getExposedServicesById(): iterable
