@@ -1,7 +1,10 @@
+{% use '@ibexadesign/ui/component/table/table_head_cell.html.twig' %}
+
+{% block table_head_row %}
 <tr class="ibexa-table__head-row">
     {% block cells %}
         {% for head_col in head_cols %}
-            {% include '@ibexadesign/ui/component/table/table_head_cell.html.twig' with {
+            {% with {
                 has_checkbox: head_col.has_checkbox|default(false),
                 is_custom_bulk: head_col.is_custom_bulk|default(false),
                 has_icon: head_col.has_icon|default(false),
@@ -13,7 +16,10 @@
                 attr: head_col.attr|default({}),
                 wrapper_attr: head_col.wrapper_attr|default({}),
             } %}
+                {{ block('table_head_cell') }}
+            {% endwith %}
             {% set next_is_close_left = head_col.has_checkbox|default(false) or head_col.has_icon|default(false) %}
         {% endfor %}
     {% endblock %}
 </tr>
+{% endblock %}
