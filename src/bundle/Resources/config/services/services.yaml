@@ -13,3 +13,5 @@ services:
 
     Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface:
         '@Ibexa\AdminUi\ContentType\ContentTypeFieldsByExpressionService'
+
+    Ibexa\AdminUi\ContentType\MainLanguageResolver: ~

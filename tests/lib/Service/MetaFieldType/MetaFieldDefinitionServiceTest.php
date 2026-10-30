@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Tests\AdminUi\Service\MetaFieldType;
 
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
+use Ibexa\AdminUi\ContentType\MainLanguageResolver;
 use Ibexa\AdminUi\Service\MetaFieldType\MetaFieldDefinitionService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\FieldType;
@@ -82,8 +83,8 @@ final class MetaFieldDefinitionServiceTest extends TestCase
             ->method('getDefaultLanguageCode')
             ->willReturn('eng-GB');
         $this->languageService
-            ->method('loadLanguage')
-            ->willReturn(new Language(['languageCode' => 'eng-GB']));
+            ->method('loadLanguageListByCode')
+            ->willReturn(['eng-GB' => new Language(['languageCode' => 'eng-GB'])]);
 
         $this->contentTypeService
             ->method('newFieldDefinitionCreateStruct')
@@ -94,21 +95,9 @@ final class MetaFieldDefinitionServiceTest extends TestCase
                 ])
             );
 
-        $localeConverter = $this->createStub(LocaleConverterInterface::class);
-        $localeConverter->method('convertToPOSIX')->willReturn('en_GB');
-
-        $translator = $this->createStub(TranslatorInterface::class);
-        $translator->method('trans')->willReturn('Label');
-
-        $this->metaFieldDefinitionService = new MetaFieldDefinitionService(
+        $this->metaFieldDefinitionService = $this->createMetaFieldDefinitionService(
             $this->configResolver,
-            $this->contentTypeFieldTypesResolver,
-            $this->contentTypeService,
-            $this->fieldTypeService,
-            $this->fieldsGroupsList,
-            $this->languageService,
-            $localeConverter,
-            $translator
+            $this->languageService
         );
     }
 
@@ -299,6 +288,68 @@ final class MetaFieldDefinitionServiceTest extends TestCase
             self::SINGULAR_FIELD_TYPE_IDENTIFIER,
             true,
         ];
+    }
+
+    public function testAddMetaFieldDefinitionsUsesFirstConfiguredLanguageThatExists(): void
+    {
+        $configResolver = $this->createStub(ConfigResolverInterface::class);
+        $configResolver->method('getParameter')->willReturnMap([
+            ['languages', null, null, ['eng-GB', 'pol-PL']],
+        ]);
+
+        $languageService = $this->createStub(LanguageService::class);
+        $languageService
+            ->method('loadLanguageListByCode')
+            ->willReturn(['pol-PL' => new Language(['languageCode' => 'pol-PL'])]);
+
+        $contentType = $this->createContentTypeDraft([]);
+
+        $this->contentTypeFieldTypesResolver
+            ->method('getMetaFieldTypes')
+            ->willReturn([
+                self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER => ['meta' => true, 'position' => 1],
+            ]);
+
+        $this->fieldTypeService
+            ->expects(self::once())
+            ->method('getFieldType')
+            ->with(self::NON_SINGULAR_FIELD_TYPE_IDENTIFIER)
+            ->willReturn($this->createFieldType(false));
+
+        $this->contentTypeService
+            ->expects(self::once())
+            ->method('addFieldDefinition')
+            ->with(
+                $contentType,
+                self::callback(
+                    static fn (FieldDefinitionCreateStruct $struct): bool => $struct->names === ['pol-PL' => 'Label']
+                )
+            );
+
+        $this->createMetaFieldDefinitionService($configResolver, $languageService)
+            ->addMetaFieldDefinitions($contentType);
+    }
+
+    private function createMetaFieldDefinitionService(
+        ConfigResolverInterface $configResolver,
+        LanguageService $languageService
+    ): MetaFieldDefinitionService {
+        $localeConverter = $this->createStub(LocaleConverterInterface::class);
+        $localeConverter->method('convertToPOSIX')->willReturn('en_GB');
+
+        $translator = $this->createStub(TranslatorInterface::class);
+        $translator->method('trans')->willReturn('Label');
+
+        return new MetaFieldDefinitionService(
+            $configResolver,
+            $this->contentTypeFieldTypesResolver,
+            $this->contentTypeService,
+            $this->fieldTypeService,
+            $this->fieldsGroupsList,
+            new MainLanguageResolver($configResolver, $languageService),
+            $localeConverter,
+            $translator
+        );
     }
 
     /**
