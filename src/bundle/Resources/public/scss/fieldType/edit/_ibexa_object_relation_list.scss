@@ -7,10 +7,6 @@
     &.is-invalid {
         .ibexa-data-source {
             @include area-invalid();
-
-            .ibexa-table-header__headline {
-                color: $ibexa-color-danger;
-            }
         }
     }
 
