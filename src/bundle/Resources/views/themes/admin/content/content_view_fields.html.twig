@@ -1,43 +1,35 @@
 <section class="ibexa-view-rawcontentview">
     <div class="ibexa-raw-content-title">
-        <div class="ibexa-raw-content-title__text">{{ 'tab.view.descriptions'|trans|desc('Descriptions') }}</div>
+        <h2 class="ibexa-raw-content-title__text">{{ 'tab.view.details'|trans|desc('Details') }}</h2>
         {% block extras %}{% endblock %}
     </div>
 
     {% block fields %}
+        {% set has_multiple_groups = field_definitions_by_group|length > 1 %}
+
         <div class="ibexa-content-preview">
             {% for group in field_definitions_by_group %}
-                {% if group.fieldDefinitions|length > 0 %}
-                    {% set group_name = group.name|lower|replace({' ': ''})|slug %}
-                    {% set collapse_state_key = 'collapse-' ~ group_name ~ location.id %}
-                    {% set collapse_class_name = 'ibexa-content-preview-collapse--' ~ group_name %}
-
-                    <section class="ibexa-fieldgroup container">
-                        <div class="ibexa-fieldgroup__header">
-                            <span class="ibexa-fieldgroup__header-name">{{ group.name|capitalize }}</span>
-                            <a data-bs-toggle="collapse" href=".{{ collapse_class_name }}" class="ibexa-fieldgroup__toggler">
-                                <span class="ibexa-fieldgroup__toggler-label-show">{{ 'fieldview.toggler.show'|trans|desc('Show') }}</span>
-                                <span class="ibexa-fieldgroup__toggler-label-hide">{{ 'fieldview.toggler.hide'|trans|desc('Hide') }}</span>
-                            </a>
-                        </div>
-                        <div class="{{ collapse_class_name }} ibexa-content-preview-collapse collapse show" data-collapse-state-key="{{ collapse_state_key }}">
-                            {% for field_definition in group.fieldDefinitions %}
-                                {% block field %}
-                                    <div class="ibexa-content-field">
-                                        <div class="ibexa-content-field__name">{{ field_definition.name }}</div>
-                                        <div class="ibexa-content-field__value">
-                                            {% if ibexa_field_is_empty(content, field_definition.identifier) %}
-                                                <em>{{ 'fieldview.field.empty'|trans({}, 'ibexa_fieldview')|desc('This field is empty') }}</em>
-                                            {% else %}
-                                                {{ ibexa_render_field(content, field_definition.identifier, {location: location}) }}
-                                            {% endif %}
-                                        </div>
+                <section class="ibexa-fieldgroup">
+                    {% if has_multiple_groups %}
+                        <h3 class="ibexa-fieldgroup__group-name">{{ group.name|capitalize }}</h3>
+                    {% endif %}
+                    <div class="ibexa-fieldgroup__fields">
+                        {% for field_definition in group.fieldDefinitions %}
+                            {% block field %}
+                                <div class="ibexa-content-field">
+                                    <div class="ibexa-content-field__name">{{ field_definition.name }}</div>
+                                    <div class="ibexa-content-field__value">
+                                        {% if ibexa_field_is_empty(content, field_definition.identifier) %}
+                                            <em>{{ 'fieldview.field.empty'|trans({}, 'ibexa_fieldview')|desc('This field is empty') }}</em>
+                                        {% else %}
+                                            {{ ibexa_render_field(content, field_definition.identifier, {location: location}) }}
+                                        {% endif %}
                                     </div>
-                                {% endblock %}
-                            {% endfor %}
-                        </div>
-                    </section>
-                {% endif %}
+                                </div>
+                            {% endblock %}
+                        {% endfor %}
+                    </div>
+                </section>
             {% endfor %}
         </div>
     {% endblock %}

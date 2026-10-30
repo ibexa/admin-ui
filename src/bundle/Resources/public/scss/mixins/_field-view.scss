@@ -1,0 +1,37 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+@mixin field-view-title() {
+    margin: 0;
+    font-family: $ibexa-font-family-headings;
+    font-size: $h2-font-size;
+    font-weight: $headings-font-weight;
+    line-height: $headings-line-height;
+    color: $ibexa-color-black;
+}
+
+@mixin field-view-group-name() {
+    margin: 0 0 calculateRem(16px);
+    font-family: $ibexa-font-family-headings;
+    font-size: $h3-font-size;
+    font-weight: $headings-font-weight;
+    line-height: $headings-line-height;
+    color: $ibexa-color-black;
+}
+
+@mixin field-view-language-label() {
+    color: $ibexa-color-black;
+}
+
+@mixin field-view-label() {
+    margin-bottom: calculateRem(4px);
+    color: $ibexa-color-black-300;
+    font-size: $ibexa-text-font-size-small;
+    font-weight: $ibexa-font-weight-bold;
+    line-height: calculateRem(18px);
+}
+
+@mixin field-view-value() {
+    color: $ibexa-color-black;
+    overflow-wrap: break-word;
+}
