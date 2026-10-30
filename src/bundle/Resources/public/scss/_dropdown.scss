@@ -2,6 +2,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/tags' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
+@use '@ids-assets/scss/variables' as *;
 @use 'sass:color';
 
 .ibexa-dropdown {
@@ -33,7 +34,7 @@
         height: calculateRem(48px);
         padding: 0 calculateRem(36px) 0 calculateRem(16px);
         border: calculateRem(1px) solid $ibexa-color-dark-200;
-        border-radius: $ibexa-border-radius;
+        border-radius: $border-radius-medium;
         position: relative;
         cursor: pointer;
         display: flex;
@@ -66,10 +67,6 @@
 
         &.is-invalid {
             @include input-invalid;
-
-            .ibexa-dropdown__selected-item {
-                color: $ibexa-color-danger;
-            }
 
             &::before,
             &::after {
@@ -446,21 +443,28 @@
         }
     }
 
+    &:not(&--disabled):not(&--ghost) {
+        &.is-invalid .ibexa-dropdown__selection-info:hover,
+        .ibexa-dropdown__selection-info.is-invalid:hover {
+            border-color: $ibexa-color-danger-700;
+
+            &::before,
+            &::after {
+                background-color: $ibexa-color-danger;
+            }
+        }
+    }
+
     &.is-invalid:not(&--disabled) {
         .ibexa-dropdown {
             &__selection-info {
                 background-image: none;
                 border-color: $ibexa-color-danger;
-                background-color: $ibexa-color-danger-100;
 
                 &::before,
                 &::after {
                     background-color: $ibexa-color-danger;
                 }
-            }
-
-            &__selected-item {
-                color: $ibexa-color-danger;
             }
         }
     }
@@ -471,7 +475,6 @@
                 height: calculateRem(32px);
                 padding-top: 0;
                 padding-bottom: 0;
-                border-radius: $ibexa-border-radius-small;
             }
         }
     }
