@@ -1,43 +1,42 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/field-view' as *;
 
 .ibexa-view-rawcontentview {
     margin-bottom: calculateRem(25px);
     background-color: $ibexa-color-white;
 
     .ibexa-raw-content-title {
-        margin-top: calculateRem(30px);
-        padding: 0 0 calculateRem(15px) 0;
-        color: $ibexa-color-black;
-        align-items: center;
-        border-bottom: calculateRem(1px) solid $ibexa-color-light;
         display: flex;
         justify-content: space-between;
-        align-items: flex-end;
-
-        h3 {
-            margin: 0;
-        }
+        align-items: center;
+        margin-bottom: calculateRem(16px);
+        padding: calculateRem(8px) 0;
+        color: $ibexa-color-black;
 
         &__text {
-            margin: 0;
-            font-size: $ibexa-text-font-size-large;
-            line-height: calculateRem(33px);
-            color: $ibexa-color-black;
-            font-weight: 600;
+            @include field-view-title();
         }
 
         &__language-form {
             display: flex;
-
-            .ids-label {
-                margin: calculateRem(8px) calculateRem(8px) 0;
-            }
+            align-items: center;
+            gap: calculateRem(8px);
 
             .ibexa-dropdown {
                 margin: 0;
             }
         }
+
+        &__language-label {
+            @include field-view-language-label();
+        }
+    }
+}
+
+.ibexa-content-preview {
+    .ibexa-fieldgroup:not(:last-child) {
+        margin-bottom: calculateRem(16px);
     }
 }
 
@@ -58,59 +57,8 @@
         font-size: $ibexa-text-font-size;
     }
 
-    &__toggler-label-show {
-        display: none;
-    }
-
-    &__toggler-label-hide {
-        display: inline;
-    }
-
-    &__toggler {
-        position: relative;
-        display: block;
-        padding: calculateRem(24px) calculateRem(16px);
-        font-size: $ibexa-text-font-size-medium;
-        font-weight: normal;
-        color: $ibexa-color-black;
-        text-decoration: none;
-
-        &:focus,
-        &:hover {
-            color: $ibexa-color-primary;
-            text-decoration: none;
-
-            &::after {
-                border-top: calculateRem(5px) solid $ibexa-color-primary;
-            }
-        }
-
-        &::after {
-            position: absolute;
-            top: calculateRem(33px);
-            right: 0;
-            content: '';
-            border-left: calculateRem(5px) solid transparent;
-            border-right: calculateRem(5px) solid transparent;
-            border-top: calculateRem(5px) solid $ibexa-color-black;
-            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-        }
-
-        &.collapsed {
-            .ibexa-fieldgroup {
-                &__toggler-label-show {
-                    display: inline;
-                }
-
-                &__toggler-label-hide {
-                    display: none;
-                }
-            }
-
-            &:after {
-                transform: rotate(180deg);
-            }
-        }
+    &__group-name {
+        @include field-view-group-name();
     }
 
     &__content {
@@ -121,20 +69,20 @@
     .ibexa-content-field {
         display: flex;
         flex-direction: column;
-        margin-bottom: calculateRem(24px);
+        margin-bottom: calculateRem(16px);
 
         &__name {
-            margin-bottom: calculateRem(8px);
-            color: $ibexa-color-dark-300;
-            font-size: $ibexa-text-font-size-small;
+            @include field-view-label();
         }
 
         &__value {
+            @include field-view-value();
+
             width: 100%;
 
             .ibexa_string-field,
             .ibexa_text-field {
-                display: inline-block;
+                display: block;
                 max-width: 100%;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -142,6 +90,11 @@
 
             .ibexa_country-field {
                 margin-bottom: 0;
+            }
+
+            .ibexa-field-preview--ibexa_image,
+            .ibexa-field-preview--ibexa_image_asset {
+                margin-top: calculateRem(4px);
             }
         }
     }
