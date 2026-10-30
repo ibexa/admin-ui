@@ -331,16 +331,6 @@
         <target state="new"><![CDATA[Your password has been changed. You can <a class="ibexa-login__reset-password-alert-link" href="%login%">log in</a> to Cohesivo.]]></target>
         <note>key: ezplatform.reset_user_password.success</note>
       </trans-unit>
-      <trans-unit id="bd5ae6bdfe2b60c317c3b47f27c5bf5a264b71ba" resname="fieldview.toggler.hide">
-        <source>Hide</source>
-        <target state="new">Hide</target>
-        <note>key: fieldview.toggler.hide</note>
-      </trans-unit>
-      <trans-unit id="b42fcb4c20b25c6bf6a9144cde8df1167b915bb5" resname="fieldview.toggler.show">
-        <source>Show</source>
-        <target state="new">Show</target>
-        <note>key: fieldview.toggler.show</note>
-      </trans-unit>
       <trans-unit id="5cf420af18fd4a8d856fd30bc13aea5039369f9b" resname="form.cancel">
         <source>Cancel</source>
         <target state="new">Cancel</target>
@@ -561,15 +551,15 @@
         <target state="new">Swap the Content item at this Location with another</target>
         <note>key: tab.locations.swap_with_another</note>
       </trans-unit>
-      <trans-unit id="f776c84d19e4a757aecdf2cc52aef393a60f7a38" resname="tab.view.descriptions">
-        <source>Descriptions</source>
-        <target state="new">Descriptions</target>
-        <note>key: tab.view.descriptions</note>
+      <trans-unit id="3d4e361d043249c5ff2cd7decc8928da3f3f41ff" resname="tab.view.details">
+        <source>Details</source>
+        <target state="new">Details</target>
+        <note>key: tab.view.details</note>
       </trans-unit>
-      <trans-unit id="1246bcf8752e249bdec2067d43cfae2a5103bc5f" resname="tab.view.preview">
-        <source>Preview</source>
-        <target state="new">Preview</target>
-        <note>key: tab.view.preview</note>
+      <trans-unit id="0c8a1d712272045378f455cf7a90795152fbfb92" resname="tab.view.display_fields_in">
+        <source>Display fields in</source>
+        <target state="new">Display fields in</target>
+        <note>key: tab.view.display_fields_in</note>
       </trans-unit>
       <trans-unit id="021066e1b5ed5c74ef8d23b0a14f9f6038280f56" resname="tag_view_select.change">
         <source>Change %type%</source>
