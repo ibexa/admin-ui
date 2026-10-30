@@ -11,6 +11,11 @@ use Ibexa\CodeStyle\PhpCsFixer\InternalConfigFactory;
 $configFactory = new InternalConfigFactory();
 $configFactory->withRules([
     'declare_strict_types' => false,
+    'php_unit_test_case_static_method_calls' => [
+        'call_type' => 'self',
+        // createStub() is not static in PHPUnit 9
+        'methods' => ['createStub' => 'this'],
+    ],
 ]);
 
 return $configFactory
