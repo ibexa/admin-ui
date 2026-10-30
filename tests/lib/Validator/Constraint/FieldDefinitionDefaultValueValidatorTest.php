@@ -14,6 +14,8 @@ use Ibexa\AdminUi\Validator\Constraints\FieldDefinitionDefaultValueValidator;
 use Ibexa\Contracts\Core\Repository\FieldTypeService;
 use Ibexa\Core\FieldType\Country\Type as CountryType;
 use Ibexa\Core\FieldType\Country\Value as CountryValue;
+use Ibexa\Core\FieldType\Integer\Type as IntegerType;
+use Ibexa\Core\FieldType\Integer\Value as IntegerValue;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldType;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -31,6 +33,8 @@ final class FieldDefinitionDefaultValueValidatorTest extends TestCase
         'FR' => ['Name' => 'France', 'Alpha2' => 'FR', 'Alpha3' => 'FRA', 'IDC' => 33],
     ];
 
+    private const INTEGER_DEFAULT_VALUE = 50;
+
     /** @var ExecutionContextInterface&MockObject */
     private ExecutionContextInterface $executionContext;
 
@@ -38,31 +42,68 @@ final class FieldDefinitionDefaultValueValidatorTest extends TestCase
 
     protected function setUp(): void
     {
+        $countryType = new CountryType(self::COUNTRIES_INFO);
+        $integerType = new IntegerType();
+
         $fieldTypeService = $this->createStub(FieldTypeService::class);
         $fieldTypeService
             ->method('getFieldType')
-            ->willReturn(new FieldType(new CountryType(self::COUNTRIES_INFO)));
+            ->willReturnMap([
+                [$countryType->getFieldTypeIdentifier(), new FieldType($countryType)],
+                [$integerType->getFieldTypeIdentifier(), new FieldType($integerType)],
+            ]);
 
         $this->executionContext = $this->createMock(ExecutionContextInterface::class);
         $this->validator = new FieldDefinitionDefaultValueValidator($fieldTypeService);
         $this->validator->initialize($this->executionContext);
     }
 
-    public function testValidatesDefaultValueAgainstSubmittedFieldSettings(): void
+    /**
+     * @dataProvider provideDefaultValuesAllowedBySubmittedData
+     */
+    public function testValidatesDefaultValueAgainstSubmittedData(FieldDefinitionData $fieldDefinitionData): void
     {
         $this->executionContext
             ->expects(self::never())
             ->method('buildViolation');
 
-        $this->validator->validate(
-            $this->createFieldDefinitionData(false, true),
-            new FieldDefinitionDefaultValue()
-        );
+        $this->validator->validate($fieldDefinitionData, new FieldDefinitionDefaultValue());
     }
 
-    public function testAddsViolationWhenSubmittedFieldSettingsDoNotAllowDefaultValue(): void
+    /**
+     * @return iterable<string, array{FieldDefinitionData}>
+     */
+    public static function provideDefaultValuesAllowedBySubmittedData(): iterable
     {
-        $violationBuilder = $this->createViolationBuilder();
+        yield 'country with multiple choice enabled in the same submit' => [
+            self::createCountryFieldDefinitionData(false, true),
+        ];
+
+        yield 'integer with maximum value raised in the same submit' => [
+            self::createIntegerFieldDefinitionData(10, 100),
+        ];
+
+        yield 'country with field settings not submitted and stored ones allowing multiple countries' => [
+            self::createCountryFieldDefinitionData(true, null),
+        ];
+
+        yield 'integer with validator configuration not submitted and stored one allowing the value' => [
+            self::createIntegerFieldDefinitionData(100, null),
+        ];
+    }
+
+    /**
+     * @dataProvider provideDefaultValuesNotAllowedBySubmittedData
+     */
+    public function testAddsViolationWhenSubmittedDataDoesNotAllowDefaultValue(FieldDefinitionData $fieldDefinitionData): void
+    {
+        $violationBuilder = $this->createMock(ConstraintViolationBuilderInterface::class);
+        $violationBuilder->method('setParameters')->willReturnSelf();
+        $violationBuilder
+            ->expects(self::once())
+            ->method('atPath')
+            ->with('defaultValue')
+            ->willReturnSelf();
         $violationBuilder
             ->expects(self::once())
             ->method('addViolation');
@@ -70,48 +111,99 @@ final class FieldDefinitionDefaultValueValidatorTest extends TestCase
         $this->executionContext
             ->expects(self::once())
             ->method('buildViolation')
-            ->with('Field definition does not allow multiple countries to be selected.')
             ->willReturn($violationBuilder);
 
+        $this->validator->validate($fieldDefinitionData, new FieldDefinitionDefaultValue());
+    }
+
+    /**
+     * @return iterable<string, array{FieldDefinitionData}>
+     */
+    public static function provideDefaultValuesNotAllowedBySubmittedData(): iterable
+    {
+        yield 'country with multiple choice disabled in the same submit' => [
+            self::createCountryFieldDefinitionData(true, false),
+        ];
+
+        yield 'integer with maximum value lowered in the same submit' => [
+            self::createIntegerFieldDefinitionData(100, 10),
+        ];
+    }
+
+    public function testSkipsStoredDefaultValueNotSubmittedWithForm(): void
+    {
+        $this->executionContext
+            ->expects(self::never())
+            ->method('buildViolation');
+
         $this->validator->validate(
-            $this->createFieldDefinitionData(true, false),
+            self::createCountryFieldDefinitionData(true, false, false),
             new FieldDefinitionDefaultValue()
         );
     }
 
-    private function createFieldDefinitionData(
+    private static function createCountryFieldDefinitionData(
         bool $storedIsMultiple,
-        bool $submittedIsMultiple
+        ?bool $submittedIsMultiple,
+        bool $isDefaultValueSubmitted = true
+    ): FieldDefinitionData {
+        $storedDefaultValue = new CountryValue(self::COUNTRIES_INFO);
+
+        return self::createFieldDefinitionData(
+            (new CountryType(self::COUNTRIES_INFO))->getFieldTypeIdentifier(),
+            [
+                'fieldSettings' => ['isMultiple' => $storedIsMultiple],
+                'defaultValue' => $storedDefaultValue,
+            ],
+            [
+                'fieldSettings' => $submittedIsMultiple === null ? null : ['isMultiple' => $submittedIsMultiple],
+                'defaultValue' => $isDefaultValueSubmitted ? new CountryValue(self::COUNTRIES_INFO) : $storedDefaultValue,
+            ]
+        );
+    }
+
+    private static function createIntegerFieldDefinitionData(
+        int $storedMaxValue,
+        ?int $submittedMaxValue
+    ): FieldDefinitionData {
+        return self::createFieldDefinitionData(
+            (new IntegerType())->getFieldTypeIdentifier(),
+            [
+                'validatorConfiguration' => ['IntegerValueValidator' => ['maxIntegerValue' => $storedMaxValue]],
+                'defaultValue' => new IntegerValue(),
+            ],
+            [
+                'validatorConfiguration' => $submittedMaxValue === null
+                    ? null
+                    : ['IntegerValueValidator' => ['maxIntegerValue' => $submittedMaxValue]],
+                'defaultValue' => new IntegerValue(self::INTEGER_DEFAULT_VALUE),
+            ]
+        );
+    }
+
+    /**
+     * @param array<string, mixed> $storedProperties
+     * @param array<string, mixed> $submittedProperties
+     */
+    private static function createFieldDefinitionData(
+        string $fieldTypeIdentifier,
+        array $storedProperties,
+        array $submittedProperties
     ): FieldDefinitionData {
         return new FieldDefinitionData([
-            'fieldDefinition' => new FieldDefinition([
+            'fieldDefinition' => new FieldDefinition($storedProperties + [
                 'id' => 1,
-                'identifier' => 'country',
+                'identifier' => 'field',
                 'fieldGroup' => 'content',
                 'position' => 0,
-                'fieldTypeIdentifier' => 'ezcountry',
+                'fieldTypeIdentifier' => $fieldTypeIdentifier,
                 'isTranslatable' => false,
                 'isThumbnail' => false,
                 'isRequired' => false,
                 'isInfoCollector' => false,
                 'isSearchable' => true,
                 'mainLanguageCode' => 'eng-GB',
-                'fieldSettings' => ['isMultiple' => $storedIsMultiple],
             ]),
-            'fieldSettings' => ['isMultiple' => $submittedIsMultiple],
-            'defaultValue' => new CountryValue(self::COUNTRIES_INFO),
-        ]);
-    }
-
-    /**
-     * @return ConstraintViolationBuilderInterface&MockObject
-     */
-    private function createViolationBuilder(): MockObject
-    {
-        $violationBuilder = $this->createMock(ConstraintViolationBuilderInterface::class);
-        $violationBuilder->method('setParameters')->willReturnSelf();
-        $violationBuilder->method('atPath')->willReturnSelf();
-
-        return $violationBuilder;
+        ] + $submittedProperties);
     }
 }

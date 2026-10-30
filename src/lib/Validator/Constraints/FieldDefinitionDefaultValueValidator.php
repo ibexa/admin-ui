@@ -32,6 +32,12 @@ class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
             return;
         }
 
+        // The stored default value is kept when the form has no default value field (e.g. Selection),
+        // so it can't be changed in the editor and is not validated against the submitted settings.
+        if ($fieldValue === $value->fieldDefinition->getDefaultValue()) {
+            return;
+        }
+
         $fieldTypeIdentifier = $this->getFieldTypeIdentifier($value);
         $fieldDefinition = $this->getFieldDefinition($value);
         $fieldType = $this->fieldTypeService->getFieldType($fieldTypeIdentifier);
@@ -57,24 +63,15 @@ class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
     {
         $fieldDefinition = $value->fieldDefinition;
 
+        $properties = [];
+        foreach ($fieldDefinition->attributes() as $property) {
+            $properties[$property] = $fieldDefinition->$property;
+        }
+
         return new CoreFieldDefinition([
-            'id' => $fieldDefinition->getId(),
-            'identifier' => $fieldDefinition->getIdentifier(),
-            'fieldGroup' => $fieldDefinition->getFieldGroup(),
-            'position' => $fieldDefinition->getPosition(),
-            'fieldTypeIdentifier' => $fieldDefinition->getFieldTypeIdentifier(),
-            'isTranslatable' => $fieldDefinition->isTranslatable(),
-            'isThumbnail' => $fieldDefinition->isThumbnail(),
-            'isRequired' => $fieldDefinition->isRequired(),
-            'isInfoCollector' => $fieldDefinition->isInfoCollector(),
-            'isSearchable' => $fieldDefinition->isSearchable(),
-            'defaultValue' => $fieldDefinition->getDefaultValue(),
-            'mainLanguageCode' => $fieldDefinition->getMainLanguageCode(),
-            'names' => $fieldDefinition->getNames(),
-            'descriptions' => $fieldDefinition->getDescriptions(),
             'fieldSettings' => $value->fieldSettings ?? $fieldDefinition->getFieldSettings(),
             'validatorConfiguration' => $value->validatorConfiguration ?? $fieldDefinition->getValidatorConfiguration(),
-        ]);
+        ] + $properties);
     }
 
     /**
