@@ -95,7 +95,7 @@
         display: flex;
         justify-content: flex-end;
         margin-top: auto;
-        padding-top: calculateRem(24px);
+        padding-top: calculateRem(16px);
         font-size: $ibexa-text-font-size-medium;
         gap: calculateRem(16px);
     }
