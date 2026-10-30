@@ -1,3 +1,5 @@
+{% trans_default_domain 'ibexa_mail' %}
+
 {%- block from -%}{%- endblock from -%}
 
 {%- block body -%}
@@ -16,109 +18,260 @@
                 <meta name="supported-color-schemes" content="light dark">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>{%- block subject -%}{%- endblock subject -%}</title>
+                {%- block template_styles -%}
+                    <style>
+                        @media (max-width: 620px) {
+                            .ibexa-email-wrapper {
+                                padding: 16px 8px !important;
+                            }
+
+                            .ibexa-email-header-img {
+                                width: 100% !important;
+                                height: auto !important;
+                            }
+
+                            .ibexa-email-content {
+                                padding-left: 24px !important;
+                                padding-right: 24px !important;
+                            }
+                        }
+
+                        @media (prefers-color-scheme: dark) {
+                            .ibexa-email-body,
+                            .ibexa-email-wrapper {
+                                background-color: #0e1216 !important;
+                            }
+
+                            .ibexa-email-card,
+                            .ibexa-email-card-body {
+                                background-color: #1a1e22 !important;
+                            }
+
+                            .ibexa-email-content,
+                            .ibexa-email-text {
+                                color: #ffffff !important;
+                            }
+
+                            .ibexa-email-link {
+                                color: #9f7de3 !important;
+                            }
+
+                            .ibexa-email-divider {
+                                border-top-color: #323639 !important;
+                            }
+
+                            .ibexa-email-footer {
+                                color: #b7b8b9 !important;
+                            }
+
+                            .ibexa-email-icon--light {
+                                display: none !important;
+                            }
+
+                            .ibexa-email-icon--dark {
+                                display: inline-block !important;
+                            }
+                        }
+                    </style>
+                {%- endblock template_styles -%}
             </head>
         {%- endblock template_head -%}
         {%- block template_body -%}
-            <body style="padding: 0; background-color: #ffffff; color: #131c26;" class="ibexa-email-body">
-                <style>
-                    @media (prefers-color-scheme: dark) {
-                        .ibexa-email-body {
-                            background-color: #131c26 !important;
-                        }
-
-                        .ibexa-email-content {
-                            color: #ffffff !important;
-                        }
-                    }
-                </style>
-
+            <body style="margin: 0; padding: 0; background-color: #f5f6f6; color: #0e1216;" class="ibexa-email-body">
                 <table
-                    align="center"
                     border="0"
                     cellpadding="0"
                     cellspacing="0"
                     role="presentation"
-                    width="585"
-                    style="border: 1px solid #e0e0e8;"
+                    width="100%"
+                    bgcolor="#f5f6f6"
+                    style="background-color: #f5f6f6;"
                 >
-                    <tbody>
-                        {%- block mail_header -%}
-                            {% set content %}
-                                {%- block mail_header_content  -%}
-                                    {% if header_img_path is defined %}
-                                        <img
-                                            style="width: 585px; height: 100px;"
-                                            src="{{ header_img_path }}"
-                                            alt="{%- block mail_header_alt_text -%}Ibexa DXP{%- endblock mail_header_alt_text -%}"
-                                        />
-                                    {% else %}
-                                        {% set content %}
-                                            {% block mail_header_alternative_img_content %}Ibexa DXP{% endblock mail_header_alternative_img_content %}
-                                        {% endset %}
+                    <tr>
+                        <td align="center" class="ibexa-email-wrapper" style="padding: 40px 16px; background-color: #f5f6f6;">
+                            <!--[if mso]>
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" width="600"><tr><td>
+                            <![endif]-->
+                            <table
+                                align="center"
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                role="presentation"
+                                width="600"
+                                bgcolor="#ffffff"
+                                class="ibexa-email-card"
+                                style="width: 100%; max-width: 600px; background-color: #ffffff; border-radius: 16px;"
+                            >
+                                <tbody>
+                                    {%- block mail_header -%}
+                                        <tr>
+                                            <td style="padding: 0; font-size: 0; line-height: 0;">
+                                                {%- block mail_header_content -%}
+                                                    {% if header_img_path is defined %}
+                                                        <img
+                                                            class="ibexa-email-header-img"
+                                                            width="600"
+                                                            height="112"
+                                                            style="display: block; width: 600px; height: 112px; border: 0; border-radius: 16px 16px 0 0;"
+                                                            src="{{ header_img_path }}"
+                                                            alt="{%- block mail_header_alt_text -%}Cohesivo{%- endblock mail_header_alt_text -%}"
+                                                        />
+                                                    {% else %}
+                                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                                                            <tr>
+                                                                <td
+                                                                    bgcolor="#4e24a5"
+                                                                    style="padding: 40px; background-color: #4e24a5; border-radius: 16px 16px 0 0; font-family: Arial, Helvetica, sans-serif; font-size: 26px; font-weight: bold; line-height: 32px; color: #ffffff;"
+                                                                >
+                                                                    {%- block mail_header_alternative_img_content -%}Cohesivo{%- endblock mail_header_alternative_img_content -%}
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    {% endif %}
+                                                {%- endblock mail_header_content -%}
+                                            </td>
+                                        </tr>
+                                    {%- endblock mail_header -%}
 
-                                        {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
-                                            content,
-                                            style: 'padding: 32px 48px; font-size: 32px;'
-                                        } only %}
-                                    {% endif %}
-                                {%- endblock mail_header_content -%}
-                            {% endset %}
-
-                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
-                                content,
-                                style: 'padding: 0;'
-                            } only %}
-                        {%- endblock mail_header -%}
-
-                        {%- block mail_message_title -%}
-                            {% set content %}
-                                {%- block mail_message_title_content -%}{%- endblock mail_message_title_content -%}
-                            {% endset %}
-
-                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
-                                content,
-                                style: not header_img_path is defined ? 'padding-top: 16px;'
-                            } only %}
-                        {%- endblock mail_message_title -%}
-
-                        {%- block mail_message -%}
-                            {% set content %}
-                                {%- block mail_message_content -%}{%- endblock mail_message_content -%}
-                            {% endset %}
-
-                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
-                                content,
-                                style: 'padding-bottom: 32px;'
-                            } only %}
-                        {%- endblock mail_message -%}
-
-                        {%- block mail_actions -%}
-                            {% set content %}
-                                {%- block mail_actions_content -%}{%- endblock mail_actions_content -%}
-                            {% endset %}
-
-                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
-                                content,
-                                style: 'padding-bottom: 48px;'
-                            } only %}
-                        {%- endblock mail_actions -%}
-
-                        {%- block mail_footer -%}
-                            {% set line %}
-                                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; height: 1px; background-color: #e0e0e0;">
                                     <tr>
-                                        <td></td>
+                                        <td class="ibexa-email-card-body" style="padding: 32px 0 12px; background-color: #ffffff; border-radius: 0 0 16px 16px;">
+                                            <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                                                <tbody>
+                                                    {%- block mail_title -%}
+                                                        {% set content %}
+                                                            {%- block mail_title_content -%}
+                                                                {%- set subject = block('subject')|trim -%}
+                                                                {%- if subject is not empty -%}
+                                                                    {{ subject|raw }}
+                                                                {%- else -%}
+                                                                    {{ email.subject|default('') }}
+                                                                {%- endif -%}
+                                                            {%- endblock mail_title_content -%}
+                                                        {% endset %}
+
+                                                        {% if content|trim is not empty %}
+                                                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
+                                                                content,
+                                                                style: 'font-size: 26px; font-weight: bold; line-height: 32px;',
+                                                            } only %}
+                                                        {% endif %}
+                                                    {%- endblock mail_title -%}
+
+                                                    {%- block mail_message_title -%}
+                                                        {% set content %}
+                                                            {%- block mail_message_title_content -%}{%- endblock mail_message_title_content -%}
+                                                        {% endset %}
+
+                                                        {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
+                                                            content,
+                                                            style: 'font-size: 16px; line-height: 24px;',
+                                                        } only %}
+                                                    {%- endblock mail_message_title -%}
+
+                                                    {%- block mail_message -%}
+                                                        {% set content %}
+                                                            {%- block mail_message_content -%}{%- endblock mail_message_content -%}
+                                                        {% endset %}
+
+                                                        {% include '@ibexadesign/ui/mail/components/row.html.twig' with { content } only %}
+                                                    {%- endblock mail_message -%}
+
+                                                    {%- block mail_actions -%}
+                                                        {% set content %}
+                                                            {%- block mail_actions_content -%}{%- endblock mail_actions_content -%}
+                                                        {% endset %}
+
+                                                        {% include '@ibexadesign/ui/mail/components/row.html.twig' with { content } only %}
+                                                    {%- endblock mail_actions -%}
+
+                                                    {%- block mail_action_fallback -%}
+                                                        {% set content %}
+                                                            {%- block mail_action_fallback_content -%}{%- endblock mail_action_fallback_content -%}
+                                                        {% endset %}
+
+                                                        {% if content|trim is not empty %}
+                                                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with { content } only %}
+                                                        {% endif %}
+                                                    {%- endblock mail_action_fallback -%}
+
+                                                    {%- block mail_footer -%}
+                                                        {% set expiration %}
+                                                            {%- block mail_expiration_content -%}
+                                                                {% if link_expiration is defined and link_expiration is not null %}
+                                                                    {% include '@ibexadesign/ui/mail/components/link_expiration.html.twig' with {
+                                                                        interval: link_expiration,
+                                                                        icon_path: expiration_icon_path ?? null,
+                                                                        icon_dark_path: expiration_icon_dark_path ?? null,
+                                                                    } only %}
+                                                                {% endif %}
+                                                            {%- endblock mail_expiration_content -%}
+                                                        {% endset %}
+                                                        {% set content %}
+                                                            {%- block mail_footer_content -%}{%- endblock mail_footer_content -%}
+                                                        {% endset %}
+
+                                                        {% if expiration|trim is not empty or content|trim is not empty %}
+                                                            {% set divider %}
+                                                                <div class="ibexa-email-divider" style="border-top: 1px solid #cfd0d0; font-size: 0; line-height: 0;">&nbsp;</div>
+                                                            {% endset %}
+                                                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with { content: divider } only %}
+                                                        {% endif %}
+                                                        {% if expiration|trim is not empty %}
+                                                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with { content: expiration } only %}
+                                                        {% endif %}
+                                                        {% if content|trim is not empty %}
+                                                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with { content } only %}
+                                                        {% endif %}
+                                                    {%- endblock mail_footer -%}
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            {%- block mail_page_footer -%}
+                                <table
+                                    align="center"
+                                    border="0"
+                                    cellpadding="0"
+                                    cellspacing="0"
+                                    role="presentation"
+                                    width="600"
+                                    style="width: 100%; max-width: 600px;"
+                                >
+                                    <tr>
+                                        <td
+                                            class="ibexa-email-footer"
+                                            style="padding: 24px 24px 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 18px; color: #3e4145;"
+                                        >
+                                            {%- block mail_page_footer_content -%}
+                                                {%- block mail_page_footer_support -%}
+                                                    <div style="padding-bottom: 6px;">
+                                                        {{ 'mail.footer.support'|trans|desc('Need help? We’re here for you.') }}
+                                                        <a
+                                                            class="ibexa-email-footer"
+                                                            href="mailto:support@ibexa.co"
+                                                            style="font-weight: bold; color: #3e4145; text-decoration: underline;"
+                                                        >
+                                                            {{- 'mail.footer.contact_support'|trans|desc('Contact support') -}}
+                                                        </a>
+                                                    </div>
+                                                {%- endblock mail_page_footer_support -%}
+                                                <div>
+                                                    {{ 'mail.footer.copyright'|trans({ '%year%': 'now'|date('Y') })|desc('© %year% Cohesivo. All rights reserved.') }}
+                                                </div>
+                                            {%- endblock mail_page_footer_content -%}
+                                        </td>
                                     </tr>
                                 </table>
-                            {% endset %}
-                            {% set content %}
-                                {%- block mail_footer_content -%}{%- endblock mail_footer_content -%}
-                            {% endset %}
-
-                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with { content: line } only %}
-                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with { content } only %}
-                        {%- endblock mail_footer -%}
-                    </tbody>
+                            {%- endblock mail_page_footer -%}
+                            <!--[if mso]>
+                                </td></tr></table>
+                            <![endif]-->
+                        </td>
+                    </tr>
                 </table>
             </body>
         {%- endblock template_body -%}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="not.available">
+    <header>
+      <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+      <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+    </header>
+    <body>
+      <trans-unit id="5fead14692ef68d090994661c1cecfb24833e663" resname="mail.footer.contact_support">
+        <source>Contact support</source>
+        <target state="new">Contact support</target>
+        <note>key: mail.footer.contact_support</note>
+      </trans-unit>
+      <trans-unit id="c5f7884839ab1ad3e9119dadbdc8b1df155a7b4b" resname="mail.footer.copyright">
+        <source>© %year% Cohesivo. All rights reserved.</source>
+        <target state="new">© %year% Cohesivo. All rights reserved.</target>
+        <note>key: mail.footer.copyright</note>
+      </trans-unit>
+      <trans-unit id="28f3134fd115edf481697883a28137a71ae240fb" resname="mail.footer.support">
+        <source>Need help? We’re here for you.</source>
+        <target state="new">Need help? We’re here for you.</target>
+        <note>key: mail.footer.support</note>
+      </trans-unit>
+      <trans-unit id="13d59358b132092c72f9e197fdbf768cdf05cc11" resname="mail.link_expiration.days">
+        <source>{1}1 day|]1,Inf[%count% days</source>
+        <target state="new">{1}1 day|]1,Inf[%count% days</target>
+        <note>key: mail.link_expiration.days</note>
+      </trans-unit>
+      <trans-unit id="cee4326ad4c1418b17a8739df33c473412c5d3ca" resname="mail.link_expiration.hours">
+        <source>{1}1 hour|]1,Inf[%count% hours</source>
+        <target state="new">{1}1 hour|]1,Inf[%count% hours</target>
+        <note>key: mail.link_expiration.hours</note>
+      </trans-unit>
+      <trans-unit id="24ee995861cf8c882e094b1479a23f4c6396750f" resname="mail.link_expiration.message">
+        <source>This link expires in %duration%</source>
+        <target state="new">This link expires in %duration%</target>
+        <note>key: mail.link_expiration.message</note>
+      </trans-unit>
+      <trans-unit id="1d7a837de78f62e2d87012117140ce2f7df9d06b" resname="mail.link_expiration.minutes">
+        <source>{1}1 minute|]1,Inf[%count% minutes</source>
+        <target state="new">{1}1 minute|]1,Inf[%count% minutes</target>
+        <note>key: mail.link_expiration.minutes</note>
+      </trans-unit>
+      <trans-unit id="226962bcfc0ba7861f87d77c5f48ebcf527eb765" resname="mail.link_fallback.message">
+        <source>If the button doesn’t work in your email client, please copy the following link and paste it into your browser’s address bar:</source>
+        <target state="new">If the button doesn’t work in your email client, please copy the following link and paste it into your browser’s address bar:</target>
+        <note>key: mail.link_fallback.message</note>
+      </trans-unit>
+      <trans-unit id="d10c7a06e83de8e9bbdf56fd19f3c41b4e5a6e2e" resname="mail.link_fallback.open_in_browser">
+        <source>Open in browser</source>
+        <target state="new">Open in browser</target>
+        <note>key: mail.link_fallback.open_in_browser</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
