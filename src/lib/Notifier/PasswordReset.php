@@ -49,9 +49,16 @@ class PasswordReset implements NotifierInterface, LoggerAwareInterface
         User $user,
         string $hashKey
     ): void {
-        if ($this->isNotifierConfigured()) {
-            $this->sendNotification($user, $hashKey);
+        if (!$this->isNotifierConfigured()) {
+            $this->logger?->error(
+                'No password reset e-mail was sent: subscribe {notification} under "ibexa.system.<scope>.notifier.subscriptions" to enable it.',
+                ['notification' => UserPasswordReset::class]
+            );
+
+            return;
         }
+
+        $this->sendNotification($user, $hashKey);
     }
 
     private function sendNotification(
