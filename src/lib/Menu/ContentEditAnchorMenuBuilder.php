@@ -28,6 +28,8 @@ final class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Tran
 
     private const int ITEM_ORDER_SPAN = 10;
 
+    private readonly AsciiSlugger $slugger;
+
     public function __construct(
         MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
@@ -35,6 +37,8 @@ final class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Tran
         private readonly FieldsGroupsList $fieldsGroupsList
     ) {
         parent::__construct($factory, $eventDispatcher);
+
+        $this->slugger = new AsciiSlugger();
     }
 
     protected function getConfigureEventName(): string
@@ -103,14 +107,13 @@ final class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Tran
         $items = [];
         $order = 0;
         $groupNames = $this->fieldsGroupsList->getGroups();
-        $slugger = new AsciiSlugger();
         foreach ($groupedFields as $group => $fields) {
             $order += self::ITEM_ORDER_SPAN;
             $items[$group] = $this->createMenuItem($group, [
                 'label' => $groupNames[$group] ?? $group,
                 'attributes' => [
                     // same id as the section, which the template builds with the Twig "lower" and "slug" filters
-                    'data-target-id' => (string)$slugger->slug(mb_strtolower('ibexa-edit-content-sections-content-fields-' . $group)),
+                    'data-target-id' => (string)$this->slugger->slug(mb_strtolower('ibexa-edit-content-sections-content-fields-' . $group)),
                 ],
                 'extras' => [
                     'orderNumber' => $order,
