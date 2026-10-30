@@ -1292,7 +1292,7 @@ export default class SubItemsModule extends Component {
                 onClick={this.onMoveBtnClick}
                 icon="folder-open-move"
                 type={ButtonType.TertiaryAlt}
-                size={ButtonSize.Medium}
+                size={ButtonSize.Small}
             >
                 {label}
             </Button>,
