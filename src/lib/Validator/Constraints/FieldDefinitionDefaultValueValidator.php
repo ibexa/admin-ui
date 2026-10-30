@@ -63,15 +63,27 @@ class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
     {
         $fieldDefinition = $value->fieldDefinition;
 
-        $properties = [];
-        foreach ($fieldDefinition->attributes() as $property) {
-            $properties[$property] = $fieldDefinition->$property;
-        }
-
         return new CoreFieldDefinition([
+            'id' => $fieldDefinition->getId(),
+            'identifier' => $fieldDefinition->getIdentifier(),
+            'fieldGroup' => $fieldDefinition->getFieldGroup(),
+            'position' => $fieldDefinition->getPosition(),
+            'fieldTypeIdentifier' => $fieldDefinition->getFieldTypeIdentifier(),
+            'isTranslatable' => $fieldDefinition->isTranslatable(),
+            'isThumbnail' => $fieldDefinition->isThumbnail(),
+            'isRequired' => $fieldDefinition->isRequired(),
+            'isInfoCollector' => $fieldDefinition->isInfoCollector(),
+            'isSearchable' => $fieldDefinition->isSearchable(),
+            'defaultValue' => $fieldDefinition->getDefaultValue(),
+            'mainLanguageCode' => $fieldDefinition->getMainLanguageCode(),
+            // No getter for prioritized languages, read through ValueObject::__get()
+            // @phpstan-ignore-next-line
+            'prioritizedLanguages' => $fieldDefinition->prioritizedLanguages,
+            'names' => $fieldDefinition->getNames(),
+            'descriptions' => $fieldDefinition->getDescriptions(),
             'fieldSettings' => $value->fieldSettings ?? $fieldDefinition->getFieldSettings(),
             'validatorConfiguration' => $value->validatorConfiguration ?? $fieldDefinition->getValidatorConfiguration(),
-        ] + $properties);
+        ]);
     }
 
     /**
