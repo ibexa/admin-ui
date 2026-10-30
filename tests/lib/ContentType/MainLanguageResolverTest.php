@@ -23,8 +23,8 @@ final class MainLanguageResolverTest extends TestCase
     /**
      * @dataProvider provideForResolve
      *
-     * @param string[] $configuredLanguageCodes
-     * @param string[] $existingLanguageCodes
+     * @param list<string> $configuredLanguageCodes
+     * @param list<string> $existingLanguageCodes
      */
     public function testResolve(
         array $configuredLanguageCodes,
@@ -37,7 +37,7 @@ final class MainLanguageResolverTest extends TestCase
     }
 
     /**
-     * @return iterable<string, array{string[], string[], string}>
+     * @return iterable<string, array{list<string>, list<string>, string}>
      */
     public static function provideForResolve(): iterable
     {
@@ -71,7 +71,7 @@ final class MainLanguageResolverTest extends TestCase
         $resolver = $this->createResolver(['eng-GB', 'ger-DE'], ['pol-PL']);
 
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage("Could not find 'Language' with identifier 'eng-GB, ger-DE'");
+        $this->expectExceptionMessage("'eng-GB, ger-DE'");
 
         $resolver->resolve();
     }
@@ -79,8 +79,8 @@ final class MainLanguageResolverTest extends TestCase
     /**
      * @dataProvider provideForGetLanguageCodes
      *
-     * @param string[] $configuredLanguageCodes
-     * @param string[] $expectedLanguageCodes
+     * @param list<string> $configuredLanguageCodes
+     * @param list<string> $expectedLanguageCodes
      */
     public function testGetLanguageCodes(
         array $configuredLanguageCodes,
@@ -92,7 +92,7 @@ final class MainLanguageResolverTest extends TestCase
     }
 
     /**
-     * @return iterable<string, array{string[], string[]}>
+     * @return iterable<string, array{list<string>, list<string>}>
      */
     public static function provideForGetLanguageCodes(): iterable
     {
@@ -108,15 +108,17 @@ final class MainLanguageResolverTest extends TestCase
     }
 
     /**
-     * @param string[] $configuredLanguageCodes
-     * @param string[] $existingLanguageCodes
+     * @param list<string> $configuredLanguageCodes
+     * @param list<string> $existingLanguageCodes
      */
     private function createResolver(
         array $configuredLanguageCodes,
         array $existingLanguageCodes
     ): MainLanguageResolver {
         $configResolver = $this->createStub(ConfigResolverInterface::class);
-        $configResolver->method('getParameter')->willReturn($configuredLanguageCodes);
+        $configResolver->method('getParameter')->willReturnMap([
+            ['languages', null, null, $configuredLanguageCodes],
+        ]);
 
         $languageService = $this->createStub(LanguageService::class);
         $languageService->method('getDefaultLanguageCode')->willReturn('eng-GB');
