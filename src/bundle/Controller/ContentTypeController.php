@@ -204,20 +204,11 @@ class ContentTypeController extends Controller
 
         try {
             $language = $this->mainLanguageResolver->resolve();
-            $mainLanguageCode = $language->languageCode;
-
-            $createStruct = $this->contentTypeService->newContentTypeCreateStruct('__new__' . md5((string)microtime(true)));
-            $createStruct->mainLanguageCode = $mainLanguageCode;
-            $createStruct->names = [$mainLanguageCode => 'New content type'];
-
-            $this->metaFieldDefinitionService->addMetaFieldDefinitions($createStruct, $language);
-
-            $contentTypeDraft = $this->contentTypeService->createContentType($createStruct, [$group]);
         } catch (NotFoundException $e) {
             $this->notificationHandler->error(
-                /** @Desc("Cannot create content type. Could not find language with identifier '%languageCode%'") */
+                /** @Desc("Cannot create content type. None of the configured languages exists: %languageCodes%") */
                 'content_type.add.missing_language',
-                ['%languageCode%' => implode(', ', $this->mainLanguageResolver->getLanguageCodes())],
+                ['%languageCodes%' => implode(', ', $this->mainLanguageResolver->getLanguageCodes())],
                 'ibexa_content_type'
             );
 
@@ -225,6 +216,16 @@ class ContentTypeController extends Controller
                 'contentTypeGroupId' => $group->id,
             ]);
         }
+
+        $mainLanguageCode = $language->languageCode;
+
+        $createStruct = $this->contentTypeService->newContentTypeCreateStruct('__new__' . md5((string)microtime(true)));
+        $createStruct->mainLanguageCode = $mainLanguageCode;
+        $createStruct->names = [$mainLanguageCode => 'New content type'];
+
+        $this->metaFieldDefinitionService->addMetaFieldDefinitions($createStruct, $language);
+
+        $contentTypeDraft = $this->contentTypeService->createContentType($createStruct, [$group]);
 
         $form = $this->createUpdateForm($group, $contentTypeDraft, $language);
 
@@ -358,6 +359,23 @@ class ContentTypeController extends Controller
         ContentType $contentType
     ): Response {
         $this->denyAccessUnlessGranted(new Attribute('class', 'update'));
+
+        try {
+            $language = $this->mainLanguageResolver->resolve();
+        } catch (NotFoundException $e) {
+            $this->notificationHandler->error(
+                /** @Desc("Cannot edit content type. None of the configured languages exists: %languageCodes%") */
+                'content_type.edit.missing_language',
+                ['%languageCodes%' => implode(', ', $this->mainLanguageResolver->getLanguageCodes())],
+                'ibexa_content_type'
+            );
+
+            return $this->redirectToRoute('ibexa.content_type.view', [
+                'contentTypeGroupId' => $group->id,
+                'contentTypeId' => $contentType->id,
+            ]);
+        }
+
         try {
             $contentTypeDraft = $this->contentTypeService->loadContentTypeDraft($contentType->id, true);
         } catch (NotFoundException $e) {
@@ -386,7 +404,7 @@ class ContentTypeController extends Controller
             ['contentType' => $contentType]
         );
 
-        $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentTypeDraft);
+        $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentTypeDraft, $language);
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
@@ -795,17 +813,13 @@ class ContentTypeController extends Controller
      */
     private function getDefaultLanguage(ContentTypeDraft $contentTypeDraft): Language
     {
-        $languages = $this->configResolver->getParameter('languages');
-        $languageCode = reset($languages);
-
-        foreach ($languages as $prioritizedLanguage) {
+        foreach ($this->mainLanguageResolver->getLanguageCodes() as $prioritizedLanguage) {
             if (isset($contentTypeDraft->names[$prioritizedLanguage])) {
-                $languageCode = $prioritizedLanguage;
-                break;
+                return $this->languageService->loadLanguage($prioritizedLanguage);
             }
         }
 
-        return $this->languageService->loadLanguage($languageCode);
+        return $this->mainLanguageResolver->resolve();
     }
 
     /**

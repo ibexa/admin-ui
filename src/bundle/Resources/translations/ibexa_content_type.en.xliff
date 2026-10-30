@@ -17,8 +17,8 @@
         <note>key: content_type.action.edit</note>
       </trans-unit>
       <trans-unit id="0a08ba6425acc6e52b75ebbe0b77d90df5cb81a1" resname="content_type.add.missing_language">
-        <source>Cannot create content type. Could not find language with identifier '%languageCode%'</source>
-        <target state="new">Cannot create content type. Could not find language with identifier '%languageCode%'</target>
+        <source>Cannot create content type. None of the configured languages exists: %languageCodes%</source>
+        <target state="new">Cannot create content type. None of the configured languages exists: %languageCodes%</target>
         <note>key: content_type.add.missing_language</note>
       </trans-unit>
       <trans-unit id="5626938e64bdad8be0c090d0018c868960859d0a" resname="content_type.breadcrumb.view">
@@ -115,6 +115,11 @@
         <source>You have to add at least one field definition</source>
         <target state="new">You have to add at least one field definition</target>
         <note>key: content_type.edit.error.no_added_fields_definition</note>
+      </trans-unit>
+      <trans-unit id="fe39d7dcfde39b8925331c1933b9feccb94a5342" resname="content_type.edit.missing_language">
+        <source>Cannot edit content type. None of the configured languages exists: %languageCodes%</source>
+        <target state="new">Cannot edit content type. None of the configured languages exists: %languageCodes%</target>
+        <note>key: content_type.edit.missing_language</note>
       </trans-unit>
       <trans-unit id="f0338ef34826caa021c41ff85413e48601af30b7" resname="content_type.edit.select_language">
         <source>Select a language:</source>

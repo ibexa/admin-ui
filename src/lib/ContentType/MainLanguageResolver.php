@@ -59,7 +59,7 @@ final class MainLanguageResolver
     /**
      * Language codes checked by {@see resolve()}, in order of priority.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getLanguageCodes(): array
     {
