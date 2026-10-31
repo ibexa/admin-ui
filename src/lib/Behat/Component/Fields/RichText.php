@@ -37,7 +37,14 @@ class RichText extends FieldTypeComponent
     private function focusFieldInput(): void
     {
         $this->getDevToolsDriver()->execute('Emulation.setFocusEmulationEnabled', ['enabled' => true]);
-        $this->getFieldInput()->click();
+        // Focus through the editor API instead of clicking: a WebDriver click lands in the middle
+        // of the editable and, since CKEditor 48, moves the caret to the start of the current block,
+        // so a following "enter" splits it there (e.g. an empty <h1> above the typed heading).
+        $this->getSession()->executeScript(sprintf(
+            "document.querySelector('%s %s').ckeditorInstance.editing.view.focus()",
+            $this->parentLocator->getSelector(),
+            $this->getLocator('fieldInput')->getSelector()
+        ));
     }
 
     public function setValue(array $parameters): void
