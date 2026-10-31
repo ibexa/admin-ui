@@ -40,11 +40,21 @@ class RichText extends FieldTypeComponent
         // Focus through the editor API instead of clicking: a WebDriver click lands in the middle
         // of the editable and, since CKEditor 48, moves the caret to the start of the current block,
         // so a following "enter" splits it there (e.g. an empty <h1> above the typed heading).
-        $this->getSession()->executeScript(sprintf(
-            "document.querySelector('%s %s').ckeditorInstance.editing.view.focus()",
-            $this->parentLocator->getSelector(),
-            $this->getLocator('fieldInput')->getSelector()
-        ));
+        $this->getSession()->executeScript(sprintf('%s.editing.view.focus()', $this->getEditorInstanceScript()));
+    }
+
+    /**
+     * Returns a JS expression for the CKEditor instance of the editable that getFieldInput() resolves to.
+     *
+     * Goes through its XPath rather than document.querySelector(), which would return the first match
+     * even when it is hidden (e.g. the same nth field in another field group).
+     */
+    private function getEditorInstanceScript(): string
+    {
+        return sprintf(
+            'document.evaluate(%s, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.ckeditorInstance',
+            json_encode($this->getFieldInput()->getXPath(), JSON_THROW_ON_ERROR)
+        );
     }
 
     public function setValue(array $parameters): void
@@ -177,13 +187,11 @@ class RichText extends FieldTypeComponent
 
     private function executeCommand(string $commandName): void
     {
-        $script = sprintf(
-            "document.querySelector('%s %s').ckeditorInstance.execute('%s')",
-            $this->parentLocator->getSelector(),
-            $this->getLocator('fieldInput')->getSelector(),
-            $commandName
-        );
-        $this->getSession()->executeScript($script);
+        $this->getSession()->executeScript(sprintf(
+            '%s.execute(%s)',
+            $this->getEditorInstanceScript(),
+            json_encode($commandName, JSON_THROW_ON_ERROR)
+        ));
     }
 
     protected function clickElementsToolbarButton(string $buttonText): void
