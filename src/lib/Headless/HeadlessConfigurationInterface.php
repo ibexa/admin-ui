@@ -12,7 +12,8 @@ namespace Ibexa\AdminUi\Headless;
  * Siteaccess-aware configuration of the headless mode, where the site is rendered by an external
  * front-end application (`ibexa.system.<scope>.headless`).
  *
- * All methods resolve the configuration for the current siteaccess unless `$scope` is given.
+ * All methods resolve the configuration for the current siteaccess unless `$scope` is given. In the back office
+ * the current siteaccess is the admin one, so callers there pass the preview siteaccess as `$scope`.
  *
  * `isEnabled()` only reflects the flag: consumers must also check that the URL they need is configured
  * (for example `getPageBuilderPreviewUrl() !== null`) before switching to the headless behaviour.
