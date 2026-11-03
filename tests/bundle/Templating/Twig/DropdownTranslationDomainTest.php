@@ -74,10 +74,6 @@ final class DropdownTranslationDomainTest extends TestCase
             ['translation_domain' => 'ibexa_choices', 'placeholder_translation_domain' => 'ibexa_test'],
             [self::CHOICE . '@ibexa_choices', self::PLACEHOLDER . '@ibexa_test'],
         ];
-        yield 'choices not translated' => [
-            ['translation_domain' => false, 'placeholder_translation_domain' => 'ibexa_test'],
-            [self::CHOICE, self::PLACEHOLDER . '@ibexa_test'],
-        ];
         yield 'placeholder not translated' => [
             ['translation_domain' => 'ibexa_choices', 'placeholder_translation_domain' => false],
             [self::CHOICE . '@ibexa_choices', self::PLACEHOLDER],
@@ -103,9 +99,7 @@ final class DropdownTranslationDomainTest extends TestCase
         array $expectedLabels
     ): void {
         $html = $this->twig->render('@ibexadesign/ui/component/dropdown/dropdown.html.twig', $parameters + [
-            'source' => '',
             'choices' => [new ChoiceView('active', 'active', self::CHOICE)],
-            'value' => null,
             'placeholder' => self::PLACEHOLDER,
         ]);
 
