@@ -216,7 +216,7 @@
     margin: 0 0 calculateRem(15px);
 
     &__pane {
-        padding-top: calculateRem(16px);
+        padding: calculateRem(16px) calculateRem(12px) calculateRem(12px);
 
         .form-group:first-child {
             .ids-label {
