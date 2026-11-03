@@ -201,7 +201,7 @@ select {
 }
 
 .ibexa-container {
-    padding: 0;
+    padding: calculateRem(12px);
     margin-bottom: calculateRem(32px);
 
     @media (min-width: 1921px) {
