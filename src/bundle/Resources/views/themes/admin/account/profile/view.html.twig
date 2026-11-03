@@ -18,7 +18,7 @@
 
 {% block content %}
     <div class="ibexa-user-profile">
-        <header class="ibexa-user-profile__header ibexa-container container">
+        <header class="ibexa-user-profile__header ibexa-card-container container">
             <div class="ibexa-user-profile-name">
                 <h2>{{ ibexa_content_name(user) }}</h2>
             </div>
@@ -32,7 +32,7 @@
 
         <div class="ibexa-user-profile__body">
             <aside class="ibexa-user-profile__aside">
-                <div class="ibexa-user-profile-summary ibexa-container container">
+                <div class="ibexa-user-profile-summary ibexa-card-container container">
                     <div class="ibexa-user-profile-summary__header">
                         <h3 class="ibexa-user-profile-summary__heading">{{ 'user_profile.summary.title'|trans|desc('Summary') }}</h3>
 
@@ -87,7 +87,7 @@
                 </div>
 
                 {% if roles is not empty %}
-                    <div class="ibexa-user-profile-roles ibexa-container container">
+                    <div class="ibexa-user-profile-roles ibexa-card-container container">
                         <div class="ibexa-user-profile-summary__header">
                             <h3 class="ibexa-user-profile-summary__heading">{{ 'user_profile.roles.header'|trans|desc('Roles') }}</h3>
                         </div>
@@ -106,7 +106,7 @@
             {%- endset -%}
 
             {% if user_profile_output is not empty %}
-                <div class="ibexa-user-profile__blocks ibexa-container container">
+                <div class="ibexa-user-profile__blocks ibexa-card-container container">
                     {{ user_profile_output }}
                 </div>
             {% endif %}
