@@ -67,11 +67,6 @@
 
         &.is-invalid {
             @include input-invalid;
-
-            &::before,
-            &::after {
-                background-color: $ibexa-color-danger;
-            }
         }
     }
 
@@ -431,7 +426,7 @@
     &:not(&--disabled):not(&--ghost):not(.is-invalid) {
         .ibexa-dropdown {
             &__selection-info {
-                &:hover {
+                &:where(:not(.is-invalid)):hover {
                     border-color: var(--ibexa-dropdown-primary-color);
 
                     &::before,
@@ -447,11 +442,6 @@
         &.is-invalid .ibexa-dropdown__selection-info:hover,
         .ibexa-dropdown__selection-info.is-invalid:hover {
             border-color: $ibexa-color-danger-700;
-
-            &::before,
-            &::after {
-                background-color: $ibexa-color-danger;
-            }
         }
     }
 
@@ -460,11 +450,6 @@
             &__selection-info {
                 background-image: none;
                 border-color: $ibexa-color-danger;
-
-                &::before,
-                &::after {
-                    background-color: $ibexa-color-danger;
-                }
             }
         }
     }
