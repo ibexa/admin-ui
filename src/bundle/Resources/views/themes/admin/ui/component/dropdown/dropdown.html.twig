@@ -12,7 +12,7 @@
 {% set custom_form = custom_form is defined ? custom_form : true %}
 {% set translation_domain = translation_domain|default(false) %}
 {# The placeholder belongs to the form field, not to its choices: a form passes its own domain for it. #}
-{% set placeholder_translation_domain = placeholder_translation_domain is defined ? placeholder_translation_domain : translation_domain %}
+{% set placeholder_translation_domain = placeholder_translation_domain ?? translation_domain %}
 {% set value = value is defined ? value : null %}
 {% set multiple = multiple|default(false) %}
 {% set no_items = choices_flat|length == 0 %}
