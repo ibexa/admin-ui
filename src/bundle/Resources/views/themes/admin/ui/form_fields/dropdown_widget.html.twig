@@ -9,6 +9,8 @@
             {{- block('choice_widget_collapsed') -}}
         {% endset %}
 
+        {# Choices are translated in choice_translation_domain, the placeholder in the field's translation_domain.
+           A field without a translation_domain keeps translating its placeholder in the choice domain, as before. #}
         {% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
             source: source,
             choices: choices,

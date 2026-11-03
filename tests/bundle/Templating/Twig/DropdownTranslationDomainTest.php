@@ -27,8 +27,10 @@ use Twig\TwigFunction;
 /**
  * Renders the back-office dropdown form widget (form_fields/dropdown_widget.html.twig) and the dropdown
  * component (component/dropdown/dropdown.html.twig), and checks in which translation domain the choice
- * labels and the placeholder are translated. Like Symfony, choices use `choice_translation_domain` and the
- * placeholder uses the field's `translation_domain`.
+ * labels and the placeholder are translated. Choices use `choice_translation_domain` and the placeholder uses
+ * the field's `translation_domain`, as in Symfony's own form theme. Unlike Symfony, a field without a
+ * `translation_domain` keeps translating its placeholder in the choice domain, which is what the dropdown did
+ * before, instead of switching it to "messages".
  *
  * @coversNothing
  */
