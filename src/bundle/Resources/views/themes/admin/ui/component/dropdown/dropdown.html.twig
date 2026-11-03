@@ -191,7 +191,8 @@
                         label: _self.get_translated_label(placeholder, placeholder_translation_domain)|trim|default(default_label),
                     } %}
 
-                    {% include list_item_template_path with { choice: placeholder_choice, custom_form: true } %}
+                    {# The placeholder label is translated above already, so the list item must not translate it again. #}
+                    {% include list_item_template_path with { choice: placeholder_choice, custom_form: true, translation_domain: false } %}
                 {% endif %}
                 {% for choice in preferred_choices %}
                     {% include list_item_template_path with { choice, preferred_choice: true, custom_form, icon: item_icon, icon_class: item_icon_class } %}
