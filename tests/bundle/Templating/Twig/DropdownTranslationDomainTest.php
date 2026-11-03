@@ -176,6 +176,8 @@ final class DropdownTranslationDomainTest extends TestCase
 
         self::assertSame([$expectedChoiceLabel], $this->getLabels($html, 'ibexa-dropdown__item-label'));
         self::assertSame([$expectedPlaceholder], $this->getLabels($html, 'ibexa-dropdown__selected-item-label'));
+        // Both placeholder elements a multiple dropdown renders, one with a label span and one without.
+        self::assertSame([$expectedPlaceholder, $expectedPlaceholder], $this->getSelectedPlaceholders($html));
     }
 
     /**
@@ -252,5 +254,15 @@ final class DropdownTranslationDomainTest extends TestCase
         preg_match_all('~<span class="' . $class . '">(.*?)</span>~s', $html, $matches);
 
         return array_values(array_filter(array_map('trim', $matches[1]), static fn (string $label): bool => $label !== ''));
+    }
+
+    /**
+     * @return list<string>
+     */
+    private function getSelectedPlaceholders(string $html): array
+    {
+        preg_match_all('~<li\s+class="[^"]*ibexa-dropdown__selected-placeholder[^"]*"[^>]*>(.*?)</li>~s', $html, $matches);
+
+        return array_map(static fn (string $content): string => trim(strip_tags($content)), $matches[1]);
     }
 }
