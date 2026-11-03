@@ -31,7 +31,6 @@ final class NotificationStatusChoiceType extends AbstractType
                 'notification.status.unread' => self::NOTIFICATION_STATUS_UNREAD,
             ],
             'translation_domain' => 'ibexa_notifications',
-            'choice_translation_domain' => 'ibexa_notifications',
             'label' => /** @Desc("Status") */ 'notification.status',
         ]);
     }
