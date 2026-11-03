@@ -11,6 +11,8 @@
 {% set min_item_width = min_item_width|default(100) %}
 {% set custom_form = custom_form is defined ? custom_form : true %}
 {% set translation_domain = translation_domain|default(false) %}
+{# The placeholder belongs to the form field, not to its choices: a form passes its own domain for it. #}
+{% set placeholder_translation_domain = placeholder_translation_domain is defined ? placeholder_translation_domain : translation_domain %}
 {% set value = value is defined ? value : null %}
 {% set multiple = multiple|default(false) %}
 {% set no_items = choices_flat|length == 0 %}
@@ -81,7 +83,7 @@
 
                                 {% include selected_item_template_path with {
                                     value: '',
-                                    label: _self.get_translated_label(placeholder, translation_domain)|trim|default(default_label),
+                                    label: _self.get_translated_label(placeholder, placeholder_translation_domain)|trim|default(default_label),
                                 } %}
                             {% else %}
                                 {% set first_choice = choices_flat|first %}
@@ -115,7 +117,7 @@
                             {% if value is empty %}hidden{% endif %}
                         >
                             {% if placeholder is defined and placeholder is not none %}
-                                {{ _self.get_translated_label(placeholder, translation_domain )}}
+                                {{ _self.get_translated_label(placeholder, placeholder_translation_domain)}}
                             {% else %}
                                 {{ 'dropdown.placeholder'|trans|desc("Choose an option") }}
                             {% endif %}
@@ -129,7 +131,7 @@
                     >
                         <span class="ibexa-dropdown__selected-item-label">
                             {% if placeholder is defined and placeholder is not none %}
-                                {{ _self.get_translated_label(placeholder, translation_domain )}}
+                                {{ _self.get_translated_label(placeholder, placeholder_translation_domain)}}
                             {% else %}
                                 {{ 'dropdown.placeholder'|trans|desc("Choose an option") }}
                             {% endif %}
@@ -186,7 +188,7 @@
                     {% set default_label = 'dropdown.placeholder.empty.label'|trans|desc('All') %}
                     {% set placeholder_choice = {
                         value: '',
-                        label: _self.get_translated_label(placeholder, translation_domain)|trim|default(default_label),
+                        label: _self.get_translated_label(placeholder, placeholder_translation_domain)|trim|default(default_label),
                     } %}
 
                     {% include list_item_template_path with { choice: placeholder_choice, custom_form: true } %}
