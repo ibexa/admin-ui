@@ -9,26 +9,19 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Bundle\AdminUi\Templating\Twig;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Bridge\Twig\Extension\FormExtension;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
-use Symfony\Bridge\Twig\Form\TwigRendererEngine;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\FormRenderer;
-use Symfony\Component\Form\Forms;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use Twig\RuntimeLoader\FactoryRuntimeLoader;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
+use Twig\TwigTest;
 
 /**
- * Renders the back-office dropdown (form_fields/dropdown_widget.html.twig, component/dropdown/dropdown.html.twig)
- * and checks the domain every visible label is translated in: choices in `choice_translation_domain`, the
- * placeholder in the field's `translation_domain`. A field without a `translation_domain` keeps translating its
- * placeholder in the choice domain, as before.
+ * Renders the dropdown component (component/dropdown/dropdown.html.twig) and checks the domain every visible
+ * label is translated in: choices in `translation_domain`, the placeholder in `placeholder_translation_domain`,
+ * falling back to `translation_domain` when it isn't passed.
  *
  * @coversNothing
  */
@@ -41,10 +34,8 @@ final class DropdownTranslationDomainTest extends TestCase
 
     protected function setUp(): void
     {
-        $rootDir = dirname(__DIR__, 4);
-
-        $loader = new FilesystemLoader([$rootDir . '/vendor/symfony/twig-bridge/Resources/views/Form']);
-        $loader->addPath($rootDir . '/src/bundle/Resources/views/themes/admin', 'ibexadesign');
+        $loader = new FilesystemLoader();
+        $loader->addPath(dirname(__DIR__, 4) . '/src/bundle/Resources/views/themes/admin', 'ibexadesign');
 
         // Appends the domain to every translated label, so the assertions show where each one was looked up.
         $translator = new class() implements TranslatorInterface {
@@ -68,82 +59,57 @@ final class DropdownTranslationDomainTest extends TestCase
 
         $this->twig = new Environment($loader, ['strict_variables' => true]);
         $this->twig->addExtension(new TranslationExtension($translator));
-        $this->twig->addExtension(new FormExtension());
         $this->twig->addFilter(new TwigFilter('desc', static fn (string $message): string => $message));
         $this->twig->addFunction(new TwigFunction('ibexa_icon_path', static fn (string $icon): string => '#' . $icon));
-
-        $engine = new TwigRendererEngine(
-            ['form_div_layout.html.twig', '@ibexadesign/ui/form_fields/dropdown_widget.html.twig'],
-            $this->twig
-        );
-        $this->twig->addRuntimeLoader(new FactoryRuntimeLoader([
-            FormRenderer::class => static fn (): FormRenderer => new FormRenderer($engine),
-        ]));
+        // Symfony's form test, only compiled here: with the default `custom_form: true` it is never called.
+        $this->twig->addTest(new TwigTest('selectedchoice', static fn (): bool => false));
     }
 
     /**
      * @return iterable<string, array{array<string, mixed>, list<string>}>
      */
-    public static function provideFieldOptions(): iterable
+    public static function provideDomains(): iterable
     {
+        yield 'placeholder in its own domain' => [
+            ['translation_domain' => 'ibexa_choices', 'placeholder_translation_domain' => 'ibexa_test'],
+            [self::CHOICE . '@ibexa_choices', self::PLACEHOLDER . '@ibexa_test'],
+        ];
         yield 'choices not translated' => [
-            ['translation_domain' => 'ibexa_test', 'choice_translation_domain' => false, 'placeholder' => self::PLACEHOLDER],
+            ['translation_domain' => false, 'placeholder_translation_domain' => 'ibexa_test'],
             [self::CHOICE, self::PLACEHOLDER . '@ibexa_test'],
         ];
-        yield 'choices in another domain' => [
-            ['translation_domain' => 'ibexa_test', 'choice_translation_domain' => 'ibexa_choices', 'placeholder' => self::PLACEHOLDER],
-            [self::CHOICE . '@ibexa_choices', self::PLACEHOLDER . '@ibexa_test'],
+        yield 'placeholder not translated' => [
+            ['translation_domain' => 'ibexa_choices', 'placeholder_translation_domain' => false],
+            [self::CHOICE . '@ibexa_choices', self::PLACEHOLDER],
         ];
-        yield 'multiple, choices in another domain' => [
-            [
-                'translation_domain' => 'ibexa_test',
-                'choice_translation_domain' => 'ibexa_choices',
-                'multiple' => true,
-                'attr' => ['placeholder' => self::PLACEHOLDER],
-            ],
-            [self::CHOICE . '@ibexa_choices', self::PLACEHOLDER . '@ibexa_test'],
+        yield 'no placeholder domain passed' => [
+            ['translation_domain' => 'ibexa_test'],
+            [self::CHOICE . '@ibexa_test', self::PLACEHOLDER . '@ibexa_test'],
         ];
-        yield 'only choice_translation_domain set' => [
-            ['choice_translation_domain' => 'ibexa_choices', 'placeholder' => self::PLACEHOLDER],
-            [self::CHOICE . '@ibexa_choices', self::PLACEHOLDER . '@ibexa_choices'],
+        yield 'multiple, placeholder in its own domain' => [
+            ['translation_domain' => 'ibexa_choices', 'placeholder_translation_domain' => 'ibexa_test', 'multiple' => true],
+            [self::CHOICE . '@ibexa_choices', self::PLACEHOLDER . '@ibexa_test'],
         ];
     }
 
     /**
-     * @dataProvider provideFieldOptions
+     * @dataProvider provideDomains
      *
-     * @param array<string, mixed> $fieldOptions
+     * @param array<string, mixed> $parameters
      * @param list<string> $expectedLabels
      */
-    public function testFormWidgetTranslatesChoicesAndPlaceholderInTheirOwnDomain(
-        array $fieldOptions,
+    public function testChoicesAndPlaceholderAreTranslatedInTheirOwnDomain(
+        array $parameters,
         array $expectedLabels
     ): void {
-        $form = Forms::createFormFactory()
-            ->createNamedBuilder('filter', FormType::class)
-            ->add('status', ChoiceType::class, $fieldOptions + ['choices' => [self::CHOICE => 'active']])
-            ->getForm();
-
-        $html = $this->twig
-            ->createTemplate('{{ form_widget(form.status) }}')
-            ->render(['form' => $form->createView()]);
+        $html = $this->twig->render('@ibexadesign/ui/component/dropdown/dropdown.html.twig', $parameters + [
+            'source' => '',
+            'choices' => [new ChoiceView('active', 'active', self::CHOICE)],
+            'value' => null,
+            'placeholder' => self::PLACEHOLDER,
+        ]);
 
         self::assertSame($expectedLabels, $this->getVisibleLabels($html));
-    }
-
-    public function testComponentIncludedWithoutPlaceholderDomainTranslatesEverythingInTranslationDomain(): void
-    {
-        $html = $this->twig
-            ->createTemplate("{% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
-                source: '', choices: choices, value: null, custom_form: true,
-                placeholder: 'status.placeholder', translation_domain: 'ibexa_test'
-            } %}")
-            ->render(['choices' => [new ChoiceView('active', 'active', self::CHOICE)]]);
-
-        self::assertSame(
-            [self::CHOICE . '@ibexa_test', self::PLACEHOLDER . '@ibexa_test'],
-            $this->getVisibleLabels($html)
-        );
     }
 
     /**
