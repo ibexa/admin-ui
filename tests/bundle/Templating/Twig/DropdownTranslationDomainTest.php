@@ -152,7 +152,10 @@ final class DropdownTranslationDomainTest extends TestCase
     ): void {
         $html = $this->renderChoiceWidget([], $fieldOptions + ['placeholder' => self::PLACEHOLDER]);
 
-        self::assertContains($expectedChoiceLabel, $this->getLabels($html, 'ibexa-dropdown__item-label'));
+        self::assertSame(
+            [$expectedPlaceholder, $expectedChoiceLabel],
+            $this->getLabels($html, 'ibexa-dropdown__item-label')
+        );
         self::assertSame([$expectedPlaceholder], $this->getLabels($html, 'ibexa-dropdown__selected-item-label'));
     }
 
@@ -212,7 +215,10 @@ final class DropdownTranslationDomainTest extends TestCase
 
         $html = $template->render(['choices' => [new ChoiceView('active', 'active', self::CHOICE)]]);
 
-        self::assertContains($expectedChoiceLabel, $this->getLabels($html, 'ibexa-dropdown__item-label'));
+        self::assertSame(
+            [$expectedPlaceholder, $expectedChoiceLabel],
+            $this->getLabels($html, 'ibexa-dropdown__item-label')
+        );
         self::assertSame([$expectedPlaceholder], $this->getLabels($html, 'ibexa-dropdown__selected-item-label'));
     }
 
