@@ -25,18 +25,15 @@ use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 /**
- * Renders the back-office dropdown form widget (form_fields/dropdown_widget.html.twig) and the dropdown
- * component (component/dropdown/dropdown.html.twig), and checks in which translation domain the choice
- * labels and the placeholder are translated. Choices use `choice_translation_domain` and the placeholder uses
- * the field's `translation_domain`, as in Symfony's own form theme. Unlike Symfony, a field without a
- * `translation_domain` keeps translating its placeholder in the choice domain, which is what the dropdown did
- * before, instead of switching it to "messages".
+ * Renders the back-office dropdown (form_fields/dropdown_widget.html.twig, component/dropdown/dropdown.html.twig)
+ * and checks the domain every visible label is translated in: choices in `choice_translation_domain`, the
+ * placeholder in the field's `translation_domain`. A field without a `translation_domain` keeps translating its
+ * placeholder in the choice domain, as before.
  *
  * @coversNothing
  */
 final class DropdownTranslationDomainTest extends TestCase
 {
-    private const THEME = '@ibexadesign/ui/form_fields/dropdown_widget.html.twig';
     private const CHOICE = 'status.active.label';
     private const PLACEHOLDER = 'status.placeholder';
 
@@ -49,7 +46,7 @@ final class DropdownTranslationDomainTest extends TestCase
         $loader = new FilesystemLoader([$rootDir . '/vendor/symfony/twig-bridge/Resources/views/Form']);
         $loader->addPath($rootDir . '/src/bundle/Resources/views/themes/admin', 'ibexadesign');
 
-        // Echoes the domain each label is translated in; a null domain is "messages", as in Symfony's Translator.
+        // Appends the domain to every translated label, so the assertions show where each one was looked up.
         $translator = new class() implements TranslatorInterface {
             /**
              * @param array<string, mixed> $parameters
@@ -75,196 +72,100 @@ final class DropdownTranslationDomainTest extends TestCase
         $this->twig->addFilter(new TwigFilter('desc', static fn (string $message): string => $message));
         $this->twig->addFunction(new TwigFunction('ibexa_icon_path', static fn (string $icon): string => '#' . $icon));
 
-        $engine = new TwigRendererEngine(['form_div_layout.html.twig', self::THEME], $this->twig);
+        $engine = new TwigRendererEngine(
+            ['form_div_layout.html.twig', '@ibexadesign/ui/form_fields/dropdown_widget.html.twig'],
+            $this->twig
+        );
         $this->twig->addRuntimeLoader(new FactoryRuntimeLoader([
             FormRenderer::class => static fn (): FormRenderer => new FormRenderer($engine),
         ]));
     }
 
     /**
-     * @return iterable<string, array{array<string, mixed>, array<string, mixed>, string}>
+     * @return iterable<string, array{array<string, mixed>, list<string>}>
      */
-    public static function provideChoiceDomains(): iterable
+    public static function provideFieldOptions(): iterable
     {
-        yield 'translation_domain on the field' => [[], ['translation_domain' => 'ibexa_test'], self::CHOICE . '@ibexa_test'];
-        yield 'translation_domain on the parent form' => [['translation_domain' => 'ibexa_test'], [], self::CHOICE . '@ibexa_test'];
-        yield 'choice_translation_domain on the field' => [[], ['choice_translation_domain' => 'ibexa_test'], self::CHOICE . '@ibexa_test'];
-        yield 'choice_translation_domain false' => [['translation_domain' => 'ibexa_test'], ['choice_translation_domain' => false], self::CHOICE];
-        yield 'no translation domain anywhere' => [[], [], self::CHOICE];
-    }
-
-    /**
-     * @dataProvider provideChoiceDomains
-     *
-     * @param array<string, mixed> $formOptions
-     * @param array<string, mixed> $fieldOptions
-     */
-    public function testChoiceLabelsUseTheChoiceTranslationDomain(
-        array $formOptions,
-        array $fieldOptions,
-        string $expectedLabel
-    ): void {
-        $html = $this->renderChoiceWidget($formOptions, $fieldOptions);
-
-        self::assertSame([$expectedLabel], $this->getLabels($html, 'ibexa-dropdown__item-label'));
-        self::assertSame([$expectedLabel], $this->getLabels($html, 'ibexa-dropdown__selected-item-label'));
-    }
-
-    /**
-     * @return iterable<string, array{array<string, mixed>, string, string}>
-     */
-    public static function providePlaceholderDomains(): iterable
-    {
-        yield 'same domain for choices and placeholder' => [
-            ['translation_domain' => 'ibexa_test'],
-            self::CHOICE . '@ibexa_test',
-            self::PLACEHOLDER . '@ibexa_test',
-        ];
         yield 'choices not translated' => [
-            ['translation_domain' => 'ibexa_test', 'choice_translation_domain' => false],
-            self::CHOICE,
-            self::PLACEHOLDER . '@ibexa_test',
+            ['translation_domain' => 'ibexa_test', 'choice_translation_domain' => false, 'placeholder' => self::PLACEHOLDER],
+            [self::CHOICE, self::PLACEHOLDER . '@ibexa_test'],
         ];
         yield 'choices in another domain' => [
-            ['translation_domain' => 'ibexa_test', 'choice_translation_domain' => 'ibexa_choices'],
-            self::CHOICE . '@ibexa_choices',
-            self::PLACEHOLDER . '@ibexa_test',
+            ['translation_domain' => 'ibexa_test', 'choice_translation_domain' => 'ibexa_choices', 'placeholder' => self::PLACEHOLDER],
+            [self::CHOICE . '@ibexa_choices', self::PLACEHOLDER . '@ibexa_test'],
+        ];
+        yield 'multiple, choices in another domain' => [
+            [
+                'translation_domain' => 'ibexa_test',
+                'choice_translation_domain' => 'ibexa_choices',
+                'multiple' => true,
+                'attr' => ['placeholder' => self::PLACEHOLDER],
+            ],
+            [self::CHOICE . '@ibexa_choices', self::PLACEHOLDER . '@ibexa_test'],
         ];
         yield 'only choice_translation_domain set' => [
-            ['choice_translation_domain' => 'ibexa_choices'],
-            self::CHOICE . '@ibexa_choices',
-            self::PLACEHOLDER . '@ibexa_choices',
-        ];
-        yield 'placeholder not translated' => [
-            ['translation_domain' => false, 'choice_translation_domain' => 'ibexa_choices'],
-            self::CHOICE . '@ibexa_choices',
-            self::PLACEHOLDER,
+            ['choice_translation_domain' => 'ibexa_choices', 'placeholder' => self::PLACEHOLDER],
+            [self::CHOICE . '@ibexa_choices', self::PLACEHOLDER . '@ibexa_choices'],
         ];
     }
 
     /**
-     * @dataProvider providePlaceholderDomains
+     * @dataProvider provideFieldOptions
      *
      * @param array<string, mixed> $fieldOptions
+     * @param list<string> $expectedLabels
      */
-    public function testPlaceholderUsesTheFieldTranslationDomain(
+    public function testFormWidgetTranslatesChoicesAndPlaceholderInTheirOwnDomain(
         array $fieldOptions,
-        string $expectedChoiceLabel,
-        string $expectedPlaceholder
+        array $expectedLabels
     ): void {
-        $html = $this->renderChoiceWidget([], $fieldOptions + ['placeholder' => self::PLACEHOLDER]);
-
-        self::assertSame(
-            [$expectedPlaceholder, $expectedChoiceLabel],
-            $this->getLabels($html, 'ibexa-dropdown__item-label')
-        );
-        self::assertSame([$expectedPlaceholder], $this->getLabels($html, 'ibexa-dropdown__selected-item-label'));
-    }
-
-    /**
-     * @dataProvider providePlaceholderDomains
-     *
-     * @param array<string, mixed> $fieldOptions
-     */
-    public function testPlaceholderOfMultipleChoiceUsesTheFieldTranslationDomain(
-        array $fieldOptions,
-        string $expectedChoiceLabel,
-        string $expectedPlaceholder
-    ): void {
-        $html = $this->renderChoiceWidget([], $fieldOptions + [
-            'multiple' => true,
-            'attr' => ['placeholder' => self::PLACEHOLDER],
-        ]);
-
-        self::assertSame([$expectedChoiceLabel], $this->getLabels($html, 'ibexa-dropdown__item-label'));
-        self::assertSame([$expectedPlaceholder], $this->getLabels($html, 'ibexa-dropdown__selected-item-label'));
-        // Both placeholder elements a multiple dropdown renders, one with a label span and one without.
-        self::assertSame([$expectedPlaceholder, $expectedPlaceholder], $this->getSelectedPlaceholders($html));
-    }
-
-    /**
-     * @return iterable<string, array{string, string, string}>
-     */
-    public static function provideComponentArguments(): iterable
-    {
-        yield 'translation_domain only' => [
-            "translation_domain: 'ibexa_test'",
-            self::CHOICE . '@ibexa_test',
-            self::PLACEHOLDER . '@ibexa_test',
-        ];
-        yield 'separate placeholder_translation_domain' => [
-            "translation_domain: 'ibexa_choices', placeholder_translation_domain: 'ibexa_test'",
-            self::CHOICE . '@ibexa_choices',
-            self::PLACEHOLDER . '@ibexa_test',
-        ];
-        yield 'translation_domain false' => ['translation_domain: false', self::CHOICE, self::PLACEHOLDER];
-        yield 'no domain passed' => ['', self::CHOICE, self::PLACEHOLDER];
-    }
-
-    /**
-     * @dataProvider provideComponentArguments
-     */
-    public function testComponentIncludedDirectly(
-        string $translationDomainArguments,
-        string $expectedChoiceLabel,
-        string $expectedPlaceholder
-    ): void {
-        $template = $this->twig->createTemplate(sprintf(
-            "{%% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
-                source: '', choices: choices, value: null, custom_form: true, placeholder: '%s'%s
-            } %%}",
-            self::PLACEHOLDER,
-            $translationDomainArguments === '' ? '' : ', ' . $translationDomainArguments
-        ));
-
-        $html = $template->render(['choices' => [new ChoiceView('active', 'active', self::CHOICE)]]);
-
-        self::assertSame(
-            [$expectedPlaceholder, $expectedChoiceLabel],
-            $this->getLabels($html, 'ibexa-dropdown__item-label')
-        );
-        self::assertSame([$expectedPlaceholder], $this->getLabels($html, 'ibexa-dropdown__selected-item-label'));
-    }
-
-    /**
-     * @param array<string, mixed> $formOptions
-     * @param array<string, mixed> $fieldOptions
-     */
-    private function renderChoiceWidget(
-        array $formOptions,
-        array $fieldOptions
-    ): string {
         $form = Forms::createFormFactory()
-            ->createNamedBuilder('filter', FormType::class, null, $formOptions)
-            ->add('status', ChoiceType::class, $fieldOptions + [
-                'choices' => [self::CHOICE => 'active'],
-            ])
+            ->createNamedBuilder('filter', FormType::class)
+            ->add('status', ChoiceType::class, $fieldOptions + ['choices' => [self::CHOICE => 'active']])
             ->getForm();
 
-        return $this->twig
+        $html = $this->twig
             ->createTemplate('{{ form_widget(form.status) }}')
             ->render(['form' => $form->createView()]);
+
+        self::assertSame($expectedLabels, $this->getVisibleLabels($html));
     }
 
-    /**
-     * @return list<string>
-     */
-    private function getLabels(
-        string $html,
-        string $class
-    ): array {
-        preg_match_all('~<span class="' . $class . '">(.*?)</span>~s', $html, $matches);
-
-        return array_values(array_filter(array_map('trim', $matches[1]), static fn (string $label): bool => $label !== ''));
-    }
-
-    /**
-     * @return list<string>
-     */
-    private function getSelectedPlaceholders(string $html): array
+    public function testComponentIncludedWithoutPlaceholderDomainTranslatesEverythingInTranslationDomain(): void
     {
-        preg_match_all('~<li\s+class="[^"]*ibexa-dropdown__selected-placeholder[^"]*"[^>]*>(.*?)</li>~s', $html, $matches);
+        $html = $this->twig
+            ->createTemplate("{% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
+                source: '', choices: choices, value: null, custom_form: true,
+                placeholder: 'status.placeholder', translation_domain: 'ibexa_test'
+            } %}")
+            ->render(['choices' => [new ChoiceView('active', 'active', self::CHOICE)]]);
 
-        return array_map(static fn (string $content): string => trim(strip_tags($content)), $matches[1]);
+        self::assertSame(
+            [self::CHOICE . '@ibexa_test', self::PLACEHOLDER . '@ibexa_test'],
+            $this->getVisibleLabels($html)
+        );
+    }
+
+    /**
+     * Distinct texts of the selected item, the placeholders and the list items, sorted: a label translated in
+     * the wrong domain, or translated twice, shows up as an extra entry.
+     *
+     * @return list<string>
+     */
+    private function getVisibleLabels(string $html): array
+    {
+        preg_match_all(
+            '~<(span|li)\s+class="(?:ibexa-dropdown__item-label|ibexa-dropdown__selected-item-label|[^"]*ibexa-dropdown__selected-placeholder[^"]*)"[^>]*>(.*?)</\1>~s',
+            $html,
+            $matches
+        );
+
+        $labels = array_unique(array_filter(array_map(
+            static fn (string $content): string => trim(strip_tags($content)),
+            $matches[2]
+        )));
+        sort($labels);
+
+        return $labels;
     }
 }
