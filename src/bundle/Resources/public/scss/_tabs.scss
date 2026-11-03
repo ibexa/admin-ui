@@ -216,14 +216,12 @@
     margin: 0 0 calculateRem(15px);
 
     &__pane {
+        padding-top: calculateRem(16px);
+
         .form-group:first-child {
             .ids-label {
                 margin-top: 0;
             }
-        }
-
-        .ibexa-table-header {
-            margin-top: calculateRem(30px);
         }
     }
 

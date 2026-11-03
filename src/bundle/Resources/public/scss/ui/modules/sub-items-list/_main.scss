@@ -3,7 +3,6 @@
 @use 'sass:color';
 
 .m-sub-items {
-    margin-top: calculateRem(30px);
     max-width: 100%;
     background: $ibexa-color-white;
     border-radius: $ibexa-border-radius;
