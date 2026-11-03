@@ -38,6 +38,7 @@
         ~ (is_ghost|default(false) ? 'ibexa-dropdown--ghost ')
         ~ (is_selector ? 'ibexa-dropdown--selector ')
         ~ (no_items and not is_dynamic or is_disabled ? 'ibexa-dropdown--disabled ')
+        ~ (is_invalid|default(false) ? 'is-invalid ')
         ~ class|default('') ~ ' '
         ~ attr.class|default('') ~ ' ')|trim,
     hidden: attr.hidden|default(is_hidden|default(false) ? 'hidden' : false)
