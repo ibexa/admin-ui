@@ -1,0 +1,46 @@
+name: Playwright tests (PHP)
+
+# PoC: Trash scenarios via PHPUnit + playwright-php/playwright-symfony
+# (in-process kernel routing), independent of any TS Playwright work.
+#
+# dependencies.json pins ibexa/cohesivo-playwright to this PR's own branch —
+# drop that pin once both are merged.
+
+on:
+    push:
+        branches:
+            - '[0-9]+.[0-9]+'
+    pull_request: ~
+
+jobs:
+    playwright-php-oss:
+        name: "Playwright (PHP)/OSS"
+        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@playwright-php-poc
+        with:
+            project-edition: 'oss'
+            test-package: 'admin-ui'
+        secrets: inherit
+
+    playwright-php-headless:
+        name: "Playwright (PHP)/Headless"
+        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@playwright-php-poc
+        with:
+            project-edition: 'headless'
+            test-package: 'admin-ui'
+        secrets: inherit
+
+    playwright-php-experience:
+        name: "Playwright (PHP)/Experience"
+        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@playwright-php-poc
+        with:
+            project-edition: 'experience'
+            test-package: 'admin-ui'
+        secrets: inherit
+
+    playwright-php-commerce:
+        name: "Playwright (PHP)/Commerce"
+        uses: ibexa/gh-workflows/.github/workflows/playwright-browser-tests.yml@playwright-php-poc
+        with:
+            project-edition: 'commerce'
+            test-package: 'admin-ui'
+        secrets: inherit
