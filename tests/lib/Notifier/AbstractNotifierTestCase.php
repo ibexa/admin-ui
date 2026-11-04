@@ -37,7 +37,7 @@ abstract class AbstractNotifierTestCase extends TestCase
     protected function mockConfigResolverGetParameter(array $subscriptions): void
     {
         $this->configResolver
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getParameter')
             ->with('notifications.subscriptions')
             ->willReturn($subscriptions);
@@ -49,7 +49,7 @@ abstract class AbstractNotifierTestCase extends TestCase
     protected function mockLoggerError(string $notification): void
     {
         $this->logger
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('error')
             ->with(
                 self::stringContains('notifier.subscriptions'),
