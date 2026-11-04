@@ -256,7 +256,7 @@ final class DownloadImageController extends Controller
         );
         $query->limit = $this->downloadLimit;
 
-        return $this->searchService->findContent($query, [], false);
+        return $this->searchService->findContent($query);
     }
 
     /**
