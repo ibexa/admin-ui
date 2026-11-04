@@ -12,23 +12,26 @@ use Ibexa\AdminUi\REST\Value\BulkOperation;
 use Ibexa\AdminUi\REST\Value\BulkOperationResponse;
 use Ibexa\AdminUi\REST\Value\Operation;
 use Ibexa\AdminUi\REST\Value\OperationResponse;
+use Ibexa\Contracts\Rest\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Rest\UriParser\UriParserInterface;
 use Ibexa\Rest\Message;
 use Ibexa\Rest\Server\Controller as RestController;
+use Ibexa\Rest\Server\Exceptions\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class BulkOperationController extends RestController
 {
-    /** @var HttpKernelInterface */
-    private $httpKernel;
+    private HttpKernelInterface $httpKernel;
 
-    /**
-     * @param HttpKernelInterface $httpKernel
-     */
+    private UriParserInterface $uriParser;
+
     public function __construct(
-        HttpKernelInterface $httpKernel
+        HttpKernelInterface $httpKernel,
+        UriParserInterface $uriParser
     ) {
         $this->httpKernel = $httpKernel;
+        $this->uriParser = $uriParser;
     }
 
     /**
@@ -70,6 +73,8 @@ class BulkOperationController extends RestController
      * @param Operation $operation
      *
      * @return Request
+     *
+     * @throws BadRequestException
      */
     private function buildSubRequest(
         Request $request,
@@ -87,10 +92,19 @@ class BulkOperationController extends RestController
             ],
             $operation->content
         );
-        $subRequest->setSession($request->getSession());
         foreach ($operation->headers as $name => $value) {
             $subRequest->headers->set($name, $value);
         }
+
+        // Sub-requests bypass checks applied to main requests (e.g. fragment URI signing),
+        // so only existing REST routes can be targeted
+        try {
+            $this->uriParser->matchUri($subRequest->getPathInfo(), $subRequest->getMethod());
+        } catch (InvalidArgumentException $e) {
+            throw new BadRequestException('Bulk operation URI must point to a REST resource.', 0, $e);
+        }
+
+        $subRequest->setSession($request->getSession());
 
         return $subRequest;
     }
