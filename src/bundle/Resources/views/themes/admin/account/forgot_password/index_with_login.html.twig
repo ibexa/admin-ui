@@ -4,7 +4,7 @@
 
 {%- block content -%}
     <div class="ibexa-login__actions-headline">{{ 'authentication.forgot_password'|trans|desc('Forgot password') }}</div>
-    <p>
+    <p class="ibexa-login__actions-description">
         {{ 'ezplatform.forgot_user_password.login'|trans|desc('This email is connected with several accounts. Enter your login instead.') }}
     </p>
     {% if form_forgot_user_password_with_login is defined %}
