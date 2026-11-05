@@ -123,6 +123,10 @@
         }
     }
 
+    &__forgot-password-instructions {
+        color: $color-neutral-160;
+    }
+
     &__forgot-password-form {
         margin-top: calculateRem(16px);
     }
