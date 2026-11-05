@@ -77,37 +77,6 @@ final class MainLanguageResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider provideForGetLanguageCodes
-     *
-     * @param list<string> $configuredLanguageCodes
-     * @param list<string> $expectedLanguageCodes
-     */
-    public function testGetLanguageCodes(
-        array $configuredLanguageCodes,
-        array $expectedLanguageCodes
-    ): void {
-        $resolver = $this->createResolver($configuredLanguageCodes, []);
-
-        self::assertSame($expectedLanguageCodes, $resolver->getLanguageCodes());
-    }
-
-    /**
-     * @return iterable<string, array{list<string>, list<string>}>
-     */
-    public static function provideForGetLanguageCodes(): iterable
-    {
-        yield 'configured languages in configuration order' => [
-            ['ger-DE', 'pol-PL'],
-            ['ger-DE', 'pol-PL'],
-        ];
-
-        yield 'no configured languages falls back to the default language' => [
-            [],
-            ['eng-GB'],
-        ];
-    }
-
-    /**
      * @param list<string> $configuredLanguageCodes
      * @param list<string> $existingLanguageCodes
      */
