@@ -206,9 +206,9 @@ class ContentTypeController extends Controller
             $language = $this->mainLanguageResolver->resolve();
         } catch (NotFoundException $e) {
             $this->notificationHandler->error(
-                /** @Desc("Cannot create content type. None of the configured languages exists: %languageCodes%") */
+                /** @Desc("Cannot create content type. None of the configured languages exists: %languageCode%") */
                 'content_type.add.missing_language',
-                ['%languageCodes%' => implode(', ', $this->mainLanguageResolver->getLanguageCodes())],
+                ['%languageCode%' => implode(', ', $this->mainLanguageResolver->getLanguageCodes())],
                 'ibexa_content_type'
             );
 
@@ -360,25 +360,47 @@ class ContentTypeController extends Controller
     ): Response {
         $this->denyAccessUnlessGranted(new Attribute('class', 'update'));
 
-        try {
-            $language = $this->mainLanguageResolver->resolve();
-        } catch (NotFoundException $e) {
-            $this->notificationHandler->error(
-                /** @Desc("Cannot edit content type. None of the configured languages exists: %languageCodes%") */
-                'content_type.edit.missing_language',
-                ['%languageCodes%' => implode(', ', $this->mainLanguageResolver->getLanguageCodes())],
-                'ibexa_content_type'
-            );
+        $form = $this->contentTypeFormFactory->contentTypeEdit(
+            new ContentTypeEditData(),
+            null,
+            ['contentType' => $contentType]
+        );
+        $form->handleRequest($request);
 
-            return $this->redirectToRoute('ibexa.content_type.view', [
-                'contentTypeGroupId' => $group->id,
-                'contentTypeId' => $contentType->id,
-            ]);
+        // The language picked in the "Edit" form is one of the content type translations, so it exists
+        $language = null;
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var ContentTypeEditData $data */
+            $data = $form->getData();
+            $language = $data->getLanguage();
         }
 
         try {
             $contentTypeDraft = $this->contentTypeService->loadContentTypeDraft($contentType->id, true);
         } catch (NotFoundException $e) {
+            $contentTypeDraft = null;
+        }
+
+        if ($language === null) {
+            // Resolved before a draft is created, so that no draft is left behind when editing is not possible
+            try {
+                $language = $this->getDefaultLanguage($contentTypeDraft ?? $contentType);
+            } catch (NotFoundException $e) {
+                $this->notificationHandler->error(
+                    /** @Desc("Cannot edit content type. None of the configured languages exists: %languageCode%") */
+                    'content_type.edit.missing_language',
+                    ['%languageCode%' => implode(', ', $this->mainLanguageResolver->getLanguageCodes())],
+                    'ibexa_content_type'
+                );
+
+                return $this->redirectToRoute('ibexa.content_type.view', [
+                    'contentTypeGroupId' => $group->id,
+                    'contentTypeId' => $contentType->id,
+                ]);
+            }
+        }
+
+        if ($contentTypeDraft === null) {
             $contentTypeDraft = $this->contentTypeService->createContentTypeDraft($contentType);
         }
 
@@ -398,15 +420,9 @@ class ContentTypeController extends Controller
             ]);
         }
 
-        $form = $this->contentTypeFormFactory->contentTypeEdit(
-            new ContentTypeEditData(),
-            null,
-            ['contentType' => $contentType]
-        );
-
+        // The same language as the one the update form opens in
         $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentTypeDraft, $language);
 
-        $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (ContentTypeEditData $data) use ($contentTypeDraft): RedirectResponse {
                 $contentTypeGroup = $data->getContentTypeGroup();
@@ -427,6 +443,7 @@ class ContentTypeController extends Controller
         return $this->redirectToRoute('ibexa.content_type.update', [
             'contentTypeId' => $contentTypeDraft->id,
             'contentTypeGroupId' => $group->id,
+            'toLanguageCode' => $language->languageCode,
         ]);
     }
 
@@ -498,7 +515,21 @@ class ContentTypeController extends Controller
         ?Language $baseLanguage = null
     ) {
         if (!$language) {
-            $language = $this->getDefaultLanguage($contentTypeDraft);
+            try {
+                $language = $this->getDefaultLanguage($contentTypeDraft);
+            } catch (NotFoundException $e) {
+                $this->notificationHandler->error(
+                    /** @Desc("Cannot edit content type. None of the configured languages exists: %languageCode%") */
+                    'content_type.edit.missing_language',
+                    ['%languageCode%' => implode(', ', $this->mainLanguageResolver->getLanguageCodes())],
+                    'ibexa_content_type'
+                );
+
+                // The group view, as a draft of a new content type has no content type view
+                return $this->redirectToRoute('ibexa.content_type_group.view', [
+                    'contentTypeGroupId' => $group->id,
+                ]);
+            }
         }
 
         $form = $this->createUpdateForm($group, $contentTypeDraft, $language, $baseLanguage);
@@ -811,10 +842,10 @@ class ContentTypeController extends Controller
     /**
      * @throws NotFoundException
      */
-    private function getDefaultLanguage(ContentTypeDraft $contentTypeDraft): Language
+    private function getDefaultLanguage(ContentType $contentType): Language
     {
         foreach ($this->mainLanguageResolver->getLanguageCodes() as $prioritizedLanguage) {
-            if (isset($contentTypeDraft->names[$prioritizedLanguage])) {
+            if (isset($contentType->names[$prioritizedLanguage])) {
                 return $this->languageService->loadLanguage($prioritizedLanguage);
             }
         }
