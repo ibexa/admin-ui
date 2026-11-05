@@ -89,14 +89,14 @@
             const container = this.getFieldTypeContainer(input.closest(this.fieldSelector));
             const methodName = isError ? 'add' : 'remove';
             const nodes = this.findValidationStateNodes(container, input, config.invalidStateSelectors);
-            const dsInputs = [input, ...nodes].filter((el) => el.classList.contains('ids-input'));
+            const dsInputs = [input, ...nodes].filter((element) => element.classList.contains('ids-input'));
             const dsDropdown = input.closest('.ids-dropdown');
 
             container.classList[methodName](this.classInvalid);
             input.classList[methodName](this.classInvalid);
 
-            nodes.forEach((el) => el.classList[methodName](this.classInvalid));
-            dsInputs.forEach((el) => el.classList[methodName]('ids-input--error'));
+            nodes.forEach((element) => element.classList[methodName](this.classInvalid));
+            dsInputs.forEach((element) => element.classList[methodName]('ids-input--error'));
 
             if (dsDropdown) {
                 dsDropdown.classList[methodName]('ids-dropdown--error');
