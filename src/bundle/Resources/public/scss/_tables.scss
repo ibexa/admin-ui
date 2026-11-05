@@ -303,7 +303,6 @@
     justify-content: space-between;
     align-items: center;
     padding: calculateRem(8px) 0 calculateRem(24px);
-    border-bottom: calculateRem(1px) solid $ibexa-color-dark-200;
 
     &__headline {
         font-size: $ibexa-text-font-size-large;
