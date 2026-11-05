@@ -1534,6 +1534,7 @@ export default class SubItemsModule extends Component {
         this.adaptiveItems = new ibexa.core.AdaptiveItems({
             itemHiddenClass: 'ibexa-adaptive-items__item--hidden',
             container: this._refAdaptiveItemsWrapper.current,
+            selectorFocusableElement: this._refAdaptiveItemMoreBtn.current.querySelector('.ids-btn'),
             getActiveItem: () => null,
             onAdapted: (visibleItems, hiddenItems) => {
                 const adaptiveItemsIterableArr = [...this.adaptiveItems.items];
