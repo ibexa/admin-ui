@@ -6,6 +6,7 @@ export interface PopupMenuItemData {
     id?: string | number;
     disabled?: boolean;
     href?: string;
+    rel?: string;
     target?: HTMLAttributeAnchorTarget;
 }
 

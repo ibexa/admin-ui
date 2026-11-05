@@ -34,6 +34,8 @@
                     correspondingMenuItem?.classList.toggle('ibexa-tabs__tab--error', hasGroupError);
 
                     if (correspondingMenuItemLink) {
+                        correspondingMenuItemLink.classList.toggle('ids-tabs__tab--error', hasGroupError);
+
                         const tabLinkId = correspondingMenuItemLink.id;
                         const popupMenuItem = popupMenu.querySelector(`[data-tab-link-id="${tabLinkId}"]`);
 

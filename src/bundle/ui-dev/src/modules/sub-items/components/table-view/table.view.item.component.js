@@ -23,6 +23,7 @@ export default class TableViewItemComponent extends PureComponent {
         this.enablePriorityInput = this.enablePriorityInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
+        this.handlePriorityInputKeyDown = this.handlePriorityInputKeyDown.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.onSelectCheckboxChange = this.onSelectCheckboxChange.bind(this);
         this.setPriorityInputRef = this.setPriorityInputRef.bind(this);
@@ -105,6 +106,24 @@ export default class TableViewItemComponent extends PureComponent {
             priorityInputEnabled: false,
             startingPriorityValue: this._refPriorityInput.value,
         }));
+    }
+
+    /**
+     * Handles priority input keyboard events.
+     * Submits the new priority value on Enter and cancels the update on Escape.
+     *
+     * @method handlePriorityInputKeyDown
+     * @param {Event} event
+     * @memberof TableViewItemComponent
+     */
+    handlePriorityInputKeyDown(event) {
+        if (event.key === 'Enter') {
+            this.handleSubmit(event);
+            this._refPriorityInput.blur();
+        } else if (event.key === 'Escape') {
+            this.handleCancel(event);
+            this._refPriorityInput.blur();
+        }
     }
 
     /**
@@ -202,10 +221,15 @@ export default class TableViewItemComponent extends PureComponent {
             type: 'number',
             value: this.state.priorityValue,
         };
+        const extraInputAttrs = {
+            className: 'c-table-view-item__priority-value',
+        };
         const priorityWrapperAttrs = {};
         const innerWrapperAttrs = {};
 
-        if (!this.state.priorityInputEnabled) {
+        if (this.state.priorityInputEnabled) {
+            extraInputAttrs.onKeyDown = this.handlePriorityInputKeyDown;
+        } else {
             priorityWrapperAttrs.onClick = this.enablePriorityInput;
             innerWrapperAttrs.hidden = true;
         }
@@ -214,9 +238,7 @@ export default class TableViewItemComponent extends PureComponent {
             <div className="c-table-view-item__priority-wrapper" {...priorityWrapperAttrs}>
                 <div className="c-table-view-item__inner-wrapper c-table-view-item__inner-wrapper--input">
                     <InputTextInput
-                        extraInputAttrs={{
-                            className: 'c-table-view-item__priority-value',
-                        }}
+                        extraInputAttrs={extraInputAttrs}
                         name="priority"
                         onChange={this.storePriorityValue}
                         processActions={() => []}

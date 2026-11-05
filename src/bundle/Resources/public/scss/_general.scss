@@ -22,7 +22,7 @@ a {
         color: $ibexa-color-dark-300;
     }
 
-    &:where(:not(.ids-btn)) {
+    &:where(:not(.ids-btn, .ids-tabs__tab)) {
         &:active,
         &:focus,
         &:hover {

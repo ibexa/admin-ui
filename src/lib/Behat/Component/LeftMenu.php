@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
+use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
@@ -49,11 +50,23 @@ final class LeftMenu extends Component
     {
         $this->ensureMenuIsExpanded();
 
-        $this->getHTMLPage()
-            ->setTimeout(5)
-            ->findAll($this->getLocator('secondLevelItemLabel'))
-            ->getByCriterion(new ElementTextCriterion($subTabName))
-            ->click();
+        $this->findSubTab($subTabName)->click();
+    }
+
+    /**
+     * The second level items are not all visible at once while the page is still being set up,
+     * so the lookup is retried instead of failing on the first incomplete list.
+     */
+    private function findSubTab(string $subTabName): ElementInterface
+    {
+        return $this->getHTMLPage()->setTimeout(5)->waitUntil(
+            function () use ($subTabName): ElementInterface {
+                return $this->getHTMLPage()
+                    ->findAll($this->getLocator('secondLevelItemLabel'))
+                    ->getByCriterion(new ElementTextCriterion($subTabName));
+            },
+            sprintf('Second level menu item "%s" did not become visible.', $subTabName)
+        );
     }
 
     public function toggleMenu(): void

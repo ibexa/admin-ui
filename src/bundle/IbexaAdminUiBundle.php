@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi;
 
-use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\ComponentPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\FieldTypeFormMapperDispatcherPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\LimitationFormMapperPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\LimitationValueMapperPass;
@@ -45,7 +44,6 @@ final class IbexaAdminUiBundle extends Bundle
     {
         $container->addCompilerPass(new TabPass());
         $container->addCompilerPass(new UiConfigProviderPass());
-        $container->addCompilerPass(new ComponentPass());
         $container->addCompilerPass(new LimitationFormMapperPass());
         $container->addCompilerPass(new LimitationValueMapperPass());
         $container->addCompilerPass(new FieldTypeFormMapperDispatcherPass());

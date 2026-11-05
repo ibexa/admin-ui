@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Integration\AdminUi;
 
 use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
-use Hautelook\TemplatedUriBundle\HautelookTemplatedUriBundle;
 use Ibexa\AdminUi\Util\ContentTypeFieldsExtractorInterface;
 use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
 use Ibexa\Bundle\ContentForms\IbexaContentFormsBundle;
@@ -47,7 +46,6 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
         // required by Bootstrapper: provides HooksExecutorInterface and the built-in hooks
         yield new IbexaTestCoreBundle();
 
-        yield new HautelookTemplatedUriBundle();
         yield new KnpMenuBundle();
         yield new WebpackEncoreBundle();
         yield new DAMADoctrineTestBundle();
