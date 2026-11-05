@@ -20,7 +20,7 @@
 
 .ibexa-notification-list {
     display: flex;
-    align-items: stretch;
+    align-items: flex-start;
     margin-bottom: calculateRem(48px);
 
     &__container {
@@ -63,8 +63,8 @@
 
     &__filters-wrapper {
         width: calculateRem(400px);
-        border-left: calculateRem(1px) solid $ibexa-color-light;
-        padding: calculateRem(16px) 0;
+        border: calculateRem(1px) solid $ibexa-color-light;
+        border-radius: $ibexa-border-radius;
         background-color: $ibexa-color-white;
         transition: width $ibexa-admin-transition-duration $ibexa-admin-transition;
     }
