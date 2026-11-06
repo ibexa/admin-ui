@@ -4,11 +4,12 @@
 
 {%- block content -%}
     <div class="ibexa-login__actions-headline">{{ 'authentication.forgot_password'|trans|desc('Forgot password') }}</div>
+    <p class="ibexa-login__actions-description">{{ 'authentication.forgot_password.instructions'|trans|desc('Enter your email. We’ll email instructions on how to reset your password.') }}</p>
     {% if reason == userForgotPasswordReasonMigration %}
-        <p>{{ 'ezplatform.forgot_password.reset_your_password.reason.migration'|trans|desc('Your password has expired, change it.') }}</p>
+        <p class="ibexa-login__actions-description">{{ 'ezplatform.forgot_password.reset_your_password.reason.migration'|trans|desc('Your password has expired, change it.') }}</p>
     {% endif %}
     {% if form_forgot_user_password is defined %}
-        {{ form_start(form_forgot_user_password, {'attr': {'class': 'ibexa-form-validate ibexa-login__forgot-password-form'}}) }}
+        {{ form_start(form_forgot_user_password, {'attr': {'class': 'ibexa-form-validate'}}) }}
         <fieldset>
             {{ form_row(form_forgot_user_password.email, {
                 'attr': {
