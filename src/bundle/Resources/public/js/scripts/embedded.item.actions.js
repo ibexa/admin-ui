@@ -277,7 +277,7 @@
         menuLoader.classList.add('ibexa-popup-menu--hidden');
     };
 
-    actionsMenuTriggerBtns.forEach((actionsMenuTriggerBtn) => {
+    const attachMenuTrigger = (actionsMenuTriggerBtn) => {
         actionsMenuTriggerBtn.addEventListener(
             'click',
             (event) => {
@@ -299,7 +299,17 @@
             },
             false,
         );
-    });
+    };
+
+    actionsMenuTriggerBtns.forEach(attachMenuTrigger);
+
+    doc.body.addEventListener(
+        'ibexa-content-field-updated',
+        (event) => {
+            event.target.querySelectorAll('.ibexa-embedded-item-actions__menu-trigger-btn').forEach(attachMenuTrigger);
+        },
+        false,
+    );
 
     doc.body.addEventListener('ibexa-embedded-item:create-dynamic-menu', (event) => {
         const menuData = getMenuData({ event });
