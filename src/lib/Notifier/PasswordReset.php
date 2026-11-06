@@ -16,10 +16,14 @@ use Ibexa\Contracts\Notifications\Value\Notification\SymfonyNotificationAdapter;
 use Ibexa\Contracts\Notifications\Value\Recipent\SymfonyRecipientAdapter;
 use Ibexa\Contracts\Notifications\Value\Recipent\UserRecipient;
 use Ibexa\Contracts\User\PasswordReset\NotifierInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use Twig\Environment;
 
-class PasswordReset implements NotifierInterface
+class PasswordReset implements NotifierInterface, LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     private ConfigResolverInterface $configResolver;
 
     private Environment $twig;
