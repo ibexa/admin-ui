@@ -1,3 +1,4 @@
+{% block empty_table_body_row %}
 <tr class="ibexa-table__row">
     <td class="ibexa-table__empty-table-cell" colspan="{{ colspan|default(9999) }}">
         <img
@@ -20,3 +21,4 @@
         </div>
     </td>
 </tr>
+{% endblock %}
