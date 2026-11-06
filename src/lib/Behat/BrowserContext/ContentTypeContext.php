@@ -49,8 +49,10 @@ final readonly class ContentTypeContext implements Context
     }
 
     #[Then('content type :contentTypeName has proper fields')]
-    public function contentTypeHasProperFields(TableNode $table): void
-    {
+    public function contentTypeHasProperFields(
+        string $contentTypeName,
+        TableNode $table
+    ): void {
         foreach ($table->getHash() as $row) {
             Assert::true($this->contentTypePage->hasFieldType(
                 ['Name' => $row['fieldName'], 'Type' => $row['fieldType']]

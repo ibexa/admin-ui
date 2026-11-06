@@ -90,8 +90,10 @@ final readonly class RolesContext implements Context
     }
 
     #[Then('there are assignments on the :roleName assignments list')]
-    public function thereAreAssignments(TableNode $expectedAssignments): void
-    {
+    public function thereAreAssignments(
+        string $roleName,
+        TableNode $expectedAssignments
+    ): void {
         $this->rolePage->verifyAssignments($expectedAssignments->getHash());
     }
 
