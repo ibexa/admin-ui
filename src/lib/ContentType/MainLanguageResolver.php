@@ -63,11 +63,12 @@ final class MainLanguageResolver
      */
     public function getLanguageCodes(): array
     {
+        /** @var list<string>|null $languageCodes */
         $languageCodes = $this->configResolver->getParameter('languages');
-        if (empty($languageCodes)) {
-            return [$this->languageService->getDefaultLanguageCode()];
+        if (is_array($languageCodes) && $languageCodes !== []) {
+            return $languageCodes;
         }
 
-        return $languageCodes;
+        return [$this->languageService->getDefaultLanguageCode()];
     }
 }
