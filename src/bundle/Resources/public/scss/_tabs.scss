@@ -214,23 +214,9 @@
     width: 100%;
     padding: 0;
     margin: 0 0 calculateRem(15px);
-    border: calculateRem(1px) solid $ibexa-color-light;
-    border-top: 0;
-    border-radius: 0 0 calculateRem(10px) calculateRem(10px);
-    overflow: hidden;
-    box-shadow: $ibexa-container-box-shadow;
-    background-color: $ibexa-color-white;
-
-    &__single-tab {
-        border-radius: $ibexa-border-radius;
-    }
 
     &__pane {
-        padding: calculateRem(24px);
-
-        &--no-padding {
-            padding: 0;
-        }
+        padding: calculateRem(16px) calculateRem(12px) calculateRem(12px);
 
         .form-group:first-child {
             .ids-label {
@@ -238,14 +224,15 @@
             }
         }
 
-        .ibexa-table-header {
+        .ibexa-table-header:not(:first-child),
+        :not(:first-child) .ibexa-table-header {
             margin-top: calculateRem(30px);
         }
     }
 
     &--rolled-up {
         height: calculateRem(24px);
-        border-radius: 0 0 calculateRem(10px) calculateRem(10px);
+        overflow: hidden;
 
         .tab-pane {
             opacity: 0;

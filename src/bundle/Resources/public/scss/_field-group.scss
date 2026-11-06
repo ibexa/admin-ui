@@ -6,11 +6,9 @@
     background-color: $ibexa-color-white;
 
     .ibexa-raw-content-title {
-        margin-top: calculateRem(30px);
-        padding: 0 0 calculateRem(15px) 0;
+        padding: calculateRem(8px) 0 calculateRem(24px);
         color: $ibexa-color-black;
         align-items: center;
-        border-bottom: calculateRem(1px) solid $ibexa-color-light;
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
