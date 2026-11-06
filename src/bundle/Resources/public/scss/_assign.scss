@@ -13,13 +13,16 @@
     &__limitations-item {
         margin-bottom: calculateRem(16px);
 
-        .ibexa-dropdown {
-            max-width: calculateRem(300px);
-            margin-top: calculateRem(8px);
+        .form-check {
+            margin-bottom: 0;
+        }
+
+        .ids-dropdown {
+            margin-top: calculateRem(4px);
         }
     }
 
     &__limitations-item-subtree {
-        margin-top: calculateRem(8px);
+        margin-top: calculateRem(4px);
     }
 }
