@@ -10,7 +10,7 @@
 {% set min_select_all_toggler_items = min_select_all_toggler_items|default(5) %}
 {% set min_item_width = min_item_width|default(100) %}
 {% set custom_form = custom_form is defined ? custom_form : true %}
-{% set translation_domain = translation_domain|default(false) %}
+{% set translation_domain = translation_domain is defined ? translation_domain : false %}
 {% set value = value is defined ? value : null %}
 {% set multiple = multiple|default(false) %}
 {% set no_items = choices_flat|length == 0 %}
