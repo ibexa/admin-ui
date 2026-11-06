@@ -367,7 +367,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             (new Message(self::ITEM_BOOKMARKS, 'ibexa_menu'))->setDesc('Favourites'),
             (new Message(self::ITEM_TRASH, 'ibexa_menu'))->setDesc('Trash'),
             (new Message(self::ITEM_CONTENT, 'ibexa_menu'))->setDesc('Content'),
-            (new Message(self::ITEM_CONTENT_GROUP_SETTINGS, 'ibexa_menu'))->setDesc('Settings'),
+            (new Message(self::ITEM_CONTENT_GROUP_SETTINGS, 'ibexa_menu'))->setDesc('Configuration'),
             (new Message(self::ITEM_CONTENT__CONTENT_STRUCTURE, 'ibexa_menu'))->setDesc('Content structure'),
             (new Message(self::ITEM_CONTENT__MEDIA, 'ibexa_menu'))->setDesc('Media'),
             (new Message(self::ITEM_ADMIN, 'ibexa_menu'))->setDesc('Administration'),
@@ -376,7 +376,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             (new Message(self::ITEM_ADMIN__LANGUAGES, 'ibexa_menu'))->setDesc('Languages'),
             (new Message(self::ITEM_ADMIN__CONTENT_TYPES, 'ibexa_menu'))->setDesc('Content types'),
             (new Message(self::ITEM_ADMIN__USERS, 'ibexa_menu'))->setDesc('Users'),
-            (new Message(self::ITEM_ADMIN__OBJECT_STATES, 'ibexa_menu'))->setDesc('Object States'),
+            (new Message(self::ITEM_ADMIN__OBJECT_STATES, 'ibexa_menu'))->setDesc('Object states'),
             (new Message(self::ITEM_ADMIN__URL_MANAGEMENT, 'ibexa_menu'))->setDesc('URL management'),
         ];
     }
