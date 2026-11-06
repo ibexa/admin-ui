@@ -22,6 +22,7 @@ use Ibexa\Bundle\Translations\IbexaTranslationsBundle;
 use Ibexa\Bundle\TwigComponents\IbexaTwigComponentsBundle;
 use Ibexa\Bundle\User\IbexaUserBundle;
 use Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface;
+use Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Test\Core\IbexaTestKernel;
@@ -75,6 +76,8 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
         yield ContentTypeHandler::class;
 
         yield ContentTypeFieldsByExpressionServiceInterface::class;
+
+        yield Provider::class;
     }
 
     protected static function getExposedServicesById(): iterable
