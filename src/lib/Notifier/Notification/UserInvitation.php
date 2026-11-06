@@ -9,45 +9,36 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Notifier\Notification;
 
 use DateInterval;
+use Ibexa\AdminUi\Notifier\MailImageEmbedder;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\User\Invitation\Invitation;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 use Symfony\Bridge\Twig\Mime\NotificationEmail;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Notifier\Message\EmailMessage;
 use Symfony\Component\Notifier\Notification\EmailNotificationInterface;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Recipient\EmailRecipientInterface;
 use Twig\Environment;
 
-final class UserInvitation extends Notification implements EmailNotificationInterface, LoggerAwareInterface
+final class UserInvitation extends Notification implements EmailNotificationInterface
 {
-    use EmbedsMailImagesTrait;
-    use LoggerAwareTrait;
-
     private Invitation $invitation;
 
     private ConfigResolverInterface $configResolver;
 
     private Environment $twig;
 
-    private KernelInterface $kernel;
+    private MailImageEmbedder $mailImageEmbedder;
 
     public function __construct(
         Invitation $invitation,
         ConfigResolverInterface $configResolver,
         Environment $twig,
-        KernelInterface $kernel,
-        ?LoggerInterface $logger = null
+        MailImageEmbedder $mailImageEmbedder
     ) {
         $this->invitation = $invitation;
         $this->configResolver = $configResolver;
         $this->twig = $twig;
-        $this->kernel = $kernel;
-        $this->logger = $logger ?? new NullLogger();
+        $this->mailImageEmbedder = $mailImageEmbedder;
 
         parent::__construct();
     }
@@ -74,6 +65,11 @@ final class UserInvitation extends Notification implements EmailNotificationInte
                 null,
                 $this->invitation->getSiteAccessIdentifier()
             )),
+            'support_email' => $this->configResolver->getParameter(
+                'mail.support_email',
+                null,
+                $this->invitation->getSiteAccessIdentifier()
+            ),
             'header_img_path' => '#',
         ];
 
@@ -83,7 +79,7 @@ final class UserInvitation extends Notification implements EmailNotificationInte
             ->subject($subject)
         ;
 
-        $context = $this->embedMailImages($email) + $context;
+        $context = $this->mailImageEmbedder->embed($email) + $context;
         $email->context($context);
 
         if ($from !== null) {

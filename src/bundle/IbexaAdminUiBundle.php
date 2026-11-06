@@ -75,6 +75,7 @@ final class IbexaAdminUiBundle extends Bundle
             new Parser\AdminUiParser(),
             new Parser\UserProfile(),
             new Parser\Headless(),
+            new Parser\Mail(),
         ];
     }
 }
