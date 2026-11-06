@@ -4,6 +4,8 @@ services:
         autoconfigure: true
         public: true
 
+    Ibexa\AdminUi\Notifier\MailImageEmbedder: ~
+
     Ibexa\AdminUi\Notifier\PasswordReset:
         decorates: Ibexa\Contracts\User\PasswordReset\NotifierInterface
 

@@ -7,8 +7,8 @@
 {%- endblock subject -%}
 
 {%- block mail_message_title_content -%}
-    {% if user is defined %}
-        {{ 'forgot_user_password.mail.message_title_with_name'|trans({ '%name%': ibexa_content_name(user) })|desc('Hello %name%,') }}
+    {% if (user_name ?? '') is not empty %}
+        {{ 'forgot_user_password.mail.message_title_with_name'|trans({ '%name%': user_name })|desc('Hello %name%,') }}
     {% else %}
         {{ 'forgot_user_password.mail.message_title'|trans|desc('Hello,') }}
     {% endif %}

@@ -6,15 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\AdminUi\Notifier\Notification;
+namespace Ibexa\AdminUi\Notifier;
 
 use InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Twig\Mime\NotificationEmail;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * @internal
  */
-trait EmbedsMailImagesTrait
+final readonly class MailImageEmbedder
 {
     private const string MAIL_IMAGE_DIRECTORY = '@IbexaAdminUiBundle/Resources/public/img/mail/';
 
@@ -24,10 +26,15 @@ trait EmbedsMailImagesTrait
         'expiration_icon_dark_path' => 'clock-dark.png',
     ];
 
+    public function __construct(
+        private KernelInterface $kernel,
+        private LoggerInterface $logger
+    ) {}
+
     /**
-     * @return array<string, string>
+     * @return array<string, string> "cid:" references of the embedded images, keyed by template variable name
      */
-    private function embedMailImages(NotificationEmail $email): array
+    public function embed(NotificationEmail $email): array
     {
         $context = [];
         foreach (self::MAIL_IMAGES as $contextKey => $fileName) {
