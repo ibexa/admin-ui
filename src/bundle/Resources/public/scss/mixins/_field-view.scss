@@ -35,3 +35,24 @@
     color: $ibexa-color-black;
     overflow-wrap: break-word;
 }
+
+@mixin field-view-rendered-value() {
+    width: 100%;
+
+    .ibexa_string-field,
+    .ibexa_text-field {
+        display: block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .ibexa_country-field {
+        margin-bottom: 0;
+    }
+
+    .ibexa-field-preview--ibexa_image,
+    .ibexa-field-preview--ibexa_image_asset {
+        margin-top: calculateRem(4px);
+    }
+}

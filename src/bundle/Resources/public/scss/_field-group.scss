@@ -35,8 +35,22 @@
 }
 
 .ibexa-content-preview {
-    .ibexa-fieldgroup:not(:last-child) {
-        margin-bottom: calculateRem(16px);
+    &__group {
+        &:not(:last-child) {
+            margin-bottom: calculateRem(16px);
+        }
+
+        .ibexa-details:not(:first-child) {
+            margin-top: 0;
+        }
+    }
+
+    &__group-name {
+        @include field-view-group-name();
+    }
+
+    .ibexa-content-field__value {
+        @include field-view-rendered-value();
     }
 }
 
@@ -57,10 +71,6 @@
         font-size: $ibexa-text-font-size;
     }
 
-    &__group-name {
-        @include field-view-group-name();
-    }
-
     &__content {
         padding-left: calculateRem(32px);
         padding-right: calculateRem(32px);
@@ -78,24 +88,7 @@
         &__value {
             @include field-view-value();
 
-            width: 100%;
-
-            .ibexa_string-field,
-            .ibexa_text-field {
-                display: block;
-                max-width: 100%;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .ibexa_country-field {
-                margin-bottom: 0;
-            }
-
-            .ibexa-field-preview--ibexa_image,
-            .ibexa-field-preview--ibexa_image_asset {
-                margin-top: calculateRem(4px);
-            }
+            @include field-view-rendered-value();
         }
     }
 

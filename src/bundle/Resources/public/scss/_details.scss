@@ -1,5 +1,6 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/field-view' as *;
 
 .ibexa-details {
     &:not(:first-child) {
@@ -12,6 +13,20 @@
 
         &--vertical {
             display: block;
+
+            .ibexa-details {
+                &__item {
+                    padding: 0;
+
+                    &:not(:last-child) {
+                        margin-bottom: calculateRem(16px);
+                    }
+
+                    .ids-label {
+                        margin-top: 0;
+                    }
+                }
+            }
         }
     }
 
@@ -34,6 +49,7 @@
 
             .ibexa-details {
                 &__item-label {
+                    margin-bottom: 0;
                     min-width: calculateRem(350px);
                     margin-right: calculateRem(16px);
                 }
@@ -45,7 +61,14 @@
         }
     }
 
+    &__item-label,
+    &__item-label.ids-label {
+        @include field-view-label();
+    }
+
     &__item-content {
+        @include field-view-value();
+
         word-wrap: break-word;
 
         .ibexa-dropdown {
