@@ -447,6 +447,7 @@
             name: full_name,
             value: value is same as(null) ? '' : value,
             required: required|default(false),
+            error: (attr.error ?? false) or not valid,
         }) -%}
         {%- set input_html -%}
             {{ parent() }}
