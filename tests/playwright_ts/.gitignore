@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Local env overrides
+.env
+.env.local
+
+# Auth / credentials
+artifacts/auth.json
+
+# Test run artifacts
+artifacts/test-results/
+test-results/
+
+# Debug specs
+tests/DebugTree*.spec.ts
+tests/debug_*.spec.ts
+debug_*.spec.ts
