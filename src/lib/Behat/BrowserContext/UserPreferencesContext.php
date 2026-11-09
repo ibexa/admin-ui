@@ -54,8 +54,10 @@ final readonly class UserPreferencesContext implements Context
     }
 
     #[Then(':fieldName field validates with error message :expectedMessage')]
-    public function iValidateOldPassword(string $expectedMessage): void
-    {
+    public function iValidateOldPassword(
+        string $fieldName,
+        string $expectedMessage
+    ): void {
         $this->changePasswordPage->verifyPasswordValidationMessage($expectedMessage);
     }
 

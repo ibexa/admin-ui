@@ -60,7 +60,7 @@
         "willdurand/js-translation-bundle": "^8.0"
     },
     "require-dev": {
-        "behat/behat": "^4.0@alpha",
+        "behat/behat": "^4.0",
         "dama/doctrine-test-bundle": "^8.2",
         "deptrac/deptrac": "^4.7",
         "ext-zip": "*",
