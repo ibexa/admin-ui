@@ -68,7 +68,7 @@ final readonly class SectionsContext implements Context
     }
 
     #[Given('I start assigning to :sectionName Section')]
-    public function assignContentItems(): void
+    public function assignContentItems(string $sectionName): void
     {
         $this->sectionPage->assignContentItems();
     }
