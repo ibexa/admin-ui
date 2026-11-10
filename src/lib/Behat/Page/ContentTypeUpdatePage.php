@@ -162,7 +162,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
         $this->getHTMLPage()
             ->findAll($dropdownLocator)->getByCriterion(new ElementTextCriterion('Select blocks'))->click();
         $this->getHTMLPage()
-            ->findAll($dropdownLocator)->getByCriterion(new ElementTextCriterion('default'))->click();
+            ->findAll($dropdownLocator)->getByCriterion(new ElementTextCriterion('Content'))->click();
     }
 
     public function selectBlock(string $blockName): void
