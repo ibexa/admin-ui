@@ -1,0 +1,9 @@
+.env
+.auth/
+playwright-report/
+test-results/
+node_modules/
+dist/
+# un-ignore files excluded by root .gitignore
+!tsconfig.json
+!package-lock.json
