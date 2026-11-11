@@ -196,8 +196,8 @@ class ValueFactory
             'relationContentTypeName' => $contentType->getName(),
             'relationLocation' => $this->locationResolver->resolveLocation($content->contentInfo),
             'relationName' => $content->getName(),
-            'resolvedSourceLocation' => $this->locationResolver->resolveLocation($relation->sourceContentInfo),
-            'resolvedDestinationLocation' => $this->locationResolver->resolveLocation($relation->destinationContentInfo),
+            'resolvedSourceLocation' => $this->resolveRelationLocation($relation->getSourceContentInfo()),
+            'resolvedDestinationLocation' => $this->resolveRelationLocation($relation->getDestinationContentInfo()),
         ]);
     }
 
@@ -224,8 +224,8 @@ class ValueFactory
             'relationContentTypeName' => $contentType->getName(),
             'relationLocation' => $this->locationResolver->resolveLocation($content->contentInfo),
             'relationName' => $content->getName(),
-            'resolvedSourceLocation' => $this->locationResolver->resolveLocation($relation->sourceContentInfo),
-            'resolvedDestinationLocation' => $this->locationResolver->resolveLocation($relation->destinationContentInfo),
+            'resolvedSourceLocation' => $this->resolveRelationLocation($relation->getSourceContentInfo()),
+            'resolvedDestinationLocation' => $this->resolveRelationLocation($relation->getDestinationContentInfo()),
         ]);
     }
 
@@ -424,6 +424,21 @@ class ValueFactory
         }
 
         return '';
+    }
+
+    /**
+     * @throws NotFoundException
+     * @throws ForbiddenException
+     * @throws BadStateException
+     */
+    private function resolveRelationLocation(ContentInfo $contentInfo): ?Location
+    {
+        // e.g. relation to Content in Trash
+        if (null === $contentInfo->getMainLocationId()) {
+            return null;
+        }
+
+        return $this->locationResolver->resolveLocation($contentInfo);
     }
 }
 
