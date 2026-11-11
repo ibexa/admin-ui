@@ -1201,18 +1201,6 @@ parameters:
 			path: src/lib/EventListener/CredentialsExpirationWarningListener.php
 
 		-
-			message: '#^Call to an undefined method Symfony\\Contracts\\Translation\\TranslatorInterface\:\:setLocale\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/lib/EventListener/InContextTranslationListener.php
-
-		-
-			message: '#^Call to an undefined method Symfony\\Contracts\\Translation\\TranslatorInterface\:\:setLocale\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/lib/EventListener/RequestLocaleListener.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\EventListener\\SetViewParametersListener\:\:getIgnoredContentFields\(\) has parameter \$fieldsData with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
