@@ -17,6 +17,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Translation\LocaleSwitcher;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class InContextTranslationListener implements EventSubscriberInterface
 {
@@ -28,7 +29,8 @@ final readonly class InContextTranslationListener implements EventSubscriberInte
     public function __construct(
         private array $siteAccessGroups,
         private UserSettingService $userSettingService,
-        private LocaleSwitcher $localeSwitcher
+        private TranslatorInterface $translator,
+        private ?LocaleSwitcher $localeSwitcher = null
     ) {}
 
     /**
@@ -60,7 +62,11 @@ final readonly class InContextTranslationListener implements EventSubscriberInte
         $request->setLocale(self::ACHOLI_LANG);
         $request->attributes->set('_locale', self::ACHOLI_LANG);
         // Propagate to all locale-aware services, otherwise LocaleAwareListener reverts it after a sub-request.
-        $this->localeSwitcher->setLocale(self::ACHOLI_LANG);
+        if (null !== $this->localeSwitcher) {
+            $this->localeSwitcher->setLocale(self::ACHOLI_LANG);
+        } else {
+            $this->translator->setLocale(self::ACHOLI_LANG);
+        }
     }
 
     private function isAdminSiteAccess(Request $request): bool

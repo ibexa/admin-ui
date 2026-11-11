@@ -26,6 +26,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Component\Translation\Translator;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class InContextTranslationListenerTest extends TestCase
 {
@@ -39,7 +40,7 @@ final class InContextTranslationListenerTest extends TestCase
 
     private UserSettingService & MockObject $userSettingService;
 
-    private LocaleSwitcher & MockObject $localeSwitcher;
+    private TranslatorInterface & MockObject $translator;
 
     protected function setUp(): void
     {
@@ -56,7 +57,7 @@ final class InContextTranslationListenerTest extends TestCase
 
         $this->userSettingService = $this->createMock(UserSettingService::class);
 
-        $this->localeSwitcher = $this->createMock(LocaleSwitcher::class);
+        $this->translator = $this->createMock(Translator::class);
     }
 
     public function testLocaleIsNotSetOnNonAdminSiteaccess(): void
@@ -74,7 +75,7 @@ final class InContextTranslationListenerTest extends TestCase
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             $this->userSettingService,
-            $this->localeSwitcher
+            $this->translator
         );
 
         $listener->setInContextTranslation($event);
@@ -95,7 +96,7 @@ final class InContextTranslationListenerTest extends TestCase
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             $this->userSettingService,
-            $this->localeSwitcher
+            $this->translator
         );
 
         $listener->setInContextTranslation($event);
@@ -108,7 +109,7 @@ final class InContextTranslationListenerTest extends TestCase
             ->method('setLocale')
             ->with('ach-UG');
 
-        $this->localeSwitcher
+        $this->translator
             ->expects(self::once())
             ->method('setLocale')
             ->with('ach-UG');
@@ -129,7 +130,7 @@ final class InContextTranslationListenerTest extends TestCase
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             $this->userSettingService,
-            $this->localeSwitcher
+            $this->translator
         );
 
         $listener->setInContextTranslation($event);
@@ -157,7 +158,7 @@ final class InContextTranslationListenerTest extends TestCase
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             $this->userSettingService,
-            $this->localeSwitcher
+            $this->translator
         );
 
         $listener->setInContextTranslation($event);
@@ -165,7 +166,7 @@ final class InContextTranslationListenerTest extends TestCase
 
     /**
      * Since symfony/http-kernel 7.4.17, LocaleAwareListener restores the locale every
-     * locale-aware service had before a sub-request. The in-context translation locale
+     * locale-aware service had before a sub-request. The locale set by this listener
      * must therefore be known to all of them, LocaleSwitcher included, or it is lost
      * after the first sub-request.
      */
@@ -186,6 +187,7 @@ final class InContextTranslationListenerTest extends TestCase
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             $this->userSettingService,
+            $translator,
             $localeSwitcher
         );
 
@@ -215,7 +217,7 @@ final class InContextTranslationListenerTest extends TestCase
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             $this->userSettingService,
-            $this->localeSwitcher
+            $this->translator
         );
 
         self::assertSame(
@@ -240,7 +242,7 @@ final class InContextTranslationListenerTest extends TestCase
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             $this->userSettingService,
-            $this->localeSwitcher
+            $this->translator
         );
 
         $listener->setInContextTranslation($event);
