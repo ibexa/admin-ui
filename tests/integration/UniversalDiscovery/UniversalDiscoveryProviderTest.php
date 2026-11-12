@@ -64,6 +64,27 @@ final class UniversalDiscoveryProviderTest extends IbexaKernelTestCase
         self::assertSame($this->departments->id, $columns[$this->departments->id]['location']->id);
     }
 
+    public function testGetLocationsReturnsAllRequestedLocationsBeyondDefaultQueryLimit(): void
+    {
+        $locationIds = [];
+        for ($i = 1; $i <= 30; ++$i) {
+            $locationIds[] = $this->createFolder('Folder ' . $i, $this->departments->id)->id;
+        }
+
+        $locations = $this->provider->getLocations($locationIds);
+
+        $returnedLocationIds = array_map(
+            static fn (array $item): int => $item['location']->id,
+            $locations
+        );
+        sort($returnedLocationIds);
+        self::assertSame($locationIds, $returnedLocationIds);
+
+        foreach ($locations as $item) {
+            self::assertTrue($item['permissions']['edit']['hasAccess']);
+        }
+    }
+
     private function createFolder(
         string $name,
         int $parentLocationId
