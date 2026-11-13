@@ -15,11 +15,15 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 /**
  * Configuration parser for the headless mode, where the site is rendered by an external front-end application.
  *
+ * The configuration is resolved for the siteaccess the content is previewed in, so it belongs to the front
+ * siteaccess (or its group). Siteaccesses of `admin_group` are ignored: Page Builder always loads the headful
+ * editor for them (for example on the Dashboard).
+ *
  * Example configuration:
  * ```yaml
  * ibexa:
  *   system:
- *      admin_group: # configuration per siteaccess or siteaccess group
+ *      site_group: # the front siteaccess or siteaccess group, never admin_group
  *          headless:
  *              enabled: true
  *              page_builder:
@@ -27,6 +31,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *              content:
  *                  preview_url: 'https://frontend.example.com/preview'
  *              configuration_url: 'https://admin.example.com/frontend'
+ *              documentation_url: 'https://doc.example.com/headless'
  * ```
  *
  * The node intentionally declares no default values (they live in ezplatform_default_settings.yaml):
@@ -44,6 +49,7 @@ final class Headless extends AbstractParser
         'headless.page_builder.preview_url' => ['page_builder', 'preview_url'],
         'headless.content.preview_url' => ['content', 'preview_url'],
         'headless.configuration_url' => ['configuration_url'],
+        'headless.documentation_url' => ['documentation_url'],
     ];
 
     /**
@@ -98,6 +104,9 @@ final class Headless extends AbstractParser
                     ->end()
                     ->scalarNode('configuration_url')
                         ->info('URL of the front-end application configuration page.')
+                    ->end()
+                    ->scalarNode('documentation_url')
+                        ->info('URL of the documentation on connecting a front-end application.')
                     ->end()
                 ->end()
             ->end();

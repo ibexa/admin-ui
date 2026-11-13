@@ -161,9 +161,8 @@ export default class MultiFileUploadModule extends Component {
         const label = Translator.trans(/* @Desc("Upload") */ 'multi_file_upload_open_btn.label', {}, 'ibexa_multi_file_upload');
         const isTriggeredBySubitems = this.props.triggerId === SUBITEMS_TRIGGER_ID;
         const buttonType = isTriggeredBySubitems ? ButtonType.TertiaryAlt : ButtonType.Secondary;
-        const buttonSize = isTriggeredBySubitems ? ButtonSize.Medium : ButtonSize.Small;
         return (
-            <Button type={buttonType} size={buttonSize} icon="upload" onClick={this.showUploadPopup} disabled={uploadDisabled}>
+            <Button type={buttonType} size={ButtonSize.Small} icon="upload" onClick={this.showUploadPopup} disabled={uploadDisabled}>
                 {label}
             </Button>
         );

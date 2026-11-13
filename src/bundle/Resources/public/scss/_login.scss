@@ -123,15 +123,16 @@
         }
     }
 
-    &__forgot-password-form {
-        margin-top: calculateRem(16px);
-    }
-
     &__actions-headline {
         font-size: $text-font-size-3xl;
         line-height: 1.2;
         margin-bottom: calculateRem(4px);
         color: $ibexa-color-black;
+    }
+
+    &__actions-description {
+        margin-bottom: calculateRem(4px);
+        color: $color-neutral-160;
     }
 
     &__form {

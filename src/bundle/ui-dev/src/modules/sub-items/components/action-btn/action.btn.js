@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, ButtonType } from '@ids-components/components/Button';
+import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
@@ -17,7 +17,15 @@ const ActionButton = ({ disabled, onClick, label = null, title = null, type }) =
     };
 
     return (
-        <Button type={ButtonType.TertiaryAlt} icon={type} onClick={handleClick} disabled={disabled} title={title} className={className}>
+        <Button
+            type={ButtonType.TertiaryAlt}
+            size={ButtonSize.Small}
+            icon={type}
+            onClick={handleClick}
+            disabled={disabled}
+            title={title}
+            className={className}
+        >
             {label || null}
         </Button>
     );

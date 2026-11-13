@@ -6,9 +6,9 @@
 
 {% set target_id_prefix = target_id_prefix|default('ibexa-edit-content-sections-content-fields-') %}
 {% set grouped_fields = grouped_fields|default([]) %}
-{% set anchor_params = { items: grouped_fields|keys|map((label) => {
-    label,
-    target_id: target_id_prefix ~ label|lower|slug }
+{% set anchor_params = { items: grouped_fields|keys|map((group) => {
+    label: ibexa_field_group_name(group) ?? group,
+    target_id: target_id_prefix ~ group|lower|slug }
 ) } %}
 {% set is_autosave_enabled = ibexa_user_settings['autosave'] is same as('enabled') %}
 {% set form_has_autosave = form.autosave is defined %}
@@ -43,7 +43,7 @@
                                         {% import '@ibexadesign/content/edit_macros.html.twig' as edit_macros %}
 
                                         {% block anchor_section_header %}
-                                            <h2 class="ibexa-edit-content__section-header">{{ key }}</h2>
+                                            <h2 class="ibexa-edit-content__section-header">{{ ibexa_field_group_name(key) ?? key }}</h2>
                                         {% endblock %}
 
                                         {% block anchor_section_body %}

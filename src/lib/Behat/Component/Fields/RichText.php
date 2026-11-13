@@ -37,7 +37,16 @@ class RichText extends FieldTypeComponent
     private function focusFieldInput(): void
     {
         $this->getDevToolsDriver()->execute('Emulation.setFocusEmulationEnabled', ['enabled' => true]);
-        $this->getFieldInput()->click();
+        // Clicking would move the caret (CKEditor 48)
+        $this->getSession()->executeScript(sprintf('%s.editing.view.focus()', $this->getEditorInstanceScript()));
+    }
+
+    private function getEditorInstanceScript(): string
+    {
+        return sprintf(
+            'document.evaluate(%s, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.ckeditorInstance',
+            json_encode($this->getFieldInput()->getXPath(), JSON_THROW_ON_ERROR)
+        );
     }
 
     public function setValue(array $parameters): void
@@ -170,13 +179,11 @@ class RichText extends FieldTypeComponent
 
     private function executeCommand(string $commandName): void
     {
-        $script = sprintf(
-            "document.querySelector('%s %s').ckeditorInstance.execute('%s')",
-            $this->parentLocator->getSelector(),
-            $this->getLocator('fieldInput')->getSelector(),
-            $commandName
-        );
-        $this->getSession()->executeScript($script);
+        $this->getSession()->executeScript(sprintf(
+            '%s.execute(%s)',
+            $this->getEditorInstanceScript(),
+            json_encode($commandName, JSON_THROW_ON_ERROR)
+        ));
     }
 
     protected function clickElementsToolbarButton(string $buttonText): void

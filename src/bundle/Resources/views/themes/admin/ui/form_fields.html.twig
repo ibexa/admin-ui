@@ -208,12 +208,14 @@
         {%- endif -%}
     {%- endif -%}
     <button type="{{ type }}" {{ block('button_attributes') }}>
-        <svg class="ibexa-icon ibexa-icon--small-medium">
-            <use xlink:href="{{ ibexa_icon_path('restore') }}"></use>
-        </svg>
-        <span class="ibexa-btn__label">
+        <div class="ids-btn__icon">
+            <svg class="ids-icon ids-icon--small">
+                <use xlink:href="{{ ibexa_icon_path('restore') }}"></use>
+            </svg>
+        </div>
+        <div class="ids-btn__label">
             {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
-        </span>
+        </div>
     </button>
 {%- endblock -%}
 
@@ -230,12 +232,14 @@
         {%- endif -%}
     {%- endif -%}
     <button type="{{ type }}" {{ block('button_attributes') }}>
-        <svg class="ibexa-icon ibexa-icon--small-medium">
-            <use xlink:href="{{ ibexa_icon_path('restore-parent') }}"></use>
-        </svg>
-        <span class="ibexa-btn__label">
+        <div class="ids-btn__icon">
+            <svg class="ids-icon ids-icon--small">
+                <use xlink:href="{{ ibexa_icon_path('restore-parent') }}"></use>
+            </svg>
+        </div>
+        <div class="ids-btn__label">
             {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
-        </span>
+        </div>
     </button>
 {%- endblock -%}
 
@@ -275,11 +279,13 @@
         {%- endif -%}
     {%- endif -%}
     <button type="{{ type }}" {{ block('button_attributes') }}>
-        <svg class="ibexa-icon ibexa-icon--small-medium">
-            <use xlink:href="{{ ibexa_icon_path(icon|default('')) }}"></use>
-        </svg>
+        <div class="ids-btn__icon">
+            <svg class="ids-icon ids-icon--small">
+                <use xlink:href="{{ ibexa_icon_path(icon|default('')) }}"></use>
+            </svg>
+        </div>
         {%- if title -%}
-            <span class="ibexa-btn__label">{{ title }}</span>
+            <div class="ids-btn__label">{{ title }}</div>
         {%- endif -%}
     </button>
 {%- endblock table_header_tool_btn -%}

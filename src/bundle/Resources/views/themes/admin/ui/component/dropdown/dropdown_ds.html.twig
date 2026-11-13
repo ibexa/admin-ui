@@ -1,5 +1,7 @@
 {% set preferred_choices = preferred_choices|default([]) %}
 {% set translation_domain = translation_domain is defined ? translation_domain : false %}
+{# The placeholder belongs to the form field, not to its choices: a form passes its own domain for it. #}
+{% set placeholder_translation_domain = placeholder_translation_domain ?? translation_domain %}
 {% set value = value is defined ? value : null %}
 {% set multiple = multiple|default(false) %}
 {% set custom_init = custom_init|default(false) %}
@@ -18,7 +20,7 @@
     {% set normalized_source_attr = normalized_source_attr|merge({ id: source_id }) %}
 {% endif %}
 {% set translated_placeholder = placeholder is defined and placeholder is not none
-    ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain))
+    ? (placeholder_translation_domain is same as(false) ? placeholder : placeholder|trans({}, placeholder_translation_domain))
     : null
 %}
 {% set empty_placeholder_fallback = 'ibexa.dropdown.placeholder.all'|trans({}, 'ibexa_design_system_twig')|desc('All') %}
@@ -85,6 +87,7 @@
         <twig:ibexa:dropdown_single:input {{ ...ds_dropdown_props }} />
     {% endif %}
 {% else %}
+    {# The placeholder is translated above already, so the legacy dropdown must not translate it again. #}
     {% set legacy_context = {
         source,
         choices,
@@ -103,6 +106,7 @@
         is_dynamic: is_dynamic|default(false),
         has_select_all_toggler: has_select_all_toggler|default(false),
         placeholder: translated_placeholder,
+        placeholder_translation_domain: false,
         item_icon_class: item_icon_class|default(''),
         attr: attr|default({}),
     } %}
