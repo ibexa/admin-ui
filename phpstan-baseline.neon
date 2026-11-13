@@ -13175,20 +13175,20 @@ parameters:
 			path: src/lib/UI/Value/ValueFactory.php
 
 		-
-			message: '#^Cannot access property \$destinationContentInfo on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Relation\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/lib/UI/Value/ValueFactory.php
-
-		-
-			message: '#^Cannot access property \$sourceContentInfo on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Relation\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/lib/UI/Value/ValueFactory.php
-
-		-
 			message: '#^Cannot access property \$versionNo on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\VersionInfo\|null\.$#'
 			identifier: property.nonObject
+			count: 1
+			path: src/lib/UI/Value/ValueFactory.php
+
+		-
+			message: '#^Cannot call method getDestinationContentInfo\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Relation\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/lib/UI/Value/ValueFactory.php
+
+		-
+			message: '#^Cannot call method getSourceContentInfo\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Relation\|null\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: src/lib/UI/Value/ValueFactory.php
 
