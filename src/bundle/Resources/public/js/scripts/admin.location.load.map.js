@@ -1,5 +1,5 @@
 (function (global, doc, Leaflet) {
-    doc.querySelectorAll('.ibexa-gmaplocation__map').forEach((mapLocation) => {
+    const initMap = (mapLocation) => {
         const latitude = parseFloat(mapLocation.dataset.latitude);
         const longitude = parseFloat(mapLocation.dataset.longitude);
         const map = Leaflet.map(mapLocation, {
@@ -20,5 +20,14 @@
         Leaflet.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         }).addTo(map);
-    });
+    };
+
+    doc.querySelectorAll('.ibexa-gmaplocation__map').forEach(initMap);
+    doc.body.addEventListener(
+        'ibexa-content-field-updated',
+        (event) => {
+            event.target.querySelectorAll('.ibexa-gmaplocation__map').forEach(initMap);
+        },
+        false,
+    );
 })(window, window.document, window.L);

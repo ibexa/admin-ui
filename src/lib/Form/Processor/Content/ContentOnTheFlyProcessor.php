@@ -12,13 +12,12 @@ use Ibexa\ContentForms\Data\Content\ContentCreateData;
 use Ibexa\ContentForms\Data\Content\ContentUpdateData;
 use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\Contracts\AdminUi\Event\ContentOnTheFlyEvents;
-use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException;
 use Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
-use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\InternalContracts\AdminUi\Form\Publisher\ContentFormDataPublisher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
@@ -29,7 +28,7 @@ use Twig\Error\SyntaxError;
 final readonly class ContentOnTheFlyProcessor implements EventSubscriberInterface
 {
     public function __construct(
-        private ContentService $contentService,
+        private ContentFormDataPublisher $contentFormDataPublisher,
         private Environment $twig
     ) {}
 
@@ -102,47 +101,12 @@ final readonly class ContentOnTheFlyProcessor implements EventSubscriberInterfac
         $data = $event->getData();
         $form = $event->getForm();
 
-        $draft = $this->saveDraft($data, $form->getConfig()->getOption('languageCode'));
-        $versionInfo = $draft->getVersionInfo();
-        $content = $this->contentService->publishVersion(
-            $versionInfo,
-            [$versionInfo->getInitialLanguage()->getLanguageCode()]
-        );
+        $content = $this->contentFormDataPublisher->publish($data, $form->getConfig()->getOption('languageCode'));
 
         $referrerLocation = $event->getOption('referrerLocation');
 
         return $referrerLocation
             ? $referrerLocation->id
             : $content->getContentInfo()->getMainLocationId();
-    }
-
-    /**
-     * @throws BadStateException
-     * @throws ContentFieldValidationException
-     * @throws ContentValidationException
-     * @throws InvalidArgumentException
-     * @throws UnauthorizedException
-     */
-    private function saveDraft(
-        ContentCreateData | ContentUpdateData $data,
-        string $languageCode
-    ): Content {
-        $mainLanguageCode = $data instanceof ContentCreateData
-            ? $data->mainLanguageCode
-            : $data->getContentDraft()->getVersionInfo()->getContentInfo()->getMainLanguageCode();
-
-        foreach ($data->getFieldsData() as $fieldDefIdentifier => $fieldData) {
-            if ($mainLanguageCode !== $languageCode && !$fieldData->getFieldDefinition()->isTranslatable()) {
-                continue;
-            }
-
-            $data->setField($fieldDefIdentifier, $fieldData->getValue(), $languageCode);
-        }
-
-        if ($data instanceof ContentCreateData) {
-            return $this->contentService->createContent($data, $data->getLocationStructs());
-        }
-
-        return $this->contentService->updateContent($data->getContentDraft()->getVersionInfo(), $data);
     }
 }
