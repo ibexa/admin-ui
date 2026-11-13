@@ -24,7 +24,7 @@
     "require": {
         "php": ">=8.5",
         "ext-json": "*",
-        "babdev/pagerfanta-bundle": "^4.5",
+        "babdev/pagerfanta-bundle": "^4.8",
         "ibexa/content-forms": "~6.0.x-dev",
         "ibexa/core": "~6.0.x-dev",
         "ibexa/design-engine": "~6.0.x-dev",
@@ -35,6 +35,7 @@
         "ibexa/twig-components": "~6.0.x-dev",
         "ibexa/user": "~6.0.x-dev",
         "knplabs/knp-menu-bundle": "^3.0",
+        "pagerfanta/pagerfanta": "^4.11",
         "symfony/asset": "^8.1",
         "symfony/config": "^8.1",
         "symfony/console": "^8.1",
