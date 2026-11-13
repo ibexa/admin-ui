@@ -9,11 +9,11 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Service\MetaFieldType;
 
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
+use Ibexa\AdminUi\ContentType\MainLanguageResolver;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\FieldTypeService;
-use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
@@ -37,7 +37,7 @@ final readonly class MetaFieldDefinitionService implements MetaFieldDefinitionSe
         private ContentTypeService $contentTypeService,
         private FieldTypeService $fieldTypeService,
         private FieldsGroupsList $fieldsGroupsList,
-        private LanguageService $languageService,
+        private MainLanguageResolver $mainLanguageResolver,
         private LocaleConverterInterface $localeConverter,
         private TranslatorInterface $translator
     ) {}
@@ -52,7 +52,7 @@ final readonly class MetaFieldDefinitionService implements MetaFieldDefinitionSe
         $metaFieldTypes = $this->contentTypeFieldTypesResolver->getMetaFieldTypes();
 
         if (null === $language) {
-            $language = $this->languageService->loadLanguage($this->languageService->getDefaultLanguageCode());
+            $language = $this->mainLanguageResolver->resolve();
         }
 
         foreach ($metaFieldTypes as $metaFieldTypeIdentifier => $metaFieldTypeSettings) {
