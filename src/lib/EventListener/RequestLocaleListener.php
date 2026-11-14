@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class RequestLocaleListener implements EventSubscriberInterface
@@ -30,7 +31,8 @@ final readonly class RequestLocaleListener implements EventSubscriberInterface
         private array $availableTranslations,
         private TranslatorInterface $translator,
         private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
-        private ConfigResolverInterface $configResolver
+        private ConfigResolverInterface $configResolver,
+        private ?LocaleSwitcher $localeSwitcher = null
     ) {}
 
     /**
@@ -87,9 +89,14 @@ final readonly class RequestLocaleListener implements EventSubscriberInterface
 
         $request->setLocale($locale);
         $request->attributes->set('_locale', $locale);
-        // Set of the current locale on the translator service is needed because RequestLocaleListener has lower
-        // priority than LocaleListener and messages are not translated on login, forgot and reset password pages.
-        $this->translator->setLocale($locale);
+        // RequestLocaleListener runs after LocaleAwareListener (it needs the authenticated user), so the locale has to
+        // be propagated to all locale-aware services (translator included) through the LocaleSwitcher. Setting it on
+        // the translator only would be reverted by LocaleAwareListener after the first sub-request.
+        if (null !== $this->localeSwitcher) {
+            $this->localeSwitcher->setLocale($locale);
+        } else {
+            $this->translator->setLocale($locale);
+        }
     }
 
     /**

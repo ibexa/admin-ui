@@ -18,9 +18,13 @@ use Ibexa\User\UserSetting\UserSettingService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\EventListener\LocaleAwareListener;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Component\Translation\Translator;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -160,6 +164,54 @@ final class InContextTranslationListenerTest extends TestCase
         $listener->setInContextTranslation($event);
     }
 
+    /**
+     * Since symfony/http-kernel 7.4.17, LocaleAwareListener restores the locale every
+     * locale-aware service had before a sub-request. The locale set by this listener
+     * must therefore be known to all of them, LocaleSwitcher included, or it is lost
+     * after the first sub-request.
+     */
+    public function testLocaleIsKeptAfterSubRequest(): void
+    {
+        $translator = new Translator('en_GB');
+        $localeSwitcher = new LocaleSwitcher('en_GB', [$translator]);
+        $requestStack = new RequestStack();
+        $localeAwareListener = new LocaleAwareListener([$translator, $localeSwitcher], $requestStack);
+
+        $this->userSettingService
+            ->method('getUserSetting')
+            ->with('in_context_translation')
+            ->willReturn(
+                new UserSetting(['value' => InContextTranslation::ENABLED_OPTION])
+            );
+
+        $listener = new InContextTranslationListener(
+            ['admin_group' => [self::ADMIN_SITEACCESS]],
+            $this->userSettingService,
+            $translator,
+            $localeSwitcher
+        );
+
+        $mainRequest = $this->createAdminRequest('en_GB');
+        $requestStack->push($mainRequest);
+        $mainRequestEvent = new RequestEvent($this->httpKernel, $mainRequest, HttpKernelInterface::MAIN_REQUEST);
+        $localeAwareListener->onKernelRequest($mainRequestEvent);
+        $listener->setInContextTranslation($mainRequestEvent);
+
+        $subRequest = $this->createAdminRequest('ach-UG');
+        $requestStack->push($subRequest);
+        $localeAwareListener->onKernelRequest(
+            new RequestEvent($this->httpKernel, $subRequest, HttpKernelInterface::SUB_REQUEST)
+        );
+        $localeAwareListener->onKernelFinishRequest(
+            new FinishRequestEvent($this->httpKernel, $subRequest, HttpKernelInterface::SUB_REQUEST)
+        );
+        $requestStack->pop();
+
+        self::assertSame('ach-UG', $mainRequest->getLocale());
+        self::assertSame('ach-UG', $translator->getLocale());
+        self::assertSame('ach-UG', $localeSwitcher->getLocale());
+    }
+
     public function testSubscribedEvents(): void
     {
         $listener = new InContextTranslationListener(
@@ -208,6 +260,15 @@ final class InContextTranslationListenerTest extends TestCase
         $request
             ->expects(self::never())
             ->method('setLocale');
+
+        return $request;
+    }
+
+    private function createAdminRequest(string $locale): Request
+    {
+        $request = new Request();
+        $request->setLocale($locale);
+        $request->attributes->set('siteaccess', new SiteAccess(self::ADMIN_SITEACCESS));
 
         return $request;
     }
