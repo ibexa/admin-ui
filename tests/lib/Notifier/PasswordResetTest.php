@@ -8,9 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Notifier;
 
+use Ibexa\AdminUi\Notifier\MailImageEmbedder;
 use Ibexa\AdminUi\Notifier\Notification\UserPasswordReset;
 use Ibexa\AdminUi\Notifier\PasswordReset;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
 
@@ -47,7 +49,7 @@ final class PasswordResetTest extends AbstractNotifierTestCase
             $this->configResolver,
             $this->createMock(Environment::class),
             $this->notificationService,
-            $this->createMock(KernelInterface::class)
+            new MailImageEmbedder(self::createStub(KernelInterface::class), new NullLogger())
         );
         $notifier->setLogger($this->logger);
 

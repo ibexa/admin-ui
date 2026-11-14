@@ -1,0 +1,13 @@
+{% trans_default_domain 'ibexa_mail' %}
+
+{% block mail_link_fallback %}
+    {{ 'mail.link_fallback.message'|trans|desc('If the button doesn’t work in your email client, please copy the following link and paste it into your browser’s address bar:') }}
+    <a
+        class="ibexa-email-link"
+        style="color: #4e24a5; text-decoration: underline;"
+        href="{{ url }}"
+    >
+        {{- 'mail.link_fallback.open_in_browser'|trans|desc('Open in browser') -}}
+    </a>
+    <span class="ibexa-email-link" style="color: #4e24a5; word-break: break-all;">[{{ url }}]</span>
+{% endblock mail_link_fallback %}
