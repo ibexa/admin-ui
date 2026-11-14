@@ -8,21 +8,13 @@
 }
 
 @mixin input-invalid {
-    color: $ibexa-color-danger;
     background-image: none;
     border-color: $ibexa-color-danger;
-    background-color: $ibexa-color-danger-100;
     box-shadow: none;
 }
 
 @mixin area-invalid {
-    color: $ibexa-color-danger;
     border-color: $ibexa-color-danger;
-    background-color: $ibexa-color-danger-100;
-
-    .ibexa-btn {
-        background-color: $ibexa-color-danger-100;
-    }
 }
 
 @mixin error-input {
