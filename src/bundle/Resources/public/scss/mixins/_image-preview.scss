@@ -1,49 +1,85 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
-@use 'sass:color';
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/field-view' as *;
 
 @mixin image-preview() {
-    display: flex;
-
     .ibexa-field-preview {
         &__image-wrapper {
-            flex: 1 1 auto;
             display: flex;
             flex-wrap: wrap;
-            overflow: hidden;
+            align-items: flex-start;
         }
 
         &__image {
             max-width: calculateRem(520px);
             margin-right: calculateRem(32px);
+
+            &--link {
+                position: relative;
+                width: calculateRem(444px);
+                max-width: 100%;
+                margin-right: 0;
+                aspect-ratio: 444 / 311;
+                border: calculateRem(1px) dashed $ibexa-color-light-600;
+                border-radius: calculateRem(12px);
+                overflow: hidden;
+
+                &:hover,
+                &:focus-visible {
+                    .ibexa-field-preview__action--preview {
+                        opacity: 1;
+                    }
+                }
+
+                &:focus-visible {
+                    box-shadow:
+                        0 0 0 calculateRem(1px) $ibexa-color-primary,
+                        $ibexa-btn-focus-box-shadow;
+                }
+            }
         }
 
-        &__actions-wrapper {
-            flex: 0 0 calculateRem(40px);
+        &__img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         &__action {
             &--preview {
-                border: none;
-                border-radius: 50%;
-                height: 40px;
-                width: 40px;
-                line-height: 40px;
-                cursor: pointer;
-                transition: background 0.3s $ibexa-admin-transition;
-                text-align: center;
+                position: absolute;
+                top: calculateRem(6px);
+                right: calculateRem(6px);
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                display: block;
-                margin-top: 0;
-                background: $ibexa-color-dark-300;
+                width: calculateRem(38px);
+                height: calculateRem(38px);
+                border-radius: 50%;
+                background-color: $ibexa-color-white;
+                opacity: 0;
+                transition: opacity $ibexa-admin-transition-duration $ibexa-admin-transition;
 
-                &:hover,
-                &:focus {
-                    background: color.adjust($ibexa-color-dark-300, $lightness: -15%);
+                .ibexa-icon {
+                    fill: $ibexa-color-black;
                 }
             }
+        }
+
+        &__meta {
+            display: flex;
+            flex-direction: column;
+            gap: calculateRem(16px);
+            padding: calculateRem(16px) calculateRem(24px);
+        }
+
+        &__meta-label {
+            @include field-view-label();
+        }
+
+        &__meta-value {
+            @include field-view-value();
         }
     }
 }
