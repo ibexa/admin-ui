@@ -35,8 +35,7 @@
         }
 
         .ibexa-table-header {
-            border-bottom: none;
-            padding-bottom: calculateRem(4px);
+            padding: 0 0 calculateRem(4px);
             font-size: $ibexa-text-font-size-extra-large;
         }
 

@@ -20,12 +20,8 @@
 
 .ibexa-notification-list {
     display: flex;
-    align-items: stretch;
+    align-items: flex-start;
     margin-bottom: calculateRem(48px);
-
-    &.ibexa-container {
-        padding: 0 calculateRem(24px);
-    }
 
     &__container {
         .container.container {
@@ -48,11 +44,6 @@
         }
     }
 
-    .ibexa-container {
-        padding: 0 calculateRem(16px) calculateRem(16px);
-        margin-bottom: 0;
-    }
-
     .ibexa-table-header {
         padding: calculateRem(8px) 0;
 
@@ -72,8 +63,8 @@
 
     &__filters-wrapper {
         width: calculateRem(400px);
-        border-left: calculateRem(1px) solid $ibexa-color-light;
-        padding: calculateRem(16px) 0;
+        border: calculateRem(1px) solid $ibexa-color-light;
+        border-radius: $ibexa-border-radius;
         background-color: $ibexa-color-white;
         transition: width $ibexa-admin-transition-duration $ibexa-admin-transition;
     }
