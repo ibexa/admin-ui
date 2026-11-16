@@ -2,6 +2,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
 @use '@ids-assets/scss/variables/colors' as *;
+@use '@ids-assets/scss/functions/calculate.rem' as ids;
 @use 'sass:color';
 
 .form-control {
@@ -21,6 +22,13 @@
         &--radio {
             margin-bottom: 0;
         }
+    }
+}
+
+.form-check {
+    .ids-input--checkbox,
+    .ids-input--radio {
+        margin-top: calc((1.5em - #{ids.calculateRem(16px)}) / 2);
     }
 }
 
