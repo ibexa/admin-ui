@@ -51,7 +51,11 @@ const observer = new MutationObserver((mutationsList) => {
 
         removedNodes.forEach((removedNode) => {
             if (removedNode.classList && !removedNode.classList.contains('ibexa-tooltip')) {
-                const triggeredNodes = removedNode.querySelectorAll(`[data-bs-original-title]`);
+                const triggeredNodes = [...removedNode.querySelectorAll(`[data-bs-original-title]`)];
+
+                if (removedNode.matches(`[data-bs-original-title]`)) {
+                    triggeredNodes.push(removedNode);
+                }
 
                 triggeredNodes.forEach((triggerBtn) => {
                     const tooltipInstance = bootstrap.Tooltip.getOrCreateInstance(triggerBtn);
