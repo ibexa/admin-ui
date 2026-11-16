@@ -1,5 +1,5 @@
 (function (global, doc, ibexa) {
-    const SELECTOR_FIELD = '.ibexa-field-edit--ezisbn';
+    const SELECTOR_FIELD = '.ibexa-field-edit--ibexa_isbn';
     const SELECTOR_SOURCE_INPUT = '.ibexa-data-source__input';
     const SELECTOR_LABEL = '.ibexa-field-edit__label';
 

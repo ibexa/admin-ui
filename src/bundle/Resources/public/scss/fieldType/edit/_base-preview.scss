@@ -13,10 +13,6 @@
     &.is-invalid {
         .ibexa-field-edit__data {
             border-color: $ibexa-color-danger;
-
-            .ibexa-data-source__message--filesize {
-                color: $ibexa-color-danger;
-            }
         }
     }
 

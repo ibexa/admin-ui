@@ -71,18 +71,6 @@
                 margin-top: calculateRem(12px);
             }
         }
-
-        &__dimensions {
-            input[type='number'] {
-                &.is-invalid {
-                    @include input-invalid;
-
-                    & {
-                        padding-right: calculateRem(12px);
-                    }
-                }
-            }
-        }
     }
 
     &.is-invalid {

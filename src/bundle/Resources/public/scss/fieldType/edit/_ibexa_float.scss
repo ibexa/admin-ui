@@ -6,13 +6,4 @@
         width: calculateRem(176px);
         height: calculateRem(48px);
     }
-
-    .ibexa-data-source__input {
-        &.is-invalid {
-            background-image: none;
-            padding-right: calculateRem(12px);
-            background-color: $ibexa-color-danger-100;
-            color: $ibexa-color-danger;
-        }
-    }
 }

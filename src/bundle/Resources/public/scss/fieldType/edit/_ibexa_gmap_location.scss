@@ -1,6 +1,5 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
-@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
 @use 'sass:color';
 
 .ibexa-field-edit--ibexa_gmap_location {
@@ -49,16 +48,6 @@
 
                 &:first-of-type {
                     margin-top: calculateRem(16px);
-                }
-            }
-
-            .ibexa-data-source__input {
-                &.is-invalid {
-                    @include input-invalid;
-
-                    & {
-                        padding-right: calculateRem(12px);
-                    }
                 }
             }
         }
