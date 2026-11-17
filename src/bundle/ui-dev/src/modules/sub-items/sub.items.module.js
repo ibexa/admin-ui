@@ -708,7 +708,7 @@ export default class SubItemsModule extends Component {
                     'bulk_action.success.link_to_location',
                     {
                         locationName: ibexa.helpers.text.escapeHTML(location.ContentInfo.Content.TranslatedName),
-                        locationHref: this.props.generateLink(location.id, location.ContentInfo.id),
+                        locationHref: this.props.generateLink(location.id, location.ContentInfo.Content._id),
                     },
                     'ibexa_sub_items',
                 ),
