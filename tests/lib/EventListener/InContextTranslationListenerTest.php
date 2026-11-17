@@ -22,7 +22,6 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Component\Translation\Translator;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class InContextTranslationListenerTest extends AbstractLocaleListenerTestCase
 {
@@ -34,7 +33,7 @@ final class InContextTranslationListenerTest extends AbstractLocaleListenerTestC
 
     private UserSettingService & MockObject $userSettingService;
 
-    private TranslatorInterface & MockObject $translator;
+    private LocaleSwitcher & MockObject $localeSwitcher;
 
     protected function setUp(): void
     {
@@ -51,7 +50,7 @@ final class InContextTranslationListenerTest extends AbstractLocaleListenerTestC
 
         $this->userSettingService = $this->createMock(UserSettingService::class);
 
-        $this->translator = $this->createMock(Translator::class);
+        $this->localeSwitcher = $this->createMock(LocaleSwitcher::class);
     }
 
     public function testLocaleIsNotSetOnNonAdminSiteaccess(): void
@@ -69,7 +68,7 @@ final class InContextTranslationListenerTest extends AbstractLocaleListenerTestC
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             $this->userSettingService,
-            $this->translator
+            $this->localeSwitcher
         );
 
         $listener->setInContextTranslation($event);
@@ -90,7 +89,7 @@ final class InContextTranslationListenerTest extends AbstractLocaleListenerTestC
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             $this->userSettingService,
-            $this->translator
+            $this->localeSwitcher
         );
 
         $listener->setInContextTranslation($event);
@@ -103,7 +102,7 @@ final class InContextTranslationListenerTest extends AbstractLocaleListenerTestC
             ->method('setLocale')
             ->with('ach-UG');
 
-        $this->translator
+        $this->localeSwitcher
             ->expects(self::once())
             ->method('setLocale')
             ->with('ach-UG');
@@ -124,7 +123,7 @@ final class InContextTranslationListenerTest extends AbstractLocaleListenerTestC
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             $this->userSettingService,
-            $this->translator
+            $this->localeSwitcher
         );
 
         $listener->setInContextTranslation($event);
@@ -152,7 +151,7 @@ final class InContextTranslationListenerTest extends AbstractLocaleListenerTestC
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             $this->userSettingService,
-            $this->translator
+            $this->localeSwitcher
         );
 
         $listener->setInContextTranslation($event);
@@ -172,7 +171,6 @@ final class InContextTranslationListenerTest extends AbstractLocaleListenerTestC
                 new InContextTranslationListener(
                     ['admin_group' => [self::ADMIN_SITEACCESS]],
                     $this->userSettingService,
-                    $translator,
                     $localeSwitcher
                 ),
                 'setInContextTranslation',
@@ -186,7 +184,7 @@ final class InContextTranslationListenerTest extends AbstractLocaleListenerTestC
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             $this->userSettingService,
-            $this->translator
+            $this->localeSwitcher
         );
 
         self::assertSame(
@@ -211,7 +209,7 @@ final class InContextTranslationListenerTest extends AbstractLocaleListenerTestC
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             $this->userSettingService,
-            $this->translator
+            $this->localeSwitcher
         );
 
         $listener->setInContextTranslation($event);
