@@ -43,6 +43,7 @@ use JMS\TranslationBundle\Annotation\Desc;
 use JMS\TranslationBundle\Annotation\Ignore;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Pagerfanta\RouteGenerator\PageRouteGeneratorWrapper;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -188,7 +189,10 @@ final class SectionController extends Controller
             ]);
         };
 
-        $pagination = (new IbexaPagerfantaView(new IbexaPagerfantaTemplate()))->render($pagerfanta, $routeGenerator);
+        $pagination = (new IbexaPagerfantaView(new IbexaPagerfantaTemplate()))->render(
+            $pagerfanta,
+            PageRouteGeneratorWrapper::wrap($routeGenerator)
+        );
 
         return $this->render('@ibexadesign/section/assigned_content.html.twig', [
             'section' => $section,
