@@ -68,13 +68,13 @@ final class UniversalDiscoveryProviderTest extends IbexaKernelTestCase
     {
         $locationIds = [];
         for ($i = 1; $i <= 30; ++$i) {
-            $locationIds[] = $this->createFolder('Folder ' . $i, $this->departments->id)->id;
+            $locationIds[] = $this->createFolder('Folder ' . $i, $this->departments->getId())->getId();
         }
 
         $locations = $this->provider->getLocations($locationIds);
 
         $returnedLocationIds = array_map(
-            static fn (array $item): int => $item['location']->id,
+            static fn (array $item): int => $item['location']->getId(),
             $locations
         );
         sort($returnedLocationIds);
