@@ -21,6 +21,11 @@ services:
             - { name: ibexa.user.setting.value, identifier: autosave_interval, group: content_edit, priority: 20 }
             - { name: ibexa.user.setting.mapper.form, identifier: autosave_interval }
 
+    Ibexa\AdminUi\UserSetting\NotificationCountInterval:
+        tags:
+            - { name: ibexa.user.setting.value, identifier: notification_count_interval, group: browsing, priority: 10 }
+            - { name: ibexa.user.setting.mapper.form, identifier: notification_count_interval }
+
     Ibexa\AdminUi\UserSetting\InContextTranslation:
         tags:
             - { name: ibexa.user.setting.value, identifier: in_context_translation, group: locale, priority: 60 }
