@@ -216,6 +216,7 @@ final class RequestLocaleListenerTest extends AbstractLocaleListenerTestCase
     public function testLocaleIsKeptAfterSubRequest(): void
     {
         $this->userLanguagePreferenceProvider
+            ->expects(self::once())
             ->method('getPreferredLocales')
             ->willReturn(['fr_FR']);
 

@@ -160,6 +160,7 @@ final class InContextTranslationListenerTest extends AbstractLocaleListenerTestC
     public function testLocaleIsKeptAfterSubRequest(): void
     {
         $this->userSettingService
+            ->expects(self::once())
             ->method('getUserSetting')
             ->with('in_context_translation')
             ->willReturn(
