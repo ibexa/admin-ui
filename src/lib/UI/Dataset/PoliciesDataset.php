@@ -10,7 +10,6 @@ namespace Ibexa\AdminUi\UI\Dataset;
 
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
-use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
 use Ibexa\AdminUi\UI\Value as UIValue;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
@@ -27,14 +26,12 @@ final class PoliciesDataset
 
     /**
      * @param string[] $userContentTypeIdentifier
-     * @param string[] $userGroupContentTypeIdentifier
      */
     public function __construct(
         private readonly RoleService $roleService,
         private readonly UserService $userService,
         private readonly ValueFactory $valueFactory,
-        private readonly array $userContentTypeIdentifier,
-        private readonly array $userGroupContentTypeIdentifier
+        private readonly array $userContentTypeIdentifier
     ) {}
 
     /**
@@ -54,7 +51,7 @@ final class PoliciesDataset
             $roleAssignments = $this->roleService->getRoleAssignmentsForUser($user, true);
         }
 
-        if ((new ContentTypeIsUserGroup($this->userGroupContentTypeIdentifier))->isSatisfiedBy($contentType)) {
+        if ($this->userService->isUserGroup($content)) {
             $userGroup = $this->userService->loadUserGroup($content->getId());
             $roleAssignments = $this->roleService->getRoleAssignmentsForUserGroup($userGroup);
         }

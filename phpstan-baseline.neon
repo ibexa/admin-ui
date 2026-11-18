@@ -2467,12 +2467,6 @@ parameters:
 			path: src/lib/Service/Role/RoleService.php
 
 		-
-			message: '#^Instanceof between Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType and Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Specification/ContentType/ContentTypeIsUserGroup.php
-
-		-
 			message: '#^Parameter \#3 \$languageCodes of class Ibexa\\AdminUi\\Form\\Data\\ContentType\\Translation\\TranslationRemoveData constructor expects array\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\>, array\<string, false\> given\.$#'
 			identifier: argument.type
 			count: 1
