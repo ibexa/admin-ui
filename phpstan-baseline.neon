@@ -8689,12 +8689,6 @@ parameters:
 			path: src/lib/Form/Type/ContentType/FieldDefinitionsCollectionType.php
 
 		-
-			message: '#^Parameter \#1 \$child of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects string\|Symfony\\Component\\Form\\FormBuilderInterface, int\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/Form/Type/ContentType/FieldDefinitionsCollectionType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\ContentType\\FieldTypeChoiceType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1

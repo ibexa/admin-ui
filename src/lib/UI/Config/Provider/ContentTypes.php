@@ -17,6 +17,8 @@ use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
+use function Ibexa\PolyfillPhp82\iterator_to_array;
+
 /**
  * @phpstan-type TContentTypeData array{
  *      id: int,
@@ -85,9 +87,11 @@ class ContentTypes implements ProviderInterface
         $event = $this->eventDispatcher->dispatch(new AddContentTypeGroupToUIConfigEvent($eventContentTypeGroups));
 
         foreach ($event->getContentTypeGroups() as $contentTypeGroup) {
-            $contentTypes = $this->contentTypeService->loadContentTypes(
-                $contentTypeGroup,
-                $preferredLanguages
+            $contentTypes = iterator_to_array(
+                $this->contentTypeService->loadContentTypes(
+                    $contentTypeGroup,
+                    $preferredLanguages
+                )
             );
 
             usort($contentTypes, static function (

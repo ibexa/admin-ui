@@ -55,6 +55,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+use function Ibexa\PolyfillPhp82\iterator_to_array;
+
 class ContentTypeController extends Controller
 {
     private const PRIMARY_UPDATE_ACTION = 'publishContentType';
@@ -147,7 +149,9 @@ class ContentTypeController extends Controller
         int $page
     ): Response {
         $deletableTypes = [];
-        $contentTypes = $this->contentTypeService->loadContentTypes($group, $this->configResolver->getParameter('languages'));
+        $contentTypes = iterator_to_array(
+            $this->contentTypeService->loadContentTypes($group, $this->configResolver->getParameter('languages'))
+        );
 
         usort($contentTypes, static function (
             ContentType $contentType1,

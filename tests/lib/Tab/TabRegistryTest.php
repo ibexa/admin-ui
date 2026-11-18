@@ -177,7 +177,7 @@ class TabRegistryTest extends TestCase
              * @param TranslatorInterface $translator
              */
             public function __construct(
-                string $name = 'tab',
+                string $name,
                 Environment $twig,
                 TranslatorInterface $translator
             ) {
