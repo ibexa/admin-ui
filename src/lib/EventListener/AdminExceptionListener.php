@@ -17,6 +17,7 @@ use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LogLevel;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -29,6 +30,9 @@ use Twig\Error\RuntimeError;
 class AdminExceptionListener implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
+
+    private const string API_PATH_PREFIX = '/api/ibexa/';
+    private const string REST_V2_PATH_PREFIX = '/api/ibexa/v2/';
 
     /**
      * @param array<string, string[]> $siteAccessGroups
@@ -47,15 +51,12 @@ class AdminExceptionListener implements LoggerAwareInterface
 
     public function onKernelException(ExceptionEvent $event): void
     {
-        if ($this->kernelEnvironment !== 'prod') {
-            return;
-        }
-
-        if (!$event->isMainRequest()) {
-            return;
-        }
-
-        if (!$this->isAdminException($event)) {
+        if (
+            $this->kernelEnvironment !== 'prod'
+            || !$event->isMainRequest()
+            || !$this->isAdminException($event)
+            || $this->isApiPlatformRequest($event->getRequest())
+        ) {
             return;
         }
 
@@ -117,6 +118,14 @@ class AdminExceptionListener implements LoggerAwareInterface
             $siteAccess->name,
             $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME]
         );
+    }
+
+    private function isApiPlatformRequest(Request $request): bool
+    {
+        $path = $request->attributes->get('semanticPathinfo', $request->getPathInfo());
+
+        return str_starts_with($path, self::API_PATH_PREFIX)
+            && !str_starts_with($path, self::REST_V2_PATH_PREFIX);
     }
 
     private function getNotificationMessage(Throwable $exception): string
