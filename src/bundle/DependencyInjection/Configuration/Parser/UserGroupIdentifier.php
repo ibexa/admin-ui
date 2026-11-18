@@ -22,6 +22,9 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *      default: # configuration per siteaccess or siteaccess group
  *          user_group_content_type_identifier: ['user_group', 'my_custom_user_group_identifier']
  * ```
+ *
+ * @deprecated 5.0.12 The `user_group_content_type_identifier` setting moves to `ibexa/core` in 6.0
+ *             and this parser will be removed. The configuration key itself stays the same.
  */
 final class UserGroupIdentifier extends AbstractParser
 {
