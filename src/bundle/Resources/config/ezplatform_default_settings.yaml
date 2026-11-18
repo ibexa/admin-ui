@@ -37,9 +37,6 @@ parameters:
     # User identifier
     ibexa.site_access.config.admin_group.user_content_type_identifier: ['user', 'editor']
 
-    # User Group identifier
-    ibexa.site_access.config.admin_group.user_group_content_type_identifier: ['user_group']
-
     # Subtree Operations
     ibexa.site_access.config.admin_group.subtree_operations.copy_subtree.limit: 100
     ibexa.site_access.config.admin_group.subtree_operations.query_subtree.limit: 500
