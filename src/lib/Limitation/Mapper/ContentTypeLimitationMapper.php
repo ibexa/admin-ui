@@ -39,7 +39,7 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
         foreach ($this->contentTypeService->loadContentTypeGroups() as $group) {
             foreach ($this->contentTypeService->loadContentTypes($group) as $contentType) {
                 $contentTypeChoices[$contentType->id] = (string)$contentType->getName($contentType->mainLanguageCode);
-                $contentTypeIdentifiers[$contentType->id] = $contentType->identifier;
+                $contentTypeIdentifiers[$contentType->id] = $contentType->getIdentifier();
             }
         }
 
