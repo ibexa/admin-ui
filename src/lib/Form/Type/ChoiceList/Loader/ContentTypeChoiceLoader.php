@@ -14,6 +14,8 @@ use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
+use function Ibexa\PolyfillPhp82\iterator_to_array;
+
 class ContentTypeChoiceLoader implements ChoiceLoaderInterface
 {
     /** @var ContentTypeService */
@@ -43,7 +45,9 @@ class ContentTypeChoiceLoader implements ChoiceLoaderInterface
         $preferredLanguages = $this->userLanguagePreferenceProvider->getPreferredLanguages();
         $contentTypeGroups = $this->contentTypeService->loadContentTypeGroups($preferredLanguages);
         foreach ($contentTypeGroups as $contentTypeGroup) {
-            $contentTypes = $this->contentTypeService->loadContentTypes($contentTypeGroup, $preferredLanguages);
+            $contentTypes = iterator_to_array(
+                $this->contentTypeService->loadContentTypes($contentTypeGroup, $preferredLanguages)
+            );
             usort($contentTypes, static function (
                 ContentType $contentType1,
                 ContentType $contentType2

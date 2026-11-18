@@ -11,11 +11,6 @@ parameters:
 			path: src/bundle/Controller/ContentDraftController.php
 
 		-
-			message: "#^Parameter \\#1 \\$array_arg of function usort expects TArray of array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\>, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\> given\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
 			message: "#^Parameter \\#1 \\$s1 of function strnatcasecmp expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/bundle/Controller/ContentTypeController.php
@@ -101,11 +96,6 @@ parameters:
 			path: src/lib/Form/Type/ChoiceList/Loader/ContentEditTranslationChoiceLoader.php
 
 		-
-			message: "#^Parameter \\#1 \\$array_arg of function usort expects TArray of array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\>, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\> given\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ChoiceList/Loader/ContentTypeChoiceLoader.php
-
-		-
 			message: "#^Parameter \\#1 \\$s1 of function strnatcasecmp expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/lib/Form/Type/ChoiceList/Loader/ContentTypeChoiceLoader.php
@@ -159,11 +149,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$str of function strtolower expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/lib/Translation/Extractor/PolicyTranslationExtractor.php
-
-		-
-			message: "#^Parameter \\#1 \\$array_arg of function usort expects TArray of array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\>, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\> given\\.$#"
-			count: 1
-			path: src/lib/UI/Config/Provider/ContentTypes.php
 
 		-
 			message: "#^Parameter \\#1 \\$s1 of function strnatcasecmp expects string, string\\|null given\\.$#"
