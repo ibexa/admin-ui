@@ -12,9 +12,12 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
+use Ibexa\Core\Repository\Values\ContentType\ContentType as CoreContentType;
+use Ibexa\Core\Repository\Values\ContentType\ContentTypeGroup;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Form\Forms;
 
 class ContentTypeLimitationMapperTest extends TestCase
 {
@@ -88,6 +91,50 @@ class ContentTypeLimitationMapperTest extends TestCase
         ]));
 
         $this->assertEmpty($actual);
+    }
+
+    public function testMapLimitationFormDistinguishesContentTypesWithSameName(): void
+    {
+        $group = new ContentTypeGroup(['id' => 1, 'identifier' => 'Content']);
+
+        $contentTypeService = $this->createStub(ContentTypeService::class);
+        $contentTypeService
+            ->method('loadContentTypeGroups')
+            ->willReturn([$group]);
+        $contentTypeService
+            ->method('loadContentTypes')
+            ->willReturn([
+                $this->createContentType(self::EXAMPLE_CONTENT_TYPE_ID_A, 'project_a', 'Projects'),
+                $this->createContentType(self::EXAMPLE_CONTENT_TYPE_ID_B, 'project_b', 'Projects'),
+                $this->createContentType(self::EXAMPLE_CONTENT_TYPE_ID_C, 'article', 'Article'),
+            ]);
+
+        $form = Forms::createFormFactory()->createBuilder()->getForm();
+
+        $mapper = new ContentTypeLimitationMapper($contentTypeService);
+        $mapper->mapLimitationForm($form, new ContentTypeLimitation());
+
+        self::assertSame(
+            [
+                'Article' => self::EXAMPLE_CONTENT_TYPE_ID_C,
+                'Projects (project_a)' => self::EXAMPLE_CONTENT_TYPE_ID_A,
+                'Projects (project_b)' => self::EXAMPLE_CONTENT_TYPE_ID_B,
+            ],
+            $form->get('limitationValues')->getConfig()->getOption('choices')
+        );
+    }
+
+    private function createContentType(
+        int $id,
+        string $identifier,
+        string $name
+    ): CoreContentType {
+        return new CoreContentType([
+            'id' => $id,
+            'identifier' => $identifier,
+            'mainLanguageCode' => 'eng-GB',
+            'names' => ['eng-GB' => $name],
+        ]);
     }
 }
 
