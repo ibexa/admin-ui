@@ -9,17 +9,16 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Tab\LocationView;
 
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
-use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
-use Ibexa\Contracts\Core\Specification\OrSpecification;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -38,7 +37,8 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
         protected readonly DatasetFactory $datasetFactory,
         protected readonly PermissionResolver $permissionResolver,
         EventDispatcherInterface $eventDispatcher,
-        protected readonly ConfigResolverInterface $configResolver
+        protected readonly ConfigResolverInterface $configResolver,
+        protected readonly UserService $userService
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
     }
@@ -76,9 +76,8 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
         $contentType = $parameters['contentType'];
 
         $isUser = new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier'));
-        $isUserGroup = new ContentTypeIsUserGroup($this->configResolver->getParameter('user_group_content_type_identifier'));
 
-        return (new OrSpecification($isUser, $isUserGroup))->isSatisfiedBy($contentType);
+        return $isUser->isSatisfiedBy($contentType) || $this->userService->isUserGroup($parameters['content']);
     }
 
     public function getTemplate(): string

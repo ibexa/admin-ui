@@ -12,7 +12,6 @@ use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
-use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
 use Ibexa\AdminUi\Specification\Location\IsInContextualTreeRootIds;
 use Ibexa\AdminUi\Specification\Location\IsRoot;
 use Ibexa\AdminUi\Specification\Location\IsWithinCopySubtreeLimit;
@@ -27,6 +26,7 @@ use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
@@ -66,7 +66,8 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         private readonly LocationService $locationService,
         private readonly UniversalDiscoveryExtension $udwExtension,
         private readonly SiteaccessResolverInterface $siteaccessResolver,
-        private readonly LimitationResolverInterface $limitationResolver
+        private readonly LimitationResolverInterface $limitationResolver,
+        private readonly UserService $userService
     ) {
         parent::__construct($factory, $eventDispatcher);
     }
@@ -157,8 +158,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
 
         $contentIsUser = (new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))
             ->isSatisfiedBy($contentType);
-        $contentIsUserGroup = (new ContentTypeIsUserGroup($this->configResolver->getParameter('user_group_content_type_identifier')))
-            ->isSatisfiedBy($contentType);
+        $contentIsUserGroup = $this->userService->isUserGroup($content);
 
         $menu->setChildren([
             self::ITEM__CREATE => $this->createMenuItem(
