@@ -95,12 +95,18 @@ final class UserSettingsPage extends Page
 
     public function openBrowsingEditionPage(): void
     {
-        $this->getHTMLPage()
+        $editButton = $this->getHTMLPage()
             ->findAll(new VisibleCSSLocator('settingsSection', '#ibexa-tab-my-preferences .ibexa-details'))
             ->getByCriterion(new ChildElementTextCriterion(new VisibleCSSLocator('settingHeader', '.ibexa-table-header__headline'), 'Browsing'))
-            ->find(new VisibleCSSLocator('editButton', ' .ids-btn__label'))
-            ->assert()->textEquals('Edit')
-            ->click();
+            ->find(new VisibleCSSLocator('editButton', ' .ids-btn__label'));
+
+        $this->getSession()->executeScript(sprintf(
+            'document.evaluate(%s, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView({block: "center"})',
+            json_encode($editButton->getXPath(), JSON_THROW_ON_ERROR)
+        ));
+
+        $editButton->assert()->textEquals('Edit');
+        $editButton->click();
     }
 
     public function disableHelpCenter(): void
