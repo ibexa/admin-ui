@@ -85,6 +85,20 @@
         background: $ibexa-color-white;
     }
 
+    &--dashboard-block {
+        .ibexa-tab-content {
+            border: calculateRem(1px) solid $ibexa-color-light;
+            border-top: 0;
+            border-radius: 0 0 $ibexa-border-radius $ibexa-border-radius;
+            box-shadow: $ibexa-container-box-shadow;
+            background-color: $ibexa-color-white;
+
+            &__pane {
+                padding: calculateRem(24px);
+            }
+        }
+    }
+
     &--more-space {
         .ibexa-card__body {
             padding-left: calculateRem(16px);

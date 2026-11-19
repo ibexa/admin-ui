@@ -3,7 +3,6 @@
 @use 'sass:color';
 
 .m-sub-items {
-    margin-top: calculateRem(30px);
     max-width: 100%;
     background: $ibexa-color-white;
     border-radius: $ibexa-border-radius;
@@ -15,7 +14,10 @@
     .ibexa-table-header {
         margin-bottom: 0;
         padding-bottom: calculateRem(20px);
-        border-bottom: calculateRem(1px) solid $ibexa-color-dark-200;
+
+        .ibexa-tab-content__pane & {
+            margin-top: 0;
+        }
 
         &__headline {
             overflow: initial;

@@ -201,16 +201,21 @@ select {
 }
 
 .ibexa-container {
+    padding: calculateRem(12px);
+    margin-bottom: calculateRem(32px);
+
+    @media (min-width: 1921px) {
+        max-width: calculateRem(2000px);
+    }
+}
+
+.ibexa-card-container {
     padding: calculateRem(24px);
     background: $ibexa-color-white;
     border: calculateRem(1px) solid $ibexa-color-light;
     border-radius: $ibexa-border-radius;
     box-shadow: $ibexa-container-box-shadow;
     margin-bottom: calculateRem(32px);
-
-    @media (min-width: 1921px) {
-        max-width: calculateRem(2000px);
-    }
 }
 
 .ibexa-error-site {

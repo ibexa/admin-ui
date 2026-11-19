@@ -3,7 +3,7 @@
 
 .ibexa-user-profile-view {
     .ibexa-user-profile {
-        .ibexa-container {
+        .ibexa-card-container {
             padding: calculateRem(24px);
             margin-bottom: calculateRem(24px);
         }
@@ -13,7 +13,7 @@
             height: calculateRem(276px);
             position: relative;
 
-            &.ibexa-container {
+            &.ibexa-card-container {
                 padding: 0;
                 margin-bottom: calculateRem(36px);
             }
@@ -90,7 +90,7 @@
         &__blocks {
             width: 70%;
 
-            &.ibexa-container {
+            &.ibexa-card-container {
                 padding-bottom: calculateRem(8px);
             }
         }
