@@ -51,17 +51,13 @@ class Relation extends CoreRelation implements RelationInterface
 
     /**
      * Source location for the relation.
-     *
-     * @var Location
      */
-    protected $resolvedSourceLocation;
+    protected ?Location $resolvedSourceLocation = null;
 
     /**
      * Destination location for the relation.
-     *
-     * @var Location
      */
-    protected $resolvedDestinationLocation;
+    protected ?Location $resolvedDestinationLocation = null;
 
     /**
      * @param APIRelation $relation
@@ -80,6 +76,16 @@ class Relation extends CoreRelation implements RelationInterface
     public function isAccessible(): bool
     {
         return true;
+    }
+
+    public function getResolvedSourceLocation(): ?Location
+    {
+        return $this->resolvedSourceLocation;
+    }
+
+    public function getResolvedDestinationLocation(): ?Location
+    {
+        return $this->resolvedDestinationLocation;
     }
 }
 
