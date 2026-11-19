@@ -51,15 +51,15 @@
         <target state="new">File name</target>
         <note>key: ibexa_image.file_name</note>
       </trans-unit>
-      <trans-unit id="a4a3a32d2d3f96ec0769f68c82f11206a04f64b0" resname="ibexa_image.image_file_properties">
-        <source>Image file properties</source>
-        <target state="new">Image file properties</target>
-        <note>key: ibexa_image.image_file_properties</note>
-      </trans-unit>
       <trans-unit id="188570c2399106e1b748b39b7c5eba35b09250f2" resname="ibexa_image.master_dimensions">
-        <source>Master dimensions</source>
-        <target state="new">Master dimensions</target>
+        <source>Master dimension</source>
+        <target state="new">Master dimension</target>
         <note>key: ibexa_image.master_dimensions</note>
+      </trans-unit>
+      <trans-unit id="ddfd8e3fa64c615234df5e289774c045e8e61cb8" resname="ibexa_image.open_in_new_tab">
+        <source>Open image in a new tab</source>
+        <target state="new">Open image in a new tab</target>
+        <note>key: ibexa_image.open_in_new_tab</note>
       </trans-unit>
       <trans-unit id="96a278f9b64f78bf5f39a6ccc8422cb038bdff0e" resname="ibexa_image.ratio">
         <source>Ratio</source>
@@ -72,8 +72,8 @@
         <note>key: ibexa_image.size</note>
       </trans-unit>
       <trans-unit id="2eeb0f98321c479f39edd5b8970ba27d7dedcef7" resname="ibexa_image.width_and_height">
-        <source>Width: %width%px height: %height%px</source>
-        <target state="new">Width: %width%px height: %height%px</target>
+        <source>W: %width% px H: %height% px</source>
+        <target state="new">W: %width% px H: %height% px</target>
         <note>key: ibexa_image.width_and_height</note>
       </trans-unit>
       <trans-unit id="263e051e355a5871ae5399635e478ebb4220bd97" resname="ibexa_image_asset.alternative_text">
@@ -86,20 +86,20 @@
         <target state="new">File name</target>
         <note>key: ibexa_image_asset.file_name</note>
       </trans-unit>
-      <trans-unit id="dd9b010029e69a1f5674fb1234ccfaf4807a1ec2" resname="ibexa_image_asset.image_file_properties">
-        <source>Image file properties</source>
-        <target state="new">Image file properties</target>
-        <note>key: ibexa_image_asset.image_file_properties</note>
-      </trans-unit>
       <trans-unit id="2515501ca03e42c59e0642827046353e0c2ee7be" resname="ibexa_image_asset.master_dimensions">
-        <source>Master dimensions</source>
-        <target state="new">Master dimensions</target>
+        <source>Master dimension</source>
+        <target state="new">Master dimension</target>
         <note>key: ibexa_image_asset.master_dimensions</note>
       </trans-unit>
       <trans-unit id="ba862f9efb9e5a8d48f4322d85e1f481c3466a50" resname="ibexa_image_asset.not_available">
         <source>Image asset is not available (related content has been deleted or you have insufficient permissions)</source>
         <target state="new">Image asset is not available (related content has been deleted or you have insufficient permissions)</target>
         <note>key: ibexa_image_asset.not_available</note>
+      </trans-unit>
+      <trans-unit id="df5123b79558bd0979f63e20442a264875f8af64" resname="ibexa_image_asset.open_in_new_tab">
+        <source>Open image in a new tab</source>
+        <target state="new">Open image in a new tab</target>
+        <note>key: ibexa_image_asset.open_in_new_tab</note>
       </trans-unit>
       <trans-unit id="2cd192c1f5c3bb8aadae507afcfd78ad92d347ee" resname="ibexa_image_asset.ratio">
         <source>Ratio</source>
@@ -112,8 +112,8 @@
         <note>key: ibexa_image_asset.size</note>
       </trans-unit>
       <trans-unit id="39369b77f343592d30fff0db935a27ed4563bc7b" resname="ibexa_image_asset.width_and_height">
-        <source>Width: %width%px height: %height%px</source>
-        <target state="new">Width: %width%px height: %height%px</target>
+        <source>W: %width% px H: %height% px</source>
+        <target state="new">W: %width% px H: %height% px</target>
         <note>key: ibexa_image_asset.width_and_height</note>
       </trans-unit>
       <trans-unit id="05b6713cf62a629f6a5b34300e23bec5b5471e36" resname="ibexa_media.auto_play">

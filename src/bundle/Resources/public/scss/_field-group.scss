@@ -6,37 +6,62 @@
     background-color: $ibexa-color-white;
 
     .ibexa-raw-content-title {
-        margin-top: calculateRem(30px);
-        padding: 0 0 calculateRem(15px) 0;
-        color: $ibexa-color-black;
-        align-items: center;
-        border-bottom: calculateRem(1px) solid $ibexa-color-light;
         display: flex;
         justify-content: space-between;
-        align-items: flex-end;
-
-        h3 {
-            margin: 0;
-        }
+        align-items: center;
+        margin-bottom: calculateRem(16px);
+        padding: calculateRem(8px) 0;
+        color: $ibexa-color-black;
 
         &__text {
             margin: 0;
-            font-size: $ibexa-text-font-size-large;
-            line-height: calculateRem(33px);
+            font-family: $ibexa-font-family-headings;
+            font-size: $h2-font-size;
+            font-weight: $headings-font-weight;
+            line-height: $headings-line-height;
             color: $ibexa-color-black;
-            font-weight: 600;
         }
 
         &__language-form {
             display: flex;
-
-            .ids-label {
-                margin: calculateRem(8px) calculateRem(8px) 0;
-            }
+            align-items: center;
+            gap: calculateRem(8px);
 
             .ibexa-dropdown {
                 margin: 0;
             }
+        }
+    }
+}
+
+.ibexa-content-preview {
+    &__group {
+        &:not(:last-child) {
+            margin-bottom: calculateRem(16px);
+        }
+
+        .ibexa-details:not(:first-child) {
+            margin-top: 0;
+        }
+    }
+
+    &__group-name {
+        margin: 0 0 calculateRem(16px);
+        font-family: $ibexa-font-family-headings;
+        font-size: $h3-font-size;
+        font-weight: $headings-font-weight;
+        line-height: $headings-line-height;
+        color: $ibexa-color-black;
+    }
+
+    .ibexa-content-field__value {
+        .ibexa_country-field {
+            margin-bottom: 0;
+        }
+
+        .ibexa-field-preview--ibexa_image,
+        .ibexa-field-preview--ibexa_image_asset {
+            margin-top: calculateRem(4px);
         }
     }
 }
@@ -56,61 +81,6 @@
         padding: calculateRem(24px) calculateRem(8px);
         font-weight: normal;
         font-size: $ibexa-text-font-size;
-    }
-
-    &__toggler-label-show {
-        display: none;
-    }
-
-    &__toggler-label-hide {
-        display: inline;
-    }
-
-    &__toggler {
-        position: relative;
-        display: block;
-        padding: calculateRem(24px) calculateRem(16px);
-        font-size: $ibexa-text-font-size-medium;
-        font-weight: normal;
-        color: $ibexa-color-black;
-        text-decoration: none;
-
-        &:focus,
-        &:hover {
-            color: $ibexa-color-primary;
-            text-decoration: none;
-
-            &::after {
-                border-top: calculateRem(5px) solid $ibexa-color-primary;
-            }
-        }
-
-        &::after {
-            position: absolute;
-            top: calculateRem(33px);
-            right: 0;
-            content: '';
-            border-left: calculateRem(5px) solid transparent;
-            border-right: calculateRem(5px) solid transparent;
-            border-top: calculateRem(5px) solid $ibexa-color-black;
-            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-        }
-
-        &.collapsed {
-            .ibexa-fieldgroup {
-                &__toggler-label-show {
-                    display: inline;
-                }
-
-                &__toggler-label-hide {
-                    display: none;
-                }
-            }
-
-            &:after {
-                transform: rotate(180deg);
-            }
-        }
     }
 
     &__content {
@@ -146,6 +116,15 @@
         }
     }
 
+    &.container {
+        @media (min-width: 1921px) {
+            max-width: calculateRem(2000px);
+        }
+    }
+}
+
+.ibexa-fieldgroup,
+.ibexa-content-preview {
     .ibexa-field-preview {
         &--ibexa_object_relation_list {
             .table {
@@ -164,12 +143,6 @@
             td {
                 padding-bottom: calculateRem(10px);
             }
-        }
-    }
-
-    &.container {
-        @media (min-width: 1921px) {
-            max-width: calculateRem(2000px);
         }
     }
 }
