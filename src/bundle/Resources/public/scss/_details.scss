@@ -1,6 +1,5 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
-@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/field-view' as *;
 
 .ibexa-details {
     &:not(:first-child) {
@@ -63,12 +62,15 @@
 
     &__item-label,
     &__item-label.ids-label {
-        @include field-view-label();
+        margin-bottom: calculateRem(4px);
+        color: $ibexa-color-black-300;
+        font-size: $ibexa-text-font-size-small;
+        font-weight: $ibexa-font-weight-bold;
+        line-height: calculateRem(18px);
     }
 
     &__item-content {
-        @include field-view-value();
-
+        color: $ibexa-color-black;
         word-wrap: break-word;
 
         .ibexa-dropdown {

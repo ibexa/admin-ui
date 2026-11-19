@@ -23,33 +23,37 @@
             </span>
         </a>
         <div class="ibexa-field-preview__meta">
-            <div class="ibexa-field-preview__meta-item">
-                <div class="ibexa-field-preview__meta-label">{{ 'ibexa_image_asset.file_name'|trans|desc('File name') }}</div>
-                <div class="ibexa-field-preview__meta-value">{{ field.value.fileName }}</div>
-            </div>
-            <div class="ibexa-field-preview__meta-item">
-                <div class="ibexa-field-preview__meta-label">{{ 'ibexa_image_asset.master_dimensions'|trans|desc('Master dimension') }}</div>
-                <div class="ibexa-field-preview__meta-value">
-                    {{ 'ibexa_image_asset.width_and_height'|trans({
+            {% set meta_items = [
+                {
+                    label: 'ibexa_image_asset.file_name'|trans|desc('File name'),
+                    content: field.value.fileName,
+                },
+                {
+                    label: 'ibexa_image_asset.master_dimensions'|trans|desc('Master dimension'),
+                    content: 'ibexa_image_asset.width_and_height'|trans({
                         '%width%': field.value.width,
-                        '%height%': field.value.height})|desc('W: %width% px H: %height% px')
-                    }}
-                </div>
-            </div>
-            <div class="ibexa-field-preview__meta-item">
-                <div class="ibexa-field-preview__meta-label">{{ 'ibexa_image_asset.size'|trans|desc('Size') }}</div>
-                <div class="ibexa-field-preview__meta-value">{{ field.value.fileSize|ibexa_file_size(1) }}</div>
-            </div>
+                        '%height%': field.value.height,
+                    })|desc('W: %width% px H: %height% px'),
+                },
+                {
+                    label: 'ibexa_image_asset.size'|trans|desc('Size'),
+                    content: field.value.fileSize|ibexa_file_size(1),
+                },
+            ] %}
             {% if field.value.height %}
-                <div class="ibexa-field-preview__meta-item">
-                    <div class="ibexa-field-preview__meta-label">{{ 'ibexa_image_asset.ratio'|trans|desc('Ratio') }}</div>
-                    <div class="ibexa-field-preview__meta-value">{{ (field.value.width/field.value.height)|round(2) }}</div>
-                </div>
+                {% set meta_items = meta_items|merge([{
+                    label: 'ibexa_image_asset.ratio'|trans|desc('Ratio'),
+                    content: (field.value.width/field.value.height)|round(2),
+                }]) %}
             {% endif %}
-            <div class="ibexa-field-preview__meta-item">
-                <div class="ibexa-field-preview__meta-label">{{ 'ibexa_image_asset.alternative_text'|trans|desc('Alternative text') }}</div>
-                <div class="ibexa-field-preview__meta-value">{{ alternative_text }}</div>
-            </div>
+            {% set meta_items = meta_items|merge([{
+                label: 'ibexa_image_asset.alternative_text'|trans|desc('Alternative text'),
+                content: alternative_text,
+            }]) %}
+            {% include '@ibexadesign/ui/component/details/details.html.twig' with {
+                items: meta_items,
+                view_mode: 'vertical',
+            } only %}
         </div>
     </div>
 {% else %}

@@ -1,6 +1,5 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
-@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/field-view' as *;
 
 @mixin image-preview() {
     .ibexa-field-preview {
@@ -72,14 +71,6 @@
             flex-direction: column;
             gap: calculateRem(16px);
             padding: calculateRem(16px) calculateRem(24px);
-        }
-
-        &__meta-label {
-            @include field-view-label();
-        }
-
-        &__meta-value {
-            @include field-view-value();
         }
     }
 }
