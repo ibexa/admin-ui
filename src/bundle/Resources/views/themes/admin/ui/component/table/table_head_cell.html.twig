@@ -1,5 +1,5 @@
+{% block table_head_cell %}
 {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
-{% import "@ibexadesign/ui/component/table/table_macros.html.twig" as table_macros %}
 
 <th
     class="ibexa-table__header-cell
@@ -11,6 +11,8 @@
     {{ html.attributes(attr|default({})) }}
 >
     {%- block content -%}
+        {% import "@ibexadesign/ui/component/table/table_macros.html.twig" as table_macros %}
+        {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
         {%- if has_checkbox|default(false) -%}
             <div class="ibexa-table__header-cell-checkbox-wrapper">
                 <input
@@ -29,3 +31,4 @@
         {%- endif -%}
     {%- endblock -%}
 </th>
+{% endblock %}
