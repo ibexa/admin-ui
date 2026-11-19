@@ -3,7 +3,7 @@
 {% set parameters = parameters|default({})|merge({ hide_toggler: true }) %}
 {% set default_block_name = 'me'|trans|desc('My content') %}
 
-<div class="card border-light ibexa-card ibexa-card--no-padding">
+<div class="card border-light ibexa-card ibexa-card--no-padding ibexa-card--dashboard-block">
     <div class="ibexa-card__title">{{ block_name|default(default_block_name) }}</div>
     <div class="ibexa-card__body">
         {{ ibexa_twig_component_group('admin-ui-dashboard-my-tab-groups', parameters) }}
