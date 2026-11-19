@@ -15,25 +15,22 @@ use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Component\Translation\Translator;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class RequestLocaleListenerTest extends TestCase
+final class RequestLocaleListenerTest extends AbstractLocaleListenerTestCase
 {
-    private const string ADMIN_SITEACCESS = 'admin_siteaccess';
-
     private const string NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
     private Request & MockObject $request;
 
     private HttpKernelInterface & MockObject $httpKernel;
 
-    private TranslatorInterface & MockObject $translator;
+    private LocaleSwitcher & MockObject $localeSwitcher;
 
     private UserLanguagePreferenceProviderInterface & MockObject $userLanguagePreferenceProvider;
 
@@ -43,7 +40,7 @@ final class RequestLocaleListenerTest extends TestCase
     {
         parent::setUp();
 
-        $this->translator = $this->createMock(Translator::class);
+        $this->localeSwitcher = $this->createMock(LocaleSwitcher::class);
 
         $this->request = $this
             ->getMockBuilder(Request::class)
@@ -66,7 +63,7 @@ final class RequestLocaleListenerTest extends TestCase
 
     public function testLocaleIsNotSetOnNonAdminSiteaccess(): void
     {
-        $translator = $this->translatorWithSetLocaleExpectsNever();
+        $localeSwitcher = $this->localeSwitcherWithSetLocaleExpectsNever();
 
         $request = $this->requestWithSetLocaleExpectsNever();
 
@@ -81,7 +78,7 @@ final class RequestLocaleListenerTest extends TestCase
         $requestLocaleListener = new RequestLocaleListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             [],
-            $translator,
+            $localeSwitcher,
             $this->userLanguagePreferenceProvider,
             $this->configResolver
         );
@@ -91,7 +88,7 @@ final class RequestLocaleListenerTest extends TestCase
 
     public function testLocaleIsNotSetOnSubRequest(): void
     {
-        $translator = $this->translatorWithSetLocaleExpectsNever();
+        $localeSwitcher = $this->localeSwitcherWithSetLocaleExpectsNever();
 
         $request = $this->requestWithSetLocaleExpectsNever();
 
@@ -106,7 +103,7 @@ final class RequestLocaleListenerTest extends TestCase
         $requestLocaleListener = new RequestLocaleListener(
             [],
             [],
-            $translator,
+            $localeSwitcher,
             $this->userLanguagePreferenceProvider,
             $this->configResolver
         );
@@ -116,7 +113,7 @@ final class RequestLocaleListenerTest extends TestCase
 
     public function testLocaleIsSet(): void
     {
-        $this->translator
+        $this->localeSwitcher
             ->expects(self::once())
             ->method('setLocale')
             ->with('en_US');
@@ -139,7 +136,7 @@ final class RequestLocaleListenerTest extends TestCase
         $requestLocaleListener = new RequestLocaleListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             ['en_GB', 'en_US'],
-            $this->translator,
+            $this->localeSwitcher,
             $this->userLanguagePreferenceProvider,
             $this->configResolver
         );
@@ -149,7 +146,7 @@ final class RequestLocaleListenerTest extends TestCase
 
     public function testLocaleIsSetWithoutAvailableTranslation(): void
     {
-        $this->translator
+        $this->localeSwitcher
             ->expects(self::once())
             ->method('setLocale')
             ->with('en_US');
@@ -172,7 +169,7 @@ final class RequestLocaleListenerTest extends TestCase
         $requestLocaleListener = new RequestLocaleListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             [],
-            $this->translator,
+            $this->localeSwitcher,
             $this->userLanguagePreferenceProvider,
             $this->configResolver
         );
@@ -182,7 +179,7 @@ final class RequestLocaleListenerTest extends TestCase
 
     public function testInvalidPreferredLocaleFallsBackToAvailableTranslation(): void
     {
-        $this->translator
+        $this->localeSwitcher
             ->expects(self::once())
             ->method('setLocale')
             ->with('en_GB');
@@ -208,7 +205,7 @@ final class RequestLocaleListenerTest extends TestCase
         $requestLocaleListener = new RequestLocaleListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             ['en_GB', 'en_US'],
-            $this->translator,
+            $this->localeSwitcher,
             $this->userLanguagePreferenceProvider,
             $this->configResolver
         );
@@ -216,12 +213,34 @@ final class RequestLocaleListenerTest extends TestCase
         $requestLocaleListener->onKernelRequest($event);
     }
 
+    public function testLocaleIsKeptAfterSubRequest(): void
+    {
+        $this->userLanguagePreferenceProvider
+            ->expects(self::once())
+            ->method('getPreferredLocales')
+            ->willReturn(['fr_FR']);
+
+        $this->assertLocaleIsKeptAfterSubRequest(
+            fn (Translator $translator, LocaleSwitcher $localeSwitcher): callable => [
+                new RequestLocaleListener(
+                    ['admin_group' => [self::ADMIN_SITEACCESS]],
+                    ['en_GB', 'fr_FR'],
+                    $localeSwitcher,
+                    $this->userLanguagePreferenceProvider,
+                    $this->configResolver
+                ),
+                'onKernelRequest',
+            ],
+            'fr_FR'
+        );
+    }
+
     public function testSubscribedEvents(): void
     {
         $requestLocaleListener = new RequestLocaleListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             [],
-            $this->translator,
+            $this->localeSwitcher,
             $this->userLanguagePreferenceProvider,
             $this->configResolver
         );
@@ -245,7 +264,7 @@ final class RequestLocaleListenerTest extends TestCase
         $requestLocaleListener = new RequestLocaleListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
             [],
-            $this->translator,
+            $this->localeSwitcher,
             $this->userLanguagePreferenceProvider,
             $this->configResolver
         );
@@ -253,19 +272,14 @@ final class RequestLocaleListenerTest extends TestCase
         $requestLocaleListener->onKernelRequest($event);
     }
 
-    /**
-     * @return MockObject|TranslatorInterface
-     *
-     * @throws \ReflectionException
-     */
-    private function translatorWithSetLocaleExpectsNever(): MockObject
+    private function localeSwitcherWithSetLocaleExpectsNever(): LocaleSwitcher & MockObject
     {
-        $translator = $this->createMock(Translator::class);
-        $translator
+        $localeSwitcher = $this->createMock(LocaleSwitcher::class);
+        $localeSwitcher
             ->expects(self::never())
             ->method('setLocale');
 
-        return $translator;
+        return $localeSwitcher;
     }
 
     /**
