@@ -2,6 +2,12 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 
 .ibexa-content-locations {
+    > form:first-child + .ibexa-table-header {
+        .ibexa-tab-content__pane & {
+            margin-top: 0;
+        }
+    }
+
     &__visibility-toggler-label {
         color: $ibexa-color-dark-400;
         font-size: $ibexa-text-font-size-small;
