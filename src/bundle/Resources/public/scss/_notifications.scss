@@ -58,7 +58,7 @@
 
     &__data-grid-wrapper {
         width: 100%;
-        padding: calculateRem(16px) calculateRem(10px) calculateRem(16px) 0;
+        padding: 0 calculateRem(10px) calculateRem(16px) 0;
     }
 
     &__filters-wrapper {
