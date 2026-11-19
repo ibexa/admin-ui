@@ -9,5 +9,9 @@
     >
         {{- 'mail.link_fallback.open_in_browser'|trans|desc('Open in browser') -}}
     </a>
-    <span class="ibexa-email-link" style="color: #4e24a5; word-break: break-all;">[{{ url }}]</span>
+    <a
+        class="ibexa-email-link"
+        style="color: #4e24a5; text-decoration: none; word-break: break-all;"
+        href="{{ url }}"
+    >[{{ url }}]</a>
 {% endblock mail_link_fallback %}
