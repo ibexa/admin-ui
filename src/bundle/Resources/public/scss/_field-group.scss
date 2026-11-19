@@ -1,6 +1,5 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
-@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/field-view' as *;
 
 .ibexa-view-rawcontentview {
     margin-bottom: calculateRem(25px);
@@ -15,7 +14,12 @@
         color: $ibexa-color-black;
 
         &__text {
-            @include field-view-title();
+            margin: 0;
+            font-family: $ibexa-font-family-headings;
+            font-size: $h2-font-size;
+            font-weight: $headings-font-weight;
+            line-height: $headings-line-height;
+            color: $ibexa-color-black;
         }
 
         &__language-form {
@@ -26,10 +30,6 @@
             .ibexa-dropdown {
                 margin: 0;
             }
-        }
-
-        &__language-label {
-            @include field-view-language-label();
         }
     }
 }
@@ -46,11 +46,23 @@
     }
 
     &__group-name {
-        @include field-view-group-name();
+        margin: 0 0 calculateRem(16px);
+        font-family: $ibexa-font-family-headings;
+        font-size: $h3-font-size;
+        font-weight: $headings-font-weight;
+        line-height: $headings-line-height;
+        color: $ibexa-color-black;
     }
 
     .ibexa-content-field__value {
-        @include field-view-rendered-value();
+        .ibexa_country-field {
+            margin-bottom: 0;
+        }
+
+        .ibexa-field-preview--ibexa_image,
+        .ibexa-field-preview--ibexa_image_asset {
+            margin-top: calculateRem(4px);
+        }
     }
 }
 
@@ -79,19 +91,40 @@
     .ibexa-content-field {
         display: flex;
         flex-direction: column;
-        margin-bottom: calculateRem(16px);
+        margin-bottom: calculateRem(24px);
 
         &__name {
-            @include field-view-label();
+            margin-bottom: calculateRem(8px);
+            color: $ibexa-color-dark-300;
+            font-size: $ibexa-text-font-size-small;
         }
 
         &__value {
-            @include field-view-value();
+            width: 100%;
 
-            @include field-view-rendered-value();
+            .ibexa_string-field,
+            .ibexa_text-field {
+                display: inline-block;
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .ibexa_country-field {
+                margin-bottom: 0;
+            }
         }
     }
 
+    &.container {
+        @media (min-width: 1921px) {
+            max-width: calculateRem(2000px);
+        }
+    }
+}
+
+.ibexa-fieldgroup,
+.ibexa-content-preview {
     .ibexa-field-preview {
         &--ibexa_object_relation_list {
             .table {
@@ -110,12 +143,6 @@
             td {
                 padding-bottom: calculateRem(10px);
             }
-        }
-    }
-
-    &.container {
-        @media (min-width: 1921px) {
-            max-width: calculateRem(2000px);
         }
     }
 }
