@@ -1,6 +1,6 @@
 import { getTranslator } from './context.helper';
 
-const defaultGetErrorMessage = (error = {}) => error.errorMessage;
+const defaultGetErrorMessage = (error = {}) => error.errorMessage ?? error.detail;
 
 const getErrorMessageObject = (response) => {
     const responseErrorMessage = response.json().then((jsonResponse) => {
