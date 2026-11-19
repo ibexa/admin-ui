@@ -51,17 +51,13 @@ class Relation extends CoreRelation implements RelationInterface
 
     /**
      * Source location for the relation.
-     *
-     * @var Location|null
      */
-    protected $resolvedSourceLocation;
+    protected ?Location $resolvedSourceLocation = null;
 
     /**
      * Destination location for the relation.
-     *
-     * @var Location|null
      */
-    protected $resolvedDestinationLocation;
+    protected ?Location $resolvedDestinationLocation = null;
 
     /**
      * @param APIRelation $relation

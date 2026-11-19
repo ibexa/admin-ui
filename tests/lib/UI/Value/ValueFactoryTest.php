@@ -45,16 +45,16 @@ final class ValueFactoryTest extends TestCase
         $this->locationResolver = $this->createMock(LocationResolver::class);
 
         $this->valueFactory = new ValueFactory(
-            $this->createMock(UserService::class),
-            $this->createMock(LanguageService::class),
-            $this->createMock(LocationService::class),
-            $this->createMock(ContentTypeService::class),
-            $this->createMock(SearchService::class),
-            $this->createMock(ObjectStateService::class),
-            $this->createMock(PermissionResolver::class),
-            $this->createMock(PathService::class),
-            $this->createMock(DatasetFactory::class),
-            $this->createMock(UserLanguagePreferenceProviderInterface::class),
+            $this->createStub(UserService::class),
+            $this->createStub(LanguageService::class),
+            $this->createStub(LocationService::class),
+            $this->createStub(ContentTypeService::class),
+            $this->createStub(SearchService::class),
+            $this->createStub(ObjectStateService::class),
+            $this->createStub(PermissionResolver::class),
+            $this->createStub(PathService::class),
+            $this->createStub(DatasetFactory::class),
+            $this->createStub(UserLanguagePreferenceProviderInterface::class),
             $this->locationResolver
         );
     }
