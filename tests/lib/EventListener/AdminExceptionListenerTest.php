@@ -34,6 +34,7 @@ final class AdminExceptionListenerTest extends TestCase
 {
     private const ADMIN_SITEACCESS = 'admin_siteaccess';
     private const NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
+    private const DEFAULT_PATH = '/admin/dashboard';
 
     /** @var Environment&MockObject */
     private Environment $twig;
@@ -63,30 +64,76 @@ final class AdminExceptionListenerTest extends TestCase
 
     /**
      * @dataProvider provideNoOpConditions
+     *
+     * @param array<string, mixed> $requestAttributes
      */
     public function testOnKernelExceptionIsNoOpWhenGuardConditionFails(
         string $environment,
         int $requestType,
-        string $siteaccessName
+        string $siteaccessName,
+        string $path = self::DEFAULT_PATH,
+        array $requestAttributes = []
     ): void {
+        $notificationHandler = $this->createMock(NotificationHandlerInterface::class);
+        $notificationHandler->expects($this->never())->method('error');
         $this->twig->expects($this->never())->method('render');
         $this->encoreTagRenderer->expects($this->never())->method('reset');
         $this->entrypointLookupCollection->expects($this->never())->method('getEntrypointLookup');
 
-        $event = $this->createExceptionEvent(new NotFoundHttpException(), $requestType, $siteaccessName);
-        $this->createListener($environment)->onKernelException($event);
+        $event = $this->createExceptionEvent(
+            new NotFoundHttpException(),
+            $requestType,
+            $siteaccessName,
+            $path,
+            $requestAttributes
+        );
+        $this->createListener($environment, $notificationHandler)->onKernelException($event);
 
         self::assertNull($event->getResponse());
     }
 
     /**
-     * @return iterable<string, array{0: string, 1: int, 2: string}>
+     * @return iterable<string, array{0: string, 1: int, 2: string, 3?: string, 4?: array<string, mixed>}>
      */
     public static function provideNoOpConditions(): iterable
     {
         yield 'non-prod environment' => ['test', HttpKernelInterface::MAIN_REQUEST, self::ADMIN_SITEACCESS];
         yield 'sub-request' => ['prod', HttpKernelInterface::SUB_REQUEST, self::ADMIN_SITEACCESS];
         yield 'non-admin siteaccess' => ['prod', HttpKernelInterface::MAIN_REQUEST, self::NON_ADMIN_SITEACCESS];
+        yield 'API Platform request' => [
+            'prod',
+            HttpKernelInterface::MAIN_REQUEST,
+            self::ADMIN_SITEACCESS,
+            '/api/ibexa/v3/unknown',
+        ];
+        yield 'API Platform request under a URI SiteAccess' => [
+            'prod',
+            HttpKernelInterface::MAIN_REQUEST,
+            self::ADMIN_SITEACCESS,
+            '/admin/api/ibexa/v3/unknown',
+            ['semanticPathinfo' => '/api/ibexa/v3/unknown'],
+        ];
+    }
+
+    public function testOnKernelExceptionRendersErrorPageForRestV2Request(): void
+    {
+        $this->twig
+            ->expects($this->once())
+            ->method('render')
+            ->with('@ibexadesign/ui/error_page/404.html.twig')
+            ->willReturn('rendered_error_page_content');
+        $this->encoreTagRenderer->expects($this->never())->method('reset');
+        $this->entrypointLookupCollection->expects($this->never())->method('getEntrypointLookup');
+
+        $event = $this->createExceptionEvent(
+            new NotFoundHttpException(),
+            HttpKernelInterface::MAIN_REQUEST,
+            self::ADMIN_SITEACCESS,
+            '/api/ibexa/v2/content/objects/1'
+        );
+        $this->listener->onKernelException($event);
+
+        self::assertInstanceOf(Response::class, $event->getResponse());
     }
 
     /**
@@ -180,11 +227,13 @@ final class AdminExceptionListenerTest extends TestCase
         self::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
     }
 
-    private function createListener(string $environment = 'prod'): AdminExceptionListener
-    {
+    private function createListener(
+        string $environment = 'prod',
+        ?NotificationHandlerInterface $notificationHandler = null
+    ): AdminExceptionListener {
         $listener = new AdminExceptionListener(
             $this->twig,
-            $this->notificationHandler,
+            $notificationHandler ?? $this->notificationHandler,
             $this->encoreTagRenderer,
             $this->entrypointLookupCollection,
             [IbexaAdminUiBundle::ADMIN_GROUP_NAME => [self::ADMIN_SITEACCESS]],
@@ -197,12 +246,18 @@ final class AdminExceptionListenerTest extends TestCase
         return $listener;
     }
 
+    /**
+     * @param array<string, mixed> $requestAttributes
+     */
     private function createExceptionEvent(
         Throwable $exception,
         int $requestType,
-        string $siteaccessName
+        string $siteaccessName,
+        string $path = self::DEFAULT_PATH,
+        array $requestAttributes = []
     ): ExceptionEvent {
-        $request = new Request();
+        $request = Request::create($path);
+        $request->attributes->add($requestAttributes);
         $request->attributes->set('siteaccess', new SiteAccess($siteaccessName));
 
         return new ExceptionEvent(
