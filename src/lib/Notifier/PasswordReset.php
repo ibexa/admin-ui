@@ -18,7 +18,6 @@ use Ibexa\Contracts\Notifications\Value\Recipent\UserRecipient;
 use Ibexa\Contracts\User\PasswordReset\NotifierInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
 
 class PasswordReset implements NotifierInterface, LoggerAwareInterface
@@ -31,18 +30,18 @@ class PasswordReset implements NotifierInterface, LoggerAwareInterface
 
     private NotificationServiceInterface $notificationService;
 
-    private KernelInterface $kernel;
+    private MailImageEmbedder $mailImageEmbedder;
 
     public function __construct(
         ConfigResolverInterface $configResolver,
         Environment $twig,
         NotificationServiceInterface $notificationService,
-        KernelInterface $kernel
+        MailImageEmbedder $mailImageEmbedder
     ) {
         $this->configResolver = $configResolver;
         $this->twig = $twig;
         $this->notificationService = $notificationService;
-        $this->kernel = $kernel;
+        $this->mailImageEmbedder = $mailImageEmbedder;
     }
 
     public function sendMessage(
@@ -72,8 +71,7 @@ class PasswordReset implements NotifierInterface, LoggerAwareInterface
                     $token,
                     $this->configResolver,
                     $this->twig,
-                    $this->kernel,
-                    $this->logger
+                    $this->mailImageEmbedder
                 ),
             ),
             [new SymfonyRecipientAdapter(new UserRecipient($user))],

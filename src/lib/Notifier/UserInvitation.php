@@ -16,7 +16,6 @@ use Ibexa\Contracts\User\Invitation\Invitation;
 use Ibexa\Contracts\User\Invitation\InvitationSender;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Notifier\Recipient\Recipient;
 use Twig\Environment;
 
@@ -28,20 +27,20 @@ final class UserInvitation implements InvitationSender, LoggerAwareInterface
 
     private ConfigResolverInterface $configResolver;
 
-    private KernelInterface $kernel;
-
     private NotificationServiceInterface $notificationService;
+
+    private MailImageEmbedder $mailImageEmbedder;
 
     public function __construct(
         Environment $twig,
         ConfigResolverInterface $configResolver,
         NotificationServiceInterface $notificationService,
-        KernelInterface $kernel
+        MailImageEmbedder $mailImageEmbedder
     ) {
         $this->twig = $twig;
         $this->configResolver = $configResolver;
-        $this->kernel = $kernel;
         $this->notificationService = $notificationService;
+        $this->mailImageEmbedder = $mailImageEmbedder;
     }
 
     public function sendInvitation(Invitation $invitation): void
@@ -66,8 +65,7 @@ final class UserInvitation implements InvitationSender, LoggerAwareInterface
                     $invitation,
                     $this->configResolver,
                     $this->twig,
-                    $this->kernel,
-                    $this->logger
+                    $this->mailImageEmbedder
                 ),
             ),
             [new SymfonyRecipientAdapter(new Recipient($invitation->getEmail()))],

@@ -9,9 +9,11 @@ declare(strict_types=1);
 namespace Ibexa\Tests\AdminUi\Notifier;
 
 use DateTimeImmutable;
+use Ibexa\AdminUi\Notifier\MailImageEmbedder;
 use Ibexa\AdminUi\Notifier\Notification;
 use Ibexa\AdminUi\Notifier\UserInvitation;
 use Ibexa\Contracts\User\Invitation\Invitation;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
 
@@ -50,7 +52,7 @@ final class UserInvitationTest extends AbstractNotifierTestCase
             $this->createMock(Environment::class),
             $this->configResolver,
             $this->notificationService,
-            $this->createMock(KernelInterface::class)
+            new MailImageEmbedder(self::createStub(KernelInterface::class), new NullLogger())
         );
         $sender->setLogger($this->logger);
 

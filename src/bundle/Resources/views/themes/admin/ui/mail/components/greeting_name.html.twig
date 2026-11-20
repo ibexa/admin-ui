@@ -1,0 +1,9 @@
+{%- if name matches '/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/' -%}
+    <a
+        class="ibexa-email-link"
+        style="color: #4e24a5; text-decoration: none;"
+        href="mailto:{{ name }}"
+    >{{ name }}</a>
+{%- else -%}
+    {{ name }}
+{%- endif -%}
