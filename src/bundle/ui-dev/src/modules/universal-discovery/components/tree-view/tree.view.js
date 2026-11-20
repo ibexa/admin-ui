@@ -22,7 +22,7 @@ import {
 } from '../../universal.discovery.module';
 import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
-const TreeView = ({ itemsPerPage }) => {
+const DefaultTreeView = ({ itemsPerPage }) => {
     const adminUiConfig = getAdminUiConfig();
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
@@ -109,7 +109,7 @@ const TreeView = ({ itemsPerPage }) => {
                     userId={userId}
                     currentLocationPath={currentLocationPath}
                     rootLocationId={rootLocationId}
-                    subitemsLimit={adminUiConfig.contentTree.childrenLoadMaxLimi}
+                    subitemsLimit={adminUiConfig.contentTree.childrenLoadMaxLimit}
                     subitemsLoadLimit={adminUiConfig.contentTree.loadMoreLimit}
                     treeMaxDepth={adminUiConfig.contentTree.treeMaxDepth}
                     restInfo={restInfo}
@@ -127,12 +127,20 @@ const TreeView = ({ itemsPerPage }) => {
     );
 };
 
-TreeView.propTypes = {
+DefaultTreeView.propTypes = {
     itemsPerPage: PropTypes.number,
 };
 
-TreeView.defaultProps = {
+DefaultTreeView.defaultProps = {
     itemsPerPage: 50,
 };
 
+const TreeView = (props) => {
+    const { universalDiscoveryWidget } = getAdminUiConfig();
+    const TreeViewComponent = universalDiscoveryWidget.treeViewComponent ?? DefaultTreeView;
+
+    return <TreeViewComponent {...props} />;
+};
+
+export { DefaultTreeView };
 export default TreeView;
