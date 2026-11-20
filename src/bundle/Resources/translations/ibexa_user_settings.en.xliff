@@ -86,6 +86,26 @@
         <target state="new">In-Context translation</target>
         <note>key: settings.in_context_translation.value.title</note>
       </trans-unit>
+      <trans-unit id="050e95e1d1933a030f6e811de25eea5d03622b8f" resname="settings.notification_count_interval.value.description">
+        <source>Check for new notifications every</source>
+        <target state="new">Check for new notifications every</target>
+        <note>key: settings.notification_count_interval.value.description</note>
+      </trans-unit>
+      <trans-unit id="55f8d918384d775b57c83f2682d08be8bab1b870" resname="settings.notification_count_interval.value.minutes">
+        <source>{1}%count% minute|]1,Inf]%count% minutes</source>
+        <target state="new">{1}%count% minute|]1,Inf]%count% minutes</target>
+        <note>key: settings.notification_count_interval.value.minutes</note>
+      </trans-unit>
+      <trans-unit id="0f9e662beafa9081f00cc6fc18dd2d2713523c35" resname="settings.notification_count_interval.value.seconds">
+        <source>{1}%count% second|]1,Inf]%count% seconds</source>
+        <target state="new">{1}%count% second|]1,Inf]%count% seconds</target>
+        <note>key: settings.notification_count_interval.value.seconds</note>
+      </trans-unit>
+      <trans-unit id="7dc44e03fe0f628635ede226c1cc06bbb3c92f57" resname="settings.notification_count_interval.value.title">
+        <source>Notification check frequency</source>
+        <target state="new">Notification check frequency</target>
+        <note>key: settings.notification_count_interval.value.title</note>
+      </trans-unit>
       <trans-unit id="05bad24df7e1efd6680f0c20d79080430605bf48" resname="user.setting.focus_mode.description">
         <source>Focus mode</source>
         <target state="new">Focus mode</target>

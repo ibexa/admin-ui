@@ -14,6 +14,7 @@ use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Form\Type\Notification\SearchType;
 use Ibexa\AdminUi\Pagination\Pagerfanta\NotificationAdapter;
+use Ibexa\AdminUi\UserSetting\NotificationCountInterval;
 use Ibexa\Bundle\AdminUi\Form\Data\SearchQueryData;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
@@ -24,6 +25,7 @@ use Ibexa\Contracts\Core\Repository\Values\Notification\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Notification\Query\NotificationQuery;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Notification\Renderer\Registry;
+use Ibexa\User\UserSetting\UserSettingService;
 use InvalidArgumentException;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
@@ -42,7 +44,9 @@ final class NotificationController extends Controller
         private readonly ConfigResolverInterface $configResolver,
         private readonly FormFactory $formFactory,
         private readonly SubmitHandler $submitHandler,
-        private readonly TranslatableNotificationHandlerInterface $notificationHandler
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly UserSettingService $userSettingService,
+        private readonly NotificationCountInterval $notificationCountInterval
     ) {}
 
     /**
@@ -106,11 +110,18 @@ final class NotificationController extends Controller
         return $this->render($template, [
             'notifications' => $notifications,
             'sidebarNotifications' => $this->renderNotifications($this->notificationService->loadNotifications(0, $limit)->items),
-            'notifications_count_interval' => $this->configResolver->getParameter('notification_count.interval'),
+            'notifications_count_interval' => $this->getNotificationCountInterval(),
             'pager' => $pagerfanta,
             'search_form' => $searchForm,
             'delete_form' => $deleteForm,
         ]);
+    }
+
+    private function getNotificationCountInterval(): int
+    {
+        return $this->notificationCountInterval->resolveInterval(
+            $this->userSettingService->getUserSetting(NotificationCountInterval::IDENTIFIER)->value
+        );
     }
 
     /**
