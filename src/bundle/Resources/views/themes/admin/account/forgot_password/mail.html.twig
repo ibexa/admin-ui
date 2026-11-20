@@ -8,7 +8,10 @@
 
 {%- block mail_message_title_content -%}
     {% if (user_name ?? '') is not empty %}
-        {{ 'forgot_user_password.mail.message_title_with_name'|trans({ '%name%': user_name })|desc('Hello %name%,') }}
+        {%- set greeting_name -%}
+            {{ include('@ibexadesign/ui/mail/components/greeting_name.html.twig', { name: user_name }, with_context = false) }}
+        {%- endset -%}
+        {{ 'forgot_user_password.mail.message_title_with_name'|trans({ '%name%': greeting_name })|desc('Hello %name%,')|raw }}
     {% else %}
         {{ 'forgot_user_password.mail.message_title'|trans|desc('Hello,') }}
     {% endif %}
