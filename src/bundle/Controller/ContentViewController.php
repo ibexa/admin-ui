@@ -23,7 +23,6 @@ use Ibexa\AdminUi\Form\Type\Content\ContentVisibilityUpdateType;
 use Ibexa\AdminUi\Form\Type\User\UserInvitationType;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\Specification\ContentIsUser;
-use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
 use Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier as SubitemsContentViewParameterSupplier;
 use Ibexa\AdminUi\UI\Service\PathService;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
@@ -447,17 +446,7 @@ final class ContentViewController extends Controller
     private function supplyUserInvitation(ContentView $view): void
     {
         $content = $view->getContent();
-        $contentType = $this->contentTypeService->loadContentType(
-            $view->getContent()->getVersionInfo()->getContentInfo()->contentTypeId,
-            $this->userLanguagePreferenceProvider->getPreferredLanguages()
-        );
-
-        $userGroupContentTypeIdentifier = $this->configResolver->getParameter(
-            'user_group_content_type_identifier'
-        );
-
-        $contentIsUserGroup = (new ContentTypeIsUserGroup($userGroupContentTypeIdentifier))
-            ->isSatisfiedBy($contentType);
+        $contentIsUserGroup = $this->userService->isUserGroup($content);
 
         $canSendInvitation = $this->permissionResolver->canUser(
             'user',
