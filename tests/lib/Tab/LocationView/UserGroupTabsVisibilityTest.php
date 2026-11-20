@@ -44,7 +44,7 @@ final class UserGroupTabsVisibilityTest extends TestCase
         $configResolver->method('getParameter')->willReturn(['user']);
 
         $userService = $this->createMock(UserService::class);
-        $userService->expects(self::once())->method('isUserGroup')->with($content)->willReturn($isUserGroup);
+        $userService->expects($this->once())->method('isUserGroup')->with($content)->willReturn($isUserGroup);
 
         $tab = new $tabClass(
             self::createStub(Environment::class),
