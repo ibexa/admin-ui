@@ -18,6 +18,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -29,7 +30,8 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         private readonly FieldDefinitionGroupsUtil $fieldDefinitionGroupsUtil,
         private readonly LanguageService $languageService,
         EventDispatcherInterface $eventDispatcher,
-        private readonly ConfigResolverInterface $configResolver
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly RequestStack $requestStack
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
     }
@@ -70,7 +72,17 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
             'field_definitions_by_group' => $fieldDefinitionsByGroup,
             'languages' => $languages,
             'location' => $contextParameters['location'],
+            'current_language_code' => $this->resolveCurrentLanguageCode($content),
         ]);
+    }
+
+    private function resolveCurrentLanguageCode(Content $content): string
+    {
+        $languageCode = $this->requestStack->getCurrentRequest()?->attributes->get('languageCode');
+
+        return is_string($languageCode) && $languageCode !== ''
+            ? $languageCode
+            : $content->getDefaultLanguageCode();
     }
 
     /**

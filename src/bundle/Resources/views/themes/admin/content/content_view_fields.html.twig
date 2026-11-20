@@ -5,6 +5,8 @@
     </div>
 
     {% block fields %}
+        {% set current_language_code = current_language_code|default(app.request.attributes.get('languageCode') ?: content.prioritizedFieldLanguageCode) %}
+
         <div class="ibexa-content-preview">
             {% for group in field_definitions_by_group %}
                 {% if group.fieldDefinitions|length > 0 %}
@@ -23,22 +25,26 @@
                         <div class="{{ collapse_class_name }} ibexa-content-preview-collapse collapse show" data-collapse-state-key="{{ collapse_state_key }}">
                             {% for field_definition in group.fieldDefinitions %}
                                 {% block field %}
-                                    <div class="ibexa-content-field">
-                                        <div class="ibexa-content-field__name">{{ field_definition.name }}</div>
-                                        <div class="ibexa-content-field__value">
-                                            {% if ibexa_field_is_empty(content, field_definition.identifier) %}
-                                                <em>{{ 'fieldview.field.empty'|trans({}, 'ibexa_fieldview')|desc('This field is empty') }}</em>
-                                            {% else %}
-                                                {{ ibexa_render_field(content, field_definition.identifier, {location: location}) }}
-                                            {% endif %}
-                                        </div>
-                                    </div>
+                                    {% include '@ibexadesign/content/content_view_field.html.twig' with {
+                                        field: content.getField(field_definition.identifier, current_language_code),
+                                        field_definition: field_definition,
+                                        content: content,
+                                        location: location,
+                                        language_code: current_language_code,
+                                    } only %}
                                 {% endblock %}
                             {% endfor %}
                         </div>
                     </section>
                 {% endif %}
             {% endfor %}
+
+            {{ ibexa_twig_component_group('admin-ui-content-view-fields-after', {
+                content: content,
+                location: location,
+                language_code: current_language_code,
+                languages: languages|default([]),
+            }) }}
         </div>
     {% endblock %}
 </section>
