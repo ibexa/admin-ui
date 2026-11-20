@@ -7,7 +7,7 @@
     {% block fields %}
         {% set has_multiple_groups = field_definitions_by_group|length > 1 %}
 
-        <div class="ibexa-content-preview">
+        <div class="ibexa-content-fields">
             {% for group in field_definitions_by_group %}
                 {% set items = [] %}
                 {% for field_definition in group.fieldDefinitions %}
@@ -27,9 +27,9 @@
                     }]) %}
                 {% endfor %}
 
-                <section class="ibexa-content-preview__group">
+                <section class="ibexa-content-fields__group">
                     {% if has_multiple_groups %}
-                        <h3 class="ibexa-content-preview__group-name">{{ group.name|capitalize }}</h3>
+                        <h3 class="ibexa-content-fields__group-name">{{ group.name|capitalize }}</h3>
                     {% endif %}
                     {% include '@ibexadesign/ui/component/details/details.html.twig' with {
                         items,
