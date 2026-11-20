@@ -35,9 +35,18 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
     protected function getSelectionChoices()
     {
         $contentTypeChoices = [];
+        $contentTypeIdentifiers = [];
         foreach ($this->contentTypeService->loadContentTypeGroups() as $group) {
             foreach ($this->contentTypeService->loadContentTypes($group) as $contentType) {
-                $contentTypeChoices[$contentType->id] = $contentType->getName($contentType->mainLanguageCode);
+                $contentTypeChoices[$contentType->id] = (string)$contentType->getName();
+                $contentTypeIdentifiers[$contentType->id] = $contentType->getIdentifier();
+            }
+        }
+
+        $nameCounts = array_count_values($contentTypeChoices);
+        foreach ($contentTypeChoices as $id => $name) {
+            if ($nameCounts[$name] > 1) {
+                $contentTypeChoices[$id] = sprintf('%s (%s)', $name, $contentTypeIdentifiers[$id]);
             }
         }
 
