@@ -1,0 +1,49 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.ibexa-content-fields {
+    &__group {
+        &:not(:last-child) {
+            margin-bottom: calculateRem(16px);
+        }
+
+        .ibexa-details:not(:first-child) {
+            margin-top: 0;
+        }
+    }
+
+    &__group-name {
+        margin: 0 0 calculateRem(16px);
+        font-family: $ibexa-font-family-headings;
+        font-size: $h3-font-size;
+        font-weight: $headings-font-weight;
+        line-height: $headings-line-height;
+        color: $ibexa-color-black;
+    }
+
+    .ibexa-content-field__value {
+        .ibexa_country-field {
+            margin-bottom: 0;
+        }
+
+        .ibexa-field-preview--ibexa_image,
+        .ibexa-field-preview--ibexa_image_asset {
+            margin-top: calculateRem(4px);
+        }
+    }
+
+    .ibexa-field-preview {
+        &__meta-title-row {
+            th {
+                font-weight: normal;
+                padding-bottom: calculateRem(24px);
+            }
+        }
+
+        &__meta-value-row {
+            td {
+                padding-bottom: calculateRem(10px);
+            }
+        }
+    }
+}
