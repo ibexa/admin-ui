@@ -35,7 +35,7 @@
         max-width: calculateRem(750px);
         background: $ibexa-color-white;
         min-height: 100vh;
-        padding: calculateRem(140px) 0;
+        padding: calculateRem(140px) 0 0;
         display: flex;
     }
 
@@ -55,7 +55,6 @@
         width: 100%;
         max-width: calculateRem(400px);
         margin: 0 auto;
-        min-height: 100%;
         flex: 1;
         justify-content: flex-start;
     }
@@ -138,7 +137,6 @@
     &__form {
         display: flex;
         flex-direction: column;
-        min-height: 100%;
         flex: 1;
     }
 
@@ -150,6 +148,7 @@
         width: 100%;
         margin-top: auto;
         margin-bottom: calculateRem(16px);
+        padding-top: calculateRem(32px);
         font-size: $text-font-size-m;
     }
 
