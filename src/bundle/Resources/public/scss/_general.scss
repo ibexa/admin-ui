@@ -94,9 +94,10 @@ img {
 }
 
 .ibexa-login-view {
+    overflow-y: auto;
+
     .ibexa-main-container {
         height: auto;
-        min-height: 100vh;
         display: block;
     }
 }
