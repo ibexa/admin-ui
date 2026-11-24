@@ -1,4 +1,4 @@
-import { getAdminUiConfig } from './context.helper';
+import { getBackOfficeLocale } from './locale.helper';
 
 type TimeDiffUnit = 'minute' | 'hour' | 'day' | 'month' | 'year';
 
@@ -20,10 +20,7 @@ const getFormatter = (): Intl.RelativeTimeFormat => {
         return formatter;
     }
 
-    const { backOfficeLanguage }: { backOfficeLanguage: string } = getAdminUiConfig();
-    const locale = backOfficeLanguage.replace('_', '-') || 'en';
-
-    formatter = new Intl.RelativeTimeFormat(locale, { style: 'short' });
+    formatter = new Intl.RelativeTimeFormat(getBackOfficeLocale(), { style: 'short' });
 
     return formatter;
 };
