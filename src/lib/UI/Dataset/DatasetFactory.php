@@ -92,8 +92,7 @@ class DatasetFactory implements LoggerAwareInterface
             $this->roleService,
             $this->userService,
             $this->valueFactory,
-            $this->configResolver->getParameter('user_content_type_identifier'),
-            $this->configResolver->getParameter('user_group_content_type_identifier')
+            $this->configResolver->getParameter('user_content_type_identifier')
         );
     }
 
@@ -103,8 +102,7 @@ class DatasetFactory implements LoggerAwareInterface
             $this->roleService,
             $this->userService,
             $this->valueFactory,
-            $this->configResolver->getParameter('user_content_type_identifier'),
-            $this->configResolver->getParameter('user_group_content_type_identifier')
+            $this->configResolver->getParameter('user_content_type_identifier')
         );
     }
 
