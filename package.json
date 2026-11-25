@@ -16,6 +16,11 @@
         "ts-test": "tsc --noEmit",
         "eslint-test": "eslint \"./src/bundle/Resources/**/*.{js,ts}\" \"./src/bundle/ui-dev/**/*.{js,tsx}\"",
         "prettier-test": "yarn prettier \"./src/bundle/Resources/**/*.{js,ts,scss}\" \"./src/bundle/ui-dev/**/*.{js,tsx}\" --check",
-        "postinstall": "yarn ibexa-generate-tsconfig --use-root-project-tsconfig"
+        "postinstall": "yarn ibexa-generate-tsconfig --use-root-project-tsconfig",
+        "pw:install": "npm --prefix tests/playwright-tests install",
+        "pw:test": "npm --prefix tests/playwright-tests test --",
+        "pw:test:headless": "npm --prefix tests/playwright-tests run test:headless --",
+        "pw:test:experience": "npm --prefix tests/playwright-tests run test:experience --",
+        "pw:test:commerce": "npm --prefix tests/playwright-tests run test:commerce --"
     }
 }
