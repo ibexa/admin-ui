@@ -51,7 +51,7 @@ import Chip from '@ibexa-design-system/src/bundle/Resources/public/ts/components
     const lastCreatedEndDate = doc.querySelector(lastCreatedEndDateSelector);
     const creatorInput = doc.querySelector('.ibexa-filters__item--creator input:not([type="hidden"])');
     const isInitializedCreatorInput = !!creatorInput.value;
-    const creatorInputBtnClear = creatorInput.parentElement.querySelector('.ibexa-input-text-wrapper__action-btn--clear');
+    const creatorInputBtnClear = doc.querySelector('.ibexa-filters__item--creator .ids-clear-btn');
     const searchCreatorInput = doc.querySelector('#search_creator');
     const usersList = doc.querySelector('.ibexa-filters__item--creator .ibexa-filters__user-list');
     const contentTypeCheckboxes = doc.querySelectorAll('.ibexa-content-type-selector__item [type="checkbox"]');
