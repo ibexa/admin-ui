@@ -88,16 +88,22 @@
     }
 
     &--no-header {
+        --ibexa-modal-body-padding-top: #{calculateRem(24px)};
+
         .close {
             @include close-button();
 
             & {
-                top: calculateRem(18px);
+                top: calc(var(--ibexa-modal-body-padding-top) + 0.5lh);
                 right: calculateRem(18px);
+                font-size: inherit;
+                line-height: inherit;
+                transform: translateY(-50%);
             }
         }
 
         .modal-body {
+            padding-top: var(--ibexa-modal-body-padding-top);
             padding-bottom: 0;
             margin-right: calculateRem(36px);
         }
