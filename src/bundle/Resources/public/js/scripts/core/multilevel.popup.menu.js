@@ -330,6 +330,7 @@
             processAfterCreated(newBranchElement, data);
 
             this.initBranch({ triggerElement, branchElement: newBranchElement, placement, fallbackPlacements });
+            doc.dispatchEvent(new CustomEvent('ids:components:added', { detail: { container: newBranchElement } }));
 
             const parentBranchElement = triggerElement.closest('.ibexa-popup-menu');
 

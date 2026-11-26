@@ -144,6 +144,7 @@
             const node = event.target.closest('.ibexa-field-edit__data .ibexa-data-source');
 
             node.insertAdjacentHTML('beforeend', this.setIndex(authorNode, template));
+            doc.dispatchEvent(new CustomEvent('ids:components:added', { detail: { container: node } }));
             authorNode.dataset.nextAuthorId++;
 
             this.reinit();

@@ -20,6 +20,7 @@
 
             optionsList.dataset.nextOptionId = nextId + 1;
             optionsList.insertAdjacentHTML('beforeend', template.replace(NUMBER_PLACEHOLDER, nextId));
+            doc.dispatchEvent(new CustomEvent('ids:components:added', { detail: { container: optionsList } }));
         };
         const removeOptions = () => {
             findCheckedOptions().forEach((element) => element.closest(SELECTOR_OPTION).remove());

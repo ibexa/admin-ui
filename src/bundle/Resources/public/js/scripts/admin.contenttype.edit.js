@@ -164,7 +164,7 @@ import { DropdownMultiInput, DropdownSingleInput } from '@ibexa-design-system/sr
         });
     };
     const dispatchInsertFieldDefinitionNode = (fieldNode) => {
-        doc.body.dispatchEvent(new CustomEvent('ibexa-inputs:added'));
+        doc.body.dispatchEvent(new CustomEvent('ibexa-inputs:added', { detail: { container: fieldNode } }));
         doc.body.dispatchEvent(
             new CustomEvent('ibexa-drop-field-definition', {
                 detail: { nodes: [fieldNode] },
