@@ -1,4 +1,7 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ids-assets/scss/variables' as *;
+@use 'sass:color';
 
 .ibexa-content-view .flatpickr-calendar {
     &.animate.open {
@@ -8,7 +11,49 @@
 }
 
 .flatpickr-calendar {
+    &.open,
+    &.inline {
+        border-radius: $border-radius-medium;
+        box-shadow:
+            0 0 0 calculateRem(1px) $color-neutral-50,
+            0 calculateRem(1px) calculateRem(1px) color.change($color-neutral-240, $alpha: 0.05);
+    }
+
+    &.arrowTop,
+    &.arrowBottom {
+        &::before,
+        &::after {
+            display: none;
+        }
+    }
+
+    .flatpickr-months {
+        .flatpickr-month,
+        .flatpickr-prev-month,
+        .flatpickr-next-month {
+            color: $color-neutral-240;
+            fill: $color-neutral-240;
+        }
+
+        .flatpickr-prev-month,
+        .flatpickr-next-month {
+            border-radius: $border-radius-medium;
+
+            &:hover {
+                color: $color-neutral-240;
+                background-color: $color-neutral-30;
+
+                svg {
+                    fill: $color-neutral-240;
+                }
+            }
+        }
+    }
+
     .flatpickr-current-month {
+        font-size: $ibexa-text-font-size-medium;
+        font-weight: $ibexa-font-weight-bold;
+
         .flatpickr-monthDropdown-months,
         .flatpickr-monthDropdown-months:hover {
             -webkit-appearance: none;
@@ -16,11 +61,214 @@
 
             line-height: calculateRem(22px);
             padding-right: calculateRem(20px);
-            background-image: url('data:image/svg+xml;utf8,<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-45 12 24)"><path d="M12 8 V24 M12 24 H28" stroke="%23131c26" stroke-width="2" fill="none"/></g></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-45 12 24)"><path d="M12 8 V24 M12 24 H28" stroke="%230e1216" stroke-width="2" fill="none"/></g></svg>');
             background-repeat: no-repeat;
             background-position: right;
             background-size: calculateRem(16px) auto;
             background-color: transparent;
+            border-radius: $border-radius-small;
+            font-weight: $ibexa-font-weight-bold;
+        }
+
+        .flatpickr-monthDropdown-months:hover {
+            background-color: $color-neutral-30;
+        }
+
+        .cur-year {
+            font-weight: $ibexa-font-weight-bold;
+        }
+    }
+
+    .numInputWrapper {
+        &:hover {
+            background-color: $color-neutral-30;
+        }
+
+        .arrowUp,
+        .arrowDown {
+            border-color: $color-neutral-50;
+
+            &:hover,
+            &:active {
+                background-color: $color-neutral-50;
+            }
+        }
+    }
+
+    .flatpickr-current-month,
+    .flatpickr-time {
+        .numInputWrapper .arrowUp::after {
+            border-bottom-color: $color-neutral-160;
+        }
+
+        .numInputWrapper .arrowDown::after {
+            border-top-color: $color-neutral-160;
+        }
+    }
+
+    .flatpickr-weekdays .flatpickr-weekday {
+        color: $color-neutral-160;
+        font-size: $text-font-size-xs;
+        font-weight: $ibexa-font-weight-normal;
+        line-height: calculateRem(15px);
+    }
+
+    .flatpickr-days .dayContainer .flatpickr-day {
+        max-width: calculateRem(36px);
+        height: calculateRem(36px);
+        margin: calculateRem(2px) calculateRem(1.5px);
+        border-radius: $border-radius-medium;
+        color: $color-neutral-200;
+        line-height: calculateRem(34px);
+
+        &:hover,
+        &:focus {
+            border-color: $color-neutral-30;
+            background-color: $color-neutral-30;
+        }
+
+        &.prevMonthDay,
+        &.nextMonthDay {
+            color: $color-neutral-110;
+        }
+
+        &.today {
+            border-color: transparent;
+            color: $color-primary-80;
+            font-weight: $ibexa-font-weight-bold;
+
+            &::after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                bottom: calculateRem(4px);
+                width: calculateRem(4px);
+                height: calculateRem(4px);
+                margin-left: calculateRem(-2px);
+                border-radius: 50%;
+                background-color: $color-primary-80;
+            }
+
+            &:hover,
+            &:focus {
+                border-color: $color-neutral-30;
+            }
+        }
+
+        &.selected,
+        &.startRange,
+        &.endRange {
+            &,
+            &:hover,
+            &:focus {
+                border-color: $color-primary-5;
+                background-color: $color-primary-5;
+                color: $color-neutral-240;
+                font-weight: $ibexa-font-weight-bold;
+            }
+
+            &.today {
+                color: $color-primary-80;
+            }
+        }
+
+        &.inRange {
+            &,
+            &.today {
+                border-color: $color-primary-0;
+                border-radius: 0;
+                background-color: $color-primary-0;
+                box-shadow:
+                    calculateRem(-4px) 0 0 $color-primary-0,
+                    calculateRem(4px) 0 0 $color-primary-0;
+            }
+        }
+
+        &.startRange {
+            &,
+            &:hover,
+            &:focus {
+                border-radius: $border-radius-medium 0 0 $border-radius-medium;
+                box-shadow: calculateRem(4px) 0 0 $color-primary-5;
+            }
+        }
+
+        &.endRange {
+            &,
+            &:hover,
+            &:focus {
+                border-radius: 0 $border-radius-medium $border-radius-medium 0;
+                box-shadow: calculateRem(-4px) 0 0 $color-primary-5;
+            }
+        }
+
+        &.startRange.endRange,
+        &.startRange:nth-child(7n),
+        &.endRange:nth-child(7n + 1) {
+            &,
+            &:hover,
+            &:focus {
+                border-radius: $border-radius-medium;
+            }
+
+            &:not(:focus-visible) {
+                box-shadow: none;
+            }
+        }
+
+        &.startRange + .flatpickr-day.endRange:not(:nth-child(7n + 1), :focus-visible) {
+            box-shadow: calculateRem(-4px) 0 0 $color-primary-5;
+        }
+
+        &.flatpickr-disabled,
+        &.notAllowed {
+            &,
+            &:hover {
+                border-color: transparent;
+                background-color: transparent;
+                color: $color-neutral-110;
+                font-weight: $ibexa-font-weight-normal;
+            }
+
+            &::after {
+                background-color: $color-neutral-110;
+            }
+        }
+
+        &:focus-visible {
+            &,
+            &.selected,
+            &.startRange,
+            &.endRange,
+            &.startRange.endRange {
+                border-color: $color-primary-80;
+                box-shadow: $box-shadow-focus-primary;
+            }
+        }
+    }
+
+    &.hasTime {
+        &.open,
+        &.inline {
+            .flatpickr-time {
+                border-top-color: $color-neutral-50;
+            }
+        }
+    }
+
+    .flatpickr-time {
+        .numInput,
+        .flatpickr-time-separator,
+        .flatpickr-am-pm {
+            color: $color-neutral-240;
+            font-weight: $ibexa-font-weight-normal;
+        }
+
+        .numInput:hover,
+        .numInput:focus,
+        .flatpickr-am-pm:hover,
+        .flatpickr-am-pm:focus {
+            background-color: $color-neutral-30;
         }
     }
 
