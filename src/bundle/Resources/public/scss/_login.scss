@@ -71,11 +71,6 @@
         }
     }
 
-    &__actions-subheadline {
-        font-size: $text-font-size-s;
-        color: $color-neutral-160;
-    }
-
     &__btn {
         margin-top: calculateRem(16px);
         width: 100%;
@@ -131,6 +126,14 @@
     &__actions-description {
         margin-bottom: calculateRem(4px);
         color: $color-neutral-160;
+
+        & > :last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__alert {
+        margin: calculateRem(16px) 0;
     }
 
     &__form {

@@ -2,15 +2,17 @@
 
 {%- block content -%}
     <div class="ibexa-login__actions-headline">{{ 'authentication.forgot_password'|trans|desc('Forgot password') }}</div>
-    {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
-        type: 'success',
-        title: 'ibexa.forgot_user_password.success.alert'|trans|desc('We’ve sent to your email account a link to reset your password.'),
-        class: 'mt-4',
-    } only %}
-    <p class="ibexa-login__actions-subheadline">
-        {{ 'ibexa.forgot_user_password.success'|trans|raw
-        |desc('<p>If you don’t receive the email, double-check your email address and spam folder.</p>') }}
-    </p>
+    <div class="ibexa-login__actions-description">
+        {{ 'ibexa.forgot_user_password.success'|trans
+        |desc('<p>If you don’t receive the email, double-check your email address and spam folder.</p>')
+        |raw }}
+    </div>
+    <twig:ibexa:alert
+        type="success"
+        variant="local"
+        title="{{ 'ibexa.forgot_user_password.success.alert'|trans|desc('We’ve sent to your email account a link to reset your password.') }}"
+        class="ibexa-login__alert"
+    />
     <div class="ibexa-login__actions">
         <twig:ibexa:link
             href="{{ path('login') }}"
