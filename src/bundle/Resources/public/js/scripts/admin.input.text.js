@@ -99,8 +99,12 @@
         multilineInputWrapper.classList.toggle('ibexa-input-text-wrapper--scrollbar-visible', hasScrollbar);
         multilineInputWrapper.style.setProperty('--scrollbar-width', `${scrollbarWidth + EXTRA_SPACING}px`);
     };
+    const dispatchComponentsAdded = () => {
+        doc.dispatchEvent(new CustomEvent('ids:components:added'));
+    };
 
     doc.body.addEventListener('ibexa-inputs:added', attachListenersToAllInputs, false);
+    doc.body.addEventListener('ibexa-inputs:added', dispatchComponentsAdded, false);
     doc.body.addEventListener('ibexa-inputs:recalculate-styling', recalculateStyling, false);
 
     attachListenersToAllInputs();
