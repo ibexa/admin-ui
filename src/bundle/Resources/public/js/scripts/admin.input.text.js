@@ -99,8 +99,8 @@
         multilineInputWrapper.classList.toggle('ibexa-input-text-wrapper--scrollbar-visible', hasScrollbar);
         multilineInputWrapper.style.setProperty('--scrollbar-width', `${scrollbarWidth + EXTRA_SPACING}px`);
     };
-    const dispatchComponentsAdded = ({ detail }) => {
-        doc.dispatchEvent(new CustomEvent('ids:components:added', { detail: { container: detail?.container } }));
+    const dispatchComponentsAdded = () => {
+        doc.dispatchEvent(new CustomEvent('ids:components:added'));
     };
 
     doc.body.addEventListener('ibexa-inputs:added', attachListenersToAllInputs, false);
