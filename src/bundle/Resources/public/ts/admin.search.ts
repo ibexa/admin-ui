@@ -22,6 +22,7 @@
     };
 
     headerSearchInput.value = searchInput.value;
+    headerSearchInput.dispatchEvent(new Event('input', { bubbles: true }));
 
     headerSearchSubmitBtn?.addEventListener('click', handleHeaderSearchBtnClick, false);
     languageSelector?.addEventListener('change', submitForm, false);
