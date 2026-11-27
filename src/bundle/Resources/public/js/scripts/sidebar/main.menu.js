@@ -17,6 +17,7 @@ import { getInstance, hasInstance } from '@ibexa-design-system/src/bundle/Resour
     const popupTriggerBtns = navbar.querySelectorAll('.ibexa-main-menu__item-action--popup-trigger');
     const scrollableSections = [...navbar.querySelectorAll('.ibexa-main-menu__primary-section, .ibexa-main-menu__secondary-section')];
     const popupMenuInstances = new Map();
+    let isNavbarWidthTransitioning = false;
     const isMenuExpanded = () => !navbar.classList.contains('ibexa-main-menu__navbar--collapsed');
     const syncScrollbarState = () => {
         const hasScrollbar = scrollableSections.some((section) => section.scrollHeight > section.clientHeight);
@@ -240,10 +241,30 @@ import { getInstance, hasInstance } from '@ibexa-design-system/src/bundle/Resour
         'transitionend',
         (event) => {
             if (event.propertyName === 'width') {
+                if (event.target === navbar) {
+                    isNavbarWidthTransitioning = false;
+                }
+
                 doc.body.dispatchEvent(new CustomEvent('ibexa-content-resized'));
             }
         },
         false,
     );
-    expandToggleBtn.addEventListener('click', () => setMenuExpanded(!isMenuExpanded()), false);
+    expandToggleBtn.addEventListener(
+        'show.bs.tooltip',
+        (event) => {
+            if (isNavbarWidthTransitioning) {
+                event.preventDefault();
+            }
+        },
+        false,
+    );
+    expandToggleBtn.addEventListener(
+        'click',
+        () => {
+            isNavbarWidthTransitioning = true;
+            setMenuExpanded(!isMenuExpanded());
+        },
+        false,
+    );
 })(window, window.document, window.ibexa);
