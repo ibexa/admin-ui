@@ -237,6 +237,8 @@
 
         &:focus-visible {
             &,
+            &.today,
+            &.inRange.today,
             &.selected,
             &.startRange,
             &.endRange,
