@@ -1,5 +1,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ids-assets/scss/variables' as *;
+@use 'sass:color';
 
 .ibexa-date-time-picker {
     width: calculateRem(308px);
@@ -11,10 +13,6 @@
 
         &[readonly] {
             background-color: $ibexa-color-white;
-        }
-
-        &[disabled] {
-            background-color: $ibexa-color-light-300;
         }
     }
 
@@ -57,6 +55,62 @@
                     fill: $ibexa-color-dark;
                 }
             }
+        }
+    }
+
+    &.ibexa-input-text-wrapper {
+        &:hover .ibexa-date-time-picker__input:not(:disabled, .is-invalid) {
+            border-color: var(--ibexa-input-hover-border-color, #{$color-neutral-120});
+        }
+
+        .ibexa-date-time-picker__input {
+            &:focus:not(.is-invalid) {
+                border-color: var(--ibexa-input-focus-border-color, #{$color-primary-80});
+                box-shadow: 0 0 0 calculateRem(4px) var(--ibexa-input-focus-shadow-color, #{color.change($color-focus, $alpha: 0.25)});
+            }
+
+            &.active:not(.is-invalid) {
+                border-color: var(--ibexa-input-border-color, #{$color-neutral-80});
+                box-shadow: none;
+            }
+
+            &:disabled {
+                background-color: var(--ibexa-input-disabled-bg-color, #{$color-neutral-50});
+                color: var(--ibexa-input-disabled-text-color, #{$color-neutral-150});
+            }
+        }
+
+        .ibexa-input-text-wrapper__actions {
+            gap: calculateRem(4px);
+            right: calculateRem(6px);
+        }
+
+        .ibexa-input-text-wrapper__action-btn.ids-btn.ids-btn--icon-only {
+            width: calculateRem(24px);
+            height: calculateRem(24px);
+            padding: calculateRem(3px);
+            border-radius: calculateRem(6px);
+
+            .ids-icon {
+                width: calculateRem(16px);
+                height: calculateRem(16px);
+            }
+        }
+
+        .ibexa-input-text-wrapper__action-btn--clear.ids-btn {
+            --ids-default-text-color: #{$color-neutral-240};
+            --ids-hover-text-color: #{$color-neutral-240};
+            --ids-active-text-color: #{$color-neutral-240};
+            --ids-focus-text-color: #{$color-neutral-240};
+        }
+
+        &:has(.ibexa-date-time-picker__input.active:not(.is-invalid)) .ibexa-input-text-wrapper__action-btn--calendar.ids-btn {
+            border-color: var(--ibexa-input-focus-border-color, #{$color-primary-80});
+            box-shadow: 0 0 0 calculateRem(4px) var(--ibexa-input-focus-shadow-color, #{color.change($color-focus, $alpha: 0.25)});
+        }
+
+        &.ibexa-date-time-picker--small .ibexa-input-text-wrapper__actions {
+            right: calculateRem(4px);
         }
     }
 }
