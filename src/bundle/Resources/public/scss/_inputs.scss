@@ -544,3 +544,17 @@
 .form-check-input[type='checkbox'] {
     border-radius: calculateRem(2px);
 }
+
+.form-check {
+    > .ids-input--checkbox.form-check-input {
+        font-size: inherit;
+    }
+
+    &:has(> .ids-input--checkbox.form-check-input + .ids-choice-input-label) {
+        line-height: var(--ids-choice-input-line-height, #{calculateRem(21px)});
+
+        > .ids-input--checkbox.form-check-input {
+            margin-top: calc((var(--ids-choice-input-line-height, #{calculateRem(21px)}) - #{calculateRem(16px)}) / 2);
+        }
+    }
+}

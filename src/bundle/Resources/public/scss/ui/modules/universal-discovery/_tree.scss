@@ -29,6 +29,7 @@
 
     .c-list-item__prefix-actions-item {
         .c-udw-toggle-selection {
+            display: block;
             margin-right: calculateRem(8px);
         }
     }
