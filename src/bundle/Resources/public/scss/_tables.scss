@@ -132,6 +132,10 @@
             padding: calculateRem(18px) calculateRem(16px);
         }
 
+        &:first-child {
+            border-left: calculateRem(1px) solid transparent;
+        }
+
         .table &--has-icon {
             max-width: calculateRem(52px);
         }
