@@ -53,11 +53,6 @@
             }
         }
 
-        &:focus {
-            border-color: transparent;
-            box-shadow: none;
-        }
-
         &--selected {
             background-color: $ibexa-color-info-200;
 

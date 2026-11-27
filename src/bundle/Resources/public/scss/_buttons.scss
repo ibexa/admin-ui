@@ -404,13 +404,17 @@
             }
         }
 
+        &:focus {
+            box-shadow: none;
+        }
+
         &:not(.ibexa-btn--selected) {
-            &:focus {
+            &:focus-visible {
                 box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.2);
             }
         }
 
-        &:focus {
+        &:focus-visible {
             box-shadow: 0 0 0 calculateRem(4px) $ibexa-color-dark-500;
         }
 
