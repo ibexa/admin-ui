@@ -96,7 +96,8 @@
         flex-direction: column;
         overflow: hidden;
 
-        &:has(.ids-dropdown) {
+        &:has(.ids-dropdown),
+        &:has(.ibexa-field-preview__image--link) {
             overflow: visible;
         }
     }
