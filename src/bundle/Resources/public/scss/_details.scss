@@ -12,6 +12,20 @@
 
         &--vertical {
             display: block;
+
+            .ibexa-details {
+                &__item {
+                    padding: 0;
+
+                    &:not(:last-child) {
+                        margin-bottom: calculateRem(16px);
+                    }
+
+                    .ids-label {
+                        margin-top: 0;
+                    }
+                }
+            }
         }
     }
 
@@ -34,6 +48,7 @@
 
             .ibexa-details {
                 &__item-label {
+                    margin-bottom: 0;
                     min-width: calculateRem(350px);
                     margin-right: calculateRem(16px);
                 }
@@ -45,7 +60,17 @@
         }
     }
 
+    &__item-label,
+    &__item-label.ids-label {
+        margin-bottom: calculateRem(4px);
+        color: $ibexa-color-black-300;
+        font-size: $ibexa-text-font-size-small;
+        font-weight: $ibexa-font-weight-bold;
+        line-height: calculateRem(18px);
+    }
+
     &__item-content {
+        color: $ibexa-color-black;
         word-wrap: break-word;
 
         .ibexa-dropdown {
@@ -71,7 +96,8 @@
         flex-direction: column;
         overflow: hidden;
 
-        &:has(.ids-dropdown) {
+        &:has(.ids-dropdown),
+        &:has(.ibexa-field-preview__image--link) {
             overflow: visible;
         }
     }
