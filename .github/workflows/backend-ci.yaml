@@ -22,7 +22,7 @@ jobs:
         php:
           - '8.5'
     steps:
-      - uses: useblacksmith/checkout@v1
+      - uses: useblacksmith/checkout@75c49b6ed30ce59336e9252425796cfcfac155f8 # v1.8.3
 
       - uses: ibexa/gh-workflows/actions/setup-composer-root-version@main
 
@@ -49,7 +49,7 @@ jobs:
         php:
           - '8.5'
     steps:
-      - uses: useblacksmith/checkout@v1
+      - uses: useblacksmith/checkout@75c49b6ed30ce59336e9252425796cfcfac155f8 # v1.8.3
 
       - uses: ibexa/gh-workflows/actions/composer-install@main
         with:
@@ -74,7 +74,7 @@ jobs:
           - '8.5'
 
     steps:
-      - uses: useblacksmith/checkout@v1
+      - uses: useblacksmith/checkout@75c49b6ed30ce59336e9252425796cfcfac155f8 # v1.8.3
 
       - uses: ibexa/gh-workflows/actions/setup-composer-root-version@main
 
@@ -123,7 +123,7 @@ jobs:
           - '8.5'
 
     steps:
-      -   uses: useblacksmith/checkout@v1
+      -   uses: useblacksmith/checkout@75c49b6ed30ce59336e9252425796cfcfac155f8 # v1.8.3
 
       -   uses: ibexa/gh-workflows/actions/setup-composer-root-version@main
 
@@ -176,7 +176,7 @@ jobs:
           - '8.5'
 
     steps:
-      -   uses: useblacksmith/checkout@v1
+      -   uses: useblacksmith/checkout@75c49b6ed30ce59336e9252425796cfcfac155f8 # v1.8.3
 
       -   uses: ibexa/gh-workflows/actions/setup-composer-root-version@main
 
