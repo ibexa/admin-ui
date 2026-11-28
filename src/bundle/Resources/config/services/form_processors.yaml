@@ -17,7 +17,9 @@ services:
 
     Ibexa\AdminUi\Form\Processor\Content\AutosaveProcessor: ~
 
-    Ibexa\AdminUi\Form\Processor\Content\ContentOnTheFlyProcessor:
+    Ibexa\AdminUi\Form\Processor\Content\ContentOnTheFlyProcessor: ~
+
+    Ibexa\InternalContracts\AdminUi\Form\Publisher\ContentFormDataPublisher:
         arguments:
             $contentService: '@ibexa.api.service.content'
 
